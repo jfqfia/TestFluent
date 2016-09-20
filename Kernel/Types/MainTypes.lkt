@@ -1,0 +1,23 @@
+// ******************************************************
+//	Fluency Kernel
+// ***************************
+//	PROJECT	:	Fluency
+//	MODULE  :	Types
+//	FILE	:	MainFeatureModel.lkt
+// ******************************************************
+
+#Include "GenericTypes.lkt"
+
+#Include "LexicalKernelTypes.lkt"
+
+/*
+#Include "Numbers_ClassDef.lkt"
+
+#Include "Colloquial_ClassDef.lkt"
+#Include "Communication_ClassDef.lkt"
+
+#Include "Understanding_ClassDef.lkt"
+#Include "Generation_ClassDef.lkt"
+
+#Include "DialogueManager_ClassDef.lkt"
+*/

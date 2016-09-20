@@ -1,0 +1,43 @@
+// ******************************************************
+//	Lekta Application
+// ***************************
+//	PROJECT	:	Alter
+//	MODULE  :	ClassDef
+//	FILE	:	LexicalKernelTypes.lkt
+// ******************************************************
+
+classDef:ElementInt (
+	lexNumberDigits
+)
+
+classDef:Void (
+	number,
+	date,
+	lexAuxIntro,
+	lexAuxVerb,
+	lexBeVerb,
+	lexCanVerb,
+	lexConjAnd,
+	lexConjBecause,
+	lexConjBut,
+	lexConjOr,
+	lexDetMy,
+	lexDetUndef,
+	lexDetThe,
+	lexDetThis,
+	lexDetThese,
+	lexDetThat,
+	lexDetThose,
+	lexParticleAround,
+	lexPlease,
+	lexPronoun,
+	lexPrepFor,
+	lexPrepOf,
+	lexPrepOn,
+	lexPrepTo,
+	lexPrepPlace,
+	lexPrepSpec,
+	lexRepeat,
+
+	AnyDet
+)

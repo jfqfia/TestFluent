@@ -1,0 +1,29 @@
+// ******************************************************
+//	Lekta Application
+// ***************************
+//	PROJECT	:	Alter
+//	MODULE  :	English/Lexicon
+//	FILE	:	Main_EnglishLexicon.lkt
+// ******************************************************
+
+#Include "GenericsEnglishLexicon.lkt"
+
+/*
+#Include "Numbers_EnglishLexicon.lkt"
+
+#Include "Colloquial_EnglishLexicon.lkt"
+#Include "Communication_EnglishLexicon.lkt"
+
+#Include "CoreAction_EnglishLexicon.lkt"
+#Include "ThemeScope_EnglishLexicon.lkt"
+
+#Include "ParameterCity_EnglishLexicon.lkt"
+#Include "ParameterSpeciality_EnglishLexicon.lkt"
+#Include "ParameterSchedule_EnglishLexicon.lkt"
+
+#Include "ParameterPesel_EnglishLexicon.lkt"
+#Include "ParameterPhoneNumber_EnglishLexicon.lkt"
+
+#Include "ParameterAccount_EnglishLexicon.lkt"
+#Include "ParameterAmount_EnglishLexicon.lkt"
+*/

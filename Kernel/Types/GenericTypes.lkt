@@ -1,0 +1,41 @@
+// ******************************************************
+//	Lekta Application
+// ***************************
+//	PROJECT	:	Alter
+//	MODULE  :	ClassDef
+//	FILE	:	GenericsTypes.lkt
+// ******************************************************
+
+/*
+createType AtomicBool ( Bool )
+
+createType AtomicInt ( Int )
+
+createType AtomicReal ( Real )
+
+createType AtomicLiteral ( String )
+
+createType AtomicEnumerate ( genero, ppp : { masc, fem, neutro }  )
+
+createType AtomicEnumerate ( numero : { sing, plural}  )
+*/
+
+
+
+classDef:ElementBool(
+	Bool
+)
+
+classDef:ElementInt (
+	Int
+)
+
+classDef:ElementReal (
+	Real
+)
+
+classDef:ElementLiteral(
+	String
+)
+
+classDef:StructureComplex ( DialogueAct : ( Bool, Int ) )

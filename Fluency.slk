@@ -1,0 +1,141 @@
+LaunchLektaKernel( 
+	ExecStrategy = KernelSynchronous
+	)
+
+UseProject(
+    ProjectCompile : "./Deployment/bin/Fluency.olk"
+    TemporalFolder : "./tmp/"
+)
+
+//MainAnswer:On
+//setupRuntimeSpyMessageOn
+DisplayProcessUnderstandingOn
+//DisplayProcessRespondoOn
+DisplayProcessCogitoOn
+//DisplayProcessColligoOn
+
+CreateDialogue(
+    InstanceOperation:1 
+    InstanceLanguage:1 
+    InstanceInterface:1
+)
+
+//Good morning. I would like to make an appointment.
+
+//Good morning. I would like to make an appointment in Bełchatów with a dermatologist the 22nd of november
+
+///bla bla bla
+
+//My phone number is +34 615 06 98 65. I need an appointment for tomorrow in Kracow for the day after tomorrow for a dentist. My pesel number is 025 123
+
+//I need an appointment for tomorrow in cracow with a dentist, not in warsaw the day after tomorrow with a pediatrics
+
+
+/*
+// Dialogue 1
+Good morning. I need an appointment.
+It's for tomorrow. I live in Cracow.
+Pediatrics.
+12345678912
+123 456 789
+	//Yes!
+*/
+
+/*
+// Dialogue 2
+Good morning. I need an appointment to doctor Nowak. He's a dermatologist.
+In Krakow. I need an appointment for tomorrow.
+12345678912
+123 456 789
+// That's perfect
+*/
+
+/*
+// Dialogue 3
+I'd like to visit the dentist
+I need an appointment for tomorrow. It's no difference for which doctor, or what time
+Krakow
+My PESEL is 12345678912
+123 456 789
+// yes, it's ok.
+*/
+
+/*
+// Dialogue 4
+I'd like to make an appointment to the dentist
+I need an appointment for tomorrow morning, in Kraków.
+12345678912
+123 456 789
+// Yes!
+*/
+
+/*
+//Dialogue 5
+Good morning. I'd like to make an appointment to see a doctor.
+I'd like to perform laboratory tests in Kraków
+My PESEL is 12345678912
+And my phone number is 123 456 789
+For tomorrow.
+No.
+The day after tomorrow.
+*/
+
+/*
+// Dialogue 6
+Hello. I need to perform laboratory test in Kraków.
+I need an appointment for Monday morning.
+12345678912
+123 456 789
+*/
+
+/*
+// Dialogue 7
+I need to see a doctor.
+I need urgent visit, today would be perfect!
+To neurologist. In Warszawa.
+12345678912
+123 456 789
+*/
+
+/*
+// Dialogue 8
+I'd like to visit an orthopedist
+My 
+*/
+
+/*
+// Dialogue 9
+I need an appointment.
+I need to go to the dentist in Kraków.
+Day after tomorrow, afternoon hours.
+12345678912
+123 456 789
+*/
+
+
+//Hello my name is Peter, and I live in Krakow. I would like to make an appointment to visit the doctor 
+
+//My PESEL number is 1234 4321 
+
+//My phone number is 677 90 44 09
+
+//For a dentist
+
+//I need to consult my account balance
+//I need an appointment with a dentist. In addition, Where is the nearest ATM? And I need to check out my balance
+
+//I'd like to make a transfer
+//It's 2000 euros to the account number 1234 4321
+
+//I need to check out my balance and make a transfer
+//The destination account is 1234 4321
+//The total amount is 2000 euros
+//yes that's right
+
+//it's too late
+
+//I need to visit the doctor. It's for today. A dentist. In Krakow. My pesel is 12345612345. My phone number is 123 321 256. Sorry, I need first an appointment for laboratory tests in Warsaw.
+
+//Yes, it's right
+
+// Yes please
