@@ -41,3 +41,8 @@ classDef:Void (
 
 	AnyDet
 )
+
+classDef:Void 
+(
+ 	lexSocialGreeting
+)

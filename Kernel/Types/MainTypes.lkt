@@ -10,6 +10,9 @@
 
 #Include "LexicalKernelTypes.lkt"
 
+#Include "DialogueActTypes.lkt"
+#Include "SocialTypes.lkt"
+
 /*
 #Include "Numbers_ClassDef.lkt"
 

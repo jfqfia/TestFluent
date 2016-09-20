@@ -1,0 +1,47 @@
+// ******************************************************
+//	Lekta Application
+// ***************************
+//	PROJECT	:	Alter
+//	MODULE  :	Kernel.Types
+//	FILE	:	DialogueActTypes.lkt
+// ******************************************************
+
+/*
+ * DialogueAct: 
+ */
+
+classDef:StructureComplex 
+( 
+ 	DialogueAct :
+  	(
+		CoreDialogueAct
+	)
+)
+
+classDef:StructureComplex
+(
+ 	CoreDialogueAct :
+	(
+	 	Dimension,
+		Function
+	)
+)
+
+classDef:ElementRange 
+(
+ 	Dimension :
+	{
+		'task',
+		'social'
+	}
+)
+
+classDef:ElementRange 
+(
+ 	Function :
+	{
+		'greeting',
+		'thanking',
+		'goodbye'
+	}
+)

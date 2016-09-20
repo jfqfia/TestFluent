@@ -38,4 +38,3 @@ classDef:ElementLiteral(
 	String
 )
 
-classDef:StructureComplex ( DialogueAct : ( Bool, Int ) )

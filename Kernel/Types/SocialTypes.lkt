@@ -1,0 +1,24 @@
+// ******************************************************
+//	Lekta Application
+// ***************************
+//	PROJECT	:	Alter
+//	MODULE  :	Kernel.Types
+//	FILE	:	SocialTypes.lkt
+// ******************************************************
+
+/*
+ * Social
+ */
+
+classDef:Synonym 
+( 
+ 	Social =
+       		DialogueAct
+)
+
+classDef:Synonym 
+( 
+ 	Greeting =
+       		DialogueAct
+)
+
