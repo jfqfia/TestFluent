@@ -12,5 +12,6 @@
 // **************************************************
 
 // Usual greetings
-("hello", lexSocialGreeting)
+("hello", 		lexGreeting)
+("nice to see you", 	lexGreeting)
 

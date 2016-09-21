@@ -20,7 +20,7 @@ classDef:ElementInt
 // TODO Structure explanation
 classDef:Void 
 (
- 	lexSocialGreeting
+ 	lexGreeting
 )
 
 // TODO Structure explanation

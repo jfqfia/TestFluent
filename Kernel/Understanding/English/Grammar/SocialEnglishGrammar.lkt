@@ -11,7 +11,9 @@
 // 
 // **************************************************
 
-(DialogueAct_From_Social :
+// TODO Comment this new kind of rules
+
+(DialogueActFromSocialRule :
  	[ DialogueAct -> Social ]
 	{
 		^ <- #1;
@@ -22,13 +24,14 @@
  	[ Social -> Greeting ]
 	{
 		^ <- #1;
+		^.CoreDialogueAct.Dimension <- 'social';
 	}
 )
 
 (GreetingFromLexRule :
- 	[ Greeting -> lexSocialGreeting ]
+ 	[ Greeting -> lexGreeting ]
 	{
-		^.CoreDialogueAct <- (Dimension:'social', Function:'greeting');
+		^.CoreDialogueAct.Function <- 'greeting';
 	}
 )
 
