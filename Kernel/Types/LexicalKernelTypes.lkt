@@ -28,6 +28,8 @@ classDef:Void
 (
 	number,
 	date,
+	comma,
+	period,
 	lexAuxIntro,
 	lexAuxVerb,
 	lexBeVerb,

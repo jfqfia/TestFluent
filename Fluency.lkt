@@ -10,14 +10,16 @@ lektaProject
 	projectSetup
 		setupParserRoots = DialogueAct
 
-		setupTokenizerNormalizeSpecDouble 
+		setupTokenizerNormalizeSpecActivate 
 			//setupTokenizerNormalizeSpecDeactivate 
+			//setupTokenizerNormalizeSpecDouble 
 		setupTokenizerNormalizeInputActivate
+			//setupTokenizerNormalizeInputDeactivate
+
 		setupRuntimeSpyMessageOn
 
-		TokenizerStrategy:Base
+		//TokenizerStrategy:Base
 		setupTokenizerSpellingChecker
-			//LanguageDiscovery:On
 
 	classModel
 			// Feature Model - Kernel

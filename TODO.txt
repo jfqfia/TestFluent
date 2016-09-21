@@ -1,0 +1,56 @@
+
+=======================
+****    Lekta
+=======================
+
+-> Types
+	Syntaxis for type declaration in Lekta
+	Metatypes names
+
+-> 
+
+=======================
+****    Style Guidelines
+=======================
+
+
+=======================
+****    Fluency / Kernel
+=======================
+
+-> Social (English) 
+	Include Greeting, Goodbye, Thanking
+
+-> Social (Spanish)
+	idem
+
+-> Inform / Agreement
+-> Inform / Disagreement
+
+-> Study the organization of
+	Agreement
+	Disagreement
+	Maybe
+	IDontKnow
+	Apology
+	Repeat
+	Help
+
+	Statement (tomorrow)
+	Request (I need an appointment)
+
+
+=======================
+****    Fluency / Test
+=======================
+
+-> Social (English)
+	Write corpus
+
+-> Social (Spanish)
+	Write corpus
+
+=======================
+****    Fluency / Appointment
+=======================
+

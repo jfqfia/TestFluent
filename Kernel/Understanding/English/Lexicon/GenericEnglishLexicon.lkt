@@ -13,7 +13,11 @@
 // **************************************************
 
 //  Configure general parameters of the tokenizer.
-setupTokenizerBlanks (" ,.-?!'")
+setupTokenizerBlanks (" -?!'")
+
+setupTokenizerPunctuation( ",", comma )
+setupTokenizerPunctuation( ".", period )
+
 setupTokenizerIntegerClass (lexNumberDigits,".,")
 
 // lexAuxIntro: Auxiliary verbal forms used before core verbal forms
