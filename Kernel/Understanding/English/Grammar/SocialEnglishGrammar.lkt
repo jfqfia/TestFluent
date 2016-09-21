@@ -20,8 +20,10 @@
 	}
 )
 
+// TODO So we can put here Social -> < Greeting | Bye | Thanks >
 (SocialFromGreetingRule :
  	[ Social -> Greeting ]
+	// [ Social -> < Greeting | Bye >]
 	{
 		^ <- #1;
 		^.CoreDialogueAct.Dimension <- 'social';
@@ -35,3 +37,11 @@
 	}
 )
 
+/*
+(ByeFromLexRule :
+ 	[ Bye -> lexBye ]
+	{
+		^.CoreDialogueAct.Function <- 'bye';
+	}
+)
+*/
