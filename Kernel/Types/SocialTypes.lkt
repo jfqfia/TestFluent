@@ -1,24 +1,25 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	Kernel.Types
+// **************************************************
+//
+//	Types for the social dimension.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types
 //	FILE	:	SocialTypes.lkt
-// ******************************************************
+//
+// **************************************************
 
-/*
- * Social
- */
-
+// TODO Structure explanation
 classDef:Synonym 
 ( 
- 	Social =
-       		DialogueAct
+ 	Social = DialogueAct
 )
 
+// TODO Structure explanation
 classDef:Synonym 
 ( 
- 	Greeting =
-       		DialogueAct
+ 	Greeting = DialogueAct
 )
 

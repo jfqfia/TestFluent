@@ -1,13 +1,16 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	English/Lexicon
+// **************************************************
+//
+//	Lexical for social dimension.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Lexicon
 //	FILE	:	SocialEnglishLexicon.lkt
-// ******************************************************
+//
+// **************************************************
 
-/*********************************************
- *  Greeting
- *********************************************/
-("hello",		lexSocialGreeting)
+// Usual greetings
+("hello", lexSocialGreeting)
 

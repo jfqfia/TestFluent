@@ -1,16 +1,31 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	ClassDef
+// **************************************************
+//
+//	Types for lexical part of the kernel module.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types
 //	FILE	:	LexicalKernelTypes.lkt
-// ******************************************************
+//
+// **************************************************
 
-classDef:ElementInt (
+// TODO Structure explanation
+classDef:ElementInt 
+(
 	lexNumberDigits
 )
 
-classDef:Void (
+// TODO Structure explanation
+classDef:Void 
+(
+ 	lexSocialGreeting
+)
+
+// TODO Structure explanation
+classDef:Void 
+(
 	number,
 	date,
 	lexAuxIntro,
@@ -38,11 +53,7 @@ classDef:Void (
 	lexPrepPlace,
 	lexPrepSpec,
 	lexRepeat,
-
 	AnyDet
 )
 
-classDef:Void 
-(
- 	lexSocialGreeting
-)
+

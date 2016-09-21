@@ -1,29 +1,34 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	English/Grammar
-//	FILE	:	Generics_EnglishGrammar.lkt
-// ******************************************************
+// **************************************************
+//
+//	Rules for social dimension.
+//
+// **************************************************
+// 
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Grammar
+//	FILE	:	SocialEnglishGrammar.lkt
+// 
+// **************************************************
 
 (DialogueAct_From_Social :
  	[ DialogueAct -> Social ]
-		{
-			^ <- #1;
-		}
+	{
+		^ <- #1;
+	}
 )
 
-(Social :
+(SocialFromGreetingRule :
  	[ Social -> Greeting ]
-		{
-			^ <- #1;
-		}
+	{
+		^ <- #1;
+	}
 )
 
-(Greeting :
+(GreetingFromLexRule :
  	[ Greeting -> lexSocialGreeting ]
-		{
-			^.CoreDialogueAct <- (Dimension:'social', Function:'greeting');
-		}
+	{
+		^.CoreDialogueAct <- (Dimension:'social', Function:'greeting');
+	}
 )
 

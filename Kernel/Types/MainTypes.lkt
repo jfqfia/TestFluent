@@ -1,26 +1,26 @@
-// ******************************************************
-//	Fluency Kernel
-// ***************************
+// **************************************************
+//
+//	Index of types files.
+//
+// **************************************************
+//
 //	PROJECT	:	Fluency
-//	MODULE  :	Types
-//	FILE	:	MainFeatureModel.lkt
-// ******************************************************
+//	MODULE  :	Kernel
+//	PACKAGE :	Types
+//	FILE	:	MainTypes.lkt
+//
+// **************************************************
 
 #Include "GenericTypes.lkt"
-
 #Include "LexicalKernelTypes.lkt"
-
 #Include "DialogueActTypes.lkt"
 #Include "SocialTypes.lkt"
 
 /*
 #Include "Numbers_ClassDef.lkt"
-
 #Include "Colloquial_ClassDef.lkt"
 #Include "Communication_ClassDef.lkt"
-
 #Include "Understanding_ClassDef.lkt"
 #Include "Generation_ClassDef.lkt"
-
 #Include "DialogueManager_ClassDef.lkt"
 */

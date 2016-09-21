@@ -1,40 +1,78 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	ClassDef
+// **************************************************
+//
+//	Generic types.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types
 //	FILE	:	GenericsTypes.lkt
-// ******************************************************
+//
+// **************************************************
 
+
+// TODO Possible style guidelines to be written here.
 /*
-createType AtomicBool ( Bool )
-
-createType AtomicInt ( Int )
-
-createType AtomicReal ( Real )
-
-createType AtomicLiteral ( String )
-
-createType AtomicEnumerate ( genero, ppp : { masc, fem, neutro }  )
-
-createType AtomicEnumerate ( numero : { sing, plural}  )
-*/
-
-
-
-classDef:ElementBool(
+createType AtomicBool 
+(
 	Bool
 )
 
-classDef:ElementInt (
+createType AtomicInt 
+(
 	Int
 )
 
-classDef:ElementReal (
-	Real
+createType AtomicReal 
+( 
+	Real 
 )
 
-classDef:ElementLiteral(
-	String
+createType AtomicLiteral 
+( 
+	String 
+)
+
+createType AtomicEnumerate 
+( 
+	genero, ppp : 
+	{ 
+		masc,
+		fem, 
+		neutro 
+	}
+)
+
+createType AtomicEnumerate 
+( 
+	numero : 
+	{ 
+		sing, 
+		plural
+	}  
+)
+*/
+
+
+// TODO We could change native names of atomic types.
+classDef:ElementBool
+(
+	BOOL
+)
+
+classDef:ElementInt 
+(
+	INT
+)
+
+classDef:ElementReal 
+(
+	REAL
+)
+
+classDef:ElementLiteral
+(
+	STRING
 )
 

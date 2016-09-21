@@ -1,15 +1,17 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	Kernel.Types
+// **************************************************
+//
+//	Types related with DialogueAct structure.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types
 //	FILE	:	DialogueActTypes.lkt
-// ******************************************************
+//
+// **************************************************
 
-/*
- * DialogueAct: 
- */
-
+// TODO Structure explanation
 classDef:StructureComplex 
 ( 
  	DialogueAct :
@@ -18,6 +20,7 @@ classDef:StructureComplex
 	)
 )
 
+// TODO Structure explanation
 classDef:StructureComplex
 (
  	CoreDialogueAct :
@@ -27,6 +30,7 @@ classDef:StructureComplex
 	)
 )
 
+// TODO Structure explanation
 classDef:ElementRange 
 (
  	Dimension :
@@ -36,6 +40,7 @@ classDef:ElementRange
 	}
 )
 
+// TODO Structure explanation
 classDef:ElementRange 
 (
  	Function :

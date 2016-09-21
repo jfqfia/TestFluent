@@ -4,7 +4,7 @@ LaunchLektaKernel(
 
 UseProject(
     ProjectCompile : "./Deployment/bin/Fluency.olk"
-    TemporalFolder : "./tmp/"
+    TemporalFolder : "./.tmp/"
 )
 
 //MainAnswer:On

@@ -1,17 +1,23 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	English/Grammar
-//	FILE	:	Generics_EnglishGrammar.lkt
-// ******************************************************
+// **************************************************
+//
+//	Grammatical rules for generic english.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+// 	PACKAGE	:	Understanding.English.Grammar
+//	FILE	:	GenericEnglishGrammar.lkt
+//	
+// **************************************************
 
-(DialogueAct_01	:
- 	[ DialogueAct -> <lexDetUndef |
-			lexDetThe |
-			lexDetThis |
-			lexDetThat |
-			lexDetThese |
-			lexDetThose |
-			lexDetMy > ]
-)
+// TODO This rule could be out
+//(DialogueAct_Rule01	:
+// 	[ DialogueAct -> 	<lexDetUndef | 
+//				lexDetThe | 
+//				lexDetThis |	
+//				lexDetThat | 
+//				lexDetThese | 
+//				lexDetThose | 
+//				lexDetMy > ]
+//)

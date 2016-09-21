@@ -1,10 +1,15 @@
-// ******************************************************
-//	Lekta Application
-// ***************************
-//	PROJECT	:	Alter
-//	MODULE  :	English/Grammar
-//	FILE	:	Main_EnglishGrammar.lkt
-// ******************************************************
+// **************************************************
+//
+//	Index for english grammar files.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Grammar
+//	FILE	:	MainEnglishGrammar.lkt
+//
+// **************************************************
 
 #Include "GenericEnglishGrammar.lkt"
 #Include "SocialEnglishGrammar.lkt"
@@ -12,17 +17,13 @@
 /*
 #Include "Colloquial_EnglishGrammar.lkt"
 #Include "Communication_EnglishGrammar.lkt"
-
 #Include "Numbers_EnglishGrammar.lkt"
-
 #Include "ParameterCity_EnglishGrammar.lkt"
 #Include "ParameterSpeciality_EnglishGrammar.lkt"
 #Include "ParameterSchedule_EnglishGrammar.lkt"
 #Include "ParameterPesel_EnglishGrammar.lkt"
 #Include "ParameterPhoneNumber_EnglishGrammar.lkt"
-
 #Include "ParameterAccount_EnglishGrammar.lkt"
 #Include "ParameterAmount_EnglishGrammar.lkt"
-
 #Include "Entry_EnglishGrammar.lkt"
 */
