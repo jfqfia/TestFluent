@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	Index for spanish grammar files.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.Spanish.Grammar
+//	FILE	:	MainSpanishGrammar.lkt
+//
+// **************************************************
+
+#Include "GenericSpanishGrammar.lkt"
+#Include "SocialSpanishGrammar.lkt"
+
+/*
+#Include "Colloquial_EnglishGrammar.lkt"
+#Include "Communication_EnglishGrammar.lkt"
+#Include "Numbers_EnglishGrammar.lkt"
+#Include "ParameterCity_EnglishGrammar.lkt"
+#Include "ParameterSpeciality_EnglishGrammar.lkt"
+#Include "ParameterSchedule_EnglishGrammar.lkt"
+#Include "ParameterPesel_EnglishGrammar.lkt"
+#Include "ParameterPhoneNumber_EnglishGrammar.lkt"
+#Include "ParameterAccount_EnglishGrammar.lkt"
+#Include "ParameterAmount_EnglishGrammar.lkt"
+#Include "Entry_EnglishGrammar.lkt"
+*/

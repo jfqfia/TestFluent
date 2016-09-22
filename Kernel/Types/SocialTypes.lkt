@@ -23,3 +23,15 @@ classDef:Synonym
  	Greeting = DialogueAct
 )
 
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Bye = DialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Thanks = DialogueAct
+)
+

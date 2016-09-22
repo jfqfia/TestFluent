@@ -1,0 +1,30 @@
+LaunchLektaKernel( 
+	ExecStrategy = KernelSynchronous
+	)
+
+UseProject(
+    ProjectCompile : "./Deployment/bin/Fluency.olk"
+    TemporalFolder : "./.tmp/"
+)
+
+//MainAnswer:On
+//setupRuntimeSpyMessageOn
+DisplayProcessUnderstandingOn
+//DisplayProcessRespondoOn
+DisplayProcessCogitoOn
+//DisplayProcessColligoOn
+
+CreateDialogue(
+    InstanceOperation:1 
+    InstanceLanguage:1 
+    InstanceInterface:1
+)
+
+Hello!
+Nice to see you.
+How's life?
+Nice to meet you. How do you do?
+Goodbye!
+Have a nice weekend!
+See you later.
+

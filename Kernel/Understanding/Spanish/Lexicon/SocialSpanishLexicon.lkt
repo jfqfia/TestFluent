@@ -1,0 +1,92 @@
+// **************************************************
+//
+//	Lexical for social dimension. SPANISH.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.Spanish.Lexicon
+//	FILE	:	SocialSpanishLexicon.lkt
+//
+// **************************************************
+
+// Informal greetings
+("buenas",			lexGreeting)
+("como andas",	 		lexGreeting)
+("como estas",	 		lexGreeting)
+("como te va",			lexGreeting)
+("como va la cosa",		lexGreeting)
+("muy buenas",			lexGreeting)
+("que haces",			lexGreeting)
+("que hay",			lexGreeting)
+("que pasa",			lexGreeting)
+("que tal",			lexGreeting)
+("que tal te va",		lexGreeting)
+
+// Formal greetings
+("bienvenido",			lexFormalGreeting)
+("buenos dias",			lexFormalGreeting)
+("buenas tardes",		lexFormalGreeting)
+("como esta usted",		lexFormalGreeting)
+("como le va",			lexFormalGreeting)
+("encantado",			lexFormalGreeting)
+("encantado de conocerle",	lexFormalGreeting)
+("hola",			lexFormalGreeting)
+("mucho gusto",			lexFormalGreeting)
+("un placer",			lexFormalGreeting)
+
+// Informal "goodbyes"
+("adios",			lexGoodbye)
+("hasta ahora",			lexGoodbye)
+("hasta el viernes",		lexGoodbye)
+("hasta la proxima",		lexGoodbye)
+("hasta la vista",		lexGoodbye)
+("hasta luego",			lexGoodbye)
+("hasta mañana",		lexGoodbye)
+("hasta mas ver",		lexGoodbye)
+("hasta pronto",		lexGoodbye)
+("nos vemos",			lexGoodbye)
+
+// Formal "goodbyes"
+("atentamente",			lexFormalGoodbye)
+("muy atentamente",		lexFormalGoodbye)
+("que tenga un buen dia",	lexFormalGoodbye)
+("reciba un cordial saludo",	lexFormalGoodbye)
+("un cordial saludo",		lexFormalGoodbye)
+
+// Say "thank you"
+("gracias",			lexThanks)
+("te debo una",			lexThanks)
+("te lo agradezco",		lexThanks)
+
+// Say formal "thank you"
+("estoy agradecido",		lexFormalThanks)
+("eternamente agradecido",	lexFormalThanks)
+("gracias por su hospitalidad",	lexFormalThanks)
+("gracias por todo",		lexFormalThanks)
+("le agradezco",		lexFormalThanks)
+("le agradezco enormemente",	lexFormalThanks)
+("mil gracias",			lexFormalThanks)
+("muchas gracias",		lexFormalThanks)
+("muchisimas gracias",		lexFormalThanks)
+("muy agradecido",		lexFormalThanks)
+("se lo agradezco",		lexFormalThanks)
+("se lo agradezco enormemente",	lexFormalThanks)
+
+// Downplaying -> new category?
+/*
+de nada
+no te preocupes
+no hay de que
+el placer es mio
+es un placer
+con mucho gusto
+no hay porque
+*/
+
+
+
+
+
+

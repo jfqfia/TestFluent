@@ -1,3 +1,22 @@
+Questions:
+
+Lexical:
+Apostroph:
+("how is everything", 		lexGreeting)
+("how s everything", 		lexGreeting)
+
+How to do "Until <<week day>>"?
+How to do "Have a nice <<xxx>>"? 
+How to do "Have a good <<xxx>>"?
+
+Corrector
+Have a nice weekend: OK
+Have a nice weekends: Not OK
+
+Annotation
+Downplaying -> new category?
+
+
 
 =======================
 ****    Lekta
@@ -19,25 +38,54 @@
 =======================
 
 -> Social (English) 
-	Include Greeting, Goodbye, Thanking
+	Include Greeting, Goodbye, Thanking	DONE!
 
 -> Social (Spanish)
-	idem
+	idem	DONE!
 
--> Inform / Agreement
--> Inform / Disagreement
+-> Setting up an annotation guide:
+
+Legend:
+Dimension
+	Function
+
+social
+	greeting
+	thanking
+	goodbye
+	apology (new one!)
+¿?
+	agreement
+	disagreement
+	uncertain
+	dontknow
+statement
+	inform
+	request
+question
+	propositional
+	choice
+	whquestion
+
+Currently we have	
+task
+
+
 
 -> Study the organization of
-	Agreement
-	Disagreement
-	Maybe
-	IDontKnow
-	Apology
-	Repeat
-	Help
 
-	Statement (tomorrow)
-	Request (I need an appointment)
+	agreement
+	disagreement
+	maybe (uncertain)
+	dontknow
+	
+	apology -> Social?
+
+	repeat -> Request?
+	help -> Request?
+
+	statement (tomorrow)
+	request (I need an appointment)
 
 
 =======================

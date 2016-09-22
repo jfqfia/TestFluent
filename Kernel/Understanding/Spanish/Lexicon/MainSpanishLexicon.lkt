@@ -1,0 +1,30 @@
+// **************************************************
+//
+//	Index for spanish lexicon.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+// 	PACKAGE	:	Understanding.Spanish.Lexicon
+//	FILE	:	MainSpanishLexicon.lkt
+//
+// **************************************************
+
+#Include "GenericSpanishLexicon.lkt"
+#Include "SocialSpanishLexicon.lkt"
+
+/*
+#Include "Numbers_EnglishLexicon.lkt"
+#Include "Colloquial_EnglishLexicon.lkt"
+#Include "Communication_EnglishLexicon.lkt"
+#Include "CoreAction_EnglishLexicon.lkt"
+#Include "ThemeScope_EnglishLexicon.lkt"
+#Include "ParameterCity_EnglishLexicon.lkt"
+#Include "ParameterSpeciality_EnglishLexicon.lkt"
+#Include "ParameterSchedule_EnglishLexicon.lkt"
+#Include "ParameterPesel_EnglishLexicon.lkt"
+#Include "ParameterPhoneNumber_EnglishLexicon.lkt"
+#Include "ParameterAccount_EnglishLexicon.lkt"
+#Include "ParameterAmount_EnglishLexicon.lkt"
+*/

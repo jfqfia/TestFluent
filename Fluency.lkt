@@ -53,8 +53,14 @@ lektaProject
 	lexicalModel forLanguage English 
 		#Include "Kernel/Understanding/English/Lexicon/MainEnglishLexicon.lkt"
 
+	lexicalModel forLanguage Spanish
+		#Include "Kernel/Understanding/Spanish/Lexicon/MainSpanishLexicon.lkt"
+
 	grammaticalModel forLanguage English
 		#Include "Kernel/Understanding/English/Grammar/MainEnglishGrammar.lkt"
+
+	grammaticalModel forLanguage Spanish
+		#Include "Kernel/Understanding/Spanish/Grammar/MainSpanishGrammar.lkt"
 
 	/*
 	conversationalModel
