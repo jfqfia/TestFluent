@@ -2,7 +2,7 @@ lektaProject
 
 	projectHead
 		projectDescriptor	: "Fluency"
-		projectLanguageScope	: [ English, Polish, Spanish ]
+		projectLanguageScope	: [ English, Spanish, Polish ]
 		projectOperationScope	: [ Fluency ]
 		projectInterfaceScope   : [ Written, Spoken ]
 		projectCompileOutput 	: "Deployment/bin/Fluency.olk"

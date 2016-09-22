@@ -16,8 +16,8 @@ DisplayProcessCogitoOn
 
 CreateDialogue(
     InstanceOperation:1 
-    InstanceLanguage:3
+    InstanceLanguage:2
     InstanceInterface:1
 )
 
-Hola
+Hola hola hola hola hola hola buenos dias hola

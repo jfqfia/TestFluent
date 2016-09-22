@@ -27,6 +27,13 @@
 )
 
 (GreetingFromLexGreetingRule :
+ 	[ Greeting/1 -> Greeting/1 Greeting/0 ]
+	{
+		^ <- #2;
+	}
+)
+
+(GreetingFromLexGreetingRule :
  	[ Greeting -> lexGreeting ]
 	{
 		^.CoreDialogueAct.Function <- 'greeting';

@@ -16,7 +16,8 @@ classDef:StructureComplex
 ( 
  	DialogueAct :
   	(
-		CoreDialogueAct
+		CoreDialogueAct,
+		SemanticContent
 	)
 )
 
@@ -50,3 +51,33 @@ classDef:ElementRange
 		'goodbye'
 	}
 )
+
+classDef:StructureComplex
+(
+ 	SemanticContent :
+	(
+		Action,
+		Concept
+		//Date,
+	)
+)
+
+classDef:ElementLiteral
+(
+ 	Action,
+	Concept
+)
+
+	/*
+classDef:StructureComplex
+(
+ 	Qualifiers : 
+	(
+	 	Date,
+		Place
+	)
+)
+	*/
+
+
+
