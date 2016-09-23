@@ -1,0 +1,54 @@
+// **************************************************
+//
+//	Types related with generic Date entity
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types
+//	FILE	:	DateTypes.lkt
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+    	DialogueDate:
+	(
+	        BaseDate,
+		OffsetDate		
+	)
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	BaseDate = Date
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	OffsetDate = Date
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	Date:
+	(
+		Day,
+		Week,
+		Month,
+		Year
+	)
+)
+
+classDef:ElementInt
+(
+	Day, 
+	Week,
+	Month,
+	Year
+)

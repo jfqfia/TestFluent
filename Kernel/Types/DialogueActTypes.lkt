@@ -37,7 +37,8 @@ classDef:ElementRange
  	Dimension :
 	{
 		'task',
-		'social'
+		'social',
+		'inform'
 	}
 )
 
@@ -52,32 +53,22 @@ classDef:ElementRange
 	}
 )
 
+// TODO Structure explanation
 classDef:StructureComplex
 (
  	SemanticContent :
 	(
 		Action,
-		Concept
-		//Date,
+		Concept,
+		// TODO We must think about qualifiers modelling.
+		DialogueDate
 	)
 )
 
+// TODO Structure explanation
 classDef:ElementLiteral
 (
  	Action,
 	Concept
 )
-
-	/*
-classDef:StructureComplex
-(
- 	Qualifiers : 
-	(
-	 	Date,
-		Place
-	)
-)
-	*/
-
-
 

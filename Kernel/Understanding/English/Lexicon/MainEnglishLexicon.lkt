@@ -13,6 +13,7 @@
 
 #Include "GenericEnglishLexicon.lkt"
 #Include "SocialEnglishLexicon.lkt"
+#Include "DateEnglishLexicon.lkt"
 
 /*
 #Include "Numbers_EnglishLexicon.lkt"

@@ -1,0 +1,111 @@
+// **************************************************
+//
+//	Rules for dates in english.
+//
+// **************************************************
+// 
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Grammar
+//	FILE	:	DateEnglishGrammar.lkt
+// 
+// **************************************************
+
+(DateRule01 :
+    	[ DialogueAct -> DialogueDate ] 
+	{
+		^.CoreDialogueAct.Dimension <- 'inform';
+		^.SemanticContent.DialogueDate <- #1;
+    	}
+)
+
+(DateRule02 :
+    	[ DialogueDate -> OffsetDate ] 
+	{
+		^.OffsetDate <- #1;
+	}
+)
+
+// today
+// tomorrow
+// yesterday
+// after today
+// after tomorrow
+(DateRule03 :
+    	[ OffsetDate -> lexTemporalModifier? lexOffsetDay ] 
+	{
+		if(#1)
+		{
+			^.Day <- #1 + #2;
+			^.Week <- 0;
+			^.Month <- 0;
+			^.Year <- 0;
+		}
+		else
+		{
+			^.Day <- #2;
+			^.Week <- 0;
+			^.Month <- 0;
+			^.Year <- 0;
+		}
+    	}
+)
+
+// in 4 days
+(DateRule04 :
+    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexDay ] 
+	{
+		^.Day <- #2;
+		^.Week <- 0;
+		^.Month <- 0;
+		^.Year <- 0;
+    	}
+)
+
+// next day
+// previous days
+(DateRule05 :
+    	[ OffsetDate -> lexTemporalModifier lexDay ] 
+	{
+		^.Day <- #1;
+		^.Week <- 0;
+		^.Month <- 0;
+		^.Year <- 0;
+    	}
+)
+
+// from today
+// from tomorrow
+(DateRule06 :
+    	[ OffsetDate -> lexPrepFrom OffsetDate ] 
+	{
+		^ <- #2;
+    	}
+)
+
+// next day from tomorrow (the day after tomorrow)
+// next day from today (tomorrow)
+// next day from next week (aún no)
+(DateRule07 :
+    	[ OffsetDate/1 -> OffsetDate/1 OffsetDate/0 ] 
+	{
+		^.Day <- #1.Day + #2.Day;
+		^.Week <- #1.Week + #2.Week;
+		^.Month <- #1.Month + #2.Month;
+		^.Year <- #1.Year + #2.Year;
+    	}
+)
+
+// 2 days ago
+// 3 days in advance
+(DateRule08 :
+    	[ OffsetDate -> OffsetDate lexMetaTemporalModifier ] 
+	{
+		^.Day <- #1.Day * #2;
+		^.Week <- #1.Week * #2;
+		^.Month <- #1.Month * #2;
+		^.Year <- #1.Year * #2;
+    	}
+)
+
+

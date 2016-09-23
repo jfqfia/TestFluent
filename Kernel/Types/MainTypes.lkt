@@ -15,6 +15,7 @@
 #Include "LexicalKernelTypes.lkt"
 #Include "DialogueActTypes.lkt"
 #Include "SocialTypes.lkt"
+#Include "DateTypes.lkt"
 
 /*
 #Include "Numbers_ClassDef.lkt"

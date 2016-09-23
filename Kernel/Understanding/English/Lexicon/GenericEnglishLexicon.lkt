@@ -75,6 +75,7 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("of",		lexPrepOf)
 ("on",		lexPrepOn)
 ("to",		lexPrepTo)
+("from",	lexPrepFrom)
 
 // lexPrepPlace: Prepositions that can go with a Place
 ("in",		lexPrepPlace)
