@@ -19,14 +19,17 @@
 // **************************************************
 classDef:Void
 (
-	lexDay
+	lexDay,
+	lexWeek,
+	lexMonth,
+	lexYear
 )
 
 classDef:ElementInt 
 (
 	lexBaseDay,
 	lexOffsetDay,
-	lexMonth,
+	lexBaseMonth,
 	lexTemporalModifier,
 	lexMetaTemporalModifier
 )

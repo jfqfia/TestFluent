@@ -1,47 +1,58 @@
-Questions:
-
-Lexical:
-Apostroph:
-("how is everything", 		lexGreeting)
-("how s everything", 		lexGreeting)
-
-How to do "Until <<week day>>"?
-How to do "Have a nice <<xxx>>"? 
-How to do "Have a good <<xxx>>"?
+==============================================
+	Questions
+==============================================
 
 Corrector
 Have a nice weekend: OK
 Have a nice weekends: Not OK
 
-Annotation
-Downplaying -> new category?
 
+==============================================
+	Lekta
+==============================================
 
-
-=======================
-****    Lekta
-=======================
-
--> Types
+Types
 	Syntaxis for type declaration in Lekta
 	Metatypes names
 
--> 
+==============================================
+	Style Guidelines
+==============================================
 
-=======================
-****    Style Guidelines
-=======================
+Lower case for programming structures
+ex: if
+
+CamelCase for Lekta commands and built-in functions
+ex: ProjectHead 
+
+Upper case for meta-types
+ex: BOOL, INT, STRING,...
+
+CamelCase for new types
+ex: OffsetDate
+
+camelCase para variables, funciones nuevas, y campos de complejos
+ex: INT a;
+ex: getAdd(INT a, INT b)
+ex: 
+classDef:StructureComplex
+(
+    	DialogueDate:
+	(
+	        Date baseDate,
+		Date offsetDate		
+	)
+)
+
+We must fix some header configuration in the beginning of every file in the project
+We can change meta-types names
+We can change some reserved keywords in Lekta
+ex: classDef to createType
 
 
-=======================
-****    Fluency / Kernel
-=======================
-
--> Social (English) 
-	Include Greeting, Goodbye, Thanking	DONE!
-
--> Social (Spanish)
-	idem	DONE!
+==============================================
+	Fluency / Kernel
+==============================================
 
 -> Setting up an annotation guide:
 
@@ -54,43 +65,36 @@ social
 	thanking
 	goodbye
 	apology (new one!)
-¿?
+	downplaying (new one!)
+
+simpleanswer??
 	agreement
 	disagreement
 	uncertain
 	dontknow
+
 statement
 	inform
 	request
+
 question
 	propositional
 	choice
 	whquestion
 
-Currently we have	
-task
-
-
-
 -> Study the organization of
+	repeat -> is it a request?
+	help -> is it a request?
 
-	agreement
-	disagreement
-	maybe (uncertain)
-	dontknow
-	
-	apology -> Social?
-
-	repeat -> Request?
-	help -> Request?
-
-	statement (tomorrow)
-	request (I need an appointment)
-
-
-=======================
-****    Fluency / Test
-=======================
+-> Offset dates for days in the week:
+	ex: on monday
+	ex: next thursday
+	ex: in a couple of fridays
+	ex: last saturday
+	ex: 2 sundays ago
+==============================================
+	Fluency / Test
+==============================================
 
 -> Social (English)
 	Write corpus
@@ -98,7 +102,5 @@ task
 -> Social (Spanish)
 	Write corpus
 
-=======================
-****    Fluency / Appointment
-=======================
+
 

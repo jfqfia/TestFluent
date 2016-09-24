@@ -52,7 +52,7 @@
 )
 
 // in 4 days
-(DateRule04 :
+(DateRule04_1 :
     	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexDay ] 
 	{
 		^.Day <- #2;
@@ -62,15 +62,80 @@
     	}
 )
 
+// in 2 weeks
+(DateRule04_2 :
+    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexWeek ] 
+	{
+		^.Day <- 0;
+		^.Week <- #2;
+		^.Month <- 0;
+		^.Year <- 0;
+    	}
+)
+
+// in 3 months
+(DateRule04_3 :
+    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexMonth ] 
+	{
+		^.Day <- 0;
+		^.Week <- 0;
+		^.Month <- #2;
+		^.Year <- 0;
+    	}
+)
+
+// in 5 years
+(DateRule04_4 :
+    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexYear ] 
+	{
+		^.Day <- 0;
+		^.Week <- 0;
+		^.Month <- 0;
+		^.Year <- #2;
+    	}
+)
+
 // next day
-// previous days
-(DateRule05 :
+(DateRule05_1 :
     	[ OffsetDate -> lexTemporalModifier lexDay ] 
 	{
 		^.Day <- #1;
 		^.Week <- 0;
 		^.Month <- 0;
 		^.Year <- 0;
+    	}
+)
+
+// next week
+(DateRule05_2 :
+    	[ OffsetDate -> lexTemporalModifier lexWeek ] 
+	{
+		^.Day <- 0;
+		^.Week <- #1;
+		^.Month <- 0;
+		^.Year <- 0;
+    	}
+)
+
+// next month
+(DateRule05_3 :
+    	[ OffsetDate -> lexTemporalModifier lexMonth ] 
+	{
+		^.Day <- 0;
+		^.Week <- 0;
+		^.Month <- #1;
+		^.Year <- 0;
+    	}
+)
+
+// next year
+(DateRule05_4 :
+    	[ OffsetDate -> lexTemporalModifier lexYear ] 
+	{
+		^.Day <- 0;
+		^.Week <- 0;
+		^.Month <- 0;
+		^.Year <- #1;
     	}
 )
 
@@ -85,7 +150,6 @@
 
 // next day from tomorrow (the day after tomorrow)
 // next day from today (tomorrow)
-// next day from next week (aún no)
 (DateRule07 :
     	[ OffsetDate/1 -> OffsetDate/1 OffsetDate/0 ] 
 	{
@@ -105,6 +169,36 @@
 		^.Week <- #1.Week * #2;
 		^.Month <- #1.Month * #2;
 		^.Year <- #1.Year * #2;
+    	}
+)
+
+// after a couple of weeks
+// after next week
+// the next day after the next day after tomorrow
+(DateRule09 :
+    	[ OffsetDate -> lexTemporalModifier OffsetDate ] 
+	{
+		^ <- #2;
+		if(#2.Day != 0)
+		{
+			^.Day <- #1 + #2.Day;
+		}
+		else if(#2.Week != 0)
+		{
+			^.Week <- #1 + #2.Week;
+		}
+		else if(#2.Month != 0)
+		{
+			^.Month <- #1 + #2.Month;
+		}
+		else if(#2.Year != 0)
+		{
+			^.Year <- #1 + #2.Year;
+		}
+		else
+		{
+			^.Day <- #1 + #2.Day;
+		}
     	}
 )
 

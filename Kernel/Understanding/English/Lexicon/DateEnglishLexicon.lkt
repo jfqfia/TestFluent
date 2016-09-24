@@ -11,20 +11,28 @@
 //
 // **************************************************
 
-
 // Basic lexical about dates
 ("day",				lexDay)
 ("days",			lexDay)
 ("the day",			lexDay)
+("week",			lexWeek)
+("weeks",			lexWeek)
+("month",			lexMonth)
+("months",			lexMonth)
+("year",			lexYear)
+("years",			lexYear)
 
 // Meta temporal modifiers
 ("ago",				lexMetaTemporalModifier, -1)
 ("in advance",			lexMetaTemporalModifier, 1)
 
 // Temporal modifiers
+("last", 			lexTemporalModifier, -1)
 ("previous", 			lexTemporalModifier, -1)
+("the previous",		lexTemporalModifier, -1)
 ("before", 			lexTemporalModifier, -1)
 ("next", 			lexTemporalModifier, 1)
+("the next", 			lexTemporalModifier, 1)
 ("following",	  		lexTemporalModifier, 1)
 ("one after",  			lexTemporalModifier, 1)
 ("after",  			lexTemporalModifier, 1)
@@ -36,6 +44,7 @@
 ("now",  			lexOffsetDay, 0)
 ("tomorrow",			lexOffsetDay, 1)
 
+// Lexical about base month days
 ("1st", 			lexBaseDay, 1)
 ("2nd", 			lexBaseDay, 2)
 ("3rd", 			lexBaseDay, 3)
@@ -68,17 +77,17 @@
 ("30th",			lexBaseDay, 30)
 ("31st",			lexBaseDay, 31)
 
-// Lexical about months
-("january",			lexMonth, 1)
-("february",			lexMonth, 2)
-("march",			lexMonth, 3)
-("april",			lexMonth, 4)
-("may",				lexMonth, 5)
-("june",			lexMonth, 6)
-("july",			lexMonth, 7)
-("august",			lexMonth, 8)
-("september",			lexMonth, 9)
-("october",			lexMonth, 10)
-("november",			lexMonth, 11)
-("december",			lexMonth, 12)
+// Lexical about base onths
+("january",			lexBaseMonth, 1)
+("february",			lexBaseMonth, 2)
+("march",			lexBaseMonth, 3)
+("april",			lexBaseMonth, 4)
+("may",				lexBaseMonth, 5)
+("june",			lexBaseMonth, 6)
+("july",			lexBaseMonth, 7)
+("august",			lexBaseMonth, 8)
+("september",			lexBaseMonth, 9)
+("october",			lexBaseMonth, 10)
+("november",			lexBaseMonth, 11)
+("december",			lexBaseMonth, 12)
 
