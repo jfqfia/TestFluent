@@ -18,336 +18,188 @@
 		^.SemanticContent.DialogueTime <- #1;
     	}
 )
+
+(TimeRule02_1 :
+    	[ DialogueTime -> OffsetTime ] 
+	{
+		^.OffsetTime <- #1;
+	}
+)
+
+(TimeRule02_2 :
+    	[ DialogueTime -> BaseTime ] 
+	{
+		^.BaseTime <- #1;
+	}
+)
+
+// in 10 seconds
+(TimeRule03_1 :
+    	[ OffsetTime -> lexPrepPlace? lexNumberDigits lexSecond ] 
+	{
+		^.Hour <- 0;
+		^.Minute <- 0;
+		^.Second <- #2;
+    	}
+)
+
+// in 5 minutes
+(TimeRule03_2 :
+    	[ OffsetTime -> lexPrepPlace? lexNumberDigits lexMinute ] 
+	{
+		^.Hour <- 0;
+		^.Minute <- #2;
+		^.Second <- 0;
+    	}
+)
+
+// in 3 hours
+(TimeRule03_3 :
+    	[ OffsetTime -> lexPrepPlace? lexNumberDigits lexHour ] 
+	{
+		^.Hour <- #2;
+		^.Minute <- 0;
+		^.Second <- 0;
+    	}
+)
+
+// 10 minutes ago
+(TimeRule04 :
+    	[ OffsetTime -> OffsetTime lexMetaTemporalModifier ] 
+	{
+		^.PartOfTheDay <- #1.PartOfTheDay;
+		^.Hour <- #1.Hour * #2;
+		^.Minute <- #1.Minute * #2;
+		^.Second <- #1.Second * #2;
+    	}
+)
+
+// at hh:mm
+(TimeRule05 :
+    	[ BaseTime -> lexPrepAt? lexNumberDigits colon lexNumberDigits lexAM?] 
+	{
+		if(#2 < 24 && #4 < 60)
+		{
+			^.Hour <- #2;
+			^.Minute <- #4;
+		}
+		else	
+		{
+			Fail();	
+		}
+    	}
+)
+
+// at hh:mm:ss
+(TimeRule06 :
+    	[ BaseTime -> lexPrepAt? lexNumberDigits colon lexNumberDigits colon lexNumberDigits lexAM?] 
+	{
+		if(#2 < 24 && #4 < 60 && #6 < 60)
+		{
+			^.Hour <- #2;
+			^.Minute <- #4;
+			^.Second <- #6;
+		}
+		else
+		{
+			Fail();
+		}
+    	}
+)
+
+// at hh:mm pm
+// at hh:mm:ss pm
+(TimeRule07 :
+    	[ BaseTime -> BaseTime lexPM] 
+	{
+		^ <- #1;
+		if(^.Hour < 12)
+		{
+			^.Hour <- ^.Hour + 12;
+		}
+    	}
+)
+
+// At 10 o'clock
+// 12 o'clock
+(TimeRule08 :
+    	[ BaseTime -> lexPrepAt? lexNumberDigits lexBaseMinute] 
+	{
+		if(#2 < 24)
+		{
+			^.Hour <- #2;
+			^.Minute <- #3;
+		}
+		else
+		{		
+			Fail();
+		}
+    	}
+)
+
+// Quarter past 9
+// A quarter to 9
+// half past 9
+(TimeRule09 :
+    	[ BaseTime -> lexPrepAt? lexDetUndef? lexBaseMinute lexNumberDigits] 
+	{
+		if(#4 < 24)
+		{
+			^.Minute <- #3;
+			if(#3 == 45)
+			{
+				^.Hour <- #4 - 1;
+			}
+			else
+			{
+				^.Hour <- #4;
+			}	
+		}
+		else
+		{
+			Fail();
+		}
+    	}
+)
+
+// Memory error in lekta engine. If you uncomment this you will get a double free error.
 /*
-(DateRule02_1 :
-    	[ DialogueDate -> OffsetDate ] 
-	{
-		^.OffsetDate <- #1;
+(TimeRule10_1 :
+	[ BaseTime -> lexPM ]
+	{	
+		^.PartOfTheDay.PartOfTheDayName <- 'afternoon'; 
 	}
 )
 
-(DateRule02_2 :
-    	[ DialogueDate -> BaseDate ] 
-	{
-		^.BaseDate <- #1;
-	}
-)
-
-// today
-// tomorrow
-// yesterday
-// after today
-// after tomorrow
-(DateRule03 :
-    	[ OffsetDate -> lexTemporalModifier? lexOffsetDay ] 
-	{
-		if(#1)
-		{
-			^.Day <- #1 + #2;
-			^.DayInWeek <- 0;	
-			^.Week <- 0;
-			^.Month <- 0;
-			^.Year <- 0;
-		}
-		else
-		{
-			^.Day <- #2;
-			^.DayInWeek <- 0;
-			^.Week <- 0;
-			^.Month <- 0;
-			^.Year <- 0;
-		}
-    	}
-)
-
-// in 4 days
-(DateRule04_1 :
-    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexDay ] 
-	{
-		^.Day <- #2;
-		^.DayInWeek <- 0;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// in 2 weeks
-(DateRule04_2 :
-    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexWeek ] 
-	{
-		^.Day <- 0;
-		^.DayInWeek <- 0;
-		^.Week <- #2;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// in 3 months
-(DateRule04_3 :
-    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexMonth ] 
-	{
-		^.Day <- 0;
-		^.DayInWeek <- 0;
-		^.Week <- 0;
-		^.Month <- #2;
-		^.Year <- 0;
-    	}
-)
-
-// in 5 years
-(DateRule04_4 :
-    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexYear ] 
-	{
-		^.Day <- 0;
-		^.DayInWeek <- 0;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- #2;
-    	}
-)
-
-// next day
-(DateRule05_1 :
-    	[ OffsetDate -> lexTemporalModifier lexDay ] 
-	{
-		^.Day <- #1;
-		^.DayInWeek <- 0;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// next week
-(DateRule05_2 :
-    	[ OffsetDate -> lexTemporalModifier lexWeek ] 
-	{
-		^.Day <- 0;
-		^.DayInWeek <- 0;
-		^.Week <- #1;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// next month
-(DateRule05_3 :
-    	[ OffsetDate -> lexTemporalModifier lexMonth ] 
-	{
-		^.Day <- 0;
-		^.DayInWeek <- 0;
-		^.Week <- 0;
-		^.Month <- #1;
-		^.Year <- 0;
-    	}
-)
-
-// next year
-(DateRule05_4 :
-    	[ OffsetDate -> lexTemporalModifier lexYear ] 
-	{
-		^.Day <- 0;
-		^.DayInWeek <- 0;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- #1;
-    	}
-)
-
-// from today
-// from tomorrow
-(DateRule06_1 :
-    	[ OffsetDate -> lexPrepFrom OffsetDate ] 
-	{
-		^ <- #2;
-    	}
-)
-
-// from 25 of august
-(DateRule06_2 :
-    	[ BaseDate -> lexPrepFrom BaseDate ] 
-	{
-		^ <- #2;
-    	}
-)
-
-// next day from tomorrow (the day after tomorrow)
-// next day from today (tomorrow)
-(DateRule07 :
-    	[ OffsetDate/1 -> OffsetDate/1 OffsetDate/0 ] 
-	{
-		^.Day <- #1.Day + #2.Day;
-		^.DayInWeek <- #1.DayInWeek + #2.DayInWeek;
-		^.Week <- #1.Week + #2.Week;
-		^.Month <- #1.Month + #2.Month;
-		^.Year <- #1.Year + #2.Year;
-    	}
-)
-
-// 2 days ago
-// 3 days in advance
-(DateRule08 :
-    	[ OffsetDate -> OffsetDate lexMetaTemporalModifier ] 
-	{
-		^.Day <- #1.Day * #2;
-		^.DayInWeek <- #1.DayInWeek;
-		^.Week <- #1.Week * #2;
-		^.Month <- #1.Month * #2;
-		^.Year <- #1.Year * #2;
-    	}
-)
-
-// after a couple of weeks
-// after next week
-// the next day after the next day after tomorrow
-(DateRule09 :
-    	[ OffsetDate -> lexTemporalModifier OffsetDate ] 
-	{
-		^ <- #2;
-		if(#2.Day != 0)
-		{
-			^.Day <- #1 + #2.Day;
-		}
-		else if(#2.Week != 0)
-		{
-			^.Week <- #1 + #2.Week;
-		}
-		else if(#2.Month != 0)
-		{
-			^.Month <- #1 + #2.Month;
-		}
-		else if(#2.Year != 0)
-		{
-			^.Year <- #1 + #2.Year;
-		}
-		else
-		{
-			^.Day <- #1 + #2.Day;
-		}
-    	}
-)
-
-// on monday
-// next monday
-// following monday
-(DateRule10_1 :
-    	[ OffsetDate -> lexTemporalModifier lexDayInWeek ] 
-	{
-		^.Day <- #1;
-		^.DayInWeek <- #2;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// this monday
-(DateRule10_2 :
-    	[ OffsetDate -> lexDetThis lexDayInWeek ] 
-	{
-		^.Day <- 1;
-		^.DayInWeek <- #2;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// in 2 mondays
-// 3 tuesdays ago
-(DateRule11 :
-    	[ OffsetDate -> lexPrepPlace? lexNumberDigits lexDayInWeek ] 
-	{
-		^.Day <- #2;
-		^.DayInWeek <- #3;
-		^.Week <- 0;
-		^.Month <- 0;
-		^.Year <- 0;
-    	}
-)
-
-// august the 1st 1999
-// august 1st 1999
-// august 1 1999
-// august the 1 1999
-// august the 1st
-// august 1st
-// august 1
-// august the 1
-(DateRule12 :
-	[ BaseDate -> lexBaseMonth lexDetThe? <lexBaseDay | lexNumberDigits> lexNumberDigits? ]
-	{
-	        ^.Day <- #3;
-        	^.Month <- #1;
-        	^.Year <- #4;
-    	}
-)
-
-// the 1st of august 2016
-// the 1st of august 
-// the 1st august 2016
-// the 1st august 
-// the 1 of august 2016
-// the 1 of august 
-// the 1 august 2016
-// the 1 august 
-// 1st of august 2016
-// 1st of august 
-// 1st august 2016
-// 1st august 
-// 1 of august 2016
-// 1 of august 
-// 1 august 2016
-// 1 august 
-(DateRule13 :
-	[ BaseDate -> lexDetThe? <lexBaseDay | lexNumberDigits> lexPrepOf? lexBaseMonth lexNumberDigits? ]
-	{
-	        ^.Day <- #2;
-        	^.Month <- #4;
-        	^.Year <- #5;
-    	}
-)
-
-// in march 2010
-// in march
-(DateRule14 :
-	[ BaseDate -> lexPrepPlace? lexBaseMonth lexNumberDigits?]
-	{
-		^.Day <- 1;
-		^.Month <- #2;
-		^.Year <- #3;
-	}
-)
-
-// following from 25 of august
-(DateRule15 :
-	[ DialogueDate -> lexTemporalModifier BaseDate ]
-	{
-		^.BaseDate <- #2;
-		^.OffsetDate.Day <- #1;	
-		^.OffsetDate.DayInWeek <- 0;
-		^.OffsetDate.Month <- 0;
-		^.OffsetDate.Year <- 0;				
-	}
-)
-
-// next day from 25 of august
-(DateRule16_1 :
-	[ DialogueDate -> OffsetDate BaseDate ]
-	{
-		^.OffsetDate <- #1;
-		^.BaseDate <- #2;
-	}
-)
-
-// from 25 of august next day
-(DateRule16_2 :
-	[ DialogueDate -> BaseDate OffsetDate ]
-	{
-		^.OffsetDate <- #2;
-		^.BaseDate <- #1;
+// in the morning
+(TimeRule10_2 :
+	[ BaseTime -> lexAM ]
+	{	
+		^.PartOfTheDay.PartOfTheDayName <- 'morning'; 
 	}
 )
 */
+
+// at noon
+// noon
+// in the evening
+// at night
+// in the morning
+(TimeRule11 :
+	[ BaseTime -> lexPrepAt? lexPrepPlace? lexDetThe? lexPartOfTheDay ]
+	{	
+		^.PartOfTheDay.PartOfTheDayName <- #4; 
+	}
+)
+
+// late in the evening
+// in the middle of the night
+// in the middle of the afternoon
+(TimeRule12_1 :
+	[ BaseTime -> lexTemporalModifierForPartOfTheDay lexPrepAt? lexPrepPlace? lexDetThe? lexPartOfTheDay ]
+	{	
+		^.PartOfTheDay.PartOfTheDayName <- #5;
+		^.PartOfTheDay.PartOfTheDayInterval <- #1;  
+	}
+)
+

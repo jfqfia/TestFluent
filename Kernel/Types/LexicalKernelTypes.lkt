@@ -14,7 +14,7 @@
 
 // **************************************************
 // 
-//	Types for english lexicon dates
+//	Types for english lexicon dates and times
 //
 // **************************************************
 classDef:Void
@@ -23,7 +23,11 @@ classDef:Void
 	lexWeek,
 	lexMonth,
 	lexYear,
-	lexHour
+	lexHour,
+	lexMinute,
+	lexSecond,
+	lexAM,
+	lexPM
 )
 
 classDef:ElementInt 
@@ -33,9 +37,21 @@ classDef:ElementInt
 	lexDayInWeek,
 	lexBaseMonth,
 	lexTemporalModifier,
-	lexMetaTemporalModifier
+	lexMetaTemporalModifier,
+	lexBaseMinute
 )
 
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexTemporalModifierForPartOfTheDay = PartOfTheDayInterval
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexPartOfTheDay = PartOfTheDayName
+)
 
 // TODO Structure explanation
 classDef:ElementInt 
@@ -62,6 +78,7 @@ classDef:Void
 	//date,
 	comma,
 	period,
+	colon,
 	lexAuxIntro,
 	lexAuxVerb,
 	lexBeVerb,
@@ -80,6 +97,7 @@ classDef:Void
 	lexParticleAround,
 	lexPlease,
 	lexPronoun,
+	lexPrepAt,
 	lexPrepFor,
 	lexPrepOf,
 	lexPrepOn,

@@ -17,6 +17,7 @@ setupTokenizerBlanks (" -?!'")
 
 setupTokenizerPunctuation( ",", comma )
 setupTokenizerPunctuation( ".", period )
+setupTokenizerPunctuation( ":", colon)
 
 setupTokenizerIntegerClass (lexNumberDigits,".,")
 
@@ -71,6 +72,7 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("be grateful",		lexPlease)
 
 // lexPrep: Prepositions
+("at",		lexPrepAt)
 ("for",		lexPrepFor)
 ("of",		lexPrepOf)
 ("on",		lexPrepOn)

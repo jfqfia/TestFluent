@@ -53,11 +53,31 @@ classDef:ElementInt
 	Second
 )
 
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	PartOfTheDay:
+	(
+		PartOfTheDayName,
+		PartOfTheDayInterval
+	)
+)
 
 // TODO Structure explanation
-classDef:ElementRange 
+classDef:ElementRange
 (
- 	PartOfTheDay :
+ 	PartOfTheDayInterval :
+	{
+		'early',
+		'mid',
+		'late'
+	}
+)
+
+// TODO Structure explanation
+classDef:ElementRange
+(
+ 	PartOfTheDayName :
 	{
 		'morning',
 		'noon',
