@@ -102,7 +102,7 @@
 ("thanks a lot",		lexFormalThanks)
 ("thanks very much",		lexFormalThanks)
 ("you're too kind", 		lexFormalThanks)
-("you shouldn t have",		lexFormalThanks)
+("you shouldn't have",		lexFormalThanks)
 
 // Downplaying -> new category?
 /*

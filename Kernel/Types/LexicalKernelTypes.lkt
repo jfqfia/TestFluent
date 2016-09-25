@@ -101,6 +101,7 @@ classDef:Void
 	lexPrepFor,
 	lexPrepOf,
 	lexPrepOn,
+	lexPrepPast,
 	lexPrepTo,
 	lexPrepFrom,
 	lexPrepPlace,

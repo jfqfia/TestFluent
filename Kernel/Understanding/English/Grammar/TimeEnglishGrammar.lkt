@@ -162,23 +162,42 @@
     	}
 )
 
+// 5 minutes to 7
+// 5 to 7
 // Memory error in lekta engine. If you uncomment this you will get a double free error.
 /*
 (TimeRule10_1 :
-	[ BaseTime -> lexPM ]
-	{	
-		^.PartOfTheDay.PartOfTheDayName <- 'afternoon'; 
-	}
-)
-
-// in the morning
-(TimeRule10_2 :
-	[ BaseTime -> lexAM ]
-	{	
-		^.PartOfTheDay.PartOfTheDayName <- 'morning'; 
-	}
+    	[ BaseTime -> lexNumberDigits lexMinute? lexPrepTo lexNumberDigits ] 
+	{
+		if(#1 < 59 && #4 < 24)
+		{
+			^.Minute <- 60 - #1;
+			^.Hour <- #4 - 1;
+		}
+		else
+		{
+			Fail();
+		}
+    	}
 )
 */
+
+// 5 minutes past 7
+// 6 past 7
+(TimeRule10_2 :
+    	[ BaseTime -> lexNumberDigits lexMinute? lexPrepPast lexNumberDigits ] 
+	{
+		if(#1 < 59 && #4 < 24)
+		{
+			^.Minute <- #1;
+			^.Hour <- #4;
+		}
+		else
+		{
+			Fail();
+		}
+    	}
+)
 
 // at noon
 // noon

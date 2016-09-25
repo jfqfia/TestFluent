@@ -76,6 +76,7 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("for",		lexPrepFor)
 ("of",		lexPrepOf)
 ("on",		lexPrepOn)
+("past",		lexPrepPast)
 ("to",		lexPrepTo)
 ("from",	lexPrepFrom)
 

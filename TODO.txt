@@ -6,7 +6,6 @@ Corrector
 Have a nice weekend: OK
 Have a nice weekends: Not OK
 
-
 ==============================================
 	Lekta
 ==============================================
@@ -86,18 +85,12 @@ question
 	repeat -> is it a request?
 	help -> is it a request?
 
--> Offset dates for days in the week:
-	ex: on monday
-	ex: next thursday
-	ex: in a couple of fridays
-	ex: last saturday
-	ex: 2 sundays ago
 ==============================================
 	Fluency / Test
 ==============================================
 
 -> Social (English)
-	Write corpus
+	Write corpus DONE!
 
 -> Social (Spanish)
 	Write corpus
