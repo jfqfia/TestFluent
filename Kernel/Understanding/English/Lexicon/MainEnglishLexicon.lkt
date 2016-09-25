@@ -14,6 +14,7 @@
 #Include "GenericEnglishLexicon.lkt"
 #Include "SocialEnglishLexicon.lkt"
 #Include "DateEnglishLexicon.lkt"
+#Include "TimeEnglishLexicon.lkt"
 
 /*
 #Include "Numbers_EnglishLexicon.lkt"

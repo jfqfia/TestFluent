@@ -1,18 +1,20 @@
 // **************************************************
 //
-//	Lexical for english date.
+//	Lexical for english times.
 //
 // **************************************************
 //
 //	PROJECT	:	Fluency
 //	MODULE  :	Kernel
 //	PACKAGE	:	Understanding.English.Lexicon
-//	FILE	:	DateEnglishLexicon.lkt
+//	FILE	:	TimeEnglishLexicon.lkt
 //
 // **************************************************
 
-// Basic lexical about dates
-("day",				lexDay)
+// Basic lexical about times
+
+("hour",			lexHour)
+/*
 ("days",			lexDay)
 ("the day",			lexDay)
 ("week",			lexWeek)
@@ -126,4 +128,4 @@
 ("november",			lexBaseMonth, 11)
 ("dec",				lexBaseMonth, 12)
 ("december",			lexBaseMonth, 12)
-
+*/

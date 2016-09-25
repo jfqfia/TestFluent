@@ -1,56 +1,69 @@
 // **************************************************
 //
-//	Types related with generic Date entity
+//	Types related with time of the day entity
 //
 // **************************************************
 //
 //	PROJECT	:	Fluency
 //	MODULE  :	Kernel
 //	PACKAGE	:	Types
-//	FILE	:	DateTypes.lkt
+//	FILE	:	TimeTypes.lkt
 //
 // **************************************************
 
 // TODO Structure explanation
 classDef:StructureComplex
 (
-    	DialogueDate:
+    	DialogueTime:
 	(
-	        BaseDate,
-		OffsetDate		
+	        BaseTime,
+		OffsetTime
 	)
 )
 
 // TODO Structure explanation
 classDef:Synonym
 (
-	BaseDate = Date
+	BaseTime = Time
 )
 
 // TODO Structure explanation
 classDef:Synonym
 (
-	OffsetDate = Date
+	OffsetTime = Time
 )
 
 // TODO Structure explanation
 classDef:StructureComplex
 (
-	Date:
+	Time:
 	(
-		Day,
-		DayInWeek,
-		Week,
-		Month,
-		Year
+		PartOfTheDay,
+		Hour,
+		Minute,
+		Second
 	)
 )
 
+// TODO Structure explanation
 classDef:ElementInt
 (
-	Day, 
-	DayInWeek, 
-	Week,
-	Month,
-	Year
+ 	Hour,
+	Minute,
+	Second
 )
+
+
+// TODO Structure explanation
+classDef:ElementRange 
+(
+ 	PartOfTheDay :
+	{
+		'morning',
+		'noon',
+		'afternoon',
+		'evening',
+		'night'
+	}
+)
+

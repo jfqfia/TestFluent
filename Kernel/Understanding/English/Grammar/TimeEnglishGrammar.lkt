@@ -1,24 +1,24 @@
 // **************************************************
 //
-//	Rules for dates in english.
+//	Rules for times in english.
 //
 // **************************************************
 // 
 //	PROJECT	:	Fluency
 //	MODULE  :	Kernel
 //	PACKAGE	:	Understanding.English.Grammar
-//	FILE	:	DateEnglishGrammar.lkt
+//	FILE	:	TimeEnglishGrammar.lkt
 // 
 // **************************************************
 
-(DateRule01 :
-    	[ DialogueAct -> DialogueDate ] 
+(TimeRule01 :
+    	[ DialogueAct -> DialogueTime ] 
 	{
 		^.CoreDialogueAct.Dimension <- 'inform';
-		^.SemanticContent.DialogueDate <- #1;
+		^.SemanticContent.DialogueTime <- #1;
     	}
 )
-
+/*
 (DateRule02_1 :
     	[ DialogueDate -> OffsetDate ] 
 	{
@@ -350,4 +350,4 @@
 		^.BaseDate <- #1;
 	}
 )
-
+*/

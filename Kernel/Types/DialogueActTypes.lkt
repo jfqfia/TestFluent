@@ -61,7 +61,8 @@ classDef:StructureComplex
 		Action,
 		Concept,
 		// TODO We must think about qualifiers modelling.
-		DialogueDate
+		DialogueDate,
+		DialogueTime
 	)
 )
 

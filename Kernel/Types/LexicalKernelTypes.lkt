@@ -22,13 +22,15 @@ classDef:Void
 	lexDay,
 	lexWeek,
 	lexMonth,
-	lexYear
+	lexYear,
+	lexHour
 )
 
 classDef:ElementInt 
 (
 	lexBaseDay,
 	lexOffsetDay,
+	lexDayInWeek,
 	lexBaseMonth,
 	lexTemporalModifier,
 	lexMetaTemporalModifier
