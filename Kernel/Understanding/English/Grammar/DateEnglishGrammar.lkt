@@ -185,37 +185,48 @@
 // next day from tomorrow
 // next day from today
 // next week from tomorrow
-
-// Seguir probando con los ejemplos de arriba
 (DateRule07 :
     	[ OffsetDate/1 -> OffsetDate/1 OffsetDate/0 ] 
 	{
 		^ <- #1;
-		^ <& #2;
+		^ <| #2;
 		if(#1.Date.Day && #2.Date.Day)
 		{
 			^.Date.Day <- #1.Date.Day + #2.Date.Day;
 		}
-		//^.Date.Week <- #1.Date.Week + #2.Date.Week;
-		//^.Date.Month <- #1.Date.Month + #2.Date.Month;
-		//^.Date.Year <- #1.Date.Year + #2.Date.Year;
+		if(#1.Date.Week && #2.Date.Week)
+		{
+			^.Date.Week <- #1.Date.Week + #2.Date.Week;
+		}
+		if(#1.Date.Month && #2.Date.Month)
+		{
+			^.Date.Month <- #1.Date.Month + #2.Date.Month;
+		}
+		if(#1.Date.Year && #2.Date.Year)
+		{
+			^.Date.Year <- #1.Date.Year + #2.Date.Year;
+		}
     	}
 )
 
-/*
 // 2 days ago
 // 3 days in advance
 (DateRule08 :
     	[ OffsetDate -> OffsetDate lexMetaTemporalModifier ] 
 	{
-		^.Day <- #1.Day * #2;
-		^.DayInWeek <- #1.DayInWeek;
-		^.Week <- #1.Week * #2;
-		^.Month <- #1.Month * #2;
-		^.Year <- #1.Year * #2;
+		^ <- #1;
+		if(#2 > 0)
+		{
+			^.DirectionOfTime = 'forward';
+		}
+		else if(#2 < 0)	
+		{
+			^.DirectionOfTime = 'backward';
+		}
     	}
 )
 
+/*
 // after a couple of weeks
 // after next week
 // the next day after the next day after tomorrow
