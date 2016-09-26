@@ -1,64 +1,25 @@
 // Informal greetings
-("buenas",			lexGreeting)
-("cómo andas", 			lexGreeting)
-("cómo estás",	 		lexGreeting)
-("como te va",			lexGreeting)
-("como va la cosa",		lexGreeting)
-("muy buenas",			lexGreeting)
-("qué haces",			lexGreeting)
-("qué hay",			lexGreeting)
-("qué pasa",			lexGreeting)
-("qué tal",			lexGreeting)
-("qué tal te va",		lexGreeting)
+Buenas
+¿Cómo andas?
+¿Cómo estás?
+¿Cómo te va?
+¿cómo va la cosa?
+Muy buenas
+¿Qué haces?
+¿Qué hay?
+¿Qué pasa?
+¿Qué tal?
+¿Qué tal te va?
 
 // Formal greetings
-("bienvenido",			lexFormalGreeting)
-("buenos días",			lexFormalGreeting)
-("buenas tardes",		lexFormalGreeting)
-("como está usted",		lexFormalGreeting)
-("como le va",			lexFormalGreeting)
-("encantado",			lexFormalGreeting)
-("encantado de conocerle",	lexFormalGreeting)
-("hola",			lexFormalGreeting)
-("mucho gusto",			lexFormalGreeting)
-("un placer",			lexFormalGreeting)
-
-// Informal "goodbyes"
-("adios",			lexGoodbye)
-("hasta ahora",			lexGoodbye)
-("hasta el viernes",		lexGoodbye)
-("hasta la próxima",		lexGoodbye)
-("hasta la vista",		lexGoodbye)
-("hasta luego",			lexGoodbye)
-("hasta mañana",		lexGoodbye)
-("hasta mas ver",		lexGoodbye)
-("hasta pronto",		lexGoodbye)
-("nos vemos",			lexGoodbye)
-
-// Formal "goodbyes"
-("atentamente",			lexFormalGoodbye)
-("muy atentamente",		lexFormalGoodbye)
-("que tenga un buen día",	lexFormalGoodbye)
-("reciba un cordial saludo",	lexFormalGoodbye)
-("un cordial saludo",		lexFormalGoodbye)
-("un saludo",			lexFormalGoodbye)
-
-// Say "thank you"
-("gracias",			lexThanks)
-("te debo una",			lexThanks)
-("te lo agradezco",		lexThanks)
-
-// Say formal "thank you"
-("estoy agradecido",		lexFormalThanks)
-("eternamente agradecido",	lexFormalThanks)
-("gracias por su hospitalidad",	lexFormalThanks)
-("gracias por todo",		lexFormalThanks)
-("le agradezco",		lexFormalThanks)
-("le agradezco enormemente",	lexFormalThanks)
-("mil gracias",			lexFormalThanks)
-("muchas gracias",		lexFormalThanks)
-("muchísimas gracias",		lexFormalThanks)
-("muy agradecido",		lexFormalThanks)
-("se lo agradezco",		lexFormalThanks)
-("se lo agradezco enormemente",	lexFormalThanks)
+Bienvenido
+Buenos días
+Buenas tardes
+¿Cómo está usted?
+¿Cómo le va?
+Encantado
+Encantado de conocerle
+Hola
+Mucho gusto
+Un placer
 
