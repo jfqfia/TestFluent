@@ -101,7 +101,7 @@
 ("30th",			lexBaseDay, 30)
 ("31st",			lexBaseDay, 31)
 
-// Lexical about base onths
+// Lexical about base months
 ("jan",				lexBaseMonth, 1)
 ("january",			lexBaseMonth, 1)
 ("feb",				lexBaseMonth, 2)

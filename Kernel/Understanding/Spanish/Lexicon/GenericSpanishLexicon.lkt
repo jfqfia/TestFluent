@@ -21,74 +21,78 @@ setupTokenizerPunctuation( ".", period )
 setupTokenizerIntegerClass (lexNumberDigits,".,")
 
 // lexAuxIntro: Auxiliary verbal forms used before core verbal forms
-/*
-("first",	  lexAuxIntro)
-("in particular", lexAuxIntro)
+//("first",	  lexAuxIntro)
+//("in particular", lexAuxIntro)
 
 // lexAuxVerb: Auxiliary verbal forms used before core verbal forms
-("have",	lexAuxVerb)
-("have got",	lexAuxVerb)
-("got",		lexAuxVerb)
-("must",	lexAuxVerb)
-("need",	lexAuxVerb)
-("would",	lexAuxVerb)
-("would like",	lexAuxVerb)
+//("have",	lexAuxVerb)
+//("have got",	lexAuxVerb)
+//("got",		lexAuxVerb)
+//("must",	lexAuxVerb)
+//("need",	lexAuxVerb)
+//("would",	lexAuxVerb)
+//("would like",	lexAuxVerb)
 
 // lexBeVerb
-("is",		lexBeVerb)
+//("is",		lexBeVerb)
 
 // lexCan
-("could you",	lexCanVerb)
-("can you",	lexCanVerb)
-("will you",	lexCanVerb)
-("would you",	lexCanVerb)
+//("could you",	lexCanVerb)
+//("can you",	lexCanVerb)
+//("will you",	lexCanVerb)
+//("would you",	lexCanVerb)
 
 // lexConjuntions
-("and",		lexConjAnd)
-("because",	lexConjBecause)
-("but",		lexConjBut)
-("or",		lexConjOr)
+//("and",		lexConjAnd)
+//("because",	lexConjBecause)
+//("but",		lexConjBut)
+//("or",		lexConjOr)
 
 // lexDet: Determiners
-("a",		lexDetUndef)
-("an",		lexDetUndef)
-("the",		lexDetThe)
-("this",	lexDetThis)
-("that",	lexDetThat)
-("these",	lexDetThese)
-("those",	lexDetThose)
-("my",		lexDetMy)
+//("a",		lexDetUndef)
+//("an",		lexDetUndef)
+("el",		lexDetThe)
+("este",	lexDetThis)
+//("that",	lexDetThat)
+//("these",	lexDetThese)
+//("those",	lexDetThose)
+//("my",		lexDetMy)
 
 // lexParticleAround: Particles with a meaning similar to
 // "around" used in scheduling
-("about",	lexParticleAround)
-("around",	lexParticleAround)
-("round",	lexParticleAround)
-("like",	lexParticleAround)
+//("about",	lexParticleAround)
+//("around",	lexParticleAround)
+//("round",	lexParticleAround)
+//("like",	lexParticleAround)
 
 // lexPlease
-("please",		lexPlease)
-("I would be grateful",	lexPlease)
-("be grateful",		lexPlease)
+//("please",		lexPlease)
+//("I would be grateful",	lexPlease)
+//("be grateful",		lexPlease)
 
 // lexPrep: Prepositions
-("for",		lexPrepFor)
-("of",		lexPrepOf)
-("on",		lexPrepOn)
-("to",		lexPrepTo)
+//("for",		lexPrepFor)
+("de",			lexPrepOf)
+("del",			lexPrepOf)
+//("on",		lexPrepOn)
+//("to",		lexPrepTo)
 
 // lexPrepPlace: Prepositions that can go with a Place
-("in",		lexPrepPlace)
-("for",		lexPrepPlace)
+("en",			lexPrepPlace)
+//("for",		lexPrepPlace)
+
+("desde",		lexPrepFrom)
+("a partir de",		lexPrepFrom)
+("a partir del",	lexPrepFrom)
 
 // lexPrepSec: Prepositions that can go with a Medical Speciality
-("with",	lexPrepSpec)
+//("with",	lexPrepSpec)
 
 // lexPronoun: Basic pronoun
-("I",		lexPronoun)
-("We",		lexPronoun)
+//("I",		lexPronoun)
+//("We",		lexPronoun)
 
 //: lexRepeat
-("again",	lexRepeat)
-*/
+//("again",	lexRepeat)
+
 

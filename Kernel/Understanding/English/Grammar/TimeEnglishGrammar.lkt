@@ -222,3 +222,39 @@
 	}
 )
 
+// 10 hours and 11 minutes
+(TimeRule13 :
+	[ BaseTime -> lexNumberDigits lexHour lexConjAnd? lexNumberDigits lexMinute ]
+	{	
+		if(#1 < 24 && #4 < 59)
+		{
+			^.Minute <- #4;
+			^.Hour <- #1;
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+
+// 10 hours and 11 minutes and 12 seconds
+// 10 hours 11 minutes 12 seconds
+
+// Same compilation error as above if YOU COMMENT THIS (very strange error)
+(TimeRule14 :
+	[ BaseTime -> lexNumberDigits lexHour lexConjAnd? lexNumberDigits lexMinute lexConjAnd? lexNumberDigits lexSecond]
+	{	
+		if(#1 < 24 && #4 < 59 && #7 < 59)
+		{
+			^.Second <- #7;
+			^.Minute <- #4;
+			^.Hour <- #1;
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+

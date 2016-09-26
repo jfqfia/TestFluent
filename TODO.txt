@@ -6,6 +6,8 @@ Corrector
 Have a nice weekend: OK
 Have a nice weekends: Not OK
 
+Nice compilation error
+
 ==============================================
 	Lekta
 ==============================================
@@ -66,7 +68,7 @@ social
 	apology (new one!)
 	downplaying (new one!)
 
-simpleanswer??
+simpleanswer?? basicanswer??
 	agreement
 	disagreement
 	uncertain
@@ -89,11 +91,6 @@ question
 	Fluency / Test
 ==============================================
 
--> Social (English)
-	Write corpus DONE!
-
 -> Social (Spanish)
 	Write corpus
-
-
 

@@ -1,0 +1,103 @@
+// **************************************************
+//
+//	Lexical for spanish date.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.SpanishLexicon
+//	FILE	:	DateSpanishLexicon.lkt
+//
+// **************************************************
+
+// Basic lexical about dates
+("día",				lexDay)
+("día de",			lexDay)
+("días",			lexDay)
+("el día",			lexDay)
+("el día de",			lexDay)
+("la semana",			lexWeek)
+("semana",			lexWeek)
+("semanas",			lexWeek)
+("el mes",			lexMonth)
+("mes",				lexMonth)
+("meses",			lexMonth)
+("el año",			lexYear)
+("año",				lexYear)
+("años",			lexYear)
+
+// Meta temporal modifiers
+("hace",			lexMetaTemporalModifier, -1)
+("en adelante",			lexMetaTemporalModifier, 1)
+("dentro de",			lexMetaTemporalModifier, 1)
+
+// Temporal modifiers
+("el último", 			lexTemporalModifier, -1)
+("la última", 			lexTemporalModifier, -1)
+("anterior", 			lexTemporalModifier, -1)
+("el anterior",			lexTemporalModifier, -1)
+("al anterior",			lexTemporalModifier, -1)
+("before", 			lexTemporalModifier, -1)
+("siguiente", 			lexTemporalModifier, 1)
+("que viene", 			lexTemporalModifier, 1)
+("pasado", 			lexTemporalModifier, 1)
+("el siguiente", 		lexTemporalModifier, 1)
+("la siguiente", 		lexTemporalModifier, 1)
+("el próximo",	 		lexTemporalModifier, 1)
+("la próxima",	 		lexTemporalModifier, 1)
+("después",  			lexTemporalModifier, 1)
+("después de", 			lexTemporalModifier, 1)
+("después del",			lexTemporalModifier, 1)
+("un par de",			lexTemporalModifier, 2)
+
+// Lexical about offset days
+("ayer",			lexOffsetDay, -1)
+("hoy",				lexOffsetDay, 0)
+("ahora",  			lexOffsetDay, 0)
+("mañana",			lexOffsetDay, 1)
+
+// Lexical about days in week
+("lun",				lexDayInWeek, 1)
+("lunes",			lexDayInWeek, 1)
+("mar",				lexDayInWeek, 2)
+("martes",			lexDayInWeek, 2)
+("mie",				lexDayInWeek, 3)
+("miércoles",			lexDayInWeek, 3)
+("jue",				lexDayInWeek, 4)
+("jueves",			lexDayInWeek, 4)
+("vie",				lexDayInWeek, 5)
+("viernes",			lexDayInWeek, 5)
+("sab",				lexDayInWeek, 6)
+("sábado",			lexDayInWeek, 6)
+("sábados",			lexDayInWeek, 6)
+("dom",				lexDayInWeek, 7)
+("domingo",			lexDayInWeek, 7)
+("domingos",			lexDayInWeek, 7)
+
+// Lexical about base months
+("ene",				lexBaseMonth, 1)
+("enero",			lexBaseMonth, 1)
+("feb",				lexBaseMonth, 2)
+("febrero",			lexBaseMonth, 2)
+("mar",				lexBaseMonth, 3)
+("marzo",			lexBaseMonth, 3)
+("abr",				lexBaseMonth, 4)
+("abril",			lexBaseMonth, 4)
+("may",				lexBaseMonth, 5)
+("mayo",			lexBaseMonth, 5)
+("jun",				lexBaseMonth, 6)
+("junio",			lexBaseMonth, 6)
+("jul",				lexBaseMonth, 7)
+("julio",			lexBaseMonth, 7)
+("ago",				lexBaseMonth, 8)
+("agosto",			lexBaseMonth, 8)
+("sep",				lexBaseMonth, 9)
+("septiembre",			lexBaseMonth, 9)
+("oct",				lexBaseMonth, 10)
+("octubre",			lexBaseMonth, 10)
+("nov",				lexBaseMonth, 11)
+("noviembre",			lexBaseMonth, 11)
+("dic",				lexBaseMonth, 12)
+("diciembre",			lexBaseMonth, 12)
+
