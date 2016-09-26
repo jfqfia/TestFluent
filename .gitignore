@@ -1,3 +1,9 @@
 Deployment/
 .tmp/
 *.swp
+*.aux
+*.log
+*.pdf
+*.tcp
+*.tps
+
