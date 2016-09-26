@@ -14,7 +14,7 @@
 #Include "GenericEnglishGrammar.lkt"
 #Include "SocialEnglishGrammar.lkt"
 #Include "DateEnglishGrammar.lkt"
-#Include "TimeEnglishGrammar.lkt"
+//#Include "TimeEnglishGrammar.lkt"
 
 /*
 #Include "Colloquial_EnglishGrammar.lkt"

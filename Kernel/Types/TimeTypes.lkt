@@ -1,6 +1,6 @@
 // **************************************************
 //
-//	Types related with time of the day entity
+//	Types related with time of the day 
 //
 // **************************************************
 //
@@ -14,11 +14,45 @@
 // TODO Structure explanation
 classDef:StructureComplex
 (
-    	DialogueTime:
+    	ConstrainedTime:
 	(
 	        BaseTime,
-		OffsetTime
+		OffsetTime,
+		MaxTime,
+		DisjunctionTimes,
+		ConjunctionTimes,
+		NegatedTime
 	)
+)
+
+// TODO Structure explanation
+classDef:StructureBatch 
+(
+	DisjunctionTimes : 
+	(
+		ConstrainedTime
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureBatch 
+(
+	ConjunctionTimes : 
+	(
+		ConstrainedTime
+	)
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	NegatedTime = ConstrainedTime
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	MaxTime = Time
 )
 
 // TODO Structure explanation
@@ -28,9 +62,13 @@ classDef:Synonym
 )
 
 // TODO Structure explanation
-classDef:Synonym
+classDef:StructureComplex
 (
-	OffsetTime = Time
+	OffsetTime :
+	(
+		DirectionOfTime,
+		Time
+	)
 )
 
 // TODO Structure explanation

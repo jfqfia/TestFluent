@@ -12,15 +12,15 @@
 // **************************************************
 
 // Basic lexical about dates
-("day",				lexDay)
-("days",			lexDay)
-("the day",			lexDay)
-("week",			lexWeek)
-("weeks",			lexWeek)
-("month",			lexMonth)
-("months",			lexMonth)
-("year",			lexYear)
-("years",			lexYear)
+("day",				lexDayTerm)
+("days",			lexDayTerm)
+("the day",			lexDayTerm)
+("week",			lexWeekTerm)
+("weeks",			lexWeekTerm)
+("month",			lexMonthTerm)
+("months",			lexMonthTerm)
+("year",			lexYearTerm)
+("years",			lexYearTerm)
 
 // Meta temporal modifiers
 ("ago",				lexMetaTemporalModifier, -1)
@@ -30,8 +30,8 @@
 ("last", 			lexTemporalModifier, -1)
 ("previous", 			lexTemporalModifier, -1)
 ("the previous",		lexTemporalModifier, -1)
-("before", 			lexTemporalModifier, -1)
 ("next", 			lexTemporalModifier, 1)
+("next to", 			lexTemporalModifier, 1)
 ("the next", 			lexTemporalModifier, 1)
 ("following",	  		lexTemporalModifier, 1)
 ("one after",  			lexTemporalModifier, 1)
@@ -43,6 +43,7 @@
 ("yesterday",			lexOffsetDay, -1)
 ("today",			lexOffsetDay, 0)
 ("now",  			lexOffsetDay, 0)
+("this day",  			lexOffsetDay, 0)
 ("tomorrow",			lexOffsetDay, 1)
 
 // Lexical about days in week

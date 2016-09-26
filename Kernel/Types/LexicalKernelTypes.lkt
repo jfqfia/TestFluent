@@ -19,10 +19,10 @@
 // **************************************************
 classDef:Void
 (
-	lexDay,
-	lexWeek,
-	lexMonth,
-	lexYear,
+	lexDayTerm,
+	lexWeekTerm,
+	lexMonthTerm,
+	lexYearTerm,
 	lexHour,
 	lexMinute,
 	lexSecond,
@@ -103,6 +103,7 @@ classDef:Void
 	lexPrepOn,
 	lexPrepPast,
 	lexPrepTo,
+	lexPrepIn,
 	lexPrepFrom,
 	lexPrepPlace,
 	lexPrepSpec,

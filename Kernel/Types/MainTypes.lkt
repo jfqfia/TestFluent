@@ -17,6 +17,7 @@
 #Include "SocialTypes.lkt"
 #Include "DateTypes.lkt"
 #Include "TimeTypes.lkt"
+#Include "ParametersTypes.lkt"
 
 /*
 #Include "Numbers_ClassDef.lkt"

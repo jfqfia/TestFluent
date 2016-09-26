@@ -13,7 +13,7 @@
 
 #Include "GenericSpanishLexicon.lkt"
 #Include "SocialSpanishLexicon.lkt"
-#Include "DateSpanishLexicon.lkt"
+//#Include "DateSpanishLexicon.lkt"
 
 /*
 #Include "Numbers_EnglishLexicon.lkt"

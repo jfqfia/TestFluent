@@ -1,6 +1,6 @@
 // **************************************************
 //
-//	Types related with generic Date entity
+//	Types related with generic dates
 //
 // **************************************************
 //
@@ -14,11 +14,41 @@
 // TODO Structure explanation
 classDef:StructureComplex
 (
-    	DialogueDate:
+    	DateTime:
 	(
 	        BaseDate,
-		OffsetDate		
+		OffsetDate,
+		MaxDate,
+		DisjunctionDates,
+		ConjunctionDates,
+		NegatedDate,
+		ConstrainedTime
 	)
+)
+
+// TODO Structure explanation
+classDef:StructureBatch 
+(
+	DisjunctionDates : 
+	(
+		DateTime
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureBatch 
+(
+	ConjunctionDates : 
+	(
+		DateTime
+	)
+)
+
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	NegatedDate = DateTime
 )
 
 // TODO Structure explanation
@@ -28,9 +58,20 @@ classDef:Synonym
 )
 
 // TODO Structure explanation
+classDef:StructureComplex
+(
+	OffsetDate:
+	(
+		DirectionOfTime,
+		DayInWeekOffset,
+		Date
+	)
+)
+
+// TODO Structure explanation
 classDef:Synonym
 (
-	OffsetDate = Date
+	MaxDate = DateTime
 )
 
 // TODO Structure explanation
@@ -46,11 +87,23 @@ classDef:StructureComplex
 	)
 )
 
+// TODO Structure explanation
 classDef:ElementInt
 (
 	Day, 
 	DayInWeek, 
+	DayInWeekOffset, 
 	Week,
 	Month,
 	Year
 )
+
+classDef:ElementRange
+(
+	DirectionOfTime :
+	{
+		'backward',
+		'forward'
+	} 
+)
+

@@ -14,7 +14,7 @@
 (DateRule01 :
     	[ DialogueAct -> DialogueDate ] 
 	{
-		^.CoreDialogueAct.Dimension <- 'inform';
+		^.CoreDialogueAct.Dimension <- 'statement';
 		^.SemanticContent.DialogueDate <- #1;
     	}
 )

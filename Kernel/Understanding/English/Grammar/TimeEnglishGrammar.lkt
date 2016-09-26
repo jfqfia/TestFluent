@@ -14,7 +14,7 @@
 (TimeRule01 :
     	[ DialogueAct -> DialogueTime ] 
 	{
-		^.CoreDialogueAct.Dimension <- 'inform';
+		^.CoreDialogueAct.Dimension <- 'statement';
 		^.SemanticContent.DialogueTime <- #1;
     	}
 )
@@ -242,6 +242,7 @@
 // 10 hours 11 minutes 12 seconds
 
 // Same compilation error as above if YOU COMMENT THIS (very strange error)
+/*
 (TimeRule14 :
 	[ BaseTime -> lexNumberDigits lexHour lexConjAnd? lexNumberDigits lexMinute lexConjAnd? lexNumberDigits lexSecond]
 	{	
@@ -257,4 +258,5 @@
 		}
 	}
 )
+*/
 

@@ -1,0 +1,22 @@
+// **************************************************
+//
+//	Types related with Parameters structure.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types
+//	FILE	:	ParametersTypes.lkt
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	Parameters :
+	(
+		DateTime
+	)
+)
+

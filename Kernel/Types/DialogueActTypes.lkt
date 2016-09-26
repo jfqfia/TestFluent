@@ -36,9 +36,10 @@ classDef:ElementRange
 (
  	Dimension :
 	{
-		'task',
 		'social',
-		'inform'
+		'basicanswer',
+		'statement',
+		'question'
 	}
 )
 
@@ -49,7 +50,18 @@ classDef:ElementRange
 	{
 		'greeting',
 		'thanking',
-		'goodbye'
+		'goodbye',
+		'apology',
+		'downplaying',
+		'agreement',
+		'disagrrement',
+		'uncertain',
+		'dontknow',
+		'request',
+		'inform',
+		'propositional',
+		'choice',
+		'whquestion'
 	}
 )
 
@@ -58,11 +70,18 @@ classDef:StructureComplex
 (
  	SemanticContent :
 	(
+		Task,
+		Parameters
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	Task :
+	(
 		Action,
-		Concept,
-		// TODO We must think about qualifiers modelling.
-		DialogueDate,
-		DialogueTime
+		Scope
 	)
 )
 
@@ -70,6 +89,6 @@ classDef:StructureComplex
 classDef:ElementLiteral
 (
  	Action,
-	Concept
+	Scope
 )
 

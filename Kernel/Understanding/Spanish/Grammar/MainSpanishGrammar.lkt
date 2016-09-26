@@ -13,7 +13,7 @@
 
 #Include "GenericSpanishGrammar.lkt"
 #Include "SocialSpanishGrammar.lkt"
-#Include "DateSpanishGrammar.lkt"
+//#Include "DateSpanishGrammar.lkt"
 
 /*
 #Include "Colloquial_EnglishGrammar.lkt"

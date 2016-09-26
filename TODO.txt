@@ -68,7 +68,7 @@ social
 	apology (new one!)
 	downplaying (new one!)
 
-simpleanswer?? basicanswer??
+basicanswer
 	agreement
 	disagreement
 	uncertain
@@ -86,11 +86,4 @@ question
 -> Study the organization of
 	repeat -> is it a request?
 	help -> is it a request?
-
-==============================================
-	Fluency / Test
-==============================================
-
--> Social (Spanish)
-	Write corpus
 
