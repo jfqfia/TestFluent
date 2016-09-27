@@ -25,8 +25,22 @@
 // ten
 // twenty-six
 // ninety-nine
-(Number_Rule02	:
- 	[ NumberBelow100 -> < lexNumberValue | lexNumberValueBelow10 >]
+(Number_Rule02_1 :
+ 	[ NumberBelow10 -> lexNumberValueBelow10]
+	{
+		^.NumberValue <- #1;
+	}
+)
+
+(Number_Rule02_2 :
+ 	[ NumberBelow100 -> NumberBelow10 ]
+	{
+		^ <- #1;
+	}
+)
+
+(Number_Rule02_3 :
+ 	[ NumberBelow100 -> lexNumberValue ]
 	{
 		^.NumberValue <- #1;
 	}
@@ -38,12 +52,12 @@
 // one hundred and six
 // nine hundreds and ninety-nine
 (Number_Rule03:
-	[ NumberBelow1000 -> lexNumberValueBelow10? lexNumberValueHundred lexConjAnd? NumberBelow100? ] 
+	[ NumberBelow1000 -> NumberBelow10? lexNumberValueHundred lexConjAnd? NumberBelow100? ] 
 	{
 		^.NumberValue <- #2;
 		if(#1)
 		{
-	        	^.NumberValue <- ^.NumberValue * #1;
+	        	^.NumberValue <- ^.NumberValue * #1.NumberValue;
 		}
 	        if(#4) 
 		{
@@ -108,6 +122,62 @@
 		if(#4) 
 		{
 			^.NumberValue <- ^.NumberValue + #4.NumberValue;
+		}
+	}
+)
+
+(Number_Rule08_01:
+	[NumberBelow10 -> lexNumberDigits]
+	{
+		^.NumberValue <- #1;
+		if(#1 >= 10)
+		{
+			Fail();
+		}
+	}
+)
+
+(Number_Rule08_02:
+	[NumberBelow100 -> lexNumberDigits]
+	{
+		^.NumberValue <- #1;
+		if(#1 >= 100)
+		{
+			Fail();
+		}
+	}
+)
+
+(Number_Rule08_03:
+	[NumberBelow1000 -> lexNumberDigits]
+	{
+		^.NumberValue <- #1;
+		if(#1 >= 1000)
+		{
+			Fail();
+		}
+	}
+)
+
+
+(Number_Rule08_04:
+	[NumberBelow1000000 -> lexNumberDigits]
+	{
+		^.NumberValue <- #1;
+		if(#1 >= 1000000)
+		{
+			Fail();
+		}
+	}
+)
+
+(Number_Rule08_05:
+	[NumberBelow1000000000 -> lexNumberDigits]
+	{
+		^.NumberValue <- #1;
+		if(#1 >= 1000000000)
+		{
+			Fail();
 		}
 	}
 )

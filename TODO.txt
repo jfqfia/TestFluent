@@ -6,7 +6,7 @@ Corrector
 Have a nice weekend: OK
 Have a nice weekends: Not OK
 
-Nice compilation error
+Make numbers test corpus
 
 ==============================================
 	Lekta

@@ -21,6 +21,11 @@ classDef:StructureComplex
 
 classDef:Synonym
 (
+	NumberBelow10 = Number
+)
+
+classDef:Synonym
+(
 	NumberBelow100 = Number
 )
 
