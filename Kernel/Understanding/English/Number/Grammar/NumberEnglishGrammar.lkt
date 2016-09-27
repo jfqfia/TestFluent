@@ -1,0 +1,134 @@
+// **************************************************
+//
+//	Rules for numbers in english.
+//
+// **************************************************
+// 
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Number.Grammar
+//	FILE	:	NumberEnglishGrammar.lkt
+// 
+// **************************************************
+
+// Output of this package
+(Number_Rule01	:
+ 	[ ParameterValue -> < Number | NumberBelow100 | NumberBelow1000 | NumberBelow1000000 | NumberBelow1000000000 > ]
+	{
+		^.Number <- #1;
+	}
+)
+
+// N < 100
+// zero
+// four
+// ten
+// twenty-six
+// ninety-nine
+(Number_Rule02	:
+ 	[ NumberBelow100 -> < lexNumberValue | lexNumberValueBelow10 >]
+	{
+		^.NumberValue <- #1;
+	}
+)
+
+// N >= 100 && N < 1000
+// a hundred
+// one hundred
+// one hundred and six
+// nine hundreds and ninety-nine
+(Number_Rule03:
+	[ NumberBelow1000 -> lexNumberValueBelow10? lexNumberValueHundred lexConjAnd? NumberBelow100? ] 
+	{
+		^.NumberValue <- #2;
+		if(#1)
+		{
+	        	^.NumberValue <- ^.NumberValue * #1;
+		}
+	        if(#4) 
+		{
+			^.NumberValue <- ^.NumberValue + #4.NumberValue;
+        	}
+	}
+)
+
+(Number_Rule04:
+	[ NumberBelow1000 -> NumberBelow100 ] 
+	{
+		^.NumberValue <- #1.NumberValue;
+	}
+)
+
+// N >= 1000 && N < 1000000
+// thousand
+// a thousand
+// a thousand and nine 
+// two thousand and thirty
+// two hundred and six thousand three hundred and seventy-four
+// nine hundred and ninety-nine thousand nine hundred and ninety-nine
+(Number_Rule05:
+	[ NumberBelow1000000 -> NumberBelow1000? lexNumberValueThousand lexConjAnd? NumberBelow1000? ]
+	{
+		^.NumberValue <- #2;
+		if(#1) 
+		{
+			^.NumberValue <- ^.NumberValue * #1.NumberValue;
+		}
+		if(#4) 
+		{
+			^.NumberValue <- ^.NumberValue + #4.NumberValue;
+		}
+	}
+)
+
+(Number_Rule06:
+	[ NumberBelow1000000 -> NumberBelow1000 ] 
+	{
+		^.NumberValue <- #1.NumberValue;
+	}
+)
+
+// N >= 1000000 && N < 1000000000
+// million
+// a million
+// a million and nine 
+// two millions and thirty
+// thirty-six millions one hundred and fifty-one
+// ninety-nine millions two thousand hundred and fifty-one
+// one hundred and ninety-nine millions and three hundred thousand two hundred and fifty-one
+// nine hundred and ninety-nine millions nine hundred and ninety-nine thousand nine hundred and ninety-nine
+(Number_Rule07:
+	[ NumberBelow1000000000 -> NumberBelow1000? lexNumberValueMillion lexConjAnd? NumberBelow1000000? ] 
+	{
+		^.NumberValue <- #2;
+		if(#1) 
+		{
+			^.NumberValue <- ^.NumberValue * #1.NumberValue;
+		}
+		if(#4) 
+		{
+			^.NumberValue <- ^.NumberValue + #4.NumberValue;
+		}
+	}
+)
+
+// TODO Complete the test corpus
+// one thousand eleven
+// twenty-one thousand eleven
+// seven hundred twenty-one thousand eleven
+// one million two hundred fifty-six thousand seven hundred twenty-one
+// thirty-one million two hundred fifty-six thousand seven hundred twenty-one
+// six hundred thirty-one million two hundred fifty-six thousand seven hundred twenty-one
+
+// TODO Billions? Same as milliard
+// one billion four hundred ninety-two million six hundred thirty-eight thousand five hundred twenty-six
+// forty-one billion four hundred ninety-two million six hundred thirty-eight thousand five hundred twenty-six
+// nine hundred forty-one billion four hundred ninety-two million six hundred thirty-eight thousand five hundred twenty-six
+
+// TODO Trillions? Quadrillion? ...? https://en.wikipedia.org/wiki/Names_of_large_numbers
+
+
+
+
+
+

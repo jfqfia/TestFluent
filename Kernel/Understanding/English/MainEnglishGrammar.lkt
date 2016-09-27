@@ -1,22 +1,16 @@
 // **************************************************
 //
-//	Types related with Parameters structure.
+//	Index for english grammar files.
 //
 // **************************************************
 //
 //	PROJECT	:	Fluency
 //	MODULE  :	Kernel
-//	PACKAGE	:	Types
-//	FILE	:	ParametersTypes.lkt
+//	PACKAGE	:	Understanding.English.Grammar
+//	FILE	:	MainEnglishGrammar.lkt
 //
 // **************************************************
 
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	Parameters :
-	(
-		DateTime
-	)
-)
+#Include "Generic/Grammar/GenericEnglishGrammar.lkt"
+#Include "Number/Grammar/NumberEnglishGrammar.lkt"
 

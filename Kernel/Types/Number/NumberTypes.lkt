@@ -1,0 +1,45 @@
+// **************************************************
+//
+//	Index of types files.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.Number
+//	FILE	:	NumberTypes.lkt
+//
+// **************************************************
+
+classDef:StructureComplex
+( 
+	Number :
+	(
+		NumberValue
+	)
+)
+
+classDef:Synonym
+(
+	NumberBelow100 = Number
+)
+
+classDef:Synonym
+(
+	NumberBelow1000 = Number
+)
+
+classDef:Synonym
+(
+	NumberBelow1000000 = Number
+)
+
+classDef:Synonym
+(
+	NumberBelow1000000000 = Number
+)
+
+classDef:ElementInt
+(
+	NumberValue
+)

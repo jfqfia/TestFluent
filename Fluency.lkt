@@ -1,5 +1,4 @@
 lektaProject
-
 	projectHead
 		projectDescriptor	: "Fluency"
 		projectLanguageScope	: [ English, Spanish, Polish ]
@@ -8,17 +7,14 @@ lektaProject
 		projectCompileOutput 	: "Deployment/bin/Fluency.olk"
 
 	projectSetup
-		setupParserRoots = DialogueAct
-
+		setupParserRoots = ProferenceChunk
 		setupTokenizerNormalizeSpecActivate 
 			//setupTokenizerNormalizeSpecDeactivate 
 			//setupTokenizerNormalizeSpecDouble 
 		setupTokenizerNormalizeInputActivate
 			//setupTokenizerNormalizeInputDeactivate
-
 		setupRuntimeSpyMessageOn
-
-		//TokenizerStrategy:Base
+			//TokenizerStrategy:Base
 		setupTokenizerSpellingChecker
 
 	classModel
@@ -28,9 +24,6 @@ lektaProject
 			// Feature Model - Domains
 		//#Include "Domains/MedAppointment/Types/MainTypes.lkt"
 		//#Include "Domains/Banking/Types/MainTypes.lkt"
-
-
-		// 	#Include "Source/DManager/Constants/Constants.lkt"
 
 	/*
 	functionModel
@@ -51,16 +44,18 @@ lektaProject
 	*/
 
 	lexicalModel forLanguage English 
-		#Include "Kernel/Understanding/English/Lexicon/MainEnglishLexicon.lkt"
-
-	lexicalModel forLanguage Spanish
-		#Include "Kernel/Understanding/Spanish/Lexicon/MainSpanishLexicon.lkt"
+		#Include "Kernel/Understanding/English/MainEnglishLexicon.lkt"
 
 	grammaticalModel forLanguage English
-		#Include "Kernel/Understanding/English/Grammar/MainEnglishGrammar.lkt"
+		#Include "Kernel/Understanding/English/MainEnglishGrammar.lkt"
 
-	grammaticalModel forLanguage Spanish
-		#Include "Kernel/Understanding/Spanish/Grammar/MainSpanishGrammar.lkt"
+
+//	lexicalModel forLanguage Spanish
+//		#Include "Kernel/Understanding/Spanish/Lexicon/MainSpanishLexicon.lkt"
+
+
+//	grammaticalModel forLanguage Spanish
+//		#Include "Kernel/Understanding/Spanish/Grammar/MainSpanishGrammar.lkt"
 
 	/*
 	conversationalModel

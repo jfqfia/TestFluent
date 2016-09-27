@@ -1,0 +1,28 @@
+// **************************************************
+//
+//	Generic configuration for english lexical grammar.
+// 
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+// 	PACKAGE	:	Understanding.English.Generic.Grammar
+//	FILE	:	GenericEnglishGrammar.lkt
+//
+// **************************************************
+
+(ProferenceChunk_Rule01	:
+ 	[ ProferenceChunk -> Parameter ]
+	{
+		^.Parameter <- #1;
+	}
+)
+
+(ProferenceChunk_Rule02	:
+ 	[ Parameter -> ParameterValue ]
+	{
+		^.ParameterValue <- #1;
+	}
+)
+
+

@@ -1,0 +1,22 @@
+// **************************************************
+//
+//	Types related with ParameterValue structure.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types.Generic
+//	FILE	:	ParametersTypes.lkt
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	ParameterValue :
+	(
+		Number
+	)
+)
+

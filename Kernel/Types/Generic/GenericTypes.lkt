@@ -1,0 +1,33 @@
+// **************************************************
+//
+//	Generic types.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types.Generic
+//	FILE	:	GenericTypes.lkt
+//
+// **************************************************
+
+classDef:ElementBool
+(
+	bool
+)
+
+classDef:ElementInt 
+(
+	int
+)
+
+classDef:ElementReal 
+(
+	float
+)
+
+classDef:ElementLiteral
+(
+	string
+)
+

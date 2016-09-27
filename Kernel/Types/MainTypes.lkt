@@ -11,19 +11,11 @@
 //
 // **************************************************
 
-#Include "GenericTypes.lkt"
-#Include "LexicalKernelTypes.lkt"
-#Include "DialogueActTypes.lkt"
-#Include "SocialTypes.lkt"
-#Include "DateTypes.lkt"
-#Include "TimeTypes.lkt"
-#Include "ParametersTypes.lkt"
+#Include "Generic/MainGenericTypes.lkt"
+#Include "Number/MainNumberTypes.lkt"
 
-/*
-#Include "Numbers_ClassDef.lkt"
-#Include "Colloquial_ClassDef.lkt"
-#Include "Communication_ClassDef.lkt"
-#Include "Understanding_ClassDef.lkt"
-#Include "Generation_ClassDef.lkt"
-#Include "DialogueManager_ClassDef.lkt"
-*/
+//#Include "DateTime/MainDateTimeTypes.lkt"
+//#Include "Social/MainSocialTypes.lkt"
+//#Include "Place/MainPlaceTypes.lkt"
+//#Include "PhoneNumber/MainPhoneNumberTypes.lkt"
+

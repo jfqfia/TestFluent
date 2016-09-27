@@ -1,0 +1,16 @@
+// **************************************************
+//
+//	Index for english lexicon.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+// 	PACKAGE	:	Understanding.English.Lexicon
+//	FILE	:	MainEnglishLexicon.lkt
+//
+// **************************************************
+
+#Include "Generic/Lexicon/GenericEnglishLexicon.lkt"
+#Include "Number/Lexicon/NumberEnglishLexicon.lkt"
+

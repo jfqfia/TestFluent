@@ -6,7 +6,7 @@
 //
 //	PROJECT	:	Fluency
 //	MODULE  :	Kernel
-//	PACKAGE	:	Types
+//	PACKAGE	:	Types.Generic
 //	FILE	:	DialogueActTypes.lkt
 //
 // **************************************************
@@ -17,7 +17,19 @@ classDef:StructureComplex
  	DialogueAct :
   	(
 		CoreDialogueAct,
-		SemanticContent
+		TaskDialogueAct,
+		Parameters
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureComplex 
+( 
+ 	ProferenceChunk :
+  	(
+		CoreDialogueAct,
+		TaskDialogueAct,
+		Parameter
 	)
 )
 
@@ -68,17 +80,7 @@ classDef:ElementRange
 // TODO Structure explanation
 classDef:StructureComplex
 (
- 	SemanticContent :
-	(
-		Task,
-		Parameters
-	)
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	Task :
+	TaskDialogueAct :
 	(
 		Action,
 		Scope
@@ -92,3 +94,48 @@ classDef:ElementLiteral
 	Scope
 )
 
+// TODO Structure explanation
+classDef:StructureBatch
+(
+	Parameters :
+	(
+		Parameter
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	Parameter :
+	(
+		ParameterCategory,
+		ParameterValue,
+		ParameterOperand1,
+		ParameterOperand2
+	)
+)
+
+// TODO Structure explanation
+classDef:ElementRange 
+(
+ 	ParameterCategory :
+	{
+		'terminal',
+		'negation',
+		'conjuction',
+		'disjunction',
+		'sequential'
+	}
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+ 	ParameterOperand1 = Parameter
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+ 	ParameterOperand2 = Parameter
+)

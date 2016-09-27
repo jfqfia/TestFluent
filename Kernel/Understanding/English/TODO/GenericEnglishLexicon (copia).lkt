@@ -1,0 +1,97 @@
+// **************************************************
+//
+//	Generic configuration for english lexical 
+//	model.
+// 
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+// 	PACKAGE	:	Understanding.English.Generic.Lexicon
+//	FILE	:	GenericEnglishLexicon.lkt
+//
+// **************************************************
+
+//  Configure general parameters of the tokenizer.
+setupTokenizerBlanks (" -?!'")
+setupTokenizerPunctuation( ",", comma )
+setupTokenizerPunctuation( ".", period )
+setupTokenizerPunctuation( ":", colon)
+setupTokenizerIntegerClass (lexNumberDigits,".,")
+
+// lexAuxIntro: Auxiliary verbal forms used before core verbal forms
+("first",	  lexAuxIntro)
+("in particular", lexAuxIntro)
+
+// lexAuxVerb: Auxiliary verbal forms used before core verbal forms
+("have",	lexAuxVerb)
+("have got",	lexAuxVerb)
+("got",		lexAuxVerb)
+("must",	lexAuxVerb)
+("need",	lexAuxVerb)
+("would",	lexAuxVerb)
+("would like",	lexAuxVerb)
+
+// lexBeVerb
+("is",		lexBeVerb)
+
+// lexCan
+("could you",	lexCanVerb)
+("can you",	lexCanVerb)
+("will you",	lexCanVerb)
+("would you",	lexCanVerb)
+
+// lexConjuntions
+("and",		lexConjAnd)
+("because",	lexConjBecause)
+("but",		lexConjBut)
+("or",		lexConjOr)
+("not",		lexConjNot)
+
+// lexDet: Determiners
+("a",		lexDetUndef)
+("an",		lexDetUndef)
+("the",		lexDetThe)
+("this",	lexDetThis)
+("that",	lexDetThat)
+("these",	lexDetThese)
+("those",	lexDetThose)
+("my",		lexDetMy)
+
+// lexParticleAround: Particles with a meaning similar to
+// "around" used in scheduling
+("about",	lexParticleAround)
+("around",	lexParticleAround)
+("round",	lexParticleAround)
+("like",	lexParticleAround)
+
+// lexPlease
+("please",		lexPlease)
+("I would be grateful",	lexPlease)
+("be grateful",		lexPlease)
+
+// lexPrep: Prepositions
+("at",		lexPrepAt)
+("for",		lexPrepFor)
+("of",		lexPrepOf)
+("on",		lexPrepOn)
+("past",	lexPrepPast)
+("to",		lexPrepTo)
+("from",	lexPrepFrom)
+("in",		lexPrepIn)
+("within",	lexPrepIn)
+
+// lexPrepPlace: Prepositions that can go with a Place
+("in",		lexPrepPlace)
+("for",		lexPrepPlace)
+
+// lexPrepSec: Prepositions that can go with a Medical Speciality
+("with",	lexPrepSpec)
+
+// lexPronoun: Basic pronoun
+("I",		lexPronoun)
+("We",		lexPronoun)
+
+// lexRepeat
+("again",	lexRepeat)
+
