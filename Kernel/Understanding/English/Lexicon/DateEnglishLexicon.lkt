@@ -26,6 +26,23 @@
 ("ago",				lexMetaTemporalModifier, -1)
 ("in advance",			lexMetaTemporalModifier, 1)
 
+// Negating dates
+("no",				lexNegateDate)
+("impossible",			lexNegateDate)
+("nor",				lexNegateDate)
+("not",				lexNegateDate)
+
+// Temporal limits
+("before",			lexTemporalLimit)
+("deadline",			lexTemporalLimit)
+("best before",			lexTemporalLimit)
+("until",			lexTemporalLimit)
+("until the day",		lexTemporalLimit)
+("till",			lexTemporalLimit)
+("as far as",			lexTemporalLimit)
+("at most until",		lexTemporalLimit)
+("at most till",		lexTemporalLimit)
+
 // Temporal modifiers
 ("last", 			lexTemporalModifier, -1)
 ("previous", 			lexTemporalModifier, -1)
@@ -35,6 +52,7 @@
 ("the next", 			lexTemporalModifier, 1)
 ("following",	  		lexTemporalModifier, 1)
 ("one after",  			lexTemporalModifier, 1)
+("the day after",		lexTemporalModifier, 1)
 ("after",  			lexTemporalModifier, 1)
 ("on",				lexTemporalModifier, 1)
 ("a couple of",			lexTemporalModifier, 2)

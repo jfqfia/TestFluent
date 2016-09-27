@@ -27,7 +27,9 @@ classDef:Void
 	lexMinute,
 	lexSecond,
 	lexAM,
-	lexPM
+	lexPM,
+	lexTemporalLimit,
+	lexNegateDate
 )
 
 classDef:ElementInt 
@@ -87,6 +89,7 @@ classDef:Void
 	lexConjBecause,
 	lexConjBut,
 	lexConjOr,
+	lexConjNot,
 	lexDetMy,
 	lexDetUndef,
 	lexDetThe,

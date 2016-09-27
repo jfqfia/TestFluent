@@ -12,6 +12,7 @@
 // **************************************************
 
 // Basic lexical about times
+("sec",				lexSecond)
 ("second",			lexSecond)
 ("seconds",			lexSecond)
 ("minute",			lexMinute)

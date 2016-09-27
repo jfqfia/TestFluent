@@ -48,6 +48,7 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("because",	lexConjBecause)
 ("but",		lexConjBut)
 ("or",		lexConjOr)
+("not",		lexConjNot)
 
 // lexDet: Determiners
 ("a",		lexDetUndef)
@@ -93,6 +94,6 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("I",		lexPronoun)
 ("We",		lexPronoun)
 
-//: lexRepeat
+// lexRepeat
 ("again",	lexRepeat)
 

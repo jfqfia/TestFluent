@@ -11,38 +11,37 @@
 // 
 // **************************************************
 
-(TimeRule01 :
-    	[ DialogueAct -> DialogueTime ] 
+(TimeRule01_1 :
+    	[ DateTime -> ConstrainedTime ] 
 	{
-		^.CoreDialogueAct.Dimension <- 'statement';
-		^.SemanticContent.DialogueTime <- #1;
+		^.ConstrainedTime <- #1;
     	}
 )
 
-(TimeRule02_1 :
-    	[ DialogueTime -> OffsetTime ] 
+(TimeRule01_2 :
+    	[ ConstrainedTime -> OffsetTime ] 
 	{
 		^.OffsetTime <- #1;
-	}
+    	}
 )
 
-(TimeRule02_2 :
-    	[ DialogueTime -> BaseTime ] 
+(TimeRule01_3 :
+    	[ ConstrainedTime -> BaseTime ] 
 	{
 		^.BaseTime <- #1;
-	}
+    	}
 )
 
 // in 10 seconds
 (TimeRule03_1 :
-    	[ OffsetTime -> lexPrepPlace? lexNumberDigits lexSecond ] 
+    	[ OffsetTime -> lexPrepIn? lexNumberDigits lexSecond ] 
 	{
-		^.Hour <- 0;
-		^.Minute <- 0;
-		^.Second <- #2;
+		^.Time.Second <- #2;
+		^.DirectionOfTime <- 'forward';	
     	}
 )
 
+/*
 // in 5 minutes
 (TimeRule03_2 :
     	[ OffsetTime -> lexPrepPlace? lexNumberDigits lexMinute ] 
@@ -53,6 +52,7 @@
     	}
 )
 
+/*
 // in 3 hours
 (TimeRule03_3 :
     	[ OffsetTime -> lexPrepPlace? lexNumberDigits lexHour ] 
@@ -63,6 +63,7 @@
     	}
 )
 
+/*
 // 10 minutes ago
 (TimeRule04 :
     	[ OffsetTime -> OffsetTime lexMetaTemporalModifier ] 
@@ -74,6 +75,7 @@
     	}
 )
 
+/*
 // at hh:mm
 (TimeRule05 :
     	[ BaseTime -> lexPrepAt? lexNumberDigits colon lexNumberDigits lexAM?] 
@@ -90,6 +92,7 @@
     	}
 )
 
+/*
 // at hh:mm:ss
 (TimeRule06 :
     	[ BaseTime -> lexPrepAt? lexNumberDigits colon lexNumberDigits colon lexNumberDigits lexAM?] 
@@ -107,6 +110,7 @@
     	}
 )
 
+/*
 // at hh:mm pm
 // at hh:mm:ss pm
 (TimeRule07 :
@@ -120,6 +124,7 @@
     	}
 )
 
+/*
 // At 10 o'clock
 // 12 o'clock
 (TimeRule08 :
@@ -137,6 +142,7 @@
     	}
 )
 
+/*
 // Quarter past 9
 // A quarter to 9
 // half past 9
@@ -182,6 +188,7 @@
 )
 */
 
+/*
 // 5 minutes past 7
 // 6 past 7
 (TimeRule10_2 :
@@ -199,6 +206,7 @@
     	}
 )
 
+/*
 // at noon
 // noon
 // in the evening
@@ -211,6 +219,7 @@
 	}
 )
 
+/*
 // late in the evening
 // in the middle of the night
 // in the middle of the afternoon
@@ -222,6 +231,7 @@
 	}
 )
 
+/*
 // 10 hours and 11 minutes
 (TimeRule13 :
 	[ BaseTime -> lexNumberDigits lexHour lexConjAnd? lexNumberDigits lexMinute ]
