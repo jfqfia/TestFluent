@@ -13,4 +13,7 @@
 
 #Include "Generic/Lexicon/GenericEnglishLexicon.lkt"
 #Include "Number/Lexicon/NumberEnglishLexicon.lkt"
+//#Include "DateTime/Lexicon/DateEnglishLexicon.lkt"
+#Include "DateTime/Lexicon/TimeEnglishLexicon.lkt"
+
 

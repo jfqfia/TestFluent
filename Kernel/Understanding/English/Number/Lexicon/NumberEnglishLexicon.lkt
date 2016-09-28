@@ -11,6 +11,10 @@
 //
 // **************************************************
 
+("o", 			lexZeroTerm)
+("oh", 			lexZeroTerm)
+("zero", 		lexZeroTerm)
+
 ("zero", 		lexNumberValueBelow10, 0)
 ("oh", 			lexNumberValueBelow10, 0)
 ("non", 		lexNumberValueBelow10, 0)

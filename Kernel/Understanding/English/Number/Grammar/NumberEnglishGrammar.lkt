@@ -12,13 +12,19 @@
 // **************************************************
 
 // Output of this package
-(Number_Rule01	:
- 	[ ParameterValue -> < Number | NumberBelow100 | NumberBelow1000 | NumberBelow1000000 | NumberBelow1000000000 > ]
+(Number_Rule01_1 :
+ 	[ ParameterValue -> Number ]
 	{
 		^.Number <- #1;
 	}
 )
 
+(Number_Rule01_2 :
+ 	[ Number -> < NumberBelow100 | NumberBelow1000 | NumberBelow1000000 | NumberBelow1000000000 > ]
+	{
+		^ <- #1;
+	}
+)
 // N < 100
 // zero
 // four

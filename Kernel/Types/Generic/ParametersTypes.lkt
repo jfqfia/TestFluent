@@ -16,7 +16,8 @@ classDef:StructureComplex
 (
 	ParameterValue :
 	(
-		Number
+		Number,
+		GeneralTime
 	)
 )
 

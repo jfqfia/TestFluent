@@ -14,51 +14,19 @@
 // TODO Structure explanation
 classDef:StructureComplex
 (
-    	ConstrainedTime:
+	GeneralTime :
 	(
 	        BaseTime,
 		OffsetTime,
-		MaxTime,
-		DisjunctionTimes,
-		ConjunctionTimes,
-		NegatedTime
-	)
-)
-
-// TODO Structure explanation
-classDef:StructureBatch 
-(
-	DisjunctionTimes : 
-	(
-		ConstrainedTime
-	)
-)
-
-// TODO Structure explanation
-classDef:StructureBatch 
-(
-	ConjunctionTimes : 
-	(
-		ConstrainedTime
+		MinTime,
+		MaxTime
 	)
 )
 
 // TODO Structure explanation
 classDef:Synonym
 (
-	NegatedTime = ConstrainedTime
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	MaxTime = Time
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	BaseTime = Time
+	BaseTime, MinTime, MaxTime = Time
 )
 
 // TODO Structure explanation
@@ -74,12 +42,11 @@ classDef:StructureComplex
 // TODO Structure explanation
 classDef:StructureComplex
 (
-	Time:
+	Time :
 	(
 		PartOfTheDay,
 		Hour,
-		Minute,
-		Second
+		Minute
 	)
 )
 
@@ -88,13 +55,14 @@ classDef:ElementInt
 (
  	Hour,
 	Minute,
-	Second
+	Second,
+	TemporalModifierValue
 )
 
 // TODO Structure explanation
 classDef:StructureComplex
 (
-	PartOfTheDay:
+	PartOfTheDay :
 	(
 		PartOfTheDayName,
 		PartOfTheDayInterval
@@ -123,5 +91,25 @@ classDef:ElementRange
 		'evening',
 		'night'
 	}
+)
+
+// TODO Structure explanation
+classDef:ElementRange
+(
+	DirectionOfTime :
+	{
+		'backward',
+		'forward'
+	} 
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	TemporalModifier :
+	(
+		DirectionOfTime,
+		TemporalModifierValue
+	)
 )
 

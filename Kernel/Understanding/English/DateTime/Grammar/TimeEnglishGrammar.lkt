@@ -1,0 +1,224 @@
+// **************************************************
+//
+//	Rules for times in english.
+//
+// **************************************************
+// 
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Grammar
+//	FILE	:	TimeEnglishGrammar.lkt
+// 
+// **************************************************
+
+(TimeRule01_1 :
+    	[ ParameterValue -> GeneralTime ] 
+	{
+		^.GeneralTime <- #1;
+    	}
+)
+
+(TimeRule01_2 :
+    	[ GeneralTime -> OffsetTime ] 
+	{
+		^.OffsetTime <- #1;
+    	}
+)
+
+(TimeRule01_3 :
+    	[ GeneralTime -> BaseTime ] 
+	{
+		^.BaseTime <- #1;
+    	}
+)
+
+
+// at 11
+// at 11 hour
+// at 11 hours
+// 11
+// 11 hour
+// 11 hours
+// at 11 in the morning
+(TimeRule05 :
+    	[ BaseTime -> lexPrepAt? Number lexHourTerm? ] 
+	{
+		^.Hour <- #2.NumberValue;
+    	}
+)
+
+// at hh:mm
+// hh:mm
+(TimeRule06_1 :
+    	[ BaseTime -> lexPrepAt? Number lexColon Number ] 
+	{
+		^.Hour <- #2.NumberValue;
+		^.Minute <- #4.NumberValue;
+    	}
+)
+
+// at 10 o'clock
+// 12 o'clock
+(TimeRule06_2 :
+    	[ BaseTime -> lexPrepAt? Number lexMinuteOClock ] 
+	{
+		^.Hour <- #2.NumberValue;
+		^.Minute <- #3;
+    	}
+)
+
+// a quarter past nine
+// quarter past nine
+// half past nine
+(TimeRule06_3 :
+    	[ BaseTime -> lexPrepAt? lexMinuteValue lexPrepPast Number] 
+	{
+		^.Minute <- #2;
+		^.Hour <- #4.NumberValue;
+    	}
+)
+
+// a quarter to nine
+// quarter to nine
+(TimeRule06_4 :
+    	[ BaseTime -> lexPrepAt? lexMinuteValue lexPrepTo Number] 
+	{
+		^.Minute <- 60 - #2;
+		^.Hour <- #4.NumberValue - 1;
+		if(^.Hour < 0)
+		{
+			^.Hour <- 23;
+		}
+    	}
+)
+
+// at six twenty-five
+// six twenty-five
+(TimeRule06_5 :
+    	[ BaseTime -> lexPrepAt? Number lexZeroTerm? Number] 
+	{
+		^.Hour <- #2.NumberValue;
+		^.Minute <- #4.NumberValue;
+    	}
+)
+
+// at six past nine
+// six past nine
+(TimeRule06_6 :
+    	[ BaseTime -> lexPrepAt? Number lexMinuteTerm? lexPrepPast Number] 
+	{
+		^.Hour <- #5.NumberValue;
+		^.Minute <- #2.NumberValue;
+    	}
+)
+
+// at six to nine
+// six to nine
+(TimeRule06_7 :
+    	[ BaseTime -> lexPrepAt? Number lexMinuteTerm? lexPrepTo Number] 
+	{
+		^.Hour <- #5.NumberValue - 1;
+		if(^.Hour < 0)
+		{
+			^.Hour <- 23;
+		}
+		^.Minute <- 60 - #2.NumberValue;
+    	}
+)
+
+// BaseTime AM
+(TimeRule08_1 :
+    	[ BaseTime -> BaseTime lexAMTerm] 
+	{
+		^ <- #1;
+    	}
+)
+
+// BaseTime PM
+(TimeRule08_2 :
+    	[ BaseTime -> BaseTime lexPMTerm] 
+	{
+		^ <- #1;
+		^.Hour <- ^.Hour + 12;
+    	}
+)
+
+
+// in the morning
+// in the afternoon
+// in the evening
+// at night
+(TimeRule09 :
+	[ BaseTime -> lexPrepAt? lexPrepIn? lexDetThe? lexPartOfTheDay ]
+	{	
+		^.PartOfTheDay.PartOfTheDayName <- #4; 
+	}
+)
+
+// early in the morning
+// late in the evening
+// in the middle of the night
+// in the middle of the afternoon
+(TimeRule10 :
+	[ BaseTime -> lexPrepIn? lexDetThe? lexTemporalModifierForPartOfTheDay lexPrepOf? lexPrepAt? lexPrepIn? lexDetThe? lexPartOfTheDay ]
+	{	
+		^.PartOfTheDay.PartOfTheDayName <- #8;
+		^.PartOfTheDay.PartOfTheDayInterval <- #3;  
+	}
+)
+
+/*
+// in 5 minutes
+// within 5 minutes
+// half an hour
+(TimeRule02_2 :
+    	[ OffsetTime -> lexPrepIn? Number lexMinuteTerm ] 
+	{
+		^.Time.Minute <- #2.NumberValue;
+		^.DirectionOfTime <- 'forward';	
+    	}
+)
+
+/*
+// in 3 hours
+(TimeRule02_3 :
+    	[ OffsetTime -> lexPrepPlace? Number lexHourTerm ] 
+	{
+		^.Time.Hour <- #2.NumberValue;
+		^.DirectionOfTime <- 'forward';	
+    	}
+)
+
+/*
+// 10 minutes ago
+(TimeRule04 :
+    	[ OffsetTime -> OffsetTime lexMetaTemporalModifier ] 
+	{
+		^.PartOfTheDay <- #1.PartOfTheDay;
+		^.Hour <- #1.Hour * #2;
+		^.Minute <- #1.Minute * #2;
+		^.Second <- #1.Second * #2;
+    	}
+)
+
+/*
+// in 10 hours and 11 minutes
+// in 10 hours 11 minutes
+(TimeRule13 :
+	[ BaseTime -> lexNumberDigits lexHour lexConjAnd? lexNumberDigits lexMinute ]
+	{	
+		if(#1 < 24 && #4 < 59)
+		{
+			^.Minute <- #4;
+			^.Hour <- #1;
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+
+/*
+// in 10 hours and a quarter
+// in 10 hours and a half

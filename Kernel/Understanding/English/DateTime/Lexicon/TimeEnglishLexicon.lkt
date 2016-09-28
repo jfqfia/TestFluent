@@ -1,0 +1,63 @@
+// **************************************************
+//
+//	Lexical for english times.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Lexicon
+//	FILE	:	TimeEnglishLexicon.lkt
+//
+// **************************************************
+
+// Basic lexical about times
+("sec",				lexSecondTerm)
+("second",			lexSecondTerm)
+("seconds",			lexSecondTerm)
+("minute",			lexMinuteTerm)
+("minutes",			lexMinuteTerm)
+("hour",			lexHourTerm)
+("hours",			lexHourTerm)
+("am",				lexAMTerm)
+("AM",				lexAMTerm)
+("a.m.",			lexAMTerm)
+("A.M.",			lexAMTerm)
+("in the morning",		lexAMTerm)
+("pm",				lexPMTerm)
+("PM",				lexPMTerm)
+("p.m.",			lexPMTerm)
+("P.M.",			lexPMTerm)
+("in the afternoon",		lexPMTerm)
+("in the evening",		lexPMTerm)
+
+// Time involving minute
+("o'clock", 			lexMinuteOClock, 0)
+("quarter",			lexMinuteValue, 15)
+("a quarter",			lexMinuteValue, 15)
+("half",			lexMinuteValue, 30)
+
+// Fixed hours
+("noon", 			lexNumberDigits, 12)
+("midday", 			lexNumberDigits, 12)
+("mid-day", 			lexNumberDigits, 12)
+("midnight", 			lexNumberDigits, 0)
+("mid-night", 			lexNumberDigits, 0)
+
+// Time involving part of the day
+("morning",			lexPartOfTheDay, 'morning')
+("in the morning",		lexPartOfTheDay, 'morning')
+("afternoon",			lexPartOfTheDay, 'afternoon')
+("in the afternoon",		lexPartOfTheDay, 'afternoon')
+("evening",			lexPartOfTheDay, 'evening')
+("in the evening",		lexPartOfTheDay, 'evening')
+("night",			lexPartOfTheDay, 'night')
+
+// Temporal modifiers for part of the day
+("early",			lexTemporalModifierForPartOfTheDay, 'early')
+("late",			lexTemporalModifierForPartOfTheDay, 'late')
+("end",				lexTemporalModifierForPartOfTheDay, 'late')
+("middle",			lexTemporalModifierForPartOfTheDay, 'mid')
+
+
+

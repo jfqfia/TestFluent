@@ -1,0 +1,49 @@
+// **************************************************
+//
+//	Types for lexical part of the DateTime package.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.DateTime
+//	FILE	:	LexicalTimeTypes.lkt
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:Void
+(
+	lexHourTerm,
+	lexMinuteTerm,
+	lexSecondTerm,
+	lexAMTerm,
+	lexPMTerm
+)
+
+// TODO Structure explanation
+classDef:ElementInt 
+(
+	lexMinuteValue,
+	lexMinuteOClock
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexTemporalModifier = TemporalModifier
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexTemporalModifierForPartOfTheDay = PartOfTheDayInterval
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexPartOfTheDay = PartOfTheDayName
+)
+
+

@@ -1,6 +1,6 @@
 // **************************************************
 //
-//	Index of types files.
+//	Index of types for detecting date time.
 //
 // **************************************************
 //
@@ -10,5 +10,11 @@
 //	FILE	:	MainDateTimeTypes.lkt
 //
 // **************************************************
+
+#Include "TimeTypes.lkt"
+#Include "LexicalTimeTypes.lkt"
+
+//#Include "DateTypes.lkt"
+//#Include "LexicalDateTimeTypes.lkt"
 
 

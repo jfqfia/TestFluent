@@ -1,0 +1,51 @@
+// **************************************************
+//
+//	Types for lexical part of the DateTime package.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.DateTime
+//	FILE	:	LexicalDateTimeTypes.lkt
+//
+// **************************************************
+
+classDef:Void
+(
+	lexDayTerm,
+	lexWeekTerm,
+	lexMonthTerm,
+	lexYearTerm,
+	lexHour,
+	lexMinute,
+	lexSecond,
+	lexAM,
+	lexPM,
+	lexTemporalLimit,
+	lexNegateDate
+)
+
+classDef:ElementInt 
+(
+	lexBaseDay,
+	lexOffsetDay,
+	lexDayInWeek,
+	lexBaseMonth,
+	lexTemporalModifier,
+	lexMetaTemporalModifier,
+	lexBaseMinute
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexTemporalModifierForPartOfTheDay = PartOfTheDayInterval
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexPartOfTheDay = PartOfTheDayName
+)
+

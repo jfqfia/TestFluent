@@ -56,12 +56,6 @@ classDef:Synonym
 )
 
 // TODO Structure explanation
-classDef:ElementInt 
-(
-	lexNumberDigits
-)
-
-// TODO Structure explanation
 classDef:Void 
 (
  	lexGreeting,
@@ -70,48 +64,6 @@ classDef:Void
 	lexFormalGoodbye,
 	lexThanks,
 	lexFormalThanks
-)
-
-// TODO Structure explanation
-classDef:Void 
-(
-	// TODO	quit this?
-	//number,
-	//date,
-	comma,
-	period,
-	colon,
-	lexAuxIntro,
-	lexAuxVerb,
-	lexBeVerb,
-	lexCanVerb,
-	lexConjAnd,
-	lexConjBecause,
-	lexConjBut,
-	lexConjOr,
-	lexConjNot,
-	lexDetMy,
-	lexDetUndef,
-	lexDetThe,
-	lexDetThis,
-	lexDetThese,
-	lexDetThat,
-	lexDetThose,
-	lexParticleAround,
-	lexPlease,
-	lexPronoun,
-	lexPrepAt,
-	lexPrepFor,
-	lexPrepOf,
-	lexPrepOn,
-	lexPrepPast,
-	lexPrepTo,
-	lexPrepIn,
-	lexPrepFrom,
-	lexPrepPlace,
-	lexPrepSpec,
-	lexRepeat,
-	AnyDet
 )
 
 

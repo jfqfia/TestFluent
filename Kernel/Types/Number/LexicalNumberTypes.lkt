@@ -11,6 +11,11 @@
 //
 // **************************************************
 
+classDef:Void
+(
+	lexZeroTerm
+)
+
 classDef:ElementInt
 (
 	lexNumberDigits,

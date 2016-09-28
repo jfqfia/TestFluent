@@ -1,0 +1,148 @@
+// **************************************************
+//
+//	Lexical for english date.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Understanding.English.Lexicon
+//	FILE	:	DateEnglishLexicon.lkt
+//
+// **************************************************
+
+// Basic lexical about dates
+("day",				lexDayTerm)
+("days",			lexDayTerm)
+("the day",			lexDayTerm)
+("week",			lexWeekTerm)
+("weeks",			lexWeekTerm)
+("month",			lexMonthTerm)
+("months",			lexMonthTerm)
+("year",			lexYearTerm)
+("years",			lexYearTerm)
+
+// Meta temporal modifiers
+("ago",				lexMetaTemporalModifier, -1)
+("in advance",			lexMetaTemporalModifier, 1)
+
+// Negating dates
+("no",				lexNegateDate)
+("impossible",			lexNegateDate)
+("nor",				lexNegateDate)
+("not",				lexNegateDate)
+
+// Temporal limits
+("before",			lexTemporalLimit)
+("deadline",			lexTemporalLimit)
+("best before",			lexTemporalLimit)
+("until",			lexTemporalLimit)
+("until the day",		lexTemporalLimit)
+("till",			lexTemporalLimit)
+("as far as",			lexTemporalLimit)
+("at most until",		lexTemporalLimit)
+("at most till",		lexTemporalLimit)
+
+// Temporal modifiers
+("last", 			lexTemporalModifier, -1)
+("previous", 			lexTemporalModifier, -1)
+("the previous",		lexTemporalModifier, -1)
+("next", 			lexTemporalModifier, 1)
+("next to", 			lexTemporalModifier, 1)
+("the next", 			lexTemporalModifier, 1)
+("following",	  		lexTemporalModifier, 1)
+("one after",  			lexTemporalModifier, 1)
+("the day after",		lexTemporalModifier, 1)
+("after",  			lexTemporalModifier, 1)
+("on",				lexTemporalModifier, 1)
+("a couple of",			lexTemporalModifier, 2)
+
+// Lexical about offset days
+("yesterday",			lexOffsetDay, -1)
+("today",			lexOffsetDay, 0)
+("now",  			lexOffsetDay, 0)
+("this day",  			lexOffsetDay, 0)
+("tomorrow",			lexOffsetDay, 1)
+
+// Lexical about days in week
+("mon",				lexDayInWeek, 1)
+("monday",			lexDayInWeek, 1)
+("mondays",			lexDayInWeek, 1)
+("tue",				lexDayInWeek, 2)
+("tuesday",			lexDayInWeek, 2)
+("tuesdays",			lexDayInWeek, 2)
+("wed",				lexDayInWeek, 3)
+("wednesday",			lexDayInWeek, 3)
+("wednesdays",			lexDayInWeek, 3)
+("thu",				lexDayInWeek, 4)
+("thursday",			lexDayInWeek, 4)
+("thursdays",			lexDayInWeek, 4)
+("fri",				lexDayInWeek, 5)
+("friday",			lexDayInWeek, 5)
+("fridays",			lexDayInWeek, 5)
+("sat",				lexDayInWeek, 6)
+("saturday",			lexDayInWeek, 6)
+("saturdays",			lexDayInWeek, 6)
+("sun",				lexDayInWeek, 7)
+("sunday",			lexDayInWeek, 7)
+("sundays",			lexDayInWeek, 7)
+
+// Lexical about base month days
+("1st", 			lexBaseDay, 1)
+("2nd", 			lexBaseDay, 2)
+("3rd", 			lexBaseDay, 3)
+("4th", 			lexBaseDay, 4)
+("5th", 			lexBaseDay, 5)
+("6th", 			lexBaseDay, 6)
+("7th", 			lexBaseDay, 7)
+("8th", 			lexBaseDay, 8)
+("9th", 			lexBaseDay, 9)
+("10th", 			lexBaseDay, 10)
+("11th", 			lexBaseDay, 11)
+("12th", 			lexBaseDay, 12)
+("13th", 			lexBaseDay, 13)
+("14th", 			lexBaseDay, 14)
+("15th", 			lexBaseDay, 15)
+("16th", 			lexBaseDay, 16)
+("17th", 			lexBaseDay, 17)
+("18th", 			lexBaseDay, 18)
+("19th", 			lexBaseDay, 19)
+("20th", 			lexBaseDay, 20)
+("21st",			lexBaseDay, 21)
+("22nd",			lexBaseDay, 22)
+("23rd",			lexBaseDay, 23)
+("24th",			lexBaseDay, 24)
+("25th",			lexBaseDay, 25)
+("26th",			lexBaseDay, 26)
+("27th",			lexBaseDay, 27)
+("28th",			lexBaseDay, 28)
+("29th",			lexBaseDay, 29)
+("30th",			lexBaseDay, 30)
+("31st",			lexBaseDay, 31)
+
+// Lexical about base months
+("jan",				lexBaseMonth, 1)
+("january",			lexBaseMonth, 1)
+("feb",				lexBaseMonth, 2)
+("february",			lexBaseMonth, 2)
+("mar",				lexBaseMonth, 3)
+("march",			lexBaseMonth, 3)
+("apr",				lexBaseMonth, 4)
+("april",			lexBaseMonth, 4)
+("may",				lexBaseMonth, 5)
+("may",				lexBaseMonth, 5)
+("jun",				lexBaseMonth, 6)
+("june",			lexBaseMonth, 6)
+("jul",				lexBaseMonth, 7)
+("july",			lexBaseMonth, 7)
+("aug",				lexBaseMonth, 8)
+("august",			lexBaseMonth, 8)
+("sep",				lexBaseMonth, 9)
+("september",			lexBaseMonth, 9)
+("oct",				lexBaseMonth, 10)
+("october",			lexBaseMonth, 10)
+("nov",				lexBaseMonth, 11)
+("november",			lexBaseMonth, 11)
+("dec",				lexBaseMonth, 12)
+("december",			lexBaseMonth, 12)
+
