@@ -21,6 +21,7 @@
 (ProferenceChunk_Rule02	:
  	[ Parameter -> ParameterValue ]
 	{
+		^.ParameterCategory <- 'terminal';
 		^.ParameterValue <- #1;
 	}
 )

@@ -18,43 +18,22 @@ classDef:StructureComplex
 	(
 	        BaseDate,
 		OffsetDate,
+		MinDate,
 		MaxDate,
-		DisjunctionDates,
-		ConjunctionDates,
-		NegatedDate,
-		ConstrainedTime
+		GeneralTime
 	)
-)
-
-// TODO Structure explanation
-classDef:StructureBatch 
-(
-	DisjunctionDates : 
-	(
-		DateTime
-	)
-)
-
-// TODO Structure explanation
-classDef:StructureBatch 
-(
-	ConjunctionDates : 
-	(
-		DateTime
-	)
-)
-
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	NegatedDate = DateTime
 )
 
 // TODO Structure explanation
 classDef:Synonym
 (
 	BaseDate = Date
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	MinDate, MaxDate = DateTime
 )
 
 // TODO Structure explanation
@@ -66,12 +45,6 @@ classDef:StructureComplex
 		DayInWeekOffset,
 		Date
 	)
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	MaxDate = DateTime
 )
 
 // TODO Structure explanation
@@ -96,14 +69,5 @@ classDef:ElementInt
 	Week,
 	Month,
 	Year
-)
-
-classDef:ElementRange
-(
-	DirectionOfTime :
-	{
-		'backward',
-		'forward'
-	} 
 )
 

@@ -12,9 +12,7 @@
 // **************************************************
 
 // Basic lexical about times
-("sec",				lexSecondTerm)
-("second",			lexSecondTerm)
-("seconds",			lexSecondTerm)
+("min",				lexMinuteTerm)
 ("minute",			lexMinuteTerm)
 ("minutes",			lexMinuteTerm)
 ("hour",			lexHourTerm)
@@ -37,7 +35,8 @@
 ("a quarter",			lexMinuteValue, 15)
 ("half",			lexMinuteValue, 30)
 
-// Fixed hours
+// Fixed values
+("a couple of",			lexNumberDigits, 2)
 ("noon", 			lexNumberDigits, 12)
 ("midday", 			lexNumberDigits, 12)
 ("mid-day", 			lexNumberDigits, 12)
@@ -45,6 +44,14 @@
 ("mid-night", 			lexNumberDigits, 0)
 
 // Time involving part of the day
+("now",				lexPartOfTheDay, 'now')
+("now on",			lexPartOfTheDay, 'now')
+("just now",			lexPartOfTheDay, 'now')
+("this moment",			lexPartOfTheDay, 'now')
+("this time",			lexPartOfTheDay, 'now')
+("this point in time",		lexPartOfTheDay, 'now')
+("present",			lexPartOfTheDay, 'now')
+("nowadays",			lexPartOfTheDay, 'now')
 ("morning",			lexPartOfTheDay, 'morning')
 ("in the morning",		lexPartOfTheDay, 'morning')
 ("afternoon",			lexPartOfTheDay, 'afternoon')
@@ -59,5 +66,24 @@
 ("end",				lexTemporalModifierForPartOfTheDay, 'late')
 ("middle",			lexTemporalModifierForPartOfTheDay, 'mid')
 
+// Direction of time modifier
+("ago",				lexDirectionOfTimeModifier, 'backward')
+("before",			lexDirectionOfTimeModifier, 'backward')
+("after",			lexDirectionOfTimeModifier, 'forward')
 
+// Lexicon used for time interval limits
+("after",			lexTimeIntervalMin)
+("from",			lexTimeIntervalMin)
+("starting",			lexTimeIntervalMin)
+("beginning",			lexTimeIntervalMin)
+("until",			lexTimeIntervalMax)
+("till",			lexTimeIntervalMax)
+("ending",			lexTimeIntervalMax)
+("finishing",			lexTimeIntervalMax)
+("deadline",			lexTimeIntervalMax)
+("best before",			lexTimeIntervalMax)
+("as far as",			lexTimeIntervalMax)
+("at most until",		lexTimeIntervalMax)
+("to",				lexTimeIntervalMax)
+("at most till",		lexTimeIntervalMax)
 

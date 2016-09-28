@@ -22,40 +22,18 @@
 ("year",			lexYearTerm)
 ("years",			lexYearTerm)
 
-// Meta temporal modifiers
-("ago",				lexMetaTemporalModifier, -1)
-("in advance",			lexMetaTemporalModifier, 1)
-
-// Negating dates
-("no",				lexNegateDate)
-("impossible",			lexNegateDate)
-("nor",				lexNegateDate)
-("not",				lexNegateDate)
-
-// Temporal limits
-("before",			lexTemporalLimit)
-("deadline",			lexTemporalLimit)
-("best before",			lexTemporalLimit)
-("until",			lexTemporalLimit)
-("until the day",		lexTemporalLimit)
-("till",			lexTemporalLimit)
-("as far as",			lexTemporalLimit)
-("at most until",		lexTemporalLimit)
-("at most till",		lexTemporalLimit)
-
 // Temporal modifiers
-("last", 			lexTemporalModifier, -1)
-("previous", 			lexTemporalModifier, -1)
-("the previous",		lexTemporalModifier, -1)
-("next", 			lexTemporalModifier, 1)
-("next to", 			lexTemporalModifier, 1)
-("the next", 			lexTemporalModifier, 1)
-("following",	  		lexTemporalModifier, 1)
-("one after",  			lexTemporalModifier, 1)
-("the day after",		lexTemporalModifier, 1)
-("after",  			lexTemporalModifier, 1)
-("on",				lexTemporalModifier, 1)
-("a couple of",			lexTemporalModifier, 2)
+("last", 			lexDirectionOfTimeModifier, 'backward')
+("previous", 			lexDirectionOfTimeModifier, 'backward')
+("the previous",		lexDirectionOfTimeModifier, 'backward')
+("the day before",		lexDirectionOfTimeModifier, 'backward')
+("next", 			lexDirectionOfTimeModifier, 'forward')
+("next to", 			lexDirectionOfTimeModifier, 'forward')
+("the next", 			lexDirectionOfTimeModifier, 'forward')
+("following",	  		lexDirectionOfTimeModifier, 'forward')
+("one after",  			lexDirectionOfTimeModifier, 'forward')
+("the day after",		lexDirectionOfTimeModifier, 'forward')
+("on",				lexDirectionOfTimeModifier, 'forward')
 
 // Lexical about offset days
 ("yesterday",			lexOffsetDay, -1)
@@ -63,6 +41,9 @@
 ("now",  			lexOffsetDay, 0)
 ("this day",  			lexOffsetDay, 0)
 ("tomorrow",			lexOffsetDay, 1)
+("the day after tomorrow",	lexOffsetDay, 2)
+("day after tomorrow",		lexOffsetDay, 2)
+("after tomorrow",		lexOffsetDay, 2)
 
 // Lexical about days in week
 ("mon",				lexDayInWeek, 1)
@@ -145,4 +126,22 @@
 ("november",			lexBaseMonth, 11)
 ("dec",				lexBaseMonth, 12)
 ("december",			lexBaseMonth, 12)
+
+
+// Lexicon used for date interval limits
+("after",			lexDateIntervalMin)
+("from",			lexDateIntervalMin)
+("starting",			lexDateIntervalMin)
+("beginning",			lexDateIntervalMin)
+("until",			lexDateIntervalMax)
+("till",			lexDateIntervalMax)
+("ending",			lexDateIntervalMax)
+("finishing",			lexDateIntervalMax)
+("deadline",			lexDateIntervalMax)
+("best before",			lexDateIntervalMax)
+("as far as",			lexDateIntervalMax)
+("at most until",		lexDateIntervalMax)
+("at most till",		lexDateIntervalMax)
+("to",				lexDateIntervalMax)
+
 

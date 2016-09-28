@@ -18,7 +18,9 @@ classDef:Void
 	lexMinuteTerm,
 	lexSecondTerm,
 	lexAMTerm,
-	lexPMTerm
+	lexPMTerm,
+	lexTimeIntervalMin,
+	lexTimeIntervalMax
 )
 
 // TODO Structure explanation
@@ -26,12 +28,6 @@ classDef:ElementInt
 (
 	lexMinuteValue,
 	lexMinuteOClock
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	lexTemporalModifier = TemporalModifier
 )
 
 // TODO Structure explanation
@@ -45,5 +41,12 @@ classDef:Synonym
 (
 	lexPartOfTheDay = PartOfTheDayName
 )
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	lexDirectionOfTimeModifier = DirectionOfTime
+)
+
 
 

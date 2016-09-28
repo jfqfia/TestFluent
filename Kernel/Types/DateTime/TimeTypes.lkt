@@ -26,7 +26,13 @@ classDef:StructureComplex
 // TODO Structure explanation
 classDef:Synonym
 (
-	BaseTime, MinTime, MaxTime = Time
+	BaseTime = Time
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	MinTime, MaxTime = GeneralTime
 )
 
 // TODO Structure explanation
@@ -85,6 +91,7 @@ classDef:ElementRange
 (
  	PartOfTheDayName :
 	{
+		'now',
 		'morning',
 		'noon',
 		'afternoon',

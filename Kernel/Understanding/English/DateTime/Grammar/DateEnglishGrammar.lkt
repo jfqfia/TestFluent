@@ -11,14 +11,10 @@
 // 
 // **************************************************
 
-// TODO I think this should be in another file
-// If we detect a DateTime in the loneliness
 (DateRule01_1 :
-    	[ DialogueAct -> DateTime ] 
+    	[ ParameterValue -> DateTime ] 
 	{
-		^.CoreDialogueAct.Dimension <- 'statement';
-		^.CoreDialogueAct.Function <- 'inform';
-		^.SemanticContent.Parameters.DateTime <- #1;
+		^.DateTime <- #1;
     	}
 )
 
@@ -36,95 +32,155 @@
     	}
 )
 
+// august the 1st 1999
+// august 1st 1999
+// august the 1st
+// august 1st
+// august 1st, 2016
+(DateRule02_1 :
+	[ BaseDate -> lexBaseMonth lexDetThe? lexBaseDay lexComma? Number? ]
+	{
+	        ^.Day <- #3;
+        	^.Month <- #1;
+       		^.Year <- #5.NumberValue;
+	}
+)
+
+// august the 1 1999
+// august 1 1999
+// august the 1
+// august 1
+// august 1, 2016
+(DateRule02_2 :
+	[ BaseDate -> lexBaseMonth lexDetThe? Number lexComma? Number? ]
+	{
+	        ^.Day <- #3.NumberValue;
+        	^.Month <- #1;
+       		^.Year <- #5.NumberValue;
+	}
+)
+
+// the 1st of august 2016
+// the 1st of august 
+// the 1st august 2016
+// the 1st august 
+// 1st of august 2016
+// 1st of august 
+// 1st august 2016
+// 1st august 
+(DateRule03_1 :
+	[ BaseDate -> lexDetThe? lexBaseDay lexPrepOf? lexBaseMonth Number? ]
+	{
+	        ^.Day <- #2;
+        	^.Month <- #4;
+        	^.Year <- #5.NumberValue;
+    	}
+)
+
+// the 1 of august 2016
+// the 1 of august 
+// the 1 august 2016
+// the 1 august 
+// 1 of august 2016
+// 1 of august 
+// 1 august 2016
+// 1 august 
+(DateRule03_2 :
+	[ BaseDate -> lexDetThe? Number lexPrepOf? lexBaseMonth Number? ]
+	{
+	        ^.Day <- #2.NumberValue;
+        	^.Month <- #4;
+        	^.Year <- #5.NumberValue;
+    	}
+)
+
+// in march 2010
+// in march
+(DateRule03_3 :
+	[ BaseDate -> lexPrepIn? lexBaseMonth Number?]
+	{
+		^.Month <- #2;
+		^.Year <- #3.NumberValue;
+	}
+)
+
+// in 2016
+(DateRule03_4 :
+	[ BaseDate -> lexPrepIn? Number]
+	{
+		^.Year <- #2.NumberValue;
+	}
+)
+
 // today
 // tomorrow
 // yesterday
 // this day
 // now
-// after today
 // after tomorrow
-// after yesterday
-// after this day
-// after now
-// next to this day
-(DateRule02 :
-    	[ OffsetDate -> lexTemporalModifier? lexOffsetDay ] 
+(DateRule04_1 :
+    	[ OffsetDate -> lexOffsetDay ] 
 	{
-		if(#1)
+		if(#1 < 0)
 		{
-			if(#1 + #2 < 0)
-			{
-				^.Date.Day <- -(#1 + #2);
-				^.DirectionOfTime <- 'backward';
-			}
-			else if(#1 + #2 > 0)
-			{
-				^.Date.Day <- #1 + #2;
-				^.DirectionOfTime <- 'forward';	
-			}
+			^.Date.Day <- -#1;
+			^.DirectionOfTime <- 'backward';
 		}
-		else
+		else if(#1 >= 0)
 		{
-			if(#2 < 0)
-			{
-				^.Date.Day <- -#2;
-				^.DirectionOfTime <- 'backward';
-			}
-			else if(#2 > 0)
-			{
-				^.Date.Day <- #2;
-				^.DirectionOfTime <- 'forward';	
-			}
+			^.Date.Day <- #1;
+			^.DirectionOfTime <- 'forward';	
 		}
     	}
 )
 
 // in 4 days
-// in 1 day
+// in one day
 // 4 days
 // 1 day
-// within 2 days
-(DateRule04_1 :
-    	[ OffsetDate -> lexPrepIn? lexNumberDigits lexDayTerm ] 
+// within two days
+(DateRule04_2 :
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin? > Number lexDayTerm ] 
 	{
-		^.Date.Day <- #2;
+		^.Date.Day <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';
     	}
 )
 
 // in 2 mondays
-(DateRule04_2 :
-    	[ OffsetDate -> lexPrepIn? lexNumberDigits lexDayInWeek ] 
+(DateRule04_3 :
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin? > Number lexDayInWeek ] 
 	{
 		^.Date.DayInWeek <- #3;
-		^.DayInWeekOffset <- #2;
+		^.DayInWeekOffset <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
 	}
 )
 
 // in 2 weeks
-(DateRule04_3 :
-    	[ OffsetDate -> lexPrepIn? lexNumberDigits lexWeekTerm ] 
+(DateRule04_4 :
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin > Number lexWeekTerm ] 
 	{
-		^.Date.Week <- #2;
+		^.Date.Week <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
 	}
+
 )
 
 // in 2 months
-(DateRule04_4 :
-    	[ OffsetDate -> lexPrepIn? lexNumberDigits lexMonthTerm ] 
+(DateRule04_5 :
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin > Number lexMonthTerm ] 
 	{
-		^.Date.Month <- #2;
+		^.Date.Month <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
 	}
 )
 
 // in 2 years
-(DateRule04_5 :
-    	[ OffsetDate -> lexPrepIn? lexNumberDigits lexYearTerm ] 
+(DateRule04_6 :
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin > Number lexYearTerm ] 
 	{
-		^.Date.Year <- #2;
+		^.Date.Year <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
 	}
 )
@@ -132,18 +188,10 @@
 // next day
 // following day
 (DateRule05_1 :
-    	[ OffsetDate -> lexTemporalModifier lexDayTerm ] 
+    	[ OffsetDate -> lexDirectionOfTimeModifier lexDayTerm ] 
 	{
-		if(#1 > 0)
-		{
-			^.Date.Day <- #1;
-			^.DirectionOfTime <- 'forward';    	
-		}
-		else if(#1 < 0)
-		{
-			^.Date.Day <- -#1;
-			^.DirectionOfTime <- 'backward';    	
-		}
+		^.Date.Day <- 1;
+		^.DirectionOfTime <- #1;    	
     	}
 )
 
@@ -151,168 +199,118 @@
 // next monday
 // last monday
 // following monday
+// last monday
+// previous monday
 (DateRule05_2 :
-    	[ OffsetDate -> lexTemporalModifier lexDayInWeek ] 
+    	[ OffsetDate -> lexDirectionOfTimeModifier lexDayInWeek ] 
 	{
-		if(#1 > 0)
-		{
-			^.Date.DayInWeek <- #2;
-			^.DayInWeekOffset <- #1;
-			^.DirectionOfTime <- 'forward';    			
-		}
-		else if(#1 < 0)
-		{
-			^.Date.DayInWeek <- #2;
-			^.DayInWeekOffset <- -#1;
-			^.DirectionOfTime <- 'backward';    	
-		}
+		^.Date.DayInWeek <- #2;
+		^.DayInWeekOffset <- 1;
+		^.DirectionOfTime <- #1;    			
     	}
 )
 
 // next week
 // last week
 (DateRule05_3 :
-    	[ OffsetDate -> lexTemporalModifier lexWeekTerm ] 
+    	[ OffsetDate -> lexDirectionOfTimeModifier lexWeekTerm ] 
 	{
-		if(#1 > 0)
-		{
-			^.Date.Week <- #1;
-			^.DirectionOfTime <- 'forward';    	    	
-		}
-		else if(#1 < 0)
-		{
-			^.Date.Week <- -#1;
-			^.DirectionOfTime <- 'backward';    	    	
-		}
+		^.Date.Week <- 1;
+		^.DirectionOfTime <- #1;    	    	
 	}
 )
 
 // next month
 // last month
 (DateRule05_4 :
-    	[ OffsetDate -> lexTemporalModifier lexMonthTerm ] 
+    	[ OffsetDate -> lexDirectionOfTimeModifier lexMonthTerm ] 
 	{
-		if(#1 > 0)
-		{
-			^.Date.Month <- #1;
-			^.DirectionOfTime <- 'forward';    	    	
-		}
-		else if(#1 < 0)
-		{
-			^.Date.Month <- -#1;
-			^.DirectionOfTime <- 'backward';    	    	
-		}
+		^.Date.Month <- 1;
+		^.DirectionOfTime <- #1;    	    	
     	}
 )
 
 // next year
 // last year
 (DateRule05_5 :
-    	[ OffsetDate -> lexTemporalModifier lexYearTerm ] 
+    	[ OffsetDate -> lexDirectionOfTimeModifier lexYearTerm ] 
 	{
-		if(#1 > 0)
-		{
-			^.Date.Year <- #1;
-			^.DirectionOfTime <- 'forward';    	    	
-		}
-		else if(#1 < 0)
-		{
-			^.Date.Year <- -#1;
-			^.DirectionOfTime <- 'backward';    	    	
-		}
+		^.Date.Year <- 1;
+		^.DirectionOfTime <- #1;    	    	
     	}
 )
 
-// from today
-// from tomorrow
+// in 1 year and 2 months
+// 1 year, 2 months and 3 days
+// one year, two months and a couple of days
 (DateRule06 :
-    	[ OffsetDate -> lexPrepFrom OffsetDate ] 
-	{
-		^ <- #2;
-    	}
-)
-
-// next day from tomorrow
-// next day from today
-// next week from tomorrow
-// 1 year and 2 months
-// 1 year, 2 months and 3 days ago
-(DateRule07 :
-    	[ OffsetDate/1 -> OffsetDate/1 lexConjAnd? comma? OffsetDate/0 ] 
+    	[ OffsetDate/1 -> OffsetDate/1 lexConjAnd? lexComma? OffsetDate/0 ] 
 	{
 		^ <- #1;
-		^ <| #4;
-		if(#1.Date.Day && #4.Date.Day)
-		{
-			^.Date.Day <- #1.Date.Day + #4.Date.Day;
-		}
-		if(#1.Date.Week && #4.Date.Week)
-		{
-			^.Date.Week <- #1.Date.Week + #4.Date.Week;
-		}
-		if(#1.Date.Month && #4.Date.Month)
-		{
-			^.Date.Month <- #1.Date.Month + #4.Date.Month;
-		}
-		if(#1.Date.Year && #4.Date.Year)
-		{
-			^.Date.Year <- #1.Date.Year + #4.Date.Year;
-		}
+		^ <& #4;
     	}
 )
 
 // 2 days ago
-// 3 days in advance
-(DateRule08 :
-    	[ OffsetDate -> OffsetDate lexMetaTemporalModifier ] 
+// in 2 mondays
+// 3 tuesdays ago
+// 2 days before
+(DateRule07 :
+    	[ OffsetDate -> OffsetDate lexDirectionOfTimeModifier ] 
 	{
 		^ <- #1;
-		if(#2 > 0)
-		{
-			^.DirectionOfTime = 'forward';
-		}
-		else if(#2 < 0)	
-		{
-			^.DirectionOfTime = 'backward';
-		}
+		^.DirectionOfTime <- #2;
     	}
 )
 
 // after a couple of weeks
 // after next week
-// the next day after the next day after tomorrow
-(DateRule09 :
-    	[ OffsetDate -> lexTemporalModifier OffsetDate ] 
+// after today
+// before yesterday
+// before tomorrow
+// after yesterday
+(DateRule08 :
+    	[ OffsetDate -> lexDirectionOfTimeModifier OffsetDate ] 
 	{
 		^ <- #2;
-		if(Filled(#2.Date.Day))
+		int signOffset;
+		if(#1 == ^.DirectionOfTime)
 		{
-			^.Date.Day <- #1 + #2.Date.Day;
-		}
-		else if(Filled(#2.Date.Week))
-		{
-			^.Date.Week <- #1 + #2.Date.Week;
-		}
-		else if(Filled(#2.Date.Month))
-		{
-			^.Date.Month <- #1 + #2.Date.Month;
-		}
-		else if(Filled(#2.Date.Year))
-		{
-			^.Date.Year <- #1 + #2.Date.Year;
+			signOffset <- 1;
 		}
 		else
 		{
-			^.Date.Day <- #1;
+			signOffset <- -1;
+		}
+		if(Filled(#2.Date.Day))
+		{
+			^.Date.Day <- signOffset + #2.Date.Day;
+		}
+		else if(Filled(#2.Date.DayInWeek))
+		{
+			^.Date.DayInWeek <- signOffset + #2.Date.DayInWeek;
+		}
+		else if(Filled(#2.Date.Week))
+		{
+			^.Date.Week <- signOffset + #2.Date.Week;
+		}
+		else if(Filled(#2.Date.Month))
+		{
+			^.Date.Month <- signOffset + #2.Date.Month;
+		}
+		else if(Filled(#2.Date.Year))
+		{
+			^.Date.Year <- signOffset + #2.Date.Year;
+		}
+		else
+		{
+			^.Date.Day <- signOffset;
 		}
     	}
 )
 
 // this monday
-// in 2 mondays
-// 3 tuesdays ago
-// 2 days before
-(DateRule10 :
+(DateRule9 :
     	[ OffsetDate -> lexDetThis lexDayInWeek ] 
 	{
 		^.Date.DayInWeek <- #2;
@@ -321,204 +319,112 @@
     	}
 )
 
-// august the 1st 1999
-// august 1st 1999
-// august 1 1999
-// august the 1 1999
-// august the 1st
-// august 1st
-// august 1
-// august the 1
-// august 1, 2016
-(DateRule11 :
-	[ BaseDate -> lexBaseMonth lexDetThe? <lexBaseDay | lexNumberDigits> comma? lexNumberDigits? ]
+// next day from 25 of august
+// previous day from 25 of august
+// previous day of 25 of august
+(DateRule10_1 :
+	[ DateTime -> OffsetDate < lexPrepFrom | lexPrepOf >? BaseDate ]
 	{
-	        ^.Day <- #3;
-        	^.Month <- #1;
-		if(IntegerLength(#5) == 4)
-		{
-        		^.Year <- #5;
-		}
+		^.OffsetDate <- #1;
+		^.BaseDate <- #3;
 	}
 )
 
-// the 1st of august 2016
-// the 1st of august 
-// the 1st august 2016
-// the 1st august 
-// the 1 of august 2016
-// the 1 of august 
-// the 1 august 2016
-// the 1 august 
-// 1st of august 2016
-// 1st of august 
-// 1st august 2016
-// 1st august 
-// 1 of august 2016
-// 1 of august 
-// 1 august 2016
-// 1 august 
-(DateRule12 :
-	[ BaseDate -> lexDetThe? <lexBaseDay | lexNumberDigits> lexPrepOf? lexBaseMonth lexNumberDigits? ]
+// one after 25 of august
+// one after 2016
+(DateRule10_2 :
+	[ DateTime -> lexDirectionOfTimeModifier < lexPrepFrom | lexPrepOf >? BaseDate ]
 	{
-	        ^.Day <- #2;
-        	^.Month <- #4;
-		if(IntegerLength(#5) == 4)
+		^.OffsetDate.DirectionOfTime <- #1;
+		^.BaseDate <- #3;
+		if(#3.Day)
 		{
-	        	^.Year <- #5;
+			^.OffsetDate.Date.Day <- 1;
 		}
-    	}
-)
-
-// in march 2010
-// in march
-(DateRule13 :
-	[ BaseDate -> lexPrepIn? lexBaseMonth lexNumberDigits?]
-	{
-		^.Month <- #2;
-		if(IntegerLength(#3) == 4)
+		else if(#3.DayInWeek)
 		{
-			^.Year <- #3;
+			^.OffsetDate.Date.DayInWeek <- 1;
 		}
-	}
-)
-
-// in 2016
-(DateRule13 :
-	[ BaseDate -> lexPrepIn? lexNumberDigits]
-	{
-		if(IntegerLength(#2) == 4)
+		else if(#3.Week)
 		{
-			^.Year <- #2;
+			^.OffsetDate.Date.Week <- 1;
 		}
-		else
+		else if(#3.Month)
 		{
-			Fail();
+			^.OffsetDate.Date.Month <- 1;
+		}
+		else if(#3.Year)
+		{
+			^.OffsetDate.Date.Year <- 1;
 		}
 	}
 )
 
 // from 25 of august
-(DateRule14 :
-	[ BaseDate -> lexPrepFrom BaseDate ]
-	{
-		^ <- #2;
-	}
+// starting the day after 25 of august
+// beginning in 2016	
+(DateRule11 :
+    	[ DateTime/1 -> lexDateIntervalMin? lexDateIntervalMin DateTime/1 ] 
+	{	
+		^.MinDate <- #3;
+		if(!!Filled(#3.OffsetDate) && !!Filled(#3.BaseDate))
+		{
+			Fail();
+		}		
+    	}
 )
 
-// TODO Should we add 1 day offset?
-// following from 25 of august
-// after 25 of august
-(DateRule15 :
-	[ BaseDate -> lexTemporalModifier BaseDate ]
+// before 25 of august
+// until 25 of august
+// till 25 aug
+// deadline 25 aug
+// to 25 aug
+// at most until the day before 25 of august
+(DateRule12 :
+    	[ DateTime/1 -> lexDateIntervalMax? lexDateIntervalMax DateTime/1 ] 
 	{
-		if(#1 >= 0)
-		{	
-			^ <- #2;
+		^.MaxDate <- #3;
+		if(!!Filled(#3.OffsetDate) && !!Filled(#3.BaseDate))
+		{
+			Fail();
+		}		
+    	}
+)
+
+// next monday at 11:00
+// until next monday at 11:00
+// from tomorrow at 10 am
+(DateRule13 :
+    	[ DateTime/1 -> DateTime/0 GeneralTime ] 
+	{
+		^ <- #1;
+		^.GeneralTime <- #2;
+		if(Filled(^.MinDate) || Filled(^.MaxDate) )
+		{
+			Fail();
+		}
+    	}
+)
+
+// from today until the day after 25 aug
+// from next monday until the day after 25 of august
+// from next monday at 12am until the day after 25 of august at midnight
+// from today at noon until tomorrow from 9pm to 10pm
+// starting next monday until 3pm to the day after 25 of august from 10am to midnight
+(DateRule14 :
+    	[ DateTime/2 -> DateTime/1 DateTime/1 ] 
+	{
+		if((#1.MinDate && #2.MaxDate) || (#1.MaxDate && #2.MinDate))
+		{
+			^ <- #1;
+			^ <| #2;
 		}
 		else
 		{
 			Fail();
 		}
-	}
+    	}
 )
-
-// next day from 25 of august
-(DateRule16 :
-	[ DateTime -> OffsetDate BaseDate ]
-	{
-		^.OffsetDate <- #1;
-		^.BaseDate <- #2;
-	}
-)
-
-// TODO Should we add -1 day offset (in case of before)?
-// before 25 of august
-// until 25 of august
-// till 25 aug
-// at most until 25 aug
-// deadline 25 aug
-// to 25 aug
-(DateRule17 :
-	[ DateTime/1 -> < lexTemporalLimit | lexPrepTo > DateTime/0 ]
-	{
-		^.MaxDate <- #2;
-	}
-)
-
-// not on 25 december
-(DateRule18 :
-	[ DateTime -> lexNegateDate DateTime ]
-	{
-		^.NegatedDate <- #2;
-	}
-)
-
-// tomorrow and the day after tomorrow
-// 2016 and 2017
-// 25 of august and 26 of august and 25 dec
-(DateRule19 :
-	[ DateTime -> DateTime lexConjAnd DateTime ]
-	{
-		if(BatchSize(#1.ConjunctionDates) == 0)
-		{
-			BatchInsertEnd(^.ConjunctionDates, #1);
-		}
-		else
-		{
-			^.ConjunctionDates <- #1.ConjunctionDates;
-		}
-		if(BatchSize(#3.ConjunctionDates) == 0)
-		{
-			BatchInsertEnd(^.ConjunctionDates, #3);
-		}
-		else
-		{
-			^.ConjunctionDates <| #3.ConjunctionDates;
-		}
-	}
-)
-
-// today or tomorrow 
-// today or tomorrow or 25 aug
-(DateRule20 :
-	[ DateTime -> DateTime lexConjOr DateTime ]
-	{	
-		if(BatchSize(#1.DisjunctionDates) == 0)
-		{
-			BatchInsertEnd(^.DisjunctionDates, #1);
-		}
-		else
-		{
-			^.DisjunctionDates <- #1.DisjunctionDates;
-		}
-		if(BatchSize(#3.DisjunctionDates) == 0)
-		{
-			BatchInsertEnd(^.DisjunctionDates, #3);
-		}
-		else
-		{
-			^.DisjunctionDates <| #3.DisjunctionDates;
-		}
-	}
-)
-
-// from now until next day after 25 aug
-// from now until the day after tomorrow
-// from yesterday until the day after tomorrow
-(DateRule21 :
-	[ DateTime/1 -> DateTime/0 DateTime/1 ]
-	{
-		if(!!(Filled(#1.NegatedDate) && Filled(#2.NegatedDate)))
-		{
-			^ <- #1;
-			^ <| #2;
-		}
-	}
-)
-
-// TODO nor today nor tomorrow
-// until tomorrow has some ambiguity, how can I resolve it?
 
 
 

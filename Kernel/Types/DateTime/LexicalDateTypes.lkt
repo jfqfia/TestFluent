@@ -17,35 +17,15 @@ classDef:Void
 	lexWeekTerm,
 	lexMonthTerm,
 	lexYearTerm,
-	lexHour,
-	lexMinute,
-	lexSecond,
-	lexAM,
-	lexPM,
-	lexTemporalLimit,
-	lexNegateDate
+	lexDateIntervalMin,
+	lexDateIntervalMax
 )
 
 classDef:ElementInt 
 (
-	lexBaseDay,
 	lexOffsetDay,
 	lexDayInWeek,
-	lexBaseMonth,
-	lexTemporalModifier,
-	lexMetaTemporalModifier,
-	lexBaseMinute
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	lexTemporalModifierForPartOfTheDay = PartOfTheDayInterval
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	lexPartOfTheDay = PartOfTheDayName
+	lexBaseDay,
+	lexBaseMonth
 )
 
