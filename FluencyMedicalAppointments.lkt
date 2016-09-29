@@ -1,0 +1,120 @@
+lektaProject
+	projectHead
+		projectDescriptor	: "Fluency"
+		projectLanguageScope	: [ English, Spanish, Polish ]
+		projectOperationScope	: [ Fluency ]
+		projectInterfaceScope   : [ Written, Spoken ]
+		projectCompileOutput 	: "Deployment/bin/FluencyMedicalAppointments.olk"
+
+	projectSetup
+		setupParserRoots = ProferenceChunk
+		setupTokenizerNormalizeSpecActivate 
+			//setupTokenizerNormalizeSpecDeactivate 
+			//setupTokenizerNormalizeSpecDouble 
+		setupTokenizerNormalizeInputActivate
+			//setupTokenizerNormalizeInputDeactivate
+		setupRuntimeSpyMessageOn
+			//TokenizerStrategy:Base
+		setupTokenizerSpellingChecker
+
+	classModel
+			// Feature Model - Kernel
+		#Include "Kernel/MainTypes.lkt"
+		#Include "Domains/MedicalAppointments/MainAppointmentTypes.lkt"
+
+			// Feature Model - Domains
+		//#Include "Domains/MedAppointment/Types/MainTypes.lkt"
+		//#Include "Domains/Banking/Types/MainTypes.lkt"
+
+	/*
+	functionModel
+		#Include "Source/DManager/Library/MindBoard.lkth"
+		#Include "Source/DManager/Library/DialogueTask.lkth"
+
+		#Include "Source/DManager/Library/DialogueScheme.lkth"
+		#Include "Source/DManager/Library/DialogueScript.lkth"
+		#Include "Source/DManager/Library/DialogueFocus.lkth"
+		#Include "Source/DManager/Library/DialogueMove.lkth"
+		#Include "Source/DManager/Library/DialogueManager.lkth"
+		#Include "Source/DManager/Library/DialogueInterpret.lkth"
+		#Include "Source/DManager/Library/DialogueAnalysis.lkth"
+		#Include "Source/DManager/Library/DialogueReply.lkth"
+
+		#Include "Source/DManager/Library/ScheduleCalendar.lkth"
+		#Include "Source/DManager/Library/NegotiateAppointment.lkth"
+	*/
+
+	lexicalModel forLanguage English 
+		#Include "Kernel/MainEnglishLexicon.lkt"
+		#Include "Domains/MedicalAppointments/MainAppointmentEnglishLexicon.lkt"
+
+	grammaticalModel forLanguage English
+		#Include "Kernel/MainEnglishGrammar.lkt"
+		#Include "Domains/MedicalAppointments/MainAppointmentEnglishGrammar.lkt"
+
+
+//	lexicalModel forLanguage Spanish
+//		#Include "Kernel/Understanding/Spanish/Lexicon/MainSpanishLexicon.lkt"
+
+
+//	grammaticalModel forLanguage Spanish
+//		#Include "Kernel/Understanding/Spanish/Grammar/MainSpanishGrammar.lkt"
+
+	/*
+	conversationalModel
+		#Include "Source/DManager/MindBoard/MindBoardStructure.lkt"
+
+	LaunchConversation: {
+		LaunchSendToMindBoard: (DMSetup = (DMPhase: 'dmBooting') )
+	}
+
+	ColligoSchemata
+		#Include "Source/DManager/Colligo/ColligoSchemata.lkt"
+
+	SensoSchemata
+		#Include "Source/DManager/Senso/SensoSchemata.lkt"
+
+	CogitoSchemata
+		#Include "Source/DManager/Cogito/CogitoSchemata.lkt"
+
+	RespondoSchemata
+		#Include "Source/DManager/Respondo/RespondoSchemata.lkt"
+
+	LocutioSchemata
+		#Include "Source/DManager/Locutio/LocutioSchemata.lkt"
+
+	scriboModel forLanguage English
+		ScriboSchemata
+		#Include "Source/NLGenerate/English/Main_Generate.lkt"
+
+	scriboModel forLanguage Polish
+		ScriboSchemata
+		#Include "Source/NLGenerate/Polish/Main_Generate.lkt"
+
+	functionModel
+		#Include "Source/DManager/Library/MindBoard.lkt"
+		#Include "Source/DManager/Library/DialogueTask.lkt"
+
+		#Include "Source/DManager/Library/DialogueScheme.lkt"
+		#Include "Source/DManager/Library/DialogueScript.lkt"
+		#Include "Source/DManager/Library/DialogueFocus.lkt"
+		#Include "Source/DManager/Library/DialogueMove.lkt"
+		#Include "Source/DManager/Library/DialogueManager.lkt"
+		#Include "Source/DManager/Library/DialogueInterpret.lkt"
+		#Include "Source/DManager/Library/DialogueAnalysis.lkt"
+		#Include "Source/DManager/Library/DialogueReply.lkt"
+
+		#Include "Source/DManager/Library/ScheduleCalendar.lkt"
+		#Include "Source/DManager/Library/ScheduleCalendarEnglish.lkt"
+		#Include "Source/DManager/Library/ScheduleCalendarPolish.lkt"
+		#Include "Source/DManager/Library/NegotiateAppointment.lkt"
+
+		#Include "Source/NLGenerate/GenerateModel.lkt"
+
+	projectReview
+		//Print_Dialogue_Project_Setup
+		PrintLexiconByCats ( SelectLanguage: [1], "compile/LexiconByCats.txt")
+		displaySyntacticSpecification ( SelectLanguage: [1], "compile/GrammarSpec.txt")
+		displaySyntacticDefinition ( SelectLanguage: [1], "compile/GrammarDef.txt")
+		displaySyntacticRepresentation ( SelectLanguage: [1], "compile/GrammarRep.txt")
+		*/

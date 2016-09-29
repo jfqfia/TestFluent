@@ -11,7 +11,10 @@
 //
 // **************************************************
 
-#Include "Types/LexicalRequestTypes.lkt"
-#Include "Types/StatementTypes.lkt"
+// TODO Structure explanation
+classDef:Void 
+(
+	lexAppointmentTerm
+)
 
 

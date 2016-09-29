@@ -1,0 +1,22 @@
+LaunchLektaKernel( 
+	ExecStrategy = KernelSynchronous
+	)
+
+UseProject(
+    ProjectCompile : "./Deployment/bin/FluencyMedicalAppointments.olk"
+    TemporalFolder : "./.tmp/"
+)
+
+//MainAnswer:On
+//setupRuntimeSpyMessageOn
+DisplayProcessUnderstandingOn
+//DisplayProcessRespondoOn
+DisplayProcessCogitoOn
+//DisplayProcessColligoOn
+
+CreateDialogue(
+    InstanceOperation:1 
+    InstanceLanguage:1 
+    InstanceInterface:1
+)
+

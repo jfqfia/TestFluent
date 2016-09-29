@@ -1,0 +1,43 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+(Appointment_Rule01_1 :
+ 	[ TaskDialogueAct -> AppointmentAction ]
+	{
+		^ <- #1;
+	}
+)
+
+(Appointment_Rule01_2 :
+	[ TaskDialogueAct -> AppointmentScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Appointment_Rule02 :
+	[ TaskDialogueAct -> AppointmentAction AppointmentScope ]
+	{
+		^ <- #1;
+		^ <| #1;
+	}
+)
+
+(Appointment_Rule03 :
+ 	[ AppointmentScope -> lexAppointmentTerm lexPrepFor? ]
+	{
+		^.Scope <- 'appointment';
+	}
+)
+
+// i need an appointment for a couple of days after 24th of october from nine o'clock until 7pm

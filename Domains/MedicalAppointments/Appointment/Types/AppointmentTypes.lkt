@@ -6,12 +6,22 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE :	
+//	PACKAGE	:	
 //	FILE	:	
 //
 // **************************************************
 
-#Include "Types/LexicalRequestTypes.lkt"
-#Include "Types/StatementTypes.lkt"
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	AppointmentAction = TaskDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	AppointmentScope = TaskDialogueAct
+)
+
 
 

@@ -1,0 +1,52 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("appointment",	 		lexAppointmentTerm)
+("appointments", 		lexAppointmentTerm)
+("an appointment", 		lexAppointmentTerm)
+// More synonyms of appointment??
+/*
+interview
+meeting
+arrangement
+engagement
+rendezvous
+assignment
+invitation
+errand
+date
+assignation
+tryst
+meet-up
+*/
+
+
+//("",				lexAppointmentActionMake)
+/*
+make
+have
+book
+ask for
+meet for
+get
+schedule
+set up
+establish
+*/
+
+//("",				lexAppointmentActionCancel)
+//("",				lexAppointmentActionConfirm)
+//("",				lexAppointmentActionSearch)
+//("",				lexAppointmentActionChange)
+
+
