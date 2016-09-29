@@ -1,0 +1,32 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Statement = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Inform = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Request = CoreDialogueAct
+)
+
+

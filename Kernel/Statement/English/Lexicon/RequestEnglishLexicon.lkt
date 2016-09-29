@@ -1,0 +1,39 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("could you",	 		lexRequest)
+("could i",	 		lexRequest)
+("will you",	 		lexRequest)
+("would you",	 		lexRequest)
+("would you mind",		lexRequest)
+("would you mind if",		lexRequest)    
+("would i",	 		lexRequest)
+("can you",	 		lexRequest)
+("can i",	 		lexRequest)
+("do you mind",	 		lexRequest)
+("do you mind if", 		lexRequest)
+("do you mind if i", 		lexRequest)
+("do you think you could",	lexRequest)
+("may you",	 		lexRequest)
+("may i",	 		lexRequest)
+("request",	 		lexRequest)
+("want",	 		lexRequest)
+("need",	 		lexRequest)
+("wonder if you could",		lexRequest)
+("would like",		 	lexRequest)
+("i'd like",	 		lexRequest)
+("we'd like",	 		lexRequest)
+("i'd be happy if",	 	lexRequest)
+("is it all right if you",	lexRequest)
+("is it all right if i",	lexRequest)
+("do you think i could",	lexRequest)

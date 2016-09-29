@@ -1,0 +1,73 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+// 
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+// 
+// **************************************************
+
+(Social_Rule01 :
+ 	[ CoreDialogueAct -> Social ]
+	{
+		^ <- #1;
+	}
+)
+
+(Social_Rule02 :
+	[ Social -> < Greeting | Bye | Thanks >]
+	{
+		^ <- #1;
+		^.Dimension <- 'social';
+	}
+)
+
+(Social_Rule03 :
+ 	[ Greeting -> lexGreeting ]
+	{
+		^.Function <- 'greeting';
+	}
+)
+
+(Social_Rule04 :
+ 	[ Greeting -> lexFormalGreeting ]
+	{
+		^.Function <- 'greeting';
+		// Add here semantic content information
+	}
+)
+
+(Social_Rule05 :
+ 	[ Bye -> lexGoodbye ]
+	{
+		^.Function <- 'goodbye';
+	}
+)
+
+(Social_Rule06 :
+ 	[ Bye -> lexFormalGoodbye ]
+	{
+		^.Function <- 'goodbye';
+		// Add here semantic content information
+	}
+)
+
+(Social_Rule07 :
+ 	[ Thanks -> lexThanks ]
+	{
+		^.Function <- 'thanking';
+	}
+)
+
+(Social_Rule08 :
+ 	[ Thanks -> lexFormalThanks ]
+	{
+		^.Function <- 'thanking';
+		// Add here semantic content information
+	}
+)
+

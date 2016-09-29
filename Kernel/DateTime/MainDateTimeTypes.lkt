@@ -1,0 +1,19 @@
+// **************************************************
+//
+//	Index of types for detecting date time.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.DateTime
+//	FILE	:	MainDateTimeTypes.lkt
+//
+// **************************************************
+
+#Include "Types/TimeTypes.lkt"
+#Include "Types/LexicalTimeTypes.lkt"
+#Include "Types/DateTypes.lkt"
+#Include "Types/LexicalDateTypes.lkt"
+
+

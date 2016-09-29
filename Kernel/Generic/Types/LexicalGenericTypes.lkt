@@ -1,0 +1,54 @@
+// **************************************************
+//
+//	Types for lexical part of the kernel module.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.Generic
+//	FILE	:	LexicalGenericTypes.lkt
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:Void 
+(
+	lexComma,
+	lexPeriod,
+	lexColon,
+	lexAuxIntro,
+	lexAuxVerb,
+	lexBeVerb,
+	lexCanVerb,
+	lexConjAnd,
+	lexConjBecause,
+	lexConjBut,
+	lexConjOr,
+	lexConjNot,
+	lexDetMy,
+	lexDetUndef,
+	lexDetThe,
+	lexDetThis,
+	lexDetThese,
+	lexDetThat,
+	lexDetThose,
+	lexParticleAround,
+	lexPlease,
+	lexFirstPersonPronoun,
+	lexPrepAt,
+	lexPrepFor,
+	lexPrepOf,
+	lexPrepOn,
+	lexPrepPast,
+	lexPrepTo,
+	lexPrepIn,
+	lexPrepWithin,
+	lexPrepFrom,
+	lexPrepPlace,
+	lexPrepSpec,
+	lexRepeat,
+	lexAnyDet
+)
+
+

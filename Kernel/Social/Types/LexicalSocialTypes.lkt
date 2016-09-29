@@ -1,0 +1,26 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :
+//	PACKAGE	:
+//	FILE	:
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:Void
+( 
+	lexGreeting,
+	lexFormalGreeting,	
+	lexGoodbye,
+	lexFormalGoodbye,
+	lexThanks,
+	lexFormalThanks	 	
+)
+
+
+

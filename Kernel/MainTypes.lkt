@@ -1,0 +1,20 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+#Include "Generic/MainGenericTypes.lkt"
+#Include "Number/MainNumberTypes.lkt"
+#Include "DateTime/MainDateTimeTypes.lkt"
+#Include "Social/MainSocialTypes.lkt"
+#Include "Statement/MainStatementTypes.lkt"
+
+

@@ -1,0 +1,37 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Social = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Greeting = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Bye = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Thanks = CoreDialogueAct
+)
+

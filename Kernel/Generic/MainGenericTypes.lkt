@@ -1,0 +1,17 @@
+// **************************************************
+//
+//	Index for generic types.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types.Generic
+//	FILE	:	MainGenericTypes.lkt
+//
+// **************************************************
+
+#Include "Types/GenericTypes.lkt"
+#Include "Types/DialogueActTypes.lkt"
+#Include "Types/ParametersTypes.lkt"
+#Include "Types/LexicalGenericTypes.lkt"

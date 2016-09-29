@@ -1,0 +1,23 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+#Include "Generic/English/Lexicon/GenericEnglishLexicon.lkt"
+#Include "Number/English/Lexicon/NumberEnglishLexicon.lkt"
+#Include "DateTime/English/Lexicon/DateEnglishLexicon.lkt"
+#Include "DateTime/English/Lexicon/TimeEnglishLexicon.lkt"
+#Include "Social/English/Lexicon/SocialEnglishLexicon.lkt"
+#Include "Statement/English/Lexicon/RequestEnglishLexicon.lkt"
+
+
+
+

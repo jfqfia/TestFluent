@@ -1,0 +1,54 @@
+// **************************************************
+//
+//	Generic configuration for english lexical 
+//	model.
+// 
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+// 	PACKAGE	:	Understanding.English.Generic.Lexicon
+//	FILE	:	GenericEnglishLexicon.lkt
+//
+// **************************************************
+
+//  Configure general parameters of the tokenizer.
+setupTokenizerBlanks (" -?!'")
+setupTokenizerPunctuation( ",", lexComma )
+setupTokenizerPunctuation( ".", lexPeriod )
+setupTokenizerPunctuation( ":", lexColon)
+setupTokenizerIntegerClass (lexNumberDigits,".,")
+
+// lexConjuntions
+("and",		lexConjAnd)
+("because",	lexConjBecause)
+("but",		lexConjBut)
+("or",		lexConjOr)
+("not",		lexConjNot)
+
+// lexDet: Determiners
+("a",		lexDetUndef)
+("an",		lexDetUndef)
+("the",		lexDetThe)
+("this",	lexDetThis)
+("that",	lexDetThat)
+("these",	lexDetThese)
+("those",	lexDetThose)
+("my",		lexDetMy)
+
+// lexPrep: Prepositions
+("at",		lexPrepAt)
+("for",		lexPrepFor)
+("of",		lexPrepOf)
+("on",		lexPrepOn)
+("past",	lexPrepPast)
+("to",		lexPrepTo)
+("from",	lexPrepFrom)
+("in",		lexPrepIn)
+("within",	lexPrepWithin)
+
+// lexFirstPersonPronoun: First person pronouns
+("i",		lexFirstPersonPronoun)
+("we",		lexFirstPersonPronoun)
+
+
