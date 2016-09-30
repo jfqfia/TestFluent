@@ -44,6 +44,9 @@
 ("it's nice to see you again", 	lexFormalGreeting)
 ("nice to meet you",		lexFormalGreeting)
 ("pleased to meet you", 	lexFormalGreeting)
+("good morning", 		lexFormalGreeting)
+("good afternoon", 		lexFormalGreeting)
+("good evening", 		lexFormalGreeting)
 
 // Informal "goodbyes"
 ("all right then",		lexGoodbye)
@@ -104,7 +107,7 @@
 ("you're too kind", 		lexFormalThanks)
 ("you shouldn't have",		lexFormalThanks)
 
-// Downplaying -> new category?
+// TODO Downplaying -> new category?
 /*
 Sure
 No sweat

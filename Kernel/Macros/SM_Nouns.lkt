@@ -1,0 +1,28 @@
+/* ==================================================================== */
+/*	Project: MILAO Spanish A1 - Version 2 (2014)                    */
+/*	   GENERIC                                                      */
+/*		Module: Class Specification                             */
+/* ==================================================================== */
+
+/* -------------------------------------------------------------------- */
+/* --- File: SM_Nouns.lkt 						*/
+/* 									*/
+/* -------------------------------------------------------------------- */
+
+
+/* ******************************************************************** */
+
+
+
+// Topic 01
+#Define _PROPER		( LingModel : ( SyntHead : ( SyntMarks : [ 'Proper' 	])))
+#Define _COMMON		( LingModel : ( SyntHead : ( SyntMarks : [ 'Common' 	])))
+#Define _CONCRETE	( LingModel : ( SyntHead : ( SyntMarks : [ 'Concrete' 	])))
+#Define _ABSTRACT	( LingModel : ( SyntHead : ( SyntMarks : [ 'Abstract' 	])))
+#Define _COUNTABLE	( LingModel : ( SyntHead : ( SyntMarks : [ 'Countable' 	])))
+#Define _DISCRETE	( LingModel : ( SyntHead : ( SyntMarks : [ 'Discrete'	])))
+#Define _UNCOUNTABLE	( LingModel : ( SyntHead : ( SyntMarks : [ 'Uncountable'])))
+#Define _UNIGENDER	( LingModel : ( SyntHead : ( SyntMarks : [ 'UniGender' ])))
+
+// Topic 03
+#Define _RELATIVE	( LingModel : ( SyntHead : ( SyntMarks : [ 'Relative' 	])))

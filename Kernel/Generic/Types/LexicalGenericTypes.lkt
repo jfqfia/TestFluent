@@ -48,7 +48,12 @@ classDef:Void
 	lexPrepPlace,
 	lexPrepSpec,
 	lexRepeat,
-	lexAnyDet
+	lexAnyDet,
+	lexVerbBe,
+	lexNegation
 )
 
-
+classDef:Synonym
+(
+	lexAction = Action
+)

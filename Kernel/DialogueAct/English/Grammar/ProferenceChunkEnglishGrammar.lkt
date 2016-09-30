@@ -1,0 +1,48 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+
+// TODO I must improve this: too much ambiguities
+(ProferenceChunk_Rule01	:
+ 	[ ProferenceChunk -> < CoreDialogueAct? % TaskDialogueAct? % ParameterChunk? > ]
+	{
+		^.CoreDialogueAct <- #1;
+		^.TaskDialogueAct <- #2;
+		^.Parameters <- #3.Parameters;
+	}
+)
+
+/*
+(ProferenceChunk_Rule02	:
+ 	[ ProferenceChunk/1 -> ProferenceChunk/1 ProferenceChunk/0 ]
+	{
+		^ <- #1;
+		^ <| #2;
+	}
+)
+*/
+
+// TODO To be included in the test corpus
+
+// i need to make a medical appointment for tomorrow
+// i need to ask for a medical appointment for tomorrow
+// i want an appointment to be booked for tomorrow
+// an appointment to be booked i want tomorrow
+// to be changed i want an appointment for tomorrow
+// i want to have an appointment cancelled for tomorrow
+// i want to have an appointment for tomorrow
+
+// hello good morning i need an appointment for tomorrow
+
+
+

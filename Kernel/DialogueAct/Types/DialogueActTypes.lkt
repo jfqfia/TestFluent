@@ -29,9 +29,19 @@ classDef:StructureComplex
   	(
 		CoreDialogueAct,
 		TaskDialogueAct,
-		Parameter
+		Parameters
 	)
 )
+
+// TODO Structure explanation
+classDef:StructureComplex 
+( 
+	ParameterChunk :
+	(
+		Parameters
+	)
+)
+
 
 // TODO Structure explanation
 classDef:StructureComplex
@@ -122,7 +132,7 @@ classDef:ElementRange
 	{
 		'terminal',
 		'negation',
-		'conjuction',
+		'conjunction',
 		'disjunction',
 		'sequential'
 	}

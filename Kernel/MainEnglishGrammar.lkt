@@ -11,11 +11,17 @@
 //
 // **************************************************
 
-#Include "Generic/English/Grammar/GenericEnglishGrammar.lkt"
+#Include "DialogueAct/English/Grammar/ProferenceChunkEnglishGrammar.lkt"
+#Include "DialogueAct/English/Grammar/TaskDialogueEnglishGrammar.lkt"
+#Include "DialogueAct/English/Grammar/ParameterEnglishGrammar.lkt"
+
 #Include "Number/English/Grammar/NumberEnglishGrammar.lkt"
+
 #Include "DateTime/English/Grammar/DateEnglishGrammar.lkt"
 #Include "DateTime/English/Grammar/TimeEnglishGrammar.lkt"
+
 #Include "Social/English/Grammar/SocialEnglishGrammar.lkt"
+
 #Include "Statement/English/Grammar/StatementEnglishGrammar.lkt"
 #Include "Statement/English/Grammar/RequestEnglishGrammar.lkt"
 

@@ -1,0 +1,62 @@
+/* ==================================================================== */
+/*	Project: MILAO Spanish A1 - Version 2 (2014)                    */
+/*	   GENERIC                                                      */
+/*		Module: Macro Specification                             */
+/* ==================================================================== */
+
+/* -------------------------------------------------------------------- */
+/* --- File: CM_LingModel.lkt 						*/
+/* 									*/
+/* -------------------------------------------------------------------- */
+
+
+// MACRO TO DEFINE A LEMMA STRUCTURE
+#DefMacro       LEMMA ( lemma )	\
+	( LingModel : ( SyntHead : ( WordForm : ( Lemma : lemma ))))
+
+#DefMacro	SPELLED ( typo ) \
+ 	( LingModel : ( SyntHead : ( WordForm : ( SpelledForm : typo ))))
+
+// SyntNumber
+#Define _SINGULAR	( LingModel : ( SyntHead : ( SyntNumber : 'Singular'	)))
+#Define _PLURAL		( LingModel : ( SyntHead : ( SyntNumber : 'Plural'	)))
+
+// SyntPerson
+#Define _1st		( LingModel : ( SyntHead : ( SyntPerson : 'First' 	)))
+#Define _2nd		( LingModel : ( SyntHead : ( SyntPerson : 'Second'	)))
+#Define _2ndFormal	( LingModel : ( SyntHead : ( SyntPerson : 'SecondFormal')))
+#Define _3rd		( LingModel : ( SyntHead : ( SyntPerson : 'Third'	)))
+
+// SyntGender
+#Define _FEMININE	( LingModel : ( SyntHead : ( SyntGender : 'Feminine'	)))
+#Define _MASCULINE	( LingModel : ( SyntHead : ( SyntGender : 'Masculine'	)))
+#Define _NEUTER		( LingModel : ( SyntHead : ( SyntGender : 'Neuter' 	)))
+
+// SyntAspect
+#Define _SM_ASPE_AUX	( LingModel : ( SyntHead : ( SyntAspect :[ 'Auxiliary']	)))
+#Define _SM_ASPE_SIM	( LingModel : ( SyntHead : ( SyntAspect :[ 'Simple' ]	)))
+#Define _SM_ASPE_PER	( LingModel : ( SyntHead : ( SyntAspect :['Perfective']	)))
+#Define _SM_ASPE_PRO	( LingModel : ( SyntHead : ( SyntAspect :['Progressive'])))
+
+// SyntCase
+// SyntConjugation
+
+// SyntMarks
+#Define _FORMAL		( LingModel : ( SyntHead : ( SyntMarks : [ 'Formal' ])))
+
+
+// SyntMood
+#Define _GERUND		( LingModel : ( SyntHead : ( SyntMood : 'Gerund'	)))
+#Define _IMPERATIVE	( LingModel : ( SyntHead : ( SyntMood : 'Imperative'	)))
+#Define _INDICATIVE	( LingModel : ( SyntHead : ( SyntMood : 'Indicative'	)))
+#Define _INFINITIVE	( LingModel : ( SyntHead : ( SyntMood : 'Infinitive'	)))
+#Define _PARTICIPLE	( LingModel : ( SyntHead : ( SyntMood : 'Participle'	)))
+#Define _SUBJUNCTIVE	( LingModel : ( SyntHead : ( SyntMood : 'Subjunctive'	)))
+
+
+// SyntTense
+#Define _CONDITIONAL	( LingModel : ( SyntHead : ( SyntTense : 'Conditional'	)))
+#Define _IMPERFECT	( LingModel : ( SyntHead : ( SyntTense : 'Imperfect'	)))
+#Define _PRESENT	( LingModel : ( SyntHead : ( SyntTense : 'Present'	)))
+#Define _PAST		( LingModel : ( SyntHead : ( SyntTense : 'Past'		)))
+#Define _FUTURE		( LingModel : ( SyntHead : ( SyntTense : 'Future'	)))

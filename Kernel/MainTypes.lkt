@@ -16,5 +16,7 @@
 #Include "DateTime/MainDateTimeTypes.lkt"
 #Include "Social/MainSocialTypes.lkt"
 #Include "Statement/MainStatementTypes.lkt"
+#Include "DialogueAct/MainDialogueActTypes.lkt"
+
 
 

@@ -20,7 +20,7 @@ lektaProject
 	classModel
 			// Feature Model - Kernel
 		#Include "Kernel/MainTypes.lkt"
-		#Include "Domains/MedicalAppointments/MainAppointmentTypes.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentTypes.lkt"
 
 			// Feature Model - Domains
 		//#Include "Domains/MedAppointment/Types/MainTypes.lkt"
@@ -46,11 +46,11 @@ lektaProject
 
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
-		#Include "Domains/MedicalAppointments/MainAppointmentEnglishLexicon.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
 
 	grammaticalModel forLanguage English
 		#Include "Kernel/MainEnglishGrammar.lkt"
-		#Include "Domains/MedicalAppointments/MainAppointmentEnglishGrammar.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGrammar.lkt"
 
 
 //	lexicalModel forLanguage Spanish

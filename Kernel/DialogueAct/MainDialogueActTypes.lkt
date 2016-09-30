@@ -6,11 +6,11 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE :	
+//	PACKAGE	:	
 //	FILE	:	
 //
 // **************************************************
 
-#Include "Appointment/MainAppointmentTypes.lkt"
-
+#Include "Types/DialogueActTypes.lkt"
+#Include "Types/ParametersTypes.lkt"
 

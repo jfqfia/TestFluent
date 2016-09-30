@@ -14,12 +14,6 @@
 // TODO Structure explanation
 classDef:Synonym 
 ( 
- 	AppointmentAction = TaskDialogueAct
-)
-
-// TODO Structure explanation
-classDef:Synonym 
-( 
  	AppointmentScope = TaskDialogueAct
 )
 

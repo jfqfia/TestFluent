@@ -11,42 +11,16 @@
 //
 // **************************************************
 
+// TODO This kind of adjectives are so domain-dependent, we should put this in another file
+("doctor", 			lexMedicalTerm)
+("doctor's", 			lexMedicalTerm)
+("medical", 			lexMedicalTerm)
+
 ("appointment",	 		lexAppointmentTerm)
 ("appointments", 		lexAppointmentTerm)
-("an appointment", 		lexAppointmentTerm)
-// More synonyms of appointment??
-/*
-interview
-meeting
-arrangement
-engagement
-rendezvous
-assignment
-invitation
-errand
-date
-assignation
-tryst
-meet-up
-*/
-
-
-//("",				lexAppointmentActionMake)
-/*
-make
-have
-book
-ask for
-meet for
-get
-schedule
-set up
-establish
-*/
-
-//("",				lexAppointmentActionCancel)
-//("",				lexAppointmentActionConfirm)
-//("",				lexAppointmentActionSearch)
-//("",				lexAppointmentActionChange)
-
+("visit", 			lexAppointmentTerm)
+("quote", 			lexAppointmentTerm)
+("meeting", 			lexAppointmentTerm)
+("date", 			lexAppointmentTerm)
+("meet-up", 			lexAppointmentTerm)
 

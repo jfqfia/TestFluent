@@ -1,0 +1,35 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// TODO I must improve this
+(TaskDialogueAct_Rule01	:
+ 	[ TaskDialogueAct -> TaskDialogueAct TaskDialogueAct ]
+	{
+		if((!! #1.Action && #2.Action) || (#1.Action && !! #2.Action))
+		{
+			^ <- #1;
+			^ <| #2;
+		}
+		else 
+		{
+			Fail();
+		}
+	}
+)
+
+(TaskDialogueAct_Rule02 :
+ 	[ TaskDialogueAct -> lexPrepTo? lexVerbBe? lexAction lexPrepFor? ]
+	{
+		^.Action <- #3;
+	}
+)

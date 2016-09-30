@@ -1,0 +1,88 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("book",			lexAction, 'book')
+("make",			lexAction, 'book')
+("have",			lexAction, 'book')
+("get",				lexAction, 'book')
+("schedule",			lexAction, 'book')
+("set up",			lexAction, 'book')
+("establish",			lexAction, 'book')
+("ask",				lexAction, 'book')
+
+("made", 			lexAction, 'book')
+("had", 			lexAction, 'book')
+("booked", 			lexAction, 'book')
+("scheduled", 			lexAction, 'book')
+("established", 		lexAction, 'book')
+("asked", 			lexAction, 'book')
+
+("cancel",			lexAction, 'cancel')
+("erase", 			lexAction, 'cancel')
+("delete", 			lexAction, 'cancel')
+("drop", 			lexAction, 'cancel')
+("eliminate", 			lexAction, 'cancel')
+("remove", 			lexAction, 'cancel')
+("annul", 			lexAction, 'cancel')
+("revoke", 			lexAction, 'cancel')
+("call off", 			lexAction, 'cancel')
+("suppress", 			lexAction, 'cancel')
+("discard", 			lexAction, 'cancel')
+("get rid of", 			lexAction, 'cancel')
+
+("cancelled", 			lexAction, 'cancel')
+("erased", 			lexAction, 'cancel')
+("deleted", 			lexAction, 'cancel')
+("dropped", 			lexAction, 'cancel')
+("eliminated", 			lexAction, 'cancel')
+("removed", 			lexAction, 'cancel')
+("annuled", 			lexAction, 'cancel')
+("revoked", 			lexAction, 'cancel')
+("called of", 			lexAction, 'cancel')
+("supressed", 			lexAction, 'cancel')
+("discarded", 			lexAction, 'cancel')
+
+("confirm",			lexAction, 'confirm')
+("make firm",			lexAction, 'confirm')
+("settle",			lexAction, 'confirm')
+("validate",			lexAction, 'confirm')
+("verify",			lexAction, 'confirm')
+("corroborate",			lexAction, 'confirm')
+
+("confirmed",			lexAction, 'confirm')
+("made",			lexAction, 'confirm')
+("settled",			lexAction, 'confirm')
+("validated",			lexAction, 'confirm')
+("verified",			lexAction, 'confirm')
+("corroborated",		lexAction, 'confirm')
+
+("change",			lexAction, 'change')
+("alter",			lexAction, 'change')
+("modify",			lexAction, 'change')
+("exchange",			lexAction, 'change')
+("replace",			lexAction, 'change')
+("substitute",			lexAction, 'change')
+("switch",			lexAction, 'change')
+("interchange",			lexAction, 'change')
+("swap",			lexAction, 'change')
+
+("changed",			lexAction, 'change')
+("altered",			lexAction, 'change')
+("modified",			lexAction, 'change')
+("exchanged",			lexAction, 'change')
+("replaced",			lexAction, 'change')
+("substitute",			lexAction, 'change')
+("switched",			lexAction, 'change')
+("interchanged",		lexAction, 'change')
+("swapped",			lexAction, 'change')
+

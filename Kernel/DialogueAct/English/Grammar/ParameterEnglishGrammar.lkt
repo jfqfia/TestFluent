@@ -1,0 +1,125 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// TODO Review others parameters inside batch, if the type of information that carry is the same we could merge them
+(ParameterChunk_Rule01 :
+ 	[ ParameterChunk/4 -> Parameter/3 ]
+	{
+		BatchInsertEnd(^.Parameters, #1);
+	}
+)
+
+// TODO Review others parameters inside batch, if the type of information that carry is the same we could merge them
+(ParameterChunk_Rule02 :
+ 	[ ParameterChunk/4 -> ParameterChunk/4 Parameter/3 ]
+	{
+		^ <- #1;
+		BatchInsertEnd(^.Parameters, #2);
+	}
+)
+
+(Parameter_Rule01 :
+ 	[ Parameter/1 -> ParameterValue/0 ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterValue <- #1;
+	}
+)
+
+(Parameter_Rule02 :
+	[ Parameter/2 -> lexNegation Parameter/1]
+	{
+		^.ParameterCategory <- 'negation';
+		^.ParameterOperand1 <- #2;
+	}
+)
+
+// TODO Only if the two "Parameter" are produced by the same type (ie datetimes with datetimes and so on)
+(Parameter_Rule03 :
+	[ Parameter/3 -> Parameter/3 lexConjOr Parameter/2]
+	{
+		^.ParameterCategory <- 'disjunction';
+		^.ParameterOperand1 <- #1;
+		^.ParameterOperand2 <- #3;
+		if(#1.ParameterCategory == 'sequential')
+		{
+			^.ParameterOperand1.ParameterCategory <- 'disjunction';
+		}
+	}
+)
+
+// TODO Only if the two "Parameter" are produced by the same type (ie datetimes with datetimes and so on)
+(Parameter_Rule04 :
+	[ Parameter/3 -> Parameter/3 lexConjAnd Parameter/2]
+	{
+		^.ParameterCategory <- 'conjunction';
+		^.ParameterOperand1 <- #1;
+		^.ParameterOperand2 <- #3;
+		if(#1.ParameterCategory == 'sequential')
+		{
+			^.ParameterOperand1.ParameterCategory <- 'conjunction';
+		}
+	}
+)
+
+// TODO Only if the two "Parameter" are produced by the same type (ie datetimes with datetimes and so on)
+(Parameter_Rule05 :
+	[ Parameter/3 -> Parameter/3 lexComma? Parameter/2]
+	{
+		^.ParameterCategory <- 'sequential';
+		^.ParameterOperand1 <- #1;
+		^.ParameterOperand2 <- #3;
+	}
+)
+
+// not today
+// today or tomorrow
+// today or tomorrow or the day after tomorrow
+// not today or not tomorrow
+// today and tomorrow
+// today and tomorrow and the day after tomorrow
+// today, tomorrow or 25th aug
+// today, tomorrow and 25th aug
+// today, tomorrow, 25th aug
+// 1st aug and 2nd aug or 3rd aug and 4th aug (too much ambiguity)
+
+// TODO Hay que fusionar con lo que ya esté
+// today tomorrow
+
+// TODO Too much ambiguities
+// 1st aug until 2nd aug or 3rd aug until 4th aug
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

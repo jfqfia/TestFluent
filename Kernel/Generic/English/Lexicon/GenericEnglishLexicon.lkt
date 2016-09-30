@@ -1,14 +1,13 @@
 // **************************************************
 //
-//	Generic configuration for english lexical 
-//	model.
-// 
+//	
+//
 // **************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-// 	PACKAGE	:	Understanding.English.Generic.Lexicon
-//	FILE	:	GenericEnglishLexicon.lkt
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
 //
 // **************************************************
 
@@ -25,6 +24,11 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("but",		lexConjBut)
 ("or",		lexConjOr)
 ("not",		lexConjNot)
+
+// lexNegations
+("not",		lexNegation)
+("nor",		lexNegation)
+("no",		lexNegation)
 
 // lexDet: Determiners
 ("a",		lexDetUndef)
@@ -51,4 +55,6 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("i",		lexFirstPersonPronoun)
 ("we",		lexFirstPersonPronoun)
 
+// lexVerBe
+("be",		lexVerbBe)
 

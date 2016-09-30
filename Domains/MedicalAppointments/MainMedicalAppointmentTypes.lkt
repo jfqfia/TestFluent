@@ -11,11 +11,8 @@
 //
 // **************************************************
 
-// TODO Structure explanation
-classDef:Void 
-(
-	lexAppointmentTerm,
-	lexMedicalTerm
-)
+#Include "Appointment/MainAppointmentTypes.lkt"
+
+
 
 
