@@ -11,6 +11,13 @@
 //
 // **************************************************
 
+// Constants
+#Include "Constants/VerbConstants.lkt"
+
+// Macros
+#Include "Macros/VerbMacros.lkt"
+
+// Types
 #Include "Generic/MainGenericTypes.lkt"
 #Include "Number/MainNumberTypes.lkt"
 #Include "DateTime/MainDateTimeTypes.lkt"

@@ -1,0 +1,60 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+#DefMacro	VERB_ROOT(lemma) \
+		VerbRoot: lemma
+
+// Verbs ending in a long vowel (play)
+// Verbs ending in a diphthong followed by a consonant (paint)
+// Verbs ending in a consonant cluster (delight)
+#DefMacro	VERB_REGULAR_TYPE_1(lemma) \
+		(lemma,				lexVerb, (&VERB_ROOT(lemma), _INFINITIVE)) \
+		(lemma++ing,			lexVerb, (&VERB_ROOT(lemma), _PRESENT_PARTICIPLE)) \
+		(lemma++ed,			lexVerb, (&VERB_ROOT(lemma), _PAST_PARTICIPLE))
+
+// Verbs ending in a consonant followed by 'e' (dance)
+#DefMacro	VERB_REGULAR_TYPE_2(lemma) \
+		(lemma,				lexVerb, (&VERB_ROOT(lemma), _INFINITIVE)) \
+		(lemma[$-1]++ing,		lexVerb, (&VERB_ROOT(lemma), _PRESENT_PARTICIPLE)) \
+		(lemma++d,			lexVerb, (&VERB_ROOT(lemma), _PAST_PARTICIPLE))
+
+// Verbs ending in a short vowel followed by a consonant (chop)
+#DefMacro	VERB_REGULAR_TYPE_3(lemma) \
+		(lemma,				lexVerb, (&VERB_ROOT(lemma), _INFINITIVE)) \
+		(lemma++lemma[$+1]++ing,	lexVerb, (&VERB_ROOT(lemma), _PRESENT_PARTICIPLE)) \
+		(lemma++lemma[$+1]++ed,		lexVerb, (&VERB_ROOT(lemma), _PAST_PARTICIPLE))
+
+// TODO ONLY FOR THIRD PERSON FORM
+// Verbs ending in sibilants (kiss)
+#DefMacro	VERB_REGULAR_TYPE_4(lemma) \
+		(lemma,				lexVerb, (&VERB_ROOT(lemma), _INFINITIVE)) \
+		(lemma++ing,			lexVerb, (&VERB_ROOT(lemma), _PRESENT_PARTICIPLE)) \
+		(lemma++ed,			lexVerb, (&VERB_ROOT(lemma), _PAST_PARTICIPLE))
+
+// TODO FOR THIRD PERSON FORM TOO
+// Verbs ending in a consonant followed by 'y' (copy)
+#DefMacro	VERB_REGULAR_TYPE_5(lemma) \
+		(lemma,				lexVerb, (&VERB_ROOT(lemma), _INFINITIVE)) \
+		(lemma++ing,			lexVerb, (&VERB_ROOT(lemma), _PRESENT_PARTICIPLE)) \
+		(lemma[$-1]++ied,		lexVerb, (&VERB_ROOT(lemma), _PAST_PARTICIPLE))
+
+
+/*
+#DefMacro       NOUN_REGV_MFSP ( lemma )		&NOUN_REGV_MFSP( lemma, _EMPTY )
+#DefMacro       NOUN_REGV_MFSP ( lemma, params ) \
+        ( lemma                 , noun, &LEMMA(lemma) &NOUN_REGV_VARIANTS_MFSP( lemma ) _MASCULINE _3rd _SINGULAR params ) \
+        ( lemma++s              , noun, &LEMMA(lemma) &NOUN_REGV_VARIANTS_MFSP( lemma ) _MASCULINE _3rd _PLURAL params ) \
+        ( lemma[$-1]++a         , noun, &LEMMA(lemma) &NOUN_REGV_VARIANTS_MFSP( lemma ) _FEMININE _3rd _SINGULAR params ) \
+        ( lemma[$-1]++as        , noun, &LEMMA(lemma) &NOUN_REGV_VARIANTS_MFSP( lemma ) _FEMININE _3rd _PLURAL params )
+*/
+

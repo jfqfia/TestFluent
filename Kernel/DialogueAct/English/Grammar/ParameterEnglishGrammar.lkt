@@ -11,7 +11,7 @@
 //
 // **************************************************
 
-// TODO Review others parameters inside batch, if the type of information that carry is the same we could merge them
+// TODO Review others parameters inside batch, if the type of information that carries is the same we could merge them
 (ParameterChunk_Rule01 :
  	[ ParameterChunk/4 -> Parameter/3 ]
 	{
@@ -19,7 +19,7 @@
 	}
 )
 
-// TODO Review others parameters inside batch, if the type of information that carry is the same we could merge them
+// TODO Review others parameters inside batch, if the type of information that carries is the same we could merge them
 (ParameterChunk_Rule02 :
  	[ ParameterChunk/4 -> ParameterChunk/4 Parameter/3 ]
 	{

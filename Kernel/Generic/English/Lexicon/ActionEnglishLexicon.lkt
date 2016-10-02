@@ -11,6 +11,42 @@
 //
 // **************************************************
 
+&VERB_REGULAR_TYPE_1(want)
+/*
+("want",			lexVerb, (VerbRoot: 'want', _INFINITIVE))
+("wanting",			lexVerb, (VerbRoot: 'want', _PRESENT_PARTICIPLE))
+("wanted",			lexVerb, (VerbRoot: 'want', _PAST_PARTICIPLE))
+*/
+
+&VERB_REGULAR_TYPE_2(dance)
+/*
+("dance",			lexVerb, (VerbRoot: 'dance', _INFINITIVE))
+("dancing",			lexVerb, (VerbRoot: 'dance', _PRESENT_PARTICIPLE))
+("danced",			lexVerb, (VerbRoot: 'dance', _PAST_PARTICIPLE))
+*/
+
+&VERB_REGULAR_TYPE_3(chop)
+/*
+("chop",			lexVerb, (VerbRoot: 'chop', _INFINITIVE))
+("chopping",			lexVerb, (VerbRoot: 'chop', _PRESENT_PARTICIPLE))
+("chopped",			lexVerb, (VerbRoot: 'chop', _PAST_PARTICIPLE))
+*/
+
+&VERB_REGULAR_TYPE_4(kiss)
+/*
+("kiss",			lexVerb, (VerbRoot: 'kiss', _INFINITIVE))
+("kissing",			lexVerb, (VerbRoot: 'kiss', _PRESENT_PARTICIPLE))
+("kissed",			lexVerb, (VerbRoot: 'kiss', _PAST_PARTICIPLE))
+*/
+
+&VERB_REGULAR_TYPE_5(copy)
+/*
+("copy",			lexVerb, (VerbRoot: 'copy', _INFINITIVE))
+("copying",			lexVerb, (VerbRoot: 'copy', _PRESENT_PARTICIPLE))
+("copied",			lexVerb, (VerbRoot: 'copy', _PAST_PARTICIPLE))
+*/
+
+// TODO Make synonyms domain-dependent (in grammar?)
 ("book",			lexAction, 'book')
 ("make",			lexAction, 'book')
 ("have",			lexAction, 'book')

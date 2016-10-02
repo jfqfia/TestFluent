@@ -1,0 +1,17 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+#Define _INFINITIVE		VerbForm: 'infinitive'
+#Define _PRESENT_PARTICIPLE	VerbForm: 'present participle'
+#Define _PAST_PARTICIPLE	VerbForm: 'past participle'
+

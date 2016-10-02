@@ -11,6 +11,8 @@
 //
 // **************************************************
 
+#Include "Generic/English/Grammar/GenericEnglishGrammar.lkt"
+
 #Include "DialogueAct/English/Grammar/ProferenceChunkEnglishGrammar.lkt"
 #Include "DialogueAct/English/Grammar/TaskDialogueEnglishGrammar.lkt"
 #Include "DialogueAct/English/Grammar/ParameterEnglishGrammar.lkt"

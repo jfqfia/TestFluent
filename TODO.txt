@@ -1,3 +1,16 @@
+Verb Macros
+
+http://www.scientificpsychic.com/grammar/regular.html
+GenericEnglishGrammar.lkt
+ActionEnglishLexicon.lkt
+ParameterEnglishGrammar.lkt
+ProferenceChunkGrammar.lkt
+TaskDialogueEnglishGrammar.lkt
+
+
+
+
+
 ==============================================
 	Questions
 ==============================================
@@ -5,8 +18,6 @@
 Corrector
 Have a nice weekend: OK
 Have a nice weekends: Not OK
-
-Make numbers test corpus
 
 ==============================================
 	Lekta

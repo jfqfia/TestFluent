@@ -57,3 +57,29 @@ classDef:Synonym
 (
 	lexAction = Action
 )
+
+classDef:StructureComplex
+(
+	lexVerb :
+	(
+		VerbRoot,
+		VerbForm
+	)
+)
+
+classDef:ElementLiteral
+(
+	VerbRoot
+)
+
+classDef:ElementRange
+(
+	VerbForm :
+	{
+		'infinitive',
+		'present participle',
+		'past participle'
+	}
+)
+
+
