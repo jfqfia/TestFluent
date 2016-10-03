@@ -19,6 +19,13 @@
 &VERB_IRREGULAR(forget, forgetting, forgot, forgotten, forgets)
 
 // TODO Make actions synonyms domain-dependent (in grammar?)
+
+
+&VERB_REGULAR_TYPE_1 ( book )
+
+&VERB_REGULAR_TYPE_4 ( establish )
+
+ /*
 ("book",			lexAction, 'book')
 ("make",			lexAction, 'book')
 ("have",			lexAction, 'book')
@@ -93,4 +100,5 @@
 ("switched",			lexAction, 'change')
 ("interchanged",		lexAction, 'change')
 ("swapped",			lexAction, 'change')
+*/
 

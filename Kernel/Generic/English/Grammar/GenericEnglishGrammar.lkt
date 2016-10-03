@@ -17,7 +17,10 @@
 (GenericRule01 :
     	[ TaskDialogueAct -> lexVerb ] 
 	{
-		^.Action <- #1.VerbRoot;
+		SpyMessage("TaskDialogueAct: ");
+		SpyMessage(#1);
+
+		^.Action.ActionDomain <- getActionDomainFromLemma(#1.VerbRoot);
 		^.Scope <- #1.VerbForm;
     	}
 )

@@ -26,9 +26,9 @@ lektaProject
 		//#Include "Domains/MedAppointment/Types/MainTypes.lkt"
 		//#Include "Domains/Banking/Types/MainTypes.lkt"
 
-	/*
 	functionModel
-		#Include "Source/DManager/Library/MindBoard.lkth"
+		#Include "Kernel/Generic/Functions/Domains.lkt"
+	/*
 		#Include "Source/DManager/Library/DialogueTask.lkth"
 
 		#Include "Source/DManager/Library/DialogueScheme.lkth"

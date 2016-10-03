@@ -97,10 +97,22 @@ classDef:StructureComplex
 	)
 )
 
+classDef:StructureComplex
+(
+ 	Action :
+	(
+	 	ActionDomain
+	)
+)
+
+classDef:ElementLiteral
+(
+ 	ActionDomain
+)
+
 // TODO Structure explanation
 classDef:ElementLiteral
 (
- 	Action,
 	Scope
 )
 
