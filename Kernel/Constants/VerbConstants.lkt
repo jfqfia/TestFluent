@@ -13,5 +13,7 @@
 
 #Define _INFINITIVE		VerbForm: 'infinitive'
 #Define _PRESENT_PARTICIPLE	VerbForm: 'present participle'
+#Define _SIMPLE_PAST		VerbForm: 'simple past'
 #Define _PAST_PARTICIPLE	VerbForm: 'past participle'
+#Define _3RD_PERSON		VerbForm: '3rd person'
 

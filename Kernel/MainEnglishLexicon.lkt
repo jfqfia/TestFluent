@@ -12,7 +12,7 @@
 // **************************************************
 
 #Include "Generic/English/Lexicon/GenericEnglishLexicon.lkt"
-#Include "Generic/English/Lexicon/ActionEnglishLexicon.lkt"
+#Include "Generic/English/Lexicon/VerbsEnglishLexicon.lkt"
 
 #Include "Number/English/Lexicon/NumberEnglishLexicon.lkt"
 

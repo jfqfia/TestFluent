@@ -78,7 +78,9 @@ classDef:ElementRange
 	{
 		'infinitive',
 		'present participle',
-		'past participle'
+		'simple past',
+		'past participle',
+		'3rd person'
 	}
 )
 

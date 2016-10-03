@@ -1,15 +1,18 @@
 Verb Macros
 
+2000 most usual spoken english words 
+http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
+
 http://www.scientificpsychic.com/grammar/regular.html
+http://www.linguasorb.com/english/verbs/conjugation/want
+https://en.wikipedia.org/wiki/Uses_of_English_verb_forms
+
+Or operation with times
 GenericEnglishGrammar.lkt
 ActionEnglishLexicon.lkt
 ParameterEnglishGrammar.lkt
 ProferenceChunkGrammar.lkt
 TaskDialogueEnglishGrammar.lkt
-
-
-
-
 
 ==============================================
 	Questions
