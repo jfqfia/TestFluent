@@ -35,16 +35,23 @@
 // at 11
 // at 11 hour
 // at 11 hours
-// 11
 // 11 hour
 // 11 hours
 // at 11 in the morning
-(TimeRule05 :
-    	[ BaseTime -> lexPrepAt? Number lexHourTerm? ] 
+(TimeRule05_1 :
+    	[ BaseTime -> lexPrepAt Number lexHourTerm? ] 
 	{
 		^.Hour <- #2.NumberValue;
     	}
 )
+
+(TimeRule05_2 :
+    	[ BaseTime -> lexPrepAt? Number lexHourTerm ] 
+	{
+		^.Hour <- #2.NumberValue;
+    	}
+)
+
 
 // at hh:mm
 // hh:mm
@@ -91,15 +98,40 @@
     	}
 )
 
-// at six twenty-five
-// six twenty-five
-(TimeRule06_5 :
-    	[ BaseTime -> lexPrepAt? Number lexZeroTerm? Number] 
+// at six oh five
+// six oh five
+(TimeRule06_5_a :
+    	[ BaseTime -> lexPrepAt? Number lexZeroTerm Number] 
 	{
-		^.Hour <- #2.NumberValue;
-		^.Minute <- #4.NumberValue;
+		if(#2.NumberValue < 24 && #4.NumberValue < 10)
+		{
+			^.Hour <- #2.NumberValue;
+			^.Minute <- #4.NumberValue;
+		}
+		else
+		{
+			Fail();
+		}
     	}
 )
+
+// at six twenty-five
+// six twenty-five
+(TimeRule06_5_b :
+    	[ BaseTime -> lexPrepAt? Number Number] 
+	{
+		if(#2.NumberValue < 24 && #3.NumberValue < 60)
+		{
+			^.Hour <- #2.NumberValue;
+			^.Minute <- #3.NumberValue;
+		}
+		else
+		{
+			Fail();
+		}
+    	}
+)
+
 
 // at six past nine
 // six past nine

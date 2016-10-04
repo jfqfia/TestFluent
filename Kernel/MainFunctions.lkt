@@ -1,0 +1,22 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+// Generic
+#Include "Generic/Functions/Domains.lkt"
+
+// DialogueAct
+#Include "DialogueAct/Functions/DialogueActFunctions.lkt"
+
+
+
+

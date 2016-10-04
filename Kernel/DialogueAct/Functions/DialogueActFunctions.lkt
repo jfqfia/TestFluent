@@ -1,0 +1,85 @@
+bool compatibleType(Parameter parameter1, Parameter parameter2)
+{
+	bool ret = False;
+
+	ret = ret || (isParameterOfTypeNumber(parameter1) && isParameterOfTypeNumber(parameter2));
+	ret = ret || (isParameterOfTypeDateTime(parameter1) && isParameterOfTypeDateTime(parameter2));
+
+	return ret;
+}
+
+bool isParameterOfTypeNumber(Parameter parameter)
+{
+	return Filled(parameter.ParameterValue.Number) || (parameter.ParameterCategory != 'terminal' && 
+			(Filled(parameter.ParameterOperand1.ParameterValue.Number) || 
+			 Filled(parameter.ParameterOperand2.ParameterValue.Number)));
+}
+
+bool isParameterOfTypeDateTime(Parameter parameter)
+{
+	return Filled(parameter.ParameterValue.DateTime) || (parameter.ParameterCategory != 'terminal' && 
+			(Filled(parameter.ParameterOperand1.ParameterValue.DateTime) || 
+			 Filled(parameter.ParameterOperand2.ParameterValue.DateTime)));
+}
+
+bool hasSomeElementOfType(Parameters parameters, ParameterValue parameterValue)
+{
+	bool ret = False;
+
+	ret = ret || (hasSomeElementOfTypeNumber(parameters) && Filled(parameterValue.Number));
+	ret = ret || (hasSomeElementOfTypeDateTime(parameters) && Filled(parameterValue.DateTime));
+
+	return ret;
+}
+
+bool hasSomeElementOfTypeNumber(Parameters parameters)
+{
+	Parameter parameter;
+	int n;
+
+	n <- BatchSize(parameters);
+	for(int i <- 1; i <= n; i <- i + 1)
+	{
+		BatchRecoverPosition(parameters, i, parameter);	
+		if(Filled(parameter.ParameterValue.Number))
+		{
+			return True;
+		}
+	}
+
+	return False;
+}
+
+bool hasSomeElementOfTypeDateTime(Parameters parameters)
+{
+	Parameter parameter;
+	int n;
+
+	n <- BatchSize(parameters);
+	for(int i <- 1; i <= n; i <- i + 1)
+	{
+		BatchRecoverPosition(parameters, i, parameter);	
+		if(Filled(parameter.ParameterValue.DateTime))
+		{
+			return True;
+		}
+	}
+
+	return False;
+}
+
+procedure changeParameterCategoryRecursive(Parameter parameter, ParameterCategory category)
+{
+	if(parameter.ParameterCategory == 'sequential')
+	{
+		parameter.ParameterCategory <- category;
+		changeParameterCategoryRecursive(parameter.ParameterOperand1, category);
+	}
+}
+
+
+
+
+
+
+

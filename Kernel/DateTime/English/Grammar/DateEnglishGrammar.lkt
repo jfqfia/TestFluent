@@ -106,7 +106,7 @@
 
 // in 2016
 (DateRule03_4 :
-	[ BaseDate -> lexPrepIn? Number]
+	[ BaseDate -> lexPrepIn Number]
 	{
 		^.Year <- #2.NumberValue;
 	}

@@ -20,7 +20,6 @@ classDef:ElementInt
 (
 	lexNumberDigits,
 	lexNumberValue,
-	lexNumberValueBelow10,
 	lexNumberValueHundred,
 	lexNumberValueThousand,
 	lexNumberValueMillion

@@ -19,31 +19,6 @@ classDef:StructureComplex
 	)
 )
 
-classDef:Synonym
-(
-	NumberBelow10 = Number
-)
-
-classDef:Synonym
-(
-	NumberBelow100 = Number
-)
-
-classDef:Synonym
-(
-	NumberBelow1000 = Number
-)
-
-classDef:Synonym
-(
-	NumberBelow1000000 = Number
-)
-
-classDef:Synonym
-(
-	NumberBelow1000000000 = Number
-)
-
 classDef:ElementInt
 (
 	NumberValue

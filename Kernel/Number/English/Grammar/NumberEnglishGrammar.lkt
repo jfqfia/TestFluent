@@ -1,30 +1,24 @@
 // **************************************************
 //
-//	Rules for numbers in english.
+//	
 //
 // **************************************************
 // 
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Understanding.English.Number.Grammar
-//	FILE	:	NumberEnglishGrammar.lkt
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
 // 
 // **************************************************
 
 // Output of this package
-(Number_Rule01_1 :
+(Number_Rule01 :
  	[ ParameterValue -> Number ]
 	{
 		^.Number <- #1;
 	}
 )
 
-(Number_Rule01_2 :
- 	[ Number -> < NumberBelow100 | NumberBelow1000 | NumberBelow1000000 | NumberBelow1000000000 > ]
-	{
-		^ <- #1;
-	}
-)
 // N < 100
 // zero
 // four
@@ -32,21 +26,14 @@
 // twenty-six
 // ninety-nine
 (Number_Rule02_1 :
- 	[ NumberBelow10 -> lexNumberValueBelow10]
+ 	[ Number -> lexNumberValue]
 	{
 		^.NumberValue <- #1;
 	}
 )
 
 (Number_Rule02_2 :
- 	[ NumberBelow100 -> NumberBelow10 ]
-	{
-		^ <- #1;
-	}
-)
-
-(Number_Rule02_3 :
- 	[ NumberBelow100 -> lexNumberValue ]
+ 	[ Number -> lexNumberDigits]
 	{
 		^.NumberValue <- #1;
 	}
@@ -58,8 +45,13 @@
 // one hundred and six
 // nine hundreds and ninety-nine
 (Number_Rule03:
-	[ NumberBelow1000 -> NumberBelow10? lexNumberValueHundred lexConjAnd? NumberBelow100? ] 
+	[ Number -> Number? lexNumberValueHundred lexConjAnd? Number? ]
 	{
+		if((#1 && #1.NumberValue >= 10) || (#4 && #4.NumberValue >= 100))
+		{
+			Fail();
+		}
+
 		^.NumberValue <- #2;
 		if(#1)
 		{
@@ -72,13 +64,7 @@
 	}
 )
 
-(Number_Rule04:
-	[ NumberBelow1000 -> NumberBelow100 ] 
-	{
-		^.NumberValue <- #1.NumberValue;
-	}
-)
-
+/*
 // N >= 1000 && N < 1000000
 // thousand
 // a thousand
@@ -101,6 +87,7 @@
 	}
 )
 
+/*
 (Number_Rule06:
 	[ NumberBelow1000000 -> NumberBelow1000 ] 
 	{
@@ -132,6 +119,7 @@
 	}
 )
 
+/*
 (Number_Rule08_01:
 	[NumberBelow10 -> lexNumberDigits]
 	{
@@ -143,6 +131,7 @@
 	}
 )
 
+/*
 (Number_Rule08_02:
 	[NumberBelow100 -> lexNumberDigits]
 	{
@@ -154,6 +143,7 @@
 	}
 )
 
+/*
 (Number_Rule08_03:
 	[NumberBelow1000 -> lexNumberDigits]
 	{
@@ -165,7 +155,7 @@
 	}
 )
 
-
+/*
 (Number_Rule08_04:
 	[NumberBelow1000000 -> lexNumberDigits]
 	{
@@ -177,6 +167,7 @@
 	}
 )
 
+/*
 (Number_Rule08_05:
 	[NumberBelow1000000000 -> lexNumberDigits]
 	{
@@ -187,6 +178,7 @@
 		}
 	}
 )
+*/
 
 // TODO Complete the test corpus
 // one thousand eleven
@@ -195,16 +187,4 @@
 // one million two hundred fifty-six thousand seven hundred twenty-one
 // thirty-one million two hundred fifty-six thousand seven hundred twenty-one
 // six hundred thirty-one million two hundred fifty-six thousand seven hundred twenty-one
-
-// TODO Billions? Same as milliard
-// one billion four hundred ninety-two million six hundred thirty-eight thousand five hundred twenty-six
-// forty-one billion four hundred ninety-two million six hundred thirty-eight thousand five hundred twenty-six
-// nine hundred forty-one billion four hundred ninety-two million six hundred thirty-eight thousand five hundred twenty-six
-
-// TODO Trillions? Quadrillion? ...? https://en.wikipedia.org/wiki/Names_of_large_numbers
-
-
-
-
-
 

@@ -1,13 +1,13 @@
 // **************************************************
 //
-//	Index for english numbers lexicon.
+//	
 //
 // **************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-// 	PACKAGE	:	Understanding.English.Number.Lexicon
-//	FILE	:	NumberEnglishLexicon.lkt
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
 //
 // **************************************************
 
@@ -15,20 +15,20 @@
 ("oh", 			lexZeroTerm)
 ("zero", 		lexZeroTerm)
 
-("zero", 		lexNumberValueBelow10, 0)
-("oh", 			lexNumberValueBelow10, 0)
-("non", 		lexNumberValueBelow10, 0)
-("none", 		lexNumberValueBelow10, 0)
+("zero", 		lexNumberValue, 0)
+("oh", 			lexNumberValue, 0)
+("non", 		lexNumberValue, 0)
+("none", 		lexNumberValue, 0)
 
-("one", 		lexNumberValueBelow10, 1)
-("two", 		lexNumberValueBelow10, 2)
-("three", 		lexNumberValueBelow10, 3)
-("four", 		lexNumberValueBelow10, 4)
-("five", 		lexNumberValueBelow10, 5)
-("six", 		lexNumberValueBelow10, 6)
-("seven", 		lexNumberValueBelow10, 7)
-("eight", 		lexNumberValueBelow10, 8)
-("nine", 		lexNumberValueBelow10, 9)
+("one", 		lexNumberValue, 1)
+("two", 		lexNumberValue, 2)
+("three", 		lexNumberValue, 3)
+("four", 		lexNumberValue, 4)
+("five", 		lexNumberValue, 5)
+("six", 		lexNumberValue, 6)
+("seven", 		lexNumberValue, 7)
+("eight", 		lexNumberValue, 8)
+("nine", 		lexNumberValue, 9)
 
 ("ten", 		lexNumberValue, 10)
 ("eleven", 		lexNumberValue, 11)
