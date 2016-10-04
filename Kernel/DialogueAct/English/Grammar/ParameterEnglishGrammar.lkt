@@ -12,6 +12,7 @@
 // **************************************************
 
 // TODO Review others parameters inside batch, if the type of information that carries is the same we could merge them
+/*
 (ParameterChunk_Rule01 :
  	[ ParameterChunk/4 -> Parameter/3 ]
 	{
@@ -35,6 +36,7 @@
 		}
 	}
 )
+*/
 
 (Parameter_Rule01 :
  	[ Parameter/1 -> ParameterValue/0 ]

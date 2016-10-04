@@ -14,6 +14,28 @@
 
 // TODO I must improve this: too much ambiguities
 (ProferenceChunk_Rule01	:
+ 	[ ProferenceChunk -> CoreDialogueAct ]
+	{
+		^.CoreDialogueAct <- #1;
+	}
+)
+
+(ProferenceChunk_Rule02	:
+ 	[ ProferenceChunk -> TaskDialogueAct ]
+	{
+		^.TaskDialogueAct <- #1;
+	}
+)
+
+(ProferenceChunk_Rule03	:
+ 	[ ProferenceChunk -> Parameter ]
+	{
+		^.Parameter <- #1;
+	}
+)
+
+/*
+(ProferenceChunk_Rule01	:
  	[ ProferenceChunk -> < CoreDialogueAct? % TaskDialogueAct? % ParameterChunk? > ]
 	{
 		^.CoreDialogueAct <- #1;
@@ -22,7 +44,6 @@
 	}
 )
 
-/*
 (ProferenceChunk_Rule02	:
  	[ ProferenceChunk/1 -> ProferenceChunk/1 ProferenceChunk/0 ]
 	{

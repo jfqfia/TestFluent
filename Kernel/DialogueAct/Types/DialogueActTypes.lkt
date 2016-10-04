@@ -29,7 +29,7 @@ classDef:StructureComplex
   	(
 		CoreDialogueAct,
 		TaskDialogueAct,
-		Parameters
+		Parameter
 	)
 )
 
