@@ -1,17 +1,17 @@
-// **************************************************
+// ******************************************************************
 //
-//	
+//	Grammar rules for english numbers
 //
-// **************************************************
+// ******************************************************************
 // 
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+//	MODULE  : Kernel	
+//	PACKAGE	: Number	
+//	FILE	: English/Grammar/NumberEnglishGrammar.lkt
 // 
-// **************************************************
+// ******************************************************************
 
-// Output of this package
+// Output rule for this package
 (Number_Rule01 :
  	[ ParameterValue -> Number ]
 	{
@@ -19,7 +19,6 @@
 	}
 )
 
-// N < 100
 // zero
 // four
 // ten
@@ -39,7 +38,6 @@
 	}
 )
 
-// N >= 100 && N < 1000
 // a hundred
 // one hundred
 // one hundred and six
@@ -64,17 +62,20 @@
 	}
 )
 
-/*
-// N >= 1000 && N < 1000000
 // thousand
 // a thousand
 // a thousand and nine 
 // two thousand and thirty
 // two hundred and six thousand three hundred and seventy-four
 // nine hundred and ninety-nine thousand nine hundred and ninety-nine
-(Number_Rule05:
-	[ NumberBelow1000000 -> NumberBelow1000? lexNumberValueThousand lexConjAnd? NumberBelow1000? ]
+(Number_Rule04:
+	[ Number -> Number? lexNumberValueThousand lexConjAnd? Number? ]
 	{
+		if((#1 && #1.NumberValue >= 1000) || (#4 && #4.NumberValue >= 1000))
+		{
+			Fail();
+		}
+
 		^.NumberValue <- #2;
 		if(#1) 
 		{
@@ -87,15 +88,6 @@
 	}
 )
 
-/*
-(Number_Rule06:
-	[ NumberBelow1000000 -> NumberBelow1000 ] 
-	{
-		^.NumberValue <- #1.NumberValue;
-	}
-)
-
-// N >= 1000000 && N < 1000000000
 // million
 // a million
 // a million and nine 
@@ -104,9 +96,14 @@
 // ninety-nine millions two thousand hundred and fifty-one
 // one hundred and ninety-nine millions and three hundred thousand two hundred and fifty-one
 // nine hundred and ninety-nine millions nine hundred and ninety-nine thousand nine hundred and ninety-nine
-(Number_Rule07:
-	[ NumberBelow1000000000 -> NumberBelow1000? lexNumberValueMillion lexConjAnd? NumberBelow1000000? ] 
+(Number_Rule05:
+	[ Number -> Number? lexNumberValueMillion lexConjAnd? Number? ] 
 	{
+		if((#1 && #1.NumberValue >= 1000) || (#4 && #4.NumberValue >= 1000000))
+		{
+			Fail();
+		}
+
 		^.NumberValue <- #2;
 		if(#1) 
 		{
@@ -119,68 +116,6 @@
 	}
 )
 
-/*
-(Number_Rule08_01:
-	[NumberBelow10 -> lexNumberDigits]
-	{
-		^.NumberValue <- #1;
-		if(#1 >= 10)
-		{
-			Fail();
-		}
-	}
-)
-
-/*
-(Number_Rule08_02:
-	[NumberBelow100 -> lexNumberDigits]
-	{
-		^.NumberValue <- #1;
-		if(#1 >= 100)
-		{
-			Fail();
-		}
-	}
-)
-
-/*
-(Number_Rule08_03:
-	[NumberBelow1000 -> lexNumberDigits]
-	{
-		^.NumberValue <- #1;
-		if(#1 >= 1000)
-		{
-			Fail();
-		}
-	}
-)
-
-/*
-(Number_Rule08_04:
-	[NumberBelow1000000 -> lexNumberDigits]
-	{
-		^.NumberValue <- #1;
-		if(#1 >= 1000000)
-		{
-			Fail();
-		}
-	}
-)
-
-/*
-(Number_Rule08_05:
-	[NumberBelow1000000000 -> lexNumberDigits]
-	{
-		^.NumberValue <- #1;
-		if(#1 >= 1000000000)
-		{
-			Fail();
-		}
-	}
-)
-*/
-
-// TODO Complete the test corpus
 // one thousand eleven
 // twenty-one thousand eleven
 // seven hundred twenty-one thousand eleven

@@ -10,11 +10,12 @@ bool compatibleType(Parameter parameter1, Parameter parameter2)
 
 bool isParameterOfTypeNumber(Parameter parameter)
 {
-	return Filled(parameter.ParameterValue.Number) || (parameter.ParameterCategory != 'terminal' && 
-			(Filled(parameter.ParameterOperand1.ParameterValue.Number) || 
-			 Filled(parameter.ParameterOperand2.ParameterValue.Number)));
+	return 	Filled(parameter.ParameterValue.Number) || 
+		isParameterOfTypeNumber(parameter.ParameterOperand1) ||
+		isParameterOfTypeNumber(parameter.ParameterOperand2);
 }
 
+// TODO CAMBIAR
 bool isParameterOfTypeDateTime(Parameter parameter)
 {
 	return Filled(parameter.ParameterValue.DateTime) || (parameter.ParameterCategory != 'terminal' && 

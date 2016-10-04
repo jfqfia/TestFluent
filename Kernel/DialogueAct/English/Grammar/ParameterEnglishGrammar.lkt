@@ -54,6 +54,9 @@
 	}
 )
 
+
+// TODO Change priority
+/*
 (Parameter_Rule03 :
 	[ Parameter/3 -> Parameter/3 lexConjOr Parameter/2]
 	{
@@ -78,7 +81,7 @@
 (Parameter_Rule04 :
 	[ Parameter/3 -> Parameter/3 lexConjAnd Parameter/2]
 	{
-		if(compatibleType(#1, #3) && !! isParameterOfTypeNumber(#1))
+		if(compatibleType(#1, #3))// && !! isParameterOfTypeNumber(#1))
 		{
 			^.ParameterCategory <- 'conjunction';
 			^.ParameterOperand1 <- #1;	
@@ -98,7 +101,7 @@
 (Parameter_Rule05 :
 	[ Parameter/3 -> Parameter/3 lexComma? Parameter/2]
 	{
-		if(compatibleType(#1, #3))
+		if(compatibleType(#1, #3) && !! isParameterOfTypeNumber(#1))
 		{
 			^.ParameterCategory <- 'sequential';
 			^.ParameterOperand1 <- #1;
@@ -109,7 +112,7 @@
 			Fail();
 		}
 	}
-)
+)*/
 
 // not today
 // today or tomorrow

@@ -1,22 +1,25 @@
-LaunchLektaKernel( 
+LaunchLektaKernel
+(
 	ExecStrategy = KernelSynchronous
-	)
+)
 
-UseProject(
-    ProjectCompile : "./Deployment/bin/FluencyMedicalAppointments.olk"
-    TemporalFolder : "./.tmp/"
+UseProject
+(
+	ProjectCompile : "./Deployment/bin/FluencyMedicalAppointments.olk"
+	TemporalFolder : "./.tmp/"
 )
 
 //MainAnswer:On
-//setupRuntimeSpyMessageOn
+setupRuntimeSpyMessageOn
 DisplayProcessUnderstandingOn
 //DisplayProcessRespondoOn
-DisplayProcessCogitoOn
+//DisplayProcessCogitoOn
 //DisplayProcessColligoOn
 
-CreateDialogue(
-    InstanceOperation:1 
-    InstanceLanguage:1 
-    InstanceInterface:1
+CreateDialogue
+(
+	InstanceOperation:1 
+	InstanceLanguage:1 
+	InstanceInterface:1
 )
 
