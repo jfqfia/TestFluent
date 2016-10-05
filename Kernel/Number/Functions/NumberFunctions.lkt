@@ -13,7 +13,7 @@
 
 bool canMergeWithSequentialNumber(Parameter parameter1, Parameter parameter2)
 {
-	return True;
+	return False;
 }
 
 bool canMergeWithOrNumber(Parameter parameter1, Parameter parameter2)
@@ -23,7 +23,7 @@ bool canMergeWithOrNumber(Parameter parameter1, Parameter parameter2)
 
 bool canMergeWithAndNumber(Parameter parameter1, Parameter parameter2)
 {
-	return True;
+	return False;
 }
 
 

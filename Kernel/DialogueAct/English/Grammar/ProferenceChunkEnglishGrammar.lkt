@@ -11,8 +11,6 @@
 //
 // **************************************************
 
-
-// TODO I must improve this: too much ambiguities
 (ProferenceChunk_Rule01	:
  	[ ProferenceChunk -> CoreDialogueAct ]
 	{
@@ -33,25 +31,6 @@
 		^.Parameter <- #1;
 	}
 )
-
-/*
-(ProferenceChunk_Rule01	:
- 	[ ProferenceChunk -> < CoreDialogueAct? % TaskDialogueAct? % ParameterChunk? > ]
-	{
-		^.CoreDialogueAct <- #1;
-		^.TaskDialogueAct <- #2;
-		^.Parameters <- #3.Parameters;
-	}
-)
-
-(ProferenceChunk_Rule02	:
- 	[ ProferenceChunk/1 -> ProferenceChunk/1 ProferenceChunk/0 ]
-	{
-		^ <- #1;
-		^ <| #2;
-	}
-)
-*/
 
 // TODO To be included in the test corpus
 

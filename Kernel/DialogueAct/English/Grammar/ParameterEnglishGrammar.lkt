@@ -24,25 +24,11 @@
 	{
 		if( #1.ParameterType == #3.ParameterType )
 		{
-			if( canMergeWithSequential(#1, #3) )
+			if( canMergeWithSequential(#1, #3))
 			{
 				^.ParameterCategory <- 'sequential';
 				^.ParameterType <- #1.ParameterType;
 				^.ParameterOperand1 <- #1;
-				^.ParameterOperand2 <- #3;
-			}
-			else if( #3.ParameterCategory == 'disjunction' )		
-			{
-				^.ParameterCategory <- 'disjunction';
-				^.ParameterType <- #1.ParameterType;
-				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1, 'disjunction');
-				^.ParameterOperand2 <- #3;
-			}
-			else if( #3.ParameterCategory == 'conjunction' )		
-			{
-				^.ParameterCategory <- 'conjunction';
-				^.ParameterType <- #1.ParameterType;
-				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1, 'conjunction');
 				^.ParameterOperand2 <- #3;
 			}
 			else
