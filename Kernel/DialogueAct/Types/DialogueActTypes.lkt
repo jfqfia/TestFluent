@@ -23,6 +23,15 @@ classDef:StructureComplex
 )
 
 // TODO Structure explanation
+classDef:StructureBatch
+(
+	Parameters :
+	(
+		Parameter
+	)
+)
+
+// TODO Structure explanation
 classDef:StructureComplex 
 ( 
  	ProferenceChunk :
@@ -32,16 +41,6 @@ classDef:StructureComplex
 		Parameter
 	)
 )
-
-// TODO Structure explanation
-classDef:StructureComplex 
-( 
-	ParameterChunk :
-	(
-		Parameters
-	)
-)
-
 
 // TODO Structure explanation
 classDef:StructureComplex
@@ -117,20 +116,12 @@ classDef:ElementLiteral
 )
 
 // TODO Structure explanation
-classDef:StructureBatch
-(
-	Parameters :
-	(
-		Parameter
-	)
-)
-
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	Parameter :
 	(
 		ParameterCategory,
+		ParameterType,
 		ParameterValue,
 		ParameterOperand1,
 		ParameterOperand2
@@ -148,6 +139,12 @@ classDef:ElementRange
 		'disjunction',
 		'sequential'
 	}
+)
+
+// TODO Structure explanation
+classDef:ElementLiteral
+(
+	ParameterType
 )
 
 // TODO Structure explanation

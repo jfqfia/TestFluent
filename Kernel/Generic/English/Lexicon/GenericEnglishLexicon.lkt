@@ -24,11 +24,12 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("but",		lexConjBut)
 ("or",		lexConjOr)
 ("not",		lexConjNot)
+("nor",		lexConjNor)
 
 // lexNegations
 ("not",		lexNegation)
-("nor",		lexNegation)
 ("no",		lexNegation)
+("neither",	lexNegation)
 
 // lexDet: Determiners
 ("a",		lexDetUndef)
@@ -54,7 +55,4 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 // lexFirstPersonPronoun: First person pronouns
 ("i",		lexFirstPersonPronoun)
 ("we",		lexFirstPersonPronoun)
-
-// lexVerBe
-("be",		lexVerbBe)
 

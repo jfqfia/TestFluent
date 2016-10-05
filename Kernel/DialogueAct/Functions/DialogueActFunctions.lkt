@@ -1,86 +1,95 @@
-bool compatibleType(Parameter parameter1, Parameter parameter2)
-{
-	bool ret = False;
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
 
-	ret = ret || (isParameterOfTypeNumber(parameter1) && isParameterOfTypeNumber(parameter2));
-	ret = ret || (isParameterOfTypeDateTime(parameter1) && isParameterOfTypeDateTime(parameter2));
+Parameter changeParameterCategoryRecursive(Parameter parameter, ParameterCategory category)
+{
+	Parameter ret;
+
+	ret <- parameter;
+	if(parameter.ParameterCategory != 'terminal' && parameter.ParameterCategory != 'negation')
+	{
+		ret.ParameterCategory <- category;
+		ret.ParameterOperand1 <- changeParameterCategoryRecursive(parameter.ParameterOperand1, category);
+		ret.ParameterOperand2 <- changeParameterCategoryRecursive(parameter.ParameterOperand2, category);
+	}
 
 	return ret;
 }
 
-bool isParameterOfTypeNumber(Parameter parameter)
+bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 {
-	return 	Filled(parameter.ParameterValue.Number) || 
-		isParameterOfTypeNumber(parameter.ParameterOperand1) ||
-		isParameterOfTypeNumber(parameter.ParameterOperand2);
-}
+	bool ret;
 
-// TODO CAMBIAR
-bool isParameterOfTypeDateTime(Parameter parameter)
-{
-	return Filled(parameter.ParameterValue.DateTime) || (parameter.ParameterCategory != 'terminal' && 
-			(Filled(parameter.ParameterOperand1.ParameterValue.DateTime) || 
-			 Filled(parameter.ParameterOperand2.ParameterValue.DateTime)));
-}
-
-bool hasSomeElementOfType(Parameters parameters, ParameterValue parameterValue)
-{
-	bool ret = False;
-
-	ret = ret || (hasSomeElementOfTypeNumber(parameters) && Filled(parameterValue.Number));
-	ret = ret || (hasSomeElementOfTypeDateTime(parameters) && Filled(parameterValue.DateTime));
-
+	switch (parameter1.ParameterType) 
+	{
+		case 'datetime' 
+		{
+			ret <- canMergeWithSequentialDateTime(parameter1, parameter2);
+		}
+		case 'number' 
+		{
+			ret <- canMergeWithSequentialNumber(parameter1, parameter2);
+		}
+		default
+		{	
+			ret <- True;
+		}
+	}
 	return ret;
 }
 
-bool hasSomeElementOfTypeNumber(Parameters parameters)
+bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 {
-	Parameter parameter;
-	int n;
+	bool ret;
 
-	n <- BatchSize(parameters);
-	for(int i <- 1; i <= n; i <- i + 1)
+	switch (parameter1.ParameterType) 
 	{
-		BatchRecoverPosition(parameters, i, parameter);	
-		if(Filled(parameter.ParameterValue.Number))
+		case 'datetime' 
 		{
-			return True;
+			ret <- canMergeWithOrDateTime(parameter1, parameter2);
+		}
+		case 'number' 
+		{
+			ret <- canMergeWithOrNumber(parameter1, parameter2);
+		}
+		default
+		{	
+			ret <- True;
 		}
 	}
-
-	return False;
+	return ret;
 }
 
-bool hasSomeElementOfTypeDateTime(Parameters parameters)
+bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 {
-	Parameter parameter;
-	int n;
+	bool ret;
 
-	n <- BatchSize(parameters);
-	for(int i <- 1; i <= n; i <- i + 1)
+	switch (parameter1.ParameterType) 
 	{
-		BatchRecoverPosition(parameters, i, parameter);	
-		if(Filled(parameter.ParameterValue.DateTime))
+		case 'datetime' 
 		{
-			return True;
+			ret <- canMergeWithAndDateTime(parameter1, parameter2);
+		}
+		case 'number' 
+		{
+			ret <- canMergeWithAndNumber(parameter1, parameter2);
+		}
+		default
+		{	
+			ret <- True;
 		}
 	}
-
-	return False;
+	return ret;
 }
-
-procedure changeParameterCategoryRecursive(Parameter parameter, ParameterCategory category)
-{
-	if(parameter.ParameterCategory == 'sequential')
-	{
-		parameter.ParameterCategory <- category;
-		changeParameterCategoryRecursive(parameter.ParameterOperand1, category);
-	}
-}
-
-
-
-
-
 
 

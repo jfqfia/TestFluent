@@ -58,6 +58,8 @@
 ("see you",			lexGoodbye)
 ("see you later",		lexGoodbye)
 ("see you soon",		lexGoodbye)
+("see you tomorrow",		lexGoodbye)
+("see you next week",		lexGoodbye)
 ("take it easy",		lexGoodbye)
 ("talk to you later",		lexGoodbye)
 ("so long",			lexGoodbye)
@@ -119,7 +121,6 @@ You're quite welcome
 No, not at all
 It's my pleasure
 It's the least I could do
-
 */
 
 

@@ -13,9 +13,11 @@
 
 // Output rule for this package
 (Number_Rule01 :
- 	[ ParameterValue -> Number ]
+ 	[ Parameter -> Number ]
 	{
-		^.Number <- #1;
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'number';
+		^.ParameterValue.Number <- #1;
 	}
 )
 

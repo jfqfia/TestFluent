@@ -26,6 +26,7 @@ classDef:Void
 	lexConjBut,
 	lexConjOr,
 	lexConjNot,
+	lexConjNor,
 	lexDetMy,
 	lexDetUndef,
 	lexDetThe,

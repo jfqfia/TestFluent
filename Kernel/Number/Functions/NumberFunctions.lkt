@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialNumber(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithOrNumber(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithAndNumber(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+

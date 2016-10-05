@@ -11,64 +11,68 @@
 //
 // **************************************************
 
-// TODO Review others parameters inside batch, if the type of information that carries is the same we could merge them
-/*
-(ParameterChunk_Rule01 :
- 	[ ParameterChunk/4 -> Parameter/3 ]
-	{
-		BatchInsertEnd(^.Parameters, #1);
-	}
-)
-
-// TODO Review others parameters inside batch, if the type of information that carries is the same we could merge them
-(ParameterChunk_Rule02 :
- 	[ ParameterChunk/4 -> ParameterChunk/4 Parameter/3 ]
-	{
-		if(!! hasSomeElementOfType(#1.Parameters, #2.ParameterValue))
-		{
-			^ <- #1;
-			BatchInsertEnd(^.Parameters, #2);
-		}
-		else
-		{	
-			SpyMessage("Various elements of same type!!");
-			Fail();
-		}
-	}
-)
-*/
-
 (Parameter_Rule01 :
- 	[ Parameter/1 -> ParameterValue/0 ]
+	[ Parameter/1 -> lexNegation Parameter/0]
 	{
-		^.ParameterCategory <- 'terminal';
-		^.ParameterValue <- #1;
+		^ <- #2;
+		^.ParameterCategory <- 'negation';
 	}
 )
 
 (Parameter_Rule02 :
-	[ Parameter/2 -> lexNegation Parameter/1]
+	[ Parameter/2 -> Parameter/2 lexComma? Parameter/1]
 	{
-		^.ParameterCategory <- 'negation';
-		^.ParameterOperand1 <- #2;
+		if( #1.ParameterType == #3.ParameterType )
+		{
+			if( canMergeWithSequential(#1, #3) )
+			{
+				^.ParameterCategory <- 'sequential';
+				^.ParameterType <- #1.ParameterType;
+				^.ParameterOperand1 <- #1;
+				^.ParameterOperand2 <- #3;
+			}
+			else if( #3.ParameterCategory == 'disjunction' )		
+			{
+				^.ParameterCategory <- 'disjunction';
+				^.ParameterType <- #1.ParameterType;
+				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1, 'disjunction');
+				^.ParameterOperand2 <- #3;
+			}
+			else if( #3.ParameterCategory == 'conjunction' )		
+			{
+				^.ParameterCategory <- 'conjunction';
+				^.ParameterType <- #1.ParameterType;
+				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1, 'conjunction');
+				^.ParameterOperand2 <- #3;
+			}
+			else
+			{
+				Fail();
+			}
+		}
+		else 
+		{
+			Fail();
+		}
 	}
 )
 
-
-// TODO Change priority
-/*
 (Parameter_Rule03 :
-	[ Parameter/3 -> Parameter/3 lexConjOr Parameter/2]
+	[ Parameter/2 -> Parameter/2 lexConjOr Parameter/1]
 	{
-		if(compatibleType(#1, #3))
+		if(#1.ParameterType == #3.ParameterType && canMergeWithOr(#1, #3))
 		{
 			^.ParameterCategory <- 'disjunction';
+			^.ParameterType <- #1.ParameterType;
 			^.ParameterOperand1 <- #1;
 			^.ParameterOperand2 <- #3;
 			if(#1.ParameterCategory == 'sequential')
 			{
-				changeParameterCategoryRecursive(^.ParameterOperand1,'disjunction');
-				// ^.ParameterOperand1.ParameterCategory <- 'disjunction';
+				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1,'disjunction');
+			}
+			if(#3.ParameterCategory == 'sequential')
+			{
+				^.ParameterOperand2 <- changeParameterCategoryRecursive(#3,'disjunction');
 			}
 		}
 		else
@@ -79,16 +83,21 @@
 )
 
 (Parameter_Rule04 :
-	[ Parameter/3 -> Parameter/3 lexConjAnd Parameter/2]
+	[ Parameter/2 -> Parameter/2 lexConjAnd Parameter/1]
 	{
-		if(compatibleType(#1, #3))// && !! isParameterOfTypeNumber(#1))
+		if(#1.ParameterType == #3.ParameterType && canMergeWithAnd(#1, #3))
 		{
 			^.ParameterCategory <- 'conjunction';
-			^.ParameterOperand1 <- #1;	
+			^.ParameterType <- #1.ParameterType;
+			^.ParameterOperand1 <- #1;
 			^.ParameterOperand2 <- #3;
 			if(#1.ParameterCategory == 'sequential')
 			{
-				^.ParameterOperand1.ParameterCategory <- 'conjunction';
+				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1,'conjunction');
+			}
+			if(#3.ParameterCategory == 'sequential')
+			{
+				^.ParameterOperand2 <- changeParameterCategoryRecursive(#3,'conjunction');
 			}
 		}
 		else
@@ -99,59 +108,55 @@
 )
 
 (Parameter_Rule05 :
-	[ Parameter/3 -> Parameter/3 lexComma? Parameter/2]
+	[ Parameter/2 -> Parameter/2 lexConjNor Parameter/1]
 	{
-		if(compatibleType(#1, #3) && !! isParameterOfTypeNumber(#1))
+		if(#1.ParameterType == #3.ParameterType && canMergeWithAnd(#1, #3))
 		{
-			^.ParameterCategory <- 'sequential';
+			^.ParameterCategory <- 'conjunction';
+			^.ParameterType <- #1.ParameterType;
 			^.ParameterOperand1 <- #1;
 			^.ParameterOperand2 <- #3;
+			^.ParameterOperand2.ParameterCategory <- 'negation';
+			if(#1.ParameterCategory == 'sequential')
+			{
+				^.ParameterOperand1 <- changeParameterCategoryRecursive(#1,'conjunction');
+			}
+			if(#3.ParameterCategory == 'sequential')
+			{
+				^.ParameterOperand2 <- changeParameterCategoryRecursive(#3,'conjunction');
+			}
 		}
 		else
 		{
 			Fail();
 		}
 	}
-)*/
+)
 
+// TODO Include in the corpus
 // not today
-// today or tomorrow
-// today or tomorrow or the day after tomorrow
 // not today or not tomorrow
+// today or tomorrow
+// today tomorrow or the day after tomorrow
+// today, tomorrow or 25th aug
+// today tomorrow
+// today, tomorrow, 25th aug
+// today, tomorrow, 25th aug or 26th sep
+// from today until tomorrow
+// today at eleven
+// at 4 o'clock in the afternoon
+// early in the afternoon at 4 pm
+// early in the afternoon, at 4 pm
+// early in the afternoon, at 4 pm or at 5 pm
 // today and tomorrow
 // today and tomorrow and the day after tomorrow
-// today, tomorrow or 25th aug
 // today, tomorrow and 25th aug
-// today, tomorrow, 25th aug
-// 1st aug and 2nd aug or 3rd aug and 4th aug (too much ambiguity)
+// neither today nor tomorrow
+// not today nor tomorrow
+// neither today nor tomorrow nor the day after tomorrow
 
-// TODO Hay que fusionar con lo que ya esté
-// today tomorrow
-
-// TODO Too much ambiguities
-// 1st aug until 2nd aug or 3rd aug until 4th aug
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Too much ambiguities
+// 1st aug and 2nd aug or 3rd aug and 4th aug
+// today, tomorrow, 25th aug or from today until tomorrow
+// from 1st aug until 2nd aug or from 3rd aug until 4th aug
 

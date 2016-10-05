@@ -17,6 +17,12 @@
 // DialogueAct
 #Include "DialogueAct/Functions/DialogueActFunctions.lkt"
 
+// DateTime
+#Include "DateTime/Functions/DateTimeFunctions.lkt"
+
+// Number
+#Include "Number/Functions/NumberFunctions.lkt"
+
 
 
 

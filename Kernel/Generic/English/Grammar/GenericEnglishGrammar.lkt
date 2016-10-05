@@ -12,7 +12,6 @@
 // **************************************************
 
 // TODO Ask to make some synonyms cluster
-
 // TODO Temporal for macros testing (remove)
 (GenericRule01 :
     	[ TaskDialogueAct -> lexVerb ] 

@@ -329,6 +329,10 @@
     	[ GeneralTime/1 -> lexTimeIntervalMin? lexTimeIntervalMin GeneralTime ] 
 	{
 		^.MinTime <- #3;
+		if(!!Filled(#3.OffsetTime) && !!Filled(#3.BaseTime))
+		{
+			Fail();
+		}	
     	}
 )
 
@@ -342,6 +346,10 @@
     	[ GeneralTime/1 -> lexTimeIntervalMax? lexTimeIntervalMax GeneralTime ] 
 	{
 		^.MaxTime <- #3;
+		if(!!Filled(#3.OffsetTime) && !!Filled(#3.BaseTime))
+		{
+			Fail();
+		}	
     	}
 )
 

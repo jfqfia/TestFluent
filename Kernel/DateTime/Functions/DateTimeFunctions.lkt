@@ -1,0 +1,83 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialDateTime(Parameter parameter1, Parameter parameter2)
+{
+	bool ret;
+	DateTime dt1;
+	DateTime dt2;
+
+	ret <- True;
+	dt1 <- parameter1.ParameterValue.DateTime;
+	dt2 <- parameter2.ParameterValue.DateTime;
+
+	if( Filled(dt1.MinDate) && Filled(dt2.MaxDate) )
+	{
+		ret <- False;
+	}
+	if( ( Filled(dt1.OffsetDate) || Filled(dt1.MinDate) || Filled(dt1.MaxDate) ) && Filled(dt2.GeneralTime) )
+	{
+		ret <- False;
+	}
+	if( !! Filled(dt1.GeneralTime.BaseTime.PartOfTheDay) && Filled(dt2.GeneralTime.BaseTime.PartOfTheDay) )
+	{
+		ret <- False;
+	}
+	if( Filled(dt1.GeneralTime.MinTime) && ( Filled(dt2.GeneralTime.MaxTime) || Filled(dt2.GeneralTime.BaseTime) ) )
+	{
+		ret <- False;
+	}
+	if( Filled(dt1.GeneralTime.MaxTime) && ( Filled(dt2.GeneralTime.MinTime) || Filled(dt2.GeneralTime.BaseTime) ) )
+	{
+		ret <- False;
+	}
+	if( Filled(dt1.GeneralTime.BaseTime) && ( Filled(dt2.GeneralTime.MaxTime) || Filled(dt2.GeneralTime.MinTime) ) )
+	{
+		ret <- False;
+	}
+	if( Filled(dt1.GeneralTime.OffsetTime) && ( Filled(dt2.GeneralTime.OffsetTime) || Filled(dt2.GeneralTime.BaseTime) ) )
+	{
+		ret <- False;
+	}
+	if( Filled(dt1.OffsetDate) && ( Filled(dt2.MinDate) || Filled(dt2.MaxDate) ) )
+	{
+		ret <- False;
+	}
+
+	return ret;
+}
+
+bool canMergeWithOrDateTime(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithAndDateTime(Parameter parameter1, Parameter parameter2)
+{
+	bool ret;
+	DateTime dt1;
+	DateTime dt2;
+
+	ret <- True;
+	dt1 <- parameter1.ParameterValue.DateTime;
+	dt2 <- parameter2.ParameterValue.DateTime;
+
+	if( Filled(dt1.GeneralTime.OffsetTime) && Filled(dt2.GeneralTime.OffsetTime) )
+	{
+		ret <- False;
+	}
+
+	return ret;
+}
+
+
