@@ -80,7 +80,6 @@
 ("it was nice seeing you",	lexFormalGoodbye)
 ("it was nice to see you again",lexFormalGoodbye)
 ("take care",			lexFormalGoodbye)
-("until tomorrow",		lexFormalGoodbye)
 ("until next week",		lexFormalGoodbye)
 
 // Say "thank you"

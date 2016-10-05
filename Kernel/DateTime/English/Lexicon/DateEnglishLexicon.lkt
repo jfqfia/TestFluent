@@ -38,8 +38,8 @@
 // Lexical about offset days
 ("yesterday",			lexOffsetDay, -1)
 ("today",			lexOffsetDay, 0)
-("now",  			lexOffsetDay, 0)
 ("this day",  			lexOffsetDay, 0)
+("now",  			lexOffsetDay, 0)
 ("tomorrow",			lexOffsetDay, 1)
 ("the day after tomorrow",	lexOffsetDay, 2)
 ("day after tomorrow",		lexOffsetDay, 2)
@@ -129,7 +129,6 @@
 
 
 // Lexicon used for date interval limits
-("after",			lexDateIntervalMin)
 ("from",			lexDateIntervalMin)
 ("starting",			lexDateIntervalMin)
 ("beginning",			lexDateIntervalMin)

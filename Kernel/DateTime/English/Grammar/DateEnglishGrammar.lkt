@@ -54,6 +54,8 @@
 (DateRule02_2 :
 	[ BaseDate -> lexBaseMonth lexDetThe? Number lexComma? Number? ]
 	{
+		SpyMessage("La del dia");
+
 	        ^.Day <- #3.NumberValue;
         	^.Month <- #1;
        		^.Year <- #5.NumberValue;
@@ -96,19 +98,16 @@
 
 // in march 2010
 // in march
+// march
+// march 2010
 (DateRule03_3 :
 	[ BaseDate -> lexPrepIn? lexBaseMonth Number?]
 	{
+	
+		SpyMessage("La del año");
+
 		^.Month <- #2;
 		^.Year <- #3.NumberValue;
-	}
-)
-
-// in 2016
-(DateRule03_4 :
-	[ BaseDate -> lexPrepIn Number]
-	{
-		^.Year <- #2.NumberValue;
 	}
 )
 
@@ -199,7 +198,6 @@
 // next monday
 // last monday
 // following monday
-// last monday
 // previous monday
 (DateRule05_2 :
     	[ OffsetDate -> lexDirectionOfTimeModifier lexDayInWeek ] 
@@ -331,7 +329,7 @@
 )
 
 // one after 25 of august
-// one after 2016
+// one day after 25 of august
 (DateRule10_2 :
 	[ DateTime -> lexDirectionOfTimeModifier < lexPrepFrom | lexPrepOf >? BaseDate ]
 	{
@@ -362,7 +360,7 @@
 
 // from 25 of august
 // starting the day after 25 of august
-// beginning in 2016	
+// beginning on monday	
 (DateRule11 :
     	[ DateTime/1 -> lexDateIntervalMin? lexDateIntervalMin DateTime/1 ] 
 	{	
@@ -374,12 +372,12 @@
     	}
 )
 
-// before 25 of august
 // until 25 of august
 // till 25 aug
 // deadline 25 aug
 // to 25 aug
-// at most until the day before 25 of august
+// at most until the day before 25 of august 2016
+// at most until the day before 25 of august 2016 at 8 pm
 (DateRule12 :
     	[ DateTime/1 -> lexDateIntervalMax? lexDateIntervalMax DateTime/1 ] 
 	{
@@ -397,9 +395,6 @@
 (DateRule13 :
     	[ DateTime/1 -> DateTime/0 GeneralTime ] 
 	{
-
-		SpyMessage("HOLA");
-
 		^ <- #1;
 		^.GeneralTime <| #2;
 		if(Filled(^.MinDate) || Filled(^.MaxDate))
@@ -431,9 +426,10 @@
 
 // from today until the day after 25 aug
 // from next monday until the day after 25 of august
-// from next monday at 12am until the day after 25 of august at midnight
-// from today at noon until tomorrow from 9pm to 10pm
-// starting next monday until 3pm to the day after 25 of august from 10am to midnight
+// from next monday at 12pm until the day after 25 of august at midnight
+// starting next monday until 3pm to the day after 25 of august from 10am to a quarter to nine in the afternoon
+// from today at noon until the day after tomorrow at 10pm
+// from today at noon till tomorrow from 9pm to 10pm
 (DateRule14 :
     	[ DateTime/2 -> DateTime/1 DateTime/1 ] 
 	{
@@ -448,8 +444,6 @@
 		}
     	}
 )
-
-
 
 
 
