@@ -1,0 +1,29 @@
+Annotation guide:
+
+Legend:
+Dimension
+	Function
+
+social
+	greeting
+	thanking
+	goodbye
+	apology (new one!)
+	downplaying (new one!)
+
+basicanswer
+	agreement
+	disagreement
+	uncertain
+	dontknow
+
+statement
+	inform
+	request
+
+question
+	propositional
+	choice
+	whquestion
+
+

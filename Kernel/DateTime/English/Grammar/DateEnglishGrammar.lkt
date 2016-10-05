@@ -397,13 +397,36 @@
 (DateRule13 :
     	[ DateTime/1 -> DateTime/0 GeneralTime ] 
 	{
+
+		SpyMessage("HOLA");
+
 		^ <- #1;
-		^.GeneralTime <- #2;
-		if(Filled(^.MinDate) || Filled(^.MaxDate) )
+		^.GeneralTime <| #2;
+		if(Filled(^.MinDate) || Filled(^.MaxDate))
 		{
 			Fail();
 		}
-    	}
+		if(Filled(#1.GeneralTime.BaseTime) && Filled(#2.BaseTime))
+		{
+			Fail();
+		}
+		if(Filled(#1.GeneralTime.OffsetTime) && Filled(#2.MinTime))
+		{
+			Fail();
+		}
+		if(Filled(#1.GeneralTime.OffsetTime) && Filled(#2.MaxTime))
+		{
+			Fail();
+		}
+		if(Filled(#1.GeneralTime.MinTime) && Filled(#2.BaseTime))
+		{
+			Fail();
+		}
+		if(Filled(#1.GeneralTime.MaxTime) && Filled(#2.BaseTime))
+		{
+			Fail();
+		}
+   	}
 )
 
 // from today until the day after 25 aug

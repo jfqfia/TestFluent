@@ -27,6 +27,7 @@ classDef:Void
 classDef:ElementInt 
 (
 	lexMinuteValue,
+	lexFixedBaseTime,
 	lexMinuteOClock
 )
 

@@ -34,24 +34,13 @@
 
 // at 11
 // at 11 hour
-// at 11 hours
-// 11 hour
-// 11 hours
 // at 11 in the morning
-(TimeRule05_1 :
+(TimeRule05 :
     	[ BaseTime -> lexPrepAt Number lexHourTerm? ] 
 	{
 		^.Hour <- #2.NumberValue;
     	}
 )
-
-(TimeRule05_2 :
-    	[ BaseTime -> lexPrepAt? Number lexHourTerm ] 
-	{
-		^.Hour <- #2.NumberValue;
-    	}
-)
-
 
 // at hh:mm
 // hh:mm
@@ -73,10 +62,20 @@
     	}
 )
 
+// noon
+// at noon
+// midday
+(TimeRule06_3 :
+    	[ BaseTime -> lexPrepAt? lexFixedBaseTime ] 
+	{
+		^.Hour <- #2;
+    	}
+)
+
 // a quarter past nine
 // quarter past nine
 // half past nine
-(TimeRule06_3 :
+(TimeRule06_4 :
     	[ BaseTime -> lexPrepAt? lexMinuteValue lexPrepPast Number] 
 	{
 		^.Minute <- #2;
@@ -86,7 +85,7 @@
 
 // a quarter to nine
 // quarter to nine
-(TimeRule06_4 :
+(TimeRule06_5 :
     	[ BaseTime -> lexPrepAt? lexMinuteValue lexPrepTo Number] 
 	{
 		^.Minute <- 60 - #2;
@@ -99,9 +98,8 @@
 )
 
 // at six oh five
-// six oh five
-(TimeRule06_5_a :
-    	[ BaseTime -> lexPrepAt? Number lexZeroTerm Number] 
+(TimeRule06_6_a :
+    	[ BaseTime -> lexPrepAt Number lexZeroTerm Number] 
 	{
 		if(#2.NumberValue < 24 && #4.NumberValue < 10)
 		{
@@ -116,9 +114,8 @@
 )
 
 // at six twenty-five
-// six twenty-five
-(TimeRule06_5_b :
-    	[ BaseTime -> lexPrepAt? Number Number] 
+(TimeRule06_6_b :
+    	[ BaseTime -> lexPrepAt Number Number] 
 	{
 		if(#2.NumberValue < 24 && #3.NumberValue < 60)
 		{
@@ -135,7 +132,7 @@
 
 // at six past nine
 // six past nine
-(TimeRule06_6 :
+(TimeRule06_7 :
     	[ BaseTime -> lexPrepAt? Number lexMinuteTerm? lexPrepPast Number] 
 	{
 		^.Hour <- #5.NumberValue;
@@ -145,7 +142,7 @@
 
 // at six to nine
 // six to nine
-(TimeRule06_7 :
+(TimeRule06_8 :
     	[ BaseTime -> lexPrepAt? Number lexMinuteTerm? lexPrepTo Number] 
 	{
 		^.Hour <- #5.NumberValue - 1;
@@ -157,22 +154,66 @@
     	}
 )
 
-// BaseTime AM
+// at six am
+// six am
+// six in the morning
+// at six in the morning
 (TimeRule08_1 :
     	[ BaseTime -> BaseTime lexAMTerm] 
 	{
 		^ <- #1;
+		if(^.Hour >= 12)
+		{
+			^.Hour = ^.Hour - 12;
+		}
     	}
 )
 
-// BaseTime PM
 (TimeRule08_2 :
+    	[ BaseTime -> Number lexAMTerm] 
+	{
+		if(#1.NumberValue <= 12)
+		{
+			^.Hour <- #1.NumberValue;
+		}
+		else
+		{
+			^.Hour <- #1.NumberValue - 12;
+		}
+    	}
+)
+
+// six pm
+// at six pm
+// at six in the afternoon
+// six in the afternoon
+// at six in the evening
+// six in the evening
+(TimeRule08_3 :
     	[ BaseTime -> BaseTime lexPMTerm] 
 	{
 		^ <- #1;
-		^.Hour <- ^.Hour + 12;
+		if(^.Hour < 12)
+		{
+			^.Hour <- ^.Hour + 12;
+		}
     	}
 )
+
+(TimeRule08_4 :
+    	[ BaseTime -> Number lexPMTerm] 
+	{
+		if(#1.NumberValue >= 12)
+		{
+			^.Hour <- #1.NumberValue;
+		}	
+		else
+		{
+			^.Hour <- #1.NumberValue + 12;
+		}
+    	}
+)
+
 
 // now
 // now on
@@ -208,14 +249,14 @@
 // in 5 minutes
 // within 5 minutes
 (TimeRule11_1 :
-    	[ OffsetTime -> < lexPrepIn? | lexPrepWithin?> Number lexMinuteTerm ] 
+    	[ OffsetTime -> < lexPrepIn? | lexPrepWithin? > Number lexMinuteTerm ] 
 	{
 		^.Time.Minute <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';	
     	}
 )
 
-// half an hour
+// in half an hour
 // in a quarter hour
 (TimeRule11_2 :
     	[ OffsetTime -> < lexPrepIn? | lexPrepWithin? > lexDetUndef? lexMinuteValue lexDetUndef? lexHourTerm ] 
@@ -258,6 +299,7 @@
 
 // 10 minutes ago
 // 10 minutes before
+// ten minutes before twelve o'clock
 (TimeRule15 :
     	[ OffsetTime -> OffsetTime lexDirectionOfTimeModifier ] 
 	{
@@ -278,35 +320,35 @@
     	}
 )
 
-// after 8 pm
 // from 8 pm
 // beginning from 8 pm
 // starting from 8 pm
-// starting from 5 minutes after midnight
 // after 5 minutes ago
+// starting from 5 minutes after midnight 
 (TimeRule17 :
-    	[ GeneralTime/1 -> lexTimeIntervalMin? lexTimeIntervalMin GeneralTime/0 ] 
+    	[ GeneralTime/1 -> lexTimeIntervalMin? lexTimeIntervalMin GeneralTime ] 
 	{
 		^.MinTime <- #3;
     	}
 )
 
-// before 8 pm
 // until 8 pm
 // till 8 pm
 // ending at 8 pm
 // finishing at 8 pm
+// from 5 minutes before noon
 // until 5 minutes after midnight
 (TimeRule18 :
-    	[ GeneralTime/1 -> lexTimeIntervalMax? lexTimeIntervalMax GeneralTime/0 ] 
+    	[ GeneralTime/1 -> lexTimeIntervalMax? lexTimeIntervalMax GeneralTime ] 
 	{
 		^.MaxTime <- #3;
     	}
 )
 
 // from 8am until noon
-// from now until 8pm
+// from 8am until 8pm
 // from 2 hours ago until 5 minutes after six o'clock in the afternoon
+// starting from 5 minutes after midnight until three o'clock in the morning
 (TimeRule19 :
     	[ GeneralTime/2 -> GeneralTime/1 GeneralTime/1 ] 
 	{
@@ -321,8 +363,6 @@
 		}
     	}
 )
-
-
 
 
 

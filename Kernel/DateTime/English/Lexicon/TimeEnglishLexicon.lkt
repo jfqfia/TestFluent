@@ -35,13 +35,15 @@
 ("a quarter",			lexMinuteValue, 15)
 ("half",			lexMinuteValue, 30)
 
-// Fixed values
+// Fixed value
 ("a couple of",			lexNumberDigits, 2)
-("noon", 			lexNumberDigits, 12)
-("midday", 			lexNumberDigits, 12)
-("mid-day", 			lexNumberDigits, 12)
-("midnight", 			lexNumberDigits, 0)
-("mid-night", 			lexNumberDigits, 0)
+
+// Fixed base times
+("noon", 			lexFixedBaseTime, 12)
+("midday", 			lexFixedBaseTime, 12)
+("mid-day", 			lexFixedBaseTime, 12)
+("midnight", 			lexFixedBaseTime, 0)
+("mid-night", 			lexFixedBaseTime, 0)
 
 // Time involving part of the day
 ("now",				lexPartOfTheDay, 'now')
@@ -72,7 +74,6 @@
 ("after",			lexDirectionOfTimeModifier, 'forward')
 
 // Lexicon used for time interval limits
-("after",			lexTimeIntervalMin)
 ("from",			lexTimeIntervalMin)
 ("starting",			lexTimeIntervalMin)
 ("beginning",			lexTimeIntervalMin)
