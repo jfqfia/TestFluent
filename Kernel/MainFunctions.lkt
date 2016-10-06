@@ -21,6 +21,9 @@
 // Number
 #Include "Number/Functions/NumberFunctions.lkt"
 
+// Letter
+#Include "Letter/Functions/LetterFunctions.lkt"
+
 
 
 

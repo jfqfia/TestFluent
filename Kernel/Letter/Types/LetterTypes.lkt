@@ -1,26 +1,25 @@
 // **************************************************
 //
-//	
+//	Index of types files.
 //
 // **************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.Number
+//	FILE	:	NumberTypes.lkt
 //
 // **************************************************
-
-// TODO Structure explanation
+/*
 classDef:StructureComplex
-(
-	ParameterValue :
+( 
+	Number :
 	(
-		Number,
-		DateTime,
-		MedicalSpeciality,
+		NumberValue
 	)
 )
 
-
-
+classDef:ElementInt
+(
+	NumberValue
+)*/

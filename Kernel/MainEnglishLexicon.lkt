@@ -16,6 +16,8 @@
 
 #Include "Number/English/Lexicon/NumberEnglishLexicon.lkt"
 
+#Include "Letter/English/Lexicon/LetterEnglishLexicon.lkt"
+
 #Include "DateTime/English/Lexicon/DateEnglishLexicon.lkt"
 #Include "DateTime/English/Lexicon/TimeEnglishLexicon.lkt"
 

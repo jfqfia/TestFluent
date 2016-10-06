@@ -1,0 +1,15 @@
+// **************************************************
+//
+//	Index of types files.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.Number
+//	FILE	:	MainNumberTypes.lkt
+//
+// **************************************************
+
+#Include "Types/LetterTypes.lkt"
+#Include "Types/LexicalLetterTypes.lkt"

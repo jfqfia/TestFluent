@@ -1,36 +1,33 @@
-Parameter Letter
+* DialogueActFunctions.lkt
 
-Questions grammar and lexicon
+* Parameter Letter
 
-Podemos englobar estos en un ComplexNumber
+* Questions grammar and lexicon
+
+* Podemos englobar estos en un ComplexNumber
 	Parameter PhoneNumber
 	Parameter IDNumber
 	Parameter ComplexNumber
 	Parameter Localizator
 
-Parameter Place (cambiarle el nombre)
+* Parameter Place (cambiarle el nombre)
 
-
-Verb Macros
+* Verb Macros
 2000 most usual spoken english words 
 http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
 http://www.scientificpsychic.com/grammar/regular.html
 http://www.linguasorb.com/english/verbs/conjugation/want
 https://en.wikipedia.org/wiki/Uses_of_English_verb_forms
 
+* Fix headers in the beginning of every file in the project
 
-Fix headers in the beginning of every file in the project
+* Colligo must finalize and or seq etc... Example: 1, 2 or 3
 
+* Look in favourites the neither either contructions
 
-Colligo must finalize and or seq etc... Example: 1, 2 or 3
-
-Look in favourites the neither either contructions
-
-lexicon Please??
-
+* lexicon for Please??
 
 BUG?
-
 21 answers in dialogue cause a crash in lekta.
 
 
