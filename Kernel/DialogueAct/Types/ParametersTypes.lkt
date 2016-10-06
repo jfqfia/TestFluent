@@ -17,8 +17,10 @@ classDef:StructureComplex
 	ParameterValue :
 	(
 		Number,
+		Letter,		
 		DateTime,
-		MedicalSpeciality,
+
+		MedicalSpeciality
 	)
 )
 

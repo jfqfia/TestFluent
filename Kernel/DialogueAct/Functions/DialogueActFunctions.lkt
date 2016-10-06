@@ -40,6 +40,14 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialNumber(parameter1, parameter2);
 		}
+		case 'medicalspeciality' 
+		{
+			ret <- canMergeWithSequentialSpeciality(parameter1, parameter2);
+		}
+		case 'letter' 
+		{
+			ret <- canMergeWithSequentialLetter(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -62,6 +70,14 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithOrNumber(parameter1, parameter2);
 		}
+		case 'medicalspeciality' 
+		{
+			ret <- canMergeWithOrSpeciality(parameter1, parameter2);
+		}
+		case 'letter' 
+		{
+			ret <- canMergeWithOrLetter(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -83,6 +99,14 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		case 'number' 
 		{
 			ret <- canMergeWithAndNumber(parameter1, parameter2);
+		}
+		case 'medicalspeciality' 
+		{
+			ret <- canMergeWithAndSpeciality(parameter1, parameter2);
+		}
+		case 'letter' 
+		{
+			ret <- canMergeWithAndLetter(parameter1, parameter2);
 		}
 		default
 		{	

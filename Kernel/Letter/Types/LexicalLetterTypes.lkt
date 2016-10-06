@@ -1,26 +1,17 @@
 // **************************************************
 //
-//	Index of types files.
+//
 //
 // **************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	LexicalMainNumberTypes.lkt
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
 //
 // **************************************************
-/*
-classDef:Void
-(
-	lexZeroTerm
-)
 
-classDef:ElementInt
+classDef:ElementLiteral
 (
-	lexNumberDigits,
-	lexNumberValue,
-	lexNumberValueHundred,
-	lexNumberValueThousand,
-	lexNumberValueMillion
-)*/
+	lexLetter
+)

@@ -1,7 +1,3 @@
-* DialogueActFunctions.lkt
-
-* Parameter Letter
-
 * Questions grammar and lexicon
 
 * Podemos englobar estos en un ComplexNumber

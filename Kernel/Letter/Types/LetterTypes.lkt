@@ -10,16 +10,16 @@
 //	FILE	:	NumberTypes.lkt
 //
 // **************************************************
-/*
+
 classDef:StructureComplex
 ( 
-	Number :
+	Letter :
 	(
-		NumberValue
+		LetterValue
 	)
 )
 
-classDef:ElementInt
+classDef:ElementLiteral
 (
-	NumberValue
-)*/
+	LetterValue
+)

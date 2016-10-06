@@ -16,7 +16,7 @@
  	[ Parameter -> MedicalSpeciality ]
 	{
 		^.ParameterCategory <- 'terminal';
-		^.ParameterType <- 'speciality';
+		^.ParameterType <- 'medicalspeciality';
 		^.ParameterValue.MedicalSpeciality <- #1;
 	}
 )
