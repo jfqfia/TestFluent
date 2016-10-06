@@ -1,0 +1,28 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+string getActionDomainFromLemma(string lemma)
+{
+	string ret;
+	ret <- 'unknown';
+	
+	// Domain: MedicalAppointment
+	if(ret == 'unknown')
+	{
+		ret = getActionDomainFromLemmaMedicalAppointment(lemma);
+	}
+
+	return ret;
+}
+
+

@@ -3,11 +3,20 @@
 //	
 //
 // **************************************************
-// 
-//	
-//	
-//	
-//	
-// 
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
 // **************************************************
+
+classDef:Void
+(
+	lexAgreement,
+	lexDisagreement,
+	lexUncertain,
+	lexDontknow
+)
+
 

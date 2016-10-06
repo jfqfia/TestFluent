@@ -23,6 +23,6 @@
 
 #Include "Statement/English/Lexicon/RequestEnglishLexicon.lkt"
 
-
+#Include "BasicAnswer/English/Lexicon/BasicAnswerEnglishLexicon.lkt"
 
 

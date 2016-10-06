@@ -1,0 +1,60 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+string getActionDomainFromLemmaMedicalAppointment(string lemma)
+{
+	switch (lemma) 
+	{
+		case 'book'		{ return 'book'; }
+		case 'establish'	{ return 'book'; }
+		case 'have'		{ return 'book'; }
+		case 'make'		{ return 'book'; }
+		case 'get'		{ return 'book'; }
+		case 'schedule'		{ return 'book'; }
+		case 'ask'		{ return 'book'; }
+		case 'set up'		{ return 'book'; }
+
+		case 'cancel'		{ return 'cancel'; }
+		case 'erase'		{ return 'cancel'; }
+		case 'delete'		{ return 'cancel'; }
+		case 'drop'		{ return 'cancel'; }
+		case 'eliminate'	{ return 'cancel'; }
+		case 'remove'		{ return 'cancel'; }
+		case 'revoke'		{ return 'cancel'; }
+		case 'supressed'	{ return 'cancel'; }
+		case 'discard'		{ return 'cancel'; }
+		case 'call off'		{ return 'cancel'; }
+		case 'annul'		{ return 'cancel'; }
+		case 'get rid of'	{ return 'cancel'; }
+
+		case 'confirm'		{ return 'confirm'; }
+		case 'settle'		{ return 'confirm'; }
+		case 'validate'		{ return 'confirm'; }
+		case 'verify'		{ return 'confirm'; }
+		case 'corroborate'	{ return 'confirm'; }
+		case 'make firm'	{ return 'confirm'; }
+
+		case 'change'		{ return 'modify'; }
+		case 'interchange'	{ return 'modify'; }
+		case 'exchange'		{ return 'modify'; }
+		case 'modify'		{ return 'modify'; }
+		case 'swap'		{ return 'modify'; }
+		case 'switch'		{ return 'modify'; }
+		case 'replace'		{ return 'modify'; }
+		case 'substitute'	{ return 'modify'; }
+		case 'alter'		{ return 'modify'; }
+	}
+
+	return 'unknown';
+}
+

@@ -1,0 +1,44 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	BasicAnswer = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Agreement = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Disagreement = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Uncertain = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Dontknow = CoreDialogueAct
+)
+
+

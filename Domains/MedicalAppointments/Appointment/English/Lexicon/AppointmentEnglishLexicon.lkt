@@ -11,7 +11,6 @@
 //
 // **************************************************
 
-// TODO This kind of adjectives are so domain-dependent, we should put this in another file
 ("doctor", 			lexMedicalTerm)
 ("doctor's", 			lexMedicalTerm)
 ("medical", 			lexMedicalTerm)

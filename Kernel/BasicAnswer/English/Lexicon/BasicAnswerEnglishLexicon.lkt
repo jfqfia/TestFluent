@@ -1,0 +1,89 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("yes", 				lexAgreement)
+("i agree", 				lexAgreement)
+("i can agree", 			lexAgreement)
+("i could agree",			lexAgreement)
+("that's so true",			lexAgreement)
+("alright", 				lexAgreement)
+("ok", 					lexAgreement)
+("that's for sure",			lexAgreement)
+("right",				lexAgreement)
+("you are right",			lexAgreement)
+("you're right",			lexAgreement)
+("absolutely",				lexAgreement)
+("exactly",				lexAgreement)
+("no doubt about it",			lexAgreement)
+("i suppose so",			lexAgreement)
+("i guess so",				lexAgreement)
+("i accept ",				lexAgreement)
+("definitely",				lexAgreement)
+("sure",				lexAgreement)
+("surely",				lexAgreement)
+("okay",				lexAgreement)
+("affirmative",				lexAgreement)
+("yea",					lexAgreement)
+("by all means",			lexAgreement)
+
+("no", 					lexDisagreement)
+("i can't agree", 			lexDisagreement)
+("i could't agree", 			lexDisagreement)
+("i disagree",				lexDisagreement)
+("no way",				lexDisagreement)
+("i totally disagree",			lexDisagreement)
+("i don't think so",			lexDisagreement)
+("i beg to differ",			lexDisagreement)
+("i'm not so sure about that",		lexDisagreement)
+("i am not so sure about that",		lexDisagreement)
+("i'm not so sure",			lexDisagreement)
+("i am not so sure",			lexDisagreement)
+("i have to disagree there",		lexDisagreement)
+("i have to disagree",			lexDisagreement)
+("absolutely not",			lexDisagreement)
+("absolutely no",			lexDisagreement)
+("nah",					lexDisagreement)
+("nay",					lexDisagreement)
+("not likely",				lexDisagreement)
+("nope",				lexDisagreement)
+("negative",				lexDisagreement)
+
+("i don't know",			lexDontknow)
+("i have no idea",			lexDontknow)
+("dunno",				lexDontknow)
+("i have not a clue",			lexDontknow)
+("i haven't a clue",			lexDontknow)
+("i have not the faintest idea",	lexDontknow)
+("i haven't the faintest idea",		lexDontknow)
+("search me",				lexDontknow)
+("don't ask me",			lexDontknow)
+("how should i know",			lexDontknow)
+("anyone’s guess",			lexDontknow)
+("who knows?",				lexDontknow)
+("your guess is as good as mine",	lexDontknow)
+("it beats me",				lexDontknow)
+
+("maybe",				lexUncertain)
+("perhaps",				lexUncertain)
+("possibly",				lexUncertain)
+("probably",				lexUncertain)
+("apparently",				lexUncertain)
+("as far as i know",			lexUncertain)
+("as far as i am aware",		lexUncertain)
+("as far as i'm aware",			lexUncertain)
+("to the best of my knowledge",		lexUncertain)
+("to my knowledge",			lexUncertain)
+
+
+
+

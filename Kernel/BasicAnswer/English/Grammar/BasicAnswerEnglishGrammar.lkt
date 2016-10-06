@@ -1,0 +1,56 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+// 
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+// 
+// **************************************************
+
+(Statement_Rule01 :
+ 	[ CoreDialogueAct -> BasicAnswer ]
+	{
+		^ <- #1;
+	}
+)
+
+(Statement_Rule02 :
+	[ BasicAnswer -> < Agreement | Disagreement | Uncertain | Dontknow >]
+	{
+		^ <- #1;
+		^.Dimension <- 'basicanswer';
+	}
+)
+
+(Agreement_Rule01 :
+ 	[ Agreement -> lexAgreement ]
+	{
+		^.Function <- 'agreement';
+	}
+)
+
+(Disagreement_Rule01 :
+ 	[ Disagreement -> lexDisagreement ]
+	{
+		^.Function <- 'disagreement';
+	}
+)
+
+(Uncertain_Rule01 :
+ 	[ Uncertain -> lexUncertain ]
+	{
+		^.Function <- 'uncertain';
+	}
+)
+
+(Dontknow_Rule01 :
+ 	[ Dontknow -> lexDontknow ]
+	{
+		^.Function <- 'dontknow';
+	}
+)
+

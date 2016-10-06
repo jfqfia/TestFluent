@@ -3,11 +3,15 @@
 //	
 //
 // **************************************************
-// 
-//	
-//	
-//	
-//	
-// 
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
 // **************************************************
+
+#Include "Types/LexicalBasicAnswerTypes.lkt"
+#Include "Types/BasicAnswerTypes.lkt"
+
 

@@ -11,94 +11,66 @@
 //
 // **************************************************
 
-&VERB_REGULAR_TYPE_1(want)
+// Possible patterns for english verbs
+/*
+
+&VERB_REGULAR_TYPE_1(want) 
+want wanting wanted wanted wants
+
 &VERB_REGULAR_TYPE_2(dance)
+dance dancing danced danced dances
+
 &VERB_REGULAR_TYPE_3(chop)
+chop chopping chopped chopped chops
+
 &VERB_REGULAR_TYPE_4(kiss)
+kiss kissing kissed kissed kisses
+
 &VERB_REGULAR_TYPE_5(copy)
+copy copying copied copied copies
+
 &VERB_IRREGULAR(forget, forgetting, forgot, forgotten, forgets)
 
-// TODO Make actions synonyms domain-dependent (in grammar?)
-
-
-&VERB_REGULAR_TYPE_1 ( book )
-
-&VERB_REGULAR_TYPE_4 ( establish )
-
- /*
-("book",			lexAction, 'book')
-("make",			lexAction, 'book')
-("have",			lexAction, 'book')
-("get",				lexAction, 'book')
-("schedule",			lexAction, 'book')
-("set up",			lexAction, 'book')
-("establish",			lexAction, 'book')
-("ask",				lexAction, 'book')
-
-("made", 			lexAction, 'book')
-("had", 			lexAction, 'book')
-("booked", 			lexAction, 'book')
-("scheduled", 			lexAction, 'book')
-("established", 		lexAction, 'book')
-("asked", 			lexAction, 'book')
-
-("cancel",			lexAction, 'cancel')
-("erase", 			lexAction, 'cancel')
-("delete", 			lexAction, 'cancel')
-("drop", 			lexAction, 'cancel')
-("eliminate", 			lexAction, 'cancel')
-("remove", 			lexAction, 'cancel')
-("annul", 			lexAction, 'cancel')
-("revoke", 			lexAction, 'cancel')
-("call off", 			lexAction, 'cancel')
-("suppress", 			lexAction, 'cancel')
-("discard", 			lexAction, 'cancel')
-("get rid of", 			lexAction, 'cancel')
-
-("cancelled", 			lexAction, 'cancel')
-("erased", 			lexAction, 'cancel')
-("deleted", 			lexAction, 'cancel')
-("dropped", 			lexAction, 'cancel')
-("eliminated", 			lexAction, 'cancel')
-("removed", 			lexAction, 'cancel')
-("annuled", 			lexAction, 'cancel')
-("revoked", 			lexAction, 'cancel')
-("called of", 			lexAction, 'cancel')
-("supressed", 			lexAction, 'cancel')
-("discarded", 			lexAction, 'cancel')
-
-("confirm",			lexAction, 'confirm')
-("make firm",			lexAction, 'confirm')
-("settle",			lexAction, 'confirm')
-("validate",			lexAction, 'confirm')
-("verify",			lexAction, 'confirm')
-("corroborate",			lexAction, 'confirm')
-
-("confirmed",			lexAction, 'confirm')
-("made",			lexAction, 'confirm')
-("settled",			lexAction, 'confirm')
-("validated",			lexAction, 'confirm')
-("verified",			lexAction, 'confirm')
-("corroborated",		lexAction, 'confirm')
-
-("change",			lexAction, 'change')
-("alter",			lexAction, 'change')
-("modify",			lexAction, 'change')
-("exchange",			lexAction, 'change')
-("replace",			lexAction, 'change')
-("substitute",			lexAction, 'change')
-("switch",			lexAction, 'change')
-("interchange",			lexAction, 'change')
-("swap",			lexAction, 'change')
-
-("changed",			lexAction, 'change')
-("altered",			lexAction, 'change')
-("modified",			lexAction, 'change')
-("exchanged",			lexAction, 'change')
-("replaced",			lexAction, 'change')
-("substitute",			lexAction, 'change')
-("switched",			lexAction, 'change')
-("interchanged",		lexAction, 'change')
-("swapped",			lexAction, 'change')
 */
+
+&VERB_IRREGULAR('be', 'being', 'was', 'been', 'is')
+
+&VERB_REGULAR_TYPE_1(book)
+&VERB_REGULAR_TYPE_4(establish)
+&VERB_IRREGULAR(make, making, made, made, makes)
+&VERB_IRREGULAR(have, having, had, had, has)
+&VERB_IRREGULAR(get, getting, got, gotten, gets)
+&VERB_REGULAR_TYPE_2(schedule)
+&VERB_REGULAR_TYPE_1(ask)
+&VERB_IRREGULAR('set up', 'setting up', 'set up', 'set up', 'sets up')
+
+&VERB_REGULAR_TYPE_3(cancel)
+&VERB_REGULAR_TYPE_2(erase)
+&VERB_REGULAR_TYPE_2(delete)
+&VERB_REGULAR_TYPE_3(drop)
+&VERB_REGULAR_TYPE_2(eliminate)
+&VERB_REGULAR_TYPE_2(remove)
+&VERB_REGULAR_TYPE_2(revoke)
+&VERB_REGULAR_TYPE_4(supressed)
+&VERB_REGULAR_TYPE_1(discard)
+&VERB_IRREGULAR('call off', 'calling up', 'called up', 'called up', 'calls up')
+&VERB_REGULAR_TYPE_3(annul)
+&VERB_IRREGULAR('get rid of', 'getting rid of', 'got rid of', 'gotten rid of', 'gets rid of')
+
+&VERB_REGULAR_TYPE_1(confirm)
+&VERB_REGULAR_TYPE_2(settle)
+&VERB_REGULAR_TYPE_2(validate)
+&VERB_REGULAR_TYPE_5(verify)
+&VERB_REGULAR_TYPE_2(corroborate)
+&VERB_IRREGULAR('make firm', 'making firm', 'made firm', 'made firm', 'makes firm')
+
+&VERB_REGULAR_TYPE_2(change)
+&VERB_REGULAR_TYPE_2(interchange)
+&VERB_REGULAR_TYPE_2(exchange)
+&VERB_REGULAR_TYPE_5(modify)
+&VERB_REGULAR_TYPE_3(swap)
+&VERB_REGULAR_TYPE_4('switch')
+&VERB_REGULAR_TYPE_2(replace)
+&VERB_REGULAR_TYPE_2(substitute)
+&VERB_REGULAR_TYPE_1(alter)
 

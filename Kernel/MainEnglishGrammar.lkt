@@ -27,6 +27,8 @@
 #Include "Statement/English/Grammar/StatementEnglishGrammar.lkt"
 #Include "Statement/English/Grammar/RequestEnglishGrammar.lkt"
 
+#Include "BasicAnswer/English/Grammar/BasicAnswerEnglishGrammar.lkt"
+
 
 
 

@@ -19,7 +19,7 @@
 )
 
 (Appointment_Rule02 :
- 	[ AppointmentScope -> lexDetUndef? lexMedicalTerm? lexAppointmentTerm lexPrepFor? ]
+ 	[ AppointmentScope -> < lexDetUndef | lexDetThe | lexDetMy >? lexMedicalTerm? lexAppointmentTerm ]
 	{
 		^.Scope <- 'appointment';
 	}

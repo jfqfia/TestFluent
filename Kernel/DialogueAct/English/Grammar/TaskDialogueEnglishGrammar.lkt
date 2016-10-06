@@ -11,30 +11,32 @@
 //
 // **************************************************
 
-// TODO I must improve this
 (TaskDialogueAct_Rule01	:
  	[ TaskDialogueAct -> TaskDialogueAct TaskDialogueAct ]
 	{
 		^ <- #1;
 		^ <& #2;
-		/*
-		if((!! #1.Action && #2.Action) || (#1.Action && !! #2.Action))
-		{
-			^ <- #1;
-			^ <| #2;
-		}
-		else 
-		{
-			Fail();
-		}
-		*/
 	}
 )
 
-// TODO I must improve this
 (TaskDialogueAct_Rule02 :
- 	[ TaskDialogueAct -> lexPrepTo? lexVerbBe? lexAction lexPrepFor? ]
+ 	[ TaskDialogueAct -> lexPrepTo? lexVerb lexPrepFor? ]
 	{
-		^.Action <- #3;
+		^.Action.ActionDomain <- getActionDomainFromLemma(#2.VerbRoot);
 	}
 )
+
+(TaskDialogueAct_Rule03 :
+ 	[ TaskDialogueAct -> lexPrepTo? lexVerb lexVerb lexPrepFor? ]
+	{
+		if(#2.VerbRoot == 'be' && #2.VerbForm == 'infinitive' && #3.VerbForm == 'past participle')
+		{
+			^.Action.ActionDomain <- getActionDomainFromLemma(#3.VerbRoot);
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+

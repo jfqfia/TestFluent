@@ -54,11 +54,6 @@ classDef:Void
 	lexNegation
 )
 
-classDef:Synonym
-(
-	lexAction = Action
-)
-
 classDef:StructureComplex
 (
 	lexVerb :

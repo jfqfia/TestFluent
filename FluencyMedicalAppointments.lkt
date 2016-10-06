@@ -28,6 +28,7 @@ lektaProject
 
 	functionModel
 		#Include "Kernel/MainFunctions.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
 	/*
 		#Include "Source/DManager/Library/DialogueTask.lkth"
 

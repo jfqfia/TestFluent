@@ -12,11 +12,11 @@
 // **************************************************
 
 (DateRule01_1 :
-    	[ Parameter -> DateTime ] 
+    	[ Parameter -> lexPrepFor? DateTime ] 
 	{
 		^.ParameterCategory <- 'terminal';
 		^.ParameterType <- 'datetime';
-		^.ParameterValue.DateTime <- #1;
+		^.ParameterValue.DateTime <- #2;
     	}
 )
 
