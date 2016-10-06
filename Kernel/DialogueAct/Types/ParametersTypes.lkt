@@ -1,13 +1,13 @@
 // **************************************************
 //
-//	Types related with ParameterValue structure.
+//	
 //
 // **************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	ParametersTypes.lkt
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
 //
 // **************************************************
 
@@ -17,7 +17,8 @@ classDef:StructureComplex
 	ParameterValue :
 	(
 		Number,
-		DateTime
+		DateTime,
+		MedicalSpeciality
 	)
 )
 

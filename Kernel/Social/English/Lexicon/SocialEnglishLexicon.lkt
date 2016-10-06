@@ -108,20 +108,48 @@
 ("you're too kind", 		lexFormalThanks)
 ("you shouldn't have",		lexFormalThanks)
 
-// TODO Downplaying -> new category?
-/*
-Sure
-No sweat
-No problem.
-no worries
-You're welcome
-Don't worry about it
-Don't mention it
-You're quite welcome
-No, not at all
-It's my pleasure
-It's the least I could do
-*/
+// Downplaying (as possible responses for 'thanks' or 'i'm sorry')
+("it's fine",			lexDownplaying)
+("not at all",			lexDownplaying)
+("don't mention it",		lexDownplaying)
+("you're quite welcome",	lexDownplaying)
+("it's my pleasure",		lexDownplaying)
+("it's the least i could do",	lexDownplaying)
+("don't worry about it",	lexDownplaying)
+("don't worry about it",	lexDownplaying)
+("you're welcome",		lexDownplaying)
+("no problem",			lexDownplaying)
+("no worries",			lexDownplaying)
+("no sweat",			lexDownplaying)
+
+// How to say sorry
+("sorry",			lexApology)
+("i'm sorry",			lexApology)
+("pardon",			lexApology)
+("i must apologise",		lexApology)
+("pardon me",			lexApology)
+("i'm afraid",			lexApology)
+("deepest apologies",		lexApology)
+("excuse me",			lexApology)
+("humble apologies",		lexApology)
+("apologies",			lexApology)
+("i regret to inform you that",	lexApology)
+("so sorry",			lexApology)
+("i beg your pardon",		lexApology)
+("i'm really sorry",		lexApology)
+("i'm very sorry",		lexApology)
+("i'm genuinely sorry",		lexApology)
+("i'm awfully sorry",		lexApology)
+("i'm so sorry",		lexApology)
+("sincere apologies",		lexApology)
+("i'm terribly sorry",		lexApology)
+("i'm extremely sorry",		lexApology)
+("i regret to tell you that",	lexApology)
+("i apologise",			lexApology)
+
+
+
+
 
 
 

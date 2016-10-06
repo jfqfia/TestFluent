@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialSpeciality(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithOrSpeciality(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithAndSpeciality(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+

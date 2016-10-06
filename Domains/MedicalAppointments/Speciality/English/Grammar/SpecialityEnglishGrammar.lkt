@@ -1,0 +1,36 @@
+// ******************************************************************
+//
+//
+//
+// ******************************************************************
+// 
+//	PROJECT	: 
+//	MODULE  : 
+//	PACKAGE	: 
+//	FILE	: 
+// 
+// ******************************************************************
+
+// Output rule for this package
+(Speciality_Rule01 :
+ 	[ Parameter -> MedicalSpeciality ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'speciality';
+		^.ParameterValue.MedicalSpeciality <- #1;
+	}
+)
+
+// ginecology
+// for the ginecologist
+// for the ginecologist clinic
+// for the doctor of obstetrics
+(Speciality_Rule02 :
+ 	[ MedicalSpeciality -> lexPrepFor? lexDetThe? lexMedicalSpecialityPrefix? lexMedicalSpeciality lexMedicalSpecialitySufix?]
+	{
+		^ <- #4;
+	}
+)
+
+
+

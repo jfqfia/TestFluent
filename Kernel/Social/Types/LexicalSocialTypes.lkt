@@ -19,7 +19,9 @@ classDef:Void
 	lexGoodbye,
 	lexFormalGoodbye,
 	lexThanks,
-	lexFormalThanks	 	
+	lexFormalThanks,
+	lexApology,
+	lexDownplaying
 )
 
 

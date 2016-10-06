@@ -1,0 +1,144 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// Prefixes
+("doctor of",				lexMedicalSpecialityPrefix)
+
+// Sufixes
+("doctor",				lexMedicalSpecialitySufix)
+("clinic",				lexMedicalSpecialitySufix)
+
+("anesthesiologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Anesthesia'))
+("anesthesia",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Anesthesia'))
+
+("andrologist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Andrology'))
+("andrology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Andrology'))
+
+("ophthalmologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Ophthalmology'))
+("ophthalmology",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Ophthalmology'))
+("oculist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Ophthalmology'))
+("eye doctor",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Ophthalmology'))
+("eye surgeon",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Ophthalmology'))
+
+("surgery",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Surgery'))
+("surgeon",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Surgery'))
+
+("surgical oncologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'OncologicalSurgery'))
+("oncological surgeon",			lexMedicalSpeciality,	(MedicalSpecialityName: 'OncologicalSurgery'))
+
+("vascular oncologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'VascularSurgery'))
+("vascular surgeon",			lexMedicalSpeciality,	(MedicalSpecialityName: 'VascularSurgery'))
+
+("infectious diseases",			lexMedicalSpeciality,	(MedicalSpecialityName: 'InfectiousDiseases'))
+("doctor of infectious diseases",	lexMedicalSpeciality,	(MedicalSpecialityName: 'InfectiousDiseases'))
+
+("dermatologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Dermatology'))
+("dermatology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Dermatology'))
+
+("diabetologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Diabetology'))
+("diabetology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Diabetology'))
+
+("endocrine",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Endocrinology'))
+("endocrinology",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Endocrinology'))
+
+("gastrologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Gastrology'))
+("gastrology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Gastrology'))
+("gastroenterologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Gastrology'))
+
+("gynecologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Gynecology'))
+("gynecology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Gynecology'))
+("obstetrics",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Gynecology'))
+("obstetrician",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Gynecology'))
+
+("hematologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Hematology'))
+("hematology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Hematology'))
+	
+("hepatologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Hepatology'))
+("hepatology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Hepatology'))
+
+("internist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'InternalMedicine'))
+("internal medicine",			lexMedicalSpeciality,	(MedicalSpecialityName: 'InternalMedicine'))
+("internal medicine physician",		lexMedicalSpeciality,	(MedicalSpecialityName: 'InternalMedicine'))
+
+("immunologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Immunology'))
+("immunology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Immunology'))
+("allergist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Immunology'))
+("allergy",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Immunology'))
+
+("cardiologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Cardiology'))
+("cardiology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Cardiology'))
+
+("otorhinolaryngology",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Laringology'))
+("laryngologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Laringology'))
+("laryngology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Laringology'))
+
+("nephrologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Nephrology'))
+("nephrology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Nephrology'))
+
+("neurologist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Neurology'))
+("neurology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Neurology'))
+
+("neurosurgeon",			lexMedicalSpeciality,	(MedicalSpecialityName: 'NeuroSurgery'))
+("neurosurgery",			lexMedicalSpeciality,	(MedicalSpecialityName: 'NeuroSurgery'))
+
+("oncologist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Oncology'))
+("oncology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Oncology'))
+
+("orthopaedist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Orthopedics'))
+("orthopedist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Orthopedics'))
+("orthopedics",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Orthopedics'))
+
+("pediatrician",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Pediatrics'))
+("paediatrician",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Pediatrics'))
+("pediatrics",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Pediatrics'))
+("paediatrics",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Pediatrics'))
+
+("proctologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Proctology'))
+("proctology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Proctology'))
+
+("psychiatrist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Psychiatry'))
+("psychiatry",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Psychiatry'))
+
+("psychologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Psychology'))
+("psychology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Psychology'))
+
+("pulmonologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Pulmonology'))
+("pulmonology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Pulmonology'))
+
+("radiologist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Radiology'))
+("radiology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Radiology'))
+
+("rehabilitation specialist",		lexMedicalSpeciality,	(MedicalSpecialityName: 'Rehabilitation'))
+("rehabilitation",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Rehabilitation'))
+
+("rheumatologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Rheumatology'))
+("rheumatology",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Rheumatology'))
+
+("family doctor",			lexMedicalSpeciality,	(MedicalSpecialityName: 'FamilyDoctor'))
+
+("traumatologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Traumatology'))
+("traumatology",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Traumatology'))
+
+("urologist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Urology'))
+("urology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Urology'))
+
+("venereologist",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Venereology'))
+("venereology",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Venereology'))
+
+("dentist",				lexMedicalSpeciality,	(MedicalSpecialityName: 'Orthodontics'))
+("orthodontics",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Orthodontics'))
+
+("laboratory examination",		lexMedicalSpeciality,	(MedicalSpecialityName: 'Laboratory Test'))
+("laboratory test",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Laboratory Test'))
+("laboratory tests",			lexMedicalSpeciality,	(MedicalSpecialityName: 'Laboratory Test'))
+

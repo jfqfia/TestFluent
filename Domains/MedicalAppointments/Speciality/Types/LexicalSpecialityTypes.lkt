@@ -11,9 +11,18 @@
 //
 // **************************************************
 
-#Include "Appointment/Functions/MedicalAppointmentFunctions.lkt"
-#Include "Speciality/Functions/SpecialityFunctions.lkt"
+// TODO Structure explanation
+classDef:StructureComplex 
+(
+	lexMedicalSpeciality :
+	(
+		MedicalSpecialityName
+	)
+)
 
-
-
+classDef:Void
+(
+	lexMedicalSpecialitySufix,
+	lexMedicalSpecialityPrefix
+)
 

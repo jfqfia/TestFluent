@@ -6,14 +6,19 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE :	
+//	PACKAGE	:	
 //	FILE	:	
 //
 // **************************************************
 
-#Include "Appointment/Functions/MedicalAppointmentFunctions.lkt"
-#Include "Speciality/Functions/SpecialityFunctions.lkt"
+// TODO Structure explanation
+classDef:ElementLiteral
+( 
+	MedicalSpecialityName
+)
 
-
-
+classDef:Synonym
+( 
+	MedicalSpeciality = lexMedicalSpeciality
+)
 

@@ -12,6 +12,7 @@
 // **************************************************
 
 #Include "Appointment/MainAppointmentTypes.lkt"
+#Include "Speciality/MainSpecialityTypes.lkt"
 
 
 

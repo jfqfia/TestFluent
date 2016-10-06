@@ -35,3 +35,15 @@ classDef:Synonym
  	Thanks = CoreDialogueAct
 )
 
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Apology = CoreDialogueAct
+)
+
+// TODO Structure explanation
+classDef:Synonym 
+( 
+ 	Downplaying = CoreDialogueAct
+)
+

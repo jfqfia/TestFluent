@@ -19,7 +19,7 @@
 )
 
 (Social_Rule02 :
-	[ Social -> < Greeting | Bye | Thanks >]
+	[ Social -> < Greeting | Bye | Thanks | Apology | Downplaying >]
 	{
 		^ <- #1;
 		^.Dimension <- 'social';
@@ -70,4 +70,20 @@
 		// Add here semantic content information
 	}
 )
+
+(Social_Rule09 :
+ 	[ Apology -> lexDetMy? lexApology ]
+	{
+		^.Function <- 'apology';
+	}
+)
+
+(Social_Rule10 :
+ 	[ Downplaying -> lexDownplaying ]
+	{
+		^.Function <- 'downplaying';
+	}
+)
+
+
 

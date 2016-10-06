@@ -12,6 +12,7 @@
 // **************************************************
 
 #Include "Appointment/English/Grammar/AppointmentEnglishGrammar.lkt"
+#Include "Speciality/English/Grammar/SpecialityEnglishGrammar.lkt"
 
 
 
