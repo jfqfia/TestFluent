@@ -48,6 +48,10 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialLetter(parameter1, parameter2);
 		}
+		case 'countryplace' 
+		{
+			ret <- canMergeWithSequentialCountryPlace(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -77,6 +81,10 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		case 'letter' 
 		{
 			ret <- canMergeWithOrLetter(parameter1, parameter2);
+		}
+		case 'countryplace' 
+		{
+			ret <- canMergeWithOrCountryPlace(parameter1, parameter2);
 		}
 		default
 		{	
@@ -108,6 +116,10 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithAndLetter(parameter1, parameter2);
 		}
+		case 'countryplace' 
+		{
+			ret <- canMergeWithAndCountryPlace(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -115,5 +127,6 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 	}
 	return ret;
 }
+
 
 

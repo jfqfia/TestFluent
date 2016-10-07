@@ -19,6 +19,8 @@
 
 #Include "Number/English/Grammar/NumberEnglishGrammar.lkt"
 
+#Include "CountryPlace/English/Grammar/CountryPlaceEnglishGrammar.lkt"
+
 #Include "Letter/English/Grammar/LetterEnglishGrammar.lkt"
 
 #Include "DateTime/English/Grammar/DateEnglishGrammar.lkt"

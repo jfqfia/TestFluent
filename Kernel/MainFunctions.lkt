@@ -24,6 +24,9 @@
 // Letter
 #Include "Letter/Functions/LetterFunctions.lkt"
 
+// CountryPlace
+#Include "CountryPlace/Functions/CountryPlaceFunctions.lkt"
+
 
 
 

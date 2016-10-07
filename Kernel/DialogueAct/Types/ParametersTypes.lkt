@@ -19,6 +19,7 @@ classDef:StructureComplex
 		Number,
 		Letter,		
 		DateTime,
+		CountryPlace,
 
 		MedicalSpeciality
 	)

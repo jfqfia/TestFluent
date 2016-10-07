@@ -1,0 +1,31 @@
+// ******************************************************************
+//
+//	Grammar rules for english numbers
+//
+// ******************************************************************
+// 
+//	PROJECT	: Fluency
+//	MODULE  : Kernel	
+//	PACKAGE	: Number	
+//	FILE	: English/Grammar/NumberEnglishGrammar.lkt
+// 
+// ******************************************************************
+
+// Output rule for this package
+(CountryPlace_Rule01 :
+ 	[ Parameter -> CountryPlace ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'countryplace';
+		^.ParameterValue.CountryPlace <- #1;
+	}
+)
+
+(CountryPlace_Rule02 :
+ 	[ CountryPlace -> lexCountryPlace ]
+	{
+		^ <- #1;
+	}
+)
+
+

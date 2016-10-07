@@ -1,0 +1,15 @@
+// **************************************************
+//
+//	Index of types files.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.Number
+//	FILE	:	MainNumberTypes.lkt
+//
+// **************************************************
+
+#Include "Types/CountryPlaceTypes.lkt"
+#Include "Types/LexicalCountryPlaceTypes.lkt"

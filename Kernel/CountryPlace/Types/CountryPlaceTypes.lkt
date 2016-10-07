@@ -1,0 +1,34 @@
+// **************************************************
+//
+//
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+classDef:StructureComplex
+( 
+	CountryPlace :
+	(
+		CountryName,
+		CountryZone,
+		CountryRegion,
+		CountryProvince,
+		CountryTown
+	)
+)
+
+classDef:ElementLiteral
+(
+	CountryName,
+	CountryZone,
+	CountryRegion,
+	CountryProvince,
+	CountryTown
+)
+
