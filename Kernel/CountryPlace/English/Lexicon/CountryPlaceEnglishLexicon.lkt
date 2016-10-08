@@ -11,10 +11,49 @@
 //
 // **************************************************
 
+// Sufix of country towns
+
+// DK = denmark
+("sogn", 	lexCountryTownsSufixDK)
+
+// LV = latvia
+("novads", 	lexCountryTownsSufixLV)
+
+// LT = lithuania
+("seniūnija", 	lexCountryTownsSufixLT)
+
 #Include "CountryNames.lkt"
 #Include "CountryZones.lkt"
 #Include "CountryRegions.lkt"
 #Include "CountryProvinces.lkt"
 
-// TODO include towns files
+// Include towns files
+// #Include "Towns/ATCountryTowns.lkt"
+// #Include "Towns/BECountryTowns.lkt"
+// #Include "Towns/BGCountryTowns.lkt"
+// #Include "Towns/CYCountryTowns.lkt"
+// #Include "Towns/CZCountryTowns.lkt"
+// #Include "Towns/DECountryTowns.lkt"
+// #Include "Towns/DKCountryTowns.lkt"
+// #Include "Towns/EECountryTowns.lkt"
+// #Include "Towns/ELCountryTowns.lkt"
+#Include "Towns/ESCountryTowns.lkt"
+// #Include "Towns/FICountryTowns.lkt"
+// #Include "Towns/FRCountryTowns.lkt"
+// #Include "Towns/HRCountryTowns.lkt"
+// #Include "Towns/HUCountryTowns.lkt"
+// #Include "Towns/IECountryTowns.lkt"
+// #Include "Towns/ITCountryTowns.lkt"
+// #Include "Towns/LTCountryTowns.lkt"
+// #Include "Towns/LUCountryTowns.lkt"
+// #Include "Towns/LVCountryTowns.lkt"
+// #Include "Towns/MTCountryTowns.lkt"
+// #Include "Towns/NLCountryTowns.lkt"
+// #Include "Towns/PLCountryTowns.lkt"
+// #Include "Towns/PTCountryTowns.lkt"
+// #Include "Towns/ROCountryTowns.lkt"
+// #Include "Towns/SECountryTowns.lkt"
+// #Include "Towns/SICountryTowns.lkt"
+// #Include "Towns/SKCountryTowns.lkt"
+// #Include "Towns/UKCountryTowns.lkt"
 

@@ -15,3 +15,10 @@ classDef:Synonym
 (
 	lexCountryPlace = CountryPlace
 )
+
+classDef:Void
+(
+	lexCountryTownsSufixDK,
+	lexCountryTownsSufixLT,
+	lexCountryTownsSufixLV
+)

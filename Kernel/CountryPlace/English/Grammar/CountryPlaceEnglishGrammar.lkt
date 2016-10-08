@@ -22,10 +22,51 @@
 )
 
 (CountryPlace_Rule02 :
- 	[ CountryPlace -> lexCountryPlace ]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace]
 	{
-		^ <- #1;
+		^ <- #2;
 	}
 )
 
+(CountryPlace_Rule03 :
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace lexCountryTownsSufixDK]
+	{
+		if( #2.CountryName == 'denmark')
+		{
+			^ <- #2;	
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+
+(CountryPlace_Rule04 :
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace lexCountryTownsSufixLT]
+	{
+		if( #2.CountryName == 'lithuania')
+		{
+			^ <- #2;	
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+
+(CountryPlace_Rule05 :
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace lexCountryTownsSufixLV]
+	{
+		if( #2.CountryName == 'latvia')
+		{
+			^ <- #2;	
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
 

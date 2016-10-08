@@ -1,4 +1,9 @@
-* Parameter Place (cambiarle el nombre)
+* Verb Macros
+2000 most usual spoken english words 
+http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
+http://www.scientificpsychic.com/grammar/regular.html
+http://www.linguasorb.com/english/verbs/conjugation/want
+https://en.wikipedia.org/wiki/Uses_of_English_verb_forms
 
 * Questions grammar and lexicon
 
@@ -7,13 +12,6 @@
 	Parameter IDNumber
 	Parameter ComplexNumber
 	Parameter Localizator
-
-* Verb Macros
-2000 most usual spoken english words 
-http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
-http://www.scientificpsychic.com/grammar/regular.html
-http://www.linguasorb.com/english/verbs/conjugation/want
-https://en.wikipedia.org/wiki/Uses_of_English_verb_forms
 
 * Fix headers in the beginning of every file in the project
 
