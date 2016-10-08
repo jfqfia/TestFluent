@@ -1,17 +1,22 @@
-* Verb Macros
-2000 most usual spoken english words 
+* Macros
 http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
 http://www.scientificpsychic.com/grammar/regular.html
-http://www.linguasorb.com/english/verbs/conjugation/want
-https://en.wikipedia.org/wiki/Uses_of_English_verb_forms
+http://www.myenglishlanguage.com/english-grammar/noun-inflections/
+http://www.myenglishpages.com/site_php_files/grammar-lesson-plurals.php
+http://www.ef.com/english-resources/english-grammar/singular-and-plural-nouns/
+pdf en docs
 
 * Questions grammar and lexicon
+http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
+https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
 
 * Podemos englobar estos en un ComplexNumber
 	Parameter PhoneNumber
 	Parameter IDNumber
 	Parameter ComplexNumber
 	Parameter Localizator
+
+* Domotics domain
 
 * Fix headers in the beginning of every file in the project
 
