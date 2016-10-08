@@ -141,6 +141,8 @@
 ("as far as",			lexDateIntervalMax)
 ("at most until",		lexDateIntervalMax)
 ("at most till",		lexDateIntervalMax)
+("at the latest",		lexDateIntervalMax)
+("at most",			lexDateIntervalMax)
 ("to",				lexDateIntervalMax)
 
 

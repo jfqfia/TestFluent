@@ -38,6 +38,7 @@ classDef:Void
 	lexPlease,
 	lexFirstPersonPronoun,
 	lexPrepAt,
+	lexPrepBy,
 	lexPrepFor,
 	lexPrepOf,
 	lexPrepOn,

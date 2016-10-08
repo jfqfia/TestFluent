@@ -12,7 +12,7 @@
 // **************************************************
 
 (DateRule01_1 :
-    	[ Parameter -> lexPrepFor? DateTime ] 
+    	[ Parameter -> < lexPrepFor? | lexPrepBy?> DateTime ] 
 	{
 		^.ParameterCategory <- 'terminal';
 		^.ParameterType <- 'datetime';
@@ -160,7 +160,7 @@
 
 // in 2 weeks
 (DateRule04_4 :
-    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin > Number lexWeekTerm ] 
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin? > Number lexWeekTerm ] 
 	{
 		^.Date.Week <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
@@ -170,7 +170,7 @@
 
 // in 2 months
 (DateRule04_5 :
-    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin > Number lexMonthTerm ] 
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin? > Number lexMonthTerm ] 
 	{
 		^.Date.Month <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
@@ -179,7 +179,7 @@
 
 // in 2 years
 (DateRule04_6 :
-    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin > Number lexYearTerm ] 
+    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin? > Number lexYearTerm ] 
 	{
 		^.Date.Year <- #2.NumberValue;
 		^.DirectionOfTime <- 'forward';    	
@@ -381,11 +381,25 @@
 // to 25 aug
 // at most until the day before 25 of august 2016
 // at most until the day before 25 of august 2016 at 8 pm
-(DateRule12 :
+(DateRule12_1 :
     	[ DateTime/1 -> lexDateIntervalMax? lexDateIntervalMax DateTime/1 ] 
 	{
 		^.MaxDate <- #3;
 		if(!!Filled(#3.OffsetDate) && !!Filled(#3.BaseDate))
+		{
+			Fail();
+		}		
+    	}
+)
+
+// until the day before 25 of august 2016 at most
+// by tomorrow afternoon at the latest
+// by tomorrow afternoon at most
+(DateRule12_2 :
+    	[ DateTime/1 -> lexDateIntervalMax? DateTime/1 lexDateIntervalMax ] 
+	{
+		^.MaxDate <- #2;
+		if(!!Filled(#2.OffsetDate) && !!Filled(#2.BaseDate))
 		{
 			Fail();
 		}		

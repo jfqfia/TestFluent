@@ -43,6 +43,7 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 
 // lexPrep: Prepositions
 ("at",		lexPrepAt)
+("by",		lexPrepBy)
 ("for",		lexPrepFor)
 ("of",		lexPrepOf)
 ("on",		lexPrepOn)
