@@ -12,11 +12,7 @@ https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-engli
 
 * Domotics domain
 
-* Parameter Localizator
-
 * Fix headers in the beginning of every file in the project
-
-* Colligo must finalize and or seq etc... Example: 1, 2 or 3
 
 * Look in favourites the neither either contructions
 

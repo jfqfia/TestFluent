@@ -18,32 +18,13 @@ lektaProject
 		setupTokenizerSpellingChecker
 
 	classModel
-			// Feature Model - Kernel
+		// Feature Model - Kernel
 		#Include "Kernel/MainTypes.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentTypes.lkt"
-
-			// Feature Model - Domains
-		//#Include "Domains/MedAppointment/Types/MainTypes.lkt"
-		//#Include "Domains/Banking/Types/MainTypes.lkt"
 
 	functionModel
 		#Include "Kernel/MainFunctions.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
-	/*
-		#Include "Source/DManager/Library/DialogueTask.lkth"
-
-		#Include "Source/DManager/Library/DialogueScheme.lkth"
-		#Include "Source/DManager/Library/DialogueScript.lkth"
-		#Include "Source/DManager/Library/DialogueFocus.lkth"
-		#Include "Source/DManager/Library/DialogueMove.lkth"
-		#Include "Source/DManager/Library/DialogueManager.lkth"
-		#Include "Source/DManager/Library/DialogueInterpret.lkth"
-		#Include "Source/DManager/Library/DialogueAnalysis.lkth"
-		#Include "Source/DManager/Library/DialogueReply.lkth"
-
-		#Include "Source/DManager/Library/ScheduleCalendar.lkth"
-		#Include "Source/DManager/Library/NegotiateAppointment.lkth"
-	*/
 
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
@@ -53,13 +34,11 @@ lektaProject
 		#Include "Kernel/MainEnglishGrammar.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGrammar.lkt"
 
+	conversationalModel
+		#Include "Kernel/DialogueModel/DManager/MindBoardStructure.lkt"
 
-//	lexicalModel forLanguage Spanish
-//		#Include "Kernel/Understanding/Spanish/Lexicon/MainSpanishLexicon.lkt"
-
-
-//	grammaticalModel forLanguage Spanish
-//		#Include "Kernel/Understanding/Spanish/Grammar/MainSpanishGrammar.lkt"
+	ColligoSchemata
+		#Include "Kernel/DialogueModel/Colligo/ColligoSchemata.lkt"
 
 	/*
 	conversationalModel

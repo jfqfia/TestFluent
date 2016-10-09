@@ -1,0 +1,57 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(ColligoScheme ProferenceChunkOrNumber : [ ProferenceChunk ProferenceChunk >> ProferenceChunk ]
+	ColligoCapture 
+	{
+		#OBJCOLLIGO-1.Parameter.ParameterType == 'number' && 
+		(#OBJCOLLIGO-1.Parameter.ParameterCategory == 'sequential' || #OBJCOLLIGO-1.Parameter.ParameterCategory == 'terminal') && 
+		#OBJCOLLIGO-2.Parameter.ParameterType == 'number' && 
+		#OBJCOLLIGO-2.Parameter.ParameterCategory == 'disjunction'
+	}
+ 	ColligoAction 
+	{
+		^OBJSENSO.Parameter.ParameterCategory <- 'disjunction';
+		^OBJSENSO.Parameter.ParameterType <- 'number';
+		^OBJSENSO.Parameter.ParameterOperand1 <- #OBJCOLLIGO-1.Parameter;
+		^OBJSENSO.Parameter.ParameterOperand2 <- #OBJCOLLIGO-2.Parameter;
+		if(#OBJCOLLIGO-1.Parameter.ParameterCategory == 'sequential')
+		{
+			^OBJSENSO.Parameter.ParameterOperand1 <- changeParameterCategoryRecursive(#OBJCOLLIGO-1.Parameter,'disjunction');
+		}
+		if(#OBJCOLLIGO-2.Parameter.ParameterCategory == 'sequential')
+		{
+			^OBJSENSO.Parameter.ParameterOperand2 <- changeParameterCategoryRecursive(#OBJCOLLIGO-2.Parameter,'disjunction');
+		}
+
+	}
+)
+
+(ColligoScheme ProferenceChunkSequentialNumber : [ ProferenceChunk ProferenceChunk >> ProferenceChunk ]
+	ColligoCapture 
+	{
+		#OBJCOLLIGO-1.Parameter.ParameterType == 'number' && 
+		(#OBJCOLLIGO-1.Parameter.ParameterCategory == 'terminal' || #OBJCOLLIGO-1.Parameter.ParameterCategory == 'sequential') && 
+		#OBJCOLLIGO-2.Parameter.ParameterType == 'number' && 
+		(#OBJCOLLIGO-2.Parameter.ParameterCategory == 'terminal' || #OBJCOLLIGO-2.Parameter.ParameterCategory == 'sequential')
+	}
+ 	ColligoAction 
+	{
+		^OBJSENSO.Parameter.ParameterCategory <- 'sequential';
+		^OBJSENSO.Parameter.ParameterType <- 'number';
+		^OBJSENSO.Parameter.ParameterOperand1 <- #OBJCOLLIGO-1.Parameter;
+		^OBJSENSO.Parameter.ParameterOperand2 <- #OBJCOLLIGO-2.Parameter;
+	}
+)
+
+

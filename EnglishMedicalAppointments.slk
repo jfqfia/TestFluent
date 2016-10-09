@@ -14,7 +14,7 @@ setupRuntimeSpyMessageOn
 DisplayProcessUnderstandingOn
 //DisplayProcessRespondoOn
 //DisplayProcessCogitoOn
-//DisplayProcessColligoOn
+DisplayProcessColligoOn
 
 CreateDialogue
 (
