@@ -1,31 +1,25 @@
 // **************************************************
 //
-//	
+//
 //
 // **************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	:
+//	MODULE  :
+//	PACKAGE :
+//	FILE	:
 //
 // **************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex
-(
-	ParameterValue :
+( 
+	PeselNumber :
 	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-
-		MedicalSpeciality,
-		PeselNumber
+		PeselNumberValue
 	)
 )
 
-
-
+classDef:ElementLiteral
+(
+	PeselNumberValue
+)

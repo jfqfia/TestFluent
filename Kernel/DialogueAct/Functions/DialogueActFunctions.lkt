@@ -56,6 +56,10 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialPhoneNumber(parameter1, parameter2);
 		}
+		case 'peselnumber' 
+		{
+			ret <- canMergeWithSequentialPeselNumber(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -94,6 +98,10 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithOrPhoneNumber(parameter1, parameter2);
 		}
+		case 'peselnumber' 
+		{
+			ret <- canMergeWithOrPeselNumber(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -131,6 +139,10 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		case 'phonenumber' 
 		{
 			ret <- canMergeWithAndPhoneNumber(parameter1, parameter2);
+		}
+		case 'peselnumber' 
+		{
+			ret <- canMergeWithAndPeselNumber(parameter1, parameter2);
 		}
 		default
 		{	

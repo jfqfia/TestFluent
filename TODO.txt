@@ -1,7 +1,3 @@
-* Parameter PhoneNumber
-
-* Parameter IDNumber
-
 * Macros
 http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
 http://www.scientificpsychic.com/grammar/regular.html

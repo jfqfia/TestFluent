@@ -1,0 +1,57 @@
+// ******************************************************************
+//
+//	
+//
+// ******************************************************************
+// 
+//	PROJECT	: 
+//	MODULE  : 
+//	PACKAGE	: 
+//	FILE	: 
+// 
+// ******************************************************************
+
+// Output rule for this package
+(PeselNumber_Rule01_1 :
+ 	[ Parameter -> PeselNumber ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'peselnumber';
+		^.ParameterValue.PeselNumber <- #1;
+	}
+)
+
+// my pesel number identifier is XXXX
+// my number is XXXX
+// my number: XXXX
+// my identifier number is XXXX
+// my pesel identifier is XXXX
+// my number: XXXX
+(PeselNumber_Rule02_1 :
+ 	[ PeselNumber -> lexDetMy? lexPeselNumberTerm? lexPeselNumberTerm? lexPeselNumberTerm lexVerb Number ]
+	{
+		^.PeselNumberValue <- ShapeToString(#6.NumberValue);
+		if(#5 && #5.VerbRoot != 'be')
+		{
+			Fail();
+		}
+	}
+)
+
+(PeselNumber_Rule02_2 :
+ 	[ PeselNumber -> lexDetMy? lexPeselNumberTerm? lexPeselNumberTerm? lexPeselNumberTerm lexColon? Number ]
+	{
+		^.PeselNumberValue <- ShapeToString(#6.NumberValue);
+	}
+)
+
+// my number is 12 23 34 45
+// my number is 12, 23, 34, 45
+// my number is 12, 23, 34 and 45    
+(PeselNumber_Rule03 :
+ 	[ PeselNumber -> PeselNumber < lexComma | lexConjAnd >? Number ]
+	{
+		^.PeselNumberValue <- LiteralConcat(#1.PeselNumberValue, ShapeToString(#3.NumberValue));
+	}
+)
+

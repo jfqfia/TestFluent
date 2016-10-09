@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialPeselNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+bool canMergeWithOrPeselNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+bool canMergeWithAndPeselNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+

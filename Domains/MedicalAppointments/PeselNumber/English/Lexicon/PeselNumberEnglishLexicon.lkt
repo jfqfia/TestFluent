@@ -6,14 +6,16 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE :	
+// 	PACKAGE	:	
 //	FILE	:	
 //
 // **************************************************
 
-#Include "Appointment/Functions/MedicalAppointmentFunctions.lkt"
-#Include "Speciality/Functions/SpecialityFunctions.lkt"
-#Include "PeselNumber/Functions/PeselNumberFunctions.lkt"
+("number", 			lexPeselNumberTerm)
+("identifier",			lexPeselNumberTerm)
+("identification",		lexPeselNumberTerm)
+("personal",			lexPeselNumberTerm)
+("pesel",			lexPeselNumberTerm)
 
 
 

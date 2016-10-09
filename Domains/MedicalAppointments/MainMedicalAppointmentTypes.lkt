@@ -13,6 +13,7 @@
 
 #Include "Appointment/MainAppointmentTypes.lkt"
 #Include "Speciality/MainSpecialityTypes.lkt"
+#Include "PeselNumber/MainPeselNumberTypes.lkt"
 
 
 

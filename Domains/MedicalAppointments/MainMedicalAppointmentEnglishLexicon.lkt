@@ -13,6 +13,7 @@
 
 #Include "Appointment/English/Lexicon/AppointmentEnglishLexicon.lkt"
 #Include "Speciality/English/Lexicon/SpecialityEnglishLexicon.lkt"
+#Include "PeselNumber/English/Lexicon/PeselNumberEnglishLexicon.lkt"
 
 
 
