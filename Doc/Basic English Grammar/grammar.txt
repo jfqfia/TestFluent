@@ -1,0 +1,199 @@
+
+http://www.scientificpsychic.com/grammar/enggram1.html
+
+1. Introduction
+< clases de palabras >
+"la palabra en sí misma"
+< X > = < Y > < Z >			X -> Y Z
+( X | Y )					< X | Y >
+[ X ]						X?
+X*							X XX XXX XXXX ... Puede estar repetida una o más veces
+ 
+2. Sentence types
+Declarative		
+Interrogative	
+Imperative
+
+Reglas:
+
+<ProferenceChunk> = <Parameter de tipo sentence si es simple>
+
+<Parameter> = <Sentence>
+
+<Sentence> = <DeclarativeSentence>
+
+<Sentence> = <InterrogativeSentence>
+
+<Sentence> = <ImperativeSentence>
+
+<Sentence> = <ConditionalSentence>
+
+3. Parts of Speech
+
+ADJECTIVE: modifies a noun
+	TYPES: 'positive', 'comparative', 'superlative'
+	POSIBLE MACRO
+	EXAMPLE: old, older, oldest
+	
+DETERMINERS: whether a noun is specific of a member of a class
+	TYPES: 'defined', 'undefined'
+	EXAMPLE: a, an , the
+	
+ADVERB: modifies a verb or a adjective or other adverbs
+	POSIBLE MACRO QUE VENGA DE ADJETIVOS
+	EXAMPLE: very, extremely, carefully
+	
+CONJUNCTION: conect sentence parts or sentences with sentences
+	EXAMPLE: and, or, but, where, when, while, because, if, unless
+	
+INTERJECTIONS: express feelings or emotions
+	EXAMPLE: oh, alas, aha, bah, whew
+	TYPES: 'happyness', 'sadness', 'anger', 'fear', 'surprise', 'disgust'
+	SOURCE: https://www.vidarholen.net/contents/interjections/
+	
+NOUN: names an object
+	TYPES: 'singular', 'plural'. 'proper', 'common'. 'possessive', 'non-possessive'
+	POSIBLE MACRO
+
+PREPOSITION: relations between nouns
+	
+PRONOUN: substitute a noun
+	TYPES: 'demonstrative', 'relative', 'indefinite', 'personal'
+	
+VERB: an action
+	
+4. Declarative sentences
+
+Reglas:
+
+<DeclarativeSentence> = <Subject> <Predicate>
+
+5. The subject
+
+Reglas:
+
+<subject> = <simple subject> | <compound subject>
+
+<simple subject> = <noun phrase> | <nominative personal pronoun>
+
+<compound subject> =
+       <simple subject> ("and" | "or") <simple subject> |
+       "Either" <simple subject> "or" <simple subject> |
+       "Neither" <simple subject> "nor" <simple subject> 
+
+<noun phrase> =
+       "the" <specific proper noun> |
+       <proper noun> |
+       <non-personal pronoun> |
+       <article> [<adverb>* <adjective>] <noun> |
+       [<adverb>* <adjective>] <noun-plural> |
+       <proper noun-possessive> [<adverb>* <adjective>] <noun> |
+       <personal possessive adjective> [<adverb>* <adjective>] <noun> |
+       <article> <common noun-possessive> [<adverb>* <adjective>] <noun> 
+			  
+<noun> = <noun> [<prep phr>*]
+
+<adjective> = <adjective> ("and" | "or") <adjective>
+
+<prep phr> = <preposition> <object>
+
+6. The predicate
+
+<predicate> = (<verb> | <verb phrase>) <complement>
+
+<auxV> = "must" | "may" |"might" |
+       "will" |"would" |"shall" |
+       "should" |"can" |"could"
+	   
+	   <verb> = <V1s> |<V2s> |<V3s> |
+       <V1p> |<V2p> |<V3p> |
+       <Vpast> |<linking verb>
+
+<linking verb> = "am" |"are" |"is" | "was"| "were" |
+       "look" | "looks" | "looked" |
+       "become" | "became" | "become" | ...
+
+<verb phrase> =
+       ("had" |"have" |"has") ["not"] <Vpastp> |
+       ("had" |"have" |"has") ["not"] "been" [<Vpastp> | <Ving>] |
+       <auxV> ["not"] "have" <Vpastp> |
+       <auxV> ["not"] "have" "been" [<Vpastp> | <Ving>] |
+       <auxV> ["not"] "be" [<Vpastp> | <Ving>] |
+       <auxV> ["not"] <Vinf> |
+       "ought" ("to" | "not") <Vinf> |
+       "ought" ("to" | "not") "be" [<Vpastp> | <Ving>] |
+       "ought" ("to" | "not") "have" <Vpastp> |
+       "ought" ("to" | "not") "have" "been" [<Vpastp> | <Ving>] |
+       ("do" |"does" |"did") ["not"] [<Vinf>] |
+       ("am" |"are" |"is" |"was" |"were") ["not"] [<Vpastp> | <Ving>] |
+       ("am" |"are" |"is" |"was" |"were") ["not"] "being" [<Vpastp>] |
+       ("am" |"are" |"is" |"was" |"were") ["not"] "going" "to" [<Vinf>] 
+
+<complement> =
+       [[<indirect object>] <object>] |
+       [<adverb>* <adjective>] |
+       [<prep phr>*] |
+       ["to" <Vinf> [<object>]] |
+       [<Ving>] 
+
+<indirect object> = <object> =
+       <simple object> | <compound object> 
+	   
+<simple object> = <noun phrase> |
+       <objective personal pronoun>
+
+<compound object> =
+       <simple object> ("and" | "or") <simple object> 
+	   
+Negative Contractions
+can + not → cannot or can't
+will + not → won't
+shall + not → shan't
+should + not → shouldn't
+have, has, had + not → haven't, hasn't, hadn't
+do, does + not → don't, doesn't
+
+7. Verbal Phrases
+
+["to" <Vinf> [<complement>]]  
+
+[<Ving> [<complement>]]
+
+[<Vpastp> [<complement>]] 
+
+Infinitive and present participle verbal phrases may take the place of nouns. 
+Present participle phrases used as nouns are also called gerund phrases. 
+Infinitive verbal phrases are also used as adverbs. 
+Present participle and past participle verbal phrases may act like adjectives. 
+In this case, they are also called participial phrases. 
+Verbal phrases that are not essential to the meaning of the sentence are separated by commas.
+
+8. Interrogative Sentence
+
+"Who" <predicate>"?"  
+
+("What" |"Which") [<adverb>* <adjective>] <noun> <predicate>"?"  
+
+["What" |"When" |"Where" |"Who" |"To whom" |"Why"] ("do" |"does" |"don't" |"doesn't" |"did" |"didn't") <subject> <predicate>"?"
+
+En http://www.scientificpsychic.com/grammar/enggram7.html
+
+9. Imperative sentences
+
+<ImperativeSentence> = <predicate> = <verb>  <complement>
+
+En http://www.scientificpsychic.com/grammar/enggram8.html
+
+10. Condidtional sentences
+
+<Dependent Clause> = ("if" | "when") <Declarative Sentence>
+
+<Independent Clause> = <Declarative Sentence> | <Interrogative Sentence>
+
+<Conditional Sentence> = <Dependent Clause>"," <Independent Clause> | <Independent Clause> <Dependent Clause> 
+
+
+
+
+
+
