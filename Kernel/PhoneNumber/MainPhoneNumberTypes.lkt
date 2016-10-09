@@ -6,25 +6,10 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE	:	
+//	PACKAGE :	
 //	FILE	:	
 //
 // **************************************************
 
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	ParameterValue :
-	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-
-		MedicalSpeciality
-	)
-)
-
-
-
+#Include "Types/PhoneNumberTypes.lkt"
+#Include "Types/LexicalPhoneNumberTypes.lkt"

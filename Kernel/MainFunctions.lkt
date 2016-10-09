@@ -27,6 +27,9 @@
 // CountryPlace
 #Include "CountryPlace/Functions/CountryPlaceFunctions.lkt"
 
+// PhoneNumber
+#Include "PhoneNumber/Functions/PhoneNumberFunctions.lkt"
+
 
 
 

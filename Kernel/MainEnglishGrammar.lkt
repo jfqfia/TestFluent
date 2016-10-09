@@ -19,6 +19,8 @@
 
 #Include "Number/English/Grammar/NumberEnglishGrammar.lkt"
 
+#Include "PhoneNumber/English/Grammar/PhoneNumberEnglishGrammar.lkt"
+
 #Include "CountryPlace/English/Grammar/CountryPlaceEnglishGrammar.lkt"
 
 #Include "Letter/English/Grammar/LetterEnglishGrammar.lkt"

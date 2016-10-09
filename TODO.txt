@@ -1,3 +1,7 @@
+* Parameter PhoneNumber
+
+* Parameter IDNumber
+
 * Macros
 http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
 http://www.scientificpsychic.com/grammar/regular.html
@@ -10,13 +14,9 @@ pdf en docs
 http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
 https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
 
-* Podemos englobar estos en un ComplexNumber
-	Parameter PhoneNumber
-	Parameter IDNumber
-	Parameter ComplexNumber
-	Parameter Localizator
-
 * Domotics domain
+
+* Parameter Localizator
 
 * Fix headers in the beginning of every file in the project
 
@@ -28,6 +28,7 @@ https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-engli
 
 BUG?
 21 answers in dialogue cause a crash in lekta.
+
 
 
 

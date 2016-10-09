@@ -1,0 +1,88 @@
+// ******************************************************************
+//
+//	
+//
+// ******************************************************************
+// 
+//	PROJECT	: 
+//	MODULE  : 
+//	PACKAGE	: 
+//	FILE	: 
+// 
+// ******************************************************************
+
+// Output rule for this package
+(PhoneNumber_Rule01_1 :
+ 	[ Parameter -> PhoneNumber ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'phonenumber';
+		^.ParameterValue.PhoneNumber <- #1;
+	}
+)
+
+// my number is 11 11 or 99
+(PhoneNumber_Rule01_2 :
+ 	[ Parameter -> PhoneNumber lexConjOr Number ]
+	{
+		^.ParameterCategory <- 'disjunction';
+		^.ParameterType <- 'phonenumber';
+		^.ParameterOperand1.ParameterValue.PhoneNumber <- #1;
+		^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue <- ShapeToString(#3.NumberValue);
+	}
+)
+
+// my number is 11 11 or 99 99
+(PhoneNumber_Rule01_3 :
+ 	[ Parameter -> Parameter Number ]
+	{
+		if(#1.ParameterCategory == 'disjunction' && #1.ParameterType == 'phonenumber')
+		{
+			^ <- #1;
+			string originalNumber;
+			originalNumber <- ^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue; 
+			^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue <- LiteralConcat(originalNumber, ShapeToString(#2.NumberValue));
+		}
+		else
+		{
+			Fail();
+		}
+	}
+)
+
+// my phone number is XXXX
+// my phone number: XXXX
+// my number is XXXX
+// my number: XXXX
+// phone number is XXXX
+// phone number: XXXX
+// number is XXXX
+// number: XXXX
+(PhoneNumber_Rule02_1 :
+ 	[ PhoneNumber -> lexDetMy? lexPhoneNumberTerm? lexPhoneNumberTerm? lexPhoneNumberTerm lexVerb Number ]
+	{
+		^.PhoneNumberValue <- ShapeToString(#6.NumberValue);
+		if(#5 && #5.VerbRoot != 'be')
+		{
+			Fail();
+		}
+	}
+)
+
+(PhoneNumber_Rule02_2 :
+ 	[ PhoneNumber -> lexDetMy? lexPhoneNumberTerm? lexPhoneNumberTerm? lexPhoneNumberTerm lexColon? Number ]
+	{
+		^.PhoneNumberValue <- ShapeToString(#6.NumberValue);
+	}
+)
+
+// my number is 12 23 34 45
+// my number is 12, 23, 34, 45
+// my number is 12, 23, 34 and 45    
+(PhoneNumber_Rule03 :
+ 	[ PhoneNumber -> PhoneNumber < lexComma | lexConjAnd >? Number ]
+	{
+		^.PhoneNumberValue <- LiteralConcat(#1.PhoneNumberValue, ShapeToString(#3.NumberValue));
+	}
+)
+

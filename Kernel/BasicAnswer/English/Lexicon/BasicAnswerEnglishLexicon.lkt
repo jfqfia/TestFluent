@@ -12,6 +12,7 @@
 // **************************************************
 
 ("yes", 				lexAgreement)
+("of course",				lexAgreement)
 ("i agree", 				lexAgreement)
 ("i can agree", 			lexAgreement)
 ("i could agree",			lexAgreement)

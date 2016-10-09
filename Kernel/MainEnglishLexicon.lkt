@@ -16,6 +16,8 @@
 
 #Include "Number/English/Lexicon/NumberEnglishLexicon.lkt"
 
+#Include "PhoneNumber/English/Lexicon/PhoneNumberEnglishLexicon.lkt"
+
 #Include "CountryPlace/English/Lexicon/CountryPlaceEnglishLexicon.lkt"
 
 #Include "Letter/English/Lexicon/LetterEnglishLexicon.lkt"

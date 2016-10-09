@@ -27,3 +27,4 @@
 #Include "BasicAnswer/MainBasicAnswerTypes.lkt"
 #Include "DialogueAct/MainDialogueActTypes.lkt"
 #Include "CountryPlace/MainCountryPlaceTypes.lkt"
+#Include "PhoneNumber/MainPhoneNumberTypes.lkt"

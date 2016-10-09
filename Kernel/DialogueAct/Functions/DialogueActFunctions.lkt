@@ -52,6 +52,10 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialCountryPlace(parameter1, parameter2);
 		}
+		case 'phonenumber' 
+		{
+			ret <- canMergeWithSequentialPhoneNumber(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -86,6 +90,10 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithOrCountryPlace(parameter1, parameter2);
 		}
+		case 'phonenumber' 
+		{
+			ret <- canMergeWithOrPhoneNumber(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -119,6 +127,10 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		case 'countryplace' 
 		{
 			ret <- canMergeWithAndCountryPlace(parameter1, parameter2);
+		}
+		case 'phonenumber' 
+		{
+			ret <- canMergeWithAndPhoneNumber(parameter1, parameter2);
 		}
 		default
 		{	

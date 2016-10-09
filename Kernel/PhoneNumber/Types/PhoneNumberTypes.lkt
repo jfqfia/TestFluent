@@ -1,30 +1,25 @@
 // **************************************************
 //
-//	
+//
 //
 // **************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	:
+//	MODULE  :
+//	PACKAGE :
+//	FILE	:
 //
 // **************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex
-(
-	ParameterValue :
+( 
+	PhoneNumber :
 	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-
-		MedicalSpeciality
+		PhoneNumberValue
 	)
 )
 
-
-
+classDef:ElementLiteral
+(
+	PhoneNumberValue
+)
