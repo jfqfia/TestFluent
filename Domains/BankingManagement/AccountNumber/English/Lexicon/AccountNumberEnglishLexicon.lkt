@@ -1,0 +1,28 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("bank", 			lexAccountNumberPreffix)
+("savings", 			lexAccountNumberPreffix)
+("checking", 			lexAccountNumberPreffix)
+("deposit", 			lexAccountNumberPreffix)
+("basic checking",		lexAccountNumberPreffix)
+("current",			lexAccountNumberPreffix)
+
+("account",	 		lexAccountNumberPreffix)
+("deposit",			lexAccountNumberPreffix)
+("funds",			lexAccountNumberPreffix)
+
+("number", 			lexAccountNumberTerm)
+("identification",		lexAccountNumberTerm)
+("is",				lexAccountNumberTerm)
+

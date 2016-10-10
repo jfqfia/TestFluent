@@ -1,0 +1,53 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// Currencies from the world (TODO we could add slangs, for example 'bucks')
+
+// Euro
+("euro",			lexCurrency, 'EUR')
+("euros",			lexCurrency, 'EUR')
+("EUR",				lexCurrency, 'EUR')
+("€",				lexCurrency, 'EUR')
+("cent",			lexCurrencyFract, 'EUR')
+("cents",			lexCurrencyFract, 'EUR')
+
+// United States Dollar
+("dollar",			lexCurrency, 'USD')
+("dollars",			lexCurrency, 'USD')
+("USD",				lexCurrency, 'USD')
+("$",				lexCurrency, 'USD')
+("cent",			lexCurrencyFract, 'USD')
+("cents",			lexCurrencyFract, 'USD')
+
+// British Pound
+("pound",			lexCurrency, 'GBP')
+("pounds",			lexCurrency, 'GBP')
+("pound sterling",		lexCurrency, 'GBP')
+("pounds sterling",		lexCurrency, 'GBP')
+("GBP",				lexCurrency, 'GBP')
+("£",				lexCurrency, 'GBP')
+("penny",			lexCurrencyFract, 'GBP')
+("pennies",			lexCurrencyFract, 'GBP')
+("pence",			lexCurrencyFract, 'GBP')
+("pences",			lexCurrencyFract, 'GBP')
+
+// PPolish złoty
+("złoty",			lexCurrency, 'PLN')
+("złote",			lexCurrency, 'PLN') // Nominative case
+("złotych",			lexCurrency, 'PLN') // Genitive case
+("PLN",				lexCurrency, 'PLN')
+("zł",				lexCurrency, 'PLN')
+("grosz",			lexCurrencyFract, 'PLN')
+("grosze",			lexCurrencyFract, 'PLN')
+("groszy",			lexCurrencyFract, 'PLN')
+

@@ -1,0 +1,26 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("money", 			lexTransferPreffix)
+("cash", 			lexTransferPreffix)
+("bank", 			lexTransferPreffix)
+("fund", 			lexTransferPreffix)
+("wire", 			lexTransferPreffix)
+
+("transfer", 			lexTransferTerm)
+
+("some", 			lexTransferSuffix)
+("money", 			lexTransferSuffix)
+("cash", 			lexTransferSuffix)
+("fund", 			lexTransferSuffix)
+

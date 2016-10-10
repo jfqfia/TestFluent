@@ -1,0 +1,68 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+string getActionDomainFromLemmaBankingManagement(string lemma)
+{
+	switch (lemma) 
+	{
+		// Action close (scope: 'bankaccount')
+		case 'close'		{ return 'close'; }
+		case 'cancel'		{ return 'close'; }
+		case 'erase'		{ return 'close'; }
+		case 'delete'		{ return 'close'; }
+		case 'drop'		{ return 'close'; }
+		case 'eliminate'	{ return 'close'; }
+		case 'remove'		{ return 'close'; }
+		case 'revoke'		{ return 'close'; }
+		case 'supress'		{ return 'close'; }
+		case 'discard'		{ return 'close'; }
+		case 'call off'		{ return 'close'; }
+		case 'annul'		{ return 'close'; }
+		case 'get rid of'	{ return 'close'; }
+
+		// Action consult (scope: 'bankaccount')
+		case 'consult'		{ return 'consult'; }
+		case 'check'		{ return 'consult'; }
+		case 'read'		{ return 'consult'; }
+		case 'see'		{ return 'consult'; }
+		case 'look'		{ return 'consult'; }
+		case 'examine'		{ return 'consult'; }
+		case 'determine'	{ return 'consult'; }
+
+		// Action locate (scope: 'atm')
+		case 'locate'		{ return 'locate'; }
+		case 'localize'		{ return 'locate'; }
+		case 'look for'		{ return 'locate'; }
+		case 'search'		{ return 'locate'; }
+		case 'search for'	{ return 'locate'; }
+		case 'seek'		{ return 'locate'; }
+		case 'find'		{ return 'locate'; }
+
+		// Action execute (scope: 'transfer')
+		case 'make'		{ return 'execute'; }
+		case 'move'		{ return 'execute'; }
+		case 'execute'		{ return 'execute'; }
+		case 'perform'		{ return 'execute'; }
+		case 'do'		{ return 'execute'; }
+		case 'accomplish'	{ return 'execute'; }
+		case 'fulfill'		{ return 'execute'; }
+		case 'effectuate'	{ return 'execute'; }
+		case 'carry out'	{ return 'execute'; }
+		case 'complete'		{ return 'execute'; }
+		case 'realize'		{ return 'execute'; }
+		case 'realise'		{ return 'execute'; }
+	}
+
+	return 'unknown';
+}
+

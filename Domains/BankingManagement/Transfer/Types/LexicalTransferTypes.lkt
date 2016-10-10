@@ -6,29 +6,18 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE	:	
+//	PACKAGE :	
 //	FILE	:	
 //
 // **************************************************
 
 // TODO Structure explanation
-classDef:StructureComplex
+
+classDef:Void 
 (
-	ParameterValue :
-	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-		MoneyAmount,
-
-		MedicalSpeciality,
-		PeselNumber,
-
-		AccountNumber
-	)
+	lexTransferTerm,
+	lexTransferPreffix,
+	lexTransferSuffix
 )
-
 
 

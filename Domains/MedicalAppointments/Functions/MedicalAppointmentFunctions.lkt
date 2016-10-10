@@ -15,6 +15,7 @@ string getActionDomainFromLemmaMedicalAppointment(string lemma)
 {
 	switch (lemma) 
 	{
+		// Action book (scope: 'appointment')
 		case 'book'		{ return 'book'; }
 		case 'establish'	{ return 'book'; }
 		case 'have'		{ return 'book'; }
@@ -24,6 +25,7 @@ string getActionDomainFromLemmaMedicalAppointment(string lemma)
 		case 'ask'		{ return 'book'; }
 		case 'set up'		{ return 'book'; }
 
+		// Action cancel (scope: 'appointment')
 		case 'cancel'		{ return 'cancel'; }
 		case 'erase'		{ return 'cancel'; }
 		case 'delete'		{ return 'cancel'; }
@@ -31,12 +33,13 @@ string getActionDomainFromLemmaMedicalAppointment(string lemma)
 		case 'eliminate'	{ return 'cancel'; }
 		case 'remove'		{ return 'cancel'; }
 		case 'revoke'		{ return 'cancel'; }
-		case 'supressed'	{ return 'cancel'; }
+		case 'supress'		{ return 'cancel'; }
 		case 'discard'		{ return 'cancel'; }
 		case 'call off'		{ return 'cancel'; }
 		case 'annul'		{ return 'cancel'; }
 		case 'get rid of'	{ return 'cancel'; }
 
+		// Action confirm (scope: 'appointment')
 		case 'confirm'		{ return 'confirm'; }
 		case 'settle'		{ return 'confirm'; }
 		case 'validate'		{ return 'confirm'; }
@@ -44,6 +47,7 @@ string getActionDomainFromLemmaMedicalAppointment(string lemma)
 		case 'corroborate'	{ return 'confirm'; }
 		case 'make firm'	{ return 'confirm'; }
 
+		// Action modify (scope: 'appointment')
 		case 'change'		{ return 'modify'; }
 		case 'interchange'	{ return 'modify'; }
 		case 'exchange'		{ return 'modify'; }

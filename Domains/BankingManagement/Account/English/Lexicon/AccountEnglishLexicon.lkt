@@ -1,0 +1,25 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("bank", 			lexBankTerm)
+("savings", 			lexBankTerm)
+("checking", 			lexBankTerm)
+("basic checking",		lexBankTerm)
+("deposit",			lexBankTerm)
+("current",			lexBankTerm)
+
+("account",	 		lexAccountTerm)
+("funds",	 		lexAccountTerm)
+("remainder",	 		lexAccountTerm)
+("balance",	 		lexAccountTerm)
+

@@ -1,0 +1,28 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+("nearest", 			lexATMPreffix)
+("automated", 			lexATMPreffix)
+("automatic", 			lexATMPreffix)
+
+("atm", 			lexATMTerm)
+("automated-teller",		lexATMTerm)
+("cashpoint",			lexATMTerm)
+
+("teller",			lexATMTermNeedsSuffix)
+("cash",			lexATMTermNeedsSuffix)
+
+("machine", 			lexATMSuffix)
+("dispenser", 			lexATMSuffix)
+("point", 			lexATMSuffix)
+

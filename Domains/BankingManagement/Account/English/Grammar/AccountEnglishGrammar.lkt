@@ -1,0 +1,27 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+(Account_Rule01 :
+	[ TaskDialogueAct -> AccountScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Account_Rule02 :
+ 	[ AccountScope -> < lexDetUndef | lexDetThe | lexDetMy >? lexBankTerm? lexAccountTerm? lexAccountTerm ]
+	{
+		^.Scope <- 'bankaccount';
+	}
+)
+

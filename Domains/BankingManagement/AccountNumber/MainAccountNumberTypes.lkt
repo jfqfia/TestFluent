@@ -11,10 +11,5 @@
 //
 // **************************************************
 
-#Include "Functions/MedicalAppointmentFunctions.lkt"
-#Include "Speciality/Functions/SpecialityFunctions.lkt"
-#Include "PeselNumber/Functions/PeselNumberFunctions.lkt"
-
-
-
-
+#Include "Types/AccountNumberTypes.lkt"
+#Include "Types/LexicalAccountNumberTypes.lkt"

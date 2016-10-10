@@ -1,0 +1,16 @@
+// **************************************************
+//
+//	Index for generic types.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE	:	Types.Generic
+//	FILE	:	MainGenericTypes.lkt
+//
+// **************************************************
+
+#Include "Types/ATMTypes.lkt"
+#Include "Types/LexicalATMTypes.lkt"
+

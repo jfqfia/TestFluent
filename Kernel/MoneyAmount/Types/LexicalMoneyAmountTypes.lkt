@@ -11,10 +11,10 @@
 //
 // **************************************************
 
-#Include "Functions/MedicalAppointmentFunctions.lkt"
-#Include "Speciality/Functions/SpecialityFunctions.lkt"
-#Include "PeselNumber/Functions/PeselNumberFunctions.lkt"
-
-
+classDef:ElementLiteral
+(
+	lexCurrency,
+	lexCurrencyFract
+)
 
 

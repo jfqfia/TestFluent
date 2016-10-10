@@ -4,31 +4,36 @@
 //
 // **************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	:
+//	MODULE  :
+//	PACKAGE	:
+//	FILE	:
 //
 // **************************************************
 
 // TODO Structure explanation
 classDef:StructureComplex
 (
-	ParameterValue :
+    	MoneyAmount :
 	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-		MoneyAmount,
-
-		MedicalSpeciality,
-		PeselNumber,
-
-		AccountNumber
+		Currency,
+		IntegerAmount,
+		DecimalAmount
 	)
 )
 
+classDef:Synonym
+(
+	IntegerAmount = Number
+)
 
+classDef:Synonym
+(
+	DecimalAmount = Number
+)
+
+classDef:ElementLiteral
+(
+	Currency
+)
 

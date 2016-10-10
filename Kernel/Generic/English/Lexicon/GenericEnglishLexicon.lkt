@@ -16,7 +16,7 @@ setupTokenizerBlanks (" -?!'")
 setupTokenizerPunctuation( ",", lexComma )
 setupTokenizerPunctuation( ".", lexPeriod )
 setupTokenizerPunctuation( ":", lexColon)
-setupTokenizerIntegerClass (lexNumberDigits,".,")
+setupTokenizerIntegerClass (lexNumberDigits,"")
 
 // lexConjuntions
 ("and",		lexConjAnd)

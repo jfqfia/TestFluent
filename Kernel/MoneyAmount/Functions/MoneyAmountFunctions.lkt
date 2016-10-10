@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialMoneyAmount(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithOrMoneyAmount(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithAndMoneyAmount(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+

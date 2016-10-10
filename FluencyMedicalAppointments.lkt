@@ -18,21 +18,24 @@ lektaProject
 		setupTokenizerSpellingChecker
 
 	classModel
-		// Feature Model - Kernel
 		#Include "Kernel/MainTypes.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentTypes.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementTypes.lkt"
 
 	functionModel
 		#Include "Kernel/MainFunctions.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementFunctions.lkt"
 
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementEnglishLexicon.lkt"
 
 	grammaticalModel forLanguage English
 		#Include "Kernel/MainEnglishGrammar.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGrammar.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementEnglishGrammar.lkt"
 
 	conversationalModel
 		#Include "Kernel/DialogueModel/DManager/MindBoardStructure.lkt"

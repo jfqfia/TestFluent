@@ -60,6 +60,14 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialPeselNumber(parameter1, parameter2);
 		}
+		case 'accountnumber' 
+		{
+			ret <- canMergeWithSequentialAccountNumber(parameter1, parameter2);
+		}
+		case 'moneyamount' 
+		{
+			ret <- canMergeWithSequentialMoneyAmount(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -102,6 +110,14 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithOrPeselNumber(parameter1, parameter2);
 		}
+		case 'accountnumber' 
+		{
+			ret <- canMergeWithOrAccountNumber(parameter1, parameter2);
+		}
+		case 'moneyamount' 
+		{
+			ret <- canMergeWithOrMoneyAmount(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -143,6 +159,14 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		case 'peselnumber' 
 		{
 			ret <- canMergeWithAndPeselNumber(parameter1, parameter2);
+		}
+		case 'accountnumber' 
+		{
+			ret <- canMergeWithAndAccountNumber(parameter1, parameter2);
+		}
+		case 'moneyamount' 
+		{
+			ret <- canMergeWithAndMoneyAmount(parameter1, parameter2);
 		}
 		default
 		{	

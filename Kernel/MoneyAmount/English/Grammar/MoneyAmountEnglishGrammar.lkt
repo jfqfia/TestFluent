@@ -1,0 +1,97 @@
+// **************************************************
+//
+//
+//
+// **************************************************
+// 
+//	PROJECT	:
+//	MODULE  :
+//	PACKAGE	:
+//	FILE	:
+// 
+// **************************************************
+
+(MoneyAmountRule01 :
+    	[ Parameter -> MoneyAmount ] 
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'moneyamount';
+		^.ParameterValue.MoneyAmount <- #1;
+    	}
+)
+
+// 100 euros
+// 100 euro
+// 100€
+// 100 €
+// 100 EUR
+(MoneyAmountRule02_1 :
+    	[ MoneyAmount -> Number lexCurrency ] 
+	{
+		^.IntegerAmount <- #1;
+		^.Currency <- #2;
+    	}
+)
+
+// 100 euros and 55 cents
+// 100 euros 55 cents
+// 100 euros and 55
+// 100 euros 55 
+(MoneyAmountRule02_2 :
+    	[ MoneyAmount -> Number lexCurrency lexConjAnd? Number lexCurrencyFract?] 
+	{
+		if(#5 && #2 != #5)
+		{
+			Fail();
+		}
+		^.IntegerAmount <- #1;
+		^.DecimalAmount <- #4;
+		^.Currency <- #2;
+    	}
+)
+
+// EUR 100
+// €100
+// € 100
+(MoneyAmountRule03 :
+    	[ MoneyAmount -> lexCurrency Number] 
+	{
+		^.IntegerAmount <- #2;
+		^.Currency <- #1;
+    	}
+)
+
+// EUR 100.55
+// €100.55
+// € 100.55
+// EUR 100,55
+// €100,55
+// € 100,55
+(MoneyAmountRule04 :
+    	[ MoneyAmount -> lexCurrency Number < lexPeriod | lexComma > Number] 
+	{
+		^.IntegerAmount <- #2;
+		^.DecimalAmount <- #4;
+		^.Currency <- #1;
+    	}
+)
+
+// 100.55 euros
+// 100.55 €
+// 100.55€
+// 100.55 euro
+// 100.55 EUR
+// 100,55 euros
+// 100,55 €
+// 100,55€
+// 100,55 euro
+// 100,55 EUR
+(MoneyAmountRule05 :
+    	[ MoneyAmount -> Number < lexPeriod | lexComma > Number lexCurrency ] 
+	{
+		^.IntegerAmount <- #1;
+		^.DecimalAmount <- #3;
+		^.Currency <- #4;
+    	}
+)
+

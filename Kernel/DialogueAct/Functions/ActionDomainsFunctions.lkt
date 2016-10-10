@@ -22,6 +22,12 @@ string getActionDomainFromLemma(string lemma)
 		ret = getActionDomainFromLemmaMedicalAppointment(lemma);
 	}
 
+	// Domain: BankingManagement
+	if(ret == 'unknown')
+	{
+		ret = getActionDomainFromLemmaBankingManagement(lemma);
+	}
+
 	return ret;
 }
 

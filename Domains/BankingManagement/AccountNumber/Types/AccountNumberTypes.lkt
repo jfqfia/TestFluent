@@ -1,0 +1,35 @@
+// **************************************************
+//
+//
+//
+// **************************************************
+//
+//	PROJECT	:
+//	MODULE  :
+//	PACKAGE :
+//	FILE	:
+//
+// **************************************************
+
+classDef:StructureComplex
+( 
+	AccountNumber :
+	(
+		AccountNumberValue,
+		AccountLimit
+	)
+)
+
+classDef:ElementLiteral
+(
+	AccountNumberValue
+)
+
+classDef:ElementRange
+(
+	AccountLimit :
+	{
+		'origin',
+		'target'
+	}
+)

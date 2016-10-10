@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+(Transfer_Rule01 :
+	[ TaskDialogueAct -> TransferScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Transfer_Rule02 :
+ 	[ TransferScope -> < lexDetUndef | lexDetThe >?  lexTransferPreffix? lexTransferTerm lexTransferSuffix? lexTransferSuffix?]
+	{
+		^.Scope <- 'transfer';
+	}
+)
+
+
+

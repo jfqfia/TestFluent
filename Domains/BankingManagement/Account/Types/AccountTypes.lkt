@@ -12,23 +12,12 @@
 // **************************************************
 
 // TODO Structure explanation
-classDef:StructureComplex
-(
-	ParameterValue :
-	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-		MoneyAmount,
 
-		MedicalSpeciality,
-		PeselNumber,
-
-		AccountNumber
-	)
+classDef:Synonym 
+( 
+ 	AccountScope = TaskDialogueAct
 )
+
 
 
 

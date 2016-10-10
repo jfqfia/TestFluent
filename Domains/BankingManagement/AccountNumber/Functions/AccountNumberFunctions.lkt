@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialAccountNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+bool canMergeWithOrAccountNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+bool canMergeWithAndAccountNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+

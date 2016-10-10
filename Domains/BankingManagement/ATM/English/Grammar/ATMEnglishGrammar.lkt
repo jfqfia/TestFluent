@@ -1,0 +1,35 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+(ATM_Rule01 :
+	[ TaskDialogueAct -> ATMScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(ATM_Rule02 :
+ 	[ ATMScope -> < lexDetUndef | lexDetThe >?  lexATMPreffix? lexATMTerm lexATMSuffix? ]
+	{
+		^.Scope <- 'atm';
+	}
+)
+
+
+(ATM_Rule03 :
+ 	[ ATMScope -> < lexDetUndef | lexDetThe >?  lexATMPreffix? lexATMTermNeedsSuffix lexATMSuffix ]
+	{
+		^.Scope <- 'atm';
+	}
+)
+

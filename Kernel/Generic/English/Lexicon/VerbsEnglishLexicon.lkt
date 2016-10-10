@@ -35,6 +35,8 @@ copy copying copied copied copies
 
 &VERB_IRREGULAR('be', 'being', 'was', 'been', 'is')
 
+// MedicalAppointment actions
+
 &VERB_REGULAR_TYPE_1(book)
 &VERB_REGULAR_TYPE_4(establish)
 &VERB_IRREGULAR(make, making, made, made, makes)
@@ -51,9 +53,9 @@ copy copying copied copied copies
 &VERB_REGULAR_TYPE_2(eliminate)
 &VERB_REGULAR_TYPE_2(remove)
 &VERB_REGULAR_TYPE_2(revoke)
-&VERB_REGULAR_TYPE_4(supressed)
+&VERB_REGULAR_TYPE_4(supress)
 &VERB_REGULAR_TYPE_1(discard)
-&VERB_IRREGULAR('call off', 'calling up', 'called up', 'called up', 'calls up')
+&VERB_IRREGULAR('call off', 'calling off', 'called off', 'called off', 'calls off')
 &VERB_REGULAR_TYPE_3(annul)
 &VERB_IRREGULAR('get rid of', 'getting rid of', 'got rid of', 'gotten rid of', 'gets rid of')
 
@@ -73,4 +75,41 @@ copy copying copied copied copies
 &VERB_REGULAR_TYPE_2(replace)
 &VERB_REGULAR_TYPE_2(substitute)
 &VERB_REGULAR_TYPE_1(alter)
+
+// BankingManagement actions
+
+&VERB_REGULAR_TYPE_2(close)
+&VERB_REGULAR_TYPE_1(consult)
+&VERB_REGULAR_TYPE_1(check)
+&VERB_IRREGULAR(read, reading, read, read, reads)
+&VERB_IRREGULAR(see, seeing, saw, seen, sees)
+&VERB_REGULAR_TYPE_1(look)
+&VERB_REGULAR_TYPE_2(examine)
+&VERB_REGULAR_TYPE_2(determine)
+
+&VERB_IRREGULAR('look', 'looking for', 'looked for', 'looked for', 'looks for')
+&VERB_REGULAR_TYPE_2(locate)
+&VERB_REGULAR_TYPE_2(localize)
+&VERB_REGULAR_TYPE_2(search)
+&VERB_IRREGULAR('search', 'searching for', 'searched for', 'searched for', 'searches for')
+&VERB_IRREGULAR(seek, seeking, sought, sought, seeks)
+&VERB_IRREGULAR(find, finding, found, found, finds)
+
+&VERB_REGULAR_TYPE_2(move)
+&VERB_REGULAR_TYPE_2(execute)
+&VERB_REGULAR_TYPE_2(complete)
+&VERB_REGULAR_TYPE_2(realize)
+&VERB_REGULAR_TYPE_2(realise)
+&VERB_REGULAR_TYPE_2(effectuate)
+&VERB_REGULAR_TYPE_1(perform)
+&VERB_REGULAR_TYPE_4(accomplish)
+&VERB_REGULAR_TYPE_1(fulfill)
+&VERB_IRREGULAR('carry out', 'carrying out', 'carried out', 'carried out', 'carries out')	
+&VERB_IRREGULAR('do', 'doing', 'did', 'done', 'does')	
+
+
+
+
+
+
 

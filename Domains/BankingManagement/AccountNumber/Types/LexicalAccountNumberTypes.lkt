@@ -11,10 +11,9 @@
 //
 // **************************************************
 
-#Include "Functions/MedicalAppointmentFunctions.lkt"
-#Include "Speciality/Functions/SpecialityFunctions.lkt"
-#Include "PeselNumber/Functions/PeselNumberFunctions.lkt"
-
-
-
+classDef:Void
+(
+	lexAccountNumberTerm,
+	lexAccountNumberPreffix
+)
 

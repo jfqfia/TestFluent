@@ -1,0 +1,24 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+#Include "Account/English/Lexicon/AccountEnglishLexicon.lkt"
+#Include "AccountNumber/English/Lexicon/AccountNumberEnglishLexicon.lkt"
+#Include "ATM/English/Lexicon/ATMEnglishLexicon.lkt"
+#Include "Transfer/English/Lexicon/TransferEnglishLexicon.lkt"
+
+
+
+
+
+
+

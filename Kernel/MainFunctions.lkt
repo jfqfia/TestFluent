@@ -30,6 +30,9 @@
 // PhoneNumber
 #Include "PhoneNumber/Functions/PhoneNumberFunctions.lkt"
 
+// MoneyAmount
+#Include "MoneyAmount/Functions/MoneyAmountFunctions.lkt"
+
 
 
 
