@@ -1,0 +1,69 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+// Possible patterns for english nouns
+/*
+
+&NOUN_REGULAR_TYPE_1(cat) 
+cat cats
+
+&NOUN_REGULAR_TYPE_2(bus) 
+bus buses
+
+&NOUN_REGULAR_TYPE_3(baby) 
+baby babies
+
+&NOUN_REGULAR_TYPE_4(mosquito) 
+mosquito mosquitos mosquitoes
+
+&NOUN_REGULAR_TYPE_5(leaf) 
+leaf leaves
+
+&NOUN_REGULAR_TYPE_6(knife)
+knife knives
+
+&NOUN_REGULAR_TYPE_7(parenthesis)
+parenthesis parentheses
+
+&NOUN_REGULAR_TYPE_8(phenomenon)
+phenomenon phenomena
+
+&NOUN_IRREGULAR_TYPE_1(mouse, mice)
+mouse mice
+
+&NOUN_IRREGULAR_TYPE_2(cactus, cacti, cactuses)
+cactus, cacti, cactuses
+
+&NOUN_IRREGULAR_TYPE_3(information)
+information (singular only)
+
+&NOUN_IRREGULAR_TYPE_4(stairs)
+stairs (plural only)
+
+*/
+
+&NOUN_REGULAR_TYPE_1(cat)
+&NOUN_REGULAR_TYPE_2(bus)
+&NOUN_REGULAR_TYPE_3(baby)
+&NOUN_REGULAR_TYPE_2(potato)
+&NOUN_REGULAR_TYPE_4(mosquito)
+&NOUN_REGULAR_TYPE_5(leaf)
+&NOUN_REGULAR_TYPE_6(knife)
+&NOUN_REGULAR_TYPE_7(parenthesis)
+&NOUN_REGULAR_TYPE_8(phenomenon)
+&NOUN_IRREGULAR_TYPE_1(mouse, mice)
+&NOUN_IRREGULAR_TYPE_2(cactus, cacti, cactuses)
+&NOUN_IRREGULAR_TYPE_3(information)
+&NOUN_IRREGULAR_TYPE_4(stairs)
+
+

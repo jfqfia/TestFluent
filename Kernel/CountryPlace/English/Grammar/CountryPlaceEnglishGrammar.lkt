@@ -22,14 +22,14 @@
 )
 
 (CountryPlace_Rule02 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace]
 	{
 		^ <- #2;
 	}
 )
 
 (CountryPlace_Rule03 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace lexCountryTownsSufixDK]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace lexCountryTownsSufixDK]
 	{
 		if( #2.CountryName == 'denmark')
 		{
@@ -43,7 +43,7 @@
 )
 
 (CountryPlace_Rule04 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace lexCountryTownsSufixLT]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace lexCountryTownsSufixLT]
 	{
 		if( #2.CountryName == 'lithuania')
 		{
@@ -57,7 +57,7 @@
 )
 
 (CountryPlace_Rule05 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt >? lexCountryPlace lexCountryTownsSufixLV]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace lexCountryTownsSufixLV]
 	{
 		if( #2.CountryName == 'latvia')
 		{

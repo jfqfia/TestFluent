@@ -52,6 +52,7 @@ setupTokenizerIntegerClass (lexNumberDigits,".,")
 ("from",	lexPrepFrom)
 ("in",		lexPrepIn)
 ("within",	lexPrepWithin)
+("near", 	lexPrepNear)
 
 // lexFirstPersonPronoun: First person pronouns
 ("i",		lexFirstPersonPronoun)

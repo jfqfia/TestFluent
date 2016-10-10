@@ -1,14 +1,7 @@
-* Macros
-http://www.talkenglish.com/vocabulary/top-2000-vocabulary.aspx
-http://www.scientificpsychic.com/grammar/regular.html
-http://www.myenglishlanguage.com/english-grammar/noun-inflections/
-http://www.myenglishpages.com/site_php_files/grammar-lesson-plurals.php
-http://www.ef.com/english-resources/english-grammar/singular-and-plural-nouns/
-pdf en docs
-
 * Questions grammar and lexicon
 http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
 https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
+http://www.scientificpsychic.com/grammar/regular.html
 
 * Domotics domain
 

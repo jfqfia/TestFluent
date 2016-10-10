@@ -13,9 +13,11 @@
 
 // Constants
 #Include "Constants/VerbConstants.lkt"
+#Include "Constants/NounConstants.lkt"
 
 // Macros
 #Include "Macros/VerbMacros.lkt"
+#Include "Macros/NounMacros.lkt"
 
 // Types
 #Include "Generic/MainGenericTypes.lkt"

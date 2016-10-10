@@ -44,6 +44,7 @@ classDef:Void
 	lexPrepOn,
 	lexPrepPast,
 	lexPrepTo,
+	lexPrepNear,
 	lexPrepIn,
 	lexPrepWithin,
 	lexPrepFrom,
@@ -64,9 +65,28 @@ classDef:StructureComplex
 	)
 )
 
+classDef:StructureComplex
+(
+	lexNoun :
+	(
+		NounRoot,
+		NounNumber
+	)
+)
+
+
 classDef:ElementLiteral
 (
-	VerbRoot
+	VerbRoot, NounRoot
+)
+
+classDef:ElementRange
+(
+	NounNumber :
+	{
+		'singular',
+		'plural'
+	}
 )
 
 classDef:ElementRange

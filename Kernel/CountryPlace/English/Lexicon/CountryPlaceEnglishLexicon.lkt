@@ -37,7 +37,7 @@
 // #Include "Towns/DKCountryTowns.lkt"
 // #Include "Towns/EECountryTowns.lkt"
 // #Include "Towns/ELCountryTowns.lkt"
-// #Include "Towns/ESCountryTowns.lkt"
+#Include "Towns/ESCountryTowns.lkt"
 // #Include "Towns/FICountryTowns.lkt"
 // #Include "Towns/FRCountryTowns.lkt"
 // #Include "Towns/HRCountryTowns.lkt"
