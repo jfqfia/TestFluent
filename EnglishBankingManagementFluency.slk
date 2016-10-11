@@ -1,20 +1,20 @@
 LaunchLektaKernel
-(
+( 
 	ExecStrategy = KernelSynchronous
 )
 
 UseProject
 (
-	ProjectCompile : "./Deployment/bin/FluencyMedicalAppointments.olk"
+	ProjectCompile : "./Deployment/bin/BankingManagementFluency.olk"
 	TemporalFolder : "./.tmp/"
 )
 
-//MainAnswer:On
+// MainAnswer:On
 setupRuntimeSpyMessageOn
 DisplayProcessUnderstandingOn
-//DisplayProcessRespondoOn
-//DisplayProcessCogitoOn
-//DisplayProcessColligoOn
+// DisplayProcessRespondoOn
+// DisplayProcessCogitoOn
+// DisplayProcessColligoOn
 
 CreateDialogue
 (

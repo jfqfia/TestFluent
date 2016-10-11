@@ -1,24 +1,13 @@
+* Action-Scope pairs
+
+* Domotics domain
+
 * English grammar and lexicon
 http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
 https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
 http://www.scientificpsychic.com/grammar/regular.html
 
-* Domotics domain
-
 * Fix headers in the beginning of every file in the project
-
-* Look in favourites the neither either contructions
 
 * Lexicon and grammatical category for "please"
 
-* Question: What to do with real numbers?
-  Example: 200.15 euros in MoneyAmount parameter.
-
-* Question: How to say 'one or various' in a grammar rule?
-  Example:
-(Transfer_Rule02 :
- 	[ TransferScope -> < lexDetUndef | lexDetThe >?  lexTransferPreffix? <- (aquí uno o varios) lexTransferTerm ]
-	{
-		^.Scope <- 'transfer';
-	}
-)

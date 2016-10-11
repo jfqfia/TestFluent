@@ -4,7 +4,7 @@ lektaProject
 		projectLanguageScope	: [ English, Spanish, Polish ]
 		projectOperationScope	: [ Fluency ]
 		projectInterfaceScope   : [ Written, Spoken ]
-		projectCompileOutput 	: "Deployment/bin/Fluency.olk"
+		projectCompileOutput 	: "Deployment/bin/BankingManagementFluency.olk"
 
 	projectSetup
 		setupParserRoots = ProferenceChunk
@@ -18,18 +18,22 @@ lektaProject
 		setupTokenizerSpellingChecker
 
 	classModel
-		#Include "Dependencies/Fluency/FluencyParametersTypes.lkt"
+		#Include "Dependencies/BankingManagement/BankingManagementParametersTypes.lkt"
 		#Include "Kernel/MainTypes.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementTypes.lkt"
 
 	functionModel
-		#Include "Dependencies/Fluency/FluencyFunctions.lkt"
+		#Include "Dependencies/BankingManagement/BankingManagementFunctions.lkt"
 		#Include "Kernel/MainFunctions.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementFunctions.lkt"
 
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementEnglishLexicon.lkt"
 
 	grammaticalModel forLanguage English
 		#Include "Kernel/MainEnglishGrammar.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementEnglishGrammar.lkt"
 
 	conversationalModel
 		#Include "Kernel/DialogueModel/DManager/MindBoardStructure.lkt"

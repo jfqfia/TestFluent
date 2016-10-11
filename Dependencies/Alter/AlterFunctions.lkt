@@ -11,6 +11,40 @@
 //
 // **************************************************
 
+bool coherentActionScope(TaskDialogueAct task1, TaskDialogueAct task2)
+{
+	bool ret;
+	ret = False;
+
+	// Domain: MedicalAppointment
+	ret = ret || coherentActionScopeMedicalAppointment(task1, task2);
+
+	// Domain: BankingManagement
+	ret = ret || coherentActionScopeBankingManagement(task1, task2);
+
+	return ret;
+}
+
+string getActionDomainFromLemma(string lemma)
+{
+	string ret;
+	ret <- 'unknown';
+	
+	// Domain: MedicalAppointment
+	if(ret == 'unknown')
+	{
+		ret = getActionDomainFromLemmaMedicalAppointment(lemma);
+	}
+
+	// Domain: BankingManagement
+	if(ret == 'unknown')
+	{
+		ret = getActionDomainFromLemmaBankingManagement(lemma);
+	}
+
+	return ret;
+}
+
 Parameter changeParameterCategoryRecursive(Parameter parameter, ParameterCategory category)
 {
 	Parameter ret;

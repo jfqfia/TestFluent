@@ -4,7 +4,7 @@ lektaProject
 		projectLanguageScope	: [ English, Spanish, Polish ]
 		projectOperationScope	: [ Fluency ]
 		projectInterfaceScope   : [ Written, Spoken ]
-		projectCompileOutput 	: "Deployment/bin/Fluency.olk"
+		projectCompileOutput 	: "Deployment/bin/MedicalAppointmentsFluency.olk"
 
 	projectSetup
 		setupParserRoots = ProferenceChunk
@@ -18,18 +18,22 @@ lektaProject
 		setupTokenizerSpellingChecker
 
 	classModel
-		#Include "Dependencies/Fluency/FluencyParametersTypes.lkt"
+		#Include "Dependencies/MedicalAppointments/MedicalAppointmentParametersTypes.lkt"
 		#Include "Kernel/MainTypes.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentTypes.lkt"
 
 	functionModel
-		#Include "Dependencies/Fluency/FluencyFunctions.lkt"
+		#Include "Dependencies/MedicalAppointments/MedicalAppointmentFunctions.lkt"
 		#Include "Kernel/MainFunctions.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
 
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
 
 	grammaticalModel forLanguage English
 		#Include "Kernel/MainEnglishGrammar.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGrammar.lkt"
 
 	conversationalModel
 		#Include "Kernel/DialogueModel/DManager/MindBoardStructure.lkt"

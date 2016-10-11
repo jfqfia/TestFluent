@@ -5,7 +5,7 @@ LaunchLektaKernel
 
 UseProject
 (
-	ProjectCompile : "./Deployment/bin/Fluency.olk"
+	ProjectCompile : "./Deployment/bin/AlterFluency.olk"
 	TemporalFolder : "./.tmp/"
 )
 

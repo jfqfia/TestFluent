@@ -1,0 +1,182 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+string getActionDomainFromLemma(string lemma)
+{
+	string ret;
+	ret <- 'unknown';
+	
+	// Domain: MedicalAppointment
+	if(ret == 'unknown')
+	{
+		ret = getActionDomainFromLemmaMedicalAppointment(lemma);
+	}
+
+	return ret;
+}
+
+Parameter changeParameterCategoryRecursive(Parameter parameter, ParameterCategory category)
+{
+	Parameter ret;
+
+	ret <- parameter;
+	if(parameter.ParameterCategory != 'terminal' && parameter.ParameterCategory != 'negation')
+	{
+		ret.ParameterCategory <- category;
+		ret.ParameterOperand1 <- changeParameterCategoryRecursive(parameter.ParameterOperand1, category);
+		ret.ParameterOperand2 <- changeParameterCategoryRecursive(parameter.ParameterOperand2, category);
+	}
+
+	return ret;
+}
+
+bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
+{
+	bool ret;
+
+	switch (parameter1.ParameterType) 
+	{
+		case 'datetime' 
+		{
+			ret <- canMergeWithSequentialDateTime(parameter1, parameter2);
+		}
+		case 'number' 
+		{
+			ret <- canMergeWithSequentialNumber(parameter1, parameter2);
+		}
+		case 'letter' 
+		{
+			ret <- canMergeWithSequentialLetter(parameter1, parameter2);
+		}
+		case 'countryplace' 
+		{
+			ret <- canMergeWithSequentialCountryPlace(parameter1, parameter2);
+		}
+		case 'phonenumber' 
+		{
+			ret <- canMergeWithSequentialPhoneNumber(parameter1, parameter2);
+		}
+		case 'moneyamount' 
+		{
+			ret <- canMergeWithSequentialMoneyAmount(parameter1, parameter2);
+		}		
+		case 'peselnumber' 
+		{
+			ret <- canMergeWithSequentialPeselNumber(parameter1, parameter2);
+		}
+		case 'medicalspeciality' 
+		{
+			ret <- canMergeWithSequentialSpeciality(parameter1, parameter2);
+		}
+		default
+		{	
+			ret <- True;
+		}
+	}
+	return ret;
+}
+
+bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
+{
+	bool ret;
+
+	switch (parameter1.ParameterType) 
+	{
+		case 'datetime' 
+		{
+			ret <- canMergeWithOrDateTime(parameter1, parameter2);
+		}
+		case 'number' 
+		{
+			ret <- canMergeWithOrNumber(parameter1, parameter2);
+		}
+		case 'letter' 
+		{
+			ret <- canMergeWithOrLetter(parameter1, parameter2);
+		}
+		case 'countryplace' 
+		{
+			ret <- canMergeWithOrCountryPlace(parameter1, parameter2);
+		}
+		case 'phonenumber' 
+		{
+			ret <- canMergeWithOrPhoneNumber(parameter1, parameter2);
+		}
+		case 'moneyamount' 
+		{
+			ret <- canMergeWithOrMoneyAmount(parameter1, parameter2);
+		}
+		case 'peselnumber' 
+		{
+			ret <- canMergeWithOrPeselNumber(parameter1, parameter2);
+		}
+		case 'medicalspeciality' 
+		{
+			ret <- canMergeWithOrSpeciality(parameter1, parameter2);
+		}
+		default
+		{	
+			ret <- True;
+		}
+	}
+	return ret;
+}
+
+bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
+{
+	bool ret;
+
+	switch (parameter1.ParameterType) 
+	{
+		case 'datetime' 
+		{
+			ret <- canMergeWithAndDateTime(parameter1, parameter2);
+		}
+		case 'number' 
+		{
+			ret <- canMergeWithAndNumber(parameter1, parameter2);
+		}
+		case 'letter' 
+		{
+			ret <- canMergeWithAndLetter(parameter1, parameter2);
+		}
+		case 'countryplace' 
+		{
+			ret <- canMergeWithAndCountryPlace(parameter1, parameter2);
+		}
+		case 'phonenumber' 
+		{
+			ret <- canMergeWithAndPhoneNumber(parameter1, parameter2);
+		}
+		case 'moneyamount' 
+		{
+			ret <- canMergeWithAndMoneyAmount(parameter1, parameter2);
+		}		
+		case 'peselnumber' 
+		{
+			ret <- canMergeWithAndPeselNumber(parameter1, parameter2);
+		}
+		case 'medicalspeciality' 
+		{
+			ret <- canMergeWithAndSpeciality(parameter1, parameter2);
+		}		
+		default
+		{	
+			ret <- True;
+		}
+	}
+	return ret;
+}
+
+
+

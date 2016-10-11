@@ -11,5 +11,22 @@
 //
 // **************************************************
 
-#Include "Types/DialogueActTypes.lkt"
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	ParameterValue :
+	(
+		Number,
+		Letter,		
+		DateTime,
+		CountryPlace,
+		PhoneNumber,
+		MoneyAmount,
+
+		MedicalSpeciality,
+		PeselNumber
+	)
+)
+
+
 

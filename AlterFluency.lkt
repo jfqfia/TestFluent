@@ -4,7 +4,7 @@ lektaProject
 		projectLanguageScope	: [ English, Spanish, Polish ]
 		projectOperationScope	: [ Fluency ]
 		projectInterfaceScope   : [ Written, Spoken ]
-		projectCompileOutput 	: "Deployment/bin/FluencyMedicalAppointments.olk"
+		projectCompileOutput 	: "Deployment/bin/AlterFluency.olk"
 
 	projectSetup
 		setupParserRoots = ProferenceChunk
@@ -18,11 +18,13 @@ lektaProject
 		setupTokenizerSpellingChecker
 
 	classModel
+		#Include "Dependencies/Alter/AlterParametersTypes.lkt"
 		#Include "Kernel/MainTypes.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentTypes.lkt"
 		#Include "Domains/BankingManagement/MainBankingManagementTypes.lkt"
 
 	functionModel
+		#Include "Dependencies/Alter/AlterFunctions.lkt"
 		#Include "Kernel/MainFunctions.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
 		#Include "Domains/BankingManagement/MainBankingManagementFunctions.lkt"
@@ -44,15 +46,10 @@ lektaProject
 		#Include "Kernel/DialogueModel/Colligo/ColligoSchemata.lkt"
 
 	/*
-	conversationalModel
-		#Include "Source/DManager/MindBoard/MindBoardStructure.lkt"
-
-	LaunchConversation: {
+	LaunchConversation: 
+	{
 		LaunchSendToMindBoard: (DMSetup = (DMPhase: 'dmBooting') )
 	}
-
-	ColligoSchemata
-		#Include "Source/DManager/Colligo/ColligoSchemata.lkt"
 
 	SensoSchemata
 		#Include "Source/DManager/Senso/SensoSchemata.lkt"
@@ -74,30 +71,10 @@ lektaProject
 		ScriboSchemata
 		#Include "Source/NLGenerate/Polish/Main_Generate.lkt"
 
-	functionModel
-		#Include "Source/DManager/Library/MindBoard.lkt"
-		#Include "Source/DManager/Library/DialogueTask.lkt"
-
-		#Include "Source/DManager/Library/DialogueScheme.lkt"
-		#Include "Source/DManager/Library/DialogueScript.lkt"
-		#Include "Source/DManager/Library/DialogueFocus.lkt"
-		#Include "Source/DManager/Library/DialogueMove.lkt"
-		#Include "Source/DManager/Library/DialogueManager.lkt"
-		#Include "Source/DManager/Library/DialogueInterpret.lkt"
-		#Include "Source/DManager/Library/DialogueAnalysis.lkt"
-		#Include "Source/DManager/Library/DialogueReply.lkt"
-
-		#Include "Source/DManager/Library/ScheduleCalendar.lkt"
-		#Include "Source/DManager/Library/ScheduleCalendarEnglish.lkt"
-		#Include "Source/DManager/Library/ScheduleCalendarPolish.lkt"
-		#Include "Source/DManager/Library/NegotiateAppointment.lkt"
-
-		#Include "Source/NLGenerate/GenerateModel.lkt"
-
 	projectReview
 		//Print_Dialogue_Project_Setup
 		PrintLexiconByCats ( SelectLanguage: [1], "compile/LexiconByCats.txt")
 		displaySyntacticSpecification ( SelectLanguage: [1], "compile/GrammarSpec.txt")
 		displaySyntacticDefinition ( SelectLanguage: [1], "compile/GrammarDef.txt")
 		displaySyntacticRepresentation ( SelectLanguage: [1], "compile/GrammarRep.txt")
-		*/
+	*/

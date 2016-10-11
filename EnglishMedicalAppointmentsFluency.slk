@@ -1,11 +1,11 @@
 LaunchLektaKernel
-( 
+(
 	ExecStrategy = KernelSynchronous
 )
 
 UseProject
 (
-	ProjectCompile : "./Deployment/bin/Fluency.olk"
+	ProjectCompile : "./Deployment/bin/MedicalAppointmentsFluency.olk"
 	TemporalFolder : "./.tmp/"
 )
 

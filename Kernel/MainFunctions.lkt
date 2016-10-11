@@ -11,10 +11,6 @@
 //
 // **************************************************
 
-// DialogueAct
-#Include "DialogueAct/Functions/DialogueActFunctions.lkt"
-#Include "DialogueAct/Functions/ActionDomainsFunctions.lkt"
-
 // DateTime
 #Include "DateTime/Functions/DateTimeFunctions.lkt"
 

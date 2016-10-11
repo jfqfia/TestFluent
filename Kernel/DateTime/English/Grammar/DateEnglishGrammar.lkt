@@ -196,17 +196,25 @@
     	}
 )
 
+// monday
 // on monday
 // next monday
 // last monday
 // following monday
 // previous monday
 (DateRule05_2 :
-    	[ OffsetDate -> lexDirectionOfTimeModifier lexDayInWeek ] 
+    	[ OffsetDate -> lexDirectionOfTimeModifier? lexDayInWeek ] 
 	{
+		if(#1)
+		{
+			^.DirectionOfTime <- #1;    			
+		}
+		else
+		{
+			^.DirectionOfTime <- 'forward';    			
+		}
 		^.Date.DayInWeek <- #2;
 		^.DayInWeekOffset <- 1;
-		^.DirectionOfTime <- #1;    			
     	}
 )
 
