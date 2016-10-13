@@ -29,9 +29,6 @@ lektaProject
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
 		#Include "Domains/BankingManagement/MainBankingManagementFunctions.lkt"
 
-		#Include "Kernel/DialogueManager/Functions/DialogueScheme.lkth"
-		#Include "Kernel/DialogueManager/Functions/DialogueScript.lkth"
-
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
@@ -60,8 +57,7 @@ lektaProject
 		#Include "Kernel/DialogueManager/Cogito/CogitoSchemata.lkt"
 
 	functionModel
-		#Include "Kernel/DialogueManager/Functions/DialogueScheme.lkt"
-		#Include "Kernel/DialogueManager/Functions/DialogueScript.lkt"
+		#Include "Kernel/DialogueManager/Functions/MainDialogueManagerFunctions.lkt"
 
 	/*
 	RespondoSchemata

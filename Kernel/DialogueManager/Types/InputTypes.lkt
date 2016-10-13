@@ -12,11 +12,11 @@
 // **************************************************
 
 ///////////////////////////////////////
-// Dialogue Input
+// Dialogue Input and Output
 ///////////////////////////////////////
 classDef:StructureComplex 
 (
-	DialogueInput : 
+	DialogueInput, DialogueOutput : 
 	(
 		ProferenceChunks
 	)

@@ -45,6 +45,7 @@
     CogitoAction {
 	SpyMessage("$$>> COGITO: talking - Init");
 
+	SpyMessage("$$>> COGITO: talking - Node", $MINDBOARD@DialogueScheme);
 	/*
 	initCogitoTalkingTurn();
 

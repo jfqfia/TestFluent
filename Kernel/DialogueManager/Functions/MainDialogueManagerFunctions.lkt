@@ -11,13 +11,10 @@
 //
 // **************************************************
 
-MindBoardStructure: 
-{
-	( DialogueScheme / DialogueScheme )
+#Include "DialogueScheme.lkt"
+#Include "DialogueScript.lkt"
 
-	( DialogueState / DialogueState )
 
-	( DialogueInput / DialogueInput )
-	( DialogueOutput / DialogueOutput )
-}
+
+
 

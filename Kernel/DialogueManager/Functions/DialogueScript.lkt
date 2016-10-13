@@ -13,26 +13,15 @@ DialogueScript	createDialogueScriptManager()
 
 	dialogueScript.ScriptDescriptor <- 'Manager';
 
-	// Item - Welcome
-	scriptNode <- createScriptNodeDCategory( 'Welcome' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-			
-	// Item - HowMayIHelpYou
-	scriptNode <- createScriptNodeDCategory( 'HowMayIHelpYou' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-			
-	// Item - Continuation
-	scriptNode <- createScriptNodeDCategory( 'Continuation' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-			
-	// Item - GoodBye
-	scriptNode <- createScriptNodeDCategory( 'GoodBye' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-			
+	// Node - Welcome
+	scriptNode.ScriptNodeType <- 'tell';
+	scriptNode.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
+	scriptNode.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
+	BatchInsertEnd( scriptNode.ScriptNodeContent.DialogueAct.TaskDialogueAct.Action, 'say');
+	scriptNode.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'welcome';
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, scriptNode );
+					
 	return dialogueScript;
 }
 
@@ -148,3 +137,4 @@ DialogueScript	createDialogueScriptBankTransfer()
 }
 
 */
+
