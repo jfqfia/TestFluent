@@ -11,6 +11,23 @@
 //
 // **************************************************
 
+bool coherentActionScopeBankingManagement(TaskDialogueAct task1, TaskDialogueAct task2)
+{
+	bool ret;
+
+	ret =   (task1.Action.ActionDomain == 'close' && task2.Scope == 'bankaccount') ||
+		(task1.Action.ActionDomain == 'consult' && task2.Scope == 'bankaccount') || 
+		(task1.Action.ActionDomain == 'locate' && task2.Scope == 'atm') || 
+		(task1.Action.ActionDomain == 'execute' && task2.Scope == 'transfer') ||
+
+		(task2.Action.ActionDomain == 'close' && task1.Scope == 'bankaccount') ||
+		(task2.Action.ActionDomain == 'consult' && task1.Scope == 'bankaccount') || 
+		(task2.Action.ActionDomain == 'locate' && task1.Scope == 'atm') || 
+		(task2.Action.ActionDomain == 'execute' && task1.Scope == 'transfer');
+
+	return ret;	
+}
+
 string getActionDomainFromLemmaBankingManagement(string lemma)
 {
 	switch (lemma) 

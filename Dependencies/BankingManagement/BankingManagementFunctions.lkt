@@ -11,6 +11,17 @@
 //
 // **************************************************
 
+bool coherentActionScope(TaskDialogueAct task1, TaskDialogueAct task2)
+{
+	bool ret;
+	ret = False;
+
+	// Domain: BankingManagement
+	ret = ret || coherentActionScopeBankingManagement(task1, task2);
+
+	return ret;
+}
+
 string getActionDomainFromLemma(string lemma)
 {
 	string ret;

@@ -11,6 +11,23 @@
 //
 // **************************************************
 
+bool coherentActionScopeMedicalAppointment(TaskDialogueAct task1, TaskDialogueAct task2)
+{
+	bool ret;
+
+	ret =   (task1.Action.ActionDomain == 'book' && task2.Scope == 'appointment') ||
+		(task1.Action.ActionDomain == 'cancel' && task2.Scope == 'appointment') || 
+		(task1.Action.ActionDomain == 'confirm' && task2.Scope == 'appointment') || 
+		(task1.Action.ActionDomain == 'modify' && task2.Scope == 'appointment') ||
+
+		(task2.Action.ActionDomain == 'book' && task1.Scope == 'appointment') ||
+		(task2.Action.ActionDomain == 'cancel' && task1.Scope == 'appointment') || 
+		(task2.Action.ActionDomain == 'confirm' && task1.Scope == 'appointment') || 
+		(task2.Action.ActionDomain == 'modify' && task1.Scope == 'appointment');
+
+	return ret;
+}
+
 string getActionDomainFromLemmaMedicalAppointment(string lemma)
 {
 	switch (lemma) 

@@ -96,7 +96,7 @@ classDef:StructureComplex
 	)
 )
 
-classDef:StructureComplex
+classDef:StructureBatch
 (
  	Action :
 	(

@@ -14,7 +14,7 @@
 (TaskDialogueAct_Rule01	:
  	[ TaskDialogueAct -> TaskDialogueAct TaskDialogueAct ]
 	{
-		if( coherentActionScope(#1,#2) )
+		if( coherentActionScope(#1, #2) )
 		{
 			^ <- #1;
 			^ <& #2;
@@ -29,7 +29,7 @@
 (TaskDialogueAct_Rule02 :
  	[ TaskDialogueAct -> lexPrepTo? lexVerb lexPrepFor? ]
 	{
-		^.Action.ActionDomain <- getActionDomainFromLemma(#2.VerbRoot);
+		^.Action <- getActionDomainFromLemma(#2.VerbRoot);
 	}
 )
 
@@ -38,7 +38,7 @@
 	{
 		if(#2.VerbRoot == 'be' && #2.VerbForm == 'infinitive' && #3.VerbForm == 'past participle')
 		{
-			^.Action.ActionDomain <- getActionDomainFromLemma(#3.VerbRoot);
+			^.Action <- getActionDomainFromLemma(#3.VerbRoot);
 		}
 		else
 		{

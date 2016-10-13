@@ -25,21 +25,23 @@ bool coherentActionScope(TaskDialogueAct task1, TaskDialogueAct task2)
 	return ret;
 }
 
-string getActionDomainFromLemma(string lemma)
+Action getActionDomainFromLemma(string lemma)
 {
-	string ret;
-	ret <- 'unknown';
-	
+	Action ret;
+	string action;
+		
 	// Domain: MedicalAppointment
-	if(ret == 'unknown')
+	action <- getActionDomainFromLemmaMedicalAppointment(lemma);
+	if( action != 'unknown' )
 	{
-		ret = getActionDomainFromLemmaMedicalAppointment(lemma);
+		BatchInsertEnd(ret, action);
 	}
-
+	
 	// Domain: BankingManagement
-	if(ret == 'unknown')
+	action <- getActionDomainFromLemmaBankingManagement(lemma);
+	if( action != 'unknown' )
 	{
-		ret = getActionDomainFromLemmaBankingManagement(lemma);
+		BatchInsertEnd(ret, action);
 	}
 
 	return ret;
