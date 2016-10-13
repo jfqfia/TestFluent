@@ -11,16 +11,16 @@
 //
 // **************************************************
 
-bool coherentActionScope(TaskDialogueAct task1, TaskDialogueAct task2)
+bool coherentActionScopeAlter(string action, string scope)
 {
 	bool ret;
 	ret = False;
 
 	// Domain: MedicalAppointment
-	ret = ret || coherentActionScopeMedicalAppointment(task1, task2);
+	ret = ret || coherentActionScopeMedicalAppointment(action, scope);
 
 	// Domain: BankingManagement
-	ret = ret || coherentActionScopeBankingManagement(task1, task2);
+	ret = ret || coherentActionScopeBankingManagement(action, scope);
 
 	return ret;
 }

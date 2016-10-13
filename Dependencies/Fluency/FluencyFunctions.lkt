@@ -11,7 +11,7 @@
 //
 // **************************************************
 
-bool coherentActionScope(TaskDialogueAct task1, TaskDialogueAct task2)
+bool coherentActionScopeFluency(string action, string scope)
 {
 	bool ret;
 

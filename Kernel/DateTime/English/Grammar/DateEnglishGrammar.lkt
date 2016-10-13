@@ -56,9 +56,7 @@
 (DateRule02_2 :
 	[ BaseDate -> lexBaseMonth lexDetThe? Number lexComma? Number? ]
 	{
-		SpyMessage("La del dia");
-
-	        ^.Day <- #3.NumberValue;
+		^.Day <- #3.NumberValue;
         	^.Month <- #1;
        		^.Year <- #5.NumberValue;
 	}
@@ -105,9 +103,6 @@
 (DateRule03_3 :
 	[ BaseDate -> lexPrepIn? lexBaseMonth Number?]
 	{
-	
-		SpyMessage("La del año");
-
 		^.Month <- #2;
 		^.Year <- #3.NumberValue;
 	}

@@ -11,29 +11,14 @@
 //
 // **************************************************
 
-(TaskDialogueAct_Rule01	:
- 	[ TaskDialogueAct -> TaskDialogueAct TaskDialogueAct ]
-	{
-		if( coherentActionScope(#1, #2) )
-		{
-			^ <- #1;
-			^ <& #2;
-		}
-		else
-		{
-			Fail();
-		}
-	}
-)
-
-(TaskDialogueAct_Rule02 :
+(TaskDialogueAct_Rule01 :
  	[ TaskDialogueAct -> lexPrepTo? lexVerb lexPrepFor? ]
 	{
 		^.Action <- getActionDomainFromLemma(#2.VerbRoot);
 	}
 )
 
-(TaskDialogueAct_Rule03 :
+(TaskDialogueAct_Rule02 :
  	[ TaskDialogueAct -> lexPrepTo? lexVerb lexVerb lexPrepFor? ]
 	{
 		if(#2.VerbRoot == 'be' && #2.VerbForm == 'infinitive' && #3.VerbForm == 'past participle')
