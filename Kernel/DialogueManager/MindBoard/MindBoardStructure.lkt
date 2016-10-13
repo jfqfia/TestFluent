@@ -10,3 +10,12 @@
 //	FILE	:	
 //
 // **************************************************
+
+MindBoardStructure: {
+	( DialogueScheme / DialogueScheme )
+
+	( DialogueState / DialogueState )
+
+	( DialogueInput / DialogueInput )
+}
+

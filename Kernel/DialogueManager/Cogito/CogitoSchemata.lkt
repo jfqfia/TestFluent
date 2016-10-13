@@ -1,0 +1,85 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager (DialogueManager)
+//      FILE    :       CogitoSchemata.lkt
+// ******************************************************
+
+(CogitoScheme Booting :
+    CogitoCapture {
+        ( $MINDBOARD@DialogueState.DialoguePhase == 'booting' )
+    }
+    CogitoAction {
+	SpyMessage("$$>> COGITO: booting - Init");
+        
+	$MINDBOARD@DialogueScheme <- createDialogueScheme();
+
+	/*
+	$MINDBOARD@DMOpenScript <- selectDialogueScript( 'Manager' );
+
+	cleanFocus();
+
+	nextDialogueMove();
+
+	generateFocusDMoves();
+	*/
+
+        $MINDBOARD@DialogueState.DialoguePhase <- 'talking';
+
+	//closeCogitoTalkingTurn();
+
+	//SpyMessage("$$>> CogitoScheme_Booting / END ");
+	//showMindBoard();
+
+	SpyMessage("$$>> COGITO: booting - End");
+        //CogitoQuit();
+	SpyMessage("$$>> COGITO: booting - End - 2");
+    }
+)
+
+(CogitoScheme Talking :
+    CogitoCapture {
+        ( $MINDBOARD@DialogueState.DialoguePhase == 'talking' )
+    }
+    CogitoAction {
+	SpyMessage("$$>> COGITO: talking - Init");
+
+	/*
+	initCogitoTalkingTurn();
+
+	showMindBoard();
+
+	cleanFocus();
+
+	interpretScheme();
+
+	analyzeScript();
+
+	nextDialogueMove();
+
+	generateFocusDMoves();
+
+	closeCogitoTalkingTurn();
+
+        if ( $MINDBOARD@DMSetup.DMPhase == 'dmClosing' )  {
+		CloseDialogue();
+	}
+
+	showMindBoard();
+	*/
+	SpyMessage("$$>> COGITO: talking - End");
+    }
+)
+/*
+
+(CogitoScheme CogitoScheme_Closing :
+    CogitoCapture {
+        ( $MINDBOARD@DMSetup.DMPhase == 'dmClosing' )
+    }
+    CogitoAction {
+    	CloseDialogue();
+    }
+)
+
+*/

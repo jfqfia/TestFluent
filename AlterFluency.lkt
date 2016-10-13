@@ -29,6 +29,9 @@ lektaProject
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
 		#Include "Domains/BankingManagement/MainBankingManagementFunctions.lkt"
 
+		#Include "Kernel/DialogueManager/Functions/DialogueScheme.lkth"
+		#Include "Kernel/DialogueManager/Functions/DialogueScript.lkth"
+
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
 		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
@@ -40,23 +43,27 @@ lektaProject
 		#Include "Domains/BankingManagement/MainBankingManagementEnglishGrammar.lkt"
 
 	conversationalModel
-		#Include "Kernel/DialogueModel/DManager/MindBoardStructure.lkt"
+		#Include "Kernel/DialogueManager/MindBoard/MindBoardStructure.lkt"
 
-	ColligoSchemata
-		#Include "Kernel/DialogueModel/Colligo/ColligoSchemata.lkt"
-
-	/*
 	LaunchConversation: 
 	{
-		LaunchSendToMindBoard: (DMSetup = (DMPhase: 'dmBooting') )
+		LaunchSendToMindBoard: (DialogueState = (DialoguePhase: 'booting') )
 	}
 
+	ColligoSchemata
+		#Include "Kernel/DialogueManager/Colligo/ColligoSchemata.lkt"
+
 	SensoSchemata
-		#Include "Source/DManager/Senso/SensoSchemata.lkt"
+		#Include "Kernel/DialogueManager/Senso/SensoSchemata.lkt"
 
 	CogitoSchemata
-		#Include "Source/DManager/Cogito/CogitoSchemata.lkt"
+		#Include "Kernel/DialogueManager/Cogito/CogitoSchemata.lkt"
 
+	functionModel
+		#Include "Kernel/DialogueManager/Functions/DialogueScheme.lkt"
+		#Include "Kernel/DialogueManager/Functions/DialogueScript.lkt"
+
+	/*
 	RespondoSchemata
 		#Include "Source/DManager/Respondo/RespondoSchemata.lkt"
 

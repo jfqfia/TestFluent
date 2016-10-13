@@ -1,0 +1,93 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+///////////////////////////////////////
+// Dialogue Scheme
+///////////////////////////////////////
+classDef:StructureComplex 
+(
+	DialogueScheme : 
+	(
+		SchemeDescriptor,
+		DialogueScripts
+	)
+)
+
+classDef:ElementLiteral 
+(
+	SchemeDescriptor
+)
+
+classDef:StructureBatch 
+(
+        DialogueScripts : 
+	(
+		DialogueScript
+	)
+)
+
+///////////////////////////////////////
+// Dialogue Script
+///////////////////////////////////////
+classDef:StructureComplex 
+(
+	DialogueScript : 
+	(
+		ScriptDescriptor,
+		ScriptNodes
+	)
+)
+
+classDef:ElementLiteral 
+(
+        ScriptDescriptor
+)
+
+classDef:StructureBatch 
+(
+        ScriptNodes : 
+	(
+		ScriptNode
+	)
+)
+
+///////////////////////////////////////
+// Dialogue Node
+///////////////////////////////////////
+classDef:StructureComplex 
+(
+	ScriptNode : 
+	(
+		ScriptNodeDescriptor,
+		ScriptNodeType,
+		ScriptNodeContent
+	)
+)
+
+classDef:ElementLiteral 
+(
+        ScriptNodeDescriptor
+)
+
+classDef:ElementRange 
+(
+        ScriptNodeType : { 'tell', 'wait' }
+)
+
+classDef:StructureComplex 
+(
+	ScriptNodeContent : 
+	(
+		DialogueAct
+	)
+)

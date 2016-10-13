@@ -1,0 +1,60 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager/Library (Dialogue Scheme)
+//      FILE    :       DialogueScheme.lkth
+// ******************************************************
+
+DialogueScheme	createDialogueScheme()
+{
+	DialogueScheme dialogueScheme;
+	DialogueScript dialogueScript;
+
+	dialogueScheme.SchemeDescriptor <- 'Fluency';
+
+	// Script - ScriptManager
+	dialogueScript <- createDialogueScriptManager( );
+	BatchInsertEnd( dialogueScheme.DialogueScripts,
+			dialogueScript );
+
+	/*
+	// Script - ScriptMedicalAppointment
+	dialogueScript <- createDialogueScriptMedicalAppointment( );
+	BatchInsertEnd( dialogueScheme.DialogueScripts,
+			dialogueScript );
+
+	// Script - ScriptBankConsultBalance
+	dialogueScript <- createDialogueScriptBankConsultBalance( );
+	BatchInsertEnd( dialogueScheme.DialogueScripts,
+			dialogueScript );
+
+	// Script - ScriptBankConsultBalance
+	dialogueScript <- createDialogueScriptBankLocateATM( );
+	BatchInsertEnd( dialogueScheme.DialogueScripts,
+			dialogueScript );
+
+	// Script - ScriptBankTransfer
+	dialogueScript <- createDialogueScriptBankTransfer( );
+	BatchInsertEnd( dialogueScheme.DialogueScripts,
+			dialogueScript );
+	*/
+
+	return dialogueScheme;
+}
+
+DialogueScript selectDialogueScript(string scriptDescriptor)
+{
+	DialogueScript dialogueScript;
+
+	int schemeSize <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts);
+	for ( int position <- 1; position <= schemeSize; position ++) {
+		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
+
+		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
+			return dialogueScript;
+	}
+
+	DialogueScript nullDialogueScript;
+	return nullDialogueScript;
+}

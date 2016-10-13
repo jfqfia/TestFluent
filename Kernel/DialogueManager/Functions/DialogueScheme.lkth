@@ -1,0 +1,11 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager/Library (Dialogue Scheme)
+//      FILE    :       DialogueScheme.lkth
+// ******************************************************
+
+DialogueScheme	createDialogueScheme();
+
+DialogueScript selectDialogueScript(string scriptDescriptor);

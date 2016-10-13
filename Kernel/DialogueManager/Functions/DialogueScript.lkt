@@ -1,0 +1,150 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager/Library (Dialogue Script)
+//      FILE    :       DialogueScript.lkt
+// ******************************************************
+
+DialogueScript	createDialogueScriptManager()
+{
+	DialogueScript dialogueScript;
+	ScriptNode scriptNode;
+
+	dialogueScript.ScriptDescriptor <- 'Manager';
+
+	// Item - Welcome
+	scriptNode <- createScriptNodeDCategory( 'Welcome' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+			
+	// Item - HowMayIHelpYou
+	scriptNode <- createScriptNodeDCategory( 'HowMayIHelpYou' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+			
+	// Item - Continuation
+	scriptNode <- createScriptNodeDCategory( 'Continuation' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+			
+	// Item - GoodBye
+	scriptNode <- createScriptNodeDCategory( 'GoodBye' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+			
+	return dialogueScript;
+}
+
+/*
+DialogueScript	createDialogueScriptMedicalAppointment()
+{
+	DialogueScript dialogueScript;
+	ScriptNode scriptNode;
+
+	dialogueScript.ScriptDescriptor <- 'MedicalAppointment';
+
+	// Item - ActionScope
+	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Request/Appointment' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - MedicalSpeciality
+	scriptNode <- createScriptNodeDCategory( 'Parameter/Speciality' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - AppointmentPlace
+	scriptNode <- createScriptNodeDCategory( 'Parameter/City' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - AppointmentDate
+	scriptNode <- createScriptNodeDCategory( 'Parameter/Schedule' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - PESEL
+	scriptNode <- createScriptNodeDCategory( 'Parameter/Pesel' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - PhoneNumber
+	scriptNode <- createScriptNodeDCategory( 'Parameter/PhoneNumber' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - ProposeDate
+	scriptNode <- createScriptNodeDCategory( 'Propose/Date' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	return dialogueScript;
+}
+
+DialogueScript	createDialogueScriptBankConsultBalance()
+{
+	DialogueScript dialogueScript;
+	ScriptNode scriptNode;
+
+	dialogueScript.ScriptDescriptor <- 'BankConsultBalance';
+
+	// Item - ActionScope
+	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Consult/Balance' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	return dialogueScript;
+}
+
+DialogueScript	createDialogueScriptBankLocateATM()
+{
+	DialogueScript dialogueScript;
+	ScriptNode scriptNode;
+
+	dialogueScript.ScriptDescriptor <- 'BankLocateATM';
+
+	// Item - ActionScope
+	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Locate/ATM' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	return dialogueScript;
+}
+
+DialogueScript	createDialogueScriptBankTransfer()
+{
+	DialogueScript dialogueScript;
+	ScriptNode scriptNode;
+
+	dialogueScript.ScriptDescriptor <- 'BankTransfer';
+
+	// Item - ActionScope
+	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Command/Transfer' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - Account
+	scriptNode <- createScriptNodeDCategory( 'Parameter/Account' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - Amount
+	scriptNode <- createScriptNodeDCategory( 'Parameter/Amount' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - ProposeTransfer
+	scriptNode <- createScriptNodeDCategory( 'Propose/Transfer' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	// Item - ConfirmTransfer
+	scriptNode <- createScriptNodeDCategory( 'Confirm/Transfer' );
+	BatchInsertEnd( dialogueScript.ScriptNodes,
+			scriptNode );
+
+	return dialogueScript;
+}
+
+*/

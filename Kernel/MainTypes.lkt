@@ -31,3 +31,8 @@
 #Include "CountryPlace/MainCountryPlaceTypes.lkt"
 #Include "PhoneNumber/MainPhoneNumberTypes.lkt"
 #Include "MoneyAmount/MainMoneyAmountTypes.lkt"
+
+// DM Types
+#Include "DialogueManager/Types/ScriptTypes.lkt"
+#Include "DialogueManager/Types/StateTypes.lkt"
+#Include "DialogueManager/Types/InputTypes.lkt"

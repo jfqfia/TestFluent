@@ -1,0 +1,28 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+///////////////////////////////////////
+// Dialogue State
+///////////////////////////////////////
+classDef:StructureComplex 
+(
+	DialogueState : 
+	(
+		DialoguePhase
+	)
+)
+
+classDef:ElementRange 
+(
+	DialoguePhase : { 'booting', 'talking', 'closing' }
+)

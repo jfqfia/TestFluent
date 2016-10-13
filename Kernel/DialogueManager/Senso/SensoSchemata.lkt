@@ -1,0 +1,84 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager (Dialogue Manager)
+//      FILE    :       SensoSchemata.lkt
+// ******************************************************
+
+(SensoScheme Booting : [DialogueState]
+    SensoCapture {
+        #OBJSENSO-1.DialoguePhase == 'booting'
+    }
+    SensoAction {
+        $MINDBOARD@DialogueState.DialoguePhase <- #OBJSENSO-1.DialoguePhase;
+    }
+)
+
+(SensoScheme Input : [ProferenceChunk]
+    SensoAction {
+        BatchInsertEnd( $MINDBOARD@DialogueInput.ProferenceChunks,
+				#OBJSENSO-1 );
+    }
+)
+
+/*
+(SensoScheme Understanding : [SpeechActLkt]
+    SensoAction {
+	if (Filled(#OBJSENSO-1.EntryActionScope)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryActionScope );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterCity)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterCity );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterSpeciality)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterSpeciality );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterSchedule)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterSchedule );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterPesel)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterPesel );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterPhoneNumber)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterPhoneNumber );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterAccount)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterAccount );
+	}
+
+	if (Filled(#OBJSENSO-1.EntryParameterAmount)) {
+		BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+				#OBJSENSO-1.EntryParameterAmount );
+	}
+    }
+)
+
+(SensoScheme Understanding : [Colloquial]
+    SensoAction {
+	BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+			#OBJSENSO-1 );
+    }
+)
+
+(SensoScheme Understanding : [Communication]
+    SensoAction {
+	BatchInsertEnd( $MINDBOARD@DMCapture.DMoves,
+			#OBJSENSO-1 );
+    }
+)
+
+*/

@@ -1,0 +1,31 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+///////////////////////////////////////
+// Dialogue Input
+///////////////////////////////////////
+classDef:StructureComplex 
+(
+	DialogueInput : 
+	(
+		ProferenceChunks
+	)
+)
+
+classDef:StructureBatch 
+(
+	ProferenceChunks : 
+	(
+	 	ProferenceChunk
+	)
+)

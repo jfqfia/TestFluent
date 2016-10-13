@@ -1,0 +1,16 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager/Library (Dialogue Script)
+//      FILE    :       DialogueScript.lkth
+// ******************************************************
+
+DialogueScript	createDialogueScriptManager();
+
+/*
+DialogueScript	createDialogueScriptMedicalAppointment();
+
+DialogueScript	createDialogueScriptBankConsultBalance();
+DialogueScript	createDialogueScriptBankLocateATM();
+*/
