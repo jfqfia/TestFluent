@@ -1,51 +1,58 @@
-// ******************************************************
-//      Lekta Application
-// ***************************
-//      PROJECT :       Alter
-//      MODULE  :       DManager (DialogueManager)
-//      FILE    :       CogitoSchemata.lkt
-// ******************************************************
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
 
 (CogitoScheme Booting :
-    CogitoCapture {
-        ( $MINDBOARD@DialogueState.DialoguePhase == 'booting' )
-    }
-    CogitoAction {
-	SpyMessage("$$>> COGITO: booting - Init");
-        
-	$MINDBOARD@DialogueScheme <- createDialogueScheme();
+	CogitoCapture 
+	{
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'booting' )
+	}
+	CogitoAction 
+	{
+		ProferenceChunks emptyProferenceChunks;
+		DialogueActs emptyDialogueActs;
 
-	/*
-	$MINDBOARD@DMOpenScript <- selectDialogueScript( 'Manager' );
+		$MINDBOARD@DialogueScheme <- createDialogueScheme();
+		$MINDBOARD@DialogueInput.ProferenceChunks <- emptyProferenceChunks;
+		$MINDBOARD@DialogueOutput.DialogueActs <- emptyDialogueActs;
 
-	cleanFocus();
+		$MINDBOARD@CurrentScript <- selectDialogueScript( 'Manager' );
+		$MINDBOARD@CurrentNode <- selectInitialScriptNode( $MINDBOARD@CurrentScript );
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'talking';
 
-	nextDialogueMove();
-
-	generateFocusDMoves();
-	*/
-
-        $MINDBOARD@DialogueState.DialoguePhase <- 'talking';
-
-	//closeCogitoTalkingTurn();
-
-	//SpyMessage("$$>> CogitoScheme_Booting / END ");
-	//showMindBoard();
-
-	SpyMessage("$$>> COGITO: booting - End");
-        //CogitoQuit();
-	SpyMessage("$$>> COGITO: booting - End - 2");
-    }
+		/*
+		cleanFocus();
+		nextDialogueMove();
+		generateFocusDMoves();
+		//closeCogitoTalkingTurn();
+		//showMindBoard();
+        	//CogitoQuit();
+		*/
+	}
 )
 
 (CogitoScheme Talking :
-    CogitoCapture {
-        ( $MINDBOARD@DialogueState.DialoguePhase == 'talking' )
-    }
-    CogitoAction {
-	SpyMessage("$$>> COGITO: talking - Init");
-
-	SpyMessage("$$>> COGITO: talking - Node", $MINDBOARD@DialogueScheme);
+	CogitoCapture 
+	{
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'talking' )
+	}
+	CogitoAction 
+	{
+		if( $MINDBOARD@CurrentNode.ScriptNodeType == 'tell' )
+		{
+			BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, $MINDBOARD@CurrentNode.ScriptNodeContent.DialogueAct );
+			SpyMessage("$$>> COGITO: CurrentNode - tell: ", $MINDBOARD@CurrentNode);
+			// Pasar al siguiente nodo
+		}
 	/*
 	initCogitoTalkingTurn();
 
@@ -69,18 +76,17 @@
 
 	showMindBoard();
 	*/
-	SpyMessage("$$>> COGITO: talking - End");
-    }
+	}
 )
-/*
 
 (CogitoScheme CogitoScheme_Closing :
-    CogitoCapture {
-        ( $MINDBOARD@DMSetup.DMPhase == 'dmClosing' )
-    }
-    CogitoAction {
-    	CloseDialogue();
-    }
+    	CogitoCapture 
+	{
+	        ( $MINDBOARD@DialogueState.DialoguePhase == 'closing' )
+    	}
+    	CogitoAction 
+	{
+    		CloseDialogue();
+    	}
 )
 
-*/

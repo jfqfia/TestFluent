@@ -56,15 +56,17 @@ lektaProject
 	CogitoSchemata
 		#Include "Kernel/DialogueManager/Cogito/CogitoSchemata.lkt"
 
+	RespondoSchemata
+		#Include "Kernel/DialogueManager/Respondo/RespondoSchemata.lkt"
+
+	LocutioSchemata
+		#Include "Kernel/DialogueManager/Locutio/LocutioSchemata.lkt"
+
 	functionModel
 		#Include "Kernel/DialogueManager/Functions/MainDialogueManagerFunctions.lkt"
 
 	/*
-	RespondoSchemata
-		#Include "Source/DManager/Respondo/RespondoSchemata.lkt"
 
-	LocutioSchemata
-		#Include "Source/DManager/Locutio/LocutioSchemata.lkt"
 
 	scriboModel forLanguage English
 		ScriboSchemata

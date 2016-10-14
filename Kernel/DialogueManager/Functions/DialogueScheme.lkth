@@ -9,3 +9,5 @@
 DialogueScheme	createDialogueScheme();
 
 DialogueScript selectDialogueScript(string scriptDescriptor);
+
+ScriptNode selectInitialScriptNode(DialogueScript dialogueScript);

@@ -13,16 +13,16 @@
 
 classDef:StructureComplex 
 (
-	DialogueInput : 
+	DialogueOutput : 
 	(
-		ProferenceChunks
+		DialogueActs
 	)
 )
 
 classDef:StructureBatch 
 (
-	ProferenceChunks : 
+	DialogueActs : 
 	(
-	 	ProferenceChunk
+	 	DialogueAct
 	)
 )

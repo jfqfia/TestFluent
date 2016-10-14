@@ -1,0 +1,26 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(RespondoScheme RespondoReply: [DialogueAct]
+	RespondoCapture 
+	{
+		( BatchSize( $MINDBOARD@DialogueOutput.DialogueActs ) > 0 )
+    	}
+    	RespondoAction 
+	{
+	        DialogueAct dialogueAct;
+	        BatchExtractInit( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+		^OBJRESPONDO <- dialogueAct;
+	        RespondoRetry();
+	}
+)

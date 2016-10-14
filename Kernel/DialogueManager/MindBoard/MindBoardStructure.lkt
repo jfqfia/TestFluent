@@ -19,5 +19,8 @@ MindBoardStructure:
 
 	( DialogueInput / DialogueInput )
 	( DialogueOutput / DialogueOutput )
+
+	( CurrentScript / DialogueScript )
+	( CurrentNode / ScriptNode )	
 }
 

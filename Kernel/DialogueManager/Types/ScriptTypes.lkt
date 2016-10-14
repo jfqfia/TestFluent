@@ -70,13 +70,19 @@ classDef:StructureComplex
 	(
 		ScriptNodeDescriptor,
 		ScriptNodeType,
-		ScriptNodeContent
+		ScriptNodeContent,
+		ScriptNodeIsInitial
 	)
 )
 
 classDef:ElementLiteral 
 (
         ScriptNodeDescriptor
+)
+
+classDef:ElementBool 
+(
+        ScriptNodeIsInitial
 )
 
 classDef:ElementRange 
@@ -91,3 +97,4 @@ classDef:StructureComplex
 		DialogueAct
 	)
 )
+

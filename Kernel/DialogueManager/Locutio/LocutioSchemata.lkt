@@ -1,0 +1,63 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(LocutioScheme Combined_Echo: [ DialogueAct DialogueAct >> DialogueAct ]
+	/*
+    	LocutioCapture 
+	{
+        	(
+		 ( #OBJRESPONDO-1.DMotion == 'Echo' ) &&
+	         ( #OBJRESPONDO-2.DMotion == 'Echo' ) &&
+		 ( LiteralPrefixCompare (#OBJRESPONDO-1.DItem.DCategory, 'Parameter', 9) == 0) &&
+		 ( LiteralPrefixCompare (#OBJRESPONDO-2.DItem.DCategory, 'Parameter', 9) == 0) 
+		)
+    	}
+	*/
+    	LocutioAction 
+	{	
+		SpyMessage(#OBJRESPONDO-1);
+		/*
+		CombinedDMoves combined;
+		integer combinedPos;
+		integer combinedSize;
+		DMove dmove;
+	
+		combinedSize <- BatchSize(#OBJRESPONDO-1.CombinedDMoves);
+		if (combinedSize > 0) {
+			for (combinedPos <- 1; combinedPos <= combinedSize; combinedPos ++) {
+				dmove <- recoverDMoveFromCombined( #OBJRESPONDO-1.CombinedDMoves, combinedPos );
+				BatchInsertEnd(combined, dmove);
+			}
+		} else {
+			BatchInsertEnd(combined, #OBJRESPONDO-1);
+		}
+	
+		combinedSize <- BatchSize(#OBJRESPONDO-2.CombinedDMoves);
+		if (combinedSize > 0) {
+			for (combinedPos <- 1; combinedPos <= combinedSize; combinedPos ++) {
+				dmove <- recoverDMoveFromCombined( #OBJRESPONDO-2.CombinedDMoves, combinedPos );
+				BatchInsertEnd(combined, dmove);
+			}
+		} else {
+			BatchInsertEnd(combined, #OBJRESPONDO-2);
+		}
+	
+		DItem ditem;
+		ditem.DCategory <- 'Parameter/Combined';
+		^OBJLOCUTIO.DItem <- ditem;
+	
+		^OBJLOCUTIO.DMotion <- 'Echo';
+		^OBJLOCUTIO.CombinedDMoves <- combined;
+		*/
+	}
+)

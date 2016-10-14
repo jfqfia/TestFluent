@@ -19,7 +19,7 @@
 #Include "Macros/VerbMacros.lkt"
 #Include "Macros/NounMacros.lkt"
 
-// Types
+// Parameter Types
 #Include "Generic/MainGenericTypes.lkt"
 #Include "Number/MainNumberTypes.lkt"
 #Include "Letter/MainLetterTypes.lkt"
@@ -32,7 +32,8 @@
 #Include "PhoneNumber/MainPhoneNumberTypes.lkt"
 #Include "MoneyAmount/MainMoneyAmountTypes.lkt"
 
-// DM Types
+// Dialogue Manager Types
 #Include "DialogueManager/Types/ScriptTypes.lkt"
 #Include "DialogueManager/Types/StateTypes.lkt"
 #Include "DialogueManager/Types/InputTypes.lkt"
+#Include "DialogueManager/Types/OutputTypes.lkt"

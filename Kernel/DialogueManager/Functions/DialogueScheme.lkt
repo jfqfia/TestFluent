@@ -48,13 +48,35 @@ DialogueScript selectDialogueScript(string scriptDescriptor)
 	DialogueScript dialogueScript;
 
 	int schemeSize <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts);
-	for ( int position <- 1; position <= schemeSize; position ++) {
+	for ( int position <- 1; position <= schemeSize; position ++) 
+	{
 		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
 
 		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
+		{
 			return dialogueScript;
+		}
 	}
 
 	DialogueScript nullDialogueScript;
 	return nullDialogueScript;
+}
+
+ScriptNode selectInitialScriptNode(DialogueScript dialogueScript)
+{
+	ScriptNode node;
+
+	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
+	for(int position <- 1; position <= scriptSize; position++) 
+	{
+		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
+
+		if ( node.ScriptNodeIsInitial )
+		{
+			return node;
+		}
+	}
+
+	ScriptNode nullScriptNode;
+	return nullScriptNode;
 }
