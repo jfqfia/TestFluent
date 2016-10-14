@@ -15,8 +15,7 @@ procedure	createDialogueScheme()
 
 	// Script - ScriptManager
 	dialogueScript <- createDialogueScriptManager( );
-	BatchInsertEnd( dialogueScheme.DialogueScripts,
-			dialogueScript );
+	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
 	/*
 	// Script - ScriptMedicalAppointment
@@ -43,10 +42,10 @@ procedure	createDialogueScheme()
 	$MINDBOARD@DialogueScheme <- dialogueScheme;
 }
 
-procedure	initDialogueScheme()
+procedure initDialogueScheme()
 {
 	$MINDBOARD@CurrentScript <- selectDialogueScript( 'Manager' );
-	$MINDBOARD@CurrentNode <- selectInitialScriptNode( $MINDBOARD@CurrentScript );
+	$MINDBOARD@CurrentNode <- selectScriptNode( $MINDBOARD@CurrentScript, 'welcome' );
 }
 
 DialogueScript selectDialogueScript(string scriptDescriptor)
@@ -68,7 +67,7 @@ DialogueScript selectDialogueScript(string scriptDescriptor)
 	return nullDialogueScript;
 }
 
-ScriptNode selectInitialScriptNode(DialogueScript dialogueScript)
+ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor)
 {
 	ScriptNode node;
 
@@ -77,7 +76,7 @@ ScriptNode selectInitialScriptNode(DialogueScript dialogueScript)
 	{
 		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
 
-		if ( node.ScriptNodeIsInitial )
+		if ( node.ScriptNodeDescriptor == nodeDescriptor )
 		{
 			return node;
 		}

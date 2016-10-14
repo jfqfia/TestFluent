@@ -1,0 +1,58 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       Generate
+//      FILE    :       Generate_Colloquial.lkth
+// ******************************************************
+
+(ScriboScheme GenerateWelcome: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'greeting' &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'welcome'
+	}
+	ScriboAction 
+	{
+		int hour <- ClockAskHour();
+		string greet;
+		
+		cond 
+		{
+			(hour < 7)
+				greet <- 'Good night. ';
+			(hour < 14)
+				greet <- 'Good morning. ';
+			(hour < 20)
+				greet <- 'Good afternoon. ';
+			default
+				greet <- 'Good night. ';
+		}
+
+		SetMainAnswerStringRandom( greet, 'Hello. ' );
+
+		SetMainAnswerStringRandom( 'Welcome to the Personal Assistant Service. ',
+					   'Thanks for contacting the Personal Assistant Service. ',
+		     			   'Your Personal Assistant Service speaking. ',
+			 		   'Thank you for calling the Personal Assistant Service. ');
+    	}
+)
+
+(ScriboScheme GenerateWelcome: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'greeting' &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'hmihy'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'How may I help you? ',
+					   'Please let me know what do you need to do. ',
+					   'Could you please tell me how can I help you? ');
+	}
+)
+

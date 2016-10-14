@@ -6,17 +6,10 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE :	
+// 	PACKAGE	:	
 //	FILE	:	
 //
 // **************************************************
 
-procedure startTalkingTurn()
-{
-	initMindBoardOutput();
-}
+#Define ENGLISH 1
 
-procedure closeTalkingTurn()
-{
-	initMindBoardInput();
-}

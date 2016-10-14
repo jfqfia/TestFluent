@@ -25,16 +25,15 @@ DialogueScript	createDialogueScriptManager()
 	nodeWelcome.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
 	nodeWelcome.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
 	nodeWelcome.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'welcome';
-	nodeWelcome.ScriptNodeIsInitial <- True;
+	nodeWelcome.NextScriptNodeDescriptor <- 'hmihy';
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
 
 	// Node - HMIHY
 	nodeHMIHY.ScriptNodeDescriptor <- 'hmihy';
-	nodeHMIHY.ScriptNodeType <- 'wait';
-	nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'question';
-	nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'choice';
+	nodeHMIHY.ScriptNodeType <- 'tell';
+	nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
+	nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
 	nodeHMIHY.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'hmihy';
-	nodeHMIHY.ScriptNodeIsInitial <- False;
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeHMIHY );
 					
 	return dialogueScript;

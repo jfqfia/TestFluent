@@ -12,4 +12,4 @@ procedure	initDialogueScheme();
 
 DialogueScript selectDialogueScript(string scriptDescriptor);
 
-ScriptNode selectInitialScriptNode(DialogueScript dialogueScript);
+ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor);

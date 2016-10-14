@@ -1,0 +1,10 @@
+// ******************************************************
+//	Lekta Application
+// ***************************
+//	PROJECT	:	Alter
+//	MODULE  :	Generate
+//	FILE	:	Main_Generate.lkt
+// ******************************************************
+
+#Include "GenerationSocialGreeting.lkt"
+

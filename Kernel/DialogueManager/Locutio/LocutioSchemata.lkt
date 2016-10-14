@@ -11,6 +11,7 @@
 //
 // **************************************************
 
+/*
 (LocutioScheme Combined_Echo: [ DialogueAct DialogueAct >> DialogueAct ]
 	/*
     	LocutioCapture 
@@ -23,9 +24,12 @@
 		)
     	}
 	*/
+/*
     	LocutioAction 
 	{	
-		SpyMessage(#OBJRESPONDO-1);
+		^OBJLOCUTIO <- #OBJRESPONDO-1;
+		//^OBJLOCUTIO <& #OBJRESPONDO-2;  
+		//SpyMessage(#OBJRESPONDO-1);
 		/*
 		CombinedDMoves combined;
 		integer combinedPos;
@@ -59,5 +63,5 @@
 		^OBJLOCUTIO.DMotion <- 'Echo';
 		^OBJLOCUTIO.CombinedDMoves <- combined;
 		*/
-	}
-)
+/*	}
+)*/

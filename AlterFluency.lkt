@@ -59,19 +59,17 @@ lektaProject
 	RespondoSchemata
 		#Include "Kernel/DialogueManager/Respondo/RespondoSchemata.lkt"
 
-	LocutioSchemata
-		#Include "Kernel/DialogueManager/Locutio/LocutioSchemata.lkt"
+	//LocutioSchemata
+	//	#Include "Kernel/DialogueManager/Locutio/LocutioSchemata.lkt"
 
 	functionModel
 		#Include "Kernel/DialogueManager/Functions/MainDialogueManagerFunctions.lkt"
 
-	/*
-
-
 	scriboModel forLanguage English
 		ScriboSchemata
-		#Include "Source/NLGenerate/English/Main_Generate.lkt"
+		#Include "Kernel/Generation/English/MainEnglishGenerate.lkt"
 
+	/*
 	scriboModel forLanguage Polish
 		ScriboSchemata
 		#Include "Source/NLGenerate/Polish/Main_Generate.lkt"
@@ -83,3 +81,4 @@ lektaProject
 		displaySyntacticDefinition ( SelectLanguage: [1], "compile/GrammarDef.txt")
 		displaySyntacticRepresentation ( SelectLanguage: [1], "compile/GrammarRep.txt")
 	*/
+

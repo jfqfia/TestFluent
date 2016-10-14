@@ -9,11 +9,13 @@ UseProject
 	TemporalFolder : "./.tmp/"
 )
 
-// MainAnswer:On
 setupRuntimeSpyMessageOn
-//DisplayProcessUnderstandingOn
-//DisplayProcessLocutioOn
-//DisplayProcessRespondoOn
+
+// MainAnswer:On
+// DisplayProcessLocutioOn
+// DisplayProcessUnderstandingOn
+// DisplayProcessScriboOn
+// DisplayProcessRespondoOn
 // DisplayProcessCogitoOn
 // DisplayProcessColligoOn
 

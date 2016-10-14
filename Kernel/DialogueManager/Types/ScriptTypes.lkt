@@ -71,18 +71,13 @@ classDef:StructureComplex
 		ScriptNodeDescriptor,
 		ScriptNodeType,
 		ScriptNodeContent,
-		ScriptNodeIsInitial
+		NextScriptNodeDescriptor
 	)
 )
 
 classDef:ElementLiteral 
 (
-        ScriptNodeDescriptor
-)
-
-classDef:ElementBool 
-(
-        ScriptNodeIsInitial
+        ScriptNodeDescriptor, NextScriptNodeDescriptor
 )
 
 classDef:ElementRange 
