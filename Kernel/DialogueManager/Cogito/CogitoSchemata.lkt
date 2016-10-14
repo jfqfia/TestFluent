@@ -11,82 +11,110 @@
 //
 // **************************************************
 
-(CogitoScheme Booting :
+(CogitoScheme BootingDialogue :
 	CogitoCapture 
 	{
-        	( $MINDBOARD@DialogueState.DialoguePhase == 'booting' )
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'bootingDialogue' )
 	}
 	CogitoAction 
 	{
-		ProferenceChunks emptyProferenceChunks;
-		DialogueActs emptyDialogueActs;
+		SpyMessage("$$>> CogitoScheme (Start): BootingDialogue");
 
-		$MINDBOARD@DialogueScheme <- createDialogueScheme();
-		$MINDBOARD@DialogueInput.ProferenceChunks <- emptyProferenceChunks;
-		$MINDBOARD@DialogueOutput.DialogueActs <- emptyDialogueActs;
+		createDialogueScheme();
 
-		$MINDBOARD@CurrentScript <- selectDialogueScript( 'Manager' );
-		$MINDBOARD@CurrentNode <- selectInitialScriptNode( $MINDBOARD@CurrentScript );
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'talking';
+		initMindBoard();
 
-		/*
-		cleanFocus();
-		nextDialogueMove();
-		generateFocusDMoves();
-		//closeCogitoTalkingTurn();
-		//showMindBoard();
-        	//CogitoQuit();
-		*/
+		initDialogueScheme();
+
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'startTalking';
+
+		displayMindBoard();
+
+		SpyMessage("$$>> CogitoScheme (End): BootingDialogue");
 	}
 )
 
-(CogitoScheme Talking :
+(CogitoScheme StartTalking :
 	CogitoCapture 
 	{
-        	( $MINDBOARD@DialogueState.DialoguePhase == 'talking' )
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'startTalking' )
 	}
 	CogitoAction 
 	{
-		if( $MINDBOARD@CurrentNode.ScriptNodeType == 'tell' )
-		{
-			BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, $MINDBOARD@CurrentNode.ScriptNodeContent.DialogueAct );
-			SpyMessage("$$>> COGITO: CurrentNode - tell: ", $MINDBOARD@CurrentNode);
-			// Pasar al siguiente nodo
-		}
-	/*
-	initCogitoTalkingTurn();
+		SpyMessage("$$>> CogitoScheme (Start): StartTalking");
 
-	showMindBoard();
+		displayMindBoardInput();
 
-	cleanFocus();
+		startTalkingTurn();
 
-	interpretScheme();
+		// digestDialogueInput();
+		
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'processTalking';
 
-	analyzeScript();
-
-	nextDialogueMove();
-
-	generateFocusDMoves();
-
-	closeCogitoTalkingTurn();
-
-        if ( $MINDBOARD@DMSetup.DMPhase == 'dmClosing' )  {
-		CloseDialogue();
-	}
-
-	showMindBoard();
-	*/
+		SpyMessage("$$>> CogitoScheme (End): StartTalking");
 	}
 )
 
-(CogitoScheme CogitoScheme_Closing :
-    	CogitoCapture 
+(CogitoScheme ProcessTalkingTell :
+	CogitoCapture 
 	{
-	        ( $MINDBOARD@DialogueState.DialoguePhase == 'closing' )
-    	}
-    	CogitoAction 
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'processTalking' ) &&
+		( $MINDBOARD@CurrentNode.ScriptNodeType == 'tell' )
+	}
+	CogitoAction 
 	{
-    		CloseDialogue();
-    	}
+		SpyMessage("$$>> CogitoScheme (Start): ProcessTalking / Tell");
+
+		displayMindBoard();
+
+//		assignCurrentNodeToDialogueOutput();
+
+//		advanceNodeInScript();
+		$MINDBOARD@CurrentNode.ScriptNodeType <- 'wait' ;
+
+		CogitoRetry();
+
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, $MINDBOARD@CurrentNode.ScriptNodeContent.DialogueAct );
+
+	        // $MINDBOARD@DialogueState.DialoguePhase <- 'closeTalking';
+
+		SpyMessage("$$>> CogitoScheme (End): ProcessTalking / Tell");
+	}
+)
+
+(CogitoScheme ProcessTalkingSafety :
+	CogitoCapture 
+	{
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'processTalking' )
+	}
+	CogitoAction 
+	{
+		SpyMessage("$$>> CogitoScheme (Start): ProcessTalking / Safety");
+
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'closeTalking';
+
+		SpyMessage("$$>> CogitoScheme (End): ProcessTalking / Safety");
+	}
+)
+
+(CogitoScheme CloseTalking :
+	CogitoCapture 
+	{
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'closeTalking' )
+	}
+	CogitoAction 
+	{
+		SpyMessage("$$>> CogitoScheme (Start): CloseTalking");
+
+		displayMindBoardOutput();
+
+		closeTalkingTurn();
+
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'startTalking';
+
+		CogitoQuit();
+
+		SpyMessage("$$>> CogitoScheme (End): CloseTalking");
+	}
 )
 

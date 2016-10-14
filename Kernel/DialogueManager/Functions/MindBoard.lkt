@@ -1,0 +1,53 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       DManager/Library (Dialogue Scheme)
+//      FILE    :       MindBoard.lkt
+// ******************************************************
+
+procedure	initMindBoard()
+{
+	initMindBoardInput();
+	initMindBoardOutput();
+}
+
+procedure	initMindBoardInput()
+{
+	ProferenceChunks emptyProferenceChunks;
+
+	$MINDBOARD@DialogueInput.ProferenceChunks <- emptyProferenceChunks;
+}
+
+procedure	initMindBoardOutput()
+{
+	DialogueActs emptyDialogueActs;
+
+	$MINDBOARD@DialogueOutput.DialogueActs <- emptyDialogueActs;
+}
+
+procedure	displayMindBoard()
+{
+	SpyMessage("$$==================================================");
+	SpyMessage("$$  MindBoard ");
+	SpyMessage("$$      CurrentScript: ", $MINDBOARD@CurrentScript.ScriptDescriptor);
+	SpyMessage("$$      CurrentNode  : ", $MINDBOARD@CurrentNode.ScriptNodeDescriptor);
+	SpyMessage($MINDBOARD@CurrentNode);
+	SpyMessage("$$==================================================");
+}
+
+procedure	displayMindBoardInput()
+{
+	SpyMessage("$$==================================================");
+	SpyMessage("$$  MindBoardInput ");
+	SpyMessage($MINDBOARD@DialogueInput);
+	SpyMessage("$$==================================================");
+}
+
+procedure	displayMindBoardOutput()
+{
+	SpyMessage("$$==================================================");
+	SpyMessage("$$  MindBoardOutput ");
+	SpyMessage($MINDBOARD@DialogueOutput);
+	SpyMessage("$$==================================================");
+}

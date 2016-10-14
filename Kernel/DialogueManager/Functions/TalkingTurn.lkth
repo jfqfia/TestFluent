@@ -3,13 +3,9 @@
 // ***************************
 //      PROJECT :       Alter
 //      MODULE  :       DManager/Library (Dialogue Scheme)
-//      FILE    :       DialogueScheme.lkth
+//      FILE    :       TalkingTurn.lkth
 // ******************************************************
 
-procedure	createDialogueScheme();
+procedure	startTalkingTurn();
 
-procedure	initDialogueScheme();
-
-DialogueScript selectDialogueScript(string scriptDescriptor);
-
-ScriptNode selectInitialScriptNode(DialogueScript dialogueScript);
+procedure	closeTalkingTurn();

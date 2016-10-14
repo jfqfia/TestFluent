@@ -3,10 +3,10 @@
 // ***************************
 //      PROJECT :       Alter
 //      MODULE  :       DManager/Library (Dialogue Scheme)
-//      FILE    :       DialogueScheme.lkth
+//      FILE    :       DialogueScheme.lkt
 // ******************************************************
 
-DialogueScheme	createDialogueScheme()
+procedure	createDialogueScheme()
 {
 	DialogueScheme dialogueScheme;
 	DialogueScript dialogueScript;
@@ -40,7 +40,13 @@ DialogueScheme	createDialogueScheme()
 			dialogueScript );
 	*/
 
-	return dialogueScheme;
+	$MINDBOARD@DialogueScheme <- dialogueScheme;
+}
+
+procedure	initDialogueScheme()
+{
+	$MINDBOARD@CurrentScript <- selectDialogueScript( 'Manager' );
+	$MINDBOARD@CurrentNode <- selectInitialScriptNode( $MINDBOARD@CurrentScript );
 }
 
 DialogueScript selectDialogueScript(string scriptDescriptor)

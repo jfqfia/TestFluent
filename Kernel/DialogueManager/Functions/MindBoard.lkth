@@ -3,13 +3,14 @@
 // ***************************
 //      PROJECT :       Alter
 //      MODULE  :       DManager/Library (Dialogue Scheme)
-//      FILE    :       DialogueScheme.lkth
+//      FILE    :       MindBoard.lkth
 // ******************************************************
 
-procedure	createDialogueScheme();
+procedure	initMindBoard();
+procedure	initMindBoardInput();
+procedure	initMindBoardOutput();
 
-procedure	initDialogueScheme();
+procedure	displayMindBoard();
+procedure	displayMindBoardInput();
+procedure	displayMindBoardOutput();
 
-DialogueScript selectDialogueScript(string scriptDescriptor);
-
-ScriptNode selectInitialScriptNode(DialogueScript dialogueScript);

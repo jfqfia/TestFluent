@@ -13,6 +13,8 @@
 
 #Include "DialogueScheme.lkt"
 #Include "DialogueScript.lkt"
+#Include "MindBoard.lkt"
+#Include "TalkingTurn.lkt"
 
 
 

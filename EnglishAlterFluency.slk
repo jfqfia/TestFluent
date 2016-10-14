@@ -12,8 +12,8 @@ UseProject
 // MainAnswer:On
 setupRuntimeSpyMessageOn
 //DisplayProcessUnderstandingOn
-DisplayProcessLocutioOn
-DisplayProcessRespondoOn
+//DisplayProcessLocutioOn
+//DisplayProcessRespondoOn
 // DisplayProcessCogitoOn
 // DisplayProcessColligoOn
 

@@ -21,5 +21,5 @@ classDef:StructureComplex
 
 classDef:ElementRange 
 (
-	DialoguePhase : { 'booting', 'talking', 'closing' }
+	DialoguePhase : { 'bootingDialogue', 'startTalking', 'processTalking', 'closeTalking'  }
 )
