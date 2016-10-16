@@ -44,7 +44,7 @@ lektaProject
 
 	LaunchConversation: 
 	{
-		LaunchSendToMindBoard: (DialogueState = (DialoguePhase: 'bootingDialogue') )
+		LaunchSendToMindBoard: (DialogueState = (DialoguePhase: 'booting_dialogue') )
 	}
 
 	ColligoSchemata

@@ -14,7 +14,7 @@
 (CogitoScheme BootingDialogue :
 	CogitoCapture 
 	{
-        	( $MINDBOARD@DialogueState.DialoguePhase == 'bootingDialogue' )
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'booting_dialogue' )
 	}
 	CogitoAction 
 	{
@@ -49,7 +49,7 @@
 
 		initDialogueScheme();
 
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'startTalking';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'start_talking';
 
 		displayMindBoard();
 
@@ -60,7 +60,7 @@
 (CogitoScheme StartTalking :
 	CogitoCapture 
 	{
-        	( $MINDBOARD@DialogueState.DialoguePhase == 'startTalking' )
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'start_talking' )
 	}
 	CogitoAction 
 	{
@@ -72,7 +72,7 @@
 
 		// digestDialogueInput();
 		
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'processTalking';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'process_talking';
 
 		SpyMessage("$$>> CogitoScheme (End): StartTalking");
 	}
@@ -81,7 +81,7 @@
 (CogitoScheme ProcessTalkingTell :
 	CogitoCapture 
 	{
-		$MINDBOARD@DialogueState.DialoguePhase == 'processTalking' &&
+		$MINDBOARD@DialogueState.DialoguePhase == 'process_talking' &&
 		$MINDBOARD@CurrentNode.ScriptNodeType == 'tell'
 	}
 	CogitoAction 
@@ -104,7 +104,6 @@
 		else
 		{
 			// advanceNodeInScript();
-			$MINDBOARD@CurrentNode <- selectScriptNode( $MINDBOARD@CurrentScript , $MINDBOARD@CurrentNode.NextScriptNodeDescriptor ); 
 		}
 	        // $MINDBOARD@DialogueState.DialoguePhase <- 'closeTalking';
 
@@ -117,13 +116,13 @@
 (CogitoScheme ProcessTalkingSafety :
 	CogitoCapture 
 	{
-        	$MINDBOARD@DialogueState.DialoguePhase == 'processTalking'
+        	$MINDBOARD@DialogueState.DialoguePhase == 'process_talking'
 	}
 	CogitoAction 
 	{
 		// SpyMessage("$$>> CogitoScheme (Start): ProcessTalking / Safety");
 
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'closeTalking';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
 
 		// SpyMessage("$$>> CogitoScheme (End): ProcessTalking / Safety");
 	}
@@ -132,7 +131,7 @@
 (CogitoScheme CloseTalking :
 	CogitoCapture 
 	{
-        	$MINDBOARD@DialogueState.DialoguePhase == 'closeTalking'
+        	$MINDBOARD@DialogueState.DialoguePhase == 'close_talking'
 	}
 	CogitoAction 
 	{
@@ -142,7 +141,7 @@
 
 		closeTalkingTurn();
 
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'startTalking';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'start_talking';
 
 		CogitoQuit();
 

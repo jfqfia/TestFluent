@@ -11,21 +11,18 @@
 //
 // **************************************************
 
-///////////////////////////////////////
-// Dialogue Scheme
-///////////////////////////////////////
 classDef:StructureComplex 
 (
 	DialogueScheme : 
 	(
-		SchemeDescriptor,
+		DialogueSchemeDescriptor,
 		DialogueScripts
 	)
 )
 
 classDef:ElementLiteral 
 (
-	SchemeDescriptor
+	DialogueSchemeDescriptor
 )
 
 classDef:StructureBatch 
@@ -36,21 +33,16 @@ classDef:StructureBatch
 	)
 )
 
-///////////////////////////////////////
-// Dialogue Script
-///////////////////////////////////////
 classDef:StructureComplex 
 (
 	DialogueScript : 
 	(
 		ScriptDescriptor,
-		ScriptNodes
+		ScriptNodes,
+		CallingDialogueScriptDescriptor,
+		ReturnParameter,
+		DialogueTrigger
 	)
-)
-
-classDef:ElementLiteral 
-(
-        ScriptDescriptor
 )
 
 classDef:StructureBatch 
@@ -61,28 +53,134 @@ classDef:StructureBatch
 	)
 )
 
-///////////////////////////////////////
-// Dialogue Node
-///////////////////////////////////////
+classDef:ElementLiteral 
+(
+        ScriptDescriptor, CallingDialogueScriptDescriptor, ReturnParameter
+)
+
+classDef:Synonym
+(
+	DialogueTrigger = DialogueAct
+)
+
 classDef:StructureComplex 
 (
 	ScriptNode : 
 	(
 		ScriptNodeDescriptor,
+		ScriptNodePreconditions,
 		ScriptNodeType,
 		ScriptNodeContent,
-		NextScriptNodeDescriptor
+		ScriptNodeState,
+		ScriptNodePostconditions
 	)
 )
 
-classDef:ElementLiteral 
+classDef:ElementLiteral
 (
-        ScriptNodeDescriptor, NextScriptNodeDescriptor
+	ScriptNodeDescriptor
+)
+
+classDef:StructureBatch
+(
+	ScriptNodePreconditions :
+	(
+		DialogueActionPrecondition
+	)
+)
+
+classDef:StructureBatch
+(
+	ScriptNodePostconditions :
+	(
+		DialogueAction
+	)
+)
+
+classDef:StructureComplex
+(
+	DialogueActionPrecondition :
+	(
+		NegatedPrecondition,
+		DialogueAction
+	)
+)
+
+classDef:ElementBool
+(
+	NegatedPrecondition
+)
+
+classDef:StructureComplex
+(
+	DialogueAction :
+	(
+		DialogueActionName,
+		DialogueActionArguments
+	)
 )
 
 classDef:ElementRange 
 (
-        ScriptNodeType : { 'tell', 'wait' }
+        DialogueActionName : 
+	{ 
+		'empty_script_parameter', 
+		'activate_script', 
+		'set_node_state', 
+		'is_node_state',
+		'set_script_parameter', 
+		'cancel_script_parameter',
+		'check_script_parameter' 
+	}
+)
+
+classDef:StructureBatch
+(
+	DialogueActionArguments :
+	(
+		DialogueActionArgument	
+	)
+)
+
+classDef:ElementLiteral
+(
+	DialogueActionArgument
+)
+
+classDef:StructureComplex
+(
+	ScriptNodeState :
+	(
+		ScriptNodeCounter,
+		ScriptNodeStateName
+	)
+)
+
+classDef:ElementRange
+(
+	ScriptNodeStateName : 
+	{
+		'finalized', 
+		'correct', 
+		'incorrect' 
+	}
+)
+
+// TODO: ScriptNodeCounter not yet used.
+// TODO: Where should I put grounding features?
+classDef:ElementInt
+(
+	ScriptNodeCounter
+)
+
+classDef:ElementRange 
+(
+        ScriptNodeType : 
+	{ 
+		'tell', 
+		'wait', 
+		'execute'
+	}
 )
 
 classDef:StructureComplex 
@@ -92,4 +190,5 @@ classDef:StructureComplex
 		DialogueAct
 	)
 )
+
 

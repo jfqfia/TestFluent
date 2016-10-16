@@ -20,21 +20,21 @@ DialogueScript	createDialogueScriptManager()
 	dialogueScript.ScriptDescriptor <- 'Manager';
 
 	// Node - Welcome
-	nodeWelcome.ScriptNodeDescriptor <- 'welcome';
-	nodeWelcome.ScriptNodeType <- 'tell';
-	nodeWelcome.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
-	nodeWelcome.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
-	nodeWelcome.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'welcome';
-	nodeWelcome.NextScriptNodeDescriptor <- 'hmihy';
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
+	//nodeWelcome.ScriptNodeDescriptor <- 'welcome';
+	//nodeWelcome.ScriptNodeType <- 'tell';
+	//nodeWelcome.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
+	//nodeWelcome.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
+	//nodeWelcome.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'welcome';
+	//nodeWelcome.NextScriptNodeDescriptor <- 'hmihy';
+	//BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
 
 	// Node - HMIHY
-	nodeHMIHY.ScriptNodeDescriptor <- 'hmihy';
-	nodeHMIHY.ScriptNodeType <- 'tell';
-	nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
-	nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
-	nodeHMIHY.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'hmihy';
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeHMIHY );
+	//nodeHMIHY.ScriptNodeDescriptor <- 'hmihy';
+	//nodeHMIHY.ScriptNodeType <- 'tell';
+	//nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
+	//nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
+	//nodeHMIHY.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'hmihy';
+	//BatchInsertEnd( dialogueScript.ScriptNodes, nodeHMIHY );
 					
 	return dialogueScript;
 }

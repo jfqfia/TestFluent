@@ -11,7 +11,7 @@ procedure	createDialogueScheme()
 	DialogueScheme dialogueScheme;
 	DialogueScript dialogueScript;
 
-	dialogueScheme.SchemeDescriptor <- 'Fluency';
+	dialogueScheme.DialogueSchemeDescriptor <- 'Fluency';
 
 	// Script - ScriptManager
 	dialogueScript <- createDialogueScriptManager( );

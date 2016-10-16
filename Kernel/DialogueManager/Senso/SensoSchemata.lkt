@@ -8,7 +8,7 @@
 
 (SensoScheme Booting : [DialogueState]
     SensoCapture {
-        #OBJSENSO-1.DialoguePhase == 'bootingDialogue'
+        #OBJSENSO-1.DialoguePhase == 'booting_dialogue'
     }
     SensoAction {
         $MINDBOARD@DialogueState.DialoguePhase <- #OBJSENSO-1.DialoguePhase;

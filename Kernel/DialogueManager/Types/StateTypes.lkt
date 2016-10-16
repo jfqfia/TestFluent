@@ -15,11 +15,24 @@ classDef:StructureComplex
 (
 	DialogueState : 
 	(
-		DialoguePhase
+		DialoguePhase,
+		ActivatedScriptsStack,
+		ActivatedScriptNodes
 	)
+)
+
+classDef:Synonym
+(
+	ActivatedScriptsStack = DialogueScripts
+)
+
+classDef:Synonym
+(
+	ActivatedScriptNodes = ScriptNodes
 )
 
 classDef:ElementRange 
 (
-	DialoguePhase : { 'bootingDialogue', 'startTalking', 'processTalking', 'closeTalking'  }
+	DialoguePhase : { 'booting_dialogue', 'start_talking', 'process_talking', 'close_talking', 'close_dialogue' }
 )
+
