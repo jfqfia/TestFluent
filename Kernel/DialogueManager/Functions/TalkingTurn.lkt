@@ -32,12 +32,13 @@ procedure activateScripts()
 
 procedure selectCurrentNode()
 {
-	ScriptNode node;
+	ScriptNode node, emptyNode;
 	int size;
 	int position;
 	ActivatedScriptNodes emptyActivatedScriptNodes;
 
 	$MINDBOARD@DialogueState.ActivatedScriptNodes <- emptyActivatedScriptNodes;
+	$MINDBOARD@CurrentNode <- emptyNode;
 	size <- BatchSize( $MINDBOARD@CurrentScript.ScriptNodes );
 	for(position <- 1; position <= size; position++) 
 	{

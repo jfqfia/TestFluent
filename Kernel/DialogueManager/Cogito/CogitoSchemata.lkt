@@ -82,7 +82,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme: select_current_node");
+		SpyMessage("$$>> CogitoScheme: select_process_talking_tell");
 		processTellNode();
 	        $MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 		CogitoRetry();
