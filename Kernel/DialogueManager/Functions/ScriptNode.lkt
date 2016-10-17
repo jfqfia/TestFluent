@@ -1,0 +1,58 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+ScriptNode createScriptNode( string nodeDescriptor, string nodeType )
+{
+	ScriptNode ret;
+
+	ret.ScriptNodeDescriptor <- nodeDescriptor;
+	ret.ScriptNodeType <- stringToScriptNodeType( nodeType );
+
+	return ret;
+}
+
+ScriptNodeContent setNodeContent( string dimension, string function, string action, string scope )
+{
+	ScriptNodeContent ret;
+	ret.DialogueAct.CoreDialogueAct.Dimension <- stringToDimension( dimension );
+	ret.DialogueAct.CoreDialogueAct.Function <- stringToFunction( function );
+	ret.DialogueAct.TaskDialogueAct.Scope <- scope;
+	BatchInsertEnd( ret.DialogueAct.TaskDialogueAct.Action, action );
+
+	return ret;
+}
+
+DialogueActionPrecondition createNegatedPrecondition2Arguments( string name, string arg1, string arg2 )
+{
+	DialogueActionPrecondition precondition;
+
+	precondition.NegatedPrecondition <- True;
+	precondition.DialogueAction <- createDialogueAction2Arguments( name, arg1, arg2 );
+
+	return precondition;
+}
+
+DialogueAction createDialogueAction2Arguments( string name, string arg1, string arg2 )
+{
+	DialogueAction dialogueAction;
+
+	dialogueAction.DialogueActionName <- stringToDialogActionName( name );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
+	
+	return dialogueAction;
+}
+
+
+
+

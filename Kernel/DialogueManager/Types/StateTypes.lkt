@@ -33,6 +33,16 @@ classDef:Synonym
 
 classDef:ElementRange 
 (
-	DialoguePhase : { 'booting_dialogue', 'start_talking', 'process_talking', 'close_talking', 'close_dialogue' }
+	DialoguePhase : 
+	{ 
+		'booting_dialogue', 
+		'start_talking', 
+		'digest_dialogue_input',
+		'activate_scripts',
+		'select_current_node',
+		'process_talking',
+		'close_talking', 
+		'close_dialogue' 
+	}
 )
 

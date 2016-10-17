@@ -1,0 +1,106 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+DialogueScript selectDialogueScript(string scriptDescriptor)
+{
+	DialogueScript dialogueScript;
+
+	int schemeSize <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts);
+	for ( int position <- 1; position <= schemeSize; position ++) 
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
+
+		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
+		{
+			return dialogueScript;
+		}
+	}
+
+	DialogueScript nullDialogueScript;
+	return nullDialogueScript;
+}
+
+ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor)
+{
+	ScriptNode node;
+
+	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
+	for(int position <- 1; position <= scriptSize; position++) 
+	{
+		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
+
+		if ( node.ScriptNodeDescriptor == nodeDescriptor )
+		{
+			return node;
+		}
+	}
+
+	ScriptNode nullScriptNode;
+	return nullScriptNode;
+}
+
+procedure setScriptNode( string dialogScriptDescriptor, string nodeDescriptor, ScriptNode newNode )
+{
+	// Introducir en el actual si coinciden los descriptores
+	if( $MINDBOARD@CurrentScript.ScriptDescriptor == dialogScriptDescriptor )
+	{
+		int position <- indexOfDialogueScript( $MINDBOARD@CurrentScript, nodeDescriptor );
+		BatchAssignPosition( $MINDBOARD@CurrentScript.ScriptNodes, position, newNode );
+	}
+	
+	// TODO Y en los scripts activos
+}
+
+int indexOfDialogueScript( DialogueScript dialogueScript, string nodeDescriptor)
+{
+	ScriptNode node;
+
+	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
+	for(int position <- 1; position <= scriptSize; position++) 
+	{
+		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
+
+		if ( node.ScriptNodeDescriptor == nodeDescriptor )
+		{
+			return position;
+		}
+	}	
+}
+
+DialogueActionName stringToDialogActionName( string name )
+{
+	if( name == 'is_node_state' )	return 'is_node_state';
+	if( name == 'set_node_state' )	return 'set_node_state';
+}
+
+ScriptNodeStateName stringToScriptNodeState( string name )
+{
+	if( name == 'finalized' ) 	return 'finalized';
+}
+
+ScriptNodeType stringToScriptNodeType( string name )
+{
+	if( name == 'tell' ) 		return 'tell';
+}
+
+Dimension stringToDimension( string name )
+{
+	if( name == 'social' ) 		return 'social';
+}
+
+Function stringToFunction( string name )
+{
+	if( name == 'greeting' ) 		return 'greeting';
+}
+
+

@@ -16,7 +16,61 @@ procedure startTalkingTurn()
 	initMindBoardOutput();
 }
 
+procedure activateScripts()
+{
+	DialogueScript current; 
+	int size;
+
+	// TODO
+	// Define activated scripts policy
+	// Here we select last script as current
+
+	size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
+	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, size, current );
+	$MINDBOARD@CurrentScript <- current;
+}
+
+procedure selectCurrentNode()
+{
+	ScriptNode node;
+	int size;
+	int position;
+	ActivatedScriptNodes emptyActivatedScriptNodes;
+
+	$MINDBOARD@DialogueState.ActivatedScriptNodes <- emptyActivatedScriptNodes;
+	size <- BatchSize( $MINDBOARD@CurrentScript.ScriptNodes );
+	for(position <- 1; position <= size; position++) 
+	{
+		BatchRecoverPosition( $MINDBOARD@CurrentScript.ScriptNodes, position, node );
+		if( preconditionsValidated(node) )
+		{ 
+			BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptNodes, node );
+		}
+	}
+
+	// TODO
+	// Define activated nodes policy
+	// Here we select last node as current
+
+	size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptNodes );
+	if( size > 0 )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptNodes, size, node );
+		$MINDBOARD@CurrentNode <- node;
+	}
+}
+
+procedure processTellNode()
+{
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, $MINDBOARD@CurrentNode.ScriptNodeContent.DialogueAct );
+	executePostconditions( $MINDBOARD@CurrentNode );
+}
+
 procedure closeTalkingTurn()
 {
 	initMindBoardInput();
 }
+
+
+
+

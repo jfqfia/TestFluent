@@ -6,6 +6,12 @@
 //      FILE    :       TalkingTurn.lkth
 // ******************************************************
 
-procedure	startTalkingTurn();
+procedure startTalkingTurn();
 
-procedure	closeTalkingTurn();
+procedure activateScripts();
+
+procedure selectCurrentNode();	
+
+procedure processTellNode();	
+
+procedure closeTalkingTurn();

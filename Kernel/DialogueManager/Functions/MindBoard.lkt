@@ -6,37 +6,36 @@
 //      FILE    :       MindBoard.lkt
 // ******************************************************
 
-procedure	initMindBoard()
+procedure initMindBoard()
 {
 	initMindBoardInput();
 	initMindBoardOutput();
 }
 
-procedure	initMindBoardInput()
+procedure initMindBoardInput()
 {
 	ProferenceChunks emptyProferenceChunks;
 
 	$MINDBOARD@DialogueInput.ProferenceChunks <- emptyProferenceChunks;
 }
 
-procedure	initMindBoardOutput()
+procedure initMindBoardOutput()
 {
 	DialogueActs emptyDialogueActs;
 
 	$MINDBOARD@DialogueOutput.DialogueActs <- emptyDialogueActs;
 }
 
-procedure	displayMindBoard()
+procedure displayMindBoard()
 {
 	SpyMessage("$$==================================================");
 	SpyMessage("$$  MindBoard ");
 	SpyMessage("$$      CurrentScript: ", $MINDBOARD@CurrentScript.ScriptDescriptor);
-	SpyMessage("$$      CurrentNode  : ", $MINDBOARD@CurrentNode.ScriptNodeDescriptor);
-	SpyMessage($MINDBOARD@CurrentNode);
+	SpyMessage("$$      CurrentNode  : ", $MINDBOARD@CurrentNode);
 	SpyMessage("$$==================================================");
 }
 
-procedure	displayMindBoardInput()
+procedure displayMindBoardInput()
 {
 	SpyMessage("$$==================================================");
 	SpyMessage("$$  MindBoardInput ");
@@ -44,7 +43,7 @@ procedure	displayMindBoardInput()
 	SpyMessage("$$==================================================");
 }
 
-procedure	displayMindBoardOutput()
+procedure displayMindBoardOutput()
 {
 	SpyMessage("$$==================================================");
 	SpyMessage("$$  MindBoardOutput ");

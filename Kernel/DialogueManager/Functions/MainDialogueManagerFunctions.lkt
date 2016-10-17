@@ -15,6 +15,11 @@
 #Include "DialogueScript.lkt"
 #Include "MindBoard.lkt"
 #Include "TalkingTurn.lkt"
+#Include "ScriptNode.lkt"
+#Include "Utils.lkt"
+#Include "DialogueAction.lkt"
+#Include "PrePostConditions.lkt"
+
 
 
 

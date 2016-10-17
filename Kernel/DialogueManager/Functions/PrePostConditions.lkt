@@ -1,0 +1,60 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+bool preconditionsValidated( ScriptNode node )
+{
+	int size;
+	int position;	
+	DialogueActionPrecondition precondition;
+
+	size <- BatchSize( node.ScriptNodePreconditions );
+	for(position <- 1; position <= size; position++) 
+	{
+		BatchRecoverPosition( node.ScriptNodePreconditions, position, precondition );
+		if( !! preconditionValidated( precondition ) )
+		{ 
+			return False;
+		}
+	}
+
+	return True;
+}
+
+bool preconditionValidated( DialogueActionPrecondition precondition )
+{
+	bool ret;
+
+	ret <- executeBooleanDialogueAction( precondition.DialogueAction );
+
+	if(precondition.NegatedPrecondition)
+	{
+		ret = !! ret;
+	}
+
+	return ret;
+}
+
+procedure executePostconditions( ScriptNode node )
+{
+	int size;
+	int position;	
+	DialogueAction dialogueAction;
+
+	size <- BatchSize( node.ScriptNodePostconditions );
+	for(position <- 1; position <= size; position++) 
+	{
+		BatchRecoverPosition( node.ScriptNodePostconditions, position, dialogueAction );
+		executeProcedureDialogueAction( dialogueAction );
+	}
+}
+

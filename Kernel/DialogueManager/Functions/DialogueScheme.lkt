@@ -6,7 +6,7 @@
 //      FILE    :       DialogueScheme.lkt
 // ******************************************************
 
-procedure	createDialogueScheme()
+procedure createDialogueScheme()
 {
 	DialogueScheme dialogueScheme;
 	DialogueScript dialogueScript;
@@ -14,7 +14,7 @@ procedure	createDialogueScheme()
 	dialogueScheme.DialogueSchemeDescriptor <- 'Fluency';
 
 	// Script - ScriptManager
-	dialogueScript <- createDialogueScriptManager( );
+	dialogueScript <- createDialogueScriptManager();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
 	/*
@@ -44,44 +44,10 @@ procedure	createDialogueScheme()
 
 procedure initDialogueScheme()
 {
-	$MINDBOARD@CurrentScript <- selectDialogueScript( 'Manager' );
-	$MINDBOARD@CurrentNode <- selectScriptNode( $MINDBOARD@CurrentScript, 'welcome' );
+	DialogueScript current;
+
+	current <- selectDialogueScript('Manager');
+	BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, current);
 }
 
-DialogueScript selectDialogueScript(string scriptDescriptor)
-{
-	DialogueScript dialogueScript;
 
-	int schemeSize <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts);
-	for ( int position <- 1; position <= schemeSize; position ++) 
-	{
-		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
-
-		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
-		{
-			return dialogueScript;
-		}
-	}
-
-	DialogueScript nullDialogueScript;
-	return nullDialogueScript;
-}
-
-ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor)
-{
-	ScriptNode node;
-
-	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
-	for(int position <- 1; position <= scriptSize; position++) 
-	{
-		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
-
-		if ( node.ScriptNodeDescriptor == nodeDescriptor )
-		{
-			return node;
-		}
-	}
-
-	ScriptNode nullScriptNode;
-	return nullScriptNode;
-}

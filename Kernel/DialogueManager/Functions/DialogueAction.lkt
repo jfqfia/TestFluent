@@ -1,0 +1,66 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+bool executeBooleanDialogueAction( DialogueAction dialogueAction )
+{
+	bool ret;
+
+	if(dialogueAction.DialogueActionName == 'is_node_state')
+	{
+		string node, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
+		ret = isNodeState(node, state);
+	}
+
+	return ret;	
+}
+
+bool isNodeState(string nodeDescriptor, string state)
+{
+	bool ret;
+	ScriptNode node;
+
+	ret <- False;
+	node <- selectScriptNode( $MINDBOARD@CurrentScript, nodeDescriptor );
+
+	if(node.ScriptNodeState.ScriptNodeStateName == stringToScriptNodeState(state) )
+	{
+		ret <- True;
+	}
+
+	return ret;
+}
+
+procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
+{
+	if(dialogueAction.DialogueActionName == 'set_node_state')
+	{
+		string node, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
+		setNodeState(node, state);
+	}
+}
+
+procedure setNodeState(string nodeDescriptor, string state)
+{
+	ScriptNode node;
+
+	node <- selectScriptNode( $MINDBOARD@CurrentScript, nodeDescriptor );	
+	node.ScriptNodeState.ScriptNodeStateName <- stringToScriptNodeState(state);
+	setScriptNode( $MINDBOARD@CurrentScript.ScriptDescriptor, nodeDescriptor, node );	
+
+	node <- selectScriptNode( $MINDBOARD@CurrentScript, nodeDescriptor );
+}
+
