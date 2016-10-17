@@ -11,7 +11,7 @@
 //
 // **************************************************
 
-DialogueScript selectDialogueScript(string scriptDescriptor)
+int indexOfDialogueScript(string scriptDescriptor)
 {
 	DialogueScript dialogueScript;
 
@@ -19,6 +19,29 @@ DialogueScript selectDialogueScript(string scriptDescriptor)
 	for ( int position <- 1; position <= schemeSize; position ++) 
 	{
 		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
+
+		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
+		{
+			return position;
+		}
+	}
+
+	return 0;
+}
+
+DialogueScript getCurrentDialogueScript()
+{
+	return getDialogueScript( $MINDBOARD@DialogueState.CurrentScriptDescriptor );
+}
+
+DialogueScript getDialogueScript(string scriptDescriptor)
+{
+	DialogueScript dialogueScript;
+
+	int schemeSize <- BatchSize( $MINDBOARD@WorkingDialogueScheme.DialogueScripts);
+	for ( int position <- 1; position <= schemeSize; position ++) 
+	{
+		BatchRecoverPosition( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, position, dialogueScript );
 
 		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
 		{
@@ -30,6 +53,78 @@ DialogueScript selectDialogueScript(string scriptDescriptor)
 	return nullDialogueScript;
 }
 
+ScriptNode getCurrentNodeFromCurrentDialogueScript( )
+{
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getCurrentDialogueScript();
+
+	return getNodeFromCurrentDialogueScript( dialogueScript.CurrentNodeDescriptor );
+}
+
+ScriptNodeType getTypeFromCurrentNodeFromCurrentDialogueScript( )
+{
+	DialogueScript dialogueScript;
+	ScriptNode scriptNode;
+
+	dialogueScript <- getCurrentDialogueScript();
+
+	scriptNode <- getNodeFromCurrentDialogueScript( dialogueScript.CurrentNodeDescriptor );
+
+	return scriptNode.ScriptNodeType;
+}
+
+ScriptNode getNodeFromCurrentDialogueScript( ScriptNodeDescriptor nodeDescriptor )
+{
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getCurrentDialogueScript();
+
+	return getNodeFromDialogueScript( dialogueScript, nodeDescriptor ); 
+}
+
+ScriptNode getNodeFromDialogueScript(DialogueScript dialogueScript, string nodeDescriptor)
+{
+	ScriptNode scriptNode;
+
+	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
+	for ( int position <- 1; position <= scriptSize; position ++) 
+	{
+		BatchRecoverPosition( dialogueScript.ScriptNodes, position, scriptNode );
+
+		if (nodeDescriptor == scriptNode.ScriptNodeDescriptor)
+		{
+			return scriptNode;
+		}
+	}
+
+	ScriptNode nullScriptNode;
+	return nullScriptNode;
+}
+
+
+procedure setCurrentDialogueScript( DialogueScript dialogueScript )
+{
+	setDialogueScript( $MINDBOARD@DialogueState.CurrentScriptDescriptor, dialogueScript );
+}
+
+procedure setDialogueScript(string scriptDescriptor, DialogueScript dialogueScript)
+{
+	DialogueScript recDialogueScript;
+
+	int schemeSize <- BatchSize( $MINDBOARD@WorkingDialogueScheme.DialogueScripts);
+	for ( int position <- 1; position <= schemeSize; position ++) 
+	{
+		BatchRecoverPosition( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, position, recDialogueScript );
+
+		if (scriptDescriptor == recDialogueScript.ScriptDescriptor)
+		{
+			BatchAssignPosition( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, position, dialogueScript);
+		}
+	}
+}
+
+/*
 ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor)
 {
 	ScriptNode node;
@@ -76,6 +171,7 @@ int indexOfDialogueScript( DialogueScript dialogueScript, string nodeDescriptor)
 		}
 	}	
 }
+*/
 
 DialogueActionName stringToDialogActionName( string name )
 {

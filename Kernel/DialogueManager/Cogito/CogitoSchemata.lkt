@@ -61,7 +61,7 @@
 	}
 )
 
-(CogitoScheme ActivateScripts :
+(CogitoScheme SelectCurrentNode :
 	CogitoCapture 
 	{
         	( $MINDBOARD@DialogueState.DialoguePhase == 'select_current_node' )
@@ -78,13 +78,15 @@
 	CogitoCapture 
 	{
 		$MINDBOARD@DialogueState.DialoguePhase == 'process_talking' &&
-		$MINDBOARD@CurrentNode.ScriptNodeType == 'tell'
+		getTypeFromCurrentNodeFromCurrentDialogueScript() == 'tell'
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme: select_process_talking_tell");
+		SpyMessage("$$>> CogitoScheme: process_talking_tell");
+
 		processTellNode();
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
+	        //$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 		CogitoRetry();
 	}
 )
@@ -97,6 +99,7 @@
 	CogitoAction 
 	{
 		SpyMessage("$$>> CogitoScheme Safety");
+		displayMindBoard();
 
 	        $MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
 	}

@@ -15,14 +15,12 @@ MindBoardStructure:
 {
 	( DialogueScheme / DialogueScheme )
 
+	( WorkingDialogueScheme / DialogueScheme )
+
 	( DialogueState / DialogueState )
 
 	( DialogueInput / DialogueInput )
 
 	( DialogueOutput / DialogueOutput )
-
-	(CurrentScript / DialogueScript)
-
-	(CurrentNode / ScriptNode)
 }
 
