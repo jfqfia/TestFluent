@@ -44,10 +44,18 @@ procedure createDialogueScheme()
 
 procedure initDialogueScheme()
 {
-	DialogueScript current;
+	int size;
+	DialogueScript dialogueScript;
 
-	current <- selectDialogueScript('Manager');
-	BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, current);
+	size <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts );
+
+	for ( int position <- 1; position <= size; position++ ) 
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
+		BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, dialogueScript );
+	}
+
+	BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, 'Manager');
 }
 
 

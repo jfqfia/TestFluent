@@ -28,10 +28,14 @@ procedure initMindBoardOutput()
 
 procedure displayMindBoard()
 {
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getCurrentDialogueScript();
+
 	SpyMessage("$$==================================================");
 	SpyMessage("$$  MindBoard ");
-	SpyMessage("$$      CurrentScript: ", $MINDBOARD@CurrentScript.ScriptDescriptor);
-	SpyMessage("$$      CurrentNode  : ", $MINDBOARD@CurrentNode);
+	SpyMessage("$$      CurrentScript: ", $MINDBOARD@DialogueState.CurrentScriptDescriptor );
+	SpyMessage("$$      CurrentNode  : ", dialogueScript.CurrentNodeDescriptor );
 	SpyMessage("$$==================================================");
 }
 

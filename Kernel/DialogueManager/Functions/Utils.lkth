@@ -1,0 +1,40 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+int indexOfDialogueScript(string scriptDescriptor);
+
+DialogueScript getCurrentDialogueScript();
+
+DialogueScript getDialogueScript(string scriptDescriptor);
+
+ScriptNode getCurrentNodeFromCurrentDialogueScript( );
+
+ScriptNodeType getTypeFromCurrentNodeFromCurrentDialogueScript( );
+
+ScriptNode getNodeFromCurrentDialogueScript( ScriptNodeDescriptor nodeDescriptor );
+
+ScriptNode getNodeFromDialogueScript(DialogueScript dialogueScript, string nodeDescriptor);
+
+procedure setCurrentDialogueScript( DialogueScript dialogueScript );
+
+procedure setDialogueScript(string scriptDescriptor, DialogueScript dialogueScript);
+
+DialogueActionName stringToDialogActionName( string name );
+
+ScriptNodeStateName stringToScriptNodeState( string name );
+
+ScriptNodeType stringToScriptNodeType( string name );
+
+Dimension stringToDimension( string name );
+
+Function stringToFunction( string name );

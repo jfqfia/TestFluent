@@ -32,7 +32,8 @@ bool isNodeState(string nodeDescriptor, string state)
 	ScriptNode node;
 
 	ret <- False;
-	node <- selectScriptNode( $MINDBOARD@CurrentScript, nodeDescriptor );
+
+	node <- getNodeFromCurrentDialogueScript( nodeDescriptor );
 
 	if(node.ScriptNodeState.ScriptNodeStateName == stringToScriptNodeState(state) )
 	{
@@ -55,12 +56,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 
 procedure setNodeState(string nodeDescriptor, string state)
 {
+	/*
 	ScriptNode node;
 
-	node <- selectScriptNode( $MINDBOARD@CurrentScript, nodeDescriptor );	
+	node <- selectScriptNode( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor );	
 	node.ScriptNodeState.ScriptNodeStateName <- stringToScriptNodeState(state);
-	setScriptNode( $MINDBOARD@CurrentScript.ScriptDescriptor, nodeDescriptor, node );	
+	//setScriptNode( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor, node );	
 
-	node <- selectScriptNode( $MINDBOARD@CurrentScript, nodeDescriptor );
+	node <- selectScriptNode( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor );
+	*/
 }
 

@@ -26,9 +26,14 @@ DialogueScript	createDialogueScriptManager()
 
 	// Node - Welcome
 	nodeWelcome <- createScriptNode( 'welcome', 'tell' );
+
 	nodeWelcome.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'welcome' );
-	BatchInsertEnd( nodeWelcome.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
-	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
+
+	BatchInsertEnd( nodeWelcome.ScriptNodePreconditions, 
+			createNegatedPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
+
+	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, 
+			createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
 
 	SpyMessage(nodeWelcome);
 

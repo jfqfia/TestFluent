@@ -17,18 +17,16 @@ classDef:StructureComplex
 	(
 		DialoguePhase,
 		ActivatedScriptsStack,
-		ActivatedScriptNodes
+		CurrentScriptDescriptor
 	)
 )
 
-classDef:Synonym
+classDef:StructureBatch
 (
-	ActivatedScriptsStack = DialogueScripts
-)
-
-classDef:Synonym
-(
-	ActivatedScriptNodes = ScriptNodes
+	ActivatedScriptsStack :
+       	(
+ 		ScriptDescriptor
+	)
 )
 
 classDef:ElementRange 

@@ -39,9 +39,12 @@ classDef:StructureComplex
 	(
 		ScriptDescriptor,
 		ScriptNodes,
+
 		CallingDialogueScriptDescriptor,
 		ReturnParameter,
-		DialogueTrigger
+		DialogueTrigger,
+		ActivatedScriptNodes,
+		CurrentNodeDescriptor
 	)
 )
 
@@ -55,7 +58,7 @@ classDef:StructureBatch
 
 classDef:ElementLiteral 
 (
-        ScriptDescriptor, CallingDialogueScriptDescriptor, ReturnParameter
+        ScriptDescriptor, CurrentScriptDescriptor, CallingDialogueScriptDescriptor, ReturnParameter
 )
 
 classDef:Synonym
@@ -76,9 +79,17 @@ classDef:StructureComplex
 	)
 )
 
+classDef:StructureBatch
+(
+ 	ActivatedScriptNodes :
+	(
+	 	ScriptNodeDescriptor
+	)
+)
+
 classDef:ElementLiteral
 (
-	ScriptNodeDescriptor
+	ScriptNodeDescriptor, CurrentNodeDescriptor
 )
 
 classDef:StructureBatch
