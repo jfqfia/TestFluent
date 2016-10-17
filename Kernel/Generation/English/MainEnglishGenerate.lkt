@@ -7,4 +7,6 @@
 // ******************************************************
 
 #Include "GenerationSocialGreeting.lkt"
+#Include "GenerationSocialGoodbye.lkt"
+
 

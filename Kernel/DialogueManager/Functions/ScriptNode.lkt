@@ -16,7 +16,7 @@ ScriptNode createScriptNode( string nodeDescriptor, string nodeType )
 	ScriptNode ret;
 
 	ret.ScriptNodeDescriptor <- nodeDescriptor;
-	ret.ScriptNodeType <- stringToScriptNodeType( nodeType );
+	ret.ScriptNodeType <- ShapeToRange( nodeType );
 
 	return ret;
 }
@@ -24,8 +24,8 @@ ScriptNode createScriptNode( string nodeDescriptor, string nodeType )
 ScriptNodeContent setNodeContent( string dimension, string function, string action, string scope )
 {
 	ScriptNodeContent ret;
-	ret.DialogueAct.CoreDialogueAct.Dimension <- stringToDimension( dimension );
-	ret.DialogueAct.CoreDialogueAct.Function <- stringToFunction( function );
+	ret.DialogueAct.CoreDialogueAct.Dimension <- ShapeToRange( dimension );
+	ret.DialogueAct.CoreDialogueAct.Function <- ShapeToRange( function );
 	ret.DialogueAct.TaskDialogueAct.Scope <- scope;
 	BatchInsertEnd( ret.DialogueAct.TaskDialogueAct.Action, action );
 
@@ -42,17 +42,45 @@ DialogueActionPrecondition createNegatedPrecondition2Arguments( string name, str
 	return precondition;
 }
 
+DialogueActionPrecondition createPrecondition2Arguments( string name, string arg1, string arg2 )
+{
+	DialogueActionPrecondition precondition;
+
+	precondition.NegatedPrecondition <- False;
+	precondition.DialogueAction <- createDialogueAction2Arguments( name, arg1, arg2 );
+
+	return precondition;
+}
+
 DialogueAction createDialogueAction2Arguments( string name, string arg1, string arg2 )
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- stringToDialogActionName( name );
+	dialogueAction.DialogueActionName <- ShapeToRange( name );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
 	
 	return dialogueAction;
 }
 
+DialogueAction createDialogueAction1Arguments( string name, string arg1)
+{
+	DialogueAction dialogueAction;
+
+	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
+	
+	return dialogueAction;
+}
+
+DialogueAction createDialogueAction0Arguments( string name )
+{
+	DialogueAction dialogueAction;
+
+	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	
+	return dialogueAction;
+}
 
 
 

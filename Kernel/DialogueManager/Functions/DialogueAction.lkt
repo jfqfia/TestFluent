@@ -30,12 +30,13 @@ bool isNodeState(string nodeDescriptor, string state)
 {
 	bool ret;
 	ScriptNode node;
+	ScriptNodeStateName scriptNodeStateName;
 
 	ret <- False;
+	scriptNodeStateName <- ShapeToRange(state);
+	node <- getNodeFromCurrentScript( nodeDescriptor );
 
-	node <- getNodeFromCurrentDialogueScript( nodeDescriptor );
-
-	if(node.ScriptNodeState.ScriptNodeStateName == stringToScriptNodeState(state) )
+	if(node.ScriptNodeState.ScriptNodeStateName == scriptNodeStateName )
 	{
 		ret <- True;
 	}
@@ -50,20 +51,29 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		string node, state;
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
-		setNodeState(node, state);
+		setNodeStateToCurrent(node, state);
+	}
+	if(dialogueAction.DialogueActionName == 'pull_script')
+	{
+		pullScript();
 	}
 }
 
-procedure setNodeState(string nodeDescriptor, string state)
+procedure setNodeStateToCurrent(string nodeDescriptor, string state)
 {
-	/*
+	setNodeState( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor, state );
+}
+
+procedure setNodeState(string scriptDescriptor, string nodeDescriptor, string state)
+{
+	DialogueScript script;
 	ScriptNode node;
 
-	node <- selectScriptNode( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor );	
-	node.ScriptNodeState.ScriptNodeStateName <- stringToScriptNodeState(state);
-	//setScriptNode( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor, node );	
+	script <- getScript(scriptDescriptor);
+	node <- getNodeFromScript(script, nodeDescriptor );	
+	node.ScriptNodeState.ScriptNodeStateName <- ShapeToRange(state);
 
-	node <- selectScriptNode( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor );
-	*/
+	setNodeToScript(script, node);
 }
+
 

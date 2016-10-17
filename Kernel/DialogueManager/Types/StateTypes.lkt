@@ -21,6 +21,11 @@ classDef:StructureComplex
 	)
 )
 
+classDef:ElementLiteral
+(
+	CurrentScriptDescriptor
+)
+
 classDef:StructureBatch
 (
 	ActivatedScriptsStack :

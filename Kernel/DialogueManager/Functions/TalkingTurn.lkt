@@ -24,7 +24,8 @@ procedure activateScripts()
 	// Define activated scripts policy
 	// Here we select last script as current
 
-	BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, current );
+	int size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
+	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, size, current );
 
 	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- current;
 }
@@ -38,7 +39,7 @@ procedure selectCurrentNode()
 	ActivatedScriptNodes activatedScriptNodes;
 	ScriptNode node;
 
-	dialogueScript <- getCurrentDialogueScript( );
+	dialogueScript <- getCurrentScript( );
 	size <- BatchSize( dialogueScript.ScriptNodes );
 	for(position <- 1; position <= size; position++) 
 	{
@@ -61,18 +62,31 @@ procedure selectCurrentNode()
 		BatchRecoverPosition( activatedScriptNodes, size, nodeDescriptor );
 		dialogueScript.CurrentNodeDescriptor <- nodeDescriptor;
 	}
+	else
+	{
+		dialogueScript.CurrentNodeDescriptor <- '';
+	}
 
-	setCurrentDialogueScript( dialogueScript );
+	setScript( dialogueScript );
 }
 
 procedure processTellNode()
 {
 	ScriptNode currentNode;
 
-	currentNode <- getCurrentNodeFromCurrentDialogueScript();
+	currentNode <- getCurrentNode();
 
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, 
 			currentNode.ScriptNodeContent.DialogueAct );
+
+	executePostconditions( currentNode );
+}
+
+procedure processExecuteNode()
+{
+	ScriptNode currentNode;
+
+	currentNode <- getCurrentNode();
 
 	executePostconditions( currentNode );
 }

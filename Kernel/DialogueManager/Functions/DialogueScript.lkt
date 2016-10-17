@@ -16,37 +16,35 @@ DialogueScript	createDialogueScriptManager()
 	DialogueScript dialogueScript;
 
 	ScriptNode nodeWelcome;
-	ScriptNode nodeHMIHY;
+	ScriptNode nodeBye;
+	ScriptNode nodeEnd;
 
 	DialogueAction dialogueAction, emptyDialogueAction;
 	DialogueActionArgument dialogueActionArgument;
-
 
 	dialogueScript.ScriptDescriptor <- 'Manager';
 
 	// Node - Welcome
 	nodeWelcome <- createScriptNode( 'welcome', 'tell' );
-
 	nodeWelcome.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'welcome' );
+	BatchInsertEnd( nodeWelcome.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
+	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
 
-	BatchInsertEnd( nodeWelcome.ScriptNodePreconditions, 
-			createNegatedPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
+	// Node - Bye
+	nodeBye <- createScriptNode( 'bye', 'tell' );
+	nodeBye.ScriptNodeContent <- setNodeContent( 'social', 'goodbye', '', '' );
+	BatchInsertEnd( nodeBye.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
+	BatchInsertEnd( nodeBye.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'bye', 'finalized' ));
+	BatchInsertEnd( nodeBye.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'bye', 'finalized' ));
 
-	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, 
-			createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
-
-	SpyMessage(nodeWelcome);
-
-	// Node - HMIHY
-	// nodeHMIHY.ScriptNodeDescriptor <- 'hmihy';
-	// nodeHMIHY.ScriptNodeType <- 'tell';
-	// nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Dimension <- 'social';
-	// nodeHMIHY.ScriptNodeContent.DialogueAct.CoreDialogueAct.Function <- 'greeting';
-	// nodeHMIHY.ScriptNodeContent.DialogueAct.TaskDialogueAct.Scope <- 'hmihy';
-	
+	// Node - End
+	nodeEnd <- createScriptNode( 'end', 'execute' );
+	BatchInsertEnd( nodeEnd.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'bye', 'finalized' ));
+	BatchInsertEnd( nodeEnd.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
-	//BatchInsertEnd( dialogueScript.ScriptNodes, nodeHMIHY );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeBye );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeEnd );
 				
 	return dialogueScript;
 }

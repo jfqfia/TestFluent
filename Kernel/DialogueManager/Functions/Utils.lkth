@@ -11,30 +11,31 @@
 //
 // **************************************************
 
-int indexOfDialogueScript(string scriptDescriptor);
+// Given the script descriptor, returns the position in the working scheme.
+int indexOfScript(string scriptDescriptor);
 
-DialogueScript getCurrentDialogueScript();
+// Given the script descriptor, returns the script. 
+DialogueScript getScript(string scriptDescriptor);
 
-DialogueScript getDialogueScript(string scriptDescriptor);
+// Returns de current script.
+DialogueScript getCurrentScript();
 
-ScriptNode getCurrentNodeFromCurrentDialogueScript( );
+// Given the script and a node descriptor, returns the node
+ScriptNode getNodeFromScript(DialogueScript dialogueScript, string nodeDescriptor);
 
-ScriptNodeType getTypeFromCurrentNodeFromCurrentDialogueScript( );
+// Given a node descriptor, returns the node inside current script.
+ScriptNode getNodeFromCurrentScript( ScriptNodeDescriptor nodeDescriptor );
 
-ScriptNode getNodeFromCurrentDialogueScript( ScriptNodeDescriptor nodeDescriptor );
+// Returns the current node from current script.
+ScriptNode getCurrentNode();
 
-ScriptNode getNodeFromDialogueScript(DialogueScript dialogueScript, string nodeDescriptor);
+// Returns the type of the current node from current script.
+ScriptNodeType getCurrentNodeType();
 
-procedure setCurrentDialogueScript( DialogueScript dialogueScript );
+// Saves script into working scheme (if it exists).
+procedure setScript(DialogueScript dialogueScript);
 
-procedure setDialogueScript(string scriptDescriptor, DialogueScript dialogueScript);
+// Saves node into script (if it exists).
+procedure setNodeToScript(DialogueScript dialogueScript, ScriptNode scriptNode);
 
-DialogueActionName stringToDialogActionName( string name );
 
-ScriptNodeStateName stringToScriptNodeState( string name );
-
-ScriptNodeType stringToScriptNodeType( string name );
-
-Dimension stringToDimension( string name );
-
-Function stringToFunction( string name );

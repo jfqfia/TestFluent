@@ -39,8 +39,7 @@ classDef:StructureComplex
 	(
 		ScriptDescriptor,
 		ScriptNodes,
-
-		CallingDialogueScriptDescriptor,
+		CallingScriptDescriptor,
 		ReturnParameter,
 		DialogueTrigger,
 		ActivatedScriptNodes,
@@ -58,7 +57,7 @@ classDef:StructureBatch
 
 classDef:ElementLiteral 
 (
-        ScriptDescriptor, CurrentScriptDescriptor, CallingDialogueScriptDescriptor, ReturnParameter
+        ScriptDescriptor, CallingScriptDescriptor, ReturnParameter
 )
 
 classDef:Synonym
@@ -136,7 +135,8 @@ classDef:ElementRange
         DialogueActionName : 
 	{ 
 		'empty_script_parameter', 
-		'activate_script', 
+		'activate_script',
+		'pull_script', 
 		'set_node_state', 
 		'is_node_state',
 		'set_script_parameter', 

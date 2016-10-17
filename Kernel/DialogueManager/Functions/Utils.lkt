@@ -11,14 +11,15 @@
 //
 // **************************************************
 
-int indexOfDialogueScript(string scriptDescriptor)
+// Given the script descriptor, returns the position in the working scheme.
+int indexOfScript(string scriptDescriptor)
 {
 	DialogueScript dialogueScript;
 
-	int schemeSize <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts);
+	int schemeSize <- BatchSize( $MINDBOARD@WorkingDialogueScheme.DialogueScripts);
 	for ( int position <- 1; position <= schemeSize; position ++) 
 	{
-		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, dialogueScript );
+		BatchRecoverPosition( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, position, dialogueScript );
 
 		if (scriptDescriptor == dialogueScript.ScriptDescriptor)
 		{
@@ -29,12 +30,9 @@ int indexOfDialogueScript(string scriptDescriptor)
 	return 0;
 }
 
-DialogueScript getCurrentDialogueScript()
-{
-	return getDialogueScript( $MINDBOARD@DialogueState.CurrentScriptDescriptor );
-}
 
-DialogueScript getDialogueScript(string scriptDescriptor)
+// Given the script descriptor, returns the script. 
+DialogueScript getScript(string scriptDescriptor)
 {
 	DialogueScript dialogueScript;
 
@@ -53,37 +51,14 @@ DialogueScript getDialogueScript(string scriptDescriptor)
 	return nullDialogueScript;
 }
 
-ScriptNode getCurrentNodeFromCurrentDialogueScript( )
+// Returns de current script.
+DialogueScript getCurrentScript()
 {
-	DialogueScript dialogueScript;
-
-	dialogueScript <- getCurrentDialogueScript();
-
-	return getNodeFromCurrentDialogueScript( dialogueScript.CurrentNodeDescriptor );
+	return getScript( $MINDBOARD@DialogueState.CurrentScriptDescriptor );
 }
 
-ScriptNodeType getTypeFromCurrentNodeFromCurrentDialogueScript( )
-{
-	DialogueScript dialogueScript;
-	ScriptNode scriptNode;
-
-	dialogueScript <- getCurrentDialogueScript();
-
-	scriptNode <- getNodeFromCurrentDialogueScript( dialogueScript.CurrentNodeDescriptor );
-
-	return scriptNode.ScriptNodeType;
-}
-
-ScriptNode getNodeFromCurrentDialogueScript( ScriptNodeDescriptor nodeDescriptor )
-{
-	DialogueScript dialogueScript;
-
-	dialogueScript <- getCurrentDialogueScript();
-
-	return getNodeFromDialogueScript( dialogueScript, nodeDescriptor ); 
-}
-
-ScriptNode getNodeFromDialogueScript(DialogueScript dialogueScript, string nodeDescriptor)
+// Given the script and a node descriptor, returns the node
+ScriptNode getNodeFromScript(DialogueScript dialogueScript, string nodeDescriptor)
 {
 	ScriptNode scriptNode;
 
@@ -102,13 +77,38 @@ ScriptNode getNodeFromDialogueScript(DialogueScript dialogueScript, string nodeD
 	return nullScriptNode;
 }
 
-
-procedure setCurrentDialogueScript( DialogueScript dialogueScript )
+// Given a node descriptor, returns the node inside current script.
+ScriptNode getNodeFromCurrentScript( ScriptNodeDescriptor nodeDescriptor )
 {
-	setDialogueScript( $MINDBOARD@DialogueState.CurrentScriptDescriptor, dialogueScript );
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getCurrentScript();
+
+	return getNodeFromScript( dialogueScript, nodeDescriptor ); 
 }
 
-procedure setDialogueScript(string scriptDescriptor, DialogueScript dialogueScript)
+// Returns the current node from current script.
+ScriptNode getCurrentNode()
+{
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getCurrentScript();
+
+	return getNodeFromCurrentScript( dialogueScript.CurrentNodeDescriptor );
+}
+
+// Returns the type of the current node from current script.
+ScriptNodeType getCurrentNodeType()
+{
+	ScriptNode scriptNode;
+
+	scriptNode <- getCurrentNode();
+
+	return scriptNode.ScriptNodeType;
+}
+
+// Saves script into working scheme (if it exists).
+procedure setScript(DialogueScript dialogueScript)
 {
 	DialogueScript recDialogueScript;
 
@@ -117,86 +117,47 @@ procedure setDialogueScript(string scriptDescriptor, DialogueScript dialogueScri
 	{
 		BatchRecoverPosition( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, position, recDialogueScript );
 
-		if (scriptDescriptor == recDialogueScript.ScriptDescriptor)
+		if (dialogueScript.ScriptDescriptor == recDialogueScript.ScriptDescriptor)
 		{
 			BatchAssignPosition( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, position, dialogueScript);
 		}
 	}
 }
 
-/*
-ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor)
+// Saves node into script (if it exists).
+procedure setNodeToScript(DialogueScript dialogueScript, ScriptNode scriptNode)
 {
-	ScriptNode node;
+	ScriptNode recScriptNode;
 
 	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
-	for(int position <- 1; position <= scriptSize; position++) 
+	for ( int position <- 1; position <= scriptSize; position++ ) 
 	{
-		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
+		BatchRecoverPosition( dialogueScript.ScriptNodes, position, recScriptNode );
 
-		if ( node.ScriptNodeDescriptor == nodeDescriptor )
+		if (scriptNode.ScriptNodeDescriptor == recScriptNode.ScriptNodeDescriptor)
 		{
-			return node;
+			BatchAssignPosition( dialogueScript.ScriptNodes, position, scriptNode);
 		}
 	}
-
-	ScriptNode nullScriptNode;
-	return nullScriptNode;
+	setScript(dialogueScript);
 }
 
-procedure setScriptNode( string dialogScriptDescriptor, string nodeDescriptor, ScriptNode newNode )
+// This procedure pulls out a script from activated scripts stack
+procedure pullScript()
 {
-	// Introducir en el actual si coinciden los descriptores
-	if( $MINDBOARD@CurrentScript.ScriptDescriptor == dialogScriptDescriptor )
-	{
-		int position <- indexOfDialogueScript( $MINDBOARD@CurrentScript, nodeDescriptor );
-		BatchAssignPosition( $MINDBOARD@CurrentScript.ScriptNodes, position, newNode );
-	}
+	string descriptor;
 	
-	// TODO Y en los scripts activos
+	BatchExtractEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor);
 }
 
-int indexOfDialogueScript( DialogueScript dialogueScript, string nodeDescriptor)
-{
-	ScriptNode node;
 
-	int scriptSize <- BatchSize( dialogueScript.ScriptNodes );
-	for(int position <- 1; position <= scriptSize; position++) 
-	{
-		BatchRecoverPosition( dialogueScript.ScriptNodes, position, node );
 
-		if ( node.ScriptNodeDescriptor == nodeDescriptor )
-		{
-			return position;
-		}
-	}	
-}
-*/
 
-DialogueActionName stringToDialogActionName( string name )
-{
-	if( name == 'is_node_state' )	return 'is_node_state';
-	if( name == 'set_node_state' )	return 'set_node_state';
-}
 
-ScriptNodeStateName stringToScriptNodeState( string name )
-{
-	if( name == 'finalized' ) 	return 'finalized';
-}
 
-ScriptNodeType stringToScriptNodeType( string name )
-{
-	if( name == 'tell' ) 		return 'tell';
-}
 
-Dimension stringToDimension( string name )
-{
-	if( name == 'social' ) 		return 'social';
-}
 
-Function stringToFunction( string name )
-{
-	if( name == 'greeting' ) 		return 'greeting';
-}
+
+
 
 

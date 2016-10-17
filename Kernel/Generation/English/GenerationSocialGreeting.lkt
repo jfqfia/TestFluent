@@ -40,7 +40,7 @@
     	}
 )
 
-(ScriboScheme GenerateWelcome: [ DialogueAct ]
+(ScriboScheme GenerateHMIHY: [ DialogueAct ]
 	ScriboCapture 
 	{
         	GetHeadPropertyLanguage() == ENGLISH &&

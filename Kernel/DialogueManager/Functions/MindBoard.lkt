@@ -30,7 +30,7 @@ procedure displayMindBoard()
 {
 	DialogueScript dialogueScript;
 
-	dialogueScript <- getCurrentDialogueScript();
+	dialogueScript <- getCurrentScript();
 
 	SpyMessage("$$==================================================");
 	SpyMessage("$$  MindBoard ");
