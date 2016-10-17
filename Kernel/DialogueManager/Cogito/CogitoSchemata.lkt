@@ -60,7 +60,7 @@
 	CogitoAction 
 	{
 		SpyMessage("$$>> CogitoScheme Digest");
-		// digestDialogueInput();
+		digestDialogueInput();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'activate_scripts';
 	}
 )
@@ -99,7 +99,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Tell");
+		SpyMessage("$$>> CogitoScheme NodeType = Tell");
 		processTellNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 		CogitoRetry();
@@ -114,13 +114,27 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Execute");
+		SpyMessage("$$>> CogitoScheme NodeType = Execute");
 		processExecuteNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 		CogitoRetry();
 	}
 )
 
+(CogitoScheme ProcessTalkingWait :
+	CogitoCapture 
+	{
+		$MINDBOARD@DialogueState.DialoguePhase == 'process_talking' &&
+		getCurrentNodeType() == 'wait'
+	}
+	CogitoAction 
+	{
+		SpyMessage("$$>> CogitoScheme NodeType = Wait");
+		processWaitNode();
+		$MINDBOARD@DialogueState.DialoguePhase <- 'start_talking';
+		CogitoQuit();
+	}
+)
 
 (CogitoScheme ProcessTalkingSafety :
 	CogitoCapture 

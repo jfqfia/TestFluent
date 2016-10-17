@@ -16,18 +16,14 @@ procedure startTalkingTurn()
 	initMindBoardOutput();
 }
 
+procedure digestDialogueInput()
+{
+	// TODO
+}
+
 procedure activateScripts()
 {
-	ScriptDescriptor current; 
-
 	// TODO
-	// Define activated scripts policy
-	// Here we select last script as current
-
-	int size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
-	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, size, current );
-
-	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- current;
 }
 
 procedure selectCurrentNode()
@@ -87,6 +83,18 @@ procedure processExecuteNode()
 	ScriptNode currentNode;
 
 	currentNode <- getCurrentNode();
+
+	executePostconditions( currentNode );
+}
+
+procedure processWaitNode()
+{
+	ScriptNode currentNode;
+
+	currentNode <- getCurrentNode();
+
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, 
+			currentNode.ScriptNodeContent.DialogueAct );
 
 	executePostconditions( currentNode );
 }

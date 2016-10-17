@@ -10,9 +10,13 @@ procedure startTalkingTurn();
 
 procedure activateScripts();
 
+procedure digestDialogueInput();
+
 procedure selectCurrentNode();	
 
 procedure processTellNode();	
+
+procedure processWaitNode();
 
 procedure closeTalkingTurn();
 

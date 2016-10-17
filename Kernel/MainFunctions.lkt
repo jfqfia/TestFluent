@@ -35,6 +35,7 @@
 #Include "DialogueManager/Functions/MindBoard.lkth"
 #Include "DialogueManager/Functions/TalkingTurn.lkth"
 #Include "DialogueManager/Functions/Utils.lkth"
+#Include "DialogueManager/Functions/ScriptNode.lkth"
 
 
 

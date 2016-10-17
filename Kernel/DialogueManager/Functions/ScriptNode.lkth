@@ -1,0 +1,20 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+ScriptNode createScriptNode( string nodeDescriptor, string nodeType );
+ScriptNodeContent setNodeContent( string dimension, string function, string action, string scope );
+DialogueActionPrecondition createNegatedPrecondition2Arguments( string name, string arg1, string arg2 );
+DialogueActionPrecondition createPrecondition2Arguments( string name, string arg1, string arg2 );
+DialogueAction createDialogueAction2Arguments( string name, string arg1, string arg2 );
+DialogueAction createDialogueAction1Arguments( string name, string arg1);
+DialogueAction createDialogueAction0Arguments( string name );

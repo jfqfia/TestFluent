@@ -56,6 +56,7 @@ procedure initDialogueScheme()
 	}
 
 	BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, 'Manager');
+	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- 'Manager';
 }
 
 
