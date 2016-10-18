@@ -134,7 +134,7 @@ classDef:ElementRange
 (
         DialogueActionName : 
 	{ 
-		'empty_script_parameter', 
+		'empty_slot', 
 		'activate_script',
 		'pull_script', 
 		'set_node_state', 

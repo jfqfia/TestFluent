@@ -142,6 +142,13 @@ procedure setNodeToScript(DialogueScript dialogueScript, ScriptNode scriptNode)
 	setScript(dialogueScript);
 }
 
+// Saves parameter into some slot of the script (if it exists).
+procedure setParameterToScript(DialogueScript dialogueScript, int position, Parameter parameter)
+{
+	BatchAssignPosition( dialogueScript.DialogueTrigger.Parameters, position, parameter);
+	setScript(dialogueScript);
+}
+
 // This procedure pulls out a script from activated scripts stack
 procedure pullScript()
 {
@@ -149,6 +156,7 @@ procedure pullScript()
 	
 	BatchExtractEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor);
 }
+
 
 
 

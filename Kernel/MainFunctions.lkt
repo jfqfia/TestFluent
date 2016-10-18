@@ -37,6 +37,9 @@
 #Include "DialogueManager/Functions/Utils.lkth"
 #Include "DialogueManager/Functions/ScriptNode.lkth"
 
+// Generation
+#Include "Generation/Functions/GenerationFunctions.lkt"
+
 
 
 

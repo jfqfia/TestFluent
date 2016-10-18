@@ -1,0 +1,34 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool containsActionDomain( Action actionBatch, ActionDomain actionDomainToSearch )
+{
+	int size;
+	int position;
+	bool ret;
+	ActionDomain recoveredActionDomain;
+
+	ret <- False;
+	
+	size <- BatchSize( actionBatch );
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( actionBatch, position, recoveredActionDomain );
+		if( recoveredActionDomain == actionDomainToSearch )
+		{
+			return True;
+		}
+	}
+
+	return ret;
+}

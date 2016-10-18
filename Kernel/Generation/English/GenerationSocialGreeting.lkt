@@ -12,6 +12,7 @@
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'greeting' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'offer') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'welcome'
 	}
 	ScriboAction 
@@ -46,6 +47,7 @@
         	GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'greeting' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'offer') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'hmihy'
 	}
 	ScriboAction 

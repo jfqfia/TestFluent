@@ -22,8 +22,28 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		ret = isNodeState(node, state);
 	}
+	if(dialogueAction.DialogueActionName == 'empty_slot')
+	{
+		string script, number;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, number );
+		ret = emptySlot(script, number);
+	}
 
 	return ret;	
+}
+
+bool emptySlot(string scriptDescriptor, string number)
+{
+	DialogueScript script;
+	int slotNumber;
+	Parameter parameter;
+
+	slotNumber <- ShapeToInt(number);
+	script <- getScript( scriptDescriptor );
+	BatchRecoverPosition( script.DialogueTrigger.Parameters, slotNumber, parameter );
+
+	return !! Filled( parameter.ParameterValue );
 }
 
 bool isNodeState(string nodeDescriptor, string state)

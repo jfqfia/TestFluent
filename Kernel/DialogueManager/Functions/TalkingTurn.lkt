@@ -18,12 +18,47 @@ procedure startTalkingTurn()
 
 procedure digestDialogueInput()
 {
-	// TODO
+	int size;
+	int position;
+	ProferenceChunk proference;
+
+	size <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
+	for( position <- 1; position <= size; position++ ) 
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, position, proference );
+		
+		/*
+		SpyMessage("");
+		SpyMessage("DIGEST PHASE - Start");
+		SpyMessage(proference);
+		SpyMessage("DIGEST PHASE - End");
+		SpyMessage("");
+		*/
+
+		// 1. Try to digest in the current script
+		// 2. Try to digest in the rest of activated scripts
+		// 3. Try to digest in the rest of the scripts
+
+		// 1. TODO
+		// 2. TODO
+		// 3. 
+		// BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, 'BookAppointment' ); 
+	}
+
 }
 
 procedure activateScripts()
 {
 	// TODO
+	// Actually we only set, as current script, the last of the ActivatedScriptsStack batch
+
+	int size;
+	string scriptDescriptor;
+
+	size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
+	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, size, scriptDescriptor );
+
+	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
 }
 
 procedure selectCurrentNode()
@@ -51,6 +86,7 @@ procedure selectCurrentNode()
 	// TODO
 	// Define activated nodes policy
 	// Here we select last node as current
+	// It would be better to select randomly the next node
 
 	size <- BatchSize( activatedScriptNodes );
 	if( size > 0 )

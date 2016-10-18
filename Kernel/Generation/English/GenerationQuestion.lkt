@@ -1,0 +1,24 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       Generate
+//      FILE    :       Generate_Colloquial.lkth
+// ************************************************
+
+(ScriboScheme QuestionWhatMedicalSpeciality: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'medicalspeciality'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What kind of medical speciality do you want? ');
+    	}
+)
+
+

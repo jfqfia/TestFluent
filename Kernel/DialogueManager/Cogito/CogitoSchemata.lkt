@@ -22,7 +22,7 @@
 		createDialogueScheme();
 		initMindBoard();
 		initDialogueScheme();
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'start_talking';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 	}
 )
 
@@ -99,7 +99,8 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme NodeType = Tell");
+		ScriptNode scriptNode <- getCurrentNode();
+		SpyMessage("$$>> CogitoScheme NodeType = Tell -> ", scriptNode.ScriptNodeDescriptor);
 		processTellNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 		CogitoRetry();
@@ -114,7 +115,8 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme NodeType = Execute");
+		ScriptNode scriptNode <- getCurrentNode();
+		SpyMessage("$$>> CogitoScheme NodeType = Execute -> ", scriptNode.ScriptNodeDescriptor);
 		processExecuteNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 		CogitoRetry();
@@ -129,7 +131,8 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme NodeType = Wait");
+		ScriptNode scriptNode <- getCurrentNode();
+		SpyMessage("$$>> CogitoScheme NodeType = Wait -> ", scriptNode.ScriptNodeDescriptor);
 		processWaitNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'start_talking';
 		CogitoQuit();

@@ -8,5 +8,6 @@
 
 #Include "GenerationSocialGreeting.lkt"
 #Include "GenerationSocialGoodbye.lkt"
-
+#Include "GenerationConfirmScripts.lkt"
+#Include "GenerationQuestion.lkt"
 

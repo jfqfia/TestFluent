@@ -14,14 +14,13 @@
 DialogueScript	createDialogueScriptManager()
 {
 	DialogueScript dialogueScript;
+	DialogueAction dialogueAction, emptyDialogueAction;
+	DialogueActionArgument dialogueActionArgument;
 
 	ScriptNode nodeWelcome;
 	ScriptNode nodeHmihy;
 	ScriptNode nodeBye;
 	ScriptNode nodeEnd;
-
-	DialogueAction dialogueAction, emptyDialogueAction;
-	DialogueActionArgument dialogueActionArgument;
 
 	dialogueScript.ScriptDescriptor <- 'Manager';
 
@@ -32,7 +31,8 @@ DialogueScript	createDialogueScriptManager()
 	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
 
 	// Node - Hmihy
-	nodeHmihy <- createScriptNode( 'hmihy', 'wait' );
+	nodeHmihy <- createScriptNode( 'hmihy', 'tell' );
+	// nodeHmihy <- createScriptNode( 'hmihy', 'wait' );
 	nodeHmihy.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'hmihy' );
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'hmihy', 'finalized' ));
@@ -58,116 +58,55 @@ DialogueScript	createDialogueScriptManager()
 	return dialogueScript;
 }
 
-/*
+
 DialogueScript	createDialogueScriptMedicalAppointment()
 {
 	DialogueScript dialogueScript;
-	ScriptNode scriptNode;
+	DialogueAction dialogueAction, emptyDialogueAction;
+	DialogueActionArgument dialogueActionArgument;
+	Parameter parameter;
 
-	dialogueScript.ScriptDescriptor <- 'MedicalAppointment';
+	ScriptNode nodeStart;
+	ScriptNode nodeMedicalSpeciality;
 
-	// Item - ActionScope
-	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Request/Appointment' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	dialogueScript.ScriptDescriptor <- 'BookAppointment';
 
-	// Item - MedicalSpeciality
-	scriptNode <- createScriptNodeDCategory( 'Parameter/Speciality' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	// Trigger
+	dialogueScript.DialogueTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.DialogueTrigger.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.DialogueTrigger.TaskDialogueAct.Action , 'book');
+	dialogueScript.DialogueTrigger.TaskDialogueAct.Scope <- 'appointment';
+	
+	parameter.ParameterType <- 'medicalspeciality';
+	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
 
-	// Item - AppointmentPlace
-	scriptNode <- createScriptNodeDCategory( 'Parameter/City' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	parameter.ParameterType <- 'datetime';
+	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
 
-	// Item - AppointmentDate
-	scriptNode <- createScriptNodeDCategory( 'Parameter/Schedule' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	parameter.ParameterType <- 'countryplace';
+	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
 
-	// Item - PESEL
-	scriptNode <- createScriptNodeDCategory( 'Parameter/Pesel' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	parameter.ParameterType <- 'phonenumber';
+	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
 
-	// Item - PhoneNumber
-	scriptNode <- createScriptNodeDCategory( 'Parameter/PhoneNumber' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	parameter.ParameterType <- 'peselnumber';
+	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
 
-	// Item - ProposeDate
-	scriptNode <- createScriptNodeDCategory( 'Propose/Date' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	// Node - Start
+	nodeStart <- createScriptNode( 'start', 'tell' );
+	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'confirm', 'bookappointmentscript' );
+	BatchInsertEnd( nodeStart.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
+	BatchInsertEnd( nodeStart.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'start', 'finalized' ));
 
-	return dialogueScript;
-}
+	// Node - MedicalSpeciality
+	nodeMedicalSpeciality <- createScriptNode( 'medicalspeciality', 'wait' );
+	nodeMedicalSpeciality.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'medicalspeciality' );
+	BatchInsertEnd( nodeMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'empty_slot', 'BookAppointment', '1' ));
+	BatchInsertEnd( nodeMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
 
-DialogueScript	createDialogueScriptBankConsultBalance()
-{
-	DialogueScript dialogueScript;
-	ScriptNode scriptNode;
-
-	dialogueScript.ScriptDescriptor <- 'BankConsultBalance';
-
-	// Item - ActionScope
-	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Consult/Balance' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeStart );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMedicalSpeciality );
 
 	return dialogueScript;
 }
-
-DialogueScript	createDialogueScriptBankLocateATM()
-{
-	DialogueScript dialogueScript;
-	ScriptNode scriptNode;
-
-	dialogueScript.ScriptDescriptor <- 'BankLocateATM';
-
-	// Item - ActionScope
-	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Locate/ATM' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-
-	return dialogueScript;
-}
-
-DialogueScript	createDialogueScriptBankTransfer()
-{
-	DialogueScript dialogueScript;
-	ScriptNode scriptNode;
-
-	dialogueScript.ScriptDescriptor <- 'BankTransfer';
-
-	// Item - ActionScope
-	scriptNode <- createScriptNodeDCategoryDReference( 'ActionScope', 'Command/Transfer' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-
-	// Item - Account
-	scriptNode <- createScriptNodeDCategory( 'Parameter/Account' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-
-	// Item - Amount
-	scriptNode <- createScriptNodeDCategory( 'Parameter/Amount' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-
-	// Item - ProposeTransfer
-	scriptNode <- createScriptNodeDCategory( 'Propose/Transfer' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-
-	// Item - ConfirmTransfer
-	scriptNode <- createScriptNodeDCategory( 'Confirm/Transfer' );
-	BatchInsertEnd( dialogueScript.ScriptNodes,
-			scriptNode );
-
-	return dialogueScript;
-}
-
-*/
 
