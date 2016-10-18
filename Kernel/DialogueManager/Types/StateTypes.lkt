@@ -44,8 +44,7 @@ classDef:ElementRange
 		'activate_scripts',
 		'select_current_node',
 		'process_talking',
-		'close_talking', 
-		'close_dialogue' 
+		'close_talking'
 	}
 )
 

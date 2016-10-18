@@ -39,8 +39,6 @@ classDef:StructureComplex
 	(
 		ScriptDescriptor,
 		ScriptNodes,
-		CallingScriptDescriptor,
-		ReturnParameter,
 		DialogueTrigger,
 		ActivatedScriptNodes,
 		CurrentNodeDescriptor
@@ -135,13 +133,9 @@ classDef:ElementRange
         DialogueActionName : 
 	{ 
 		'empty_slot', 
-		'activate_script',
 		'pull_script', 
 		'set_node_state', 
-		'is_node_state',
-		'set_script_parameter', 
-		'cancel_script_parameter',
-		'check_script_parameter' 
+		'is_node_state'
 	}
 )
 
@@ -171,9 +165,7 @@ classDef:ElementRange
 (
 	ScriptNodeStateName : 
 	{
-		'finalized', 
-		'correct', 
-		'incorrect' 
+		'finalized'
 	}
 )
 

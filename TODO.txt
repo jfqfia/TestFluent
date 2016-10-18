@@ -1,5 +1,3 @@
-* Action-Scope pairs
-
 * Domotics domain
 
 * English grammar and lexicon

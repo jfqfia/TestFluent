@@ -3,7 +3,8 @@ Deployment/
 *.swp
 *.aux
 *.log
-*.pdf
 *.tcp
 *.tps
+*.docx
+
 
