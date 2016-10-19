@@ -19,6 +19,7 @@
 #Include "Utils.lkt"
 #Include "DialogueAction.lkt"
 #Include "PrePostConditions.lkt"
+#Include "DigestPhase.lkt"
 
 
 

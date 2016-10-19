@@ -49,13 +49,13 @@ classDef:StructureComplex
         DigestChunk :
 	(
 	 	ProferenceChunk,
-		ScriptComponent
+		ScriptTriggerComponent
 	)
 )
 
 classDef:ElementRange
 (
-	ScriptComponent : 
+	ScriptTriggerComponent : 
 	{
 		'core',
 		'action',

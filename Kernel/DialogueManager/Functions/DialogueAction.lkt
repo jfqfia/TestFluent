@@ -35,6 +35,8 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 
 bool emptySlot(string scriptDescriptor, string number)
 {
+	// TODO To be redone
+	/*
 	DialogueScript script;
 	int slotNumber;
 	Parameter parameter;
@@ -44,6 +46,8 @@ bool emptySlot(string scriptDescriptor, string number)
 	BatchRecoverPosition( script.DialogueTrigger.Parameters, slotNumber, parameter );
 
 	return !! Filled( parameter.ParameterValue );
+	*/
+	return True;
 }
 
 bool isNodeState(string nodeDescriptor, string state)

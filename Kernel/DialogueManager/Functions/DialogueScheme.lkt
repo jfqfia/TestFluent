@@ -21,23 +21,6 @@ procedure createDialogueScheme()
 	dialogueScript <- createDialogueScriptMedicalAppointment();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
-	/*
-	// Script - ScriptBankConsultBalance
-	dialogueScript <- createDialogueScriptBankConsultBalance( );
-	BatchInsertEnd( dialogueScheme.DialogueScripts,
-			dialogueScript );
-
-	// Script - ScriptBankConsultBalance
-	dialogueScript <- createDialogueScriptBankLocateATM( );
-	BatchInsertEnd( dialogueScheme.DialogueScripts,
-			dialogueScript );
-
-	// Script - ScriptBankTransfer
-	dialogueScript <- createDialogueScriptBankTransfer( );
-	BatchInsertEnd( dialogueScheme.DialogueScripts,
-			dialogueScript );
-	*/
-
 	$MINDBOARD@DialogueScheme <- dialogueScheme;
 }
 

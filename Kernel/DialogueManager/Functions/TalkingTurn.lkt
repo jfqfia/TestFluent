@@ -19,82 +19,62 @@ procedure startTalkingTurn()
 procedure digestSearchScripts()
 {
 	ProferenceChunk proference;
-	DialogueDigest emptyDialogueDigest;
+
+	DigestSchemes emptyDigestSchemes;
 	DialogueScripts dialogueScripts;
 	DialogueScript dialogueScript;
-	ScriptComponent scriptComponent;
+	ScriptTriggerComponent scriptComponent;
 
-	$MINDBOARD@DialogueDigest <-emptyDialogueDigest;
+	// TODO VERY CAREFUL HERE: This is the only way of clearing DialogueDigest feature
+	$MINDBOARD@DialogueDigest.DigestSchemes <- emptyDigestSchemes;
 
 	SpyMessage("===============================================");
-	SpyMessage("XXXX: digestSearchScripts");
+	SpyMessage("XXXX: digestSearchScripts - START");
 
 	int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
 	for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
 	{
 		BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, proference );
 
-		SpyMessage("XXXX: Proference");
-		SpyMessage(proference);
-		SpyMessage("****************************************");
-
 		dialogueScripts <- $MINDBOARD@DialogueScheme.DialogueScripts;
-
 		int scriptSize <- BatchSize( dialogueScripts );
 		for (int scriptPosition <- 1; scriptPosition <= scriptSize; scriptPosition ++ ) 
 		{
 			BatchRecoverPosition( dialogueScripts, scriptPosition, dialogueScript );
-			SpyMessage("XXXX:       ScriptDescriptor: ",dialogueScript.ScriptDescriptor);
-
-			scriptComponent <- getCompatibleScriptComponent( dialogueScript, proference );
-
-			SpyMessage("XXXX:                getCompatible ",dialogueScript.ScriptDescriptor," => ",scriptComponent);
 			
-		}
-
-		
-		// BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, 'BookAppointment' ); 
-	}
-
-}
-
-ScriptComponent getCompatibleScriptComponent(DialogueScript dialogueScript, ProferenceChunk proference)
-{
-	ScriptComponent scriptComponent;
-
-	if (proference.CoreDialogueAct) 
-	{
-		if (dialogueScript.DialogueTrigger.CoreDialogueAct)
-		{
-			if (proference.CoreDialogueAct == dialogueScript.DialogueTrigger.CoreDialogueAct) 
+			scriptComponent <- getCompatibleScriptTriggerComponent( dialogueScript, proference );
+			if( Filled(scriptComponent) )
 			{
-				return 'core';
+				insertDigestScheme(dialogueScript.ScriptDescriptor, proference, scriptComponent);
 			}
 		}
 	}
 
-	/*
-	if (proference.TaskDialogueAct) 
-	{
-		if (dialogueScript.DialogueTrigger.TaskDialogueAct)
-		{
-			if (proference.TaskDialogueAct.Action == dialogueScript.DialogueTrigger.TaskDialogueAct.Action) 
-			{
-				return 'action';
-			}
-		}
-	}
-	*/
-
-	return scriptComponent;
+	// TODO QUITAR
+	SpyMessage($MINDBOARD@DialogueDigest);
+	SpyMessage("XXXX: digestSearchScripts - END");
+	SpyMessage("===============================================");
 }
 
 procedure activateScripts()
 {
+	int size;
+
+	// TODO
+	// We must look here the DialogueDigest structure and choose between them
+	// Actually we choose last one...
+	size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+
+	// What to do if there is no searched script
+	if(size > 0)
+	{
+		DigestScheme digestScheme;
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, size, digestScheme );
+		BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor );	
+	}
+
 	// TODO
 	// Actually we only set, as current script, the last of the ActivatedScriptsStack batch
-
-	int size;
 	string scriptDescriptor;
 
 	size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );

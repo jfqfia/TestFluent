@@ -39,9 +39,19 @@ classDef:StructureComplex
 	(
 		ScriptDescriptor,
 		ScriptNodes,
-		DialogueTrigger,
+		ScriptTrigger,
+		ScriptParameterInfo,
 		ActivatedScriptNodes,
 		CurrentNodeDescriptor
+	)
+)
+
+classDef:StructureComplex
+(
+	ScriptParameterInfo :
+	(
+		Parameters
+		// TODO El estado de cada uno de ellos
 	)
 )
 
@@ -58,9 +68,23 @@ classDef:ElementLiteral
         ScriptDescriptor, CallingScriptDescriptor, ReturnParameter
 )
 
-classDef:Synonym
+classDef:StructureComplex
 (
-	DialogueTrigger = DialogueAct
+	ScriptTrigger :
+	(
+		CoreDialogueAct,
+		ActionDomain,
+		Scope,
+		ParameterTypes
+	)
+)
+
+classDef:StructureBatch
+(
+	ParameterTypes : 
+	(
+		ParameterType
+	)
 )
 
 classDef:StructureComplex 
@@ -169,8 +193,6 @@ classDef:ElementRange
 	}
 )
 
-// TODO: ScriptNodeCounter not yet used.
-// TODO: Where should I put grounding features?
 classDef:ElementInt
 (
 	ScriptNodeCounter

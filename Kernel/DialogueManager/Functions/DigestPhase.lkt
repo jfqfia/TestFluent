@@ -1,0 +1,128 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialogueScript, ProferenceChunk proference)
+{
+	ScriptTriggerComponent scriptTriggerComponent;
+
+	if (proference.CoreDialogueAct && dialogueScript.ScriptTrigger.CoreDialogueAct)
+	{
+		if (proference.CoreDialogueAct == dialogueScript.ScriptTrigger.CoreDialogueAct) 
+		{
+			return 'core';
+		}
+	}
+
+	if (proference.TaskDialogueAct.Scope && dialogueScript.ScriptTrigger.Scope)
+	{
+		if (proference.TaskDialogueAct.Scope && dialogueScript.ScriptTrigger.Scope)
+		{
+			return 'scope';
+		}
+	}
+
+	int proferenceActionSize <- BatchSize(proference.TaskDialogueAct.Action);
+	if (proferenceActionSize >= 1 && dialogueScript.ScriptTrigger.ActionDomain)
+	{
+		if (proferenceActionContains(proference.TaskDialogueAct.Action, dialogueScript.ScriptTrigger.ActionDomain))
+		{
+			return 'action';
+		}
+	}
+
+	int parameterTypesSize <- BatchSize(dialogueScript.ScriptTrigger.ParameterTypes);
+	if (proference.Parameter && parameterTypesSize >= 1)
+	{
+		if( parameterTypesContains(dialogueScript.ScriptTrigger.ParameterTypes, proference.Parameter.ParameterType))
+		{
+			return 'parameter';
+		}
+	}
+
+	return scriptTriggerComponent;
+}
+
+bool proferenceActionContains(Action actionBatch, ActionDomain actionDomain)
+{
+	ActionDomain recoveredActionDomain;
+
+	int size <- BatchSize( actionBatch );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(actionBatch, position, recoveredActionDomain);
+		if( recoveredActionDomain == actionDomain )
+		{
+			return True;
+		}
+	}
+	
+	return False;
+}
+
+bool parameterTypesContains(ParameterTypes parameterTypesBatch, ParameterType parameterType)
+{
+	ParameterType recoveredParameterType;
+
+	int size <- BatchSize( parameterTypesBatch );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(parameterTypesBatch, position, recoveredParameterType);
+		if( recoveredParameterType == parameterType )
+		{
+			return True;
+		}
+	}
+	
+	return False;
+}
+
+procedure insertDigestScheme(ScriptDescriptor scriptDescriptor, ProferenceChunk proferenceChunk, ScriptTriggerComponent scriptTriggerComponent)
+{
+	DigestChunk digestChunk;
+
+	digestChunk.ProferenceChunk <- proferenceChunk;
+	digestChunk.ScriptTriggerComponent <- scriptTriggerComponent;
+
+	DigestScheme digestScheme <- getDigestScheme(scriptDescriptor);
+	if( digestScheme )
+	{
+		BatchInsertEnd( digestScheme.DigestChunks, digestChunk );
+		setDigestScheme( digestScheme );
+	}
+	else
+	{
+		digestScheme.ScriptDescriptor <- scriptDescriptor;
+		BatchInsertEnd( digestScheme.DigestChunks, digestChunk );
+		BatchInsertEnd( $MINDBOARD@DialogueDigest.DigestSchemes, digestScheme );	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

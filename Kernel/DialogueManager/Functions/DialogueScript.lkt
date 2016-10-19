@@ -31,7 +31,6 @@ DialogueScript	createDialogueScriptManager()
 	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
 
 	// Node - Hmihy
-	// nodeHmihy <- createScriptNode( 'hmihy', 'tell' );
 	nodeHmihy <- createScriptNode( 'hmihy', 'wait' );
 	nodeHmihy.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'hmihy' );
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
@@ -72,25 +71,15 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 	dialogueScript.ScriptDescriptor <- 'BookAppointment';
 
 	// Trigger
-	dialogueScript.DialogueTrigger.CoreDialogueAct.Dimension <- 'statement';
-	dialogueScript.DialogueTrigger.CoreDialogueAct.Function <- 'request';
-	BatchInsertEnd( dialogueScript.DialogueTrigger.TaskDialogueAct.Action , 'book');
-	dialogueScript.DialogueTrigger.TaskDialogueAct.Scope <- 'appointment';
-	
-	parameter.ParameterType <- 'medicalspeciality';
-	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
-
-	parameter.ParameterType <- 'datetime';
-	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
-
-	parameter.ParameterType <- 'countryplace';
-	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
-
-	parameter.ParameterType <- 'phonenumber';
-	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
-
-	parameter.ParameterType <- 'peselnumber';
-	BatchInsertEnd( dialogueScript.DialogueTrigger.Parameters , parameter );
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'book';
+	dialogueScript.ScriptTrigger.Scope <- 'appointment';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'medicalspeciality' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'datetime' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'countryplace' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );	
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
 
 	// Node - Start
 	nodeStart <- createScriptNode( 'start', 'tell' );

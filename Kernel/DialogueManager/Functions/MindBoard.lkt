@@ -15,7 +15,6 @@ procedure initMindBoard()
 procedure initMindBoardInput()
 {
 	ProferenceChunks emptyProferenceChunks;
-
 	$MINDBOARD@DialogueInput.ProferenceChunks <- emptyProferenceChunks;
 }
 
