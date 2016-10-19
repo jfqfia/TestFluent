@@ -18,7 +18,24 @@
 	ScriboAction 
 	{
 		SetMainAnswerStringRandom( 'So you want to make an appointment for the doctor. ',
-					   'Ok, I understood that you may want to book a medical appointmet. ');
+					   'Ok, I understood that you may want to book a medical appointment. ');
     	}
 )
+
+(ScriboScheme ConfirmScriptMakeTransfer: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirm') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'maketransferscript'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'So you want to make a transfer. ',
+					   'Ok, I understood that you want to make a bank transfer. ');
+    	}
+)
+
 

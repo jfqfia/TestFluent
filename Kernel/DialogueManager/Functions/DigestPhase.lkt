@@ -25,7 +25,7 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 
 	if (proference.TaskDialogueAct.Scope && dialogueScript.ScriptTrigger.Scope)
 	{
-		if (proference.TaskDialogueAct.Scope && dialogueScript.ScriptTrigger.Scope)
+		if (proference.TaskDialogueAct.Scope == dialogueScript.ScriptTrigger.Scope)
 		{
 			return 'scope';
 		}

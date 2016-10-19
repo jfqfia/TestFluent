@@ -57,7 +57,6 @@ DialogueScript	createDialogueScriptManager()
 	return dialogueScript;
 }
 
-
 DialogueScript	createDialogueScriptMedicalAppointment()
 {
 	DialogueScript dialogueScript;
@@ -95,6 +94,36 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeStart );
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMedicalSpeciality );
+
+	return dialogueScript;
+}
+
+DialogueScript	createDialogueScriptMakeTransfer()
+{
+	DialogueScript dialogueScript;
+	DialogueAction dialogueAction, emptyDialogueAction;
+	DialogueActionArgument dialogueActionArgument;
+	Parameter parameter;
+
+	ScriptNode nodeStart;
+
+	dialogueScript.ScriptDescriptor <- 'MakeTransfer';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'execute';
+	dialogueScript.ScriptTrigger.Scope <- 'transfer';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'accountnumber' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'moneyamount' );
+
+	// Node - Start
+	nodeStart <- createScriptNode( 'start', 'tell' );
+	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'confirm', 'maketransferscript' );
+	BatchInsertEnd( nodeStart.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
+	BatchInsertEnd( nodeStart.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'start', 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeStart );
 
 	return dialogueScript;
 }

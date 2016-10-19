@@ -21,6 +21,10 @@ procedure createDialogueScheme()
 	dialogueScript <- createDialogueScriptMedicalAppointment();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
+	// Script - MakeTransfer
+	dialogueScript <- createDialogueScriptMakeTransfer();
+	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
+
 	$MINDBOARD@DialogueScheme <- dialogueScheme;
 }
 
