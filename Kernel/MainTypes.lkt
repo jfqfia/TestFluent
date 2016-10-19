@@ -38,3 +38,4 @@
 #Include "DialogueManager/Types/StateTypes.lkt"
 #Include "DialogueManager/Types/InputTypes.lkt"
 #Include "DialogueManager/Types/OutputTypes.lkt"
+#Include "DialogueManager/Types/DigestTypes.lkt"

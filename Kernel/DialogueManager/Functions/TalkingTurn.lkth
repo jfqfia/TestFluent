@@ -10,7 +10,7 @@ procedure startTalkingTurn();
 
 procedure activateScripts();
 
-procedure digestDialogueInput();
+procedure digestSearchScripts();
 
 procedure selectCurrentNode();	
 

@@ -40,7 +40,7 @@ classDef:ElementRange
 	{ 
 		'booting_dialogue', 
 		'start_talking', 
-		'digest_dialogue_input',
+		'digest_search_scripts',
 		'activate_scripts',
 		'select_current_node',
 		'process_talking',

@@ -16,35 +16,77 @@ procedure startTalkingTurn()
 	initMindBoardOutput();
 }
 
-procedure digestDialogueInput()
+procedure digestSearchScripts()
 {
-	int size;
-	int position;
 	ProferenceChunk proference;
+	DialogueDigest emptyDialogueDigest;
+	DialogueScripts dialogueScripts;
+	DialogueScript dialogueScript;
+	ScriptComponent scriptComponent;
 
-	size <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
-	for( position <- 1; position <= size; position++ ) 
+	$MINDBOARD@DialogueDigest <-emptyDialogueDigest;
+
+	SpyMessage("===============================================");
+	SpyMessage("XXXX: digestSearchScripts");
+
+	int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
+	for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
 	{
-		BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, position, proference );
-		
-		/*
-		SpyMessage("");
-		SpyMessage("DIGEST PHASE - Start");
+		BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, proference );
+
+		SpyMessage("XXXX: Proference");
 		SpyMessage(proference);
-		SpyMessage("DIGEST PHASE - End");
-		SpyMessage("");
-		*/
+		SpyMessage("****************************************");
 
-		// 1. Try to digest in the current script
-		// 2. Try to digest in the rest of activated scripts
-		// 3. Try to digest in the rest of the scripts
+		dialogueScripts <- $MINDBOARD@DialogueScheme.DialogueScripts;
 
-		// 1. TODO
-		// 2. TODO
-		// 3. 
+		int scriptSize <- BatchSize( dialogueScripts );
+		for (int scriptPosition <- 1; scriptPosition <= scriptSize; scriptPosition ++ ) 
+		{
+			BatchRecoverPosition( dialogueScripts, scriptPosition, dialogueScript );
+			SpyMessage("XXXX:       ScriptDescriptor: ",dialogueScript.ScriptDescriptor);
+
+			scriptComponent <- getCompatibleScriptComponent( dialogueScript, proference );
+
+			SpyMessage("XXXX:                getCompatible ",dialogueScript.ScriptDescriptor," => ",scriptComponent);
+			
+		}
+
+		
 		// BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, 'BookAppointment' ); 
 	}
 
+}
+
+ScriptComponent getCompatibleScriptComponent(DialogueScript dialogueScript, ProferenceChunk proference)
+{
+	ScriptComponent scriptComponent;
+
+	if (proference.CoreDialogueAct) 
+	{
+		if (dialogueScript.DialogueTrigger.CoreDialogueAct)
+		{
+			if (proference.CoreDialogueAct == dialogueScript.DialogueTrigger.CoreDialogueAct) 
+			{
+				return 'core';
+			}
+		}
+	}
+
+	/*
+	if (proference.TaskDialogueAct) 
+	{
+		if (dialogueScript.DialogueTrigger.TaskDialogueAct)
+		{
+			if (proference.TaskDialogueAct.Action == dialogueScript.DialogueTrigger.TaskDialogueAct.Action) 
+			{
+				return 'action';
+			}
+		}
+	}
+	*/
+
+	return scriptComponent;
 }
 
 procedure activateScripts()

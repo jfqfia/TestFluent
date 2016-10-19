@@ -48,19 +48,19 @@
 	{
 		SpyMessage("$$>> CogitoScheme Start Talking");
 		startTalkingTurn();
-	        $MINDBOARD@DialogueState.DialoguePhase <- 'digest_dialogue_input';
+	        $MINDBOARD@DialogueState.DialoguePhase <- 'digest_search_scripts';
 	}
 )
 
-(CogitoScheme DigestDialogueInput :
+(CogitoScheme DigestSearchScripts :
 	CogitoCapture 
 	{
-        	( $MINDBOARD@DialogueState.DialoguePhase == 'digest_dialogue_input' )
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'digest_search_scripts' )
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Digest");
-		digestDialogueInput();
+		SpyMessage("$$>> CogitoScheme Digest Search Scripts");
+		digestSearchScripts();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'activate_scripts';
 	}
 )

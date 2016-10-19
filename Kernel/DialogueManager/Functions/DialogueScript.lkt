@@ -31,8 +31,8 @@ DialogueScript	createDialogueScriptManager()
 	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
 
 	// Node - Hmihy
-	nodeHmihy <- createScriptNode( 'hmihy', 'tell' );
-	// nodeHmihy <- createScriptNode( 'hmihy', 'wait' );
+	// nodeHmihy <- createScriptNode( 'hmihy', 'tell' );
+	nodeHmihy <- createScriptNode( 'hmihy', 'wait' );
 	nodeHmihy.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'hmihy' );
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'hmihy', 'finalized' ));

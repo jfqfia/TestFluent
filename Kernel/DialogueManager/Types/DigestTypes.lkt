@@ -1,0 +1,66 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+classDef:StructureComplex 
+(
+ 	DialogueDigest :
+	(
+	 	DigestSchemes
+	)
+)
+
+classDef:StructureBatch 
+(
+	DigestSchemes : 
+	(
+		DigestScheme
+	)
+)
+
+classDef:StructureComplex 
+(
+	DigestScheme : 
+	(
+		ScriptDescriptor,
+		DigestChunks
+	)
+)
+
+classDef:StructureBatch 
+(
+        DigestChunks : 
+	(
+		DigestChunk
+	)
+)
+
+classDef:StructureComplex 
+(
+        DigestChunk :
+	(
+	 	ProferenceChunk,
+		ScriptComponent
+	)
+)
+
+classDef:ElementRange
+(
+	ScriptComponent : 
+	{
+		'core',
+		'action',
+		'scope',
+		'parameter'
+	}
+)
+
