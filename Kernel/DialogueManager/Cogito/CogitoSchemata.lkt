@@ -74,6 +74,19 @@
 	{
 		SpyMessage("$$>> CogitoScheme Activate Scripts");
 		activateScripts();
+		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_script';
+	}
+)
+
+(CogitoScheme SelectCurrentScript :
+	CogitoCapture 
+	{
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'select_current_script' )
+	}
+	CogitoAction 
+	{
+		SpyMessage("$$>> CogitoScheme Select Current Script");
+		selectCurrentScript();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 	}
 )

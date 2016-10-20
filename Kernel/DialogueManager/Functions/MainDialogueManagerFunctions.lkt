@@ -20,6 +20,7 @@
 #Include "DialogueAction.lkt"
 #Include "PrePostConditions.lkt"
 #Include "DigestPhase.lkt"
+#Include "ActivateScripts.lkt"
 
 
 

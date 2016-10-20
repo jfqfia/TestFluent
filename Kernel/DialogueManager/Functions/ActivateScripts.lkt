@@ -1,0 +1,126 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+DigestScheme selectMinScoreDigestScheme()
+{
+	DigestScheme minDigestScheme, recoveredDigestScheme;
+	BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, 1, minDigestScheme);
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes);
+	for( int position <- 2; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, recoveredDigestScheme);
+		if( recoveredDigestScheme.DigestSchemeScore < minDigestScheme.DigestSchemeScore )
+		{
+			minDigestScheme <- recoveredDigestScheme;
+		}
+	}
+	
+	return minDigestScheme;
+}
+
+// i want to fulfil a bank transfer
+procedure filterDialogueDigest(bool currentFlag, bool activeFlag)
+{
+	if(oneWithScope())
+	{
+		while(oneWithoutScope())
+		{
+			DigestScheme digestScheme <- getFirstWithoutScope();
+			removeDigestScheme( digestScheme );
+		}
+	}
+	else
+	{
+		if( currentFlag || activeFlag )
+		{
+			DigestSchemes emptyDigestSchemes;
+			$MINDBOARD@DialogueDigest.DigestSchemes <- emptyDigestSchemes;
+		}
+	}
+}
+
+bool hasScope(DigestScheme digestScheme)
+{
+	DigestChunk digestChunk;
+
+	int size <- BatchSize( digestScheme.DigestChunks );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( digestScheme.DigestChunks, position, digestChunk );
+		if( digestChunk.ScriptTriggerComponent == 'scope' )
+		{
+			return True;
+		}
+	}
+
+	return False;	
+
+}
+
+bool oneWithScope()
+{
+	DigestScheme digestScheme;
+
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+		if( hasScope(digestScheme) )
+		{
+			return True;
+		}
+	}
+
+	return False;	
+}
+
+bool oneWithoutScope()
+{
+	DigestScheme digestScheme;
+
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+		if( !! hasScope(digestScheme) )
+		{
+			return True;
+		}
+	}
+
+	return False;	
+}
+
+DigestScheme getFirstWithoutScope()
+{
+	DigestScheme digestScheme, emptyDigestScheme;
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+		if( !! hasScope(digestScheme) )
+		{
+			return digestScheme;
+		}
+	}
+
+	return emptyDigestScheme;	
+}
+
+procedure digestParameters( DigestScheme digestScheme )
+{
+	// TODO
+}
+
+
+

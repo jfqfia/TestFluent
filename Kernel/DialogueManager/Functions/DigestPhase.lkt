@@ -40,6 +40,13 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 		}
 	}
 
+	// TODO Important
+	// We may change (or convert) some proference chunks to the expected parameter category.
+	// For example:
+	// 	System: And what's your phone number?
+	// 	User: 686575886 
+	// This is recognized by NLU system as a 'Number', not a 'PhoneNumber', so it will not be used to search inside 
+	// current script parameters.
 	int parameterTypesSize <- BatchSize(dialogueScript.ScriptTrigger.ParameterTypes);
 	if (proference.Parameter && parameterTypesSize >= 1)
 	{
@@ -106,6 +113,52 @@ procedure insertDigestScheme(ScriptDescriptor scriptDescriptor, ProferenceChunk 
 		BatchInsertEnd( $MINDBOARD@DialogueDigest.DigestSchemes, digestScheme );	
 	}
 }
+
+// Scoring a DigestScheme:
+// +10000 for 'scope'
+// +1000 for 'core'
+// +100 for 'action'
+// +1 for 'parameter'
+procedure scoreDigestSchemes()
+{
+	DigestScheme digestScheme;
+	DigestChunk digestChunk;
+
+	int digestSchemeSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+
+	for( int digestSchemePosition <- 1; digestSchemePosition <= digestSchemeSize; digestSchemePosition++ ) 
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, digestSchemePosition, digestScheme );
+		int score = 0;
+
+		int digestChunksSize <- BatchSize( digestScheme.DigestChunks );
+		for (int digestChunkPosition <- 1; digestChunkPosition <= digestChunksSize; digestChunkPosition ++ ) 
+		{
+			BatchRecoverPosition( digestScheme.DigestChunks, digestChunkPosition, digestChunk );
+			
+			if(digestChunk.ScriptTriggerComponent == 'scope')
+			{
+				score += 10000;
+			}
+			if(digestChunk.ScriptTriggerComponent == 'core')
+			{
+				score += 1000;
+			}
+			if(digestChunk.ScriptTriggerComponent == 'action')
+			{
+				score += 100;
+			}
+			if(digestChunk.ScriptTriggerComponent == 'parameter')
+			{
+				score += 1;
+			}
+		}
+		digestScheme.DigestSchemeScore <- score;
+		setDigestScheme(digestScheme);
+	}
+
+}
+
 
 
 

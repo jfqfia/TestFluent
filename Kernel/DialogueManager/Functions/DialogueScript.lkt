@@ -59,13 +59,8 @@ DialogueScript	createDialogueScriptManager()
 
 DialogueScript	createDialogueScriptMedicalAppointment()
 {
+	// Script Descriptor
 	DialogueScript dialogueScript;
-	DialogueAction dialogueAction, emptyDialogueAction;
-	DialogueActionArgument dialogueActionArgument;
-	Parameter parameter;
-
-	ScriptNode nodeStart;
-	ScriptNode nodeMedicalSpeciality;
 
 	dialogueScript.ScriptDescriptor <- 'BookAppointment';
 
@@ -80,9 +75,48 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );	
 	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
 
+	// ParametersCell
+	ScriptParameterCell parameterCell;
+
+	parameterCell.ParameterType <- 'core';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	parameterCell.ParameterType <- 'action';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	parameterCell.ParameterType <- 'scope';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	parameterCell.ParameterType <- 'medicalspeciality';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	parameterCell.ParameterType <- 'datetime';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	parameterCell.ParameterType <- 'countryplace';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	
+	parameterCell.ParameterType <- 'phonenumber';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	parameterCell.ParameterType <- 'peselnumber';	
+	parameterCell.ParameterState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+
+	// Begin Nodes 
+	ScriptNode nodeStart;
+	ScriptNode nodeMedicalSpeciality;
+
 	// Node - Start
 	nodeStart <- createScriptNode( 'start', 'tell' );
-	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'confirm', 'bookappointmentscript' );
+	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'echo', 'bookappointmentscript' );
 	BatchInsertEnd( nodeStart.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
 	BatchInsertEnd( nodeStart.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'start', 'finalized' ));
 
@@ -94,6 +128,8 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeStart );
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMedicalSpeciality );
+
+	// End Nodes	
 
 	return dialogueScript;
 }
@@ -119,7 +155,7 @@ DialogueScript	createDialogueScriptMakeTransfer()
 
 	// Node - Start
 	nodeStart <- createScriptNode( 'start', 'tell' );
-	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'confirm', 'maketransferscript' );
+	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'echo', 'maketransferscript' );
 	BatchInsertEnd( nodeStart.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
 	BatchInsertEnd( nodeStart.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'start', 'finalized' ));
 

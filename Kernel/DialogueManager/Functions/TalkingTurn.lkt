@@ -25,7 +25,8 @@ procedure digestSearchScripts()
 	DialogueScript dialogueScript;
 	ScriptTriggerComponent scriptComponent;
 
-	// TODO VERY CAREFUL HERE: This is the only way of clearing DialogueDigest feature
+	// TODO VERY CAREFUL HERE: This is the only way of clearing DialogueDigest feature. not this:
+	// $MINDBOARD@DialogueDigest <- emptyDialogueDigest; 
 	$MINDBOARD@DialogueDigest.DigestSchemes <- emptyDigestSchemes;
 
 	SpyMessage("===============================================");
@@ -50,37 +51,128 @@ procedure digestSearchScripts()
 		}
 	}
 
+	scoreDigestSchemes();
+
 	// TODO QUITAR
 	SpyMessage($MINDBOARD@DialogueDigest);
 	SpyMessage("XXXX: digestSearchScripts - END");
 	SpyMessage("===============================================");
 }
 
+/*
+
+1. Si el script activo está en DialogueDigest, 
+	1.1 Mover sus parámetros 
+	1.2 Eliminarlo de DialogueDigest 
+	1.3 currentFlag <- True
+
+2. Procesar los scripts activos y por cada uno de ellos
+	2.1 Si esté en DialogueDigest
+		2.1.1 Mover sus parámetros 
+		2.1.2 Eliminarlo de DialogueDigest 
+		2.1.3 activeFlag <- True
+		2.1.4 Si !! currentFlag
+			2.1.4.1 ¿Moverlo a la cabeza?
+
+3. De los que queden en DialogueDigest
+	3.1 Si hay uno o varios con scope
+		3.1.1 Eliminar los demás de DialogueDigest
+	3.2 Si no
+		3.2.1 Si currentFlag || activeFlag		
+			3.2.1.1 Eliminar todos de DialogueDigest
+
+4. Si queda alguno
+	4.1 Ordenar DialogueDigest según puntuación
+	4.2 Insertar al final de los activos según puntuación
+	4.3 Mover cada uno de sus parámetros a cada uno de ellos
+
+*/
 procedure activateScripts()
 {
-	int size;
+	bool activeFlag;
+	bool currentFlag;
+	DigestScheme digestScheme;
+	int digestSize;
 
-	// TODO
-	// We must look here the DialogueDigest structure and choose between them
-	// Actually we choose last one...
-	size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
-
-	// What to do if there is no searched script
-	if(size > 0)
+	activeFlag <- False;
+	currentFlag <- False;		
+	digestSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+	if(digestSize > 0)
 	{
-		DigestScheme digestScheme;
-		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, size, digestScheme );
-		BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor );	
+		// 1.
+		digestScheme <- getDigestScheme( $MINDBOARD@DialogueState.CurrentScriptDescriptor);
+		if(digestScheme)
+		{
+			digestParameters( digestScheme );
+			removeDigestScheme( digestScheme );
+			currentFlag <- True;
+		}
+
+		// 2.
+		int activeSize <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
+		for( int position <- 1; position <= activeSize; position++ )
+		{
+			ScriptDescriptor scriptDescriptor;
+			BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, position, scriptDescriptor );
+	
+			digestScheme <- getDigestScheme( $MINDBOARD@DialogueState.CurrentScriptDescriptor);
+			if(digestScheme)
+			{
+				digestParameters( digestScheme );
+				removeDigestScheme( digestScheme );
+				activeFlag <- True;
+				if(!! currentFlag)
+				{	
+					// TODO
+					// Do I move it to the top of the stack?
+				}
+			}
+		}
+
+		// 3.
+		filterDialogueDigest(currentFlag, activeFlag);
+
+		// 4.
+		digestSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+		for( int i <- 1; i <= digestSize; i++ )
+		{
+			digestScheme <- selectMinScoreDigestScheme();
+			digestParameters( digestScheme );
+			BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor);
+			removeDigestScheme( digestScheme );
+		}
+	}
+	else
+	{
+		// TODO: What to do if there is no scripts in this batch? (i.e. nothing has been recognized by the NLU system)
 	}
 
+	SpyMessage("===============================================");
+	SpyMessage("XXXX: activateScripts - START");
+	SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
+	SpyMessage("XXXX: activateScripts - END");
+	SpyMessage("===============================================");
+}
+
+procedure selectCurrentScript()
+{
 	// TODO
-	// Actually we only set, as current script, the last of the ActivatedScriptsStack batch
-	string scriptDescriptor;
+	// Seleccionar el script actual, cosas a tener en cuenta:
+	// Si ha cambiado la cabeza de la pila de activos (hay cambio de script actual) 
+	// ¿qué hay que hacer?
+	
+	// Por ahora implementada la estrategia básica: La cabeza de la pila de scripts
+	// activos queda como script actual, es decir, cambia de script sin preguntar.
 
-	size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
-	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, size, scriptDescriptor );
+	ScriptDescriptor scriptDescriptor;	
+	int numberActives <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
+	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, numberActives, scriptDescriptor ); 
 
-	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
+	// Hay cambio de script activo
+	if( !! $MINDBOARD@DialogueState.CurrentScriptDescriptor == scriptDescriptor )
+	{
+		$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
+	}
 }
 
 procedure selectCurrentNode()

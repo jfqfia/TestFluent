@@ -12,7 +12,7 @@
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirm') &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'echo') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'bookappointmentscript'
 	}
 	ScriboAction 
@@ -28,7 +28,7 @@
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirm') &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'echo') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'maketransferscript'
 	}
 	ScriboAction 

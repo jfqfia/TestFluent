@@ -108,7 +108,7 @@ ScriptNodeType getCurrentNodeType()
 }
 
 // Returns de DigestScheme corresponding to the given ScriptDescriptor
-DigestScheme  getDigestScheme(ScriptDescriptor scriptDescriptor)
+DigestScheme getDigestScheme(ScriptDescriptor scriptDescriptor)
 {
 	DigestScheme recoveredDigestScheme, emptyDigestScheme;
 
@@ -141,6 +141,24 @@ procedure setDigestScheme( DigestScheme digestScheme )
 			BatchAssignPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme);
 		}
 	}
+}
+
+// Removes a digest scheme from the batch belonging to mindboard structure
+procedure removeDigestScheme( DigestScheme digestScheme )
+{
+	DigestSchemes digestSchemes;
+	DigestScheme recoveredDigestScheme;
+
+	int size <- BatchSize($MINDBOARD@DialogueDigest.DigestSchemes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, recoveredDigestScheme );
+		if( !! recoveredDigestScheme.ScriptDescriptor == digestScheme.ScriptDescriptor)
+		{
+			BatchInsertEnd( digestSchemes, recoveredDigestScheme );
+		}
+	}
+	$MINDBOARD@DialogueDigest.DigestSchemes <- digestSchemes;
 }
 
 // Saves script into working scheme (if it exists).

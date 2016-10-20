@@ -42,6 +42,7 @@ classDef:ElementRange
 		'start_talking', 
 		'digest_search_scripts',
 		'activate_scripts',
+		'select_current_script',
 		'select_current_node',
 		'process_talking',
 		'close_talking'

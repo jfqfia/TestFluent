@@ -40,19 +40,36 @@ classDef:StructureComplex
 		ScriptDescriptor,
 		ScriptNodes,
 		ScriptTrigger,
-		ScriptParameterInfo,
+		ScriptParameterCells,
 		ActivatedScriptNodes,
 		CurrentNodeDescriptor
 	)
 )
 
+classDef:StructureBatch
+(
+	ScriptParameterCells :
+	(
+		ScriptParameterCell
+	)
+)
+
 classDef:StructureComplex
 (
-	ScriptParameterInfo :
-	(
-		Parameters
-		// TODO El estado de cada uno de ellos
+	ScriptParameterCell :
+	( 
+		Parameters,
+		ParameterState,
+		ParameterType
 	)
+)
+
+classDef:ElementRange
+(
+	ParameterState:
+	{
+		'empty', 'captured', 'checked', 'echoed', 'grounded'
+	}
 )
 
 classDef:StructureBatch 
