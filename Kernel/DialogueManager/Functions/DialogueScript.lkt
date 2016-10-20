@@ -75,40 +75,44 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );	
 	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
 
-	// ParametersCell
-	ScriptParameterCell parameterCell;
+	ScriptInfoItem scriptInfoItem;
 
-	parameterCell.ParameterType <- 'core';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
-	parameterCell.ParameterType <- 'action';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
-	parameterCell.ParameterType <- 'scope';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
-	parameterCell.ParameterType <- 'medicalspeciality';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'medicalspeciality';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
-	parameterCell.ParameterType <- 'datetime';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'datetime';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
-	parameterCell.ParameterType <- 'countryplace';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 	
-	parameterCell.ParameterType <- 'phonenumber';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
-	parameterCell.ParameterType <- 'peselnumber';	
-	parameterCell.ParameterState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptParameterCells, parameterCell);
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
 
 	// Begin Nodes 
 	ScriptNode nodeStart;

@@ -103,7 +103,7 @@ procedure activateScripts()
 		digestScheme <- getDigestScheme( $MINDBOARD@DialogueState.CurrentScriptDescriptor);
 		if(digestScheme)
 		{
-			digestParameters( digestScheme );
+			digestScriptInfo( digestScheme );
 			removeDigestScheme( digestScheme );
 			currentFlag <- True;
 		}
@@ -118,7 +118,7 @@ procedure activateScripts()
 			digestScheme <- getDigestScheme( $MINDBOARD@DialogueState.CurrentScriptDescriptor);
 			if(digestScheme)
 			{
-				digestParameters( digestScheme );
+				digestScriptInfo( digestScheme );
 				removeDigestScheme( digestScheme );
 				activeFlag <- True;
 				if(!! currentFlag)
@@ -137,7 +137,7 @@ procedure activateScripts()
 		for( int i <- 1; i <= digestSize; i++ )
 		{
 			digestScheme <- selectMinScoreDigestScheme();
-			digestParameters( digestScheme );
+			digestScriptInfo( digestScheme );
 			BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor);
 			removeDigestScheme( digestScheme );
 		}

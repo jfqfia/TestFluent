@@ -40,7 +40,7 @@ classDef:StructureComplex
 		ScriptDescriptor,
 		ScriptNodes,
 		ScriptTrigger,
-		ScriptParameterCells,
+		ScriptInfoItems,
 		ActivatedScriptNodes,
 		CurrentNodeDescriptor
 	)
@@ -48,27 +48,56 @@ classDef:StructureComplex
 
 classDef:StructureBatch
 (
-	ScriptParameterCells :
+	ScriptInfoItems :
 	(
-		ScriptParameterCell
+		ScriptInfoItem
 	)
 )
 
 classDef:StructureComplex
 (
-	ScriptParameterCell :
+	ScriptInfoItem :
 	( 
-		Parameters,
-		ParameterState,
-		ParameterType
+	 	InfoItemType,
+		InfoItemParameterType,
+		InfoItemState,
+		InfoItemMoveState,
+		InfoItemValue
+		// TODO InfoItemHistory
 	)
+)
+
+classDef:Synonym
+(
+ 	InfoItemType = ScriptTriggerComponent
+)
+
+classDef:Synonym
+(
+ 	InfoItemParameterType = ParameterType
+)
+
+classDef:StructureComplex
+(
+ 	InfoItemValue : 
+	(
+	 	CoreDialogueAct,
+		ActionDomain,
+		Scope,
+		Parameter
+	)
+)
+
+classDef:Synonym
+(
+ 	ParameterHistory = Parameters
 )
 
 classDef:ElementRange
 (
-	ParameterState:
+	InfoItemState:
 	{
-		'empty', 'captured', 'checked', 'echoed', 'grounded'
+		'empty', 'system_proposed', 'captured', 'checked', 'echoed', 'grounded'
 	}
 )
 

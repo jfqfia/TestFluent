@@ -28,7 +28,6 @@ DigestScheme selectMinScoreDigestScheme()
 	return minDigestScheme;
 }
 
-// i want to fulfil a bank transfer
 procedure filterDialogueDigest(bool currentFlag, bool activeFlag)
 {
 	if(oneWithScope())
@@ -117,10 +116,90 @@ DigestScheme getFirstWithoutScope()
 	return emptyDigestScheme;	
 }
 
-procedure digestParameters( DigestScheme digestScheme )
+procedure digestScriptInfo( DigestScheme digestScheme )
 {
 	// TODO
+	SpyMessage("********************************************************");
+	SpyMessage("digestScriptInfo");
+	SpyMessage(digestScheme);
+	SpyMessage("********************************************************");
+
+	DigestChunks digestChunks;
+	int digestSize;
+	int digestPosition;
+	DigestChunk digestChunk;
+
+	digestChunks <- digestScheme.DigestChunks;
+	digestSize <- BatchSize( digestChunks );
+
+	for (digestPosition <- 1; digestPosition <= digestSize; digestPosition ++ ) {
+		BatchRecoverPosition( digestChunks, digestPosition, digestChunk );
+
+		switch (digestChunk.ScriptTriggerComponent) {
+			case 'core' { 
+				;
+			}
+			case 'action' {
+				;
+			}
+			case 'scope' {
+				;
+			}
+			case 'parameter' {
+				SpyMessage("AQUI");
+				SpyMessage(digestChunk.ProferenceChunk.Parameter.ParameterType);
+				assignScriptInfoItemParameter( digestScheme.ScriptDescriptor,
+						digestChunk.ProferenceChunk.Parameter );
+			}
+		}
+	}
 }
 
+procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Parameter parameter)
+{
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	bool infoFound;
+	ScriptInfoItem scriptInfoItem;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+	infoFound <- False;
+
+	for (infoPosition <- 1; (infoPosition <= infoSize && (!! infoFound)); infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'parameter') 
+		{
+			if (scriptInfoItem.InfoItemParameterType == parameter.ParameterType) 
+			{
+				infoFound <- True;
+
+				// TODO
+				//	Dependiendo del estado
+				//
+
+				if (scriptInfoItem.InfoItemState == 'empty') {
+					scriptInfoItem.InfoItemValue.Parameter <- parameter;
+					scriptInfoItem.InfoItemMoveState <- 'captured';
+
+					BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+					dialogueScript.ScriptInfoItems <- scriptInfoItems;
+				}
+			}
+		}
+	}
+
+	SpyMessage("**********************************************");
+	SpyMessage("assignScriptInfoItemParameter");
+	SpyMessage(dialogueScript);
+	SpyMessage("**********************************************");
+	setScript( dialogueScript );
+}
 
 
