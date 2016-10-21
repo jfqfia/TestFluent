@@ -10,4 +10,5 @@
 #Include "GenerationSocialGoodbye.lkt"
 #Include "GenerationEchoScripts.lkt"
 #Include "GenerationQuestion.lkt"
+#Include "GenerationExplicitTriggers.lkt"
 

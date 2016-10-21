@@ -16,6 +16,45 @@ procedure startTalkingTurn()
 	initMindBoardOutput();
 }
 
+procedure digestExpectatives()
+{
+	ProferenceChunk proference;
+
+	DialogueScript dialogueScript;
+	dialogueScript <- getCurrentScript();
+	
+	if( dialogueScript )
+	{
+		ProferenceChunk expectative <- dialogueScript.ScriptExpectative.ProferenceChunk;
+		if( expectative )
+		{
+			int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
+			for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
+			{
+				BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, proference );
+					
+				expectative <& proference;
+
+				if( expectative )
+				{
+					dialogueScript.ScriptExpectative.ProferenceChunk <- expectative; 
+					dialogueScript.ScriptExpectative.InfoItemState <- 'captured';
+					setScript(dialogueScript);
+				}
+				else
+				{
+					expectative <- dialogueScript.ScriptExpectative.ProferenceChunk;
+					if( compatibleExpectativeTypes(expectative, proference) )
+					{
+						ProferenceChunk convertedProference <- convertProferenceToExpectative(expectative.Parameter.ParameterType, proference); 
+						BatchAssignPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, convertedProference );
+					}
+				}
+			}
+		}
+	}
+}
+
 procedure digestSearchScripts()
 {
 	ProferenceChunk proference;
@@ -172,6 +211,8 @@ procedure selectCurrentScript()
 	{
 		$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
 	}
+
+	// SpyMessage(getCurrentScript());
 }
 
 procedure selectCurrentNode()
@@ -215,37 +256,17 @@ procedure selectCurrentNode()
 	setScript( dialogueScript );
 }
 
-procedure processTellNode()
-{
-	ScriptNode currentNode;
-
-	currentNode <- getCurrentNode();
-
-	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, 
-			currentNode.ScriptNodeContent.DialogueAct );
-
-	executePostconditions( currentNode );
-}
-
-procedure processExecuteNode()
+procedure processNode()
 {
 	ScriptNode currentNode;
 
 	currentNode <- getCurrentNode();
 
 	executePostconditions( currentNode );
-}
 
-procedure processWaitNode()
-{
-	ScriptNode currentNode;
-
-	currentNode <- getCurrentNode();
-
-	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, 
-			currentNode.ScriptNodeContent.DialogueAct );
-
-	executePostconditions( currentNode );
+	// TODO QUITAR
+	DialogueScript script <- getCurrentScript();
+	SpyMessage(script.ScriptInfoItems);
 }
 
 procedure closeTalkingTurn()

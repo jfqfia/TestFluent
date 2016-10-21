@@ -17,13 +17,17 @@ procedure createDialogueScheme()
 	dialogueScript <- createDialogueScriptManager();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
-	// Script - MedicalAppointment
-	dialogueScript <- createDialogueScriptMedicalAppointment();
+	// Script - ConsultBalance
+	dialogueScript <- createDialogueScriptConsultBalance();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
+	// Script - MedicalAppointment
+	// dialogueScript <- createDialogueScriptMedicalAppointment();
+	// BatchInsertEnd( dialogueScheme.DialogueScripts, dialogueScript );
+
 	// Script - MakeTransfer
-	dialogueScript <- createDialogueScriptMakeTransfer();
-	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
+	// dialogueScript <- createDialogueScriptMakeTransfer();
+	// BatchInsertEnd( dialogueScheme.DialogueScripts, dialogueScript );
 
 	$MINDBOARD@DialogueScheme <- dialogueScheme;
 }

@@ -25,10 +25,13 @@ DialogueScript	createDialogueScriptManager()
 	dialogueScript.ScriptDescriptor <- 'Manager';
 
 	// Node - Welcome
-	nodeWelcome <- createScriptNode( 'welcome', 'tell' );
+	nodeWelcome <- createScriptNode( 'welcome', 'execute' );
 	nodeWelcome.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'welcome' );
-	BatchInsertEnd(nodeWelcome.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized'));
+	BatchInsertEnd( nodeWelcome.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized'));
 	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'welcome', 'finalized' ));
+	BatchInsertEnd( nodeWelcome.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
 
 	// Node - Hmihy
 	nodeHmihy <- createScriptNode( 'hmihy', 'wait' );
@@ -36,24 +39,113 @@ DialogueScript	createDialogueScriptManager()
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'hmihy', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'hmihy', 'finalized' ));
+	BatchInsertEnd( nodeHmihy.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeHmihy );
 
 	// Node - Bye
-	nodeBye <- createScriptNode( 'bye', 'tell' );
+	nodeBye <- createScriptNode( 'bye', 'execute' );
 	nodeBye.ScriptNodeContent <- setNodeContent( 'social', 'goodbye', '', '' );
 	BatchInsertEnd( nodeBye.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'hmihy', 'finalized' ));
 	BatchInsertEnd( nodeBye.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'bye', 'finalized' ));
 	BatchInsertEnd( nodeBye.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'bye', 'finalized' ));
+	BatchInsertEnd( nodeBye.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeBye );
 
 	// Node - End
 	nodeEnd <- createScriptNode( 'end', 'execute' );
 	BatchInsertEnd( nodeEnd.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'bye', 'finalized' ));
 	BatchInsertEnd( nodeEnd.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeHmihy );
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeBye );
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeEnd );
 				
+	return dialogueScript;
+}
+
+DialogueScript createDialogueScriptConsultBalance()
+{
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	dialogueScript.ScriptDescriptor <- 'ConsultBalance';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'consult';
+	dialogueScript.ScriptTrigger.Scope <- 'bankaccount';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'accountnumber' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'consult';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'bankaccount';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'accountnumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Nodes 
+	ScriptNode nodeExplicit1;
+	ScriptNode nodeExplicit2;
+
+	// Node - Explicit1
+	nodeExplicit1 <- createScriptNode( 'explicit1', 'wait' );
+	nodeExplicit1.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerconsultbalance' );
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '2', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit1 );
+
+	// Node - Explicit2
+	nodeExplicit2 <- createScriptNode( 'explicit2', 'execute' );
+	//nodeExplicit2.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerconsultbalance' );
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit2', 'finalized' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+
+	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit2', 'finalized' ));
+	/*
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '2', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'proposed' ));
+	*/
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit2 );
+	// End Nodes	
+
 	return dialogueScript;
 }
 
@@ -156,7 +248,7 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 	return dialogueScript;
 }
 
-DialogueScript	createDialogueScriptMakeTransfer()
+DialogueScript createDialogueScriptMakeTransfer()
 {
 	DialogueScript dialogueScript;
 	DialogueAction dialogueAction, emptyDialogueAction;
@@ -185,4 +277,5 @@ DialogueScript	createDialogueScriptMakeTransfer()
 
 	return dialogueScript;
 }
+
 

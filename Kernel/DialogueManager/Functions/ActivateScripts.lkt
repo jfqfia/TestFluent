@@ -160,15 +160,15 @@ procedure digestScriptInfo( DigestScheme digestScheme )
 		{
 			case 'core' 
 			{ 
-				;
+				assignScriptInfoItemCore( digestScheme.ScriptDescriptor, digestChunk.ProferenceChunk.CoreDialogueAct );
 			}
 			case 'action' 
 			{
-				;
+				assignScriptInfoItemAction( digestScheme.ScriptDescriptor, digestChunk.ProferenceChunk.TaskDialogueAct.Action );
 			}
 			case 'scope' 
 			{
-				;
+				assignScriptInfoItemScope( digestScheme.ScriptDescriptor, digestChunk.ProferenceChunk.TaskDialogueAct.Scope );
 			}
 			case 'parameter' 
 			{
@@ -176,6 +176,129 @@ procedure digestScriptInfo( DigestScheme digestScheme )
 			}
 		}
 	}
+}
+
+procedure assignScriptInfoItemScope( ScriptDescriptor scriptDescriptor, Scope scope )
+{
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	bool infoFound;
+	ScriptInfoItem scriptInfoItem;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+	infoFound <- False;
+
+	for (infoPosition <- 1; (infoPosition <= infoSize && (!! infoFound)); infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'scope') 
+		{
+			if(scriptInfoItem.InfoItemValue.Scope == scope)
+			{
+				infoFound <- True;
+				scriptInfoItem.InfoItemValue.Scope <- scope;
+
+				// TODO Dependiendo del estado
+				if (scriptInfoItem.InfoItemState == 'empty') 
+				{
+					scriptInfoItem.InfoItemState <- 'captured';
+				}
+
+				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+				dialogueScript.ScriptInfoItems <- scriptInfoItems;
+			}
+		}
+	}
+
+	setScript( dialogueScript );
+}
+
+procedure assignScriptInfoItemAction( ScriptDescriptor scriptDescriptor, Action action )
+{
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	bool infoFound;
+	ScriptInfoItem scriptInfoItem;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+	infoFound <- False;
+
+	for (infoPosition <- 1; (infoPosition <= infoSize && (!! infoFound)); infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'action') 
+		{
+			if( proferenceActionContains(action, scriptInfoItem.InfoItemValue.ActionDomain) )
+			{
+				infoFound <- True;
+				scriptInfoItem.InfoItemValue.ActionDomain <- dialogueScript.ScriptTrigger.ActionDomain;
+
+				// TODO Dependiendo del estado
+				if (scriptInfoItem.InfoItemState == 'empty') 
+				{
+					scriptInfoItem.InfoItemState <- 'captured';
+				}
+	
+				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+				dialogueScript.ScriptInfoItems <- scriptInfoItems;
+			}
+		}
+	}
+
+	setScript( dialogueScript );
+}
+
+procedure assignScriptInfoItemCore( ScriptDescriptor scriptDescriptor, CoreDialogueAct coreDialogueAct )
+{
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	bool infoFound;
+	ScriptInfoItem scriptInfoItem;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+	infoFound <- False;
+
+	for (infoPosition <- 1; (infoPosition <= infoSize && (!! infoFound)); infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'core') 
+		{
+			if( scriptInfoItem.InfoItemValue.CoreDialogueAct == coreDialogueAct )
+			{
+				infoFound <- True;
+				scriptInfoItem.InfoItemValue.CoreDialogueAct <- dialogueScript.ScriptTrigger.CoreDialogueAct;
+
+				// TODO Dependiendo del estado
+				if (scriptInfoItem.InfoItemState == 'empty') 
+				{
+					scriptInfoItem.InfoItemState <- 'captured';
+				}
+	
+				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+				dialogueScript.ScriptInfoItems <- scriptInfoItems;
+			}
+		}
+	}
+
+	setScript( dialogueScript );
 }
 
 procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Parameter parameter)
@@ -202,16 +325,16 @@ procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Param
 			if (scriptInfoItem.InfoItemParameterType == parameter.ParameterType) 
 			{
 				infoFound <- True;
+				scriptInfoItem.InfoItemValue.Parameter <- parameter;
 
 				// TODO Dependiendo del estado
 				if (scriptInfoItem.InfoItemState == 'empty') 
 				{
-					scriptInfoItem.InfoItemValue.Parameter <- parameter;
 					scriptInfoItem.InfoItemState <- 'captured';
-
-					BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
-					dialogueScript.ScriptInfoItems <- scriptInfoItems;
 				}
+
+				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+				dialogueScript.ScriptInfoItems <- scriptInfoItems;
 			}
 		}
 	}

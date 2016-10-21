@@ -20,11 +20,11 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		setNodeStateToCurrent(node, state);
 	}
-	if(dialogueAction.DialogueActionName == 'pull_script')
+	else if(dialogueAction.DialogueActionName == 'pull_script')
 	{
 		pullScript();
 	}
-	if(dialogueAction.DialogueActionName == 'propose_info_item3')
+	else if(dialogueAction.DialogueActionName == 'propose_info_item3')
 	{
 		string targetInfoItem, backOfficeFunction, argumentInfoItem1, argumentInfoItem2, argumentInfoItem3;
 		DialogueActionArguments arguments;		
@@ -41,6 +41,40 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 
 		proposeInfoItem(targetInfoItem, backOfficeFunction, arguments);
 	}
+	else if(dialogueAction.DialogueActionName == 'generate')
+	{
+		generate();
+	}
+	else if(dialogueAction.DialogueActionName == 'set_info_state')
+	{
+		string infoString, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, infoString );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
+		setInfoState(infoString, state);
+	}
+	else if(dialogueAction.DialogueActionName == 'set_expectative_dimension')
+	{
+		string state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, state );
+		setExpectativeDimension( state );
+	}
+	else
+	{
+		SpyMessage("");
+		SpyMessage("");
+		SpyMessage("Dialogue Action ", dialogueAction.DialogueActionName, "not implemented (Procedure)");
+		SpyMessage("");
+		SpyMessage("");
+	}
+}
+
+procedure setExpectativeDimension( string dimensionString )
+{
+	Dimension dimension <- ShapeToRange( dimensionString );
+	DialogueScript script <- getCurrentScript();
+	script.ScriptExpectative.ProferenceChunk.CoreDialogueAct.Dimension <- dimension;
+
+	setScript(script);
 }
 
 procedure setNodeStateToCurrent(string nodeDescriptor, string state)
@@ -99,5 +133,33 @@ procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, Dial
 	BatchRecoverPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
 	SpyMessage(scriptInfoItem.InfoItemValue);
 }
+
+procedure generate()
+{
+	ScriptNode currentNode;
+	
+	currentNode <- getCurrentNode();
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, currentNode.ScriptNodeContent.DialogueAct );
+}
+
+procedure setInfoState(string infoString, string state)
+{
+	DialogueScript script;
+	int infoNumber;
+	InfoItemState infoItemState;
+	ScriptInfoItem scriptInfoItem;
+
+	script <- getCurrentScript();
+	infoNumber <- ShapeToInt( infoString );
+	infoItemState <- ShapeToRange( state );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+
+	scriptInfoItem.InfoItemState <- infoItemState;
+
+	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	setScript( script );
+}
+
+
 
 

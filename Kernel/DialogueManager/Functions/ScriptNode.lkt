@@ -42,22 +42,22 @@ DialogueActionPrecondition createNegatedPrecondition2Arguments( string name, str
 	return precondition;
 }
 
-DialogueActionPrecondition createPrecondition2Arguments( string name, string arg1, string arg2 )
-{
-	DialogueActionPrecondition precondition;
-
-	precondition.NegatedPrecondition <- False;
-	precondition.DialogueAction <- createDialogueAction2Arguments( name, arg1, arg2 );
-
-	return precondition;
-}
-
 DialogueActionPrecondition createPrecondition3Arguments( string name, string arg1, string arg2, string arg3 )
 {
 	DialogueActionPrecondition precondition;
 
 	precondition.NegatedPrecondition <- False;
 	precondition.DialogueAction <- createDialogueAction3Arguments( name, arg1, arg2, arg3 );
+
+	return precondition;
+}
+
+DialogueActionPrecondition createPrecondition2Arguments( string name, string arg1, string arg2 )
+{
+	DialogueActionPrecondition precondition;
+
+	precondition.NegatedPrecondition <- False;
+	precondition.DialogueAction <- createDialogueAction2Arguments( name, arg1, arg2 );
 
 	return precondition;
 }
@@ -76,7 +76,7 @@ DialogueAction createDialogueAction5Arguments( string name, string arg1, string 
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	dialogueAction.DialogueActionName <- name;
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg3 );
@@ -90,7 +90,7 @@ DialogueAction createDialogueAction4Arguments( string name, string arg1, string 
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	dialogueAction.DialogueActionName <- name;
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg3 );
@@ -103,7 +103,7 @@ DialogueAction createDialogueAction3Arguments( string name, string arg1, string 
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	dialogueAction.DialogueActionName <- name;
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg3 );
@@ -115,7 +115,7 @@ DialogueAction createDialogueAction2Arguments( string name, string arg1, string 
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	dialogueAction.DialogueActionName <- name;
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
 	
@@ -126,7 +126,7 @@ DialogueAction createDialogueAction1Arguments( string name, string arg1)
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	dialogueAction.DialogueActionName <- name;
 	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
 	
 	return dialogueAction;
@@ -136,7 +136,7 @@ DialogueAction createDialogueAction0Arguments( string name )
 {
 	DialogueAction dialogueAction;
 
-	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	dialogueAction.DialogueActionName <- name;
 	
 	return dialogueAction;
 }

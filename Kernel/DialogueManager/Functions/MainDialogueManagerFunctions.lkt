@@ -19,6 +19,7 @@
 #Include "Utils.lkt"
 #Include "PrePostConditions.lkt"
 #Include "DigestPhase.lkt"
+#Include "DigestExpectativesPhase.lkt"
 #Include "ActivateScripts.lkt"
 #Include "BooleanDialogueAction.lkt"
 #Include "ProcedureDialogueAction.lkt"

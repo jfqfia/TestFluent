@@ -42,7 +42,17 @@ classDef:StructureComplex
 		ScriptTrigger,
 		ScriptInfoItems,
 		ActivatedScriptNodes,
-		CurrentNodeDescriptor
+		CurrentNodeDescriptor,
+		ScriptExpectative
+	)
+)
+
+classDef:StructureComplex
+(
+	ScriptExpectative :
+	(
+		ProferenceChunk,
+		InfoItemState
 	)
 )
 
@@ -211,16 +221,9 @@ classDef:StructureComplex
 	)
 )
 
-classDef:ElementRange 
+classDef:ElementLiteral 
 (
-        DialogueActionName : 
-	{ 
-		'propose_info_item3',
-		'state_info', 
-		'pull_script', 
-		'set_node_state', 
-		'is_node_state'
-	}
+        DialogueActionName
 )
 
 classDef:StructureBatch
@@ -262,8 +265,7 @@ classDef:ElementRange
 (
         ScriptNodeType : 
 	{ 
-		'tell', 
-		'wait', 
+		'wait',
 		'execute'
 	}
 )

@@ -1,0 +1,23 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+bool compatibleExpectativeTypes(ProferenceChunk prof1, ProferenceChunk prof2)
+{
+	// TODO
+	return False;
+}
+	
+ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, ProferenceChunk originalProference)
+{
+	// TODO				
+}

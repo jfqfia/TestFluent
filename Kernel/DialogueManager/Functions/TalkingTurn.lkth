@@ -8,6 +8,8 @@
 
 procedure startTalkingTurn();
 
+procedure digestExpectatives();
+
 procedure digestSearchScripts();
 
 procedure activateScripts();
@@ -16,10 +18,7 @@ procedure selectCurrentScript();
 
 procedure selectCurrentNode();	
 
-procedure processTellNode();	
-
-procedure processWaitNode();
+procedure processNode();	
 
 procedure closeTalkingTurn();
 
-procedure processExecuteNode();	
