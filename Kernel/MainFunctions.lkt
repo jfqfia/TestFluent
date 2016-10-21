@@ -40,6 +40,9 @@
 // Generation
 #Include "Generation/Functions/GenerationFunctions.lkt"
 
+// BackOffice
+#Include "BackOffice/Functions/BackOfficeFunctions.lkt"
+
 
 
 

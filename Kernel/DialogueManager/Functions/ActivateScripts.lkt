@@ -100,6 +100,26 @@ bool oneWithoutScope()
 	return False;	
 }
 
+// Given a script descriptor contained in activated scripts stack we want to move it to the top stack position
+procedure moveToTopStack( ScriptDescriptor scriptDescriptor )
+{
+	ScriptDescriptor recoveredScriptDescriptor;
+	ActivatedScriptsStack newActivatedStack;
+
+	int size <- BatchSize($MINDBOARD@DialogueState.ActivatedScriptsStack );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, position, recoveredScriptDescriptor );
+		if( !! recoveredScriptDescriptor == scriptDescriptor)
+		{
+			BatchInsertEnd( newActivatedStack, recoveredScriptDescriptor );
+		}
+	}
+
+	BatchInsertEnd( newActivatedStack, scriptDescriptor );
+	$MINDBOARD@DialogueState.ActivatedScriptsStack <- newActivatedStack;
+}
+
 DigestScheme getFirstWithoutScope()
 {
 	DigestScheme digestScheme, emptyDigestScheme;
@@ -119,10 +139,10 @@ DigestScheme getFirstWithoutScope()
 procedure digestScriptInfo( DigestScheme digestScheme )
 {
 	// TODO
-	SpyMessage("********************************************************");
-	SpyMessage("digestScriptInfo");
-	SpyMessage(digestScheme);
-	SpyMessage("********************************************************");
+	// SpyMessage("********************************************************");
+	// SpyMessage("digestScriptInfo");
+	// SpyMessage(digestScheme);
+	// SpyMessage("********************************************************");
 
 	DigestChunks digestChunks;
 	int digestSize;
@@ -132,24 +152,27 @@ procedure digestScriptInfo( DigestScheme digestScheme )
 	digestChunks <- digestScheme.DigestChunks;
 	digestSize <- BatchSize( digestChunks );
 
-	for (digestPosition <- 1; digestPosition <= digestSize; digestPosition ++ ) {
+	for (digestPosition <- 1; digestPosition <= digestSize; digestPosition ++ ) 
+	{
 		BatchRecoverPosition( digestChunks, digestPosition, digestChunk );
 
-		switch (digestChunk.ScriptTriggerComponent) {
-			case 'core' { 
+		switch (digestChunk.ScriptTriggerComponent) 
+		{
+			case 'core' 
+			{ 
 				;
 			}
-			case 'action' {
+			case 'action' 
+			{
 				;
 			}
-			case 'scope' {
+			case 'scope' 
+			{
 				;
 			}
-			case 'parameter' {
-				SpyMessage("AQUI");
-				SpyMessage(digestChunk.ProferenceChunk.Parameter.ParameterType);
-				assignScriptInfoItemParameter( digestScheme.ScriptDescriptor,
-						digestChunk.ProferenceChunk.Parameter );
+			case 'parameter' 
+			{
+				assignScriptInfoItemParameter( digestScheme.ScriptDescriptor, digestChunk.ProferenceChunk.Parameter );
 			}
 		}
 	}
@@ -180,13 +203,11 @@ procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Param
 			{
 				infoFound <- True;
 
-				// TODO
-				//	Dependiendo del estado
-				//
-
-				if (scriptInfoItem.InfoItemState == 'empty') {
+				// TODO Dependiendo del estado
+				if (scriptInfoItem.InfoItemState == 'empty') 
+				{
 					scriptInfoItem.InfoItemValue.Parameter <- parameter;
-					scriptInfoItem.InfoItemMoveState <- 'captured';
+					scriptInfoItem.InfoItemState <- 'captured';
 
 					BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 					dialogueScript.ScriptInfoItems <- scriptInfoItems;
@@ -195,10 +216,6 @@ procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Param
 		}
 	}
 
-	SpyMessage("**********************************************");
-	SpyMessage("assignScriptInfoItemParameter");
-	SpyMessage(dialogueScript);
-	SpyMessage("**********************************************");
 	setScript( dialogueScript );
 }
 

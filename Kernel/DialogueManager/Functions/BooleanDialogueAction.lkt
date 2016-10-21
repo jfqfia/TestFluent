@@ -1,0 +1,73 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+bool executeBooleanDialogueAction( DialogueAction dialogueAction )
+{
+	bool ret;
+
+	if(dialogueAction.DialogueActionName == 'is_node_state')
+	{
+		string node, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
+		ret = isNodeState(node, state);
+	}
+	if(dialogueAction.DialogueActionName == 'state_info')
+	{
+		string number, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, number );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
+		ret = stateInfo(number, state);
+	}
+
+	return ret;	
+}
+
+bool stateInfo(string number, string state)
+{
+	DialogueScript script;
+	int infoNumber;
+	ScriptInfoItem scriptInfoItem;
+	InfoItemState infoItemState;
+
+	script <- getCurrentScript();
+	infoItemState <- ShapeToRange( state );
+	infoNumber <- ShapeToInt( number );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+
+	if( scriptInfoItem.InfoItemState == infoItemState )
+	{
+		return True;
+	}
+		
+	return False;
+}
+
+bool isNodeState(string nodeDescriptor, string state)
+{
+	bool ret;
+	ScriptNode node;
+	ScriptNodeStateName scriptNodeStateName;
+
+	ret <- False;
+	scriptNodeStateName <- ShapeToRange(state);
+	node <- getNodeFromCurrentScript( nodeDescriptor );
+
+	if(node.ScriptNodeState.ScriptNodeStateName == scriptNodeStateName )
+	{
+		ret <- True;
+	}
+
+	return ret;
+}
+

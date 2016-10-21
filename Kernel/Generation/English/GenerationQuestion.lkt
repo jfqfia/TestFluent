@@ -21,4 +21,20 @@
     	}
 )
 
+(ScriboScheme QuestionWhereCountryPlace: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'where') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'countryplace'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Where are you calling from? ',
+					   'I would like to know your preferred town, please. ');
+    	}
+)
+
 

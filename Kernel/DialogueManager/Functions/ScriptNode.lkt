@@ -52,6 +52,16 @@ DialogueActionPrecondition createPrecondition2Arguments( string name, string arg
 	return precondition;
 }
 
+DialogueActionPrecondition createPrecondition3Arguments( string name, string arg1, string arg2, string arg3 )
+{
+	DialogueActionPrecondition precondition;
+
+	precondition.NegatedPrecondition <- False;
+	precondition.DialogueAction <- createDialogueAction3Arguments( name, arg1, arg2, arg3 );
+
+	return precondition;
+}
+
 DialogueActionPrecondition createPrecondition1Arguments( string name, string arg1)
 {
 	DialogueActionPrecondition precondition;
@@ -60,6 +70,45 @@ DialogueActionPrecondition createPrecondition1Arguments( string name, string arg
 	precondition.DialogueAction <- createDialogueAction1Arguments( name, arg1 );
 
 	return precondition;
+}
+
+DialogueAction createDialogueAction5Arguments( string name, string arg1, string arg2, string arg3, string arg4, string arg5 )
+{
+	DialogueAction dialogueAction;
+
+	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg3 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg4 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg5 );
+	
+	return dialogueAction;
+}
+
+DialogueAction createDialogueAction4Arguments( string name, string arg1, string arg2, string arg3, string arg4 )
+{
+	DialogueAction dialogueAction;
+
+	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg3 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg4 );
+	
+	return dialogueAction;
+}
+
+DialogueAction createDialogueAction3Arguments( string name, string arg1, string arg2, string arg3 )
+{
+	DialogueAction dialogueAction;
+
+	dialogueAction.DialogueActionName <- ShapeToRange( name );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg1 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg2 );
+	BatchInsertEnd( dialogueAction.DialogueActionArguments, arg3 );
+	
+	return dialogueAction;
 }
 
 DialogueAction createDialogueAction2Arguments( string name, string arg1, string arg2 )

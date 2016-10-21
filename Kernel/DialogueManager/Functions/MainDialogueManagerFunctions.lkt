@@ -17,10 +17,11 @@
 #Include "TalkingTurn.lkt"
 #Include "ScriptNode.lkt"
 #Include "Utils.lkt"
-#Include "DialogueAction.lkt"
 #Include "PrePostConditions.lkt"
 #Include "DigestPhase.lkt"
 #Include "ActivateScripts.lkt"
+#Include "BooleanDialogueAction.lkt"
+#Include "ProcedureDialogueAction.lkt"
 
 
 

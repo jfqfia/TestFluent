@@ -61,10 +61,20 @@ classDef:StructureComplex
 	 	InfoItemType,
 		InfoItemParameterType,
 		InfoItemState,
-		InfoItemMoveState,
-		InfoItemValue
-		// TODO InfoItemHistory
+//		InfoItemMoveState,
+		InfoItemValue,
+		InfoItemHistory
 	)
+)
+
+// classDef:Synonym
+// (
+// 	InfoItemMoveState = InfoItemState
+// )
+
+classDef:Synonym
+(
+	InfoItemHistory = Parameters
 )
 
 classDef:Synonym
@@ -88,16 +98,19 @@ classDef:StructureComplex
 	)
 )
 
-classDef:Synonym
+classDef:StructureBatch
 (
- 	ParameterHistory = Parameters
+ 	ParameterHistory :
+	(
+		InfoItemValue
+	)
 )
 
 classDef:ElementRange
 (
 	InfoItemState:
 	{
-		'empty', 'system_proposed', 'captured', 'checked', 'echoed', 'grounded'
+		'empty', 'proposed', 'captured', 'checked', 'echoed', 'grounded'
 	}
 )
 
@@ -202,7 +215,8 @@ classDef:ElementRange
 (
         DialogueActionName : 
 	{ 
-		'empty_slot', 
+		'propose_info_item3',
+		'state_info', 
 		'pull_script', 
 		'set_node_state', 
 		'is_node_state'

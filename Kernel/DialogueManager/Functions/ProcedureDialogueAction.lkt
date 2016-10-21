@@ -1,0 +1,103 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
+{
+	if(dialogueAction.DialogueActionName == 'set_node_state')
+	{
+		string node, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
+		setNodeStateToCurrent(node, state);
+	}
+	if(dialogueAction.DialogueActionName == 'pull_script')
+	{
+		pullScript();
+	}
+	if(dialogueAction.DialogueActionName == 'propose_info_item3')
+	{
+		string targetInfoItem, backOfficeFunction, argumentInfoItem1, argumentInfoItem2, argumentInfoItem3;
+		DialogueActionArguments arguments;		
+
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, targetInfoItem );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, backOfficeFunction );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, argumentInfoItem1 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 4, argumentInfoItem2 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 5, argumentInfoItem3 );
+
+		BatchInsertEnd( arguments, argumentInfoItem1 );
+		BatchInsertEnd( arguments, argumentInfoItem2 );
+		BatchInsertEnd( arguments, argumentInfoItem3 );
+
+		proposeInfoItem(targetInfoItem, backOfficeFunction, arguments);
+	}
+}
+
+procedure setNodeStateToCurrent(string nodeDescriptor, string state)
+{
+	setNodeState( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor, state );
+}
+
+procedure setNodeState(string scriptDescriptor, string nodeDescriptor, string state)
+{
+	DialogueScript script;
+	ScriptNode node;
+
+	script <- getScript(scriptDescriptor);
+	node <- getNodeFromScript(script, nodeDescriptor );	
+	node.ScriptNodeState.ScriptNodeStateName <- ShapeToRange(state);
+
+	setNodeToScript(script, node);
+}
+
+procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, DialogueActionArguments arguments)
+{
+	DialogueScript script;
+	int argumentNumber, returnNumber;
+	ScriptInfoItem scriptInfoItem;
+	Parameters parameters;
+	Parameter returnedParameter, parameter;
+	string argumentInfoItem;
+
+	// Extract parameters
+	script <- getCurrentScript();
+	int size <- BatchSize( arguments );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( arguments, position, argumentInfoItem );
+		argumentNumber <- ShapeToInt( argumentInfoItem );
+		BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+		parameter <- scriptInfoItem.InfoItemValue.Parameter;
+		BatchInsertEnd( parameters, parameter );
+	}
+
+	// Execute backoffice function
+	returnedParameter <- executeBackOfficeFunction(backOfficeFunction, parameters);
+	
+	// Set the returned parameter
+	returnNumber <- ShapeToInt( targetInfoItem );
+	BatchRecoverPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+	scriptInfoItem.InfoItemValue.Parameter <- returnedParameter;
+
+	// TODO Si no estaba vacío cambiar al history
+	scriptInfoItem.InfoItemState <- 'proposed';
+
+	BatchAssignPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+	setScript( script );
+
+	// TODO QUITAR
+	BatchRecoverPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+	SpyMessage(scriptInfoItem.InfoItemValue);
+}
+
+

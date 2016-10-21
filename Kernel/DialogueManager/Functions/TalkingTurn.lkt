@@ -25,12 +25,11 @@ procedure digestSearchScripts()
 	DialogueScript dialogueScript;
 	ScriptTriggerComponent scriptComponent;
 
-	// TODO VERY CAREFUL HERE: This is the only way of clearing DialogueDigest feature. not this:
-	// $MINDBOARD@DialogueDigest <- emptyDialogueDigest; 
 	$MINDBOARD@DialogueDigest.DigestSchemes <- emptyDigestSchemes;
 
-	SpyMessage("===============================================");
-	SpyMessage("XXXX: digestSearchScripts - START");
+	// TODO QUITAR
+	// SpyMessage("===============================================");
+	// SpyMessage("XXXX: digestSearchScripts - START");
 
 	int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
 	for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
@@ -54,9 +53,9 @@ procedure digestSearchScripts()
 	scoreDigestSchemes();
 
 	// TODO QUITAR
-	SpyMessage($MINDBOARD@DialogueDigest);
-	SpyMessage("XXXX: digestSearchScripts - END");
-	SpyMessage("===============================================");
+	// SpyMessage($MINDBOARD@DialogueDigest);
+	// SpyMessage("XXXX: digestSearchScripts - END");
+	// SpyMessage("===============================================");
 }
 
 /*
@@ -87,6 +86,7 @@ procedure digestSearchScripts()
 	4.3 Mover cada uno de sus parámetros a cada uno de ellos
 
 */
+
 procedure activateScripts()
 {
 	bool activeFlag;
@@ -123,8 +123,7 @@ procedure activateScripts()
 				activeFlag <- True;
 				if(!! currentFlag)
 				{	
-					// TODO
-					// Do I move it to the top of the stack?
+					moveToTopStack( digestScheme.ScriptDescriptor );
 				}
 			}
 		}
@@ -147,11 +146,11 @@ procedure activateScripts()
 		// TODO: What to do if there is no scripts in this batch? (i.e. nothing has been recognized by the NLU system)
 	}
 
-	SpyMessage("===============================================");
-	SpyMessage("XXXX: activateScripts - START");
-	SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
-	SpyMessage("XXXX: activateScripts - END");
-	SpyMessage("===============================================");
+	// SpyMessage("===============================================");
+	// SpyMessage("XXXX: activateScripts - START");
+	// SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
+	// SpyMessage("XXXX: activateScripts - END");
+	// SpyMessage("===============================================");
 }
 
 procedure selectCurrentScript()

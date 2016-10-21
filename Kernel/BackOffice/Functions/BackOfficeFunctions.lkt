@@ -1,0 +1,40 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters parameters)
+{
+	// TODO Should we search this functions inside possible domains?
+	if( backOfficeFunctionName == 'get_medical_appointment_availability' )
+	{
+		return getAvailabilityMedicalAppointment(parameters);
+	}
+}
+
+Parameter getAvailabilityMedicalAppointment(Parameters parameters)
+{
+	Parameter returnedParameter;
+	Parameter param1, param2, param3;
+
+	BatchRecoverPosition( parameters, 1, param1 );
+	BatchRecoverPosition( parameters, 2, param2 );
+	BatchRecoverPosition( parameters, 3, param3 );
+
+	// TODO Here we must simulate the back office call
+	param2.ParameterValue.DateTime.GeneralTime.BaseTime.Hour <- 11;
+	returnedParameter <- param2;	
+
+	return returnedParameter;
+}
+	
+
+

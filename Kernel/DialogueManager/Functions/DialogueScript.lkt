@@ -79,44 +79,46 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 
 	scriptInfoItem.InfoItemType <- 'core';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem.InfoItemType <- 'action';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem.InfoItemType <- 'scope';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'medicalspeciality';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'datetime';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 	
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem);
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	// Begin Nodes 
 	ScriptNode nodeStart;
-	ScriptNode nodeMedicalSpeciality;
+	ScriptNode nodeAskMedicalSpeciality;
+	ScriptNode nodeAskCountryPlace;
+	ScriptNode nodeProposeDateTime;
 
 	// Node - Start
 	nodeStart <- createScriptNode( 'start', 'tell' );
@@ -124,14 +126,30 @@ DialogueScript	createDialogueScriptMedicalAppointment()
 	BatchInsertEnd( nodeStart.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
 	BatchInsertEnd( nodeStart.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'start', 'finalized' ));
 
-	// Node - MedicalSpeciality
-	nodeMedicalSpeciality <- createScriptNode( 'medicalspeciality', 'wait' );
-	nodeMedicalSpeciality.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'medicalspeciality' );
-	BatchInsertEnd( nodeMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'empty_slot', 'BookAppointment', '1' ));
-	BatchInsertEnd( nodeMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
+	// Node - AskMedicalSpeciality
+	nodeAskMedicalSpeciality <- createScriptNode( 'askmedicalspeciality', 'wait' );
+	nodeAskMedicalSpeciality.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'medicalspeciality' );
+	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '4', 'empty' ));
+	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
+
+	// Node - AskCountryPlace
+	nodeAskCountryPlace <- createScriptNode( 'askcountryplace', 'wait' );
+	nodeAskCountryPlace.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'where', 'countryplace' );
+	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '6', 'empty' ));
+	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
+
+	// Node - ProposeDateTime
+	nodeProposeDateTime <- createScriptNode( 'proposedatetime', 'execute' );
+	BatchInsertEnd( nodeProposeDateTime.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'proposedatetime', 'finalized' ));
+	BatchInsertEnd( nodeProposeDateTime.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '4', 'captured' ));
+	BatchInsertEnd( nodeProposeDateTime.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '6', 'captured' ));
+	BatchInsertEnd( nodeProposeDateTime.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'proposedatetime', 'finalized' ));
+	BatchInsertEnd( nodeProposeDateTime.ScriptNodePostconditions, createDialogueAction5Arguments( 'propose_info_item3', '5', 'get_medical_appointment_availability', '4', '5', '6' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeStart );
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMedicalSpeciality );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskMedicalSpeciality );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskCountryPlace );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeProposeDateTime );
 
 	// End Nodes	
 
