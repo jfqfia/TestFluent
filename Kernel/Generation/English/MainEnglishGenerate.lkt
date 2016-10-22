@@ -8,7 +8,10 @@
 
 #Include "GenerationSocialGreeting.lkt"
 #Include "GenerationSocialGoodbye.lkt"
-#Include "GenerationEchoScripts.lkt"
 #Include "GenerationQuestion.lkt"
 #Include "GenerationExplicitTriggers.lkt"
+#Include "GenerationImplicitTriggers.lkt"
+#Include "GenerationExplicitParameters.lkt"
+#Include "GenerationImplicitParameters.lkt"
+#Include "GenerationIncorrectParameters.lkt"
 

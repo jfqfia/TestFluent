@@ -203,13 +203,6 @@ procedure setParameterToScript(DialogueScript dialogueScript, int position, Para
 	setScript(dialogueScript);
 }
 
-// This procedure pulls out a script from activated scripts stack
-procedure pullScript()
-{
-	string descriptor;
-	
-	BatchExtractEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor);
-}
 
 
 

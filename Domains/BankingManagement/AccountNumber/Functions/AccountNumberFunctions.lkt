@@ -26,4 +26,43 @@ bool canMergeWithAndAccountNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
+bool checkAccountNumberValidity( Parameter parameter )
+{
+	string literal <- parameter.ParameterValue.AccountNumber.AccountNumberValue;
 
+	if( LiteralSize(literal) == 10 )
+	{
+		return True;
+	}
+
+	return False;
+}
+
+AccountNumber convertNumberToAccountNumber(Parameter parameter)
+{
+	AccountNumber ret;
+
+	if(parameter.ParameterCategory == 'terminal')
+	{
+		NumberValue number <- parameter.ParameterValue.Number.NumberValue;
+		ret.AccountNumberValue <- ShapeToString(number);
+	}
+	// TODO Sequential
+
+	return ret;
+}
+
+Manager Script
+
+/*
+Parameter :
+(
+	ParameterCategory,
+	ParameterType,
+	ParameterValue,
+	ParameterOperand1,
+	ParameterOperand2
+)
+
+
+*/

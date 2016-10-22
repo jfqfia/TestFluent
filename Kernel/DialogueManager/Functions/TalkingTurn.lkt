@@ -25,28 +25,31 @@ procedure digestExpectatives()
 	
 	if( dialogueScript )
 	{
-		ProferenceChunk expectative <- dialogueScript.ScriptExpectative.ProferenceChunk;
-		if( expectative )
+		if( dialogueScript.ScriptExpectative )
 		{
 			int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
 			for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
 			{
+				ProferenceChunk expectative <- dialogueScript.ScriptExpectative.ProferenceChunk;
 				BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, proference );
-					
-				expectative <& proference;
 
+				// CoreDialogueAct expectatives					
+				expectative <& proference;
 				if( expectative )
 				{
 					dialogueScript.ScriptExpectative.ProferenceChunk <- expectative; 
 					dialogueScript.ScriptExpectative.InfoItemState <- 'captured';
 					setScript(dialogueScript);
 				}
-				else
+
+				// ParameterType expectatives
+				ParameterType paramType <- dialogueScript.ScriptExpectative.ParameterType;
+				if(paramType && proference.Parameter.ParameterType)
 				{
-					expectative <- dialogueScript.ScriptExpectative.ProferenceChunk;
-					if( compatibleExpectativeTypes(expectative, proference) )
+					if( compatibleExpectativeTypes(paramType, proference.Parameter.ParameterType) )
 					{
-						ProferenceChunk convertedProference <- convertProferenceToExpectative(expectative.Parameter.ParameterType, proference); 
+						ProferenceChunk convertedProference;
+						convertedProference <- convertProferenceToExpectative(paramType, proference); 
 						BatchAssignPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, convertedProference );
 					}
 				}
@@ -211,8 +214,10 @@ procedure selectCurrentScript()
 	{
 		$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
 	}
-
-	// SpyMessage(getCurrentScript());
+	
+	// TODO QUITAR
+	// DialogueScript script <- getCurrentScript();
+	// SpyMessage(script.ScriptInfoItems);
 }
 
 procedure selectCurrentNode()

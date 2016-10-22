@@ -15,11 +15,8 @@ bool containsActionDomain( Action actionBatch, ActionDomain actionDomainToSearch
 {
 	int size;
 	int position;
-	bool ret;
 	ActionDomain recoveredActionDomain;
 
-	ret <- False;
-	
 	size <- BatchSize( actionBatch );
 	for( position <- 1; position <= size; position++ )
 	{
@@ -30,5 +27,45 @@ bool containsActionDomain( Action actionBatch, ActionDomain actionDomainToSearch
 		}
 	}
 
-	return ret;
+	return False;
 }
+
+bool parametersContainsParameterType ( Parameters parameters, ParameterType parameterType )
+{
+	int size;
+	int position;
+	Parameter parameter;
+
+	size <- BatchSize( parameters );
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( parameters, position, parameter );		
+		if( parameter.ParameterType == parameterType )
+		{
+			return True;
+		}
+	}
+
+	return False;
+}
+
+Parameter parametersRecoverParameterType ( Parameters parameters, ParameterType parameterType )
+{
+	int size;
+	int position;
+	Parameter parameter, emptyParameter;
+
+	size <- BatchSize( parameters );
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( parameters, position, parameter );		
+		if( parameter.ParameterType == parameterType )
+		{
+			return parameter;
+		}
+	}
+
+	return emptyParameter;
+}
+
+

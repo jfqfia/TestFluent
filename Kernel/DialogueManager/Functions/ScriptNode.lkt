@@ -42,6 +42,16 @@ DialogueActionPrecondition createNegatedPrecondition2Arguments( string name, str
 	return precondition;
 }
 
+DialogueActionPrecondition createNegatedPrecondition1Arguments( string name, string arg1 )
+{
+	DialogueActionPrecondition precondition;
+
+	precondition.NegatedPrecondition <- True;
+	precondition.DialogueAction <- createDialogueAction1Arguments( name, arg1 );
+
+	return precondition;
+}
+
 DialogueActionPrecondition createPrecondition3Arguments( string name, string arg1, string arg2, string arg3 )
 {
 	DialogueActionPrecondition precondition;

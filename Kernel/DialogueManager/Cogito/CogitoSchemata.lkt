@@ -128,7 +128,7 @@
 		ScriptNode scriptNode <- getCurrentNode();
 		SpyMessage("$$>> CogitoScheme NodeType = Execute -> ", scriptNode.ScriptNodeDescriptor);
 		processNode();
-		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
+		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_script';
 		CogitoRetry();
 	}
 )

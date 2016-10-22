@@ -1,0 +1,33 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       Generate
+//      FILE    :       Generate_Colloquial.lkth
+// ******************************************************
+
+(ScriboScheme ExplicitMoneyAmountParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' );
+
+		SetMainAnswerStringRandom( 'The money amount is ' ,
+					   'The total money is ');
+		SetMainAnswerString(ShapeToString(parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue));
+		SetMainAnswerString('.');
+		SetMainAnswerString(ShapeToString(parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue));
+		SetMainAnswerString(' ');
+		SetMainAnswerString(parameter.ParameterValue.MoneyAmount.Currency);
+		SetMainAnswerString('. ');
+    	}
+)
+

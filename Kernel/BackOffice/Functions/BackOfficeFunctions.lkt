@@ -18,6 +18,10 @@ Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters pa
 	{
 		return getAvailabilityMedicalAppointment(parameters);
 	}
+	if( backOfficeFunctionName == 'get_balance' )
+	{
+		return getBalance(parameters);
+	}
 }
 
 Parameter getAvailabilityMedicalAppointment(Parameters parameters)
@@ -36,5 +40,24 @@ Parameter getAvailabilityMedicalAppointment(Parameters parameters)
 	return returnedParameter;
 }
 	
+Parameter getBalance(Parameters parameters)
+{
+	Parameter returnedParameter;
+	Parameter param1;
 
+	BatchRecoverPosition( parameters, 1, param1 );
+	MoneyAmount moneyAmount;
+	AccountNumber accountNumber <- param1.ParameterValue.AccountNumber;
 
+	// TODO Here we must simulate the back office call
+	// moneyAmount <- getBalanceBackOffice( accountNumber );
+	moneyAmount.Currency <- 'EUR';
+	moneyAmount.IntegerAmount.NumberValue <- 1999;
+	moneyAmount.DecimalAmount.NumberValue <- 25;
+
+	returnedParameter.ParameterValue.MoneyAmount <- moneyAmount;
+	returnedParameter.ParameterCategory <- 'terminal';
+	returnedParameter.ParameterType <- 'moneyamount';
+
+	return returnedParameter;
+}

@@ -51,6 +51,10 @@ classDef:StructureComplex
 (
 	ScriptExpectative :
 	(
+		// TODO REVISAR
+		// Este campo para las expectativas de tipo parámetro
+		ParameterType,
+		// Este campo para las expectativas de CoreDialogueAct
 		ProferenceChunk,
 		InfoItemState
 	)
@@ -252,7 +256,7 @@ classDef:ElementRange
 (
 	ScriptNodeStateName : 
 	{
-		'finalized'
+		'finalized', 'correct', 'incorrect'
 	}
 )
 

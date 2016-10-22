@@ -11,13 +11,32 @@
 //
 // **************************************************
 
-bool compatibleExpectativeTypes(ProferenceChunk prof1, ProferenceChunk prof2)
+bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
 {
-	// TODO
-	return False;
+	bool ret;
+
+	ret <- False;
+
+	if( type1 == 'accountnumber' && type2 == 'number' )
+	{
+		ret <- True;
+	}
+
+	return ret;
 }
-	
+
+// TODO Depending on domain?	
 ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, ProferenceChunk originalProference)
 {
-	// TODO				
+	ProferenceChunk ret;
+
+	if( typeTarget == 'accountnumber' && originalProference.Parameter.ParameterType == 'number' )
+	{
+		AccountNumber accountNumber <- convertNumberToAccountNumber(originalProference.Parameter);
+		ret.Parameter.ParameterValue.AccountNumber <- accountNumber;
+		ret.Parameter.ParameterType <- 'accountnumber';
+		ret.Parameter.ParameterCategory <- 'terminal';
+	}	
+
+	return ret;
 }
