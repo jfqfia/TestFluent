@@ -213,6 +213,12 @@ procedure selectCurrentScript()
 	if( !! $MINDBOARD@DialogueState.CurrentScriptDescriptor == scriptDescriptor )
 	{
 		$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
+		
+		// Reset the expectatives of the new current script
+		DialogueScript script <- getCurrentScript();
+		ScriptExpectative emptyScriptExpectative;
+		script.ScriptExpectative <- emptyScriptExpectative;
+		setScript(script);
 	}
 	
 	// TODO QUITAR
@@ -270,8 +276,8 @@ procedure processNode()
 	executePostconditions( currentNode );
 
 	// TODO QUITAR
-	DialogueScript script <- getCurrentScript();
-	SpyMessage(script.ScriptInfoItems);
+	//DialogueScript script <- getCurrentScript();
+	//SpyMessage(script.ScriptInfoItems);
 }
 
 procedure closeTalkingTurn()

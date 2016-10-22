@@ -104,6 +104,8 @@ procedure setExpectativeDimension( string dimensionString )
 	Dimension dimension <- ShapeToRange( dimensionString );
 	DialogueScript script <- getCurrentScript();
 	script.ScriptExpectative.ProferenceChunk.CoreDialogueAct.Dimension <- dimension;
+	Function emptyFunction;
+	script.ScriptExpectative.ProferenceChunk.CoreDialogueAct.Function <- emptyFunction;
 	script.ScriptExpectative.ProferenceChunk.TaskDialogueAct.Scope <- 'unknown';
 	script.ScriptExpectative.ProferenceChunk.Parameter.ParameterType <- 'unknown';
 
@@ -158,8 +160,6 @@ procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, Dial
 
 	// Execute backoffice function
 	returnedParameter <- executeBackOfficeFunction(backOfficeFunction, parameters);
-
-	SpyMessage(returnedParameter);	
 
 	// Set the returned parameter
 	returnNumber <- ShapeToInt( targetInfoItem );

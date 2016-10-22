@@ -47,22 +47,27 @@ AccountNumber convertNumberToAccountNumber(Parameter parameter)
 		NumberValue number <- parameter.ParameterValue.Number.NumberValue;
 		ret.AccountNumberValue <- ShapeToString(number);
 	}
-	// TODO Sequential
+	if(parameter.ParameterCategory == 'sequential')
+	{
+		ret.AccountNumberValue <- getConcatenatedNumber( parameter );
+	}
 
 	return ret;
 }
 
-Manager Script
+string getConcatenatedNumber( Parameter parameter )
+{
+	if( parameter.ParameterCategory == 'terminal' )
+	{
+		return ShapeToString(parameter.ParameterValue.Number.NumberValue);
+	}
+	else
+	{
+		string ret;
 
-/*
-Parameter :
-(
-	ParameterCategory,
-	ParameterType,
-	ParameterValue,
-	ParameterOperand1,
-	ParameterOperand2
-)
+		ret <- getConcatenatedNumber( parameter.ParameterOperand1 );
+		ret <- LiteralConcat( ret, getConcatenatedNumber ( parameter.ParameterOperand2 ) );
+		return ret;
+	}
+}
 
-
-*/

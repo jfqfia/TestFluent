@@ -24,6 +24,10 @@
 					   'The total money is ');
 		SetMainAnswerString(ShapeToString(parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue));
 		SetMainAnswerString('.');
+		if( parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue < 10 )
+		{
+			SetMainAnswerString('0');
+		}
 		SetMainAnswerString(ShapeToString(parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue));
 		SetMainAnswerString(' ');
 		SetMainAnswerString(parameter.ParameterValue.MoneyAmount.Currency);

@@ -52,8 +52,8 @@ Parameter getBalance(Parameters parameters)
 	// TODO Here we must simulate the back office call
 	// moneyAmount <- getBalanceBackOffice( accountNumber );
 	moneyAmount.Currency <- 'EUR';
-	moneyAmount.IntegerAmount.NumberValue <- 1999;
-	moneyAmount.DecimalAmount.NumberValue <- 25;
+	moneyAmount.IntegerAmount.NumberValue <- Random(2000, 2999);
+	moneyAmount.DecimalAmount.NumberValue <- Random(0, 99);
 
 	returnedParameter.ParameterValue.MoneyAmount <- moneyAmount;
 	returnedParameter.ParameterCategory <- 'terminal';
