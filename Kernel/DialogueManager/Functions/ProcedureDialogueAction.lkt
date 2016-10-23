@@ -244,8 +244,13 @@ procedure pullScript()
 {
 	string descriptor;
 	
-	BatchExtractEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor);
-	// TODO We must reset this dialogue in the working scheme and put it in the done scripts structure
+	BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+
+	DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+	BatchInsertEnd( $MINDBOARD@DoneDialogueScheme.DialogueScripts, recoveredDialogueScript );
+
+	recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
+	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
 }
 
 

@@ -1,3 +1,5 @@
+* Account number doesn't capture numbers beginning in 0 
+
 * Domotics domain
 
 * English grammar and lexicon
