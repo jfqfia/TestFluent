@@ -17,9 +17,9 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'Ok, than you very much. ',
+		SetMainAnswerStringRandom( 'Ok, thank you very much. ',
 					   'Well done! ');
-		SetMainAnswerStringRandom( 'I will present in your screen the loacation of your nearest ATM in a minute. ',
+		SetMainAnswerStringRandom( 'I will present in your screen the location of your nearest ATM in a minute. ',
 					   'The location of the nearest ATM will be presented in your screen very soon. ');
 	}
 )
