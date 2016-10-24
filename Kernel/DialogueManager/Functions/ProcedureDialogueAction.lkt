@@ -54,6 +54,20 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 
 		proposeInfoItem(targetInfoItem, backOfficeFunction, arguments);
 	}
+	else if(dialogueAction.DialogueActionName == 'execute_boolean_backoffice_2')
+	{
+		string backOfficeFunction, argumentInfoItem1, argumentInfoItem2;
+		DialogueActionArguments arguments;		
+
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, backOfficeFunction );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, argumentInfoItem1 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, argumentInfoItem2 );
+
+		BatchInsertEnd( arguments, argumentInfoItem1 );
+		BatchInsertEnd( arguments, argumentInfoItem2 );
+
+		executeBooleanBackOffice(backOfficeFunction, arguments);
+	}
 	else if(dialogueAction.DialogueActionName == 'generate')
 	{
 		generate();
@@ -76,6 +90,13 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, infoString );
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		setInfoState(infoString, state);
+	}
+	else if(dialogueAction.DialogueActionName == 'generate_2_parameter')
+	{
+		string parameterString1, parameterString2;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString1 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, parameterString2 );
+		generate2Parameter(parameterString1, parameterString2);
 	}
 	else if(dialogueAction.DialogueActionName == 'set_expectative_dimension')
 	{
@@ -173,6 +194,42 @@ procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, Dial
 	setScript( script );
 }
 
+procedure executeBooleanBackOffice(string backOfficeFunction, DialogueActionArguments arguments)
+{
+	bool ret;
+	DialogueScript script;
+	int argumentNumber, returnNumber;
+	ScriptInfoItem scriptInfoItem;
+	Parameters parameters;
+	Parameter parameter;
+	string argumentInfoItem;
+
+	// Extract parameters
+	script <- getCurrentScript();
+	int size <- BatchSize( arguments );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( arguments, position, argumentInfoItem );
+		argumentNumber <- ShapeToInt( argumentInfoItem );
+		BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+		parameter <- scriptInfoItem.InfoItemValue.Parameter;
+		BatchInsertEnd( parameters, parameter );
+	}
+
+	// Execute backoffice function
+	ret <- executeBackOfficeBooleanFunction(backOfficeFunction, parameters);
+	ScriptNode scriptNode <- getCurrentNode(); 
+
+	if( ret )
+	{
+		 setNodeState(script.ScriptDescriptor, scriptNode.ScriptNodeDescriptor, 'correct');
+	}
+	else
+	{
+		 setNodeState(script.ScriptDescriptor, scriptNode.ScriptNodeDescriptor, 'incorrect');
+	}
+}
+
 procedure generate()
 {
 	ScriptNode currentNode;
@@ -193,6 +250,27 @@ procedure generateParameter(string parameterString)
 	Parameter parameter <- scriptInfoItem.InfoItemValue.Parameter; 
 
 	BatchInsertEnd( dialogueAct.Parameters, parameter );
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+}
+
+procedure generate2Parameter(string parameterString1, string parameterString2)
+{
+	ScriptNode currentNode <- getCurrentNode();
+	DialogueAct dialogueAct <- currentNode.ScriptNodeContent.DialogueAct;
+
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
+
+	int infoNumber <- ShapeToInt( parameterString1 );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter1 <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	infoNumber <- ShapeToInt( parameterString2 );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter2 <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	BatchInsertEnd( dialogueAct.Parameters, parameter1 );
+	BatchInsertEnd( dialogueAct.Parameters, parameter2 );
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 }
 

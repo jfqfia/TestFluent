@@ -24,6 +24,14 @@ Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters pa
 	}
 }
 
+bool executeBackOfficeBooleanFunction(string backOfficeFunctionName, Parameters parameters)
+{
+	if( backOfficeFunctionName == 'execute_transfer' )
+	{
+		return executeTransfer(parameters);
+	}
+}
+
 Parameter getAvailabilityMedicalAppointment(Parameters parameters)
 {
 	Parameter returnedParameter;
@@ -61,3 +69,31 @@ Parameter getBalance(Parameters parameters)
 
 	return returnedParameter;
 }
+
+bool executeTransfer(Parameters parameters)
+{
+	bool ret;
+	Parameter param1, param2;
+
+	BatchRecoverPosition( parameters, 1, param1 );
+	BatchRecoverPosition( parameters, 2, param2 );
+
+	AccountNumber accountNumber <- param1.ParameterValue.AccountNumber;
+	MoneyAmount moneyAmount <- param2.ParameterValue.MoneyAmount;
+
+	// TODO Here we simulate the back office call
+	// ret <- executeTransferBackOffice( accountNumber, moneyAmount );	
+
+	// We simulate here that the 10% of the times there is a failure in the back office call
+	int rand <- Random(1,10);
+	ret <- True;
+	if( rand == 10 )
+	{
+		ret <- False;
+	}
+
+	return ret;
+}
+
+
+

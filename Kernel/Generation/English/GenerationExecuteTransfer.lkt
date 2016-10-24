@@ -1,0 +1,110 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       Generate
+//      FILE    :       Generate_Colloquial.lkth
+// ******************************************************
+
+(ScriboScheme GenerateTransfer: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' ) &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, we are about to finish. ',
+					   'Well done! ');
+		SetMainAnswerString(	   'Please be sure that this information is correct: ');
+		
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' );
+		int intAmount <- parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue;
+		int decAmount <- parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue;
+		string currency <- parameter.ParameterValue.MoneyAmount.Currency;
+
+		SetMainAnswerStringRandom( 'The money amount is ',
+					   'A total of ' );
+		SetMainAnswerString( ShapeToString(intAmount) );
+		SetMainAnswerString( '.' );
+		if( !! decAmount )
+		{
+			SetMainAnswerString( '00' );
+		}
+		else if( decAmount < 10 )
+		{
+			SetMainAnswerString( '0' );
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		else
+		{
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		SetMainAnswerString( ' ' );
+		SetMainAnswerString( currency );
+		SetMainAnswerString( '. ' );
+
+		parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
+
+		SetMainAnswerStringRandom( 'The target account number is ' );
+		SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+		SetMainAnswerString('. ');
+		
+		SetMainAnswerString(	   'Are you sure that you want to continue? ');
+	}
+)
+
+(ScriboScheme GenerateTransferOkEverything: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'everythingok' 
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, your money transfer has been executed. Thank you very much. ',
+					   'The bank transfer that you ordered has been fulfilled succesfully. Thanks! ');
+	}
+)
+
+(ScriboScheme GenerateTransferOkEverything: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'somethingfailed' 
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, we had a critical failure. No money was transferred. Sorry for the inconvenience. ',
+					   'Something has failed in the proccess. Please try it again later. ');
+	}
+)
+
+(ScriboScheme GenerateTransferCancelEverything: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'everythingcancel' 
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, the bank trasnsfer has been cancelled. ',
+					   'We have cancelled your money transfer order. ');
+	}
+)
+
+

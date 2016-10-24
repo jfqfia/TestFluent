@@ -27,3 +27,17 @@ bool canMergeWithAndMoneyAmount(Parameter parameter1, Parameter parameter2)
 }
 
 
+MoneyAmount convertNumberToMoneyAmount(Parameter parameter)
+{
+	MoneyAmount ret;
+
+	if(parameter.ParameterCategory == 'terminal')
+	{
+		int number <- parameter.ParameterValue.Number.NumberValue;
+		ret.IntegerAmount.NumberValue <- number;
+		ret.Currency <- 'EUR';
+	}
+	
+	return ret;
+}
+

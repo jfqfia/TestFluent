@@ -276,8 +276,8 @@ procedure processNode()
 	executePostconditions( currentNode );
 
 	// TODO QUITAR
-	//DialogueScript script <- getCurrentScript();
-	//SpyMessage(script.ScriptInfoItems);
+	DialogueScript script <- getCurrentScript();
+	SpyMessage(script.ScriptInfoItems);
 }
 
 procedure closeTalkingTurn()

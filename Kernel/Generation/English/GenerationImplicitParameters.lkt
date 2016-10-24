@@ -20,7 +20,7 @@
 	{
 		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
 
-		SetMainAnswerStringRandom( 'I understood that your account number is ' );
+		SetMainAnswerStringRandom( 'I understood that the account number is ' );
 		SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
 		SetMainAnswerString('. ');
     	}
@@ -44,6 +44,46 @@
 					   'So you are in ' );
 		SetMainAnswerString( mostConcretePlace( parameter.ParameterValue.CountryPlace ) );
 		SetMainAnswerString('. ');
+    	}
+)
+
+(ScriboScheme ImplicitAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' );
+		int intAmount <- parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue;
+		int decAmount <- parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue;
+		string currency <- parameter.ParameterValue.MoneyAmount.Currency;
+
+		SetMainAnswerStringRandom( 'The money amount is ',
+					   'A total of ' );
+		SetMainAnswerString( ShapeToString(intAmount) );
+		SetMainAnswerString( '.' );
+		if( !! decAmount )
+		{
+			SetMainAnswerString( '00' );
+		}
+		else if( decAmount < 10 )
+		{
+			SetMainAnswerString( '0' );
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		else
+		{
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		SetMainAnswerString( ' ' );
+		SetMainAnswerString( currency );
+		SetMainAnswerString( '. ' );
     	}
 )
 

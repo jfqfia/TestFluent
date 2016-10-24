@@ -14,7 +14,8 @@
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
-		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' )
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' ) &&
+		!! parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
 	}
 	ScriboAction 
 	{

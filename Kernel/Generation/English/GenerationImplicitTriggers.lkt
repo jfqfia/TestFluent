@@ -38,6 +38,22 @@
     	}
 )
 
+(ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerexecutetransfer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, I see that you wish to make a transfer. ',
+					   'So you want to transfer some money. ');
+    	}
+)
+
 /*
 
 (ScriboScheme ConfirmScriptBookApppointment: [ DialogueAct ]
@@ -53,22 +69,6 @@
 	{
 		SetMainAnswerStringRandom( 'So you want to make an appointment for the doctor. ',
 					   'Ok, I understood that you may want to book a medical appointment. ');
-    	}
-)
-
-(ScriboScheme ConfirmScriptMakeTransfer: [ DialogueAct ]
-	ScriboCapture 
-	{
-		GetHeadPropertyLanguage() == ENGLISH &&
-		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
-        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'echo') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'maketransferscript'
-	}
-	ScriboAction 
-	{
-		SetMainAnswerStringRandom( 'So you want to make a transfer. ',
-					   'Ok, I understood that you want to make a bank transfer. ');
     	}
 )
 

@@ -13,7 +13,7 @@ setupRuntimeSpyMessageOn
 
 // MainAnswer:On
 // DisplayProcessLocutioOn
-DisplayProcessUnderstandingOn
+// DisplayProcessUnderstandingOn
 // DisplayProcessScriboOn
 // DisplayProcessRespondoOn
 // DisplayProcessCogitoOn

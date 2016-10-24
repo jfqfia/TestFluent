@@ -29,6 +29,39 @@
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumbertarget'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What is the target account number, please? ',
+					   'Could you please tell me the target account number of the transfer? ');
+    	}
+)
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'howmuch') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'moneyamount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'And how much money do you want to transfer? ',
+					   'What amount of money would you wish to transfer? ',
+					   'How much money you want to transfer? ');
+    	}
+)
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'countryplacetown'
 	}
 	ScriboAction 
