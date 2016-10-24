@@ -22,6 +22,22 @@
     	}
 )
 
+(ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerlocateatm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, let me locate an atm for you. ',
+					   'So you want to locate an atm. ');
+    	}
+)
+
 /*
 
 (ScriboScheme ConfirmScriptBookApppointment: [ DialogueAct ]

@@ -22,6 +22,22 @@
     	}
 )
 
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'countryplacetown'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Where are you calling from? ',
+					   'From which city do you call? ');
+    	}
+)
+
 (ScriboScheme QuestionWhatMedicalSpeciality: [ DialogueAct ]
 	ScriboCapture 
 	{

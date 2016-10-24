@@ -1,0 +1,27 @@
+// ******************************************************
+//      Lekta Application
+// ***************************
+//      PROJECT :       Alter
+//      MODULE  :       Generate
+//      FILE    :       Generate_Colloquial.lkth
+// ******************************************************
+
+(ScriboScheme GenerateHMIHY: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'locate') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'atm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, than you very much. ',
+					   'Well done! ');
+		SetMainAnswerStringRandom( 'I will present in your screen the loacation of your nearest ATM in a minute. ',
+					   'The location of the nearest ATM will be presented in your screen very soon. ');
+	}
+)
+
+

@@ -38,6 +38,8 @@
 ("by all means",			lexAgreement)
 
 ("no", 					lexDisagreement)
+("you're wrong",			lexDisagreement)
+("you are wrong",			lexDisagreement)
 ("i can't agree", 			lexDisagreement)
 ("i could't agree", 			lexDisagreement)
 ("i disagree",				lexDisagreement)

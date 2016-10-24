@@ -144,6 +144,7 @@ DialogueScript createDialogueScriptConsultBalance()
 	ScriptNode nodeIncorrectAccountNumber;
 	ScriptNode nodeCorrectAccountNumber;
 	ScriptNode nodeInfoMoneyAmount;
+	ScriptNode nodeRejectAccountNumberAsk;
 
 	// Node - Explicit1
 	nodeExplicit1 <- createScriptNode( 'explicit1', 'wait' );
@@ -191,7 +192,7 @@ DialogueScript createDialogueScriptConsultBalance()
 	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'echoed' ));
 	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'echoed' ));
 	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'echoed' ));
-	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicit1 );
 
@@ -201,9 +202,20 @@ DialogueScript createDialogueScriptConsultBalance()
 	BatchInsertEnd( nodeAccountNumber.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicit1', 'finalized' ));
 	BatchInsertEnd( nodeAccountNumber.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
 	BatchInsertEnd( nodeAccountNumber.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeAccountNumber.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'askaccountnumber', 'finalized' ));
 	BatchInsertEnd( nodeAccountNumber.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_parameter', 'accountnumber' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAccountNumber );
+
+	// Node - RejectAccountNumber
+	nodeRejectAccountNumberAsk <- createScriptNode( 'rejectaccountnumber', 'execute' );
+	BatchInsertEnd( nodeRejectAccountNumberAsk.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'askaccountnumber', 'finalized' ));
+	BatchInsertEnd( nodeRejectAccountNumberAsk.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicit1', 'finalized' ));
+	BatchInsertEnd( nodeRejectAccountNumberAsk.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeRejectAccountNumberAsk.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+	BatchInsertEnd( nodeRejectAccountNumberAsk.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRejectAccountNumberAsk );
 
 	// Node - ImplicitAccountNumber
 	nodeAccountNumberImplicit <- createScriptNode( 'accountnumberimplicit', 'execute' );
@@ -233,6 +245,7 @@ DialogueScript createDialogueScriptConsultBalance()
 	BatchInsertEnd( nodeIncorrectAccountNumber.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '4' ));
 	BatchInsertEnd( nodeIncorrectAccountNumber.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '4', 'empty' ));
 	BatchInsertEnd( nodeIncorrectAccountNumber.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'accountnumbercheck', 'finalized' ));
+	BatchInsertEnd( nodeIncorrectAccountNumber.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'askaccountnumber', 'notfinalized' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectAccountNumber );
 
@@ -260,105 +273,180 @@ DialogueScript createDialogueScriptConsultBalance()
 	return dialogueScript;
 }
 
-DialogueScript	createDialogueScriptMedicalAppointment()
+DialogueScript createDialogueScriptLocateAtm()
 {
 	// Script Descriptor
 	DialogueScript dialogueScript;
-
-	dialogueScript.ScriptDescriptor <- 'BookAppointment';
+	dialogueScript.ScriptDescriptor <- 'LocateAtm';
 
 	// Trigger
 	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
 	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
-	dialogueScript.ScriptTrigger.ActionDomain <- 'book';
-	dialogueScript.ScriptTrigger.Scope <- 'appointment';
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'medicalspeciality' );
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'datetime' );
+	dialogueScript.ScriptTrigger.ActionDomain <- 'locate';
+	dialogueScript.ScriptTrigger.Scope <- 'atm';
 	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'countryplace' );
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );	
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
 
-	ScriptInfoItem scriptInfoItem;
-
+	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'core';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-
+	
+	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'action';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'locate';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
+	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'scope';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'atm';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'medicalspeciality';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'datetime';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-
+	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
 	scriptInfoItem.InfoItemState <- 'empty';	
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Nodes 
+	ScriptNode nodeExplicit1;
+	ScriptNode nodeExplicit2;
+	ScriptNode nodeExplicit3;
+	ScriptNode nodeImplicit1;
+	ScriptNode nodeCountryPlaceAsk;
+	ScriptNode nodeCountryPlaceImplicit;
+	ScriptNode nodeCheckCountryplace;
+	ScriptNode nodeIncorrectCountryPlace;
+	ScriptNode nodeRejectCountryPlace;
+	ScriptNode nodeCorrectCountryPlace;
+
+	// Node - Explicit1
+	nodeExplicit1 <- createScriptNode( 'explicit1', 'wait' );
+	nodeExplicit1.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerlocateatm' );
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'empty' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'proposed' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit1 );
+
+	// Node - Explicit2
+	nodeExplicit2 <- createScriptNode( 'explicit2', 'execute' );
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit2', 'finalized' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit2', 'finalized' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'grounded' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'grounded' ));
+	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicit1', 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit2 );
+
+	// Node - Explicit3
+	nodeExplicit3 <- createScriptNode( 'explicit3', 'execute' );
+	BatchInsertEnd( nodeExplicit3.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
+	BatchInsertEnd( nodeExplicit3.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit2', 'finalized' ));
+	BatchInsertEnd( nodeExplicit3.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+	BatchInsertEnd( nodeExplicit3.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit3 );
+
+	// Node - Implicit1
+	nodeImplicit1 <- createScriptNode( 'implicit1', 'execute' );
+	nodeImplicit1.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'triggerlocateatm' );
+	BatchInsertEnd( nodeImplicit1.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'implicit1', 'finalized' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'captured' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicit1', 'finalized' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'echoed' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'echoed' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'echoed' ));
+	BatchInsertEnd( nodeImplicit1.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicit1 );
+
+	// Node - CountryPlaceAsk
+	nodeCountryPlaceAsk <- createScriptNode( 'askcountryplace', 'wait' );
+	nodeCountryPlaceAsk.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'countryplacetown' );
+	BatchInsertEnd( nodeCountryPlaceAsk.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicit1', 'finalized' ));
+	BatchInsertEnd( nodeCountryPlaceAsk.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeCountryPlaceAsk.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeCountryPlaceAsk.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'askcountryplace', 'finalized' ));
+	BatchInsertEnd( nodeCountryPlaceAsk.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_parameter', 'countryplace' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCountryPlaceAsk );
+
+	// Node - RejectCountryPlace
+	nodeRejectCountryPlace <- createScriptNode( 'rejectcountryplace', 'execute' );
+	BatchInsertEnd( nodeRejectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'askcountryplace', 'finalized' ));
+	BatchInsertEnd( nodeRejectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicit1', 'finalized' ));
+	BatchInsertEnd( nodeRejectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeRejectCountryPlace.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+	BatchInsertEnd( nodeRejectCountryPlace.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRejectCountryPlace );
+
+	// Node - ImplicitCountryPlace
+	nodeCountryPlaceImplicit <- createScriptNode( 'countryplaceimplicit', 'execute' );
+	nodeCountryPlaceImplicit.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'parameter' );
+	BatchInsertEnd( nodeCountryPlaceImplicit.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicit1', 'finalized' ));
+	BatchInsertEnd( nodeCountryPlaceImplicit.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'captured' ));
+	BatchInsertEnd( nodeCountryPlaceImplicit.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '4' ));
+	BatchInsertEnd( nodeCountryPlaceImplicit.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+	BatchInsertEnd( nodeCountryPlaceImplicit.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '4', 'echoed' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCountryPlaceImplicit );
+
+	// Node - CheckCountryPlace
+	nodeCheckCountryplace <- createScriptNode( 'countryplacecheck', 'execute' );
+	BatchInsertEnd( nodeCheckCountryplace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'echoed' ));
+	BatchInsertEnd( nodeCheckCountryplace.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'countryplacecheck', 'correct' ));
+	BatchInsertEnd( nodeCheckCountryplace.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'countryplacecheck', 'incorrect' ));
+	BatchInsertEnd( nodeCheckCountryplace.ScriptNodePostconditions, createDialogueAction1Arguments( 'check_parameter', '4' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCheckCountryplace );
+
+	// Node - IncorrectCountryPlace
+	nodeIncorrectCountryPlace <- createScriptNode( 'countryplaceincorrect', 'execute' );
+	nodeIncorrectCountryPlace.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'parameter' );
+	BatchInsertEnd( nodeIncorrectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'echoed' ));
+	BatchInsertEnd( nodeIncorrectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'countryplacecheck', 'incorrect' ));
+	BatchInsertEnd( nodeIncorrectCountryPlace.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '4' ));
+	BatchInsertEnd( nodeIncorrectCountryPlace.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeIncorrectCountryPlace.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'countryplacecheck', 'finalized' ));
+	BatchInsertEnd( nodeIncorrectCountryPlace.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'askcountryplace', 'notfinalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectCountryPlace );
+
+	// Node - CorrectCountryPlace
+	nodeCorrectCountryPlace <- createScriptNode( 'countryplacecorrect', 'execute' );
+	nodeCorrectCountryPlace.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'locate', 'atm' );
+	BatchInsertEnd( nodeCorrectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'echoed' ));
+	BatchInsertEnd( nodeCorrectCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'countryplacecheck', 'correct' ));
+	BatchInsertEnd( nodeCorrectCountryPlace.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '4', 'checked' ));
+	BatchInsertEnd( nodeCorrectCountryPlace.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'countryplacecheck', 'finalized' ));
+	BatchInsertEnd( nodeCorrectCountryPlace.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeCorrectCountryPlace.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCorrectCountryPlace );
 	
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-
-	// Begin Nodes 
-	ScriptNode nodeStart;
-	ScriptNode nodeAskMedicalSpeciality;
-	ScriptNode nodeAskCountryPlace;
-	ScriptNode nodeProposeDateTime;
-
-	// Node - Start
-	nodeStart <- createScriptNode( 'start', 'tell' );
-	nodeStart.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'echo', 'bookappointmentscript' );
-	BatchInsertEnd( nodeStart.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
-	BatchInsertEnd( nodeStart.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'start', 'finalized' ));
-
-	// Node - AskMedicalSpeciality
-	nodeAskMedicalSpeciality <- createScriptNode( 'askmedicalspeciality', 'wait' );
-	nodeAskMedicalSpeciality.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'medicalspeciality' );
-	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '4', 'empty' ));
-	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
-
-	// Node - AskCountryPlace
-	nodeAskCountryPlace <- createScriptNode( 'askcountryplace', 'wait' );
-	nodeAskCountryPlace.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'where', 'countryplace' );
-	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '6', 'empty' ));
-	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'start', 'finalized' ));
-
-	// Node - ProposeDateTime
-	nodeProposeDateTime <- createScriptNode( 'proposedatetime', 'execute' );
-	BatchInsertEnd( nodeProposeDateTime.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'proposedatetime', 'finalized' ));
-	BatchInsertEnd( nodeProposeDateTime.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '4', 'captured' ));
-	BatchInsertEnd( nodeProposeDateTime.ScriptNodePreconditions, createPrecondition2Arguments( 'state_info', '6', 'captured' ));
-	BatchInsertEnd( nodeProposeDateTime.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'proposedatetime', 'finalized' ));
-	BatchInsertEnd( nodeProposeDateTime.ScriptNodePostconditions, createDialogueAction5Arguments( 'propose_info_item3', '5', 'get_medical_appointment_availability', '4', '5', '6' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeStart );
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskMedicalSpeciality );
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskCountryPlace );
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeProposeDateTime );
-
 	// End Nodes	
 
 	return dialogueScript;
 }
 
+/*
 DialogueScript createDialogueScriptMakeTransfer()
 {
 	DialogueScript dialogueScript;
@@ -388,5 +476,5 @@ DialogueScript createDialogueScriptMakeTransfer()
 
 	return dialogueScript;
 }
-
+*/
 

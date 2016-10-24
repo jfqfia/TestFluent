@@ -22,3 +22,19 @@
     	}
 )
 
+(ScriboScheme ExplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerlocateatm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, it seems that you want to locate your nearest ATM, is this correct? ',
+					   'Please, could you be so kind to confirm that you want to locate an ATM near you? ');
+    	}
+)
+

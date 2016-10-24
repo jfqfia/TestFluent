@@ -211,6 +211,10 @@ procedure checkParameter(string parameterString)
 	{
 		correct <- checkAccountNumberValidity( parameter );
 	}
+	if(parameter.ParameterType == 'countryplace')
+	{
+		correct <- checkCountryPlaceValidity( parameter );
+	}
 
 	if( correct )
 	{

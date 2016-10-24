@@ -27,14 +27,14 @@
 // twenty-six
 // ninety-nine
 (Number_Rule02_1 :
- 	[ Number -> lexNumberValue]
+ 	[ Number -> lexNumberValue ]
 	{
 		^.NumberValue <- #1;
 	}
 )
 
 (Number_Rule02_2 :
- 	[ Number -> lexNumberDigits]
+ 	[ Number -> lexNumberDigits ]
 	{
 		^.NumberValue <- #1;
 	}

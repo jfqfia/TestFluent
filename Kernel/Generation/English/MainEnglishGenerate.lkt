@@ -15,3 +15,4 @@
 #Include "GenerationImplicitParameters.lkt"
 #Include "GenerationIncorrectParameters.lkt"
 #Include "GenerationManager.lkt"
+#Include "GenerationLocateAtm.lkt"

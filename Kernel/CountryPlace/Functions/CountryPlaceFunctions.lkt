@@ -26,4 +26,31 @@ bool canMergeWithAndCountryPlace(Parameter parameter1, Parameter parameter2)
 	return True;
 }
 
+string mostConcretePlace( CountryPlace place )
+{
+	if( place.CountryTown )		return place.CountryTown;
+	if( place.CountryProvince )	return place.CountryProvince;
+	if( place.CountryRegion )	return place.CountryRegion;
+	if( place.CountryZone )		return place.CountryZone;
+	if( place.CountryName )		return place.CountryName;
+}
+
+bool isCountryPlaceProvince( CountryPlace place )
+{
+	if( place.CountryProvince ) 
+		return True;
+	return False;
+}
+
+bool isCountryPlaceTown( CountryPlace place )
+{
+	if( place.CountryTown ) 
+		return True;
+	return False;
+}
+
+bool checkCountryPlaceValidity( Parameter parameter )
+{
+	return isCountryPlaceProvince( parameter.ParameterValue.CountryPlace );
+}
 
