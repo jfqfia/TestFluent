@@ -36,6 +36,7 @@
 (Number_Rule02_2 :
  	[ Number -> lexNumberDigits ]
 	{
+		SpyMessage("Number_Rule02_2: lexNumberDigits => ",TokenInputText(1));
 		^.NumberValue <- #1;
 	}
 )

@@ -16,6 +16,7 @@ lektaProject
 		setupRuntimeSpyMessageOn
 			//TokenizerStrategy:Base
 		setupTokenizerSpellingChecker
+		setupParserTokenNotFounds = lexLetter
 
 	classModel
 		#Include "Dependencies/Alter/AlterParametersTypes.lkt"

@@ -18,6 +18,8 @@ setupTokenizerPunctuation( ".", lexPeriod )
 setupTokenizerPunctuation( ":", lexColon)
 setupTokenizerIntegerClass (lexNumberDigits,"")
 
+SetTokenizer:SpellingChecker:Prevent = lexLetter 
+
 // lexConjuntions
 ("and",		lexConjAnd)
 ("because",	lexConjBecause)
