@@ -1,6 +1,7 @@
 * Account number doesn't capture numbers beginning in 0 
 * SpellerPrevent
 * Unknown lex i must revise
+* Detectar léxico que viene del corrector: IsTokenSpelled(1) (sin malla)
 
 * English grammar and lexicon
 http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions

@@ -11,87 +11,167 @@
 //
 // **************************************************
 
-procedure reviewState( ScriptInfoItem scriptInfoItem )
+procedure reviewState(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
 {
-	if( scriptInfoItem.InfoItemType == 'core' )
+	if( scriptInfoItem.InfoItemType == 'core' || scriptInfoItem.InfoItemType == 'action' || scriptInfoItem.InfoItemType == 'scope')
 	{
-		reviewStateCore( scriptInfoItem );
-	}
-	else if( scriptInfoItem.InfoItemType == 'action' )
-	{
-		reviewStateAction( scriptInfoItem );
-	}
-	else if( scriptInfoItem.InfoItemType == 'scope' )
-	{
-		reviewStateScope( scriptInfoItem );
+		reviewStateTrigger(scriptDescriptor, position, scriptInfoItem );
 	}
 	else if( scriptInfoItem.InfoItemType == 'parameter' )
 	{
-		reviewStateParameter( scriptInfoItem );
+		reviewStateParameter(scriptDescriptor, position, scriptInfoItem );
 	}
 }
 
-procedure reviewStateCore( ScriptInfoItem scriptInfoItem )
+procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
 {
-	// TODO
-}
+	// Initial state == 'empty' => New captured parameter
+	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
 
-procedure reviewStateAction( ScriptInfoItem scriptInfoItem )
-{
-	// TODO
-}
+	// Initial state == 'echoed' => Implicit Confirmation
+	if( scriptInfoItem.InfoItemState == 'echoed' && !! scriptInfoItem.InfoItemMoveState )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && hasBeenDisagreement() )
+	{
+		scriptInfoItem.InfoItemState <- 'rejected';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
 
-procedure reviewStateScope( ScriptInfoItem scriptInfoItem )
-{
-	// TODO
-}
+	// Initial state == 'proposed' => Negotiation
+	if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'proposed' && hasBeenDisagreement() )
+	{
+		scriptInfoItem.InfoItemState <- 'rejected';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
 
-procedure reviewStateParameter( ScriptInfoItem scriptInfoItem )
-{
-	// TODO
-}
-
-// Possible states
-//'empty', 'proposed', 'captured', 'checked', 'echoed', 'grounded'
-
-// TODO
-// Importante: Resetear los MoveState
-
-/*
-procedure assignScriptInfoItemAction( ScriptDescriptor scriptDescriptor, Action action )
-{
 	DialogueScript dialogueScript;
 	ScriptInfoItems scriptInfoItems;
-	int infoSize;
-	int infoPosition;
-	bool infoFound;
-	ScriptInfoItem scriptInfoItem;
 
 	dialogueScript <- getScript( scriptDescriptor );
-
 	scriptInfoItems <- dialogueScript.ScriptInfoItems;
-	infoSize <- BatchSize( scriptInfoItems );
-	infoFound <- False;
+	BatchAssignPosition( scriptInfoItems, position, scriptInfoItem );
+	dialogueScript.ScriptInfoItems <- scriptInfoItems;
+	setScript( dialogueScript );
+}
 
-	for (infoPosition <- 1; (infoPosition <= infoSize && (!! infoFound)); infoPosition ++) 
+// TODO Revisar aquí: estrategia avanzada
+// Si el parámetro es negated y los valores son iguales: Cancelar el valor del parámetro (empty)
+// Si el parámetro es negated y los valores son distintos: Cambiar el valor del parámetro (captured)
+procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
+{
+	// Initial state == 'empty' => New captured parameter
+	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
 	{
-		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+		scriptInfoItem.InfoItemState <- 'captured';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
 
-		if (scriptInfoItem.InfoItemType == 'action') 
+	// Initial state == 'echoed' => Implicit Confirmation
+	if( scriptInfoItem.InfoItemState == 'echoed' && !! scriptInfoItem.InfoItemMoveState )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && hasBeenDisagreement() )
+	{
+		scriptInfoItem.InfoItemState <- 'rejected';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+
+	// Initial state == 'proposed' => Negotiation
+	if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'proposed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'proposed' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'proposed' && hasBeenDisagreement() )
+	{
+		scriptInfoItem.InfoItemState <- 'rejected';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+
+	// Initial state == 'grounded' => Regretting
+	if( scriptInfoItem.InfoItemState == 'grounded' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'changed';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+
+	dialogueScript <- getScript( scriptDescriptor );
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	BatchAssignPosition( scriptInfoItems, position, scriptInfoItem );
+	dialogueScript.ScriptInfoItems <- scriptInfoItems;
+	setScript( dialogueScript );
+}
+
+bool hasBeenDisagreement()
+{
+	bool ret <- False;
+	ProferenceChunk proference;
+
+	int size <- BatchSize( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, position, proference );
+		if( proference.CoreDialogueAct.Dimension == 'basicanswer' && proference.CoreDialogueAct.Function == 'disagreement' )
 		{
-			if( proferenceActionContains(action, scriptInfoItem.InfoItemValue.ActionDomain) )
-			{
-				infoFound <- True;
-				scriptInfoItem.InfoItemValue.ActionDomain <- dialogueScript.ScriptTrigger.ActionDomain;
-
-				scriptInfoItem.InfoItemMoveState <- 'captured';
-	
-				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
-				dialogueScript.ScriptInfoItems <- scriptInfoItems;
-			}
+			ret <- True;
 		}
 	}
 
-	setScript( dialogueScript );
+	return ret;
 }
-*/
+
+bool hasChanged( ScriptInfoItem currentScriptInfoItem )
+{
+	Parameter lastInfoItem;
+	bool ret <- False;
+
+	int size <- BatchSize( currentScriptInfoItem.InfoItemHistory );
+	if( size > 0 )
+	{
+		BatchRecoverPosition( currentScriptInfoItem.InfoItemHistory, size, lastInfoItem );
+		if( currentScriptInfoItem.InfoItemValue.Parameter != lastInfoItem )
+		{
+			ret <- True;
+		}
+	}
+
+	return ret;
+}
+

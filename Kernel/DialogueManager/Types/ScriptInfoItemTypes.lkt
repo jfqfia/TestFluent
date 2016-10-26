@@ -38,7 +38,7 @@ classDef:ElementRange
 (
 	InfoItemState:
 	{
-		'empty', 'proposed', 'captured', 'checked', 'echoed', 'grounded'
+		'empty', 'proposed', 'captured', 'echoed', 'grounded', 'rejected', 'changed', 'marked'
 	}
 )
 

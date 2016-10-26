@@ -25,6 +25,38 @@ procedure initMindBoardOutput()
 	$MINDBOARD@DialogueOutput.DialogueActs <- emptyDialogueActs;
 }
 
+procedure resetMoveStates()
+{
+	DialogueScript script;
+	int size;
+	int position;
+	ScriptInfoItem scriptInfoItem;
+
+	script <- getCurrentScript();
+	size <- BatchSize( script.ScriptInfoItems );
+
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition(script.ScriptInfoItems, position, scriptInfoItem);
+
+		resetMoveState(script.ScriptDescriptor, position, scriptInfoItem );
+	}
+}
+
+procedure resetMoveState(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
+{
+	Erase(scriptInfoItem.InfoItemMoveState);
+
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+
+	dialogueScript <- getScript( scriptDescriptor );
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	BatchAssignPosition( scriptInfoItems, position, scriptInfoItem );
+	dialogueScript.ScriptInfoItems <- scriptInfoItems;
+	setScript( dialogueScript );
+}
+
 procedure displayMindBoard()
 {
 	DialogueScript dialogueScript;
