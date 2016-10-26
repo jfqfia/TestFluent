@@ -16,6 +16,8 @@ procedure activateScripts();
 
 procedure selectCurrentScript();
 
+procedure reviewScriptInfoItemStates();
+
 procedure selectCurrentNode();	
 
 procedure processNode();	

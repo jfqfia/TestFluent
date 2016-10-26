@@ -39,3 +39,5 @@
 #Include "DialogueManager/Types/InputTypes.lkt"
 #Include "DialogueManager/Types/OutputTypes.lkt"
 #Include "DialogueManager/Types/DigestTypes.lkt"
+#Include "DialogueManager/Types/ScriptInfoItemTypes.lkt"
+#Include "DialogueManager/Types/ScriptNodeTypes.lkt"

@@ -58,5 +58,35 @@ procedure executePostconditions( ScriptNode node )
 	}
 }
 
+ActivatedScriptNodes filterMaxPriority(ActivatedScriptNodes activatedScriptNodes )
+{
+	int maxPriority;
+	int size;
+	int position;
+	ActivatedScriptNodes ret, emptyActivatedScriptNodes;
+	ScriptNodeDescriptor scriptNodeDescriptor;
+	ScriptNode scriptNode;
+
+	maxPriority <- 0;
+	size <- BatchSize( activatedScriptNodes );
+
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition(activatedScriptNodes, position, scriptNodeDescriptor);
+		scriptNode <- getNodeFromCurrentScript( scriptNodeDescriptor );
+
+		if( scriptNode.ScriptNodePriorityLevel < maxPriority )
+		{
+			ret <- emptyActivatedScriptNodes;
+			BatchInsertEnd( ret, scriptNodeDescriptor );
+		}
+		else if( scriptNode.ScriptNodePriorityLevel == maxPriority )
+		{
+			BatchInsertEnd( ret, scriptNodeDescriptor );
+		}
+	}
+
+	return ret;
+}
 
 

@@ -43,89 +43,14 @@ classDef:StructureComplex
 		ScriptInfoItems,
 		ActivatedScriptNodes,
 		CurrentNodeDescriptor,
+		DefaultNodeDescriptor,
 		ScriptExpectative
 	)
 )
 
-classDef:StructureComplex
+classDef:ElementLiteral 
 (
-	ScriptExpectative :
-	(
-		// TODO REVISAR
-		// Este campo para las expectativas de tipo parámetro
-		ParameterType,
-		// Este campo para las expectativas de CoreDialogueAct
-		ProferenceChunk,
-		InfoItemState
-	)
-)
-
-classDef:StructureBatch
-(
-	ScriptInfoItems :
-	(
-		ScriptInfoItem
-	)
-)
-
-classDef:StructureComplex
-(
-	ScriptInfoItem :
-	( 
-	 	InfoItemType,
-		InfoItemParameterType,
-		InfoItemState,
-//		InfoItemMoveState,
-		InfoItemValue,
-		InfoItemHistory
-	)
-)
-
-// classDef:Synonym
-// (
-// 	InfoItemMoveState = InfoItemState
-// )
-
-classDef:Synonym
-(
-	InfoItemHistory = Parameters
-)
-
-classDef:Synonym
-(
- 	InfoItemType = ScriptTriggerComponent
-)
-
-classDef:Synonym
-(
- 	InfoItemParameterType = ParameterType
-)
-
-classDef:StructureComplex
-(
- 	InfoItemValue : 
-	(
-	 	CoreDialogueAct,
-		ActionDomain,
-		Scope,
-		Parameter
-	)
-)
-
-classDef:StructureBatch
-(
- 	ParameterHistory :
-	(
-		InfoItemValue
-	)
-)
-
-classDef:ElementRange
-(
-	InfoItemState:
-	{
-		'empty', 'proposed', 'captured', 'checked', 'echoed', 'grounded'
-	}
+        ScriptDescriptor
 )
 
 classDef:StructureBatch 
@@ -134,11 +59,6 @@ classDef:StructureBatch
 	(
 		ScriptNode
 	)
-)
-
-classDef:ElementLiteral 
-(
-        ScriptDescriptor, CallingScriptDescriptor, ReturnParameter
 )
 
 classDef:StructureComplex
@@ -160,21 +80,16 @@ classDef:StructureBatch
 	)
 )
 
-classDef:StructureComplex 
+classDef:StructureBatch
 (
-	ScriptNode : 
+	ScriptInfoItems :
 	(
-		ScriptNodeDescriptor,
-		ScriptNodePreconditions,
-		ScriptNodeType,
-		ScriptNodeContent,
-		ScriptNodeState,
-		ScriptNodePostconditions
+		ScriptInfoItem
 	)
 )
 
 classDef:StructureBatch
-(
+( 
  	ActivatedScriptNodes :
 	(
 	 	ScriptNodeDescriptor
@@ -183,103 +98,19 @@ classDef:StructureBatch
 
 classDef:ElementLiteral
 (
-	ScriptNodeDescriptor, CurrentNodeDescriptor
-)
-
-classDef:StructureBatch
-(
-	ScriptNodePreconditions :
-	(
-		DialogueActionPrecondition
-	)
-)
-
-classDef:StructureBatch
-(
-	ScriptNodePostconditions :
-	(
-		DialogueAction
-	)
-)
-
-classDef:StructureComplex
-(
-	DialogueActionPrecondition :
-	(
-		NegatedPrecondition,
-		DialogueAction
-	)
-)
-
-classDef:ElementBool
-(
-	NegatedPrecondition
-)
-
-classDef:StructureComplex
-(
-	DialogueAction :
-	(
-		DialogueActionName,
-		DialogueActionArguments
-	)
-)
-
-classDef:ElementLiteral 
-(
-        DialogueActionName
-)
-
-classDef:StructureBatch
-(
-	DialogueActionArguments :
-	(
-		DialogueActionArgument	
-	)
+	CurrentNodeDescriptor
 )
 
 classDef:ElementLiteral
 (
-	DialogueActionArgument
+	DefaultNodeDescriptor
 )
 
 classDef:StructureComplex
 (
-	ScriptNodeState :
+	ScriptExpectative :
 	(
-		ScriptNodeCounter,
-		ScriptNodeStateName
+		ParameterType
 	)
 )
-
-classDef:ElementRange
-(
-	ScriptNodeStateName : 
-	{
-		'finalized', 'correct', 'incorrect', 'notfinalized'
-	}
-)
-
-classDef:ElementInt
-(
-	ScriptNodeCounter
-)
-
-classDef:ElementRange 
-(
-        ScriptNodeType : 
-	{ 
-		'wait',
-		'execute'
-	}
-)
-
-classDef:StructureComplex 
-(
-	ScriptNodeContent : 
-	(
-		DialogueAct
-	)
-)
-
 

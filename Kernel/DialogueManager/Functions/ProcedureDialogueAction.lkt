@@ -98,12 +98,6 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, parameterString2 );
 		generate2Parameter(parameterString1, parameterString2);
 	}
-	else if(dialogueAction.DialogueActionName == 'set_expectative_dimension')
-	{
-		string state;
-		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, state );
-		setExpectativeDimension( state );
-	}
 	else if(dialogueAction.DialogueActionName == 'set_expectative_parameter')
 	{
 		string state;
@@ -118,19 +112,6 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		SpyMessage("");
 		SpyMessage("");
 	}
-}
-
-procedure setExpectativeDimension( string dimensionString )
-{
-	Dimension dimension <- ShapeToRange( dimensionString );
-	DialogueScript script <- getCurrentScript();
-	script.ScriptExpectative.ProferenceChunk.CoreDialogueAct.Dimension <- dimension;
-	Function emptyFunction;
-	script.ScriptExpectative.ProferenceChunk.CoreDialogueAct.Function <- emptyFunction;
-	script.ScriptExpectative.ProferenceChunk.TaskDialogueAct.Scope <- 'unknown';
-	script.ScriptExpectative.ProferenceChunk.Parameter.ParameterType <- 'unknown';
-
-	setScript(script);
 }
 
 procedure setExpectativeParameter( string parameterType )

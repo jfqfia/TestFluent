@@ -29,12 +29,6 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		ret = isInfoState(number, state);
 	}
-	else if(dialogueAction.DialogueActionName == 'is_expectative_function')
-	{
-		string state;
-		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, state );
-		ret = isExpectativeFunction( state );
-	}
 	else
 	{
 		SpyMessage("");
@@ -45,18 +39,6 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 	}
 
 	return ret;	
-}
-
-bool isExpectativeFunction( string functionString )
-{
-	Function function <- ShapeToRange( functionString );
-	DialogueScript script <- getCurrentScript();
-	if( script.ScriptExpectative.ProferenceChunk.CoreDialogueAct.Function == function )
-	{
-		return True;
-	}
-	
-	return False;
 }
 
 bool isInfoState(string number, string state)

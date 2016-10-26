@@ -100,6 +100,19 @@
 	{
 		SpyMessage("$$>> CogitoScheme Select Current Script");
 		selectCurrentScript();
+		$MINDBOARD@DialogueState.DialoguePhase <- 'review_states';
+	}
+)
+
+(CogitoScheme SelectCurrentScript :
+	CogitoCapture 
+	{
+        	( $MINDBOARD@DialogueState.DialoguePhase == 'review_states' )
+	}
+	CogitoAction 
+	{
+		SpyMessage("$$>> CogitoScheme Review Script Info Item States");
+		reviewScriptInfoItemStates();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 	}
 )

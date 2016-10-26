@@ -30,19 +30,8 @@ procedure digestExpectatives()
 			int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
 			for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
 			{
-				ProferenceChunk expectative <- dialogueScript.ScriptExpectative.ProferenceChunk;
 				BatchRecoverPosition( $MINDBOARD@DialogueInput.ProferenceChunks, profPosition, proference );
 
-				// CoreDialogueAct expectatives					
-				expectative <& proference;
-				if( expectative )
-				{
-					dialogueScript.ScriptExpectative.ProferenceChunk <- expectative; 
-					dialogueScript.ScriptExpectative.InfoItemState <- 'captured';
-					setScript(dialogueScript);
-				}
-
-				// ParameterType expectatives
 				ParameterType paramType <- dialogueScript.ScriptExpectative.ParameterType;
 				if(paramType && proference.Parameter.ParameterType)
 				{
@@ -63,15 +52,14 @@ procedure digestSearchScripts()
 	ProferenceChunk proference;
 
 	DigestSchemes emptyDigestSchemes;
+	ProferenceChunks emptyProferenceChunks;
 	DialogueScripts dialogueScripts;
 	DialogueScript dialogueScript;
 	ScriptTriggerComponent scriptComponent;
+	bool digested;
 
 	$MINDBOARD@DialogueDigest.DigestSchemes <- emptyDigestSchemes;
-
-	// TODO QUITAR
-	// SpyMessage("===============================================");
-	// SpyMessage("XXXX: digestSearchScripts - START");
+	$MINDBOARD@DialogueState.NotDigestedProferenceChunks <- emptyProferenceChunks;
 
 	int profSize <- BatchSize( $MINDBOARD@DialogueInput.ProferenceChunks );
 	for( int profPosition <- 1; profPosition <= profSize; profPosition++ ) 
@@ -80,6 +68,7 @@ procedure digestSearchScripts()
 
 		dialogueScripts <- $MINDBOARD@DialogueScheme.DialogueScripts;
 		int scriptSize <- BatchSize( dialogueScripts );
+		digested <- False;
 		for (int scriptPosition <- 1; scriptPosition <= scriptSize; scriptPosition ++ ) 
 		{
 			BatchRecoverPosition( dialogueScripts, scriptPosition, dialogueScript );
@@ -88,19 +77,21 @@ procedure digestSearchScripts()
 			if( Filled(scriptComponent) )
 			{
 				insertDigestScheme(dialogueScript.ScriptDescriptor, proference, scriptComponent);
+				digested <- True;	
 			}
 		}
-	}
+		if( !! digested )
+		{
+			BatchInsertEnd( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, proference );
+		}
+	} 
 
 	scoreDigestSchemes();
-
-	// TODO QUITAR
-	// SpyMessage($MINDBOARD@DialogueDigest);
-	// SpyMessage("XXXX: digestSearchScripts - END");
-	// SpyMessage("===============================================");
 }
 
 /*
+
+Primera estrategia para activación de Scripts
 
 1. Si el script activo está en DialogueDigest, 
 	1.1 Mover sus parámetros 
@@ -183,47 +174,45 @@ procedure activateScripts()
 			removeDigestScheme( digestScheme );
 		}
 	}
-	else
-	{
-		// TODO: What to do if there is no scripts in this batch? (i.e. nothing has been recognized by the NLU system)
-	}
-
-	// SpyMessage("===============================================");
-	// SpyMessage("XXXX: activateScripts - START");
-	// SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
-	// SpyMessage("XXXX: activateScripts - END");
-	// SpyMessage("===============================================");
 }
 
 procedure selectCurrentScript()
 {
-	// TODO
-	// Seleccionar el script actual, cosas a tener en cuenta:
-	// Si ha cambiado la cabeza de la pila de activos (hay cambio de script actual) 
-	// ¿qué hay que hacer?
-	
-	// Por ahora implementada la estrategia básica: La cabeza de la pila de scripts
-	// activos queda como script actual, es decir, cambia de script sin preguntar.
-
 	ScriptDescriptor scriptDescriptor;	
 	int numberActives <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
 	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, numberActives, scriptDescriptor ); 
 
-	// Hay cambio de script activo
 	if( !! $MINDBOARD@DialogueState.CurrentScriptDescriptor == scriptDescriptor )
 	{
 		$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
-		
-		// Reset the expectatives of the new current script
-		DialogueScript script <- getCurrentScript();
-		ScriptExpectative emptyScriptExpectative;
-		script.ScriptExpectative <- emptyScriptExpectative;
-		setScript(script);
+		$MINDBOARD@DialogueState.RecentlyActivatedScript <- True;
+	}
+	else
+	{
+		$MINDBOARD@DialogueState.RecentlyActivatedScript <- False;
 	}
 	
 	// TODO QUITAR
 	// DialogueScript script <- getCurrentScript();
 	// SpyMessage(script.ScriptInfoItems);
+}
+
+procedure reviewScriptInfoItemStates()
+{
+	DialogueScript script;
+	int size;
+	int position;
+	ScriptInfoItem scriptInfoItem;
+
+	script <- getCurrentScript();
+	size <- BatchSize( script.ScriptInfoItems );
+
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition(script.ScriptInfoItems, position, scriptInfoItem);
+
+		reviewState( scriptInfoItem );
+	}
 }
 
 procedure selectCurrentNode()
@@ -235,7 +224,7 @@ procedure selectCurrentNode()
 	ActivatedScriptNodes activatedScriptNodes;
 	ScriptNode node;
 
-	dialogueScript <- getCurrentScript( );
+	dialogueScript <- getCurrentScript();
 	size <- BatchSize( dialogueScript.ScriptNodes );
 	for(position <- 1; position <= size; position++) 
 	{
@@ -246,22 +235,26 @@ procedure selectCurrentNode()
 		}
 	}
 
-	dialogueScript.ActivatedScriptNodes <- activatedScriptNodes;
+	if( dialogueScript.DefaultNodeDescriptor && $MINDBOARD@DialogueState.RecentlyActivatedScript )
+	{	
+		BatchInsertEnd( activatedScriptNodes, dialogueScript.DefaultNodeDescriptor );
+		$MINDBOARD@DialogueState.RecentlyActivatedScript <- False;
+	}
 
-	// TODO
-	// Define activated nodes policy
-	// Here we select last node as current
-	// It would be better to select randomly the next node
+	dialogueScript.ActivatedScriptNodes <- filterMaxPriority( activatedScriptNodes );
 
 	size <- BatchSize( activatedScriptNodes );
 	if( size > 0 )
 	{
-		BatchRecoverPosition( activatedScriptNodes, size, nodeDescriptor );
+		int rand <- Random(1, size);
+		BatchRecoverPosition( activatedScriptNodes, rand, nodeDescriptor );
 		dialogueScript.CurrentNodeDescriptor <- nodeDescriptor;
 	}
 	else
 	{
+		// If we get here there is an error in the script program
 		dialogueScript.CurrentNodeDescriptor <- '';
+		SpyMessage("ERROR in script program");
 	}
 
 	setScript( dialogueScript );

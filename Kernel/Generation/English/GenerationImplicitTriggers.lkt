@@ -54,22 +54,20 @@
     	}
 )
 
-/*
-
-(ScriboScheme ConfirmScriptBookApppointment: [ DialogueAct ]
+(ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
 	ScriboCapture 
 	{
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'echo') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'bookappointmentscript'
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerbookappointment'
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'So you want to make an appointment for the doctor. ',
-					   'Ok, I understood that you may want to book a medical appointment. ');
+		SetMainAnswerStringRandom( 'Ok, I see that you wish to book an appointment for the doctor. ',
+					   'So you want to make a medical appointment. ');
     	}
 )
 
-*/
+

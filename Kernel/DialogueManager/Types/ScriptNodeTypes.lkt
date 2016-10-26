@@ -1,0 +1,133 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+classDef:StructureComplex 
+(
+	ScriptNode : 
+	(
+		ScriptNodeDescriptor,
+		ScriptNodePreconditions,
+		ScriptNodeType,
+		ScriptNodeContent,
+		ScriptNodeState,
+		ScriptNodePostconditions,
+		ScriptNodePriorityLevel
+	)
+)
+
+classDef:ElementLiteral
+(
+	ScriptNodeDescriptor
+)
+
+classDef:StructureBatch
+(
+	ScriptNodePreconditions :
+	(
+		DialogueActionPrecondition
+	)
+)
+
+classDef:StructureBatch
+(
+	ScriptNodePostconditions :
+	(
+		DialogueAction
+	)
+)
+
+classDef:StructureComplex
+(
+	DialogueActionPrecondition :
+	(
+		NegatedPrecondition,
+		DialogueAction
+	)
+)
+
+classDef:ElementBool
+(
+	NegatedPrecondition
+)
+
+classDef:StructureComplex
+(
+	DialogueAction :
+	(
+		DialogueActionName,
+		DialogueActionArguments
+	)
+)
+
+classDef:ElementLiteral 
+(
+        DialogueActionName
+)
+
+classDef:StructureBatch
+(
+	DialogueActionArguments :
+	(
+		DialogueActionArgument	
+	)
+)
+
+classDef:ElementLiteral
+(
+	DialogueActionArgument
+)
+
+classDef:StructureComplex
+(
+	ScriptNodeState :
+	(
+		ScriptNodeCounter,
+		ScriptNodeStateName
+	)
+)
+
+classDef:ElementRange
+(
+	ScriptNodeStateName : 
+	{
+		'finalized', 'correct', 'incorrect', 'notfinalized'
+	}
+)
+
+classDef:ElementInt
+(
+	ScriptNodeCounter
+)
+
+classDef:ElementRange 
+(
+        ScriptNodeType : 
+	{ 
+		'wait',
+		'execute'
+	}
+)
+
+classDef:StructureComplex 
+(
+	ScriptNodeContent : 
+	(
+		DialogueAct
+	)
+)
+
+classDef:ElementInt
+(
+	ScriptNodePriorityLevel
+)
+
+

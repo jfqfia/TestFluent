@@ -11,6 +11,7 @@
 //
 // **************************************************
 
+// TODO Depending on domain
 bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
 {
 	bool ret;
@@ -29,7 +30,7 @@ bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
 	return ret;
 }
 
-// TODO Depending on domain?	
+// TODO Depending on domain
 ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, ProferenceChunk originalProference)
 {
 	ProferenceChunk ret;
@@ -48,7 +49,6 @@ ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, Profere
 		ret.Parameter.ParameterType <- 'moneyamount';
 		ret.Parameter.ParameterCategory <- 'terminal';
 	}	
-
 
 	return ret;
 }

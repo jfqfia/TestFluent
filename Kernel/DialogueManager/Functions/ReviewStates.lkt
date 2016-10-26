@@ -1,0 +1,97 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+procedure reviewState( ScriptInfoItem scriptInfoItem )
+{
+	if( scriptInfoItem.InfoItemType == 'core' )
+	{
+		reviewStateCore( scriptInfoItem );
+	}
+	else if( scriptInfoItem.InfoItemType == 'action' )
+	{
+		reviewStateAction( scriptInfoItem );
+	}
+	else if( scriptInfoItem.InfoItemType == 'scope' )
+	{
+		reviewStateScope( scriptInfoItem );
+	}
+	else if( scriptInfoItem.InfoItemType == 'parameter' )
+	{
+		reviewStateParameter( scriptInfoItem );
+	}
+}
+
+procedure reviewStateCore( ScriptInfoItem scriptInfoItem )
+{
+	// TODO
+}
+
+procedure reviewStateAction( ScriptInfoItem scriptInfoItem )
+{
+	// TODO
+}
+
+procedure reviewStateScope( ScriptInfoItem scriptInfoItem )
+{
+	// TODO
+}
+
+procedure reviewStateParameter( ScriptInfoItem scriptInfoItem )
+{
+	// TODO
+}
+
+// Possible states
+//'empty', 'proposed', 'captured', 'checked', 'echoed', 'grounded'
+
+// TODO
+// Importante: Resetear los MoveState
+
+/*
+procedure assignScriptInfoItemAction( ScriptDescriptor scriptDescriptor, Action action )
+{
+	DialogueScript dialogueScript;
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	bool infoFound;
+	ScriptInfoItem scriptInfoItem;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+	infoFound <- False;
+
+	for (infoPosition <- 1; (infoPosition <= infoSize && (!! infoFound)); infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'action') 
+		{
+			if( proferenceActionContains(action, scriptInfoItem.InfoItemValue.ActionDomain) )
+			{
+				infoFound <- True;
+				scriptInfoItem.InfoItemValue.ActionDomain <- dialogueScript.ScriptTrigger.ActionDomain;
+
+				scriptInfoItem.InfoItemMoveState <- 'captured';
+	
+				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+				dialogueScript.ScriptInfoItems <- scriptInfoItems;
+			}
+		}
+	}
+
+	setScript( dialogueScript );
+}
+*/

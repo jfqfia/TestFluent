@@ -38,7 +38,6 @@
     	}
 )
 
-
 (ScriboScheme ExplicitTriggerConsultBalance: [ DialogueAct ]
 	ScriboCapture 
 	{
@@ -56,4 +55,19 @@
     	}
 )
 
+(ScriboScheme ExplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerbookappointment'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Would you like to book an appointment? ',
+					   'Do you wish to make a medical appointment? ');
+    	}
+)
 

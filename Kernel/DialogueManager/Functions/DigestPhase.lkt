@@ -40,13 +40,6 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 		}
 	}
 
-	// TODO Important
-	// We may change (or convert) some proference chunks to the expected parameter category.
-	// For example:
-	// 	System: And what's your phone number?
-	// 	User: 686575886 
-	// This is recognized by NLU system as a 'Number', not a 'PhoneNumber', so it will not be used to search inside 
-	// current script parameters.
 	int parameterTypesSize <- BatchSize(dialogueScript.ScriptTrigger.ParameterTypes);
 	if (proference.Parameter && parameterTypesSize >= 1)
 	{

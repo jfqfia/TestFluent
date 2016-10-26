@@ -138,12 +138,6 @@ DigestScheme getFirstWithoutScope()
 
 procedure digestScriptInfo( DigestScheme digestScheme )
 {
-	// TODO
-	// SpyMessage("********************************************************");
-	// SpyMessage("digestScriptInfo");
-	// SpyMessage(digestScheme);
-	// SpyMessage("********************************************************");
-
 	DigestChunks digestChunks;
 	int digestSize;
 	int digestPosition;
@@ -178,7 +172,7 @@ procedure digestScriptInfo( DigestScheme digestScheme )
 	}
 }
 
-procedure assignScriptInfoItemScope( ScriptDescriptor scriptDescriptor, Scope scope )
+procedure assignScriptInfoItemCore( ScriptDescriptor scriptDescriptor, CoreDialogueAct coreDialogueAct )
 {
 	DialogueScript dialogueScript;
 	ScriptInfoItems scriptInfoItems;
@@ -197,19 +191,15 @@ procedure assignScriptInfoItemScope( ScriptDescriptor scriptDescriptor, Scope sc
 	{
 		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 
-		if (scriptInfoItem.InfoItemType == 'scope') 
+		if (scriptInfoItem.InfoItemType == 'core') 
 		{
-			if(scriptInfoItem.InfoItemValue.Scope == scope)
+			if( scriptInfoItem.InfoItemValue.CoreDialogueAct == coreDialogueAct )
 			{
 				infoFound <- True;
-				scriptInfoItem.InfoItemValue.Scope <- scope;
+				scriptInfoItem.InfoItemValue.CoreDialogueAct <- dialogueScript.ScriptTrigger.CoreDialogueAct;
 
-				// TODO Dependiendo del estado
-				if (scriptInfoItem.InfoItemState == 'empty') 
-				{
-					scriptInfoItem.InfoItemState <- 'captured';
-				}
-
+				scriptInfoItem.InfoItemMoveState <- 'captured';
+	
 				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 				dialogueScript.ScriptInfoItems <- scriptInfoItems;
 			}
@@ -245,11 +235,7 @@ procedure assignScriptInfoItemAction( ScriptDescriptor scriptDescriptor, Action 
 				infoFound <- True;
 				scriptInfoItem.InfoItemValue.ActionDomain <- dialogueScript.ScriptTrigger.ActionDomain;
 
-				// TODO Dependiendo del estado
-				if (scriptInfoItem.InfoItemState == 'empty') 
-				{
-					scriptInfoItem.InfoItemState <- 'captured';
-				}
+				scriptInfoItem.InfoItemMoveState <- 'captured';
 	
 				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 				dialogueScript.ScriptInfoItems <- scriptInfoItems;
@@ -260,7 +246,7 @@ procedure assignScriptInfoItemAction( ScriptDescriptor scriptDescriptor, Action 
 	setScript( dialogueScript );
 }
 
-procedure assignScriptInfoItemCore( ScriptDescriptor scriptDescriptor, CoreDialogueAct coreDialogueAct )
+procedure assignScriptInfoItemScope( ScriptDescriptor scriptDescriptor, Scope scope )
 {
 	DialogueScript dialogueScript;
 	ScriptInfoItems scriptInfoItems;
@@ -279,19 +265,15 @@ procedure assignScriptInfoItemCore( ScriptDescriptor scriptDescriptor, CoreDialo
 	{
 		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 
-		if (scriptInfoItem.InfoItemType == 'core') 
+		if (scriptInfoItem.InfoItemType == 'scope') 
 		{
-			if( scriptInfoItem.InfoItemValue.CoreDialogueAct == coreDialogueAct )
+			if(scriptInfoItem.InfoItemValue.Scope == scope)
 			{
 				infoFound <- True;
-				scriptInfoItem.InfoItemValue.CoreDialogueAct <- dialogueScript.ScriptTrigger.CoreDialogueAct;
+				scriptInfoItem.InfoItemValue.Scope <- dialogueScript.ScriptTrigger.Scope;
 
-				// TODO Dependiendo del estado
-				if (scriptInfoItem.InfoItemState == 'empty') 
-				{
-					scriptInfoItem.InfoItemState <- 'captured';
-				}
-	
+				scriptInfoItem.InfoItemMoveState <- 'captured';
+
 				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 				dialogueScript.ScriptInfoItems <- scriptInfoItems;
 			}
@@ -325,13 +307,16 @@ procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Param
 			if (scriptInfoItem.InfoItemParameterType == parameter.ParameterType) 
 			{
 				infoFound <- True;
+
+				// Move to History
+				if( scriptInfoItem.InfoItemValue.Parameter )
+				{
+					BatchInsertEnd( scriptInfoItem.InfoItemHistory, scriptInfoItem.InfoItemValue.Parameter );
+				}
+
 				scriptInfoItem.InfoItemValue.Parameter <- parameter;
 
-				// TODO Dependiendo del estado
-				if (scriptInfoItem.InfoItemState == 'empty') 
-				{
-					scriptInfoItem.InfoItemState <- 'captured';
-				}
+				scriptInfoItem.InfoItemMoveState <- 'captured';
 
 				BatchAssignPosition( scriptInfoItems, infoPosition, scriptInfoItem );
 				dialogueScript.ScriptInfoItems <- scriptInfoItems;

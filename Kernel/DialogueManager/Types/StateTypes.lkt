@@ -17,8 +17,20 @@ classDef:StructureComplex
 	(
 		DialoguePhase,
 		ActivatedScriptsStack,
-		CurrentScriptDescriptor
+		CurrentScriptDescriptor,
+		NotDigestedProferenceChunks,
+		RecentlyActivatedScript
 	)
+)
+
+classDef:ElementBool
+(
+	RecentlyActivatedScript
+)
+
+classDef:Synonym
+(
+	NotDigestedProferenceChunks = ProferenceChunks
 )
 
 classDef:ElementLiteral
@@ -43,6 +55,7 @@ classDef:ElementRange
 		'digest_expectatives',
 		'digest_search_scripts',
 		'activate_scripts',
+		'review_states',
 		'select_current_script',
 		'select_current_node',
 		'process_talking',

@@ -703,3 +703,195 @@ DialogueScript createDialogueScriptMakeTransfer()
 	
 }
 
+DialogueScript createDialogueScriptMedicalAppointment()
+{
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	dialogueScript.ScriptDescriptor <- 'BookAppointment';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'book';
+	dialogueScript.ScriptTrigger.Scope <- 'appointment';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'medicalspeciality' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'countryplace' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'datetime' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'book';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'appointment';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'medicalspeciality';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'datetime';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Nodes 
+	ScriptNode nodeExplicitTriggerConfirmation;
+	ScriptNode nodeTriggerConfirmationAgreement;
+	ScriptNode nodeTriggerConfirmationDisagreement;
+	ScriptNode nodeImplicitTriggerConfirmation;
+	ScriptNode nodeImplicitTriggerConfirmationDisagree;
+	ScriptNode nodeImplicitMedicalSpeciality;
+	ScriptNode nodeAskMedicalSpeciality;
+	ScriptNode nodeImplicitCountryPlace;
+	ScriptNode nodeAskCountryPlace;
+	ScriptNode nodeImplicitDefaultDateTime;
+
+	// Node - ExplicitTriggerConfirmation
+	nodeExplicitTriggerConfirmation <- createScriptNode( 'explicittriggerconfirmation', 'wait' );
+	nodeExplicitTriggerConfirmation.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerbookappointment' );
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'empty' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'proposed' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'proposed' ));
+	BatchInsertEnd( nodeExplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTriggerConfirmation );
+	
+	// Node - TriggerConfirmationAgreement
+	nodeTriggerConfirmationAgreement <- createScriptNode( 'triggerconfirmationagreement', 'execute' );
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'proposed' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'proposed' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePreconditions, createPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'grounded' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'grounded' ));
+	BatchInsertEnd( nodeTriggerConfirmationAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicittriggerconfirmation', 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeTriggerConfirmationAgreement);
+
+	// Node - TriggerConfirmationDisagreement
+	nodeTriggerConfirmationDisagreement <- createScriptNode( 'triggerconfirmationdisagreement', 'execute' );
+	BatchInsertEnd( nodeTriggerConfirmationDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'proposed' ));	
+	BatchInsertEnd( nodeTriggerConfirmationDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeTriggerConfirmationDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'proposed' ));
+	BatchInsertEnd( nodeTriggerConfirmationDisagreement.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'is_expectative_function', 'agreement' ));
+	BatchInsertEnd( nodeTriggerConfirmationDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeTriggerConfirmationDisagreement );
+
+	// Node - ImplicitTriggerConfirmation
+	nodeImplicitTriggerConfirmation <- createScriptNode( 'implicittriggerconfirmation', 'execute' );
+	nodeImplicitTriggerConfirmation.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'triggerbookappointment' );
+	BatchInsertEnd( nodeImplicitTriggerConfirmation.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'captured' ));
+	BatchInsertEnd( nodeImplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'echoed' ));
+	BatchInsertEnd( nodeImplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeImplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_dimension', 'basicanswer' ));
+	BatchInsertEnd( nodeImplicitTriggerConfirmation.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTriggerConfirmation );
+	
+	// Node - ImplicitTriggerConfirmationDisagree
+	nodeImplicitTriggerConfirmationDisagree <- createScriptNode( 'implicittriggerconfirmationdisagree', 'execute' );
+	BatchInsertEnd( nodeImplicitTriggerConfirmationDisagree.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'echoed' ));	
+	BatchInsertEnd( nodeImplicitTriggerConfirmationDisagree.ScriptNodePreconditions, createPrecondition1Arguments( 'is_expectative_function', 'disagreement' ));	
+	BatchInsertEnd( nodeImplicitTriggerConfirmationDisagree.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTriggerConfirmationDisagree );
+
+	// Node - ImplicitMedicalSpeciality
+	nodeImplicitMedicalSpeciality <- createScriptNode( 'implicitmedicalspeciality', 'execute' );
+	nodeImplicitMedicalSpeciality.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'parameter' );
+	BatchInsertEnd( nodeImplicitMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'captured' ));
+	BatchInsertEnd( nodeImplicitMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeImplicitMedicalSpeciality.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '4', 'echoed' ));
+	BatchInsertEnd( nodeImplicitMedicalSpeciality.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '4' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitMedicalSpeciality );
+
+	// Node - ImplicitCountryPlace
+	nodeImplicitCountryPlace <- createScriptNode( 'implicitcountryplace', 'execute' );
+	nodeImplicitCountryPlace.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'parameter' );
+	BatchInsertEnd( nodeImplicitCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '5', 'captured' ));
+	BatchInsertEnd( nodeImplicitCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeImplicitCountryPlace.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '5', 'echoed' ));
+	BatchInsertEnd( nodeImplicitCountryPlace.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '5' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitCountryPlace );
+
+	// Node - AskMedicalSpeciality
+	nodeAskMedicalSpeciality <- createScriptNode( 'askmedicalspeciality', 'wait' );
+	nodeAskMedicalSpeciality.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'medicalspeciality' );
+	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeAskMedicalSpeciality.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskMedicalSpeciality );
+
+	// Node - AskCountryPlace
+	nodeAskCountryPlace <- createScriptNode( 'askcountryplace', 'wait' );
+	nodeAskCountryPlace.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'where', 'countryplace' );
+	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '5', 'empty' ));
+	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicittriggerconfirmation', 'finalized' ));
+	BatchInsertEnd( nodeAskCountryPlace.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskCountryPlace );
+	
+	// Node - ImplicitDefaultDateTime
+	nodeImplicitDefaultDateTime <- createScriptNode( 'setdefaultdatetime', 'execute' );
+	nodeImplicitDefaultDateTime.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'parameter' );
+	BatchInsertEnd( nodeImplicitDefaultDateTime.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_info_state', '4', 'empty' ));
+	BatchInsertEnd( nodeImplicitDefaultDateTime.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_info_state', '5', 'empty' ));
+	BatchInsertEnd( nodeImplicitDefaultDateTime.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '6', 'captured' ));
+	BatchInsertEnd( nodeImplicitCountryPlace.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '6' ));
+	BatchInsertEnd( nodeImplicitDefaultDateTime.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '6', 'echoed' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitDefaultDateTime );
+
+	// End Nodes	
+
+	return dialogueScript;
+	
+}
+

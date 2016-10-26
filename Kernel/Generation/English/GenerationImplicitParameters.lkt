@@ -34,6 +34,27 @@
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' );
+
+		SetMainAnswerStringRandom( 'I understood that you want a  ',
+					   'So you need a ' );
+		SetMainAnswerString( parameter.ParameterValue.MedicalSpeciality.MedicalSpecialityName );
+		SetMainAnswerString(' doctor. ');
+    	}
+)
+
+(ScriboScheme ImplicitAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
 		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' )
 	}
 	ScriboAction 

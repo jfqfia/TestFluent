@@ -1,0 +1,66 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+classDef:StructureComplex
+(
+	ScriptInfoItem :
+	( 
+	 	InfoItemType,
+		InfoItemParameterType,
+		InfoItemState,
+		InfoItemMoveState,
+		InfoItemValue,
+		InfoItemHistory
+	)
+)
+
+classDef:Synonym
+(
+	InfoItemMoveState = InfoItemState
+)
+
+classDef:Synonym
+(
+	InfoItemHistory = Parameters
+)
+
+classDef:ElementRange
+(
+	InfoItemState:
+	{
+		'empty', 'proposed', 'captured', 'checked', 'echoed', 'grounded'
+	}
+)
+
+classDef:Synonym
+(
+ 	InfoItemType = ScriptTriggerComponent
+)
+
+classDef:Synonym
+(
+ 	InfoItemParameterType = ParameterType
+)
+
+classDef:StructureComplex
+(
+ 	InfoItemValue : 
+	(
+	 	CoreDialogueAct,
+		ActionDomain,
+		Scope,
+		Parameter
+	)
+)
+
+
