@@ -170,6 +170,7 @@ procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, Dial
 
 	// TODO Si no estaba vacío cambiar al history
 	scriptInfoItem.InfoItemState <- 'proposed';
+	scriptInfoItem.InfoItemMoveState <- 'marked';
 
 	BatchAssignPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
 	setScript( script );
@@ -228,7 +229,16 @@ procedure generateParameter(string parameterString)
 	DialogueScript script <- getCurrentScript();
 	ScriptInfoItem scriptInfoItem;
 	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
-	Parameter parameter <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	Parameter parameter;
+	if( scriptInfoItem.InfoItemState == 'empty' )
+	{
+		parameter.ParameterType <- scriptInfoItem.InfoItemParameterType;
+	}
+	else
+	{
+		parameter <- scriptInfoItem.InfoItemValue.Parameter; 
+	}
 
 	BatchInsertEnd( dialogueAct.Parameters, parameter );
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
@@ -298,6 +308,7 @@ procedure setInfoState(string infoString, string state)
 	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
 
 	scriptInfoItem.InfoItemState <- infoItemState;
+	scriptInfoItem.InfoItemMoveState <- 'marked';
 
 	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
 	setScript( script );

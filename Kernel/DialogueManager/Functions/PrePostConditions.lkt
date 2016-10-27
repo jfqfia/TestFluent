@@ -74,9 +74,10 @@ ActivatedScriptNodes filterMaxPriority(ActivatedScriptNodes activatedScriptNodes
 	{
 		BatchRecoverPosition(activatedScriptNodes, position, scriptNodeDescriptor);
 		scriptNode <- getNodeFromCurrentScript( scriptNodeDescriptor );
-
-		if( scriptNode.ScriptNodePriorityLevel < maxPriority )
+		
+		if( scriptNode.ScriptNodePriorityLevel > maxPriority )
 		{
+			maxPriority <- scriptNode.ScriptNodePriorityLevel;
 			ret <- emptyActivatedScriptNodes;
 			BatchInsertEnd( ret, scriptNodeDescriptor );
 		}

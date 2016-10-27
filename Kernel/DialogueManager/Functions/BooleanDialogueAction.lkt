@@ -29,6 +29,13 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		ret = isInfoState(number, state);
 	}
+	else if(dialogueAction.DialogueActionName == 'digested_core')
+	{
+		string dimensionString, functionString;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, dimensionString );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, functionString );
+		ret = digestedCore( dimensionString, functionString );
+	}
 	else
 	{
 		SpyMessage("");
@@ -39,6 +46,27 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 	}
 
 	return ret;	
+}
+
+bool digestedCore(string dimensionString, string functionString)
+{
+	Dimension dimension <- ShapeToRange( dimensionString );
+	Function function <- ShapeToRange( functionString );
+
+	bool ret <- False;
+	ProferenceChunk proference;
+
+	int size <- BatchSize( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, position, proference );
+		if( proference.CoreDialogueAct.Dimension == dimension && proference.CoreDialogueAct.Function == function )
+		{
+			ret <- True;
+		}
+	}
+
+	return ret;
 }
 
 bool isInfoState(string number, string state)

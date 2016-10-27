@@ -33,9 +33,14 @@ procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, Sc
 	}
 
 	// Initial state == 'echoed' => Implicit Confirmation
-	if( scriptInfoItem.InfoItemState == 'echoed' && !! scriptInfoItem.InfoItemMoveState )
+	else if( scriptInfoItem.InfoItemState == 'echoed' && !! scriptInfoItem.InfoItemMoveState && !! hasBeenDisagreement() )
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' )
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
 	else if( scriptInfoItem.InfoItemState == 'echoed' && hasBeenDisagreement() )
@@ -45,9 +50,14 @@ procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, Sc
 	}
 
 	// Initial state == 'proposed' => Negotiation
-	if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
+	else if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'proposed' && scriptInfoItem.InfoItemMoveState == 'captured' )
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
 	else if( scriptInfoItem.InfoItemState == 'proposed' && hasBeenDisagreement() )
@@ -79,7 +89,7 @@ procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, 
 	}
 
 	// Initial state == 'echoed' => Implicit Confirmation
-	if( scriptInfoItem.InfoItemState == 'echoed' && !! scriptInfoItem.InfoItemMoveState )
+	else if( scriptInfoItem.InfoItemState == 'echoed' && !! scriptInfoItem.InfoItemMoveState && !! hasBeenDisagreement() )
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
@@ -101,7 +111,7 @@ procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, 
 	}
 
 	// Initial state == 'proposed' => Negotiation
-	if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
+	else if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
@@ -123,7 +133,7 @@ procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, 
 	}
 
 	// Initial state == 'grounded' => Regretting
-	if( scriptInfoItem.InfoItemState == 'grounded' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
+	else if( scriptInfoItem.InfoItemState == 'grounded' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
 	{
 		scriptInfoItem.InfoItemState <- 'changed';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
