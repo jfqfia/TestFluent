@@ -241,7 +241,8 @@ procedure selectCurrentNode()
 		$MINDBOARD@DialogueState.RecentlyActivatedScript <- False;
 	}
 
-	activatedScriptNodes <- filterMaxPriority( activatedScriptNodes );
+	activatedScriptNodes <- filterMinPriority( activatedScriptNodes );
+	activatedScriptNodes <- orderByType( activatedScriptNodes );
 	dialogueScript.ActivatedScriptNodes <- activatedScriptNodes;
 	
 	size <- BatchSize( activatedScriptNodes );

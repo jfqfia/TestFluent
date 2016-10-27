@@ -10,3 +10,79 @@
 //	FILE	:	
 //
 // **************************************************
+
+DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel)
+{
+	ScriptNode waitNode;
+	ScriptNode executeNode;
+
+	waitNode <- createScriptNodeWithPriority( 'waitNode', 'wait', 1);
+	executeNode <- createScriptNodeWithPriority( 'executeNode', 'execute', 2);
+	BatchInsertEnd( executeNode.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'executeNode', 'finalized' ));
+	BatchInsertEnd( executeNode.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'executeNode', 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, executeNode );
+	BatchInsertEnd( dialogueScript.ScriptNodes, waitNode );
+
+	return dialogueScript;
+}
+
+/*
+	// Node - ExplicitTrigger
+	nodeExplicitTrigger <- createScriptNodeWithPriority( 'explicittrigger', 'wait', 10 );
+	nodeExplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerconsultbalance' );
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'empty' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'proposed' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'proposed' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'proposed' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTrigger );
+
+	// Node - ExplicitTriggerAgreement
+	nodeExplicitTriggerAgreement <- createScriptNode( 'explicittriggeragreement', 'execute' );
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittriggeragreement', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicittriggeragreement', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'grounded' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'grounded' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTriggerAgreement );
+
+	// Node - ExplicitTriggerDisagreement
+	nodeExplicitTriggerDisagreement <- createScriptNode( 'explicittriggerdisagreement', 'execute' );
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittriggeragreement', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTriggerDisagreement );
+
+	// Node - ImplicitTrigger
+	nodeImplicitTrigger <- createScriptNodeWithPriority( 'implicittrigger', 'execute', 10);
+	nodeImplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'triggerconsultbalance' );
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'implicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'captured' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'echoed' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'echoed' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'echoed' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTrigger );
+
+	// Node - ImplicitTriggerDisagreement
+	nodeImplicitTriggerDisagreement <- createScriptNodeWithPriority( 'implicittriggerdisagreement', 'execute', 5);
+	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'rejected' ));
+	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '2', 'rejected' ));
+	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'rejected' ));
+	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTriggerDisagreement );
+*/

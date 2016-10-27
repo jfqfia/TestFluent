@@ -58,36 +58,72 @@ procedure executePostconditions( ScriptNode node )
 	}
 }
 
-ActivatedScriptNodes filterMaxPriority(ActivatedScriptNodes activatedScriptNodes )
+ActivatedScriptNodes filterMinPriority(ActivatedScriptNodes activatedScriptNodes )
 {
-	int maxPriority;
+	int minPriority;
 	int size;
 	int position;
 	ActivatedScriptNodes ret, emptyActivatedScriptNodes;
 	ScriptNodeDescriptor scriptNodeDescriptor;
 	ScriptNode scriptNode;
 
-	maxPriority <- 0;
+	BatchRecoverPosition(activatedScriptNodes, 1, scriptNodeDescriptor);
+	scriptNode <- getNodeFromCurrentScript( scriptNodeDescriptor );
+	minPriority <- scriptNode.ScriptNodePriorityLevel;
 	size <- BatchSize( activatedScriptNodes );
-
 	for( position <- 1; position <= size; position++ )
 	{
 		BatchRecoverPosition(activatedScriptNodes, position, scriptNodeDescriptor);
 		scriptNode <- getNodeFromCurrentScript( scriptNodeDescriptor );
 		
-		if( scriptNode.ScriptNodePriorityLevel > maxPriority )
+		if( scriptNode.ScriptNodePriorityLevel < minPriority )
 		{
-			maxPriority <- scriptNode.ScriptNodePriorityLevel;
+			minPriority <- scriptNode.ScriptNodePriorityLevel;
 			ret <- emptyActivatedScriptNodes;
 			BatchInsertEnd( ret, scriptNodeDescriptor );
 		}
-		else if( scriptNode.ScriptNodePriorityLevel == maxPriority )
+		else if( scriptNode.ScriptNodePriorityLevel == minPriority )
 		{
 			BatchInsertEnd( ret, scriptNodeDescriptor );
 		}
 	}
 
 	return ret;
+}
+
+// Wait nodes must the last to be processed
+ActivatedScriptNodes orderByType(ActivatedScriptNodes activatedScriptNodes )
+{
+	int size;
+	int position;
+	ActivatedScriptNodes executeNodes, waitNodes;
+	ScriptNodeDescriptor scriptNodeDescriptor;
+	ScriptNode scriptNode;
+
+	size <- BatchSize( activatedScriptNodes );
+	for( position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition(activatedScriptNodes, position, scriptNodeDescriptor);
+		scriptNode <- getNodeFromCurrentScript( scriptNodeDescriptor );
+		
+		if( scriptNode.ScriptNodeType == 'execute' )
+		{
+			BatchInsertEnd( executeNodes, scriptNodeDescriptor );
+		}
+		else if( scriptNode.ScriptNodeType == 'wait' )
+		{
+			BatchInsertEnd( waitNodes, scriptNodeDescriptor );
+		}
+	}
+
+	if( BatchSize(executeNodes) > 0 )
+	{
+		return executeNodes;
+	}
+	else
+	{
+		return waitNodes;
+	}
 }
 
 

@@ -131,12 +131,15 @@ DialogueScript createDialogueScriptConsultBalance()
 	scriptInfoItem.InfoItemState <- 'empty';	
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	/*
 	// Phases
 
 	// Phase 1
 	dialogueScript <- scriptActivation(dialogueScript, 1);
+	SpyMessage("");
+	SpyMessage(dialogueScript.ScriptNodes);
+	SpyMessage("");
 
+	/*	
 	// Phase 2
 	dialogueScript <- captureParameter(dialogueScript, 2, 'mandatory', 'accountnumber');
 
@@ -165,6 +168,7 @@ DialogueScript createDialogueScriptConsultBalance()
 	ScriptNode nodeCorrectAccountNumber;
 	ScriptNode nodeInfoMoneyAmount;
 	
+/*
 	// Node - ExplicitTrigger
 	nodeExplicitTrigger <- createScriptNodeWithPriority( 'explicittrigger', 'wait', 10 );
 	nodeExplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerconsultbalance' );
@@ -222,7 +226,7 @@ DialogueScript createDialogueScriptConsultBalance()
 	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTriggerDisagreement );
-
+*/
 	// Node - AskAccountNumber
 	nodeAskAccountNumber <- createScriptNode( 'askaccountnumber', 'wait' );
 	nodeAskAccountNumber.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', 'accountnumber' );
