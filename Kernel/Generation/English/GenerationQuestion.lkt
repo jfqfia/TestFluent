@@ -92,7 +92,7 @@
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'where') &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'countryplace'
 	}
 	ScriboAction 

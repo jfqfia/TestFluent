@@ -54,7 +54,7 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 
 		proposeInfoItem(targetInfoItem, backOfficeFunction, arguments);
 	}
-	else if(dialogueAction.DialogueActionName == 'execute_boolean_backoffice_2')
+	else if(dialogueAction.DialogueActionName == 'execute_backoffice_2')
 	{
 		string backOfficeFunction, argumentInfoItem1, argumentInfoItem2;
 		DialogueActionArguments arguments;		
@@ -66,8 +66,21 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchInsertEnd( arguments, argumentInfoItem1 );
 		BatchInsertEnd( arguments, argumentInfoItem2 );
 
-		executeBooleanBackOffice(backOfficeFunction, arguments);
+		executeBackOffice(backOfficeFunction, arguments);
 	}
+	else if(dialogueAction.DialogueActionName == 'execute_backoffice_1')
+	{
+		string backOfficeFunction, argumentInfoItem1;
+		DialogueActionArguments arguments;		
+
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, backOfficeFunction );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, argumentInfoItem1 );
+
+		BatchInsertEnd( arguments, argumentInfoItem1 );
+
+		executeBackOffice(backOfficeFunction, arguments);
+	}
+
 	else if(dialogueAction.DialogueActionName == 'generate')
 	{
 		generate();
@@ -103,6 +116,10 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		string state;
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, state );
 		setExpectativeParameter( state );
+	}
+	else if(dialogueAction.DialogueActionName == 'reset_next_level')
+	{
+		resetNextLevel();
 	}
 	else
 	{
@@ -163,20 +180,36 @@ procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, Dial
 	// Execute backoffice function
 	returnedParameter <- executeBackOfficeFunction(backOfficeFunction, parameters);
 
-	// Set the returned parameter
-	returnNumber <- ShapeToInt( targetInfoItem );
-	BatchRecoverPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
-	scriptInfoItem.InfoItemValue.Parameter <- returnedParameter;
+	if(returnedParameter)
+	{
+		// Set the returned parameter
+		returnNumber <- ShapeToInt( targetInfoItem );
+		BatchRecoverPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+		// Move to History
+		if( scriptInfoItem.InfoItemValue.Parameter )
+		{
+			BatchInsertEnd( scriptInfoItem.InfoItemHistory, scriptInfoItem.InfoItemValue.Parameter );
+		}
+		scriptInfoItem.InfoItemValue.Parameter <- returnedParameter;
+	
+		scriptInfoItem.InfoItemState <- 'proposed';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
 
-	// TODO Si no estaba vacío cambiar al history
-	scriptInfoItem.InfoItemState <- 'proposed';
-	scriptInfoItem.InfoItemMoveState <- 'marked';
+		ScriptNode currentNode <- getCurrentNode();
+		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'correct' );		
 
-	BatchAssignPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
-	setScript( script );
+		script <- getCurrentScript();
+		BatchAssignPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+		setScript( script );
+	}
+	else
+	{
+		ScriptNode currentNode <- getCurrentNode();
+		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'incorrect' );		
+	}
 }
 
-procedure executeBooleanBackOffice(string backOfficeFunction, DialogueActionArguments arguments)
+procedure executeBackOffice(string backOfficeFunction, DialogueActionArguments arguments)
 {
 	bool ret;
 	DialogueScript script;
@@ -327,7 +360,27 @@ procedure pullScript()
 	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
 }
 
+procedure resetNextLevel()
+{
+	ScriptNode currentScriptNode <- getCurrentNode();
+	int level <- currentScriptNode.ScriptNodePriorityLevel + 1;
+	DialogueScript script <- getCurrentScript();
+	ScriptNode scriptNode;
 
+	int size <- BatchSize( script.ScriptNodes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition(script.ScriptNodes, position, scriptNode);
+
+		if( scriptNode.ScriptNodeState.ScriptNodeResetStateName )
+		{
+			if( scriptNode.ScriptNodePriorityLevel == level )
+			{
+				setNodeState( script.ScriptDescriptor, scriptNode.ScriptNodeDescriptor, scriptNode.ScriptNodeState.ScriptNodeResetStateName );		
+			}	
+		}
+	}
+}
 
 
 

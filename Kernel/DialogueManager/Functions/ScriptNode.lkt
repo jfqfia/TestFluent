@@ -11,18 +11,7 @@
 //
 // **************************************************
 
-ScriptNode createScriptNode( string nodeDescriptor, string nodeType )
-{
-	ScriptNode ret;
-
-	ret.ScriptNodeDescriptor <- nodeDescriptor;
-	ret.ScriptNodeType <- ShapeToRange( nodeType );
-	ret.ScriptNodePriorityLevel <- 1;
-
-	return ret;
-}
-
-ScriptNode createScriptNodeWithPriority( string nodeDescriptor, string nodeType, ScriptNodePriorityLevel priorityLevel )
+ScriptNode createScriptNode( string nodeDescriptor, string nodeType, ScriptNodePriorityLevel priorityLevel )
 {
 	ScriptNode ret;
 

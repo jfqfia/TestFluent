@@ -18,7 +18,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Booting Dialogue");
+		//SpyMessage("$$>> CogitoScheme Booting Dialogue");
 		createDialogueScheme();
 		initMindBoard();
 		initDialogueScheme();
@@ -33,7 +33,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> Closing Dialogue");
+		//SpyMessage("$$>> Closing Dialogue");
 		CloseDialogue();
 		CogitoQuit();
 	}
@@ -46,7 +46,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Start Talking");
+		//SpyMessage("$$>> CogitoScheme Start Talking");
 		startTalkingTurn();
 	        $MINDBOARD@DialogueState.DialoguePhase <- 'digest_expectatives';
 	}
@@ -59,7 +59,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Digest Expectatives");
+		//SpyMessage("$$>> CogitoScheme Digest Expectatives");
 		digestExpectatives();
 	        $MINDBOARD@DialogueState.DialoguePhase <- 'digest_search_scripts';
 	}
@@ -72,7 +72,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Digest Search Scripts");
+		//SpyMessage("$$>> CogitoScheme Digest Search Scripts");
 		digestSearchScripts();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'activate_scripts';
 	}
@@ -85,7 +85,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Activate Scripts");
+		//SpyMessage("$$>> CogitoScheme Activate Scripts");
 		activateScripts();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_script';
 	}
@@ -98,7 +98,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Select Current Script");
+		//SpyMessage("$$>> CogitoScheme Select Current Script");
 		selectCurrentScript();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'review_states';
 	}
@@ -111,7 +111,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Review Script Info Item States");
+		//SpyMessage("$$>> CogitoScheme Review Script Info Item States");
 		reviewScriptInfoItemStates();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_node';
 	}
@@ -124,7 +124,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Select Current Node");
+		//SpyMessage("$$>> CogitoScheme Select Current Node");
 		selectCurrentNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'process_talking';
 	}
@@ -140,7 +140,7 @@
 	{
 		ScriptNode scriptNode <- getCurrentNode();
 		DialogueScript script <- getCurrentScript();
-		SpyMessage("$$>> CogitoScheme NodeType = Execute -> ", script.ScriptDescriptor, "(", scriptNode.ScriptNodeDescriptor ,")");
+		SpyMessage("$$>> CogitoScheme NodeType = Execute -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")");
 		processNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_script';
 		CogitoRetry();
@@ -157,7 +157,7 @@
 	{
 		ScriptNode scriptNode <- getCurrentNode();
 		DialogueScript script <- getCurrentScript();
-		SpyMessage("$$>> CogitoScheme NodeType = Wait -> ", script.ScriptDescriptor, "(", scriptNode.ScriptNodeDescriptor ,")");
+		SpyMessage("$$>> CogitoScheme NodeType = Wait -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")");
 		processNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
 		CogitoRetry();
@@ -184,7 +184,7 @@
 	}
 	CogitoAction 
 	{
-		SpyMessage("$$>> CogitoScheme Close Talking");
+		//SpyMessage("$$>> CogitoScheme Close Talking");
 		closeTalkingTurn();
 	        $MINDBOARD@DialogueState.DialoguePhase <- 'start_talking';
 		CogitoQuit();

@@ -13,27 +13,27 @@
 
 DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel)
 {
-	ScriptNode waitNode;
-	ScriptNode executeNode;
+	ScriptNode nodeExplicitTrigger;
+	ScriptNode nodeExplicitTriggerAgreement;
+	ScriptNode nodeExplicitTriggerDisagreement;
+	ScriptNode nodeImplicitTrigger;
+	ScriptNode nodeImplicitTriggerDisagreement;
 
-	waitNode <- createScriptNodeWithPriority( 'waitNode', 'wait', 1);
-	executeNode <- createScriptNodeWithPriority( 'executeNode', 'execute', 2);
-	BatchInsertEnd( executeNode.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'executeNode', 'finalized' ));
-	BatchInsertEnd( executeNode.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'executeNode', 'finalized' ));
+	string suffix = '_scriptactivation';
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5;
 
-	BatchInsertEnd( dialogueScript.ScriptNodes, executeNode );
-	BatchInsertEnd( dialogueScript.ScriptNodes, waitNode );
+	task = dialogueScript.ScriptTrigger.ActionDomain;
+	task <- LiteralConcat ( task, dialogueScript.ScriptTrigger.Scope );
 
-	return dialogueScript;
-}
-
-/*
 	// Node - ExplicitTrigger
-	nodeExplicitTrigger <- createScriptNodeWithPriority( 'explicittrigger', 'wait', 10 );
-	nodeExplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'triggerconsultbalance' );
-	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittrigger', 'finalized' ));
+	nodeName1 <- LiteralConcat( 'explicittrigger', suffix );	
+	nodeExplicitTrigger <- createScriptNode( nodeName1, 'wait', priorityLevel );
+	nodeExplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', LiteralConcat( 'trigger', task ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'empty' ));
-	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
 	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'proposed' ));
 	BatchInsertEnd( nodeExplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'proposed' ));
@@ -42,12 +42,13 @@ DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTrigger );
 
 	// Node - ExplicitTriggerAgreement
-	nodeExplicitTriggerAgreement <- createScriptNode( 'explicittriggeragreement', 'execute' );
-	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicittrigger', 'finalized' ));
-	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittriggeragreement', 'finalized' ));
+	nodeName2 <- LiteralConcat( 'explicittriggeragreement', suffix );	
+	nodeExplicitTriggerAgreement <- createScriptNode( nodeName2, 'execute', priorityLevel );
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName2, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
-	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicittriggeragreement', 'finalized' ));
-	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName2, 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'grounded' ));
 	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'grounded' ));
 	BatchInsertEnd( nodeExplicitTriggerAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'grounded' ));
@@ -55,20 +56,22 @@ DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTriggerAgreement );
 
 	// Node - ExplicitTriggerDisagreement
-	nodeExplicitTriggerDisagreement <- createScriptNode( 'explicittriggerdisagreement', 'execute' );
-	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicittrigger', 'finalized' ));
-	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicittriggeragreement', 'finalized' ));
+	nodeName3 <- LiteralConcat( 'explicittriggerdisagreement', suffix );	
+	nodeExplicitTriggerDisagreement <- createScriptNode( nodeName3, 'execute', priorityLevel );
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized' ));
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName2, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
 	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTriggerDisagreement );
 
 	// Node - ImplicitTrigger
-	nodeImplicitTrigger <- createScriptNodeWithPriority( 'implicittrigger', 'execute', 10);
-	nodeImplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'triggerconsultbalance' );
-	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'implicittrigger', 'finalized' ));
+	nodeName4 <- LiteralConcat( 'implicittrigger', suffix );	
+	nodeImplicitTrigger <- createScriptNode( nodeName4, 'execute', priorityLevel);
+	nodeImplicitTrigger.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', LiteralConcat( 'trigger', task ) );
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'captured' ));
-	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'implicittrigger', 'finalized' ));
+	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
 	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'echoed' ));
 	BatchInsertEnd( nodeImplicitTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'echoed' ));
@@ -77,12 +80,262 @@ DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTrigger );
 
 	// Node - ImplicitTriggerDisagreement
-	nodeImplicitTriggerDisagreement <- createScriptNodeWithPriority( 'implicittriggerdisagreement', 'execute', 5);
-	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'implicittrigger', 'finalized' ));
+	nodeName5 <- LiteralConcat( 'implicittriggerdisagreement', suffix );	
+	nodeImplicitTriggerDisagreement <- createScriptNode( nodeName5, 'execute', priorityLevel);
+	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'rejected' ));
 	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '2', 'rejected' ));
 	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '3', 'rejected' ));
 	BatchInsertEnd( nodeImplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitTriggerDisagreement );
-*/
+
+	return dialogueScript;
+}
+
+DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int priorityLevel, ParameterType parameterType)
+{
+	ScriptNode nodeAskParameter;
+	ScriptNode nodeIdontknowParameter;
+	ScriptNode nodeImplicitParameter;
+	ScriptNode nodeCheckParameter;
+	ScriptNode nodeIncorrectParameter;
+	ScriptNode nodeCorrectParameter;
+
+	string suffix = '_capturecompulsoryparameter_';
+	suffix <- LiteralConcat( suffix, ShapeToString(parameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5, nodeName6;
+	string parameterPosition <- recoverParameterPosition(dialogueScript, parameterType);
+
+	// Node - AskParameter
+	nodeName1 <- LiteralConcat( 'askparameter', suffix );	
+	nodeAskParameter <- createScriptNode( nodeName1, 'wait', priorityLevel );
+	nodeAskParameter.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', ShapeToString(parameterType) );
+	BatchInsertEnd( nodeAskParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'empty' ));
+	BatchInsertEnd( nodeAskParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeAskParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_parameter', 'accountnumber' ));
+	BatchInsertEnd( nodeAskParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));	
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskParameter );
+
+	// Node - IdontknowParameter
+	nodeName2 <- LiteralConcat( 'idontknowparameter', suffix );	
+	nodeIdontknowParameter <- createScriptNode( nodeName2, 'execute', priorityLevel );
+	nodeIdontknowParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'idontknow', 'parameter' );
+	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'empty' ));
+	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'dontknow' ));
+	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIdontknowParameter );
+
+	// Node - ImplicitParameter
+	nodeName3 <- LiteralConcat( 'implicitparameter', suffix );	
+	nodeImplicitParameter <- createScriptNode( nodeName3, 'execute', priorityLevel);
+	nodeImplicitParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'parameter' );
+	BatchInsertEnd( nodeImplicitParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'captured' ));
+	BatchInsertEnd( nodeImplicitParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeImplicitParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'checking' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitParameter );
+
+	// Node - CheckParameter
+	nodeName4 <- LiteralConcat( 'checkparameter', suffix );	
+	nodeCheckParameter <- createScriptNode( nodeName4, 'execute', priorityLevel );
+	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'checking' ));
+	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'correct' ));
+	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'incorrect' ));
+	BatchInsertEnd( nodeCheckParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'check_parameter', parameterPosition ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCheckParameter );
+
+	// Node - IncorrectParameter
+	nodeName5 <- LiteralConcat( 'incorrectparameter', suffix );	
+	nodeIncorrectParameter <- createScriptNode( nodeName5, 'execute', priorityLevel );
+	nodeIncorrectParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'parameter' );
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName4, 'incorrect' ));
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
+
+	// Node - CorrectParameter
+	nodeName6 <- LiteralConcat( 'correctparameter', suffix );	
+	nodeCorrectParameter <- createScriptNode( nodeName6, 'execute', priorityLevel );
+	nodeCorrectParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'correct', 'parameter' );
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName4, 'correct' ));
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'echoed' ));
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCorrectParameter );
+
+	return dialogueScript;
+}
+
+DialogueScript proposeInfoItem1(DialogueScript dialogueScript, int priorityLevel, ParameterType targetParameterType, string backOfficeFunctionName, ParameterType arg1ParameterType)
+{
+	ScriptNode nodePropose, nodeIncorrect;
+
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, ShapeToString(targetParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, backOfficeFunctionName );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg1ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string nodeName1, nodeName2;
+	string targetParameterPosition <- recoverParameterPosition(dialogueScript, targetParameterType);
+	string arg1ParameterPosition <- recoverParameterPosition(dialogueScript, arg1ParameterType);
+
+	// Node - ProposeInfoItem1
+	nodeName1 <- LiteralConcat( 'proposeinfoitem1', suffix );	
+	nodePropose <- createScriptNode(nodeName1 , 'execute', priorityLevel );
+	nodePropose.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	BatchInsertEnd( nodePropose.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'notfinalized' ));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction3Arguments( 'propose_info_item1', targetParameterPosition, backOfficeFunctionName, arg1ParameterPosition ));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodePropose );
+	
+	// Node - Incorrect
+	nodeName2 <- LiteralConcat( 'proposeinfoitem1_incorrect', suffix );	
+	nodeIncorrect <- createScriptNode(nodeName2 , 'execute', priorityLevel );
+	nodeIncorrect.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'backoffice' );
+	BatchInsertEnd( nodeIncorrect.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrect );
+
+	return dialogueScript;
+}
+
+// dialogueScript <- executeBackOffice1(dialogueScript, 3, 'get_nearest_atm', 'countryplace');
+DialogueScript executeBackOffice1(DialogueScript dialogueScript, int priorityLevel, string backOfficeFunctionName, ParameterType arg1ParameterType)
+{
+	ScriptNode nodePropose, nodeIncorrect;
+
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, backOfficeFunctionName );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(arg1ParameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string nodeName1, nodeName2;
+	string arg1ParameterPosition <- recoverParameterPosition(dialogueScript, arg1ParameterType);
+
+	// Node - ExecuteBackOffice1
+	nodeName1 <- LiteralConcat( 'executebackoffice1', suffix );	
+	nodePropose <- createScriptNode(nodeName1 , 'execute', priorityLevel );
+	nodePropose.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	BatchInsertEnd( nodePropose.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'notfinalized' ));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction2Arguments( 'execute_backoffice_1', backOfficeFunctionName, arg1ParameterPosition ));
+	BatchInsertEnd( nodePropose.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodePropose );
+	
+	// Node - Incorrect
+	nodeName2 <- LiteralConcat( 'executebackoffice1_incorrect', suffix );	
+	nodeIncorrect <- createScriptNode(nodeName2 , 'execute', priorityLevel );
+	nodeIncorrect.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'backoffice' );
+	BatchInsertEnd( nodeIncorrect.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeIncorrect.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrect );
+	
+	return dialogueScript;
+}
+
+DialogueScript informExplicitParameter( DialogueScript dialogueScript, int priorityLevel, ParameterType parameterType)
+{
+	ScriptNode nodeInform;
+
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, ShapeToString(parameterType) );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string nodeName1;
+	string parameterPosition <- recoverParameterPosition(dialogueScript, parameterType);
+
+	// Node - InformExplicit
+	nodeName1 <- LiteralConcat( 'informexplicitparameter', suffix );	
+	nodeInform <- createScriptNode( nodeName1 , 'execute', priorityLevel );
+	nodeInform.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'parameter' );
+	nodeInform.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	BatchInsertEnd( nodeInform.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'notfinalized' ));
+	BatchInsertEnd( nodeInform.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeInform.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeInform );
+
+	return dialogueScript;
+}
+
+DialogueScript endScript(DialogueScript dialogueScript, int priorityLevel)
+{
+	ScriptNode nodeEnd;
+
+	// Node - End
+	string nodeName1;
+	nodeEnd <- createScriptNode('end_node' , 'execute', priorityLevel );
+
+	BatchInsertEnd( nodeEnd.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeEnd );
+
+	return dialogueScript;
+}
+
+DialogueScript informExplicit(DialogueScript dialogueScript, int priorityLevel, string dimension, string function, string action, string scope)
+{
+	ScriptNode nodeInform;
+
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, dimension );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, function );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, action );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, scope );
+	suffix <- LiteralConcat( suffix, '_' );
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+
+	string nodeName1;
+
+	// Node - InformExplicit
+	nodeName1 <- LiteralConcat( 'informexplicit', suffix );	
+	nodeInform <- createScriptNode( nodeName1 , 'execute', priorityLevel );
+	nodeInform.ScriptNodeContent <- setNodeContent( dimension, function, action, scope );
+	nodeInform.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	BatchInsertEnd( nodeInform.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'notfinalized' ));
+	BatchInsertEnd( nodeInform.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeInform.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeInform );
+
+	return dialogueScript;
+}
+
+string recoverParameterPosition(DialogueScript dialogueScript, ParameterType parameterType)
+{
+	ScriptInfoItem scriptInfoItem;
+
+	int size <- BatchSize( dialogueScript.ScriptInfoItems );
+	for( int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(dialogueScript.ScriptInfoItems, position, scriptInfoItem);
+		if( scriptInfoItem.InfoItemParameterType == parameterType )
+		{
+			return ShapeToString( position );
+		}
+	}
+}
+

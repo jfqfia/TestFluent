@@ -91,7 +91,8 @@ classDef:StructureComplex
 	ScriptNodeState :
 	(
 		ScriptNodeCounter,
-		ScriptNodeStateName
+		ScriptNodeStateName,
+		ScriptNodeResetStateName
 	)
 )
 
@@ -101,6 +102,11 @@ classDef:ElementRange
 	{
 		'finalized', 'correct', 'incorrect', 'notfinalized'
 	}
+)
+
+classDef:Synonym
+(
+	ScriptNodeResetStateName = ScriptNodeStateName
 )
 
 classDef:ElementInt
@@ -129,5 +135,4 @@ classDef:ElementInt
 (
 	ScriptNodePriorityLevel
 )
-
 

@@ -26,6 +26,11 @@ Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters pa
 
 bool executeBackOfficeBooleanFunction(string backOfficeFunctionName, Parameters parameters)
 {
+	// TODO Should we search this functions inside possible domains?
+	if( backOfficeFunctionName == 'get_nearest_atm' )
+	{
+		return getNearestATM(parameters);
+	}
 	if( backOfficeFunctionName == 'execute_transfer' )
 	{
 		return executeTransfer(parameters);
@@ -50,7 +55,7 @@ Parameter getAvailabilityMedicalAppointment(Parameters parameters)
 	
 Parameter getBalance(Parameters parameters)
 {
-	Parameter returnedParameter;
+	Parameter returnedParameter, emptyParameter;
 	Parameter param1;
 
 	BatchRecoverPosition( parameters, 1, param1 );
@@ -67,7 +72,16 @@ Parameter getBalance(Parameters parameters)
 	returnedParameter.ParameterCategory <- 'terminal';
 	returnedParameter.ParameterType <- 'moneyamount';
 
-	return returnedParameter;
+	// This simulates a fail in the back office calling (10%)
+	int rand <- Random(1,10);
+	if(rand != 1)
+	{
+		return returnedParameter;
+	}
+	else
+	{
+		return emptyParameter;
+	}
 }
 
 bool executeTransfer(Parameters parameters)
@@ -88,6 +102,28 @@ bool executeTransfer(Parameters parameters)
 	int rand <- Random(1,10);
 	ret <- True;
 	if( rand == 10 )
+	{
+		ret <- False;
+	}
+
+	return ret;
+}
+
+bool getNearestATM(Parameters parameters)
+{
+	bool ret;
+	Parameter param1;
+
+	BatchRecoverPosition( parameters, 1, param1 );
+
+	CountryPlace countryPlace <- param1.ParameterValue.CountryPlace;
+
+	// TODO Here we simulate the back office call
+	// ret <- getNearestATMBackOffice( countryPlace );	
+	
+	// We simulate here that fails in Córdoba
+	ret <- True;
+	if(countryPlace.CountryProvince == 'córdoba')
 	{
 		ret <- False;
 	}

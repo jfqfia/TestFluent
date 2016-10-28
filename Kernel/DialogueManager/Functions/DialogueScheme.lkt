@@ -20,7 +20,7 @@ procedure createDialogueScheme()
 	// Script - ConsultBalance
 	dialogueScript <- createDialogueScriptConsultBalance();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
-	/*
+	
 	// Script - LocateAtm
 	dialogueScript <- createDialogueScriptLocateAtm();
 	BatchInsertEnd( dialogueScheme.DialogueScripts, dialogueScript );

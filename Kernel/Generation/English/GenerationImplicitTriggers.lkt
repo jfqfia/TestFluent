@@ -13,7 +13,7 @@
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerconsultbalance'
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerconsultbankaccount'
 	}
 	ScriboAction 
 	{

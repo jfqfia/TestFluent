@@ -19,3 +19,4 @@
 #Include "GenerationLocateAtm.lkt"
 #Include "GenerationExecuteTransfer.lkt"
 #Include "GenerationIdontknowParameters.lkt"
+#Include "GenerationBankingManagement.lkt"
