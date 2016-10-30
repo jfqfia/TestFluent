@@ -1,3 +1,17 @@
+
+// Empate al activar scripts
+// i want to make a transfer and consult my balance
+
+// Nodo por defecto al reactivar
+// i want to consult my balance
+// I need first to make a transfer
+// ... completar
+
+// Guardar la memoria
+// i want to make a transfer and consult my balance
+// ... completar
+// ... reusar el número de cuenta
+
 * Account number doesn't capture numbers beginning in 0 
 * SpellerPrevent
 * Unknown lex i must revise

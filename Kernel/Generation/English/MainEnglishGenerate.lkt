@@ -20,3 +20,5 @@
 #Include "GenerationExecuteTransfer.lkt"
 #Include "GenerationIdontknowParameters.lkt"
 #Include "GenerationBankingManagement.lkt"
+#Include "GenerationBookAppointment.lkt"
+#Include "GenerationConfirmChangedParameter.lkt"

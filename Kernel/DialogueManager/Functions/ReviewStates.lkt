@@ -11,20 +11,22 @@
 //
 // **************************************************
 
-procedure reviewState(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
+bool reviewState(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
 {
 	if( scriptInfoItem.InfoItemType == 'core' || scriptInfoItem.InfoItemType == 'action' || scriptInfoItem.InfoItemType == 'scope')
 	{
-		reviewStateTrigger(scriptDescriptor, position, scriptInfoItem );
+		return reviewStateTrigger(scriptDescriptor, position, scriptInfoItem );
 	}
 	else if( scriptInfoItem.InfoItemType == 'parameter' )
 	{
-		reviewStateParameter(scriptDescriptor, position, scriptInfoItem );
+		return reviewStateParameter(scriptDescriptor, position, scriptInfoItem );
 	}
 }
 
-procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
+bool reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
 {
+	bool ret <- False; 
+
 	// Initial state == 'empty' => New captured parameter
 	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
 	{
@@ -47,6 +49,7 @@ procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, Sc
 	{
 		scriptInfoItem.InfoItemState <- 'rejected';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
+		ret <- True;
 	}
 
 	// Initial state == 'proposed' => Negotiation
@@ -64,6 +67,7 @@ procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, Sc
 	{
 		scriptInfoItem.InfoItemState <- 'rejected';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
+		ret <- True;
 	}
 
 	DialogueScript dialogueScript;
@@ -74,13 +78,17 @@ procedure reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, Sc
 	BatchAssignPosition( scriptInfoItems, position, scriptInfoItem );
 	dialogueScript.ScriptInfoItems <- scriptInfoItems;
 	setScript( dialogueScript );
+
+	return ret;
 }
 
 // TODO Revisar aquí: estrategia avanzada
 // Si el parámetro es negated y los valores son iguales: Cancelar el valor del parámetro (empty)
 // Si el parámetro es negated y los valores son distintos: Cambiar el valor del parámetro (captured)
-procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
+bool reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
 {
+	bool ret <- False;
+
 	// Initial state == 'empty' => New captured parameter
 	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
 	{
@@ -108,10 +116,11 @@ procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, 
 	{
 		scriptInfoItem.InfoItemState <- 'rejected';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
+		ret <- True;
 	}
 
 	// Initial state == 'proposed' => Negotiation
-	else if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState )
+	else if( scriptInfoItem.InfoItemState == 'proposed' && !! scriptInfoItem.InfoItemMoveState && !! hasBeenDisagreement() )
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
@@ -130,12 +139,25 @@ procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, 
 	{
 		scriptInfoItem.InfoItemState <- 'rejected';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
+		ret <- True;
 	}
 
 	// Initial state == 'grounded' => Regretting
 	else if( scriptInfoItem.InfoItemState == 'grounded' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
 	{
 		scriptInfoItem.InfoItemState <- 'changed';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+
+	// Initial state == 'changed' => Regretting confirm/cancel
+	else if( scriptInfoItem.InfoItemState == 'changed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'grounded';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'changed' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
 
@@ -147,6 +169,8 @@ procedure reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, 
 	BatchAssignPosition( scriptInfoItems, position, scriptInfoItem );
 	dialogueScript.ScriptInfoItems <- scriptInfoItems;
 	setScript( dialogueScript );
+
+	return ret;
 }
 
 bool hasBeenDisagreement()
@@ -167,6 +191,24 @@ bool hasBeenDisagreement()
 	return ret;
 }
 
+procedure deleteDisagreement()
+{
+	ProferenceChunk proference;
+	NotDigestedProferenceChunks newBatch;
+
+	int size <- BatchSize( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, position, proference );
+		if( proference.CoreDialogueAct.Dimension != 'basicanswer' || proference.CoreDialogueAct.Function != 'disagreement' )
+		{
+			BatchInsertEnd(newBatch, proference);
+		}
+	}
+
+	$MINDBOARD@DialogueState.NotDigestedProferenceChunks <- newBatch;
+}
+
 bool hasChanged( ScriptInfoItem currentScriptInfoItem )
 {
 	Parameter lastInfoItem;
@@ -176,7 +218,7 @@ bool hasChanged( ScriptInfoItem currentScriptInfoItem )
 	if( size > 0 )
 	{
 		BatchRecoverPosition( currentScriptInfoItem.InfoItemHistory, size, lastInfoItem );
-		if( currentScriptInfoItem.InfoItemValue.Parameter != lastInfoItem )
+		if( currentScriptInfoItem.InfoItemValue.Parameter.ParameterValue != lastInfoItem.ParameterValue )
 		{
 			ret <- True;
 		}

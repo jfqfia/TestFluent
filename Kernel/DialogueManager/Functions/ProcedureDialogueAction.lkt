@@ -24,6 +24,27 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 	{
 		pullScript();
 	}
+	else if(dialogueAction.DialogueActionName == 'delete_disagreement')
+	{
+		deleteDisagreement();
+	}
+	else if(dialogueAction.DialogueActionName == 'negotiate_info_item3')
+	{
+		string targetInfoItem, backOfficeFunction, argumentInfoItem1, argumentInfoItem2, argumentInfoItem3;
+		DialogueActionArguments arguments;		
+
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, targetInfoItem );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, backOfficeFunction );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, argumentInfoItem1 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 4, argumentInfoItem2 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 5, argumentInfoItem3 );
+
+		BatchInsertEnd( arguments, argumentInfoItem1 );
+		BatchInsertEnd( arguments, argumentInfoItem2 );
+		BatchInsertEnd( arguments, argumentInfoItem3 );
+
+		negotiateInfoItem(targetInfoItem, backOfficeFunction, arguments);
+	}
 	else if(dialogueAction.DialogueActionName == 'propose_info_item3')
 	{
 		string targetInfoItem, backOfficeFunction, argumentInfoItem1, argumentInfoItem2, argumentInfoItem3;
@@ -91,6 +112,12 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
 		generateParameter(parameterString);
 	}
+	else if(dialogueAction.DialogueActionName == 'swap_history')
+	{
+		string parameterString;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
+		swapHistory(parameterString);
+	}
 	else if(dialogueAction.DialogueActionName == 'check_parameter')
 	{
 		string parameterString;
@@ -111,6 +138,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, parameterString2 );
 		generate2Parameter(parameterString1, parameterString2);
 	}
+	else if(dialogueAction.DialogueActionName == 'generate_3_parameter')
+	{
+		string parameterString1, parameterString2, parameterString3;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString1 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, parameterString2 );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, parameterString3 );
+		generate3Parameter(parameterString1, parameterString2, parameterString3);
+	}
 	else if(dialogueAction.DialogueActionName == 'set_expectative_parameter')
 	{
 		string state;
@@ -120,6 +155,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 	else if(dialogueAction.DialogueActionName == 'reset_next_level')
 	{
 		resetNextLevel();
+	}
+	else if(dialogueAction.DialogueActionName == 'reset_current_level')
+	{
+		resetCurrentLevel();
+	}
+	else if(dialogueAction.DialogueActionName == 'reset_echoed_items')
+	{
+		resetEchoedItems();
 	}
 	else
 	{
@@ -154,6 +197,67 @@ procedure setNodeState(string scriptDescriptor, string nodeDescriptor, string st
 	node.ScriptNodeState.ScriptNodeStateName <- ShapeToRange(state);
 
 	setNodeToScript(script, node);
+}
+
+procedure negotiateInfoItem(string targetInfoItem, string backOfficeFunction, DialogueActionArguments arguments)
+{
+	DialogueScript script;
+	int argumentNumber, returnNumber;
+	ScriptInfoItem scriptInfoItem;
+	Parameters parameters;
+	Parameter returnedParameter, parameter;
+	string argumentInfoItem;
+
+	script <- getCurrentScript();
+
+	// Extract history of target parameter
+	InfoItemHistory history;
+	BatchRecoverPosition( script.ScriptInfoItems, ShapeToInt( targetInfoItem ), scriptInfoItem );
+	history <- scriptInfoItem.InfoItemHistory;
+
+	// Extract parameters
+
+	int size <- BatchSize( arguments );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( arguments, position, argumentInfoItem );
+		argumentNumber <- ShapeToInt( argumentInfoItem );
+		BatchRecoverPosition( script.ScriptInfoItems, argumentNumber, scriptInfoItem );
+		parameter <- scriptInfoItem.InfoItemValue.Parameter;
+		BatchInsertEnd( parameters, parameter );
+	}
+
+	// Execute backoffice function
+	returnedParameter <- executeBackOfficeNegotiateFunction(backOfficeFunction, history, parameters);
+	
+	// TODO Empty response if it's not possible to find a good appointment for the given datetime
+	if(returnedParameter)
+	{
+		// Set the returned parameter
+		returnNumber <- ShapeToInt( targetInfoItem );
+		BatchRecoverPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+		// Move to History
+		if( scriptInfoItem.InfoItemValue.Parameter )
+		{
+			BatchInsertEnd( scriptInfoItem.InfoItemHistory, scriptInfoItem.InfoItemValue.Parameter );
+		}
+		scriptInfoItem.InfoItemValue.Parameter <- returnedParameter;
+	
+		scriptInfoItem.InfoItemState <- 'proposed';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+
+		ScriptNode currentNode <- getCurrentNode();
+		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'correct' );		
+
+		script <- getCurrentScript();
+		BatchAssignPosition( script.ScriptInfoItems, returnNumber, scriptInfoItem );
+		setScript( script );
+	}
+	else
+	{
+		ScriptNode currentNode <- getCurrentNode();
+		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'incorrect' );		
+	}
 }
 
 procedure proposeInfoItem(string targetInfoItem, string backOfficeFunction, DialogueActionArguments arguments)
@@ -298,6 +402,32 @@ procedure generate2Parameter(string parameterString1, string parameterString2)
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 }
 
+procedure generate3Parameter(string parameterString1, string parameterString2, string parameterString3)
+{
+	ScriptNode currentNode <- getCurrentNode();
+	DialogueAct dialogueAct <- currentNode.ScriptNodeContent.DialogueAct;
+
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
+
+	int infoNumber <- ShapeToInt( parameterString1 );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter1 <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	infoNumber <- ShapeToInt( parameterString2 );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter2 <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	infoNumber <- ShapeToInt( parameterString3 );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter3 <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	BatchInsertEnd( dialogueAct.Parameters, parameter1 );
+	BatchInsertEnd( dialogueAct.Parameters, parameter2 );
+	BatchInsertEnd( dialogueAct.Parameters, parameter3 );
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+}
+
 procedure checkParameter(string parameterString)
 {
 	ScriptNode currentNode <- getCurrentNode();
@@ -308,7 +438,7 @@ procedure checkParameter(string parameterString)
 	Parameter parameter <- scriptInfoItem.InfoItemValue.Parameter; 
 
 	// TODO Aquí hay más, debería ir dentro del dominio?
-	bool correct;
+	bool correct <- True;
 	if(parameter.ParameterType == 'accountnumber')
 	{
 		correct <- checkAccountNumberValidity( parameter );
@@ -316,6 +446,26 @@ procedure checkParameter(string parameterString)
 	if(parameter.ParameterType == 'countryplace')
 	{
 		correct <- checkCountryPlaceValidity( parameter );
+	}
+	if(parameter.ParameterType == 'moneyamount')
+	{
+		correct <- checkMoneyAmountValidity( parameter );
+	}
+	if(parameter.ParameterType == 'medicalspeciality')
+	{
+		correct <- checkMedicalSpecialityValidity( parameter );
+	}
+	if(parameter.ParameterType == 'datetime')
+	{
+		correct <- checkDateTimeValidity( parameter );
+	}
+	if(parameter.ParameterType == 'peselnumber')
+	{
+		correct <- checkPeselNumberValidity( parameter );
+	}
+	if(parameter.ParameterType == 'phonenumber')
+	{
+		correct <- checkPhoneNumberValidity( parameter );
 	}
 
 	if( correct )
@@ -347,6 +497,26 @@ procedure setInfoState(string infoString, string state)
 	setScript( script );
 }
 
+procedure swapHistory(string infoString)
+{
+	DialogueScript script;
+	int infoNumber;
+	ScriptInfoItem scriptInfoItem;
+
+	script <- getCurrentScript();
+	infoNumber <- ShapeToInt( infoString );
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+
+	Parameter oldParameterValue <- scriptInfoItem.InfoItemValue.Parameter;
+	Parameter newParameterValue;
+	BatchExtractEnd(scriptInfoItem.InfoItemHistory, newParameterValue);
+	BatchInsertEnd(scriptInfoItem.InfoItemHistory, oldParameterValue);
+	scriptInfoItem.InfoItemValue.Parameter <- newParameterValue;
+
+	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	setScript( script );
+}
+
 procedure pullScript()
 {
 	string descriptor;
@@ -364,6 +534,19 @@ procedure resetNextLevel()
 {
 	ScriptNode currentScriptNode <- getCurrentNode();
 	int level <- currentScriptNode.ScriptNodePriorityLevel + 1;
+	resetLevel(level);
+}
+
+procedure resetCurrentLevel()
+{
+	ScriptNode currentScriptNode <- getCurrentNode();
+	int level <- currentScriptNode.ScriptNodePriorityLevel;
+	resetLevel(level);
+}
+
+procedure resetLevel(int level)
+{
+	ScriptNode currentScriptNode <- getCurrentNode();
 	DialogueScript script <- getCurrentScript();
 	ScriptNode scriptNode;
 
@@ -379,8 +562,23 @@ procedure resetNextLevel()
 				setNodeState( script.ScriptDescriptor, scriptNode.ScriptNodeDescriptor, scriptNode.ScriptNodeState.ScriptNodeResetStateName );		
 			}	
 		}
-	}
+	}	
 }
 
+procedure resetEchoedItems()
+{
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
 
+	int size <- BatchSize( script.ScriptInfoItems );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition(script.ScriptInfoItems, position, scriptInfoItem);
+
+		if( scriptInfoItem.InfoItemState == 'echoed' )
+		{
+			setInfoState(ShapeToString(position), 'grounded');
+		}
+	}	
+}
 

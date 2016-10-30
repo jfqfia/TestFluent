@@ -26,4 +26,33 @@ bool canMergeWithAndPhoneNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
+bool checkPhoneNumberValidity( Parameter parameter )
+{
+	string literal <- parameter.ParameterValue.PhoneNumber.PhoneNumberValue;
+
+	if( LiteralSize(literal) == 9 )
+	{
+		return True;
+	}
+
+	return False;
+}
+
+PhoneNumber convertNumberToPhoneNumber(Parameter parameter)
+{
+	PhoneNumber ret;
+
+	if(parameter.ParameterCategory == 'terminal')
+	{
+		NumberValue number <- parameter.ParameterValue.Number.NumberValue;
+		ret.PhoneNumberValue <- ShapeToString(number);
+	}
+	if(parameter.ParameterCategory == 'sequential')
+	{
+		ret.PhoneNumberValue <- getConcatenatedNumber( parameter );
+	}
+
+	return ret;
+}
+
 

@@ -24,6 +24,42 @@
     	}
 )
 
+(ScriboScheme IncorrectPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'The phone number is not valid. ',
+					   'I am afraid that the phone number is incorrect. ');
+		SetMainAnswer( 'Remember that a correct phone number must have 9 digits exactly. ' );
+    	}
+)
+
+(ScriboScheme IncorrectPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'The pesel number is not valid. ',
+					   'I am afraid that the pesel number is incorrect. ');
+		SetMainAnswer( 'Please try again! ' );
+    	}
+)
+
 (ScriboScheme IncorrectAccountNumber: [ DialogueAct ]
 	ScriboCapture 
 	{

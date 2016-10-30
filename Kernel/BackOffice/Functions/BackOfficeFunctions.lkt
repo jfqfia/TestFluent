@@ -14,13 +14,17 @@
 Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters parameters)
 {
 	// TODO Should we search this functions inside possible domains?
-	if( backOfficeFunctionName == 'get_medical_appointment_availability' )
-	{
-		return getAvailabilityMedicalAppointment(parameters);
-	}
 	if( backOfficeFunctionName == 'get_balance' )
 	{
 		return getBalance(parameters);
+	}
+}
+
+Parameter executeBackOfficeNegotiateFunction(string backOfficeFunctionName, InfoItemHistory history, Parameters parameters)
+{
+	if( backOfficeFunctionName == 'negotiate_datetime_medical_appointment' )
+	{
+		return negotiateDateTimeMedicalAppointment(history, parameters);
 	}
 }
 
@@ -37,22 +41,6 @@ bool executeBackOfficeBooleanFunction(string backOfficeFunctionName, Parameters 
 	}
 }
 
-Parameter getAvailabilityMedicalAppointment(Parameters parameters)
-{
-	Parameter returnedParameter;
-	Parameter param1, param2, param3;
-
-	BatchRecoverPosition( parameters, 1, param1 );
-	BatchRecoverPosition( parameters, 2, param2 );
-	BatchRecoverPosition( parameters, 3, param3 );
-
-	// TODO Here we must simulate the back office call
-	param2.ParameterValue.DateTime.GeneralTime.BaseTime.Hour <- 11;
-	returnedParameter <- param2;	
-
-	return returnedParameter;
-}
-	
 Parameter getBalance(Parameters parameters)
 {
 	Parameter returnedParameter, emptyParameter;
@@ -130,6 +118,55 @@ bool getNearestATM(Parameters parameters)
 
 	return ret;
 }
+
+Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameters parameters)
+{
+	//SpyMessage("");
+	//SpyMessage("");
+	//SpyMessage("History:");
+	//SpyMessage(history);
+	//SpyMessage("Parameters:");
+	//SpyMessage(parameters);
+	
+	Parameter parameter, emptyParameter;
+	BatchRecoverPosition(parameters, 1, parameter);
+	DateTime userProposedDateTime <- parameter.ParameterValue.DateTime;
+	BatchRecoverPosition(parameters, 2, parameter);
+	MedicalSpeciality speciality <- parameter.ParameterValue.MedicalSpeciality;
+	BatchRecoverPosition(parameters, 3, parameter);
+	CountryPlace place <- parameter.ParameterValue.CountryPlace;
+
+	DateTime systemProposedDateTime;
+
+	// TODO	START
+	if( !! userProposedDateTime )
+	{
+		userProposedDateTime <- normalizeDateTime(userProposedDateTime);	
+	}
+
+	systemProposedDateTime <- userProposedDateTime;
+	systemProposedDateTime.BaseDate.Day <- systemProposedDateTime.BaseDate.Day + 1;
+	systemProposedDateTime.GeneralTime.BaseTime.Hour <- 17;
+	systemProposedDateTime.GeneralTime.BaseTime.Minute <- 00;
+
+	//TODO END	
+
+	parameter <- emptyParameter;
+	parameter.ParameterCategory <- 'terminal';
+	parameter.ParameterValue.DateTime <- systemProposedDateTime;
+	parameter.ParameterType <- 'datetime';
+
+	//SpyMessage("Returned Parameter:");
+	//SpyMessage(parameter);
+	//SpyMessage("");
+	//SpyMessage("");
+	return parameter;
+}
+
+
+
+
+
 
 
 

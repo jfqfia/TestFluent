@@ -1,0 +1,276 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+DateTime normalizeDateTime(DateTime in)
+{
+	DateTime ret;
+
+	ret.BaseDate <- normalizeBaseDate(in.BaseDate);
+
+	return ret;
+}
+
+BaseDate normalizeBaseDate(BaseDate in)
+{
+	BaseDate ret <- in;
+
+	// If no date has been provided we assume is today
+	if( !! ret )
+	{
+		ret.Day <- ClockAskDayOfTheMonth();
+		ret.Month <- ClockAskMonth();
+		ret.Year <- ClockAskYear();
+		ret.DayInWeek <- ClockAskDayOfTheWeek();
+	}
+
+	return ret;
+}
+
+/*
+// TODO Structure explanation
+classDef:StructureComplex
+(
+    	DateTime:
+	(
+	        BaseDate,
+		OffsetDate,
+		MinDate,
+		MaxDate,
+		GeneralTime
+	)
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	BaseDate = Date
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	MinDate, MaxDate = DateTime
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	OffsetDate:
+	(
+		DirectionOfTime,
+		DayInWeekOffset,
+		Date
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	Date:
+	(
+		Day,
+		DayInWeek,
+		Week,
+		Month,
+		Year
+	)
+)
+
+// TODO Structure explanation
+classDef:ElementInt
+(
+	Day, 
+	DayInWeek, 
+	DayInWeekOffset, 
+	Week,
+	Month,
+	Year
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	GeneralTime :
+	(
+	        BaseTime,
+		OffsetTime,
+		MinTime,
+		MaxTime
+	)
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	BaseTime = Time
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	MinTime, MaxTime = GeneralTime
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	OffsetTime :
+	(
+		DirectionOfTime,
+		Time
+	)
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	Time :
+	(
+		PartOfTheDay,
+		Hour,
+		Minute
+	)
+)
+
+// TODO Structure explanation
+classDef:ElementInt
+(
+ 	Hour,
+	Minute,
+	Second,
+	TemporalModifierValue
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	PartOfTheDay :
+	(
+		PartOfTheDayName,
+		PartOfTheDayInterval
+	)
+)
+
+// TODO Structure explanation
+classDef:ElementRange
+(
+ 	PartOfTheDayInterval :
+	{
+		'early',
+		'mid',
+		'late'
+	}
+)
+
+// TODO Structure explanation
+classDef:ElementRange
+(
+ 	PartOfTheDayName :
+	{
+		'now',
+		'morning',
+		'noon',
+		'afternoon',
+		'evening',
+		'night'
+	}
+)
+
+// TODO Structure explanation
+classDef:ElementRange
+(
+	DirectionOfTime :
+	{
+		'backward',
+		'forward'
+	} 
+)
+
+// TODO Structure explanation
+classDef:StructureComplex
+(
+	TemporalModifier :
+	(
+		DirectionOfTime,
+		TemporalModifierValue
+	)
+)
+*/
+
+string getOrdinalSuffixDateTime( int number )
+{
+	string ret <- 'th';
+
+	if(number == 1 || number == 21 || number == 31)
+		ret <- 'st' ;
+	else if(number == 2 || number == 22)
+		ret <- 'nd' ;
+	else if(number == 3 || number == 23)
+		ret <- 'rd';
+
+	return ret;
+}
+
+string monthName( int number )
+{
+	string ret;
+
+	if(number == 1)
+		ret <- 'January' ;
+	else if(number == 2)
+		ret <- 'February' ;
+	else if(number == 3)
+		ret <- 'March';
+	else if(number == 4)
+		ret <- 'April';
+	else if(number == 5)
+		ret <- 'May';
+	else if(number == 6)
+		ret <- 'June';
+	else if(number == 7)
+		ret <- 'July';
+	else if(number == 8)
+		ret <- 'August';
+	else if(number == 9)
+		ret <- 'September';
+	else if(number == 10)
+		ret <- 'October';
+	else if(number == 11)
+		ret <- 'November';
+	else if(number == 12)
+		ret <- 'December';
+
+	return ret;
+}
+
+string dayInWeekName(int number)
+{
+	string ret;
+
+	if(number == 1)
+		ret <- 'Monday' ;
+	else if(number == 2)
+		ret <- 'Tuesday' ;
+	else if(number == 3)
+		ret <- 'Wednesday';
+	else if(number == 4)
+		ret <- 'Thursday';
+	else if(number == 5)
+		ret <- 'Friday';
+	else if(number == 6)
+		ret <- 'Saturday';
+	else if(number == 7)
+		ret <- 'Sunday';
+
+	return ret;
+}

@@ -26,4 +26,34 @@ bool canMergeWithAndPeselNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
+bool checkPeselNumberValidity( Parameter parameter )
+{
+	// TODO
+	string literal <- parameter.ParameterValue.PeselNumber.PeselNumberValue;
+
+	if( LiteralSize(literal) == 11 )
+	{
+		return True;
+	}
+
+	return False;
+}
+
+PeselNumber convertNumberToPeselNumber(Parameter parameter)
+{
+	PeselNumber ret;
+
+	if(parameter.ParameterCategory == 'terminal')
+	{
+		NumberValue number <- parameter.ParameterValue.Number.NumberValue;
+		ret.PeselNumberValue <- ShapeToString(number);
+	}
+	if(parameter.ParameterCategory == 'sequential')
+	{
+		ret.PeselNumberValue <- getConcatenatedNumber( parameter );
+	}
+
+	return ret;
+}
+
 

@@ -22,29 +22,43 @@
     	}
 )
 
-(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+(ScriboScheme QuestionWhatPhoneNumber: [ DialogueAct ]
 	ScriboCapture 
 	{
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumbertarget'
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'phonenumber'
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'What is the target account number, please? ',
-					   'Could you please tell me the target account number of the transfer? ');
+		SetMainAnswerStringRandom( 'What is your phone number, please? ');
     	}
 )
 
-(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+(ScriboScheme QuestionWhatPeselNumber: [ DialogueAct ]
 	ScriboCapture 
 	{
 		GetHeadPropertyLanguage() == ENGLISH &&
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'howmuch') &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What is your pesel number, please? ');
+    	}
+)
+
+(ScriboScheme QuestionWhatMoneyAmount: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
 		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'moneyamount'
 	}
 	ScriboAction 
@@ -55,7 +69,7 @@
     	}
 )
 
-(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+(ScriboScheme QuestionWhatCountryPlace: [ DialogueAct ]
 	ScriboCapture 
 	{
 		GetHeadPropertyLanguage() == ENGLISH &&
@@ -82,7 +96,9 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'What kind of medical speciality do you want? ');
+		SetMainAnswerStringRandom( 'What kind of medical speciality do you want? ',
+					   'What kind of doctor do you need? ',
+					   'What medical speciality fits you? ');
     	}
 )
 
@@ -102,20 +118,4 @@
     	}
 )
 
-
-(ScriboScheme QuestionWhereCountryPlace: [ DialogueAct ]
-	ScriboCapture 
-	{
-		GetHeadPropertyLanguage() == ENGLISH &&
-		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
-        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'medicalspeciality'
-	}
-	ScriboAction 
-	{
-		SetMainAnswerStringRandom( 'What kind of doctor do you need? ',
-					   'What medical speciality fits you? ');
-    	}
-)
 

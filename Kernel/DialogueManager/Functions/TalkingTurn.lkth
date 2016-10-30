@@ -24,3 +24,5 @@ procedure processNode();
 
 procedure closeTalkingTurn();
 
+procedure deleteDisagreement();
+

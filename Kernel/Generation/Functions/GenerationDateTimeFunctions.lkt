@@ -1,0 +1,58 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+string dateTimeToString( DateTime datetime )
+{
+	string ret;
+
+	ret <- '';
+	if( datetime.BaseDate.DayInWeek )
+	{
+		ret <- LiteralConcat(ret, dayInWeekName( datetime.BaseDate.DayInWeek ) );
+		ret <- LiteralConcat(ret, ', ' );
+	}
+	if( datetime.BaseDate.Day )
+	{
+		ret <- LiteralConcat(ret, ShapeToString( datetime.BaseDate.Day ) );
+		ret <- LiteralConcat(ret, getOrdinalSuffixDateTime( datetime.BaseDate.Day ) );
+	}
+	if( datetime.BaseDate.Month )
+	{
+		ret <- LiteralConcat(ret, ' ' );
+		ret <- LiteralConcat(ret, monthName( datetime.BaseDate.Month ) );
+	}
+	if( datetime.BaseDate.Year )
+	{
+		ret <- LiteralConcat(ret, ', ' );
+		ret <- LiteralConcat(ret, ShapeToString( datetime.BaseDate.Year ) );
+	}
+
+	if( datetime.GeneralTime.BaseTime )
+	{
+		ret <- LiteralConcat(ret, ' at ' );
+		ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour ) );
+		ret <- LiteralConcat(ret, ':' );
+
+		if( datetime.GeneralTime.BaseTime.Minute < 10 )
+		{
+			ret <- LiteralConcat( ret, '0' );
+		}
+		
+		ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Minute ) );
+	}
+
+	return ret;
+}
+
+
+

@@ -7,18 +7,20 @@
 // ******************************************************
 
 (SensoScheme Booting : [DialogueState]
-    SensoCapture {
-        #OBJSENSO-1.DialoguePhase == 'booting_dialogue'
-    }
-    SensoAction {
-        $MINDBOARD@DialogueState.DialoguePhase <- #OBJSENSO-1.DialoguePhase;
-    }
+	SensoCapture 
+	{
+        	#OBJSENSO-1.DialoguePhase == 'booting_dialogue'
+	}
+	SensoAction 
+	{
+		$MINDBOARD@DialogueState.DialoguePhase <- #OBJSENSO-1.DialoguePhase;
+	}
 )
 
 (SensoScheme Input : [ProferenceChunk]
-    SensoAction {
-        BatchInsertEnd( $MINDBOARD@DialogueInput.ProferenceChunks,
-				#OBJSENSO-1 );
-    }
+	SensoAction	
+	{
+        	BatchInsertEnd( $MINDBOARD@DialogueInput.ProferenceChunks, #OBJSENSO-1 );
+    	}
 )
 

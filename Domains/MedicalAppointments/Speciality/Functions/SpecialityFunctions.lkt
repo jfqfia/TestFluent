@@ -26,4 +26,10 @@ bool canMergeWithAndSpeciality(Parameter parameter1, Parameter parameter2)
 	return True;
 }
 
+bool checkMedicalSpecialityValidity( Parameter parameter )
+{
+	return True;
+}
+
+
 

@@ -207,11 +207,17 @@ procedure reviewScriptInfoItemStates()
 	script <- getCurrentScript();
 	size <- BatchSize( script.ScriptInfoItems );
 
+	bool ret <- False;
 	for( position <- 1; position <= size; position++ )
 	{
 		BatchRecoverPosition(script.ScriptInfoItems, position, scriptInfoItem);
 
-		reviewState(script.ScriptDescriptor, position, scriptInfoItem );
+		ret <- reviewState(script.ScriptDescriptor, position, scriptInfoItem ) || ret;
+	}
+
+	if(ret)
+	{
+		deleteDisagreement();
 	}
 }
 

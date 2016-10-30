@@ -26,7 +26,6 @@ bool canMergeWithAndMoneyAmount(Parameter parameter1, Parameter parameter2)
 	return True;
 }
 
-
 MoneyAmount convertNumberToMoneyAmount(Parameter parameter)
 {
 	MoneyAmount ret;
@@ -40,4 +39,10 @@ MoneyAmount convertNumberToMoneyAmount(Parameter parameter)
 	
 	return ret;
 }
+
+bool checkMoneyAmountValidity( Parameter parameter )
+{
+	return True;
+}
+
 
