@@ -72,9 +72,25 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'I need more information from your current location. Remember that I should know al least the province . ',
+		SetMainAnswerStringRandom( 'I need more information from your current location. Remember that I should know al least the province. ',
 					   'I am afraid that you must provide at least the province of your current location. ');
     	}
 )
 
+(ScriboScheme IncorrectAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'datetime' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'But that date is incorrect. ',
+					   'I think that I misunderstood the date. ');
+    	}
+)
 

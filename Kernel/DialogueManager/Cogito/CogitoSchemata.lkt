@@ -157,7 +157,7 @@
 	{
 		ScriptNode scriptNode <- getCurrentNode();
 		DialogueScript script <- getCurrentScript();
-		SpyMessage("$$>> CogitoScheme NodeType = Wait -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")");
+		SpyMessage("$$>> CogitoScheme NodeType = Wait    -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")");
 		processNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
 		CogitoRetry();

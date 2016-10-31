@@ -121,13 +121,6 @@ bool getNearestATM(Parameters parameters)
 
 Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameters parameters)
 {
-	//SpyMessage("");
-	//SpyMessage("");
-	//SpyMessage("History:");
-	//SpyMessage(history);
-	//SpyMessage("Parameters:");
-	//SpyMessage(parameters);
-	
 	Parameter parameter, emptyParameter;
 	BatchRecoverPosition(parameters, 1, parameter);
 	DateTime userProposedDateTime <- parameter.ParameterValue.DateTime;
@@ -136,36 +129,66 @@ Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameter
 	BatchRecoverPosition(parameters, 3, parameter);
 	CountryPlace place <- parameter.ParameterValue.CountryPlace;
 
-	DateTime systemProposedDateTime;
+	DateTime systemProposedDateTime, lastProposedDateTime;
+	Parameter lastParameter;
 
-	// TODO	START
-	if( !! userProposedDateTime )
+	parameter.ParameterValue.DateTime <- userProposedDateTime;
+	if( !! checkDateTimeValidity(parameter) )
 	{
-		userProposedDateTime <- normalizeDateTime(userProposedDateTime);	
+		userProposedDateTime.BaseDate <- getCurrentBaseDate();
 	}
 
-	systemProposedDateTime <- userProposedDateTime;
-	systemProposedDateTime.BaseDate.Day <- systemProposedDateTime.BaseDate.Day + 1;
-	systemProposedDateTime.GeneralTime.BaseTime.Hour <- 17;
-	systemProposedDateTime.GeneralTime.BaseTime.Minute <- 00;
-
-	//TODO END	
+	int size <- BatchSize( history );
+	BatchRecoverPosition( history, size, lastParameter );
+	lastProposedDateTime <- lastParameter.ParameterValue.DateTime;
+	userProposedDateTime <- normalizeDateTime(userProposedDateTime, lastProposedDateTime);	
+	
+	systemProposedDateTime <- getMedicalAppointmentAvailability(userProposedDateTime);
 
 	parameter <- emptyParameter;
 	parameter.ParameterCategory <- 'terminal';
 	parameter.ParameterValue.DateTime <- systemProposedDateTime;
 	parameter.ParameterType <- 'datetime';
-
-	//SpyMessage("Returned Parameter:");
-	//SpyMessage(parameter);
-	//SpyMessage("");
-	//SpyMessage("");
+	
 	return parameter;
 }
 
+DateTime getMedicalAppointmentAvailability(DateTime proposed)
+{
+	DateTime ret;
 
+	if(proposed.BaseDate.DayInWeek != 7)
+	{
+		ret.BaseDate <- proposed.BaseDate;
 
+		ret.GeneralTime.BaseTime.Minute <- 00;
+		int randHour <- Random(0,4);
+		int randPartOfTheDay <- Random(0,1);
+		PartOfTheDayName part <- proposed.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName;
+	
+		if(part == 'morning' || part == 'noon')
+		{
+			ret.GeneralTime.BaseTime.Hour <- 9 + randHour;
+		}
+		else if(part == 'afternoon' || part == 'evening' || part == 'night')
+		{
+			ret.GeneralTime.BaseTime.Hour <- 16 + randHour;
+		}
+		else
+		{
+			if(randPartOfTheDay == 0)
+			{
+				ret.GeneralTime.BaseTime.Hour <- 9 + randHour;
+			}
+			else
+			{
+				ret.GeneralTime.BaseTime.Hour <- 16 + randHour;
+			}			
+		}
+	}
 
+	return ret;
+}
 
 
 

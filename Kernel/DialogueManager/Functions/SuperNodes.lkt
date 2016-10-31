@@ -164,6 +164,7 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
 
@@ -271,6 +272,7 @@ DialogueScript captureOptionalParameter(DialogueScript dialogueScript, int prior
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
 
@@ -558,12 +560,13 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	// Node - NegotiateInfoItem3
 	nodeName1 <- LiteralConcat( 'negotiateinfoitem3', suffix );	
 	nodeNegotiate <- createScriptNode(nodeName1 , 'execute', priorityLevel );
+	nodeNegotiate.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'negotiate', 'parameter' );
 	nodeNegotiate.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
 	BatchInsertEnd( nodeNegotiate.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'correct' ));
 	BatchInsertEnd( nodeNegotiate.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'incorrect' ));
 	BatchInsertEnd( nodeNegotiate.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_echoed_items' ));
-	BatchInsertEnd( nodeNegotiate.ScriptNodePostconditions, createDialogueAction5Arguments( 'negotiate_info_item3',
- targetParameterPosition, backOfficeFunctionName, arg1ParameterPosition, arg2ParameterPosition, arg3ParameterPosition ));
+	BatchInsertEnd( nodeNegotiate.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', targetParameterPosition ));
+	BatchInsertEnd( nodeNegotiate.ScriptNodePostconditions, createDialogueAction5Arguments( 'negotiate_info_item3', targetParameterPosition, backOfficeFunctionName, arg1ParameterPosition, arg2ParameterPosition, arg3ParameterPosition ));
 	BatchInsertEnd( nodeNegotiate.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeNegotiate );

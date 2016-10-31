@@ -13,7 +13,7 @@ setupRuntimeSpyMessageOn
 
 // MainAnswer:On
 // DisplayProcessLocutioOn
-// DisplayProcessUnderstandingOn
+ DisplayProcessUnderstandingOn
 // DisplayProcessGenerationOn
 // DisplayProcessScriboOn
 // DisplayProcessRespondoOn
@@ -27,9 +27,8 @@ CreateDialogue
 	InstanceInterface:1
 )
 
-book appointment in sevilla for the dentist 
-yes
-huelva
+book appointment in sevilla for the dentist tomorrow
+
 
 
 

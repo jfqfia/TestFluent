@@ -164,7 +164,11 @@
 
 		SetMainAnswerString( 'You said the date ' );
 
-		SetMainAnswerString( dateTimeToString( parameter.ParameterValue.DateTime ) );
+		DateTime dateTime, emptyDateTime;
+		dateTime <- parameter.ParameterValue.DateTime;
+		dateTime <- normalizeDateTime(dateTime, emptyDateTime);	
+
+		SetMainAnswerString( dateTimeToString( dateTime ) );
 		SetMainAnswerString( '. ' );
     	}
 )

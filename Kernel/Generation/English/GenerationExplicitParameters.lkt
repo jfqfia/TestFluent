@@ -54,9 +54,18 @@
 	ScriboAction 
 	{
 		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'datetime' );
-		SetMainAnswerString( 'What about ' );
-		SetMainAnswerString( dateTimeToString( parameter.ParameterValue.DateTime ) );
-		SetMainAnswerString( '? ' );
+		DateTime datetime <- parameter.ParameterValue.DateTime;		
+	
+		if(datetime)
+		{
+			SetMainAnswerString( 'What about ' );
+			SetMainAnswerString( dateTimeToString( datetime ) );
+			SetMainAnswerString( '? ' );
+		}
+		else
+		{
+			SetMainAnswerString( 'We have not found any appointment that matches your criteria. I am sorry! Propose a new date and time please. ' );
+		}
     	}
 )
 

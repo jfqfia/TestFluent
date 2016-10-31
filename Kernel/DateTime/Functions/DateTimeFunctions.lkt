@@ -82,12 +82,24 @@ bool canMergeWithAndDateTime(Parameter parameter1, Parameter parameter2)
 
 bool checkDateTimeValidity( Parameter parameter )
 {
-	// TODO We must verify here that datetime is correct.
-	// Example: 28th October 2016 must be friday
-	// Example: 31th November is not valid
+	// Example: 31st November is not valid
 	// Example: 29th February 2008 is correct
 	// Example: 29th February 2009 is incorrect
-	// Example: 29th February 2000 is incorrect
+	// Example: 29th February 2000 is correct
+	// Example: 29th February 2100 is incorrect
+	DateTime emptyDateTime;
+	DateTime datetime <- parameter.ParameterValue.DateTime;
+	datetime <- normalizeDateTime(datetime, emptyDateTime);
+	
+	if(datetime.BaseDate.Month < 1 || datetime.BaseDate.Month > 12)	
+	{
+		return False;
+	}
+	if(datetime.BaseDate.Day < 1 || datetime.BaseDate.Day > getDaysInMonth(datetime.BaseDate.Month, datetime.BaseDate.Year))	
+	{
+		return False;
+	}
+	
 	return True;
 }
 

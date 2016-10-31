@@ -1,29 +1,40 @@
+* Detectar "más tarde" o  "es demasiado tarde" negociando la fecha
 
-// Empate al activar scripts
-// i want to make a transfer and consult my balance
+* Empate al activar scripts CON SCOPE
+* i want to make a transfer and consult my balance
+* Preguntar cual va primero
 
-// Nodo por defecto al reactivar
-// i want to consult my balance
-// I need first to make a transfer
-// ... completar
+* Empate al activar scripts SIN SCOPE
+* my account number is 1234567890
+* Elegir sólo uno de ellos (o varios)
 
-// Guardar la memoria
-// i want to make a transfer and consult my balance
-// ... completar
-// ... reusar el número de cuenta
+* Nodo por defecto al reactivar
+* i want to consult my balance
+* I need first to make a transfer
+* ... completar
+
+* Guardar la memoria
+* i want to make a transfer and consult my balance
+* ... completar
+* ... reusar el número de cuenta
+
+* Separar dominios en el generador y dialogue manager
+
+* Script de hoteles y vuelos
 
 * Account number doesn't capture numbers beginning in 0 
 * SpellerPrevent
 * Unknown lex i must revise
 * Detectar léxico que viene del corrector: IsTokenSpelled(1) (sin malla)
 
-* English grammar and lexicon
-http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
-https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
-http://www.scientificpsychic.com/grammar/regular.html
-
 * Fix headers in the beginning of every file in the project
+
+* Spanish version of domains
+
+* English grammar and lexicon
+* http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
+* https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
+* http://www.scientificpsychic.com/grammar/regular.html
 
 * Lexicon and grammatical category for "please"
 
-* Spanish version of domains

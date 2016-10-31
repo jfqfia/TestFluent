@@ -115,17 +115,21 @@
 // now
 // after tomorrow
 (DateRule04_1 :
-    	[ OffsetDate -> lexOffsetDay ] 
+    	[ DateTime -> lexOffsetDay ] 
 	{
+		^.BaseDate.Day <- ClockAskDayOfTheMonth();
+		^.BaseDate.Month <- ClockAskMonth();
+		^.BaseDate.Year <- ClockAskYear();
+		^.BaseDate.DayInWeek <- ClockAskDayOfTheWeek();
 		if(#1 < 0)
 		{
-			^.Date.Day <- -#1;
-			^.DirectionOfTime <- 'backward';
+			^.OffsetDate.Date.Day <- -#1;
+			^.OffsetDate.DirectionOfTime <- 'backward';
 		}
 		else if(#1 >= 0)
 		{
-			^.Date.Day <- #1;
-			^.DirectionOfTime <- 'forward';	
+			^.OffsetDate.Date.Day <- #1;
+			^.OffsetDate.DirectionOfTime <- 'forward';	
 		}
     	}
 )
@@ -136,10 +140,15 @@
 // 1 day
 // within two days
 (DateRule04_2 :
-    	[ OffsetDate -> < lexPrepIn? | lexPrepWithin? > Number lexDayTerm ] 
+    	[ DateTime -> < lexPrepIn? | lexPrepWithin? > Number lexDayTerm ] 
 	{
-		^.Date.Day <- #2.NumberValue;
-		^.DirectionOfTime <- 'forward';
+
+		^.BaseDate.Day <- ClockAskDayOfTheMonth();
+		^.BaseDate.Month <- ClockAskMonth();
+		^.BaseDate.Year <- ClockAskYear();
+		^.BaseDate.DayInWeek <- ClockAskDayOfTheWeek();
+		^.OffsetDate.Date.Day <- #2.NumberValue;
+		^.OffsetDate.DirectionOfTime <- 'forward';
     	}
 )
 
@@ -255,14 +264,22 @@
 )
 
 // 2 days ago
-// in 2 mondays
+// 2 mondays ago
 // 3 tuesdays ago
 // 2 days before
-(DateRule07 :
+(DateRule07_1 :
     	[ OffsetDate -> OffsetDate lexDirectionOfTimeModifier ] 
 	{
 		^ <- #1;
 		^.DirectionOfTime <- #2;
+    	}
+)
+
+(DateRule07_2 :
+    	[ DateTime -> DateTime lexDirectionOfTimeModifier ] 
+	{
+		^ <- #1;
+		^.OffsetDate.DirectionOfTime <- #2;
     	}
 )
 

@@ -11,201 +11,313 @@
 //
 // **************************************************
 
-DateTime normalizeDateTime(DateTime in)
+DateTime normalizeDateTime(DateTime current, DateTime last)
 {
 	DateTime ret;
 
-	ret.BaseDate <- normalizeBaseDate(in.BaseDate);
+	if( current.BaseDate )
+	{
+		ret.BaseDate <- normalizeBaseDate(current.BaseDate);
+		if( current.OffsetDate )
+		{
+			ret.BaseDate <- normalizeOffsetDate( ret.BaseDate, current.OffsetDate );
+		}
+		ret.GeneralTime <- current.GeneralTime;
+	}
 
+	return ret;
+}
+
+int differenceDateTime(DateTime date1, DateTime date2)
+{
+	int counter <- 0;
+
+	// We go forward
+	if(greaterDateTime(date1, date2))
+	{
+		DateTime current <- date2;
+		while (greaterDateTime(date1, current))
+		{
+			current.BaseDate <- addDay(current.BaseDate); 
+			counter++;
+		}
+	}
+	// We go backward
+	else
+	{
+		DateTime current <- date1;
+		while (greaterDateTime(date2, current))
+		{
+			current.BaseDate <- addDay(current.BaseDate); 
+			counter--;
+		}
+	}
+	
+	return counter;
+}
+
+bool greaterDateTime(DateTime date1, DateTime date2)
+{
+	BaseDate base1 <- date1.BaseDate;
+	BaseDate base2 <- date2.BaseDate;
+
+	if(base1.Year > base2.Year)
+	{
+		return True;
+	}
+	else if(base1.Year < base2.Year)
+	{
+		return False;
+	}
+	else
+	{
+		if(base1.Month > base2.Month)
+		{
+			return True;
+		}
+		else if(base1.Month < base2.Month)
+		{
+			return False;
+		}
+		else
+		{
+			if(base1.Day > base2.Day)
+			{
+				return True;
+			}
+			else if(base1.Day < base2.Day)
+			{
+				return False;
+			}
+			else
+			{
+				return False;
+			}
+		}
+	}
+}
+
+BaseDate normalizeOffsetDate(BaseDate base, OffsetDate offset)
+{
+	BaseDate ret <- base;
+
+	// Add days forward
+	if( offset.Date.Day && offset.DirectionOfTime == 'forward' )
+	{
+		int count <- offset.Date.Day;
+		while(count > 0)
+		{
+			ret <- addDay(ret);
+			count--;
+		}		
+	}
+	// Add days backward
+	if( offset.Date.Day && offset.DirectionOfTime == 'backward' )
+	{
+		int count <- offset.Date.Day;
+		while(count > 0)
+		{
+			ret <- substractDay(ret);
+			count--;
+		}		
+	}
+
+
+	return ret;
+}
+
+BaseDate substractDay(BaseDate base)
+{
+	BaseDate ret <- base;
+	int incMonth <- 0;
+	int incYear <- 0;	
+
+	// The day in week
+	ret.DayInWeek <- ret.DayInWeek - 1;
+	if( ret.DayInWeek == 0 )
+	{
+		ret.DayInWeek <- 7;
+	}
+
+	// The day in month
+	ret.Day <- ret.Day - 1;
+	if( ret.Day == 0 )
+	{
+		incMonth <- 1;
+	}
+
+	// The month
+	ret.Month <- ret.Month - incMonth;
+
+	if( ret.Month == 0 )
+	{
+		ret.Month <- 12;
+		incYear <- 1;
+	}
+
+	// The year
+	ret.Year <- ret.Year - incYear;
+	
+	if(ret.Day == 0)
+	{
+		ret.Day <- getDaysInMonth( ret.Month, ret.Year );
+	}
+
+	return ret;
+}
+
+BaseDate addDay(BaseDate base)
+{
+	BaseDate ret <- base;
+	int incMonth <- 0;
+	int incYear <- 0;	
+
+	// The day in week
+	ret.DayInWeek <- ret.DayInWeek + 1;
+	if( ret.DayInWeek > 7 )
+	{
+		ret.DayInWeek <- 1;
+	}
+
+	// The day in month
+	ret.Day <- ret.Day + 1;
+	if( ret.Day > getDaysInMonth( ret.Month, ret.Year ) )
+	{
+		ret.Day <- 1;
+		incMonth <- 1;
+	}
+
+	// The month
+	ret.Month <- ret.Month + incMonth;
+	if( ret.Month > 12 )
+	{
+		ret.Month <- 1;
+		incYear <- 1;
+	}
+
+	// The year
+	ret.Year <- ret.Year + incYear;
+
+	return ret;
+}
+
+int getDaysInMonth(int month, int year)
+{
+	int ret;
+
+	if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+	{
+		ret <- 31;
+	}	
+	else if(month == 4 || month == 6 || month == 9 || month == 11)
+	{
+		ret <- 30;
+	}	
+	else
+	{
+		if( leapYear( year ) )
+		{
+			ret <- 29;
+		}
+		else
+		{
+			ret <- 28;
+		}
+	}
+
+
+	return ret;
+}
+
+bool leapYear(int year)
+{
+	if ((Modulo(year, 4) == 0 && Modulo(year, 100) != 0) || (Modulo(year, 400) == 0))
+	{
+		return True;
+	}	
+	else 
+	{
+		return False;
+	}	
+}
+
+BaseDate getCurrentBaseDate()
+{
+	BaseDate ret;
+
+	ret.Day <- ClockAskDayOfTheMonth();
+	ret.Month <- ClockAskMonth();
+	ret.Year <- ClockAskYear();
+	ret.DayInWeek <- ClockAskDayOfTheWeek();
+	
 	return ret;
 }
 
 BaseDate normalizeBaseDate(BaseDate in)
 {
 	BaseDate ret <- in;
+	BaseDate current;
+
+	current <- getCurrentBaseDate();
 
 	// If no date has been provided we assume is today
 	if( !! ret )
 	{
-		ret.Day <- ClockAskDayOfTheMonth();
-		ret.Month <- ClockAskMonth();
-		ret.Year <- ClockAskYear();
-		ret.DayInWeek <- ClockAskDayOfTheWeek();
+		ret <- current;
 	}
-
+	// If day, month and year is given we set the day in week
+	else if( ret.Day && ret.Month && ret.Year )
+	{
+		ret.DayInWeek <- getDayInWeek( ret );		
+	}
+	// If only day and month are provided we set the year
+	else if ( ret.Day && ret.Month && !! ret.Year )
+	{
+		if( ret.Month > current.Month || (ret.Month == current.Month && ret.Day >= current.Day) )
+		{
+			ret.Year <- current.Year;
+		}
+		else
+		{
+			ret.Year <- current.Year + 1;
+		}
+		ret.DayInWeek <- getDayInWeek( ret );
+	}
+	// If only day is provided we set the month and the year
+	else if ( ret.Day && !! ret.Month && !! ret.Year )
+	{
+		if( ret.Day >= current.Day )
+		{
+			ret.Month <- current.Month;
+			ret.Year <- current.Year;
+		}
+		else
+		{
+			ret.Month <- current.Month + 1;
+			ret.Year <- current.Year;
+			if( ret.Month > 12 )
+			{
+				ret.Month <- 1;
+				ret.Year <- ret.Year + 1;
+			}
+		}
+		ret.DayInWeek <- getDayInWeek( ret );
+	}
+	
 	return ret;
 }
 
-/*
-// TODO Structure explanation
-classDef:StructureComplex
-(
-    	DateTime:
-	(
-	        BaseDate,
-		OffsetDate,
-		MinDate,
-		MaxDate,
-		GeneralTime
-	)
-)
+int getDayInWeek(BaseDate in)
+{	
+	BaseDate currentBaseDate <- getCurrentBaseDate();
+	DateTime currentDateTime, otherDateTime;
+	currentDateTime.BaseDate <- currentBaseDate;
+	otherDateTime.BaseDate <- in;
 
-// TODO Structure explanation
-classDef:Synonym
-(
-	BaseDate = Date
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	MinDate, MaxDate = DateTime
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	OffsetDate:
-	(
-		DirectionOfTime,
-		DayInWeekOffset,
-		Date
-	)
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	Date:
-	(
-		Day,
-		DayInWeek,
-		Week,
-		Month,
-		Year
-	)
-)
-
-// TODO Structure explanation
-classDef:ElementInt
-(
-	Day, 
-	DayInWeek, 
-	DayInWeekOffset, 
-	Week,
-	Month,
-	Year
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	GeneralTime :
-	(
-	        BaseTime,
-		OffsetTime,
-		MinTime,
-		MaxTime
-	)
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	BaseTime = Time
-)
-
-// TODO Structure explanation
-classDef:Synonym
-(
-	MinTime, MaxTime = GeneralTime
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	OffsetTime :
-	(
-		DirectionOfTime,
-		Time
-	)
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	Time :
-	(
-		PartOfTheDay,
-		Hour,
-		Minute
-	)
-)
-
-// TODO Structure explanation
-classDef:ElementInt
-(
- 	Hour,
-	Minute,
-	Second,
-	TemporalModifierValue
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	PartOfTheDay :
-	(
-		PartOfTheDayName,
-		PartOfTheDayInterval
-	)
-)
-
-// TODO Structure explanation
-classDef:ElementRange
-(
- 	PartOfTheDayInterval :
-	{
-		'early',
-		'mid',
-		'late'
-	}
-)
-
-// TODO Structure explanation
-classDef:ElementRange
-(
- 	PartOfTheDayName :
-	{
-		'now',
-		'morning',
-		'noon',
-		'afternoon',
-		'evening',
-		'night'
-	}
-)
-
-// TODO Structure explanation
-classDef:ElementRange
-(
-	DirectionOfTime :
-	{
-		'backward',
-		'forward'
-	} 
-)
-
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	TemporalModifier :
-	(
-		DirectionOfTime,
-		TemporalModifierValue
-	)
-)
-*/
+	int difference <- differenceDateTime(otherDateTime, currentDateTime);
+		
+	return Modulo(difference + currentBaseDate.DayInWeek - 1, 7) + 1;
+}
 
 string getOrdinalSuffixDateTime( int number )
 {
