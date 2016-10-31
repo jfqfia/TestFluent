@@ -28,13 +28,39 @@ DigestScheme selectMinScoreDigestScheme()
 	return minDigestScheme;
 }
 
-procedure filterDialogueDigest(bool currentFlag, bool activeFlag)
+int getMaxScore()
 {
-	if(oneWithScope())
+	DigestScheme maxDigestScheme, recoveredDigestScheme;
+	BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, 1, maxDigestScheme);
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes);
+	for( int position <- 2; position <= size; position++ )
 	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, recoveredDigestScheme);
+		if( recoveredDigestScheme.DigestSchemeScore > maxDigestScheme.DigestSchemeScore )
+		{
+			maxDigestScheme <- recoveredDigestScheme;
+		}
+	}
+
+	return maxDigestScheme.DigestSchemeScore;
+}
+
+bool filterDialogueDigest(bool currentFlag, bool activeFlag)
+{
+	bool ret <- False;
+
+	if(oneWithScope())
+	{	
+		ret <- True;
 		while(oneWithoutScope())
 		{
 			DigestScheme digestScheme <- getFirstWithoutScope();
+			removeDigestScheme( digestScheme );
+		}
+		int max <- getMaxScore();
+		while(oneWithBigDifferenceFromMax(max))
+		{
+			DigestScheme digestScheme <- getFirstWithBigDifferenceFromMax(max);
 			removeDigestScheme( digestScheme );
 		}
 	}
@@ -45,7 +71,86 @@ procedure filterDialogueDigest(bool currentFlag, bool activeFlag)
 			DigestSchemes emptyDigestSchemes;
 			$MINDBOARD@DialogueDigest.DigestSchemes <- emptyDigestSchemes;
 		}
+		else
+		{
+			int max <- getMaxScore();
+			int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+			DigestScheme digestScheme;
+			for(int position <- 1; position <= size; position++ )
+			{
+				BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+				if( digestScheme.DigestSchemeScore != max && allDigestChunksCovered($MINDBOARD@DialogueDigest.DigestSchemes, digestScheme, position))
+				{
+					removeDigestScheme( digestScheme );					
+				}
+			}
+		}
 	}
+	
+	return ret;
+}
+
+bool allDigestChunksCovered(DigestSchemes schemes, DigestScheme scheme, int posOfScheme)
+{
+	bool ret <- True;
+	DigestChunk digestChunk;
+
+	int size <- BatchSize( scheme.DigestChunks );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(scheme.DigestChunks, position, digestChunk);
+		if( !! digestChunkCovered(schemes, digestChunk, posOfScheme))
+		{
+			ret <- False;
+			position <- size + 1;
+		}
+	}
+
+	return ret;
+}
+
+bool digestChunkCovered(DigestSchemes schemes, DigestChunk digestChunkToFind, int forbiddenPos)
+{
+	bool ret <- False;
+	DigestScheme digestScheme;
+	DigestScheme originalDigestScheme;
+
+	BatchRecoverPosition(schemes, forbiddenPos, originalDigestScheme);
+
+	int size <- BatchSize( schemes );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(schemes, position, digestScheme);
+		if(position != forbiddenPos)
+		{
+			if( containsDigestChunk(digestScheme.DigestChunks, digestChunkToFind) && digestScheme.DigestSchemeScore > originalDigestScheme.DigestSchemeScore)
+			{
+				ret <- True;
+				position <- size + 1;
+			}
+		}
+	}
+	
+	return ret;
+}
+
+bool containsDigestChunk(DigestChunks chunks, DigestChunk digestChunkToFind)
+{
+	bool ret <- False;
+	DigestChunk recoveredDigestChunk;
+
+	int size <- BatchSize( chunks );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(chunks, position, recoveredDigestChunk);
+		if( recoveredDigestChunk == digestChunkToFind )
+		{
+			ret <- True;
+			position <- size + 1;
+		}
+	}
+
+	return ret;
 }
 
 bool hasScope(DigestScheme digestScheme)
@@ -100,6 +205,23 @@ bool oneWithoutScope()
 	return False;	
 }
 
+bool oneWithBigDifferenceFromMax(int max)
+{
+	DigestScheme digestScheme;
+
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+		if( Abs(digestScheme.DigestSchemeScore - max) >=100 )
+		{
+			return True;
+		}
+	}
+
+	return False;	
+}
+
 // Given a script descriptor contained in activated scripts stack we want to move it to the top stack position
 procedure moveToTopStack( ScriptDescriptor scriptDescriptor )
 {
@@ -128,6 +250,22 @@ DigestScheme getFirstWithoutScope()
 	{
 		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
 		if( !! hasScope(digestScheme) )
+		{
+			return digestScheme;
+		}
+	}
+
+	return emptyDigestScheme;	
+}
+
+DigestScheme getFirstWithBigDifferenceFromMax(int max)
+{
+	DigestScheme digestScheme, emptyDigestScheme;
+	int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+		if( Abs(digestScheme.DigestSchemeScore - max) >= 100 )
 		{
 			return digestScheme;
 		}
@@ -170,6 +308,10 @@ procedure digestScriptInfo( DigestScheme digestScheme )
 			}
 		}
 	}
+
+	DialogueScript dialogueScript <- getScript(digestScheme.ScriptDescriptor);
+	dialogueScript.DigestScheme <- digestScheme;
+	setScript( dialogueScript );
 }
 
 procedure assignScriptInfoItemCore( ScriptDescriptor scriptDescriptor, CoreDialogueAct coreDialogueAct )

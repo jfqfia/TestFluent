@@ -37,6 +37,7 @@ classDef:StructureComplex
 (
 	DialogueScript : 
 	(
+		DigestScheme,
 		ScriptDescriptor,
 		ScriptNodes,
 		ScriptTrigger,

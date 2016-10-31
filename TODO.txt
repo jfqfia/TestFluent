@@ -9,9 +9,11 @@
 * Elegir sólo uno de ellos (o varios)
 
 * Nodo por defecto al reactivar
+* Hacer de paso aquí el Manager al completo
 * i want to consult my balance
 * I need first to make a transfer
 * ... completar
+* $MINDBOARD@DialogueState.RecentlyActivatedScript
 
 * Guardar la memoria
 * i want to make a transfer and consult my balance
@@ -20,7 +22,13 @@
 
 * Separar dominios en el generador y dialogue manager
 
-* Script de hoteles y vuelos
+* Análisis funcional con características del sistema ¿Qúe es lo que hace el sistema?
+
+* Script de hoteles 
+
+* Script de vuelos
+
+* Script de carros de la compra
 
 * Account number doesn't capture numbers beginning in 0 
 * SpellerPrevent

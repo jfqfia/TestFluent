@@ -14,6 +14,21 @@
 ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialogueScript, ProferenceChunk proference)
 {
 	ScriptTriggerComponent scriptTriggerComponent;
+	int proferenceActionSize <- BatchSize(proference.TaskDialogueAct.Action);
+
+	// Si está activo un desambiguador se lo mandamos a él todo excepto los parámetros
+	if(isCurrentAndDisambiguator(dialogueScript) && proference.CoreDialogueAct)
+	{
+		return 'core';
+	}
+	if(isCurrentAndDisambiguator(dialogueScript) && proference.TaskDialogueAct.Scope)
+	{
+		return 'scope';
+	}
+	if(isCurrentAndDisambiguator(dialogueScript) && proferenceActionSize >= 1)
+	{
+		return 'action';
+	}
 
 	if (proference.CoreDialogueAct && dialogueScript.ScriptTrigger.CoreDialogueAct)
 	{
@@ -31,7 +46,7 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 		}
 	}
 
-	int proferenceActionSize <- BatchSize(proference.TaskDialogueAct.Action);
+
 	if (proferenceActionSize >= 1 && dialogueScript.ScriptTrigger.ActionDomain)
 	{
 		if (proferenceActionContains(proference.TaskDialogueAct.Action, dialogueScript.ScriptTrigger.ActionDomain))

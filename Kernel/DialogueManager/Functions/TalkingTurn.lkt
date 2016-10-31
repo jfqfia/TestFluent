@@ -104,19 +104,26 @@ Primera estrategia para activación de Scripts
 		2.1.2 Eliminarlo de DialogueDigest 
 		2.1.3 activeFlag <- True
 		2.1.4 Si !! currentFlag
-			2.1.4.1 ¿Moverlo a la cabeza?
+			2.1.4.1 Moverlo a la cabeza
 
 3. De los que queden en DialogueDigest
 	3.1 Si hay uno o varios con scope
 		3.1.1 Eliminar los demás de DialogueDigest
+		3.1.2 Eliminar aquellos cuya puntuación difiera más de 100 puntos del máximo
 	3.2 Si no
 		3.2.1 Si currentFlag || activeFlag		
 			3.2.1.1 Eliminar todos de DialogueDigest
+		3.2.2 Si no
+			3.2.2.1 Eliminar todos los scripts cuyos triggers ya están cubiertos por otros scripts con puntuación mayor (excepto los de mayor puntuación que se mantienen siempre)
 
 4. Si queda alguno
 	4.1 Ordenar DialogueDigest según puntuación
 	4.2 Insertar al final de los activos según puntuación
 	4.3 Mover cada uno de sus parámetros a cada uno de ellos
+
+5. Meter scripts de desambiguación si hemos metido alguno en el paso anterior
+	5.1 Introducir WD: "Weak Desambiguator" Elegir el orden entre los nuevos que hemos metido que empaten en puntuación o que sean scopes
+	5.2 Introducir SD: "Strong Desambiguator" Elegir cuál ejecutar para descartar uno de ellos (sin scope y empatando en puntuación)
 
 */
 
@@ -162,7 +169,10 @@ procedure activateScripts()
 		}
 
 		// 3.
-		filterDialogueDigest(currentFlag, activeFlag);
+		bool scopeFlag <- filterDialogueDigest(currentFlag, activeFlag);
+
+		// TODO QUITAR
+		SpyMessage($MINDBOARD@DialogueDigest.DigestSchemes);
 
 		// 4.
 		digestSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
@@ -172,6 +182,28 @@ procedure activateScripts()
 			digestScriptInfo( digestScheme );
 			BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor);
 			removeDigestScheme( digestScheme );
+		}
+
+		// TODO QUITAR
+		SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
+	
+		// 5.
+		if(digestSize > 0)
+		{
+			if(scopeFlag)
+			{
+				// Meter un WD(digestSize) al final
+				pushWeakDisambiguator(digestSize);
+			}
+			else
+ 			{
+				// Aquí hay mucha más casuística:
+				//	Tener en cuenta puntuación.
+				// 	En caso de una racha de empates en puntos separar en dos grupos:
+				//		seleccionar los autocontenidos mediante un SD
+				//		seleccionar los no autocontenidos mediante un WD
+				processNewActivatedScriptsWithNoScope(digestSize);
+			}
 		}
 	}
 }
