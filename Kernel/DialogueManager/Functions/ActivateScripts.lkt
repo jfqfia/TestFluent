@@ -338,7 +338,8 @@ procedure assignScriptInfoItemCore( ScriptDescriptor scriptDescriptor, CoreDialo
 			if( scriptInfoItem.InfoItemValue.CoreDialogueAct == coreDialogueAct )
 			{
 				infoFound <- True;
-				scriptInfoItem.InfoItemValue.CoreDialogueAct <- dialogueScript.ScriptTrigger.CoreDialogueAct;
+				// TODO QUITAR
+				//scriptInfoItem.InfoItemValue.CoreDialogueAct <- dialogueScript.ScriptTrigger.CoreDialogueAct;
 
 				scriptInfoItem.InfoItemMoveState <- 'captured';
 	
@@ -375,7 +376,8 @@ procedure assignScriptInfoItemAction( ScriptDescriptor scriptDescriptor, Action 
 			if( proferenceActionContains(action, scriptInfoItem.InfoItemValue.ActionDomain) )
 			{
 				infoFound <- True;
-				scriptInfoItem.InfoItemValue.ActionDomain <- dialogueScript.ScriptTrigger.ActionDomain;
+				// TODO QUITAR
+				//scriptInfoItem.InfoItemValue.ActionDomain <- dialogueScript.ScriptTrigger.ActionDomain;
 
 				scriptInfoItem.InfoItemMoveState <- 'captured';
 	
@@ -412,7 +414,8 @@ procedure assignScriptInfoItemScope( ScriptDescriptor scriptDescriptor, Scope sc
 			if(scriptInfoItem.InfoItemValue.Scope == scope)
 			{
 				infoFound <- True;
-				scriptInfoItem.InfoItemValue.Scope <- dialogueScript.ScriptTrigger.Scope;
+				// TODO QUITAR
+				//scriptInfoItem.InfoItemValue.Scope <- dialogueScript.ScriptTrigger.Scope;
 
 				scriptInfoItem.InfoItemMoveState <- 'captured';
 

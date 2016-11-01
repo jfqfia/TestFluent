@@ -1,0 +1,24 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(ScriboScheme Tell: [ DialogueAct ]
+	ScriboCapture 
+	{
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'tell')
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(#OBJLOCUTIO-1.TaskDialogueAct.Scope);
+    	}
+)
+

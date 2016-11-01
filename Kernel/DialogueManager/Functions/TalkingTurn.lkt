@@ -155,7 +155,7 @@ procedure activateScripts()
 			ScriptDescriptor scriptDescriptor;
 			BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, position, scriptDescriptor );
 	
-			digestScheme <- getDigestScheme( $MINDBOARD@DialogueState.CurrentScriptDescriptor);
+			digestScheme <- getDigestScheme( scriptDescriptor );
 			if(digestScheme)
 			{
 				digestScriptInfo( digestScheme );
@@ -172,7 +172,7 @@ procedure activateScripts()
 		bool scopeFlag <- filterDialogueDigest(currentFlag, activeFlag);
 
 		// TODO QUITAR
-		SpyMessage($MINDBOARD@DialogueDigest.DigestSchemes);
+		//SpyMessage($MINDBOARD@DialogueDigest.DigestSchemes);
 
 		// 4.
 		digestSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
@@ -185,10 +185,10 @@ procedure activateScripts()
 		}
 
 		// TODO QUITAR
-		SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
+		//SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
 	
 		// 5.
-		if(digestSize > 0)
+		if(digestSize > 1)
 		{
 			if(scopeFlag)
 			{

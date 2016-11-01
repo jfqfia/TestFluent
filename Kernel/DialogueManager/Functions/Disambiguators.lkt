@@ -36,120 +36,169 @@ procedure pushWeakDisambiguator(int size)
 {
 	DialogueScript dialogueScript;
 	
-	dialogueScript <- createWeakDisambiaguator(size);
+	dialogueScript <- createWeakDisambiguator(size);
 
 	BatchInsertEnd( $MINDBOARD@DialogueScheme.DialogueScripts, dialogueScript );
 	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, dialogueScript );
 	BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, dialogueScript.ScriptDescriptor );
 }
 
-// TODO
-DialogueScript createWeakDisambiaguator(int size)
-{
-	// TODO El scriptDescriptor debe empezar por 'disambiguator_'
-}
-
-/*
-
-DialogueScript createDialogueScriptMedicalAppointment()
+DialogueScript createWeakDisambiguator(int size)
 {
 	// Script Descriptor
 	DialogueScript dialogueScript;
-	dialogueScript.ScriptDescriptor <- 'BookAppointment';
+	string scriptDescriptor <- '';
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, 'disambiguator_' );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(size) );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, '_' );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(BatchSize($MINDBOARD@DialogueState.ActivatedScriptsStack)) );
+	dialogueScript.ScriptDescriptor <- scriptDescriptor;
 
-	// Trigger
-	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
-	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
-	dialogueScript.ScriptTrigger.ActionDomain <- 'book';
-	dialogueScript.ScriptTrigger.Scope <- 'appointment';
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'medicalspeciality' );
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'countryplace' );
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'datetime' );
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );
-	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
-	
 	// Info
 	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'core';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
-	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-	
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'action';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	scriptInfoItem.InfoItemValue.ActionDomain <- 'book';
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	int activatedSize <- BatchSize($MINDBOARD@DialogueState.ActivatedScriptsStack);
+	for(int position <- activatedSize - size + 1; position <= activatedSize; position++)
+	{	
+		BatchRecoverPosition($MINDBOARD@DialogueState.ActivatedScriptsStack, position, scriptDescriptor);
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'scope';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	scriptInfoItem.InfoItemValue.Scope <- 'appointment';
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+		DialogueScript recoveredDialogueScript <- getScript( scriptDescriptor );
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'medicalspeciality';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+		scriptInfoItem <- emptyScriptInfoItem;
+		scriptInfoItem.InfoItemType <- 'action';	
+		scriptInfoItem.InfoItemState <- 'empty';	
+		scriptInfoItem.InfoItemValue.ActionDomain <- searchActionDomainInTriggerScript(recoveredDialogueScript);
+		BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+		scriptInfoItem <- emptyScriptInfoItem;
+		scriptInfoItem.InfoItemType <- 'scope';	
+		scriptInfoItem.InfoItemState <- 'empty';	
+		scriptInfoItem.InfoItemValue.Scope <- searchScopeInTriggerScript(recoveredDialogueScript);
+		BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	}
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'datetime';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	// Node - AskChoices
+	ScriptNode nodeAskChoices <- createScriptNode( 'askchoices', 'wait', 1 );
+	nodeAskChoices.ScriptNodeContent <- setNodeContent( 'question', 'choice', '', '' );
+	BatchInsertEnd( nodeAskChoices.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'askchoices', 'finalized' ));
+	BatchInsertEnd( nodeAskChoices.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate_wd_choices' ));	
+	BatchInsertEnd( nodeAskChoices.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'askchoices', 'finalized' ));	
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskChoices );
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	// Node - MakeChoices
+	ScriptNode nodeMakeChoices <- createScriptNode( 'makechoices', 'execute', 2 );
+	BatchInsertEnd( nodeMakeChoices.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'makechoices', 'finalized' ));
+	BatchInsertEnd( nodeMakeChoices.ScriptNodePostconditions, createDialogueAction0Arguments( 'make_wd_choices' ));	
+	BatchInsertEnd( nodeMakeChoices.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'makechoices', 'finalized' ));	
 
-	// Phases
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMakeChoices );
 
-	// Phase 1
-	dialogueScript <- scriptActivation(dialogueScript, 1);
 
-	// Phase 2
-	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'medicalspeciality');
-	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'countryplace');
-	dialogueScript <- captureOptionalParameter(dialogueScript, 2, 'datetime');
-
-	// Phase 3
-	dialogueScript <- negotiateParameter3(dialogueScript, 3, 'datetime', 'negotiate_datetime_medical_appointment', 'datetime', 'medicalspeciality', 'countryplace');
-
-	// TODO
-	// Phase 3.5
-	// Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación.
-
-	// Phase 4	
-	dialogueScript <- captureCompulsoryParameter(dialogueScript, 4, 'phonenumber');
-	dialogueScript <- captureCompulsoryParameter(dialogueScript, 4, 'peselnumber');
-
-	// Phase 5	
-	dialogueScript <- informExplicitParameters3(dialogueScript, 5, 'datetime', 'medicalspeciality', 'countryplace');
-
-	// Phase 6
-	dialogueScript <- endScript(dialogueScript, 6);
-	
 	return dialogueScript;
 }
 
+procedure makeWeakDisambiguatorChoices()
+{
+	// TODO Detect ordinals in not digested proferences zone (when they are implemented)
+	
+}
+
+procedure generateWeakDisambiguatorChoices()
+{
+	ScriptInfoItem scriptInfoItem1, scriptInfoItem2;
+	DialogueAct dialogueAct, emptyDialogueAct;
+	DialogueScript script <- getCurrentScript();
+	
+	dialogueAct <- emptyDialogueAct;
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+	dialogueAct.TaskDialogueAct.Scope <- 'What do you want to do first';
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+	int size <- BatchSize(script.ScriptInfoItems);
+
+	for(int position <- 1; position <= size - 2 ; position <- position + 2)
+	{
+		BatchRecoverPosition( script.ScriptInfoItems, position , scriptInfoItem1 );
+		BatchRecoverPosition( script.ScriptInfoItems, position + 1, scriptInfoItem2 );				
+
+		dialogueAct <- emptyDialogueAct;
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+		dialogueAct.TaskDialogueAct.Scope <- ', ';
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+		dialogueAct <- emptyDialogueAct;
+		dialogueAct.CoreDialogueAct.Dimension <- 'question'; 
+		dialogueAct.CoreDialogueAct.Function <- 'choice';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, scriptInfoItem1.InfoItemValue.ActionDomain );
+		dialogueAct.TaskDialogueAct.Scope <- scriptInfoItem2.InfoItemValue.Scope;
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+	}
+
+	BatchRecoverPosition( script.ScriptInfoItems, size - 1 , scriptInfoItem1 );
+	BatchRecoverPosition( script.ScriptInfoItems, size, scriptInfoItem2 );				
+
+	dialogueAct <- emptyDialogueAct;
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+	dialogueAct.TaskDialogueAct.Scope <- ' or ';
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+	dialogueAct <- emptyDialogueAct;
+	dialogueAct.CoreDialogueAct.Dimension <- 'question'; 
+	dialogueAct.CoreDialogueAct.Function <- 'choice';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, scriptInfoItem1.InfoItemValue.ActionDomain );
+	dialogueAct.TaskDialogueAct.Scope <- scriptInfoItem2.InfoItemValue.Scope;
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+	dialogueAct <- emptyDialogueAct;
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+	dialogueAct.TaskDialogueAct.Scope <- '? ';
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+}
+
+ActionDomain searchActionDomainInTriggerScript( DialogueScript dialogueScript )
+{
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	ScriptInfoItem scriptInfoItem;
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+
+	for (infoPosition <- 1; infoPosition <= infoSize; infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'action') 
+		{
+			return scriptInfoItem.InfoItemValue.ActionDomain;
+		}
+	}
+}
+
+Scope searchScopeInTriggerScript( DialogueScript dialogueScript )
+{
+	ScriptInfoItems scriptInfoItems;
+	int infoSize;
+	int infoPosition;
+	ScriptInfoItem scriptInfoItem;
+
+	scriptInfoItems <- dialogueScript.ScriptInfoItems;
+	infoSize <- BatchSize( scriptInfoItems );
+
+	for (infoPosition <- 1; infoPosition <= infoSize; infoPosition ++) 
+	{
+		BatchRecoverPosition( scriptInfoItems, infoPosition, scriptInfoItem );
+
+		if (scriptInfoItem.InfoItemType == 'scope') 
+		{
+			return scriptInfoItem.InfoItemValue.Scope;
+		}
+	}
+}
+
+/*
 DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int priorityLevel, ParameterType parameterType)
 {
 	ScriptNode nodeAskParameter;

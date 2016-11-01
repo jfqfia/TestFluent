@@ -22,3 +22,5 @@
 #Include "GenerationBankingManagement.lkt"
 #Include "GenerationBookAppointment.lkt"
 #Include "GenerationConfirmChangedParameter.lkt"
+#Include "GenerationActionScopePairs.lkt"
+#Include "GenerationGeneric.lkt"

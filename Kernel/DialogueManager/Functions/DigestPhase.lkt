@@ -30,7 +30,8 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 		return 'action';
 	}
 
-	if (proference.CoreDialogueAct && dialogueScript.ScriptTrigger.CoreDialogueAct)
+	DialogueScript currentScript <- getCurrentScript();
+	if (!! isCurrentAndDisambiguator(currentScript) && proference.CoreDialogueAct && dialogueScript.ScriptTrigger.CoreDialogueAct)
 	{
 		if (proference.CoreDialogueAct == dialogueScript.ScriptTrigger.CoreDialogueAct) 
 		{
@@ -38,7 +39,7 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 		}
 	}
 
-	if (proference.TaskDialogueAct.Scope && dialogueScript.ScriptTrigger.Scope)
+	if (!! isCurrentAndDisambiguator(currentScript) && proference.TaskDialogueAct.Scope && dialogueScript.ScriptTrigger.Scope)
 	{
 		if (proference.TaskDialogueAct.Scope == dialogueScript.ScriptTrigger.Scope)
 		{
@@ -46,8 +47,7 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 		}
 	}
 
-
-	if (proferenceActionSize >= 1 && dialogueScript.ScriptTrigger.ActionDomain)
+	if (!! isCurrentAndDisambiguator(currentScript) && proferenceActionSize >= 1 && dialogueScript.ScriptTrigger.ActionDomain)
 	{
 		if (proferenceActionContains(proference.TaskDialogueAct.Action, dialogueScript.ScriptTrigger.ActionDomain))
 		{
@@ -56,7 +56,7 @@ ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialog
 	}
 
 	int parameterTypesSize <- BatchSize(dialogueScript.ScriptTrigger.ParameterTypes);
-	if (proference.Parameter && parameterTypesSize >= 1)
+	if (!! isCurrentAndDisambiguator(currentScript) && proference.Parameter && parameterTypesSize >= 1)
 	{
 		if( parameterTypesContains(dialogueScript.ScriptTrigger.ParameterTypes, proference.Parameter.ParameterType))
 		{

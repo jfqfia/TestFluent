@@ -24,6 +24,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 	{
 		pullScript();
 	}
+	else if(dialogueAction.DialogueActionName == 'generate_wd_choices')
+	{
+		generateWeakDisambiguatorChoices();
+	}
+	else if(dialogueAction.DialogueActionName == 'make_wd_choices')
+	{
+		makeWeakDisambiguatorChoices();
+	}
 	else if(dialogueAction.DialogueActionName == 'delete_disagreement')
 	{
 		deleteDisagreement();

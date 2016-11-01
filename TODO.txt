@@ -1,3 +1,8 @@
+* Hacer el parámetro 'ordinal' para conseguir
+* User: i want to make an appointment and consult my balance
+* System: What do you want to do first, consult your balance, make a bank transfer or book an appointment? 
+* User: the FIRST one (or the 2nd, or the third one or the last one...)
+
 * Detectar "más tarde" o  "es demasiado tarde" negociando la fecha
 
 * Empate al activar scripts CON SCOPE

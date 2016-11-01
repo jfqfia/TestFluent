@@ -161,6 +161,14 @@
 		processNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
 		CogitoRetry();
+
+		// TODO QUITAR
+		//DialogueScript script <- getCurrentScript();
+		SpyMessage("");
+		SpyMessage("");
+		SpyMessage(script.ScriptInfoItems);
+		SpyMessage("");
+		SpyMessage("");
 	}
 )
 

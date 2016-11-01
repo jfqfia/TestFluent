@@ -1,0 +1,58 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(ScriboScheme BookAppointmentPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'book') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'appointment'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('book an appointment');
+    	}
+)
+
+(ScriboScheme ExecuteTransferPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'execute') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'transfer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('make a bank transfer');
+    	}
+)
+
+(ScriboScheme ConsultBankaccountPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'consult') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'bankaccount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('consult your balance');
+    	}
+)
+
