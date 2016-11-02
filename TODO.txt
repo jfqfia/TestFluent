@@ -5,10 +5,6 @@
 
 * Detectar "más tarde" o  "es demasiado tarde" negociando la fecha
 
-* Empate al activar scripts CON SCOPE
-* i want to make a transfer and consult my balance
-* Preguntar cual va primero
-
 * Empate al activar scripts SIN SCOPE
 * my account number is 1234567890
 * Elegir sólo uno de ellos (o varios)
@@ -21,8 +17,9 @@
 * $MINDBOARD@DialogueState.RecentlyActivatedScript
 
 * Guardar la memoria
-* i want to make a transfer and consult my balance
+* i want to make a transfer
 * ... completar
+* i would like to consult my balance
 * ... reusar el número de cuenta
 
 * Separar dominios en el generador y dialogue manager
@@ -30,9 +27,7 @@
 * Análisis funcional con características del sistema ¿Qúe es lo que hace el sistema?
 
 * Script de hoteles 
-
 * Script de vuelos
-
 * Script de carros de la compra
 
 * Account number doesn't capture numbers beginning in 0 

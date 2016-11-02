@@ -163,7 +163,7 @@ procedure activateScripts()
 				activeFlag <- True;
 				if(!! currentFlag)
 				{	
-					moveToTopStack( digestScheme.ScriptDescriptor );
+					moveToTopStack( digestScheme.ScriptDescriptor );	
 				}
 			}
 		}
@@ -193,15 +193,11 @@ procedure activateScripts()
 			if(scopeFlag)
 			{
 				// Meter un WD(digestSize) al final
-				pushWeakDisambiguator(digestSize);
+				pushWeakDisambiguator(digestSize, True);
 			}
 			else
  			{
-				// Aquí hay mucha más casuística:
-				//	Tener en cuenta puntuación.
-				// 	En caso de una racha de empates en puntos separar en dos grupos:
-				//		seleccionar los autocontenidos mediante un SD
-				//		seleccionar los no autocontenidos mediante un WD
+				// Aquí hay mucha más casuística: mirar en Disambiguators.lkt
 				processNewActivatedScriptsWithNoScope(digestSize);
 			}
 		}
@@ -214,15 +210,7 @@ procedure selectCurrentScript()
 	int numberActives <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
 	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, numberActives, scriptDescriptor ); 
 
-	if( !! $MINDBOARD@DialogueState.CurrentScriptDescriptor == scriptDescriptor )
-	{
-		$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
-		$MINDBOARD@DialogueState.RecentlyActivatedScript <- True;
-	}
-	else
-	{
-		$MINDBOARD@DialogueState.RecentlyActivatedScript <- False;
-	}
+	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
 	
 	// TODO QUITAR
 	// DialogueScript script <- getCurrentScript();
@@ -272,11 +260,11 @@ procedure selectCurrentNode()
 			BatchInsertEnd( activatedScriptNodes, node.ScriptNodeDescriptor );
 		}
 	}
-
-	if( dialogueScript.DefaultNodeDescriptor && $MINDBOARD@DialogueState.RecentlyActivatedScript )
+	
+	// TODO Depurar esto
+	if( dialogueScript.DefaultNodeDescriptor && False)
 	{	
 		BatchInsertEnd( activatedScriptNodes, dialogueScript.DefaultNodeDescriptor );
-		$MINDBOARD@DialogueState.RecentlyActivatedScript <- False;
 	}
 
 	activatedScriptNodes <- filterMinPriority( activatedScriptNodes );

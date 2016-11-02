@@ -37,7 +37,6 @@ classDef:StructureComplex
 (
 	DialogueScript : 
 	(
-		// TODO Quitar si no se ha utilizado en los desambiguadores
 		DigestScheme,
 		ScriptDescriptor,
 		ScriptNodes,

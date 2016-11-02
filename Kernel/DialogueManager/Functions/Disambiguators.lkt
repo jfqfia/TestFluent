@@ -32,26 +32,46 @@ bool isDisambiguator(DialogueScript dialogueScript)
 	return SubLiteral(dialogueScript.ScriptDescriptor, 1, 14) == 'disambiguator_';
 }
 
-procedure pushWeakDisambiguator(int size)
+procedure pushWeakDisambiguator(int size, bool nextToBeActivated)
 {
 	DialogueScript dialogueScript;
 	
-	dialogueScript <- createWeakDisambiguator(size);
+	dialogueScript <- createWeakDisambiguator(size, nextToBeActivated);
 
 	BatchInsertEnd( $MINDBOARD@DialogueScheme.DialogueScripts, dialogueScript );
 	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, dialogueScript );
 	BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, dialogueScript.ScriptDescriptor );
 }
 
-DialogueScript createWeakDisambiguator(int size)
+procedure pushStrongDisambiguator(int size, bool nextToBeActivated)
+{
+	DialogueScript dialogueScript;
+	
+	dialogueScript <- createStrongDisambiguator(size, nextToBeActivated);
+
+	BatchInsertEnd( $MINDBOARD@DialogueScheme.DialogueScripts, dialogueScript );
+	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, dialogueScript );
+	BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, dialogueScript.ScriptDescriptor );
+}
+
+DialogueScript createWeakDisambiguator(int size, bool nextToBeActivated)
 {
 	// Script Descriptor
 	DialogueScript dialogueScript;
 	string scriptDescriptor <- '';
 	scriptDescriptor <- LiteralConcat(scriptDescriptor, 'disambiguator_' );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, 'weak_' );
 	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(size) );
 	scriptDescriptor <- LiteralConcat(scriptDescriptor, '_' );
 	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(BatchSize($MINDBOARD@DialogueState.ActivatedScriptsStack)) );
+	if(nextToBeActivated)
+	{
+		scriptDescriptor <- LiteralConcat(scriptDescriptor, 'T' );
+	}
+	else
+	{
+		scriptDescriptor <- LiteralConcat(scriptDescriptor, 'F' );
+	}
 	dialogueScript.ScriptDescriptor <- scriptDescriptor;
 
 	// Info
@@ -94,14 +114,100 @@ DialogueScript createWeakDisambiguator(int size)
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMakeChoices );
 
-
 	return dialogueScript;
 }
 
 procedure makeWeakDisambiguatorChoices()
 {
 	// TODO Detect ordinals in not digested proferences zone (when they are implemented)
+	int maxScore <- 0;
+	int maxPosition;
+
+	ScriptInfoItem scriptInfoItem1, scriptInfoItem2;
+	DialogueAct dialogueAct, emptyDialogueAct;
+	DialogueScript script <- getCurrentScript();
 	
+	int size <- BatchSize(script.ScriptInfoItems);
+	int position;
+	for(position <- 1; position <= size; position <- position + 2)
+	{
+		BatchRecoverPosition( script.ScriptInfoItems, position , scriptInfoItem1 );
+		BatchRecoverPosition( script.ScriptInfoItems, position + 1, scriptInfoItem2 );				
+
+		int currentScore <- 0;
+		if(scriptInfoItem1.InfoItemState == 'captured')
+		{
+			currentScore <- currentScore + 1;
+		}
+		if(scriptInfoItem2.InfoItemState == 'captured')
+		{
+			currentScore <- currentScore + 2;
+		}
+		if(currentScore >= maxScore)
+		{
+			maxScore <- currentScore;
+			maxPosition <- (position + 1) / 2;
+		}
+	}
+	int numChoices <- position / 2;
+
+	if(maxScore == 0)
+	{
+		dialogueAct <- emptyDialogueAct;
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+		dialogueAct.TaskDialogueAct.Scope <- 'Sorry, I misunderstood what you said... ';
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+		string descriptor;
+		BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+		DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+
+		for(position <- 1; position <= numChoices; position++ )
+		{
+			BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+			recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+				
+			recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
+			BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
+		}
+	}
+	else
+	{
+		// Pull own script
+		string descriptor;
+		BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+		DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+
+		// pull the script in maxPosition
+		ActivatedScriptsStack choices;
+		ScriptDescriptor selectedScriptDescriptor;
+		for(int i <- 1; i <= numChoices; i++)
+		{
+			BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+			if(i == numChoices + 1 - maxPosition)
+			{
+				selectedScriptDescriptor <- descriptor;
+			}
+			else
+			{
+				BatchInsertInit(choices, descriptor);
+			}
+		}
+		for(int i <- 1; i < numChoices; i++)
+		{
+			BatchExtractInit( choices, descriptor );
+			BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+		}
+
+		// insert another weak disambiguator if necessary
+		if( numChoices > 2 )
+		{
+			pushWeakDisambiguator(numChoices - 1, False);
+		}
+
+		// push to the top de script in maxPosition
+		BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, selectedScriptDescriptor );
+	}
 }
 
 procedure generateWeakDisambiguatorChoices()
@@ -109,6 +215,14 @@ procedure generateWeakDisambiguatorChoices()
 	ScriptInfoItem scriptInfoItem1, scriptInfoItem2;
 	DialogueAct dialogueAct, emptyDialogueAct;
 	DialogueScript script <- getCurrentScript();
+	
+	if(LiteralPositionValue(script.ScriptDescriptor, LiteralSize(script.ScriptDescriptor)) == 'F')
+	{
+		dialogueAct <- emptyDialogueAct;
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+		dialogueAct.TaskDialogueAct.Scope <- 'Going back to what you said a moment ago. ';
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+	}
 	
 	dialogueAct <- emptyDialogueAct;
 	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
@@ -198,156 +312,151 @@ Scope searchScopeInTriggerScript( DialogueScript dialogueScript )
 	}
 }
 
-/*
-DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int priorityLevel, ParameterType parameterType)
-{
-	ScriptNode nodeAskParameter;
-	ScriptNode nodeIdontknowParameter;
-	ScriptNode nodeImplicitParameter;
-	ScriptNode nodeCheckParameter;
-	ScriptNode nodeIncorrectParameter;
-	ScriptNode nodeCorrectParameter;
-	ScriptNode nodeImplicitDisagreement;
-	ScriptNode nodeChanged;
-	ScriptNode nodeExplicitAgreement;
-	ScriptNode nodeExplicitDisagreement;
-
-	string suffix = '_capturecompulsoryparameter_';
-	suffix <- LiteralConcat( suffix, ShapeToString(parameterType) );
-	suffix <- LiteralConcat( suffix, '_' );
-	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
-	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10;
-	string parameterPosition <- recoverParameterPosition(dialogueScript, parameterType);
-
-	// Node - AskParameter
-	nodeName1 <- LiteralConcat( 'askparameter', suffix );	
-	nodeAskParameter <- createScriptNode( nodeName1, 'wait', priorityLevel );
-	nodeAskParameter.ScriptNodeContent <- setNodeContent( 'question', 'whquestion', 'what', ShapeToString(parameterType) );
-	BatchInsertEnd( nodeAskParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'empty' ));
-	BatchInsertEnd( nodeAskParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
-	BatchInsertEnd( nodeAskParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_parameter', ShapeToString(parameterType) ));
-	BatchInsertEnd( nodeAskParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));	
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskParameter );
-
-	// Node - IdontknowParameter
-	nodeName2 <- LiteralConcat( 'idontknowparameter', suffix );	
-	nodeIdontknowParameter <- createScriptNode( nodeName2, 'execute', priorityLevel );
-	nodeIdontknowParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'idontknow', 'parameter' );
-	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized' ));
-	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'empty' ));
-	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'dontknow' ));
-	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
-	BatchInsertEnd( nodeIdontknowParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'notfinalized' ));	
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIdontknowParameter );
-
-	// Node - ImplicitParameter
-	nodeName3 <- LiteralConcat( 'implicitparameter', suffix );	
-	nodeImplicitParameter <- createScriptNode( nodeName3, 'execute', priorityLevel);
-	nodeImplicitParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'implicit', 'parameter' );
-	BatchInsertEnd( nodeImplicitParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'captured' ));
-	BatchInsertEnd( nodeImplicitParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
-	BatchInsertEnd( nodeImplicitParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'checking' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitParameter );
-
-	// Node - CheckParameter
-	nodeName4 <- LiteralConcat( 'checkparameter', suffix );	
-	nodeCheckParameter <- createScriptNode( nodeName4, 'execute', priorityLevel );
-	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'checking' ));
-	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'correct' ));
-	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'incorrect' ));
-	BatchInsertEnd( nodeCheckParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'check_parameter', parameterPosition ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCheckParameter );
-
-	// Node - IncorrectParameter
-	nodeName5 <- LiteralConcat( 'incorrectparameter', suffix );	
-	nodeIncorrectParameter <- createScriptNode( nodeName5, 'execute', priorityLevel );
-	nodeIncorrectParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'incorrect', 'parameter' );
-	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName4, 'incorrect' ));
-	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
-	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
-	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
-	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
-
-	// Node - CorrectParameter
-	nodeName6 <- LiteralConcat( 'correctparameter', suffix );	
-	nodeCorrectParameter <- createScriptNode( nodeName6, 'execute', priorityLevel );
-	nodeCorrectParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'correct', 'parameter' );
-	BatchInsertEnd( nodeCorrectParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName4, 'correct' ));
-	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
-	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'echoed' ));
-	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
-	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCorrectParameter );
-
-	// Node - ImplicitDisagreement
-	nodeName7 <- LiteralConcat( 'implicitdisagreement', suffix );	
-	nodeImplicitDisagreement <- createScriptNode( nodeName7, 'execute', priorityLevel);
-	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'rejected' ));
-	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitDisagreement );
-
-	// Node - ChangedFromGrounded
-	nodeName8 <- LiteralConcat( 'changedfromgrounded', suffix );	
-	nodeChanged <- createScriptNode( nodeName8, 'wait', priorityLevel);
-	nodeChanged.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
-	nodeChanged.ScriptNodeContent <- setNodeContent( 'question', 'propositional', 'confirmchanged', 'parameter' );
-	BatchInsertEnd( nodeChanged.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName8, 'finalized' ));
-	BatchInsertEnd( nodeChanged.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'changed' ));
-	BatchInsertEnd( nodeChanged.ScriptNodePostconditions, createDialogueAction1Arguments( 'swap_history', parameterPosition ));	
-	BatchInsertEnd( nodeChanged.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
-	BatchInsertEnd( nodeChanged.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName8, 'finalized' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeChanged );
-
-	// Node - ExplicitAgreement
-	nodeName9 <- LiteralConcat( 'explicitagreement', suffix );	
-	nodeExplicitAgreement <- createScriptNode( nodeName9, 'execute', priorityLevel);
-	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName8, 'finalized' ));
-	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
-	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'grounded' ));
-	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName8, 'notfinalized' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitAgreement );
-
-	// Node - ExplicitDisagreement
-	nodeName10 <- LiteralConcat( 'explicitdisagreement', suffix );	
-	nodeExplicitDisagreement <- createScriptNode( nodeName10, 'execute', priorityLevel);
-	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName8, 'finalized' ));
-	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
-	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePostconditions, createDialogueAction1Arguments( 'swap_history', parameterPosition ));	
-	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'captured' ));
-	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName8, 'notfinalized' ));
-	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitDisagreement );
-
-	return dialogueScript;
-}
-
-*/
-
-// TODO
 // Aquí hay mucha más casuística:
 //	Tener en cuenta puntuación.
 // 	En caso de una racha de empates en puntos separar en dos grupos:
 //		seleccionar los autocontenidos mediante un SD
-//		seleccionar los no autocontenidos mediante un WD
+//		seleccionar los no autocontenidos mediante un WD 
 procedure processNewActivatedScriptsWithNoScope(int size)
 {
+	// Step 1: Create the original DigestScheme batch 
+	DigestSchemes originalDigestSchemes, selfContainedDigestSchemes, notSelfContainedDigestSchemes;
 
+	for(int i <- 1; i <= size; i++)
+	{
+		ScriptDescriptor scriptDescriptor;
+		DialogueScript dialogueScript;
+		
+		BatchExtractEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, scriptDescriptor);	
+		dialogueScript <- getScript(scriptDescriptor);		
+
+		BatchInsertInit(originalDigestSchemes, dialogueScript.DigestScheme);
+	}
+
+	// Step 2: Split recently activated scripts in two batches: selfcontained and not selfcontained
+	for(int i <- 1; i <= size; i++)
+	{
+		DigestScheme digestScheme;
+		
+		BatchRecoverPosition(originalDigestSchemes, i, digestScheme);	
+		if(allDigestChunksCoveredWithEqualPriority(originalDigestSchemes, digestScheme, i))
+		{
+			BatchInsertInit(selfContainedDigestSchemes, digestScheme);
+		}
+		else
+		{
+			BatchInsertInit(notSelfContainedDigestSchemes, digestScheme);
+		}
+	}
+
+	int sizeOfContained <- BatchSize( selfContainedDigestSchemes );
+	int sizeOfNotContained <- BatchSize( notSelfContainedDigestSchemes );
+
+	// Step 3: Add selfcontained to activated scripts stack
+	for(int i <- 1; i <= sizeOfContained; i++)
+	{
+		DigestScheme digestScheme;
+		
+		BatchRecoverPosition(selfContainedDigestSchemes, i, digestScheme);	
+		BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor);		
+	}
+	
+	// Step 4: If there at least 2 scripts create the strong disambiguator
+	if(sizeOfContained >= 2)
+	{
+		pushStrongDisambiguator(sizeOfContained, sizeOfNotContained == 0);
+	}
+
+	// Step 5: Add not selfcontained to activated scripts stack
+	for(int i <- 1; i <= sizeOfNotContained; i++)
+	{
+		DigestScheme digestScheme;
+		
+		BatchRecoverPosition(notSelfContainedDigestSchemes, i, digestScheme);	
+		BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor);	
+		if(sizeOfNotContained >= 2)	
+		{
+			DialogueScript dialogueScript <- getScript( digestScheme.ScriptDescriptor );
+			// TODO Make captured the scope
+			// dialogueScript <- makeScopeCaptured(dialogueScript);
+			setScript(dialogueScript);
+		}
+	}
+
+	// Step 6: If there at least 2 scripts create the weak disambiguator
+	if(sizeOfNotContained >= 2)
+	{
+		pushWeakDisambiguator(sizeOfNotContained, True);
+	}
+		
+	// TODO QUITAR
+	SpyMessage("ACTIVATED SCRIPTS STACK: ");
+	SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
+	SpyMessage("");
 }
 
-// TODO
-DialogueScript createStrongDisambiaguator(int size)
+DialogueScript createStrongDisambiguator(int size, bool nextToBeActivated)
 {
-	// TODO El scriptDescriptor debe empezar por 'disambiguator_'
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	string scriptDescriptor <- '';
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, 'disambiguator_' );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, 'strong_' );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(size) );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, '_' );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(BatchSize($MINDBOARD@DialogueState.ActivatedScriptsStack)) );
+	if(nextToBeActivated)
+	{
+		scriptDescriptor <- LiteralConcat(scriptDescriptor, 'T' );
+	}
+	else
+	{
+		scriptDescriptor <- LiteralConcat(scriptDescriptor, 'F' );
+	}
+	dialogueScript.ScriptDescriptor <- scriptDescriptor;
+
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	int activatedSize <- BatchSize($MINDBOARD@DialogueState.ActivatedScriptsStack);
+	for(int position <- activatedSize - size + 1; position <= activatedSize; position++)
+	{	
+		BatchRecoverPosition($MINDBOARD@DialogueState.ActivatedScriptsStack, position, scriptDescriptor);
+
+		DialogueScript recoveredDialogueScript <- getScript( scriptDescriptor );
+
+		scriptInfoItem <- emptyScriptInfoItem;
+		scriptInfoItem.InfoItemType <- 'action';	
+		scriptInfoItem.InfoItemState <- 'empty';	
+		scriptInfoItem.InfoItemValue.ActionDomain <- searchActionDomainInTriggerScript(recoveredDialogueScript);
+		BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+		scriptInfoItem <- emptyScriptInfoItem;
+		scriptInfoItem.InfoItemType <- 'scope';	
+		scriptInfoItem.InfoItemState <- 'empty';	
+		scriptInfoItem.InfoItemValue.Scope <- searchScopeInTriggerScript(recoveredDialogueScript);
+		BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	}
+
+	/*
+	// Node - AskChoices
+	ScriptNode nodeAskChoices <- createScriptNode( 'askchoices', 'wait', 1 );
+	nodeAskChoices.ScriptNodeContent <- setNodeContent( 'question', 'choice', '', '' );
+	BatchInsertEnd( nodeAskChoices.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'askchoices', 'finalized' ));
+	BatchInsertEnd( nodeAskChoices.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate_sd_choices' ));	
+	BatchInsertEnd( nodeAskChoices.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'askchoices', 'finalized' ));	
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAskChoices );
+
+	// Node - MakeChoices
+	ScriptNode nodeMakeChoices <- createScriptNode( 'makechoices', 'execute', 2 );
+	BatchInsertEnd( nodeMakeChoices.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'makechoices', 'finalized' ));
+	BatchInsertEnd( nodeMakeChoices.ScriptNodePostconditions, createDialogueAction0Arguments( 'make_sd_choices' ));	
+	BatchInsertEnd( nodeMakeChoices.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'makechoices', 'finalized' ));	
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMakeChoices );
+	*/
+
+	return dialogueScript;
 }
 

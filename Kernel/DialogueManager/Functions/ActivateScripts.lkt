@@ -134,6 +134,50 @@ bool digestChunkCovered(DigestSchemes schemes, DigestChunk digestChunkToFind, in
 	return ret;
 }
 
+bool allDigestChunksCoveredWithEqualPriority(DigestSchemes schemes, DigestScheme scheme, int posOfScheme)
+{
+	bool ret <- True;
+	DigestChunk digestChunk;
+
+	int size <- BatchSize( scheme.DigestChunks );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(scheme.DigestChunks, position, digestChunk);
+		if( !! digestChunkCoveredWithEqualPriority(schemes, digestChunk, posOfScheme))
+		{
+			ret <- False;
+			position <- size + 1;
+		}
+	}
+
+	return ret;
+}
+
+bool digestChunkCoveredWithEqualPriority(DigestSchemes schemes, DigestChunk digestChunkToFind, int forbiddenPos)
+{
+	bool ret <- False;
+	DigestScheme digestScheme;
+	DigestScheme originalDigestScheme;
+
+	BatchRecoverPosition(schemes, forbiddenPos, originalDigestScheme);
+
+	int size <- BatchSize( schemes );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(schemes, position, digestScheme);
+		if(position != forbiddenPos)
+		{
+			if( containsDigestChunk(digestScheme.DigestChunks, digestChunkToFind) )
+			{
+				ret <- True;
+				position <- size + 1;
+			}
+		}
+	}
+	
+	return ret;
+}
+
 bool containsDigestChunk(DigestChunks chunks, DigestChunk digestChunkToFind)
 {
 	bool ret <- False;

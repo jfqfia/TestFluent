@@ -18,14 +18,8 @@ classDef:StructureComplex
 		DialoguePhase,
 		ActivatedScriptsStack,
 		CurrentScriptDescriptor,
-		NotDigestedProferenceChunks,
-		RecentlyActivatedScript
+		NotDigestedProferenceChunks
 	)
-)
-
-classDef:ElementBool
-(
-	RecentlyActivatedScript
 )
 
 classDef:Synonym

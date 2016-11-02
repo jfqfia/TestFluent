@@ -33,14 +33,14 @@ CreateDialogue
 //i want to make a transfer of 120 euros and consult my balance
 
 // 10000 10000 WD
-i want to consult my balance and to make an appointment and a transfer
-//consult balance
+//i want to consult my balance and to make an appointment and a transfer
+//execute an appointment
 
 // 1 1 SD
 //my account number is 1231231231
 
 // 2 2 WD
-//my account number is 1231231231 a total amount of 120 euros for dentist tomorrow
+my account number is 1231231231 a total amount of 120 euros for dentist tomorrow
 
 // 1 1 SD 2
 //my account number is 1231231231 for dentist tomorrow
@@ -48,13 +48,11 @@ i want to consult my balance and to make an appointment and a transfer
 // 2
 //my account number is 1231231231 a total amount of 120 euros
 
-// 2 3 
+// 2 3 WD
 // Este ejemplo es bueno: ¿qué scripts se deben activar? 
 // (ya que hay posibilidad de activarlos todos)
 // Aunque desde el punto de vista humano parece que habría que activar sólo la cita médica y la transferencia
 //my account number is 1231231231 a total amount of 120 euros for the dentist tomorrow in sevilla
-
-
 
 // Negociar fechas
 //book appointment in sevilla for the dentist tomorrow
