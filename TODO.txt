@@ -3,11 +3,9 @@
 * System: What do you want to do first, consult your balance, make a bank transfer or book an appointment? 
 * User: the FIRST one (or the 2nd, or the third one or the last one...)
 
-* Detectar "más tarde" o  "es demasiado tarde" negociando la fecha
+* Script especial para saludos recurrentes
 
-* Empate al activar scripts SIN SCOPE
-* my account number is 1234567890
-* Elegir sólo uno de ellos (o varios)
+* Detectar "más tarde" o  "es demasiado tarde" negociando la fecha
 
 * Nodo por defecto al reactivar
 * Hacer de paso aquí el Manager al completo

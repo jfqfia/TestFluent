@@ -377,8 +377,7 @@ procedure processNewActivatedScriptsWithNoScope(int size)
 		if(sizeOfNotContained >= 2)	
 		{
 			DialogueScript dialogueScript <- getScript( digestScheme.ScriptDescriptor );
-			// TODO Make captured the scope
-			// dialogueScript <- makeScopeCaptured(dialogueScript);
+			dialogueScript <- makeScopeInfoItemCaptured(dialogueScript);
 			setScript(dialogueScript);
 		}
 	}
@@ -388,11 +387,6 @@ procedure processNewActivatedScriptsWithNoScope(int size)
 	{
 		pushWeakDisambiguator(sizeOfNotContained, True);
 	}
-		
-	// TODO QUITAR
-	SpyMessage("ACTIVATED SCRIPTS STACK: ");
-	SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
-	SpyMessage("");
 }
 
 DialogueScript createStrongDisambiguator(int size, bool nextToBeActivated)
@@ -438,7 +432,6 @@ DialogueScript createStrongDisambiguator(int size, bool nextToBeActivated)
 		BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 	}
 
-	/*
 	// Node - AskChoices
 	ScriptNode nodeAskChoices <- createScriptNode( 'askchoices', 'wait', 1 );
 	nodeAskChoices.ScriptNodeContent <- setNodeContent( 'question', 'choice', '', '' );
@@ -455,8 +448,163 @@ DialogueScript createStrongDisambiguator(int size, bool nextToBeActivated)
 	BatchInsertEnd( nodeMakeChoices.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'makechoices', 'finalized' ));	
 	
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeMakeChoices );
-	*/
 
 	return dialogueScript;
+}
+
+
+procedure makeStrongDisambiguatorChoices()
+{
+	// TODO Detect ordinals in not digested proferences zone (when they are implemented)
+	int maxScore <- 0;
+	int maxPosition;
+
+	ScriptInfoItem scriptInfoItem1, scriptInfoItem2;
+	DialogueAct dialogueAct, emptyDialogueAct;
+	DialogueScript script <- getCurrentScript();
+	
+	int size <- BatchSize(script.ScriptInfoItems);
+	int position;
+	for(position <- 1; position <= size; position <- position + 2)
+	{
+		BatchRecoverPosition( script.ScriptInfoItems, position , scriptInfoItem1 );
+		BatchRecoverPosition( script.ScriptInfoItems, position + 1, scriptInfoItem2 );				
+
+		int currentScore <- 0;
+		if(scriptInfoItem1.InfoItemState == 'captured')
+		{
+			currentScore <- currentScore + 1;
+		}
+		if(scriptInfoItem2.InfoItemState == 'captured')
+		{
+			currentScore <- currentScore + 2;
+		}
+		if(currentScore >= maxScore)
+		{
+			maxScore <- currentScore;
+			maxPosition <- (position + 1) / 2;
+		}
+	}
+	int numChoices <- position / 2;
+
+	if(maxScore == 0)
+	{
+		dialogueAct <- emptyDialogueAct;
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+		dialogueAct.TaskDialogueAct.Scope <- 'Sorry, I misunderstood what you said so I cancelled all the possibilities. ';
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+		string descriptor;
+		BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+		DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+
+		for(position <- 1; position <= numChoices; position++ )
+		{
+			BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+			recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+				
+			recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
+			BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
+		}
+	}
+	else
+	{
+		// Pull own script
+		string descriptor;
+		BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+		DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+
+		// pull the rest of the scripts but saves the one in maxPosition
+		ActivatedScriptsStack choices;
+		ScriptDescriptor selectedScriptDescriptor;
+		for(int i <- 1; i <= numChoices; i++)
+		{
+			BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+			if(i == numChoices + 1 - maxPosition)
+			{
+				selectedScriptDescriptor <- descriptor;
+			}
+		}
+
+		// push to the top the script in maxPosition
+		BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, selectedScriptDescriptor );
+		
+		DialogueScript dialogueScript <- getScript( selectedScriptDescriptor );
+		dialogueScript <- makeScopeInfoItemCaptured(dialogueScript);
+
+		setScript(dialogueScript);
+	}
+}
+
+DialogueScript makeScopeInfoItemCaptured(DialogueScript dialogueScript)
+{
+	DialogueScript ret <- dialogueScript;
+	ScriptInfoItem scriptInfoItem;
+
+	BatchRecoverPosition(ret.ScriptInfoItems, 3, scriptInfoItem);
+	scriptInfoItem.InfoItemMoveState <- 'captured';
+	BatchAssignPosition(ret.ScriptInfoItems, 3, scriptInfoItem);
+
+	return ret;
+}
+
+procedure generateStrongDisambiguatorChoices()
+{
+	ScriptInfoItem scriptInfoItem1, scriptInfoItem2;
+	DialogueAct dialogueAct, emptyDialogueAct;
+	DialogueScript script <- getCurrentScript();
+	
+	if(LiteralPositionValue(script.ScriptDescriptor, LiteralSize(script.ScriptDescriptor)) == 'F')
+	{
+		dialogueAct <- emptyDialogueAct;
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+		dialogueAct.TaskDialogueAct.Scope <- 'Going back to what you said a moment ago. ';
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+	}
+	
+	dialogueAct <- emptyDialogueAct;
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+	dialogueAct.TaskDialogueAct.Scope <- 'With the information that you provided, I think you can choose between these alternatives';
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+	int size <- BatchSize(script.ScriptInfoItems);
+
+	for(int position <- 1; position <= size - 2 ; position <- position + 2)
+	{
+		BatchRecoverPosition( script.ScriptInfoItems, position , scriptInfoItem1 );
+		BatchRecoverPosition( script.ScriptInfoItems, position + 1, scriptInfoItem2 );				
+
+		dialogueAct <- emptyDialogueAct;
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+		dialogueAct.TaskDialogueAct.Scope <- ', ';
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+		dialogueAct <- emptyDialogueAct;
+		dialogueAct.CoreDialogueAct.Dimension <- 'question'; 
+		dialogueAct.CoreDialogueAct.Function <- 'choice';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, scriptInfoItem1.InfoItemValue.ActionDomain );
+		dialogueAct.TaskDialogueAct.Scope <- scriptInfoItem2.InfoItemValue.Scope;
+		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+	}
+
+	BatchRecoverPosition( script.ScriptInfoItems, size - 1 , scriptInfoItem1 );
+	BatchRecoverPosition( script.ScriptInfoItems, size, scriptInfoItem2 );				
+
+	dialogueAct <- emptyDialogueAct;
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+	dialogueAct.TaskDialogueAct.Scope <- ' or ';
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+	dialogueAct <- emptyDialogueAct;
+	dialogueAct.CoreDialogueAct.Dimension <- 'question'; 
+	dialogueAct.CoreDialogueAct.Function <- 'choice';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, scriptInfoItem1.InfoItemValue.ActionDomain );
+	dialogueAct.TaskDialogueAct.Scope <- scriptInfoItem2.InfoItemValue.Scope;
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+
+	dialogueAct <- emptyDialogueAct;
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+	dialogueAct.TaskDialogueAct.Scope <- '. What do you prefer?';
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 }
 

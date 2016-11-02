@@ -32,6 +32,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 	{
 		makeWeakDisambiguatorChoices();
 	}
+	else if(dialogueAction.DialogueActionName == 'generate_sd_choices')
+	{
+		generateStrongDisambiguatorChoices();
+	}
+	else if(dialogueAction.DialogueActionName == 'make_sd_choices')
+	{
+		makeStrongDisambiguatorChoices();
+	}
 	else if(dialogueAction.DialogueActionName == 'delete_disagreement')
 	{
 		deleteDisagreement();
