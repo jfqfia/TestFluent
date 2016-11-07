@@ -36,47 +36,32 @@ DialogueScript	createDialogueScriptManager()
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeWelcome );
 
 	// Node - Hmihy
-	nodeHmihy <- createScriptNode( 'hmihy', 'wait' , 1);
+	nodeHmihy <- createScriptNode( 'hmihy', 'wait' , 2);
 	nodeHmihy.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'offer', 'hmihy' );
-	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'welcome', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'hmihy', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'hmihy', 'finalized' ));
 	BatchInsertEnd( nodeHmihy.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeHmihy );
 
-	// Node - Explicit1
-	nodeExplicit1 <- createScriptNode( 'explicit1', 'wait', 1);
-	nodeExplicit1.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'explicit', 'continuemanager' );
-	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'hmihy', 'finalized' ));
-	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
-	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit1', 'finalized' ));
-	BatchInsertEnd( nodeExplicit1.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
-
-	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit1 );
-
 	// Node - Explicit2
-	nodeExplicit2 <- createScriptNode( 'explicit2', 'execute', 1);
-	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
-	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit2', 'finalized' ));
-	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'explicit1', 'notfinalized' ));
+	nodeExplicit2 <- createScriptNode( 'explicit2', 'execute', 3);
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
 	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'hmihy', 'notfinalized' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit2 );
 	
 	// Node - Bye
-	nodeBye <- createScriptNode( 'bye', 'execute', 1 );
+	nodeBye <- createScriptNode( 'bye', 'execute', 4 );
 	nodeBye.ScriptNodeContent <- setNodeContent( 'social', 'goodbye', '', '' );
 	BatchInsertEnd( nodeBye.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'bye', 'finalized' ));
-	BatchInsertEnd( nodeBye.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'explicit1', 'finalized' ));
 	BatchInsertEnd( nodeBye.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'bye', 'finalized' ));
 	BatchInsertEnd( nodeBye.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeBye );
 
 	// Node - End
-	nodeEnd <- createScriptNode( 'end', 'execute', 1 );
-	BatchInsertEnd( nodeEnd.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'bye', 'finalized' ));
+	nodeEnd <- createScriptNode( 'end', 'execute', 5 );
 	BatchInsertEnd( nodeEnd.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeEnd );

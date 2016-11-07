@@ -1,5 +1,3 @@
-* Script Manager
-
 * Negociar una fecha para hoy siempre después de la hora actual, si no hay pasar al siguiente día
 
 * Hacer el parámetro 'ordinal' para conseguir
