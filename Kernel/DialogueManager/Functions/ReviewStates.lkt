@@ -89,10 +89,15 @@ bool reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, Scrip
 {
 	bool ret <- False;
 
-	// Initial state == 'empty' => New captured parameter
+	// Initial state == 'empty' => New captured parameter or remembering
 	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
 	{
 		scriptInfoItem.InfoItemState <- 'captured';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'recovered' )
+	{
+		scriptInfoItem.InfoItemState <- 'recovered';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
 

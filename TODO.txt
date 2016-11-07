@@ -12,13 +12,6 @@
 * i want to consult my balance
 * I need first to make a transfer
 * ... completar
-* $MINDBOARD@DialogueState.RecentlyActivatedScript
-
-* Guardar la memoria
-* i want to make a transfer
-* ... completar
-* i would like to consult my balance
-* ... reusar el número de cuenta
 
 * Separar dominios en el generador y dialogue manager
 

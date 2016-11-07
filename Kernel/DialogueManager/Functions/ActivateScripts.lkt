@@ -534,7 +534,7 @@ procedure recoveryMemoryCells( ScriptDescriptor scriptDescriptor )
 			if(recoveredParameter && scriptInfoItem.InfoItemState == 'empty' && !! scriptInfoItem.InfoItemMoveState == 'captured')
 			{
 				scriptInfoItem.InfoItemValue.Parameter <- recoveredParameter;
-				scriptInfoItem.InfoItemMoveState <- 'captured';
+				scriptInfoItem.InfoItemMoveState <- 'recovered';
 				BatchAssignPosition( dialogueScript.ScriptInfoItems, position, scriptInfoItem );
 				setScript( dialogueScript );
 			}
@@ -602,8 +602,5 @@ procedure saveMemoryCell( MemoryCellName memoryCellName, Parameter parameter )
 		memoryCell.MemoryContent <- parameter;
 		BatchInsertEnd($MINDBOARD@DialogueMemory.CapturedMemoryCells, memoryCell);
 	}
-
-	// TODO QUITAR
-	SpyMessage($MINDBOARD@DialogueMemory.CapturedMemoryCells);
 }
 

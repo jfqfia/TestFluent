@@ -96,6 +96,7 @@ DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel
 DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int priorityLevel, ParameterType parameterType)
 {
 	ScriptNode nodeAskParameter;
+	ScriptNode nodeRecoveredParameter;
 	ScriptNode nodeIdontknowParameter;
 	ScriptNode nodeImplicitParameter;
 	ScriptNode nodeCheckParameter;
@@ -110,7 +111,7 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	suffix <- LiteralConcat( suffix, ShapeToString(parameterType) );
 	suffix <- LiteralConcat( suffix, '_' );
 	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
-	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10;
+	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10, nodeName11;
 	string parameterPosition <- recoverParameterPosition(dialogueScript, parameterType);
 
 	// Node - AskParameter
@@ -145,6 +146,16 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	BatchInsertEnd( nodeImplicitParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'checking' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitParameter );
+
+	// Node - RecoveredParameter
+	nodeName11 <- LiteralConcat( 'recoveredparameter', suffix );	
+	nodeRecoveredParameter <- createScriptNode( nodeName11, 'execute', priorityLevel);
+	nodeRecoveredParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'recovered', 'parameter' );
+	BatchInsertEnd( nodeRecoveredParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'recovered' ));
+	BatchInsertEnd( nodeRecoveredParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeRecoveredParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'checking' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRecoveredParameter );
 
 	// Node - CheckParameter
 	nodeName4 <- LiteralConcat( 'checkparameter', suffix );	
@@ -229,6 +240,7 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 DialogueScript captureOptionalParameter(DialogueScript dialogueScript, int priorityLevel, ParameterType parameterType)
 {
 	ScriptNode nodeImplicitParameter;
+	ScriptNode nodeRecoveredParameter;
 	ScriptNode nodeCheckParameter;
 	ScriptNode nodeIncorrectParameter;
 	ScriptNode nodeCorrectParameter;
@@ -241,7 +253,7 @@ DialogueScript captureOptionalParameter(DialogueScript dialogueScript, int prior
 	suffix <- LiteralConcat( suffix, ShapeToString(parameterType) );
 	suffix <- LiteralConcat( suffix, '_' );
 	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
-	string nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10;
+	string nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10, nodeName11;
 	string parameterPosition <- recoverParameterPosition(dialogueScript, parameterType);
 
 	// Node - ImplicitParameter
@@ -253,6 +265,16 @@ DialogueScript captureOptionalParameter(DialogueScript dialogueScript, int prior
 	BatchInsertEnd( nodeImplicitParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'checking' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitParameter );
+
+	// Node - RecoveredParameter
+	nodeName11 <- LiteralConcat( 'recoveredparameter', suffix );	
+	nodeRecoveredParameter <- createScriptNode( nodeName11, 'execute', priorityLevel);
+	nodeRecoveredParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'recovered', 'parameter' );
+	BatchInsertEnd( nodeRecoveredParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'recovered' ));
+	BatchInsertEnd( nodeRecoveredParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', parameterPosition ));
+	BatchInsertEnd( nodeRecoveredParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'checking' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRecoveredParameter );
 
 	// Node - CheckParameter
 	nodeName4 <- LiteralConcat( 'checkparameter', suffix );	
