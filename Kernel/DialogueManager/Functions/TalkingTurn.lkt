@@ -211,7 +211,8 @@ procedure selectCurrentScript()
 	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, numberActives, scriptDescriptor ); 
 
 	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
-	
+	recoveryMemoryCells( scriptDescriptor );
+
 	// TODO QUITAR
 	// DialogueScript script <- getCurrentScript();
 	// SpyMessage(script.ScriptInfoItems);

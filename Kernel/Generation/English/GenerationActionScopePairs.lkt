@@ -56,3 +56,18 @@
     	}
 )
 
+(ScriboScheme LocateAtmPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'locate') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'atm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('locate an ATM');
+    	}
+)
+

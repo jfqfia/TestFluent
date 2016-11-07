@@ -51,6 +51,19 @@ procedure initDialogueScheme()
 
 	BatchInsertEnd($MINDBOARD@DialogueState.ActivatedScriptsStack, 'Manager');
 	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- 'Manager';
+
+	// TODO QUITAR
+/*	CapturedMemoryCell memoryCell;
+	memoryCell.MemoryCellName <- 'user_account_number';
+	memoryCell.MemoryContent.ParameterCategory <- 'terminal';
+	memoryCell.MemoryContent.ParameterType <- 'accountnumber';
+	memoryCell.MemoryContent.ParameterValue.AccountNumber.AccountNumberValue <- '1234567890';
+	BatchInsertEnd($MINDBOARD@DialogueMemory.CapturedMemoryCells, memoryCell);
+	SpyMessage("");
+	SpyMessage("");
+	SpyMessage($MINDBOARD@DialogueMemory.CapturedMemoryCells);
+	SpyMessage("");
+	SpyMessage("");*/
 }
 
 

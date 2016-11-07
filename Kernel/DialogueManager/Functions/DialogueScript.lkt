@@ -123,6 +123,7 @@ DialogueScript createDialogueScriptConsultBalance()
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'accountnumber';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_account_number';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem <- emptyScriptInfoItem;
@@ -190,6 +191,7 @@ DialogueScript createDialogueScriptLocateAtm()
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_country_place';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	// Phases
@@ -252,6 +254,7 @@ DialogueScript createDialogueScriptMakeTransfer()
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'accountnumber';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_account_number';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem <- emptyScriptInfoItem;
@@ -330,6 +333,7 @@ DialogueScript createDialogueScriptMedicalAppointment()
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_country_place';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem <- emptyScriptInfoItem;
@@ -342,12 +346,14 @@ DialogueScript createDialogueScriptMedicalAppointment()
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_phone_number';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'parameter';	
 	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
 	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_pesel_number';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	// Phases

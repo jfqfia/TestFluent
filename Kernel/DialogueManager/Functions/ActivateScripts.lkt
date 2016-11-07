@@ -516,4 +516,94 @@ procedure assignScriptInfoItemParameter(ScriptDescriptor scriptDescriptor, Param
 	setScript( dialogueScript );
 }
 
+procedure recoveryMemoryCells( ScriptDescriptor scriptDescriptor )
+{
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	int size <- BatchSize( dialogueScript.ScriptInfoItems );		
+	for(int position <- 1; position <= size; position++)
+	{
+		ScriptInfoItem scriptInfoItem;
+		BatchRecoverPosition( dialogueScript.ScriptInfoItems, position, scriptInfoItem );
+
+		if( scriptInfoItem.MemoryCellName )
+ 		{
+			Parameter recoveredParameter <- recoverMemoryCell( scriptInfoItem.MemoryCellName );
+			if(recoveredParameter && scriptInfoItem.InfoItemState == 'empty' && !! scriptInfoItem.InfoItemMoveState == 'captured')
+			{
+				scriptInfoItem.InfoItemValue.Parameter <- recoveredParameter;
+				scriptInfoItem.InfoItemMoveState <- 'captured';
+				BatchAssignPosition( dialogueScript.ScriptInfoItems, position, scriptInfoItem );
+				setScript( dialogueScript );
+			}
+		}
+	}
+}
+
+Parameter recoverMemoryCell( MemoryCellName memoryCellName )
+{
+	int size <- BatchSize( $MINDBOARD@DialogueMemory.CapturedMemoryCells );
+	for(int position <- 1; position <= size; position++)
+	{
+		CapturedMemoryCell memoryCell;
+		BatchRecoverPosition($MINDBOARD@DialogueMemory.CapturedMemoryCells, position, memoryCell);
+
+		if(memoryCellName == memoryCell.MemoryCellName)
+		{
+			return memoryCell.MemoryContent;
+		}
+	}
+
+	Parameter emptyParameter;
+	return emptyParameter;
+}
+
+procedure saveScriptToMemory( ScriptDescriptor scriptDescriptor )
+{
+	DialogueScript dialogueScript;
+
+	dialogueScript <- getScript( scriptDescriptor );
+
+	int size <- BatchSize( dialogueScript.ScriptInfoItems );		
+	for(int position <- 1; position <= size; position++)
+	{
+		ScriptInfoItem scriptInfoItem;
+		BatchRecoverPosition( dialogueScript.ScriptInfoItems, position, scriptInfoItem );
+
+		if( scriptInfoItem.MemoryCellName && scriptInfoItem.InfoItemValue.Parameter)
+ 		{
+			saveMemoryCell( scriptInfoItem.MemoryCellName, scriptInfoItem.InfoItemValue.Parameter );
+		}
+	}	
+}
+
+procedure saveMemoryCell( MemoryCellName memoryCellName, Parameter parameter )
+{
+	bool found <- False;
+	int size <- BatchSize( $MINDBOARD@DialogueMemory.CapturedMemoryCells );
+	CapturedMemoryCell memoryCell;
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition($MINDBOARD@DialogueMemory.CapturedMemoryCells, position, memoryCell);
+
+		if(memoryCellName == memoryCell.MemoryCellName)
+		{
+			memoryCell.MemoryContent <- parameter;
+			BatchAssignPosition($MINDBOARD@DialogueMemory.CapturedMemoryCells, position, memoryCell);
+			found <- True;
+		}
+	}
+
+	if(!! found)
+	{
+		memoryCell.MemoryCellName <- memoryCellName;
+		memoryCell.MemoryContent <- parameter;
+		BatchInsertEnd($MINDBOARD@DialogueMemory.CapturedMemoryCells, memoryCell);
+	}
+
+	// TODO QUITAR
+	SpyMessage($MINDBOARD@DialogueMemory.CapturedMemoryCells);
+}
 

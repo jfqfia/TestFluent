@@ -1,0 +1,48 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+classDef:StructureComplex 
+(
+	DialogueMemory :	
+	(
+		CapturedMemoryCells
+	)
+)
+
+classDef:StructureBatch 
+(
+        CapturedMemoryCells : 
+	(
+		CapturedMemoryCell
+	)
+)
+
+classDef:StructureComplex
+(
+	CapturedMemoryCell :
+	(
+		MemoryCellName,
+		MemoryContent
+	)
+)
+
+classDef:ElementLiteral
+(
+	MemoryCellName
+)
+
+classDef:Synonym
+(
+	MemoryContent = Parameter
+)
+

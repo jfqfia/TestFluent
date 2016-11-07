@@ -20,7 +20,8 @@ classDef:StructureComplex
 		InfoItemState,
 		InfoItemMoveState,
 		InfoItemValue,
-		InfoItemHistory
+		InfoItemHistory,
+		MemoryCellName
 	)
 )
 

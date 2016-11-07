@@ -539,11 +539,12 @@ procedure pullScript()
 	
 	BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
 
+	saveScriptToMemory( descriptor );
 	DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
 	BatchInsertEnd( $MINDBOARD@DoneDialogueScheme.DialogueScripts, recoveredDialogueScript );
 
 	recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
-	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
+	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );	
 }
 
 procedure resetNextLevel()

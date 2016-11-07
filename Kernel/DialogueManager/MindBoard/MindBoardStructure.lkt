@@ -26,5 +26,7 @@ MindBoardStructure:
 	( DialogueOutput / DialogueOutput )
 
 	( DialogueDigest / DialogueDigest )
+
+	( DialogueMemory / DialogueMemory )
 }
 
