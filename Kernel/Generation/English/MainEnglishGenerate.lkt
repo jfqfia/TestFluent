@@ -25,3 +25,4 @@
 #Include "GenerationActionScopePairs.lkt"
 #Include "GenerationGeneric.lkt"
 #Include "GenerationRecoveredParameters.lkt"
+#Include "GenerationDefaultNode.lkt"

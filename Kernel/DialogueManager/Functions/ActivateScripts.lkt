@@ -73,16 +73,24 @@ bool filterDialogueDigest(bool currentFlag, bool activeFlag)
 		}
 		else
 		{
+			DigestSchemes schemesToRemove;
 			int max <- getMaxScore();
 			int size <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
 			DigestScheme digestScheme;
 			for(int position <- 1; position <= size; position++ )
 			{
 				BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
+
 				if( digestScheme.DigestSchemeScore != max && allDigestChunksCovered($MINDBOARD@DialogueDigest.DigestSchemes, digestScheme, position))
 				{
-					removeDigestScheme( digestScheme );					
+					BatchInsertEnd( schemesToRemove, digestScheme );
 				}
+			}
+			size <- BatchSize( schemesToRemove );
+			for(int position <- 1; position <= size; position++)
+			{
+				BatchRecoverPosition( schemesToRemove, position, digestScheme );
+				removeDigestScheme( digestScheme );											
 			}
 		}
 	}

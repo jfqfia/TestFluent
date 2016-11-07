@@ -1,3 +1,7 @@
+* Script Manager
+
+* Negociar una fecha para hoy siempre después de la hora actual, si no hay pasar al siguiente día
+
 * Hacer el parámetro 'ordinal' para conseguir
 * User: i want to make an appointment and consult my balance
 * System: What do you want to do first, consult your balance, make a bank transfer or book an appointment? 
@@ -7,15 +11,17 @@
 
 * Detectar "más tarde" o  "es demasiado tarde" negociando la fecha
 
-* Nodo por defecto al reactivar
-* Hacer de paso aquí el Manager al completo
-* i want to consult my balance
-* I need first to make a transfer
-* ... completar
-
 * Separar dominios en el generador y dialogue manager
 
-* Análisis funcional con características del sistema ¿Qúe es lo que hace el sistema?
+* Análisis funcional con características del sistema ¿Qué es lo que hace el sistema?
+
+* Análisis funcional de la competencia:
+	- Alexa de Amazon.
+	- Siri de Apple.
+	- Cortana de Microsoft.
+	- Google now de Google claro.
+	- wit.ai
+	- api.ai
 
 * Script de hoteles 
 * Script de vuelos

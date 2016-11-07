@@ -544,7 +544,9 @@ procedure pullScript()
 	BatchInsertEnd( $MINDBOARD@DoneDialogueScheme.DialogueScripts, recoveredDialogueScript );
 
 	recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
-	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );	
+	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
+
+	$MINDBOARD@DialogueState.PulledScript <- True;
 }
 
 procedure resetNextLevel()

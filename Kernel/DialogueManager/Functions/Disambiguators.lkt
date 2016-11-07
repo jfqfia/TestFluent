@@ -205,7 +205,7 @@ procedure makeWeakDisambiguatorChoices()
 			pushWeakDisambiguator(numChoices - 1, False);
 		}
 
-		// push to the top de script in maxPosition
+		// push to the top the script in maxPosition
 		BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, selectedScriptDescriptor );
 	}
 }

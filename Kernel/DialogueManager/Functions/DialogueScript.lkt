@@ -134,6 +134,9 @@ DialogueScript createDialogueScriptConsultBalance()
 
 	// Phases
 
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
+
 	// Phase 1
 	dialogueScript <- scriptActivation(dialogueScript, 1);
 
@@ -195,6 +198,9 @@ DialogueScript createDialogueScriptLocateAtm()
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
 
 	// Phase 1
 	dialogueScript <- scriptActivation(dialogueScript, 1);
@@ -264,6 +270,9 @@ DialogueScript createDialogueScriptMakeTransfer()
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
 
 	// Phase 1
 	dialogueScript <- scriptActivation(dialogueScript, 1);
@@ -357,6 +366,9 @@ DialogueScript createDialogueScriptMedicalAppointment()
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
 
 	// Phase 1
 	dialogueScript <- scriptActivation(dialogueScript, 1);

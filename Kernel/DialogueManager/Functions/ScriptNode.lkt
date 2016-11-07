@@ -83,6 +83,16 @@ DialogueActionPrecondition createPrecondition1Arguments( string name, string arg
 	return precondition;
 }
 
+DialogueActionPrecondition createPrecondition0Arguments( string name )
+{
+	DialogueActionPrecondition precondition;
+
+	precondition.NegatedPrecondition <- False;
+	precondition.DialogueAction <- createDialogueAction0Arguments( name );
+
+	return precondition;
+}
+
 DialogueAction createDialogueAction5Arguments( string name, string arg1, string arg2, string arg3, string arg4, string arg5 )
 {
 	DialogueAction dialogueAction;

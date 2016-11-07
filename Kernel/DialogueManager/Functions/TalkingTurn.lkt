@@ -137,6 +137,7 @@ procedure activateScripts()
 	activeFlag <- False;
 	currentFlag <- False;		
 	digestSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
+
 	if(digestSize > 0)
 	{
 		// 1.
@@ -171,9 +172,6 @@ procedure activateScripts()
 		// 3.
 		bool scopeFlag <- filterDialogueDigest(currentFlag, activeFlag);
 
-		// TODO QUITAR
-		//SpyMessage($MINDBOARD@DialogueDigest.DigestSchemes);
-
 		// 4.
 		digestSize <- BatchSize( $MINDBOARD@DialogueDigest.DigestSchemes );
 		for( int i <- 1; i <= digestSize; i++ )
@@ -184,9 +182,6 @@ procedure activateScripts()
 			removeDigestScheme( digestScheme );
 		}
 
-		// TODO QUITAR
-		//SpyMessage($MINDBOARD@DialogueState.ActivatedScriptsStack);
-	
 		// 5.
 		if(digestSize > 1)
 		{
@@ -212,10 +207,6 @@ procedure selectCurrentScript()
 
 	$MINDBOARD@DialogueState.CurrentScriptDescriptor <- scriptDescriptor;
 	recoveryMemoryCells( scriptDescriptor );
-
-	// TODO QUITAR
-	// DialogueScript script <- getCurrentScript();
-	// SpyMessage(script.ScriptInfoItems);
 }
 
 procedure reviewScriptInfoItemStates()
@@ -262,11 +253,11 @@ procedure selectCurrentNode()
 		}
 	}
 	
-	// TODO Depurar esto
-	if( dialogueScript.DefaultNodeDescriptor && False)
-	{	
+	if( dialogueScript.DefaultNodeDescriptor && $MINDBOARD@DialogueState.PulledScript )
+	{
 		BatchInsertEnd( activatedScriptNodes, dialogueScript.DefaultNodeDescriptor );
 	}
+	$MINDBOARD@DialogueState.PulledScript <- False;
 
 	activatedScriptNodes <- filterMinPriority( activatedScriptNodes );
 	activatedScriptNodes <- orderByType( activatedScriptNodes );
@@ -296,10 +287,6 @@ procedure processNode()
 	currentNode <- getCurrentNode();
 
 	executePostconditions( currentNode );
-
-	// TODO QUITAR
-	// DialogueScript script <- getCurrentScript();
-	// SpyMessage(script.ScriptInfoItems);
 }
 
 procedure closeTalkingTurn()

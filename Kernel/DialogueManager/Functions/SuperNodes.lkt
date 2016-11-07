@@ -11,6 +11,34 @@
 //
 // **************************************************
 
+DialogueScript defaultNode(DialogueScript dialogueScript, int priorityLevel)
+{
+	ScriptNode defaultNode;
+	
+	string suffix = '_';
+	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
+	string task, nodeName1;
+
+	task = dialogueScript.ScriptTrigger.ActionDomain;
+	task <- LiteralConcat ( task, dialogueScript.ScriptTrigger.Scope );
+
+	// Node - DefaultNode
+	nodeName1 <- LiteralConcat( 'defaultnode', suffix );	
+	defaultNode <- createScriptNode( nodeName1, 'execute', priorityLevel );
+	defaultNode.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'follow', task );
+	BatchInsertEnd( defaultNode.ScriptNodePreconditions, createPrecondition0Arguments( 'never' ));
+	BatchInsertEnd( defaultNode.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( defaultNode.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'grounded' ));
+	BatchInsertEnd( defaultNode.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '2', 'grounded' ));
+	BatchInsertEnd( defaultNode.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '3', 'grounded' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, defaultNode );
+
+	dialogueScript.DefaultNodeDescriptor <- nodeName1;
+
+	return dialogueScript; 
+}
+
 DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel)
 {
 	ScriptNode nodeExplicitTrigger;
@@ -353,6 +381,7 @@ DialogueScript captureOptionalParameter(DialogueScript dialogueScript, int prior
 	BatchInsertEnd( nodeExplicitDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitDisagreement );
+
 	return dialogueScript;
 }
 

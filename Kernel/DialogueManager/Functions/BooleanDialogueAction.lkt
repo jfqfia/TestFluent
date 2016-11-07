@@ -36,6 +36,10 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, functionString );
 		ret = digestedCore( dimensionString, functionString );
 	}
+	else if(dialogueAction.DialogueActionName == 'never')
+	{
+		ret = False;
+	}
 	else
 	{
 		SpyMessage("");
