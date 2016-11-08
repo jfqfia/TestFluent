@@ -135,15 +135,22 @@ Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameter
 	parameter.ParameterValue.DateTime <- userProposedDateTime;
 	if( !! checkDateTimeValidity(parameter) )
 	{
-		userProposedDateTime.BaseDate <- getCurrentBaseDate();
+		BaseDate baseDate <- getCurrentBaseDate();
+		userProposedDateTime.BaseDate <- baseDate;
 	}
 
 	int size <- BatchSize( history );
 	BatchRecoverPosition( history, size, lastParameter );
 	lastProposedDateTime <- lastParameter.ParameterValue.DateTime;
+
 	userProposedDateTime <- normalizeDateTime(userProposedDateTime, lastProposedDateTime);	
-	
-	systemProposedDateTime <- getMedicalAppointmentAvailability(userProposedDateTime);
+	systemProposedDateTime <- getMedicalAppointmentAvailability(userProposedDateTime, lastProposedDateTime);
+
+	// TODO QUITAR
+	SpyMessage("");
+	SpyMessage(userProposedDateTime);
+	SpyMessage(systemProposedDateTime);
+	SpyMessage("");
 
 	parameter <- emptyParameter;
 	parameter.ParameterCategory <- 'terminal';
@@ -153,24 +160,72 @@ Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameter
 	return parameter;
 }
 
-DateTime getMedicalAppointmentAvailability(DateTime proposed)
+DateTime getMedicalAppointmentAvailability(DateTime proposed, DateTime last)
 {
 	DateTime ret;
+	DateTime today;
+	today.BaseDate <- getCurrentBaseDate();	
+
+	if(!! proposed)
+	{
+		if(ClockAskHour() > 15)
+		{
+			proposed.BaseDate <- addDay(today.BaseDate);
+		}
+		else
+		{
+			proposed.BaseDate <- today.BaseDate;
+		}
+	}
+	
+	if(proposed.GeneralTime.NegotiateModifier)
+	{
+		int previousHour <- last.GeneralTime.BaseTime.Hour;
+		int proposedHour;
+		if(proposed.GeneralTime.NegotiateModifier == 'earlier')
+		{
+			proposedHour <- previousHour - 1;
+			if((proposedHour < 9 && previousHour < 16) || (proposedHour < 16 && previousHour > 15))
+			{
+				return ret;
+			}
+			else
+			{
+				ret <- last;
+				ret.GeneralTime.BaseTime.Hour <- proposedHour;
+				return ret;				
+			}
+		}
+		else
+		{
+			proposedHour <- previousHour + 1;
+			if((proposedHour > 13 && previousHour < 16) || (proposedHour > 20 && previousHour > 15))
+			{
+				return ret;
+			}
+			else
+			{
+				ret <- last;
+				ret.GeneralTime.BaseTime.Hour <- proposedHour;
+				return ret;				
+			}
+		}
+	}
 
 	if(proposed.BaseDate.DayInWeek != 7)
-	{
+	{	
 		ret.BaseDate <- proposed.BaseDate;
 
 		ret.GeneralTime.BaseTime.Minute <- 00;
 		int randHour <- Random(0,4);
 		int randPartOfTheDay <- Random(0,1);
 		PartOfTheDayName part <- proposed.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName;
-	
+
 		if(part == 'morning' || part == 'noon')
 		{
 			ret.GeneralTime.BaseTime.Hour <- 9 + randHour;
 		}
-		else if(part == 'afternoon' || part == 'evening' || part == 'night')
+		else if(part == 'afternoon' || part == 'evening' || part == 'night' || differenceDateTime(proposed, today) == 0)
 		{
 			ret.GeneralTime.BaseTime.Hour <- 16 + randHour;
 		}

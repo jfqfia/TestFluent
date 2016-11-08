@@ -19,7 +19,8 @@ classDef:StructureComplex
 	        BaseTime,
 		OffsetTime,
 		MinTime,
-		MaxTime
+		MaxTime,
+		NegotiateModifier
 	)
 )
 
@@ -27,6 +28,12 @@ classDef:StructureComplex
 classDef:Synonym
 (
 	BaseTime = Time
+)
+
+// TODO Structure explanation
+classDef:Synonym
+(
+	NegotiateModifier = lexTemporalModifierNegotiate
 )
 
 // TODO Structure explanation

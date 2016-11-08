@@ -70,6 +70,16 @@
 ("end",				lexTemporalModifierForPartOfTheDay, 'late')
 ("middle",			lexTemporalModifierForPartOfTheDay, 'mid')
 
+// Temporal modifiers for the negotiation of a date
+("it's late",			lexTemporalModifierNegotiate, 'earlier')
+("too late",			lexTemporalModifierNegotiate, 'earlier')
+("earlier",			lexTemporalModifierNegotiate, 'earlier')
+("sooner",			lexTemporalModifierNegotiate, 'earlier')
+
+("it's early",			lexTemporalModifierNegotiate, 'later')
+("too early",			lexTemporalModifierNegotiate, 'later')
+("later",			lexTemporalModifierNegotiate, 'later')
+
 // Direction of time modifier
 ("ago",				lexDirectionOfTimeModifier, 'backward')
 ("before",			lexDirectionOfTimeModifier, 'backward')

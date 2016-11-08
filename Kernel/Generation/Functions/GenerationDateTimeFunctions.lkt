@@ -16,26 +16,34 @@ string dateTimeToString( DateTime datetime )
 	string ret;
 	DateTime current;
 	current.BaseDate <- getCurrentBaseDate();
+	
+	if(datetime.BaseDate)
+	{
+		if(differenceDateTime(datetime, current) == 1)
+		{
+			ret <- 'tomorrow';
+		}
+		else if(differenceDateTime(datetime, current) == 0)
+		{
+			ret <- 'today';
+		}
+		else if(differenceDateTime(datetime, current) == -1)
+		{
+			ret <- 'yesterday';
+		}
+		else if(differenceDateTime(datetime, current) == 2)
+		{
+			ret <- 'the day after tomorrow';
+		}
+		else
+		{
+			ret <- baseDateToString( datetime );
+		}
+	}
 
-	if(differenceDateTime(datetime, current) == 1)
+	if(datetime.GeneralTime.NegotiateModifier)
 	{
-		ret <- 'tomorrow';
-	}
-	else if(differenceDateTime(datetime, current) == 0)
-	{
-		ret <- 'today';
-	}
-	else if(differenceDateTime(datetime, current) == -1)
-	{
-		ret <- 'yesterday';
-	}
-	else if(differenceDateTime(datetime, current) == 2)
-	{
-		ret <- 'the day after tomorrow';
-	}
-	else
-	{
-		ret <- baseDateToString( datetime );
+		ret <- ShapeToString(datetime.GeneralTime.NegotiateModifier);
 	}
 
 	if( datetime.GeneralTime.BaseTime  )

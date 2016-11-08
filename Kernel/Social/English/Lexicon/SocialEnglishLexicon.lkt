@@ -54,7 +54,6 @@
 ("have a good one",		lexGoodbye)
 ("i must be going",		lexGoodbye)
 ("i've got to get going",	lexGoodbye)
-("later",			lexGoodbye)
 ("see you",			lexGoodbye)
 ("see you later",		lexGoodbye)
 ("see you soon",		lexGoodbye)

@@ -372,6 +372,20 @@
     	}
 )
 
+// too late
+// it's too late
+// earlier
+// sooner
+// it's early
+// too early
+// later
+(TimeRule20 :
+    	[ GeneralTime -> lexTemporalModifierNegotiate ] 
+	{
+		^.NegotiateModifier <- #1;
+    	}
+)
+
 
 
 

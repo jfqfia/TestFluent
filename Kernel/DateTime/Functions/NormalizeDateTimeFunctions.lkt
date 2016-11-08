@@ -24,6 +24,10 @@ DateTime normalizeDateTime(DateTime current, DateTime last)
 		}
 		ret.GeneralTime <- current.GeneralTime;
 	}
+	else
+	{
+		ret <- current;
+	}
 
 	return ret;
 }

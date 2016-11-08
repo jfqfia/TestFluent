@@ -89,6 +89,7 @@ DialogueScript scriptActivation(DialogueScript dialogueScript, int priorityLevel
 	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName2, 'finalized' ));
 	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
 	BatchInsertEnd( nodeExplicitTriggerDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitTriggerDisagreement );
@@ -587,7 +588,7 @@ string recoverParameterPosition(DialogueScript dialogueScript, ParameterType par
 
 DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLevel, ParameterType targetParameterType, string backOfficeFunctionName, ParameterType arg1ParameterType, ParameterType arg2ParameterType, ParameterType arg3ParameterType)
 {
-	ScriptNode nodeNegotiate, nodeIncorrect, nodeCorrect, nodeAgreement, nodeDisagreement;
+	ScriptNode nodeNegotiate, nodeIncorrect, nodeCorrect, nodeAgreement, nodeNotAgreement;
 
 	string suffix = '_';
 	suffix <- LiteralConcat( suffix, ShapeToString(targetParameterType) );
@@ -602,7 +603,7 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	suffix <- LiteralConcat( suffix, '_' );
 	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
 
-	string nodeName1, nodeName2, nodeName3, nodeName4;
+	string nodeName1, nodeName2, nodeName3, nodeName4, nodeName5;
 	string targetParameterPosition <- recoverParameterPosition(dialogueScript, targetParameterType);
 	string arg1ParameterPosition <- recoverParameterPosition(dialogueScript, arg1ParameterType);
 	string arg2ParameterPosition <- recoverParameterPosition(dialogueScript, arg2ParameterType);
@@ -647,13 +648,27 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	// Node - ExplicitAgreement
 	nodeName4 <- LiteralConcat( 'explicitagreement', suffix );	
 	nodeAgreement <- createScriptNode( nodeName4, 'execute', priorityLevel );
-	nodeCorrect.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	nodeAgreement.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
 	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName3, 'finalized' ));
 	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
 	BatchInsertEnd( nodeAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'finalized' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAgreement );
+
+	// Node - NotExplicitAgreement
+	nodeName5 <- LiteralConcat( 'explicitnotagreement', suffix );	
+	nodeNotAgreement <- createScriptNode( nodeName5, 'execute', priorityLevel );
+	nodeNotAgreement.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
+	// TODO Say something like this:
+	//nodeNotAgreement.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'I´m sorry, but I didn´t understand you. ' );
+	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName3, 'finalized' ));
+	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
+	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
+	BatchInsertEnd( nodeNotAgreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName3, 'notfinalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeNotAgreement );
 
 	return dialogueScript;
 }

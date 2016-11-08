@@ -32,6 +32,16 @@ classDef:ElementInt
 )
 
 // TODO Structure explanation
+classDef:ElementRange
+(
+	lexTemporalModifierNegotiate:
+	{
+		'earlier',
+		'later'
+	}
+)
+
+// TODO Structure explanation
 classDef:Synonym
 (
 	lexTemporalModifierForPartOfTheDay = PartOfTheDayInterval
