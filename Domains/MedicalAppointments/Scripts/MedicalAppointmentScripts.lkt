@@ -1,0 +1,118 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+DialogueScript createDialogueScriptMedicalAppointment()
+{
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	dialogueScript.ScriptDescriptor <- 'BookAppointment';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'book';
+	dialogueScript.ScriptTrigger.Scope <- 'appointment';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'medicalspeciality' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'countryplace' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'datetime' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'phonenumber' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'peselnumber' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'book';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'appointment';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'medicalspeciality';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_country_place';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'datetime';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'phonenumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_phone_number';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'peselnumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_pesel_number';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
+
+	// Phase 1
+	dialogueScript <- scriptActivation(dialogueScript, 1);
+
+	// Phase 2
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'medicalspeciality');
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'countryplace');
+	dialogueScript <- captureOptionalParameter(dialogueScript, 2, 'datetime');
+
+	// Phase 3
+	dialogueScript <- negotiateParameter3(dialogueScript, 3, 'datetime', 'negotiate_datetime_medical_appointment', 'datetime', 'medicalspeciality', 'countryplace');
+
+	// TODO
+	// Phase 3.5
+	// Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación.
+
+	// Phase 4	
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 4, 'phonenumber');
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 4, 'peselnumber');
+
+	// Phase 5	
+	dialogueScript <- informExplicitParameters3(dialogueScript, 5, 'datetime', 'medicalspeciality', 'countryplace');
+
+	// Phase 6
+	dialogueScript <- endScript(dialogueScript, 6);
+	
+	return dialogueScript;
+}
+

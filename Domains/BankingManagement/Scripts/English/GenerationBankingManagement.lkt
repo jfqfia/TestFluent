@@ -1,0 +1,351 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerconsultbankaccount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'So you want to consult the balance of your savings. ',
+					   'Ok, I will consult the total amount in your bank account. ');
+    	}
+)
+
+(ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerlocateatm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, let me locate an atm for you. ',
+					   'So you want to locate an atm. ');
+    	}
+)
+
+(ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerexecutetransfer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, I see that you wish to make a transfer. ',
+					   'So you want to transfer some money. ');
+    	}
+)
+
+(ScriboScheme ExplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerconsultbankaccount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Would you like then to consult the balance of an account? ',
+					   'Please, could you be so kind to confirm that you want to consult the balance of your savings? ');
+    	}
+)
+
+(ScriboScheme ExplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerlocateatm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, it seems that you want to locate your nearest ATM, is this correct? ',
+					   'Please, could you be so kind to confirm that you want to locate an ATM near you? ');
+    	}
+)
+
+(ScriboScheme ExplicitTriggerConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'triggerexecutetransfer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, it seems that you want to make a bank transfer, is that correct? ',
+					   'Please, could you be so kind to confirm that you want to fulfil a transfer from your bank account? ',
+					   'Do you really want to make a bank transfer?');
+    	}
+)
+
+(ScriboScheme GenerateHMIHY: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'locate') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'atm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, thank you very much. ',
+					   'Well done! ');
+		SetMainAnswerStringRandom( 'I will present in your screen the location of your nearest ATM in a minute. ',
+					   'The location of the nearest ATM will be presented in your screen very soon. ');
+	}
+)
+
+(ScriboScheme DefaultConsultBalance: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'follow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'consultbankaccount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'So let´s follow with your bank account balance. ' );
+    	}
+)
+
+(ScriboScheme DefaultLocateAtm: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'follow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'locateatm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, it seems that you wanted to locate your nearest ATM. ',
+					   'Let´s follow locating your nearest ATM. ');
+    	}
+)
+
+(ScriboScheme DefaultExecuteTransfer: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'follow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'executetransfer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Now, let me help you to make a bank transfer. ');
+    	}
+)
+
+
+(ScriboScheme ExecuteTransferPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'execute') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'transfer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('make a bank transfer');
+    	}
+)
+
+(ScriboScheme ConsultBankaccountPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'consult') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'bankaccount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('consult your balance');
+    	}
+)
+
+(ScriboScheme LocateAtmPair: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'choice' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'locate') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'atm'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('locate an ATM');
+    	}
+)
+
+
+(ScriboScheme ExplicitMoneyAmountParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' ) &&
+		!! parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' );
+
+		SetMainAnswerStringRandom( 'The money amount is ' ,
+					   'The total money is ');
+		SetMainAnswerString(ShapeToString(parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue));
+		SetMainAnswerString('.');
+		if( parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue < 10 )
+		{
+			SetMainAnswerString('0');
+		}
+		SetMainAnswerString(ShapeToString(parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue));
+		SetMainAnswerString(' ');
+		SetMainAnswerString(parameter.ParameterValue.MoneyAmount.Currency);
+		SetMainAnswerString('. ');
+    	}
+)
+
+(ScriboScheme GenerateTransfer: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' ) &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, we are about to finish. ',
+					   'Well done! ');
+		SetMainAnswerString(	   'Please be sure that this information is correct: ');
+		
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' );
+		int intAmount <- parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue;
+		int decAmount <- parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue;
+		string currency <- parameter.ParameterValue.MoneyAmount.Currency;
+
+		SetMainAnswerStringRandom( 'The money amount is ',
+					   'A total of ' );
+		SetMainAnswerString( ShapeToString(intAmount) );
+		SetMainAnswerString( '.' );
+		if( !! decAmount )
+		{
+			SetMainAnswerString( '00' );
+		}
+		else if( decAmount < 10 )
+		{
+			SetMainAnswerString( '0' );
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		else
+		{
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		SetMainAnswerString( ' ' );
+		SetMainAnswerString( currency );
+		SetMainAnswerString( '. ' );
+
+		parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
+
+		SetMainAnswerStringRandom( 'The target account number is ' );
+		SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+		SetMainAnswerString('. ');
+		
+		SetMainAnswerString(	   'Are you sure that you want to continue? ');
+	}
+)
+
+(ScriboScheme GenerateTransferOkEverything: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'everythingok' 
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, your money transfer has been executed. Thank you very much. ',
+					   'The bank transfer that you ordered has been fulfilled succesfully. Thanks! ');
+	}
+)
+
+(ScriboScheme GenerateTransferOkEverything: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'somethingfailed' 
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, we had a critical failure. No money was transferred. Sorry for the inconvenience. ',
+					   'Something has failed in the proccess. Please try it again later. ');
+	}
+)
+
+(ScriboScheme GenerateTransferCancelEverything: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'everythingcancel' 
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, the bank transfer has been cancelled. ',
+					   'We have cancelled your money transfer order. ');
+	}
+)

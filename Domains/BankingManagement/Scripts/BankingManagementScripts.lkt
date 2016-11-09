@@ -1,0 +1,223 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+
+DialogueScript createDialogueScriptConsultBalance()
+{
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	dialogueScript.ScriptDescriptor <- 'ConsultBalance';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'consult';
+	dialogueScript.ScriptTrigger.Scope <- 'bankaccount';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'accountnumber' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'consult';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'bankaccount';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'accountnumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_account_number';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'moneyamount';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
+
+	// Phase 1
+	dialogueScript <- scriptActivation(dialogueScript, 1);
+
+	// Phase 2
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'accountnumber');
+
+	// Phase 3
+	dialogueScript <- proposeInfoItem1(dialogueScript, 3, 'moneyamount', 'get_balance', 'accountnumber');
+
+	// Phase 4	
+	dialogueScript <- informExplicitParameter(dialogueScript, 4, 'moneyamount');
+
+	// Phase 5
+	dialogueScript <- endScript(dialogueScript,5);
+
+	return dialogueScript;
+}
+
+DialogueScript createDialogueScriptLocateAtm()
+{
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	dialogueScript.ScriptDescriptor <- 'LocateAtm';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'locate';
+	dialogueScript.ScriptTrigger.Scope <- 'atm';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'countryplace' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'locate';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'atm';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'countryplace';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_country_place';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
+
+	// Phase 1
+	dialogueScript <- scriptActivation(dialogueScript, 1);
+
+	// Phase 2
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'countryplace');
+
+	// Phase 3
+	dialogueScript <- executeBackOffice1(dialogueScript, 3, 'get_nearest_atm', 'countryplace');
+
+	// Phase 4	
+	dialogueScript <- informExplicit(dialogueScript, 4, 'statement', 'inform', 'locate', 'atm');
+
+	// Phase 5
+	dialogueScript <- endScript(dialogueScript,5);
+	
+	return dialogueScript;
+}
+
+DialogueScript createDialogueScriptMakeTransfer()
+{
+	// Script Descriptor
+	DialogueScript dialogueScript;
+	dialogueScript.ScriptDescriptor <- 'MakeTransfer';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'execute';
+	dialogueScript.ScriptTrigger.Scope <- 'transfer';
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'accountnumber' );
+	BatchInsertEnd( dialogueScript.ScriptTrigger.ParameterTypes , 'moneyamount' );
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'execute';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'transfer';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'accountnumber';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.MemoryCellName <- 'user_account_number';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- 'moneyamount';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Phases
+
+	// Phase 0
+	dialogueScript <- defaultNode(dialogueScript, 0);
+
+	// Phase 1
+	dialogueScript <- scriptActivation(dialogueScript, 1);
+
+	// Phase 2
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'accountnumber');
+	dialogueScript <- captureCompulsoryParameter(dialogueScript, 2, 'moneyamount');
+
+	// Phase 3
+	dialogueScript <- executeBackOffice2(dialogueScript, 3, 'execute_transfer', 'accountnumber', 'moneyamount');
+
+	// Phase 4	
+	dialogueScript <- informExplicit(dialogueScript, 4, 'statement', 'inform', 'say', 'everythingok');
+
+	// Phase 5
+	dialogueScript <- endScript(dialogueScript,5);
+	
+	return dialogueScript;
+}
+

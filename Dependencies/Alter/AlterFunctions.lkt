@@ -11,6 +11,89 @@
 //
 // **************************************************
 
+bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
+{
+	bool ret;
+
+	ret <- False;
+
+	if(!! ret )
+	{
+		ret = compatibleExpectativeTypesKernel(type1, type2);
+	}
+
+	// Domain: BankingManagement
+	if(!! ret )
+	{
+		ret = compatibleExpectativeTypesBankingManagement(type1, type2);
+	}
+
+	// Domain: MedicalAppointment
+	if(!! ret )
+	{
+		ret = compatibleExpectativeTypesMedicalAppointment(type1, type2);
+	}
+
+	return ret;
+}
+
+ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, ProferenceChunk originalProference)
+{
+	ProferenceChunk ret;
+
+	if(!! ret)
+	{
+		ret <- convertProferenceToExpectativeKernel(typeTarget, originalProference);
+	}
+
+	// Domain: BankingManagement
+	if(!! ret)
+	{
+		ret <- convertProferenceToExpectativeBankingManagement(typeTarget, originalProference);
+	}
+
+	// Domain: MedicalAppointment
+	if(!! ret)
+	{
+		ret <- convertProferenceToExpectativeMedicalAppointment(typeTarget, originalProference);
+	}
+
+	return ret;
+}
+
+
+Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters parameters)
+{
+	// Domain: BankingManagement
+	if( backOfficeFunctionName == 'get_balance' )
+	{
+		return getBalance(parameters);
+	}
+}
+
+Parameter executeBackOfficeNegotiateFunction(string backOfficeFunctionName, InfoItemHistory history, Parameters parameters)
+{
+	// Domain: MedicalAppointment
+	if( backOfficeFunctionName == 'negotiate_datetime_medical_appointment' )
+	{
+		return negotiateDateTimeMedicalAppointment(history, parameters);
+	}
+}
+
+bool executeBackOfficeBooleanFunction(string backOfficeFunctionName, Parameters parameters)
+{
+	// Domain: BankingManagement
+	if( backOfficeFunctionName == 'get_nearest_atm' )
+	{
+		return getNearestATM(parameters);
+	}
+	// Domain: BankingManagement
+	if( backOfficeFunctionName == 'execute_transfer' )
+	{
+		return executeTransfer(parameters);
+	}
+}
+
 bool coherentActionScopeAlter(string action, string scope)
 {
 	bool ret;

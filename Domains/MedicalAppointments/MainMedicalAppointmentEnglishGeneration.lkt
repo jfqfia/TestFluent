@@ -11,14 +11,11 @@
 //
 // **************************************************
 
-(ScriboScheme Tell: [ DialogueAct ]
-	ScriboCapture 
-	{
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'tell')
-	}
-	ScriboAction 
-	{
-		SetMainAnswerString(#OBJLOCUTIO-1.TaskDialogueAct.Scope);
-    	}
-)
+#Include "PeselNumber/English/Generation/GenerationPeselNumber.lkt"
+#Include "Speciality/English/Generation/GenerationMedicalSpeciality.lkt"
+#Include "Scripts/English/GenerationMedicalAppointment.lkt"
+
+
+
+
 

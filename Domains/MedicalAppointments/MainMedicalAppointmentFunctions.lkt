@@ -12,6 +12,7 @@
 // **************************************************
 
 #Include "Functions/MedicalAppointmentFunctions.lkt"
+#Include "Functions/MedicalAppointmentBackOffice.lkt"
 #Include "Speciality/Functions/SpecialityFunctions.lkt"
 #Include "PeselNumber/Functions/PeselNumberFunctions.lkt"
 

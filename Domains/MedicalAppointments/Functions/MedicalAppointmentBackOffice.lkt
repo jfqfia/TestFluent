@@ -6,118 +6,10 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE :	
+// 	PACKAGE	:	
 //	FILE	:	
 //
 // **************************************************
-
-Parameter executeBackOfficeFunction(string backOfficeFunctionName, Parameters parameters)
-{
-	// TODO Should we search this functions inside possible domains?
-	if( backOfficeFunctionName == 'get_balance' )
-	{
-		return getBalance(parameters);
-	}
-}
-
-Parameter executeBackOfficeNegotiateFunction(string backOfficeFunctionName, InfoItemHistory history, Parameters parameters)
-{
-	if( backOfficeFunctionName == 'negotiate_datetime_medical_appointment' )
-	{
-		return negotiateDateTimeMedicalAppointment(history, parameters);
-	}
-}
-
-bool executeBackOfficeBooleanFunction(string backOfficeFunctionName, Parameters parameters)
-{
-	// TODO Should we search this functions inside possible domains?
-	if( backOfficeFunctionName == 'get_nearest_atm' )
-	{
-		return getNearestATM(parameters);
-	}
-	if( backOfficeFunctionName == 'execute_transfer' )
-	{
-		return executeTransfer(parameters);
-	}
-}
-
-Parameter getBalance(Parameters parameters)
-{
-	Parameter returnedParameter, emptyParameter;
-	Parameter param1;
-
-	BatchRecoverPosition( parameters, 1, param1 );
-	MoneyAmount moneyAmount;
-	AccountNumber accountNumber <- param1.ParameterValue.AccountNumber;
-
-	// TODO Here we must simulate the back office call
-	// moneyAmount <- getBalanceBackOffice( accountNumber );
-	moneyAmount.Currency <- 'EUR';
-	moneyAmount.IntegerAmount.NumberValue <- Random(2000, 2999);
-	moneyAmount.DecimalAmount.NumberValue <- Random(0, 99);
-
-	returnedParameter.ParameterValue.MoneyAmount <- moneyAmount;
-	returnedParameter.ParameterCategory <- 'terminal';
-	returnedParameter.ParameterType <- 'moneyamount';
-
-	// This simulates a fail in the back office calling (10%)
-	int rand <- Random(1,10);
-	if(rand != 1)
-	{
-		return returnedParameter;
-	}
-	else
-	{
-		return emptyParameter;
-	}
-}
-
-bool executeTransfer(Parameters parameters)
-{
-	bool ret;
-	Parameter param1, param2;
-
-	BatchRecoverPosition( parameters, 1, param1 );
-	BatchRecoverPosition( parameters, 2, param2 );
-
-	AccountNumber accountNumber <- param1.ParameterValue.AccountNumber;
-	MoneyAmount moneyAmount <- param2.ParameterValue.MoneyAmount;
-
-	// TODO Here we simulate the back office call
-	// ret <- executeTransferBackOffice( accountNumber, moneyAmount );	
-
-	// We simulate here that the 10% of the times there is a failure in the back office call
-	int rand <- Random(1,10);
-	ret <- True;
-	if( rand == 10 )
-	{
-		ret <- False;
-	}
-
-	return ret;
-}
-
-bool getNearestATM(Parameters parameters)
-{
-	bool ret;
-	Parameter param1;
-
-	BatchRecoverPosition( parameters, 1, param1 );
-
-	CountryPlace countryPlace <- param1.ParameterValue.CountryPlace;
-
-	// TODO Here we simulate the back office call
-	// ret <- getNearestATMBackOffice( countryPlace );	
-	
-	// We simulate here that fails in Córdoba
-	ret <- True;
-	if(countryPlace.CountryProvince == 'córdoba')
-	{
-		ret <- False;
-	}
-
-	return ret;
-}
 
 Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameters parameters)
 {
@@ -145,12 +37,6 @@ Parameter negotiateDateTimeMedicalAppointment(InfoItemHistory history, Parameter
 
 	userProposedDateTime <- normalizeDateTime(userProposedDateTime, lastProposedDateTime);	
 	systemProposedDateTime <- getMedicalAppointmentAvailability(userProposedDateTime, lastProposedDateTime);
-
-	// TODO QUITAR
-	SpyMessage("");
-	SpyMessage(userProposedDateTime);
-	SpyMessage(systemProposedDateTime);
-	SpyMessage("");
 
 	parameter <- emptyParameter;
 	parameter.ParameterCategory <- 'terminal';
@@ -244,7 +130,5 @@ DateTime getMedicalAppointmentAvailability(DateTime proposed, DateTime last)
 
 	return ret;
 }
-
-
 
 

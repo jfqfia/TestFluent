@@ -1,3 +1,5 @@
+* Capturar los días de la semana
+
 * Hacer el parámetro 'ordinal' para conseguir
 * User: i want to make an appointment and consult my balance
 * System: What do you want to do first, consult your balance, make a bank transfer or book an appointment? 
@@ -5,15 +7,13 @@
 
 * Script especial para saludos recurrentes
 
-* Separar dominios en el generador y dialogue manager
-
 * Análisis funcional con características del sistema ¿Qué es lo que hace el sistema?
 
 * Análisis funcional de la competencia:
 	- Alexa de Amazon.
 	- Siri de Apple.
 	- Cortana de Microsoft.
-	- Google now de Google claro.
+	- Google now o Google Talk.
 	- wit.ai
 	- api.ai
 

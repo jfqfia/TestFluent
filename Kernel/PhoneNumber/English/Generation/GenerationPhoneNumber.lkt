@@ -1,0 +1,87 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// *************************************************
+
+(ScriboScheme RecoveredPhoneNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'recovered') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' );
+
+		SetMainAnswerStringRandom( 'I remember that your phone number is ' );
+		SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
+		SetMainAnswerString('. ');
+    	}
+)
+
+(ScriboScheme QuestionWhatPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'phonenumber'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What is your phone number, please? ');
+    	}
+)
+
+(ScriboScheme ImplicitPhoneNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' );
+
+		SetMainAnswerStringRandom( 'So your phone number is ' );
+		SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
+		SetMainAnswerString('. ');
+    	}
+)
+
+
+(ScriboScheme IncorrectPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'The phone number is not valid. ',
+					   'I am afraid that the phone number is incorrect. ');
+		SetMainAnswer( 'Remember that a correct phone number must have 9 digits exactly. ' );
+    	}
+)
+

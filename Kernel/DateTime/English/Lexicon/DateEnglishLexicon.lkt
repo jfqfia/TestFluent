@@ -33,7 +33,6 @@
 ("following",	  		lexDirectionOfTimeModifier, 'forward')
 ("one after",  			lexDirectionOfTimeModifier, 'forward')
 ("the day after",		lexDirectionOfTimeModifier, 'forward')
-("on",				lexDirectionOfTimeModifier, 'forward')
 
 // Lexical about offset days
 ("yesterday",			lexOffsetDay, -1)

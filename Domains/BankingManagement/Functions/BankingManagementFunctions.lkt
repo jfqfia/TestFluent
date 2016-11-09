@@ -11,6 +11,35 @@
 //
 // **************************************************
 
+ProferenceChunk convertProferenceToExpectativeBankingManagement(ParameterType typeTarget, ProferenceChunk originalProference)
+{
+	ProferenceChunk ret;
+
+	if( typeTarget == 'accountnumber' && originalProference.Parameter.ParameterType == 'number' )
+	{
+		AccountNumber accountNumber <- convertNumberToAccountNumber(originalProference.Parameter);
+		ret.Parameter.ParameterValue.AccountNumber <- accountNumber;
+		ret.Parameter.ParameterType <- 'accountnumber';
+		ret.Parameter.ParameterCategory <- 'terminal';
+	}	
+
+	return ret;
+}
+
+bool compatibleExpectativeTypesBankingManagement(ParameterType type1, ParameterType type2)
+{
+	bool ret;
+
+	ret <- False;
+
+	if( type1 == 'accountnumber' && type2 == 'number' )
+	{
+		ret <- True;
+	}
+
+	return ret;
+}
+
 bool coherentActionScopeBankingManagement(string action, string scope)
 {
 	bool ret;

@@ -11,9 +11,9 @@
 //
 // **************************************************
 
-#Include "Functions/BankingManagementFunctions.lkt"
-#Include "Functions/BankingManagementBackOffice.lkt"
-#Include "AccountNumber/Functions/AccountNumberFunctions.lkt"
+#Include "AccountNumber/English/Generation/GenerationAccountNumber.lkt"
+#Include "Scripts/English/GenerationBankingManagement.lkt"
+
 
 
 

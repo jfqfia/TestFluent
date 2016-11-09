@@ -1,0 +1,59 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(ScriboScheme GenerateHMIHY: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'continuemanager'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Do you need something else? ',
+					   'Can I help you on anything else? ');
+	}
+)
+
+
+(ScriboScheme GenerateHMIHY: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'backoffice'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString( 'Ok, we are having some troubles trying to connect to our servers. Please try again in a few minutes. ');
+	}
+)
+
+
+(ScriboScheme Tell: [ DialogueAct ]
+	ScriboCapture 
+	{
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'tell')
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(#OBJLOCUTIO-1.TaskDialogueAct.Scope);
+    	}
+)
+
+
+

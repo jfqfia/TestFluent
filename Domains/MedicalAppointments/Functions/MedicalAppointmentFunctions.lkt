@@ -11,6 +11,35 @@
 //
 // **************************************************
 
+ProferenceChunk convertProferenceToExpectativeMedicalAppointment(ParameterType typeTarget, ProferenceChunk originalProference)
+{
+	ProferenceChunk ret;
+
+	if( typeTarget == 'peselnumber' && originalProference.Parameter.ParameterType == 'number' )
+	{
+		PeselNumber peselNumber <- convertNumberToPeselNumber(originalProference.Parameter);
+		ret.Parameter.ParameterValue.PeselNumber <- peselNumber;
+		ret.Parameter.ParameterType <- 'peselnumber';
+		ret.Parameter.ParameterCategory <- 'terminal';
+	}	
+
+	return ret;
+}
+
+bool compatibleExpectativeTypesMedicalAppointment(ParameterType type1, ParameterType type2)
+{
+	bool ret;
+
+	ret <- False;
+
+	if( type1 == 'peselnumber' && type2 == 'number' )
+	{
+		ret <- True;
+	}
+
+	return ret;
+}
+
 bool coherentActionScopeMedicalAppointment(string action, string scope)
 {
 	bool ret;

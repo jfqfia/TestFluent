@@ -1,0 +1,70 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// *************************************************
+
+(ScriboScheme ImplicitMoneyAmountParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'moneyamount' );
+		int intAmount <- parameter.ParameterValue.MoneyAmount.IntegerAmount.NumberValue;
+		int decAmount <- parameter.ParameterValue.MoneyAmount.DecimalAmount.NumberValue;
+		string currency <- parameter.ParameterValue.MoneyAmount.Currency;
+
+		SetMainAnswerStringRandom( 'The money amount is ',
+					   'A total of ' );
+		SetMainAnswerString( ShapeToString(intAmount) );
+		SetMainAnswerString( '.' );
+		if( !! decAmount )
+		{
+			SetMainAnswerString( '00' );
+		}
+		else if( decAmount < 10 )
+		{
+			SetMainAnswerString( '0' );
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		else
+		{
+			SetMainAnswerString( ShapeToString(decAmount) );
+		}
+		SetMainAnswerString( ' ' );
+		SetMainAnswerString( currency );
+		SetMainAnswerString( '. ' );
+    	}
+)
+
+
+(ScriboScheme QuestionWhatMoneyAmount: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'moneyamount'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'And how much money do you want to transfer? ',
+					   'What amount of money would you wish to transfer? ',
+					   'How much money you want to transfer? ');
+    	}
+)

@@ -1,0 +1,114 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// *************************************************
+
+(ScriboScheme RecoveredCountryPlaceParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'recovered') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' );
+
+		SetMainAnswerStringRandom( 'I remember that you are calling from ',
+					   'I think you are in ' );
+		SetMainAnswerString( mostConcretePlace( parameter.ParameterValue.CountryPlace ) );
+		SetMainAnswerString('. ');
+    	}
+)
+
+
+
+(ScriboScheme QuestionWhereCountryPlace: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'countryplace'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Where are you calling from? ',
+					   'From which city do you call? ',
+					   'I would like to know your preferred town, please. ');
+    	}
+)
+
+
+
+(ScriboScheme ImplicitCountryPlaceParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' );
+
+		SetMainAnswerStringRandom( 'I understood that you are calling from ',
+					   'So you are in ' );
+		SetMainAnswerString( mostConcretePlace( parameter.ParameterValue.CountryPlace ) );
+		SetMainAnswerString('. ');
+    	}
+)
+
+
+(ScriboScheme ConfirmChangedParameterCountryPlace: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirmchanged') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' );
+
+		SetMainAnswerString('Ok, we were talking about an appointment in ');
+		SetMainAnswerString(parameter.ParameterValue.CountryPlace.CountryProvince);
+		SetMainAnswerString('. Is that correct? ');
+    	}
+)
+
+
+(ScriboScheme IncorrectAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I need more information from your current location. Remember that I should know al least the province. ',
+					   'I am afraid that you must provide at least the province of your current location. ');
+    	}
+)

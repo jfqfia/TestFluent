@@ -1,0 +1,32 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+// Kernel Scripts
+#Include "Generation/English/GenerationKernel.lkt"
+
+// Social
+#Include "Social/English/Generation/GenerationSocialGoodbye.lkt"
+#Include "Social/English/Generation/GenerationSocialGreeting.lkt"
+
+// CountryPlace
+#Include "CountryPlace/English/Generation/GenerationCountryPlace.lkt"
+
+// DateTime
+#Include "DateTime/English/Generation/GenerationDateTime.lkt"
+
+// PhoneNumber
+#Include "PhoneNumber/English/Generation/GenerationPhoneNumber.lkt"
+
+// MoneyAmount
+#Include "MoneyAmount/English/Generation/GenerationMoneyAmount.lkt"
+

@@ -6,10 +6,9 @@
 //      FILE    :       DialogueScheme.lkth
 // ******************************************************
 
+// Necesita estar implementada en las dependencies
 procedure	createDialogueScheme();
 
 procedure	initDialogueScheme();
 
-DialogueScript selectDialogueScript(string scriptDescriptor);
 
-ScriptNode selectScriptNode(DialogueScript dialogueScript, string nodeDescriptor);

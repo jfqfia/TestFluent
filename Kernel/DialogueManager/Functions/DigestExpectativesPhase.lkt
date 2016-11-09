@@ -11,17 +11,12 @@
 //
 // **************************************************
 
-// TODO Depending on domain
-bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
+bool compatibleExpectativeTypesKernel(ParameterType type1, ParameterType type2)
 {
 	bool ret;
 
 	ret <- False;
 
-	if( type1 == 'accountnumber' && type2 == 'number' )
-	{
-		ret <- True;
-	}
 	if( type1 == 'moneyamount' && type2 == 'number' )
 	{
 		ret <- True;
@@ -30,33 +25,14 @@ bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
 	{
 		ret <- True;
 	}
-	if( type1 == 'peselnumber' && type2 == 'number' )
-	{
-		ret <- True;
-	}
 
 	return ret;
 }
 
-// TODO Depending on domain
-ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, ProferenceChunk originalProference)
+ProferenceChunk convertProferenceToExpectativeKernel(ParameterType typeTarget, ProferenceChunk originalProference)
 {
 	ProferenceChunk ret;
 
-	if( typeTarget == 'accountnumber' && originalProference.Parameter.ParameterType == 'number' )
-	{
-		AccountNumber accountNumber <- convertNumberToAccountNumber(originalProference.Parameter);
-		ret.Parameter.ParameterValue.AccountNumber <- accountNumber;
-		ret.Parameter.ParameterType <- 'accountnumber';
-		ret.Parameter.ParameterCategory <- 'terminal';
-	}	
-	if( typeTarget == 'peselnumber' && originalProference.Parameter.ParameterType == 'number' )
-	{
-		PeselNumber peselNumber <- convertNumberToPeselNumber(originalProference.Parameter);
-		ret.Parameter.ParameterValue.PeselNumber <- peselNumber;
-		ret.Parameter.ParameterType <- 'peselnumber';
-		ret.Parameter.ParameterCategory <- 'terminal';
-	}	
 	if( typeTarget == 'phonenumber' && originalProference.Parameter.ParameterType == 'number' )
 	{
 		PhoneNumber phoneNumber <- convertNumberToPhoneNumber(originalProference.Parameter);
@@ -74,3 +50,4 @@ ProferenceChunk convertProferenceToExpectative(ParameterType typeTarget, Profere
 
 	return ret;
 }
+

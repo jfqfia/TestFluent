@@ -65,10 +65,16 @@ lektaProject
 
 	functionModel
 		#Include "Kernel/DialogueManager/Functions/MainDialogueManagerFunctions.lkt"
+		#Include "Dependencies/Alter/AlterScript.lkt"
+		#Include "Domains/BankingManagement/Scripts/BankingManagementScripts.lkt"
+		#Include "Domains/MedicalAppointments/Scripts/MedicalAppointmentScripts.lkt"
+
 
 	scriboModel forLanguage English
 		ScriboSchemata
-		#Include "Kernel/Generation/English/MainEnglishGenerate.lkt"
+		#Include "Kernel/MainEnglishGeneration.lkt"
+		#Include "Domains/BankingManagement/MainBankingManagementEnglishGeneration.lkt"
+		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGeneration.lkt"
 
 	/*
 	scriboModel forLanguage Polish
