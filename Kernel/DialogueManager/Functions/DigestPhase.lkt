@@ -139,22 +139,29 @@ procedure scoreDigestSchemes()
 		BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, digestSchemePosition, digestScheme );
 		int score = 0;
 
+		bool actionFlag <- False;
+		bool scopeFlag <- False;
+		bool coreFlag <- False;
+
 		int digestChunksSize <- BatchSize( digestScheme.DigestChunks );
 		for (int digestChunkPosition <- 1; digestChunkPosition <= digestChunksSize; digestChunkPosition ++ ) 
 		{
 			BatchRecoverPosition( digestScheme.DigestChunks, digestChunkPosition, digestChunk );
 			
-			if(digestChunk.ScriptTriggerComponent == 'scope')
+			if(digestChunk.ScriptTriggerComponent == 'scope' && !! scopeFlag)
 			{
 				score += 10000;
+				scopeFlag <- True;
 			}
-			if(digestChunk.ScriptTriggerComponent == 'core')
+			if(digestChunk.ScriptTriggerComponent == 'core' && !! coreFlag)
 			{
 				score += 1000;
+				coreFlag <- True;
 			}
-			if(digestChunk.ScriptTriggerComponent == 'action')
+			if(digestChunk.ScriptTriggerComponent == 'action' && !! actionFlag)
 			{
 				score += 100;
+				actionFlag <- True;
 			}
 			if(digestChunk.ScriptTriggerComponent == 'parameter')
 			{

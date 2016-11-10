@@ -15,6 +15,7 @@
 #Include "Constants/VerbConstants.lkt"
 #Include "Constants/NounConstants.lkt"
 #Include "Constants/LanguageConstants.lkt"
+#Include "Constants/IntegerConstants.lkt"
 
 // Macros
 #Include "Macros/VerbMacros.lkt"

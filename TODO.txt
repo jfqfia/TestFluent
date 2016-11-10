@@ -1,3 +1,5 @@
+* Poder cancelar cuando se quiera
+
 * Capturar los días de la semana
 
 * Hacer el parámetro 'ordinal' para conseguir

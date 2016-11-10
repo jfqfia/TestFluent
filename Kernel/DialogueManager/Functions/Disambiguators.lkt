@@ -313,7 +313,7 @@ Scope searchScopeInTriggerScript( DialogueScript dialogueScript )
 }
 
 // Aquí hay mucha más casuística:
-//	Tener en cuenta puntuación.
+//	Tener en cuenta puntuación.	
 // 	En caso de una racha de empates en puntos separar en dos grupos:
 //		seleccionar los autocontenidos mediante un SD
 //		seleccionar los no autocontenidos mediante un WD 

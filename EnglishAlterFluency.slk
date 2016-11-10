@@ -27,7 +27,13 @@ CreateDialogue
 	InstanceInterface:1
 )
 
+// Aquí hay unos casos que no se desambiguan bien, pero es difícil de considerar
+// Este lo hace mal
+i want an appointment and to execute a transfer
+// Este lo hace bien
 //i want to make a transfer from my account
+
+//i want to book an appointment and make a transfer
 
 // 10100 10000 WD
 //i want to make a transfer of 120 euros and consult my balance
