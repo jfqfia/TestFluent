@@ -79,10 +79,70 @@
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber'
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 1		
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'What is your pesel number, please? ');
+		SetMainAnswerStringRandom( 'What is your PESEL number, please? '
+					   );
     	}
 )
+
+(ScriboScheme QuestionWhatPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 2		
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 
+					'Sorry, I did not understand you. ',
+					'I did not understand that. '
+						);
+		SetMainAnswerString(
+					'Could you repeat again your PESEL number? '
+				);
+    	}
+)
+
+(ScriboScheme QuestionWhatPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter >= 3
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(	'In order to continue with the appointment, I need your PESEL number, so please be kind and provide a valid one. ');
+    	}
+)
+
+(ScriboScheme IdontknowAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'idontknow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I am sorry, but ', 
+					   'I am terribly sorry, but ',
+					   'I need to inform you that ' );
+		SetMainAnswerString( 'I need your PESEL number to fulfil this task. ' );
+    	}
+)
+

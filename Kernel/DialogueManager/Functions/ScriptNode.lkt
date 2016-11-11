@@ -18,6 +18,7 @@ ScriptNode createScriptNode( string nodeDescriptor, string nodeType, ScriptNodeP
 	ret.ScriptNodeDescriptor <- nodeDescriptor;
 	ret.ScriptNodeType <- ShapeToRange( nodeType );
 	ret.ScriptNodePriorityLevel <- priorityLevel;
+	ret.ScriptNodeCounter <- 0;
 
 	return ret;
 }

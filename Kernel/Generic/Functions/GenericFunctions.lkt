@@ -1,0 +1,36 @@
+// **************************************************
+//
+//
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool checkParameterKernel(Parameter parameter)
+{
+	bool correct <- True;
+	
+	if(parameter.ParameterType == 'datetime')
+	{
+		correct <- checkDateTimeValidity( parameter );
+	}
+	if(parameter.ParameterType == 'countryplace')
+	{
+		correct <- checkCountryPlaceValidity( parameter );
+	}
+	if(parameter.ParameterType == 'moneyamount')
+	{
+		correct <- checkMoneyAmountValidity( parameter );
+	}
+	if(parameter.ParameterType == 'phonenumber')
+	{
+		correct <- checkPhoneNumberValidity( parameter );
+	}
+
+	return correct;
+}

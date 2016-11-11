@@ -42,6 +42,9 @@
 // Generation
 #Include "Generation/Functions/GenerationFunctions.lkt"
 
+// Generic
+#Include "Generic/Functions/GenericFunctions.lkt"
+
 
 
 

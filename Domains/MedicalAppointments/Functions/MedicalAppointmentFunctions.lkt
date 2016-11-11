@@ -11,6 +11,23 @@
 //
 // **************************************************
 
+bool checkParameterMedicalAppointment(Parameter parameter)
+{
+	bool correct <- True;
+	
+	if(parameter.ParameterType == 'medicalspeciality')
+	{
+		correct <- checkMedicalSpecialityValidity( parameter );
+	}
+	if(parameter.ParameterType == 'peselnumber')
+	{
+		correct <- checkPeselNumberValidity( parameter );
+	}
+
+	return correct;
+}
+
+
 ProferenceChunk convertProferenceToExpectativeMedicalAppointment(ParameterType typeTarget, ProferenceChunk originalProference)
 {
 	ProferenceChunk ret;

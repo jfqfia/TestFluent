@@ -11,6 +11,18 @@
 //
 // **************************************************
 
+bool checkParameterBankingManagement(Parameter parameter)
+{
+	bool correct <- True;
+	
+	if(parameter.ParameterType == 'accountnumber')
+	{
+		correct <- checkAccountNumberValidity( parameter );
+	}
+
+	return correct;
+}
+
 ProferenceChunk convertProferenceToExpectativeBankingManagement(ParameterType typeTarget, ProferenceChunk originalProference)
 {
 	ProferenceChunk ret;

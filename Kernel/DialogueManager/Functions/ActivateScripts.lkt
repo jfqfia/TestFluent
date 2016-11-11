@@ -575,7 +575,7 @@ procedure saveScriptToMemory( ScriptDescriptor scriptDescriptor )
 		ScriptInfoItem scriptInfoItem;
 		BatchRecoverPosition( dialogueScript.ScriptInfoItems, position, scriptInfoItem );
 
-		if( scriptInfoItem.MemoryCellName && scriptInfoItem.InfoItemValue.Parameter)
+		if( scriptInfoItem.MemoryCellName && scriptInfoItem.InfoItemValue.Parameter && !! scriptInfoItem.InfoItemState == 'empty')
  		{
 			saveMemoryCell( scriptInfoItem.MemoryCellName, scriptInfoItem.InfoItemValue.Parameter );
 		}

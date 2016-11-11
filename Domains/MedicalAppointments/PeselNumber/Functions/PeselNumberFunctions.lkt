@@ -28,7 +28,7 @@ bool canMergeWithAndPeselNumber(Parameter parameter1, Parameter parameter2)
 
 bool checkPeselNumberValidity( Parameter parameter )
 {
-	// TODO
+	// TODO The validity of a PESEL number needs to ber implemented
 	string literal <- parameter.ParameterValue.PeselNumber.PeselNumberValue;
 
 	if( LiteralSize(literal) == 11 )

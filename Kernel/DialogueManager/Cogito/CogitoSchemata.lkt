@@ -140,7 +140,7 @@
 	{
 		ScriptNode scriptNode <- getCurrentNode();
 		DialogueScript script <- getCurrentScript();
-		SpyMessage("$$>> CogitoScheme NodeType = Execute -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")");
+		SpyMessage("$$>> CogitoScheme NodeType = Execute -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")  Counter = ", scriptNode.ScriptNodeCounter);
 		processNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'select_current_script';
 		CogitoRetry();
@@ -157,7 +157,7 @@
 	{
 		ScriptNode scriptNode <- getCurrentNode();
 		DialogueScript script <- getCurrentScript();
-		SpyMessage("$$>> CogitoScheme NodeType = Wait    -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")");
+		SpyMessage("$$>> CogitoScheme NodeType = Wait    -> ", script.ScriptDescriptor, " -> (", scriptNode.ScriptNodeDescriptor ,")  Counter = ", scriptNode.ScriptNodeCounter);
 		processNode();
 		$MINDBOARD@DialogueState.DialoguePhase <- 'close_talking';
 		CogitoRetry();

@@ -1,6 +1,6 @@
 * Poder cancelar cuando se quiera
 
-* Capturar los días de la semana
+* Capturar los días de la semana en el negociador de las fechas
 
 * Hacer el parámetro 'ordinal' para conseguir
 * User: i want to make an appointment and consult my balance
@@ -11,13 +11,12 @@
 
 * Análisis funcional con características del sistema ¿Qué es lo que hace el sistema?
 
-* Análisis funcional de la competencia:
-	- Alexa de Amazon.
-	- Siri de Apple.
-	- Cortana de Microsoft.
-	- Google now o Google Talk.
-	- wit.ai
-	- api.ai
+* Spanish version of domains
+
+
+
+
+
 
 * Script de hoteles 
 * Script de vuelos
@@ -30,12 +29,18 @@
 
 * Fix headers in the beginning of every file in the project
 
-* Spanish version of domains
-
 * English grammar and lexicon
 * http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
 * https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
 * http://www.scientificpsychic.com/grammar/regular.html
 
 * Lexicon and grammatical category for "please"
+
+* Análisis funcional de la competencia:
+	- Alexa de Amazon.
+	- Siri de Apple.
+	- Cortana de Microsoft.
+	- Google now o Google Talk.
+	- wit.ai
+	- api.ai
 

@@ -38,11 +38,55 @@
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'phonenumber'
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'phonenumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 1
 	}
 	ScriboAction 
 	{
 		SetMainAnswerStringRandom( 'What is your phone number, please? ');
+    	}
+)
+
+(ScriboScheme QuestionWhatPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'phonenumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 2
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 
+					'Sorry, I did not understand you. ',
+					'I did not understand that. ');
+		SetMainAnswerStringRandom('Could you repeat again your phone number? ',
+					'Please let me know your phone number to continue with the appointment. '
+					);
+    	}
+)
+
+(ScriboScheme QuestionWhatPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'phonenumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter >= 3
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString('In order to continue with the appointment, I need your phone number. '
+				);
+
+		SetMainAnswerStringRandom(
+				'Could you repeat the phone number again? ',
+				'Do you mind repeating your phone number? '
+				);
     	}
 )
 
@@ -84,4 +128,24 @@
 		SetMainAnswer( 'Remember that a correct phone number must have 9 digits exactly. ' );
     	}
 )
+
+(ScriboScheme IdontknowAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'idontknow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I am sorry, but ', 
+					   'I am terribly sorry, but ',
+					   'I need to inform you that ' );
+		SetMainAnswerString( 'your phone is necessary in case we may want to contact with you. ' );
+    	}
+)
+
 

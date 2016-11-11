@@ -29,7 +29,7 @@ CreateDialogue
 
 // Aquí hay unos casos que no se desambiguan bien, pero es difícil de considerar
 // Este lo hace mal
-i want an appointment and to execute a transfer
+//i want an appointment and to execute a transfer
 // Este lo hace bien
 //i want to make a transfer from my account
 
@@ -61,7 +61,7 @@ i want an appointment and to execute a transfer
 //my account number is 1231231231 a total amount of 120 euros for the dentist tomorrow in sevilla
 
 // Negociar fechas
-//book appointment in sevilla for the dentist for tomorrow
+book appointment in sevilla for the dentist for tomorrow
 //earlier
 
 

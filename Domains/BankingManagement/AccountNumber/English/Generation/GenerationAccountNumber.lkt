@@ -104,7 +104,7 @@
 		SetMainAnswerStringRandom( 'I am sorry, but ', 
 					   'I am terribly sorry, but ',
 					   'I need to inform you that ' );
-		SetMainAnswerString( 'I need the account number in order to be able to consult its balance. ' );
+		SetMainAnswerString( 'I need the account number in order to complete the task. ' );
     	}
 )
 
@@ -115,7 +115,8 @@
 		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
         	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
 		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber'
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 1	
 	}
 	ScriboAction 
 	{
@@ -123,6 +124,45 @@
 					   'Could you please tell me your account number? ');
     	}
 )
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 2		
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 
+					'Sorry, I did not understand you. ',
+					'I did not understand that. '
+						);
+		SetMainAnswerString(
+					'Could you repeat again your account number? '
+				);
+    	}
+)
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter >= 3
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(	'In order to continue, I need your account number, so please be kind and provide a valid one. ');
+    	}
+)
+
 
 
 

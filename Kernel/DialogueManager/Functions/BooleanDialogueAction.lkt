@@ -29,6 +29,13 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		ret = isInfoState(number, state);
 	}
+	else if(dialogueAction.DialogueActionName == 'is_node_counter_leq')
+	{
+		string node, number;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, number );
+		ret = isNodeCounterLeq(node, number);
+	}
 	else if(dialogueAction.DialogueActionName == 'digested_core')
 	{
 		string dimensionString, functionString;
@@ -50,6 +57,23 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 	}
 
 	return ret;	
+}
+
+bool isNodeCounterLeq(string nodeDescriptor, string number)
+{
+	bool ret;
+	ScriptNode node;
+	ScriptNodeStateName scriptNodeStateName;
+
+	ret <- False;
+	node <- getNodeFromCurrentScript( nodeDescriptor );
+
+	if(!! node.ScriptNodeCounter || node.ScriptNodeCounter <= ShapeToInt(number) )
+	{
+		ret <- True;
+	}
+
+	return ret;
 }
 
 bool digestedCore(string dimensionString, string functionString)

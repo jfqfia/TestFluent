@@ -20,6 +20,13 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		setNodeStateToCurrent(node, state);
 	}
+	else if(dialogueAction.DialogueActionName == 'set_counter')
+	{
+		string node, number;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, number );
+		setNodeCounter(node, number);
+	}
 	else if(dialogueAction.DialogueActionName == 'pull_script')
 	{
 		pullScript();
@@ -117,7 +124,6 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 
 		executeBackOffice(backOfficeFunction, arguments);
 	}
-
 	else if(dialogueAction.DialogueActionName == 'generate')
 	{
 		generate();
@@ -215,6 +221,18 @@ procedure setNodeState(string scriptDescriptor, string nodeDescriptor, string st
 	setNodeToScript(script, node);
 }
 
+procedure setNodeCounter(string nodeDescriptor, string number)
+{
+	DialogueScript script;
+	ScriptNode node;
+
+	script <- getScript($MINDBOARD@DialogueState.CurrentScriptDescriptor);
+	node <- getNodeFromScript(script, nodeDescriptor );
+	node.ScriptNodeCounter <- ShapeToInt(number);
+
+	setNodeToScript(script, node);
+}
+
 procedure negotiateInfoItem(string targetInfoItem, string backOfficeFunction, DialogueActionArguments arguments)
 {
 	DialogueScript script;
@@ -246,7 +264,7 @@ procedure negotiateInfoItem(string targetInfoItem, string backOfficeFunction, Di
 	// Execute backoffice function
 	returnedParameter <- executeBackOfficeNegotiateFunction(backOfficeFunction, history, parameters);
 	
-	// TODO Empty response if it's not possible to find a good appointment for the given datetime
+	// Empty response if it's not possible to find a good appointment for the given datetime
 	if(returnedParameter)
 	{
 		// Set the returned parameter
@@ -370,6 +388,9 @@ procedure generate()
 	ScriptNode currentNode;
 	
 	currentNode <- getCurrentNode();
+
+	currentNode.ScriptNodeContent.DialogueAct.DialogueActCounter <- currentNode.ScriptNodeCounter;
+
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, currentNode.ScriptNodeContent.DialogueAct );
 }
 
@@ -394,6 +415,7 @@ procedure generateParameter(string parameterString)
 	}
 
 	BatchInsertEnd( dialogueAct.Parameters, parameter );
+	dialogueAct.DialogueActCounter <- currentNode.ScriptNodeCounter;
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 }
 
@@ -415,6 +437,7 @@ procedure generate2Parameter(string parameterString1, string parameterString2)
 
 	BatchInsertEnd( dialogueAct.Parameters, parameter1 );
 	BatchInsertEnd( dialogueAct.Parameters, parameter2 );
+	dialogueAct.DialogueActCounter <- currentNode.ScriptNodeCounter;
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 }
 
@@ -441,57 +464,8 @@ procedure generate3Parameter(string parameterString1, string parameterString2, s
 	BatchInsertEnd( dialogueAct.Parameters, parameter1 );
 	BatchInsertEnd( dialogueAct.Parameters, parameter2 );
 	BatchInsertEnd( dialogueAct.Parameters, parameter3 );
+	dialogueAct.DialogueActCounter <- currentNode.ScriptNodeCounter;
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
-}
-
-procedure checkParameter(string parameterString)
-{
-	ScriptNode currentNode <- getCurrentNode();
-	int infoNumber <- ShapeToInt( parameterString );
-	DialogueScript script <- getCurrentScript();
-	ScriptInfoItem scriptInfoItem;
-	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
-	Parameter parameter <- scriptInfoItem.InfoItemValue.Parameter; 
-
-	// TODO Aquí hay más, debería ir dentro del dominio?
-	bool correct <- True;
-	if(parameter.ParameterType == 'accountnumber')
-	{
-		correct <- checkAccountNumberValidity( parameter );
-	}
-	if(parameter.ParameterType == 'countryplace')
-	{
-		correct <- checkCountryPlaceValidity( parameter );
-	}
-	if(parameter.ParameterType == 'moneyamount')
-	{
-		correct <- checkMoneyAmountValidity( parameter );
-	}
-	if(parameter.ParameterType == 'medicalspeciality')
-	{
-		correct <- checkMedicalSpecialityValidity( parameter );
-	}
-	if(parameter.ParameterType == 'datetime')
-	{
-		correct <- checkDateTimeValidity( parameter );
-	}
-	if(parameter.ParameterType == 'peselnumber')
-	{
-		correct <- checkPeselNumberValidity( parameter );
-	}
-	if(parameter.ParameterType == 'phonenumber')
-	{
-		correct <- checkPhoneNumberValidity( parameter );
-	}
-
-	if( correct )
-	{
-		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'correct' );		
-	}
-	else
-	{
-		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'incorrect' );		
-	}
 }
 
 procedure setInfoState(string infoString, string state)
@@ -578,6 +552,7 @@ procedure resetLevel(int level)
 		{
 			if( scriptNode.ScriptNodePriorityLevel == level )
 			{
+				setNodeCounter(scriptNode.ScriptNodeDescriptor, '0');
 				setNodeState( script.ScriptDescriptor, scriptNode.ScriptNodeDescriptor, scriptNode.ScriptNodeState.ScriptNodeResetStateName );		
 			}	
 		}

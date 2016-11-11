@@ -18,8 +18,15 @@ classDef:StructureComplex
   	(
 		CoreDialogueAct,
 		TaskDialogueAct,
-		Parameters
+		Parameters,
+		DialogueActCounter
 	)
+)
+
+// TODO Structure explanation
+classDef:ElementInt
+(
+	DialogueActCounter
 )
 
 // TODO Structure explanation

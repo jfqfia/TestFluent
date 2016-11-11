@@ -11,6 +11,43 @@
 //
 // **************************************************
 
+procedure checkParameter(string parameterString)
+{
+	ScriptNode currentNode <- getCurrentNode();
+	int infoNumber <- ShapeToInt( parameterString );
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	bool correct <- True;
+	if(correct)
+	{
+		correct <- checkParameterKernel(parameter);
+	}
+
+	// Domain: BankingManagement
+	if(correct)
+	{
+		correct <- checkParameterBankingManagement( parameter );
+	}
+
+	// Domain: MedicalAppointment
+	if(correct)
+	{
+		correct <- checkParameterMedicalAppointment( parameter );
+	}
+
+	if( correct )
+	{
+		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'correct' );		
+	}
+	else
+	{
+		setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, 'incorrect' );		
+	}
+}
+
 bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
 {
 	bool ret;

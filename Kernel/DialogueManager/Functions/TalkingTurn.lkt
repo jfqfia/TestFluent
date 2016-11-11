@@ -269,6 +269,10 @@ procedure selectCurrentNode()
 		int rand <- Random(1, size);
 		BatchRecoverPosition( activatedScriptNodes, rand, nodeDescriptor );
 		dialogueScript.CurrentNodeDescriptor <- nodeDescriptor;
+		ScriptNode currentNode <- getNodeFromScript(dialogueScript, nodeDescriptor);
+		currentNode.ScriptNodeCounter <- currentNode.ScriptNodeCounter + 1;	
+		setNodeToScript(dialogueScript, currentNode);
+		dialogueScript <- getCurrentScript();
 	}
 	else
 	{

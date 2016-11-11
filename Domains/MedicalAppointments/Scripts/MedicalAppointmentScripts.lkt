@@ -99,9 +99,8 @@ DialogueScript createDialogueScriptMedicalAppointment()
 	// Phase 3
 	dialogueScript <- negotiateParameter3(dialogueScript, 3, 'datetime', 'negotiate_datetime_medical_appointment', 'datetime', 'medicalspeciality', 'countryplace');
 
-	// TODO
+	// TODO Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación.
 	// Phase 3.5
-	// Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación.
 
 	// Phase 4	
 	dialogueScript <- captureCompulsoryParameter(dialogueScript, 4, 'phonenumber');

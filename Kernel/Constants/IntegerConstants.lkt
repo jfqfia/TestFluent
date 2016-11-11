@@ -13,4 +13,5 @@
 
 // Difference between digest schemes scores to be considered as big as the the lower is ignored
 #Define BIG_DIFFERENCE_DIGEST_SCHEMES 100
+#Define NUMBER_OF_QUESTIONS_BEFORE_ABORTING 3
 
