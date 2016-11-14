@@ -1,0 +1,270 @@
+Functional Analysis
+
+Key Point: NLU
+Must treat with some language richness such as:
+	* Ambiguity.
+	* Polysemy.
+	* Idiomatic constructions.
+	* Negation.
+	* Anaphora.
+So we need some true comprenhension of the meaning of the sentences.
+
+Key Point: Context 
+Establish a dialogue level with the user avoiding the fact that the enquiries could be atomic.
+
+Key Point: NLG
+Some strategies must be considered here in order to offer to users good experience with the system.
+
+Key Point: Integration with information systems.
+
+Key Point: Massive use and thousands of concurrent conversations.
+
+Key Point: Multilingualism.
+
+Key Point: Multi-channel access: Written or spoken.
+
+Key Point: The system itself can act as an information provider in order to improver business strategies.
+
+
+
+Main desired features:
+
+1. Flexibility: We can express a request in various forms (suppose the day after tomorrow is Wed, 16 nov)
+U: I would like an appointment for the dentist the day after tomorrow.
+
+U: I need to visit an orthodontics doctor on Wednesday. 
+
+
+2. Naturalness and idiomatic construction:
+U: Yes, hello? Well, fine, a need an appointment ehh for the dentist, please.
+
+U: Good morning, miss, I want to make a transfer to my son.
+
+U: All right, see you!
+
+U: Bye, have a nice day.
+
+
+3. Fluidity:
+U: I want an appointment tomorrow early in the morning (we must infer the exact date and possible time intervals, early in the morning, that fit user needs).
+
+U: I want to fly to Krakow next month.
+
+
+4. Repetition of information:
+U: I want an appointment, yes ehh i want it for the dentist (request repetition).
+
+U: I want an appointment for the dentist, yes, that's right for the dentist (parameter repetition).
+
+U: I need an appointment, an appointment tomorrow for the dentist (scope repetition).
+
+U: I want to cancel or revoke my bank account (action repetition).
+
+
+5. Spelling correction:
+U: I watn an appoitnment for tonorrow.
+S: Ok, I see that you wish to book an appointment for a doctor tomorrow. Where are you calling from?
+
+
+6. Order-free parameters:
+U: I need to book an appointment for tomorrow morning for the dentist. I'm calling from Sevilla.
+
+U: Hi, I'm Jose from Sevilla, for the dentist tomorrow morning I need an appointment booked.
+
+
+7. Incomplete requests:
+U: For the dentist tomorrow, please.
+
+
+8. Incomplete parameters (optional parameter):
+U: An appointment for the dentist in Sevilla.
+S: Ok, I see that you wish to book an appointment for the dentist in Sevilla. I will search for a suitable appointment for you as soon as possible. What about today at 16 o´clock? 
+
+
+9. Incomplete parameters (compulsory parameter):
+U: An appointment for the dentist.
+S: So you want to make a medical appointment for the dentist. Could you please tell me where are you calling from?
+U: I call from Sevilla.
+
+
+10. Multiple grounded request (system has no doubt about what user wants = Weak Disambiguator):
+U: I want to make an appointment and execute a bank transfer.
+S: What do you want to do first, make a bank transfer or book an appointment?
+
+
+11. Single or multiple ambigous request (system is not sure about user needs = Strong Disambiguator or Explicit Disambiguator)
+U: My account number is 1234567890.
+S: With the information that you provided, I think you can choose between these alternatives, make a bank transfer or consult your balance. What do you prefer?
+
+U: My account number is 1234567890 a total amount of 120 euros and for the dentist tomorrow.
+S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to he fact that the information provided only could be used for the previous task)
+
+U: Consult.
+S: Please, could you be so kind to confirm that you want to consult the balance of your savings?
+
+
+12. Infering user needs with incomplete information.
+This is a very complicated sceneario. Imagine that system is able to give assistance in multiple tasks:
+* Consult the balance of an account (activated by account number parameter).
+* Execute bank transfers (activated by account number and money amount parameters).
+* Locate nearest ATM (activated by the city or town from which user is calling).
+* Book appointment (activated by datetime, city or town, and medical speciality parameters).
+
+If the user says this:
+U: My account number is 1234567890 a total amount of 120 euros for the dentist tomorrow in Sevilla.
+
+It's possible that ALL above tasks could be activated at the same time, but if we read previous sentence from an human point of view it's natural to discard some alternatives while keeping some of them:
+
+S: What do you want to do first, book an appointment or make a bank transfer? 
+
+
+13. Parameter negotiation.
+U: I want an appointment for the dentist tomorrow in Sevilla.
+S: Ok, I see that you wish to book an appointment for an Orthodontics doctor tomorrow. So you are in Sevilla. What about tomorrow at 13 o'clock?
+U: Could it be earlier, please?
+S: Ok, I see, earlier. And at 12 o'clock?
+U: No, no, impossible.
+S: And what about 9 o'clock?
+U: Oh, please, a little bit later!
+S: What about tomorrow at 11 o'clock?
+U: Yes, that's perfect!
+S: Ok, agreed! What is your phone number, please?
+
+
+14. Inmediate correction.
+U: I want to make a 120 euros bank transfer, please, oh, no, no, I'm sorry, the money amount should be 150 euros.
+S: So you want to transfer some money. The money amount is 150.00 EUR. Could you please tell me your account number? 
+
+
+15. Implicit confirmation.
+U: An appointment, please.
+S: So you want to make a medical appointment. Where are you calling from?
+U: From Sevilla (user implictly confirms that he wants an appointment for the doctor).
+S: In Sevilla, ok. What medical speciality fits you?
+U: For pediatricts, please (user implictly confirms that he calls from Sevilla).
+
+
+16. Explicit confirmation (not yet implemented in Fluency):
+S: Ok, so you want to make a 120 euros transfer from your account number 1234567890. Are you sure you want to continue?
+
+
+17. Later correction.
+U: An appointment, please.
+S: So you want to make a medical appointment. Where are you calling from?
+U: From Sevilla
+S: In Sevilla, ok. What medical speciality fits you?
+U: No, no, I call from Granada (user corrects system).
+S: So you are in granada. Sorry, I did not understand you. Please let me know for which medical speciality you need the appointment.
+
+
+18. Grounded correction:
+S: Where are you calling from? 
+U: From Sevilla.
+S: I understood that you are calling from sevilla. Ok, I am looking for a date and time that would fit you. Wait a moment, please. What about today at 20 o´clock? 
+U: Yes, perfect.
+S: Ok, agreed! What is your phone number, please? 
+U: I am in Granada.
+S: Ok, we were talking about an appointment in Sevilla. Is that correct? 
+U: No.
+S: Ok, I understood that you call from Granada. I will look for a date that would fit you. What about today at 16 o´clock?
+
+
+19. Semantic expectatives:
+S: What's your phone number?
+U: 123123123
+S: So your phone number is 123123123.
+
+S: What's your account number?
+U: 1231231231
+S: I understood that the account number is 1231231231.
+
+
+20. User parameter segmentation intrasentential:
+S: What's your phone number?
+U: 686 57 58 85
+S: So your phone number is 686575885.
+
+
+21. User parameter segmentation intersentential (not yet implemented in Fluency):
+S: What's your phone number?
+U: 686.
+S: 686, ok, go on.
+U: 57.
+S: 57, yes.
+U: 59.
+S: 59, all right.
+U: no, no!
+S: Ok, we have 686 57, please continue.
+U: 58.
+S: 58, right.
+S: 85.
+S: OK, let me confirm your phone number, is it 686575885?
+
+
+22. Subdialogues.
+U: I want to make a transfer.
+S: Ok, I see that you wish to make a transfer. And how much money do you want to transfer? 
+U: But i need first to consult my balance.
+S: So you want to consult the balance of your savings. What is your account number, please? 
+U: 1231231231
+S: I understood that the account number is 1231231231. The total money is 2078.67 EUR. Now, let me continue with the bank transfer. I understood that the account number is 1231231231. Could you please tell me the money amount?
+U: 120 euros.
+
+
+23. Parameter validity detection.
+U: My account number is 1234 1234 1234.
+S: I understood that the account number is 123412341234. The account number is not valid. Remember that a correct account number must have 10 digits exactly. Could you please tell me your account number?
+
+U: I want an appointment for the dentist on 31st of november
+S: Ok, I see that you wish to book an appointment for the dentist. You said the date 31st November. But that date is incorrect. From which city do you call?
+
+
+24. Early inconsistency detection.
+U: I want an appointment for a dentist in my neighborhood for tomorrow.
+S: I'm sorry, but we don't have any dentist near you at this moment. Would you like that I look for a dentist far away?
+
+
+25. Overinformation.
+U: I want an appointment for 25th November for the dentist. I call from Sevilla, and my phone number is 123123123.
+S: Ok, I see that you wish to book an appointment for the doctor. I understood that you are calling from sevilla. So you need a Orthodontics doctor. You said the date Friday, 25th November. I will search for a suitable appointment for you. Wait a moment, please. What about Friday, 25th November at 19 o´clock? 
+U: Yes, perfect!
+S: Ok, agreed! So your phone number is 123123123. What is your identification number, please? 
+
+
+27: Mid-term memory.
+U: I want to locate my nearest ATM.
+S: Ok, let me locate an atm for you. Where are you calling from? 
+U: Sevilla.
+S: I understood that you are calling from sevilla. Well done! I will present in your screen the location of your nearest ATM in a minute. Could you please tell me how can I help you? 
+U: Yes, I want an appointment for the dentist tomorrow.
+S: So you want to make a Orthodontics appointment for tomorrow. I remember that you are in Sevilla. What about tomorrow at 10 o´clock? 
+
+
+28: Non-collaborative user
+S: Good morning. Your Personal Assistant Service speaking. Could you please tell me how can I help you? 
+U: I want an appointment in Sevilla.
+S: Ok, I see that you wish to book an appointment for the doctor. I understood that you are calling from Sevilla. What kind of medical speciality do you want? 
+U: blah
+S: I did not understand that. Please let me know for which medical speciality you need the appointment. 
+U: blah
+S: I need to know what type of doctor or speciality you require in order to continue. Please repeat again. 
+U: blah
+S: Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning... Please let me know what do you need to do. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

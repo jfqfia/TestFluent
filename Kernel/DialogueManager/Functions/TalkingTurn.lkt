@@ -181,6 +181,10 @@ procedure activateScripts()
 			BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, digestScheme.ScriptDescriptor);
 			removeDigestScheme( digestScheme );
 		}
+		if(digestSize >= 1)
+		{
+			deleteDisagreement();
+		}
 
 		// 5.
 		if(digestSize > 1)

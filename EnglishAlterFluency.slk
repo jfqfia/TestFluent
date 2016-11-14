@@ -13,7 +13,7 @@ setupRuntimeSpyMessageOn
 
 // MainAnswer:On
 // DisplayProcessLocutioOn
-// DisplayProcessUnderstandingOn
+ DisplayProcessUnderstandingOn
 // DisplayProcessGenerationOn
 // DisplayProcessScriboOn
 // DisplayProcessRespondoOn
@@ -61,9 +61,16 @@ CreateDialogue
 //my account number is 1231231231 a total amount of 120 euros for the dentist tomorrow in sevilla
 
 // Negociar fechas
-book appointment in sevilla for the dentist for tomorrow
+//book appointment in sevilla for the dentist for tomorrow
 //earlier
 
+//I want to make a 120 euros bank transfer, please, oh, no, no, I'm sorry, the money amount should be 150 euros.
+
+//an appointment 
+//in sevilla
+//no, no, from granada
+
+//i want an appointment on thursday for the dentist in sevilla
 
 
 

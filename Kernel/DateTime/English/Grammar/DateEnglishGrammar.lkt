@@ -306,9 +306,27 @@
 		{
 			^.Date.Day <- signOffset + #2.Date.Day;
 		}
-		else if(Filled(#2.Date.DayInWeek))
+		else if(Filled(#2.Date.DayInWeek) && TokenInputText(1) != "next" && TokenInputText(1) != "last" )
 		{
 			^.Date.DayInWeek <- signOffset + #2.Date.DayInWeek;
+		}
+		else if(Filled(#2.Date.DayInWeek) && TokenInputText(1) == "next")
+		{
+			// ^.Date.DayInWeek <- signOffset + #2.Date.DayInWeek;
+			SpyMessage("");
+			SpyMessage("");
+			SpyMessage("next");
+			SpyMessage("");
+			SpyMessage("");
+		}
+		else if(Filled(#2.Date.DayInWeek) && TokenInputText(1) == "last" )
+		{
+			^.DirectionOfTime <- 'backward';
+			SpyMessage("");
+			SpyMessage("");
+			SpyMessage("last");
+			SpyMessage("");
+			SpyMessage("");
 		}
 		else if(Filled(#2.Date.Week))
 		{

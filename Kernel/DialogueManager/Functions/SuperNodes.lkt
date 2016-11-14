@@ -241,6 +241,7 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	nodeImplicitDisagreement <- createScriptNode( nodeName7, 'execute', priorityLevel);
 	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'rejected' ));
 	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
+	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitDisagreement );
 
@@ -361,6 +362,7 @@ DialogueScript captureOptionalParameter(DialogueScript dialogueScript, int prior
 	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'rejected' ));
 	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
 	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
+	BatchInsertEnd( nodeImplicitDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeImplicitDisagreement );
 

@@ -24,9 +24,17 @@ DateTime normalizeDateTime(DateTime current, DateTime last)
 		}
 		ret.GeneralTime <- current.GeneralTime;
 	}
-	else
+	else if( current.OffsetDate )
 	{
-		ret <- current;
+		if( last )
+		{
+			ret <- last;
+		}
+		else
+		{
+			ret.BaseDate <- normalizeBaseDate(current.BaseDate);
+		}
+		ret.BaseDate <- normalizeOffsetDate( ret.BaseDate, current.OffsetDate );
 	}
 
 	return ret;
@@ -125,7 +133,37 @@ BaseDate normalizeOffsetDate(BaseDate base, OffsetDate offset)
 			count--;
 		}		
 	}
+	// Add week days forward
+	if( offset.Date.DayInWeek && offset.DirectionOfTime == 'forward' )
+	{
+		int count <- offset.DayInWeekOffset;
+		while(count > 0)
+		{
+			ret <- addDay(ret);
+			while(ret.DayInWeek != offset.Date.DayInWeek)
+			{
+				ret <- addDay(ret);
+			}
+			count--;
+		}
+	}
+	// Add week days backward
+	if( offset.Date.DayInWeek && offset.DirectionOfTime == 'backward' )
+	{
+		SpyMessage(base);
+		SpyMessage(offset);
 
+		int count <- offset.DayInWeekOffset;
+		while(count > 0)
+		{
+			ret <- substractDay(ret);
+			while(ret.DayInWeek != offset.Date.DayInWeek)
+			{
+				ret <- substractDay(ret);
+			}
+			count--;
+		}
+	}
 
 	return ret;
 }

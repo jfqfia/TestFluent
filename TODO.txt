@@ -1,6 +1,30 @@
+* Repasar el counter = 2 en este diálogo.
+
+* User parameter segmentation intersentential:
+S: What's your phone number?
+U: 686.
+S: 686, ok, go on.
+U: 57.
+S: 57, yes.
+U: 59.
+S: 59, all right.
+U: no, no!
+S: Ok, we have 686 57, please continue.
+U: 58.
+S: 58, right.
+S: 85.
+S: OK, let me confirm your phone number, is it 686575885?
+
+* Explicit confirmation:
+S: Ok, so you want to make a 120 euros transfer from your account number 1234567890. Are you sure you want to continue?
+
+* Repasar el grounded correction
+
 * Poder cancelar cuando se quiera
 
-* Capturar los días de la semana en el negociador de las fechas
+* Detectar "as soon as possible"
+
+* Mejorar el negociador de fechas.
 
 * Hacer el parámetro 'ordinal' para conseguir
 * User: i want to make an appointment and consult my balance
@@ -9,14 +33,7 @@
 
 * Script especial para saludos recurrentes
 
-* Análisis funcional con características del sistema ¿Qué es lo que hace el sistema?
-
 * Spanish version of domains
-
-
-
-
-
 
 * Script de hoteles 
 * Script de vuelos
