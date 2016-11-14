@@ -196,6 +196,10 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialNumber(parameter1, parameter2);
 		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithSequentialOrdinal(parameter1, parameter2);
+		}
 		case 'medicalspeciality' 
 		{
 			ret <- canMergeWithSequentialSpeciality(parameter1, parameter2);
@@ -246,6 +250,10 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithOrNumber(parameter1, parameter2);
 		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithOrOrdinal(parameter1, parameter2);
+		}
 		case 'medicalspeciality' 
 		{
 			ret <- canMergeWithOrSpeciality(parameter1, parameter2);
@@ -295,6 +303,10 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		case 'number' 
 		{
 			ret <- canMergeWithAndNumber(parameter1, parameter2);
+		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithAndOrdinal(parameter1, parameter2);
 		}
 		case 'medicalspeciality' 
 		{

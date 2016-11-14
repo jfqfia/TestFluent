@@ -40,9 +40,9 @@
 // august 1st
 // august 1st, 2016
 (DateRule02_1 :
-	[ BaseDate -> lexBaseMonth lexDetThe? lexBaseDay lexComma? Number? ]
+	[ BaseDate -> lexBaseMonth lexDetThe? Ordinal lexComma? Number? ]
 	{
-	        ^.Day <- #3;
+	        ^.Day <- #3.NumberValue;
         	^.Month <- #1;
        		^.Year <- #5.NumberValue;
 	}
@@ -71,9 +71,9 @@
 // 1st august 2016
 // 1st august 
 (DateRule03_1 :
-	[ BaseDate -> lexDetThe? lexBaseDay lexPrepOf? lexBaseMonth Number? ]
+	[ BaseDate -> lexDetThe? Ordinal lexPrepOf? lexBaseMonth Number? ]
 	{
-	        ^.Day <- #2;
+	        ^.Day <- #2.NumberValue;
         	^.Month <- #4;
         	^.Year <- #5.NumberValue;
     	}

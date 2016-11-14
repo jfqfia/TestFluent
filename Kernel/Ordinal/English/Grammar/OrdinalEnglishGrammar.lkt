@@ -1,0 +1,124 @@
+// ******************************************************************
+//
+//	Grammar rules for english ordinals
+//
+// ******************************************************************
+// 
+//	PROJECT	: 
+//	MODULE  : 
+//	PACKAGE	: 
+//	FILE	: 
+// 
+// ******************************************************************
+
+// Output rule for this package
+(Ordinal_Rule01 :
+ 	[ Parameter -> Ordinal ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'ordinal';
+		^.ParameterValue.Ordinal <- #1;
+	}
+)
+
+// first
+// second
+// third
+// thirteenth
+// eighty-eighth
+// the hundredth
+// the thousandth
+// the millionth
+(Ordinal_Rule02_1 :
+ 	[ Ordinal -> lexDetThe? lexOrdinalValue ]
+	{
+		^.NumberValue <- #2;
+	}
+)
+
+// 1st
+// 2nd
+// 3rd
+// 23rd
+// 21st
+// 31st
+// 41st
+// 81st
+// But it's not correct 11st nor 22th, etc.
+(Ordinal_Rule02_2 :
+ 	[ Ordinal -> lexDetThe? lexNumberDigits lexOrdinalSuffix]
+	{
+		^.NumberValue <- #2;
+	}
+)
+
+// one hundred and sixth
+// nine hundreds and ninety-nineth
+(Ordinal_Rule03:
+	[ Ordinal -> Number? lexNumberValueHundred lexConjAnd? Ordinal ]
+	{
+		if((#1 && #1.NumberValue >= 10) || (#4.NumberValue >= 100))
+		{
+			Fail();
+		}
+
+		^.NumberValue <- #2;
+		if(#1)
+		{
+	        	^.NumberValue <- ^.NumberValue * #1.NumberValue;
+		}
+		^.NumberValue <- ^.NumberValue + #4.NumberValue;
+	}
+)
+
+// a thousand and nineth
+// two thousand and thirtieth
+// two hundred and six thousand three hundred and seventy-fourth
+// nine hundred and ninety-nine thousand nine hundred and ninety-nineth
+(Ordinal_Rule04:
+	[ Ordinal -> Number? lexNumberValueThousand lexConjAnd? Ordinal ]
+	{
+		if((#1 && #1.NumberValue >= 1000) || (#4.NumberValue >= 1000))
+		{
+			Fail();
+		}
+
+		^.NumberValue <- #2;
+		if(#1) 
+		{
+			^.NumberValue <- ^.NumberValue * #1.NumberValue;
+		}
+		^.NumberValue <- ^.NumberValue + #4.NumberValue;
+	}
+)
+
+// a million and nineth
+// two millions and thirtieth
+// thirty-six millions one hundred and fifty-first
+// ninety-nine millions two thousand hundred and fifty-first
+// one hundred and ninety-nine millions and three hundred thousand two hundred and fifty-first
+// nine hundred and ninety-nine millions nine hundred and ninety-nine thousand nine hundred and ninety-nineth
+(Oridnal_Rule05:
+	[ Ordinal -> Number? lexNumberValueMillion lexConjAnd? Ordinal ] 
+	{
+		if((#1 && #1.NumberValue >= 1000) || (#4.NumberValue >= 1000000))
+		{
+			Fail();
+		}
+
+		^.NumberValue <- #2;
+		if(#1) 
+		{
+			^.NumberValue <- ^.NumberValue * #1.NumberValue;
+		}
+		^.NumberValue <- ^.NumberValue + #4.NumberValue;
+	}
+)
+
+// one thousand eleventh
+// twenty-one thousand eleventh
+// seven hundred twenty-one thousand eleventh
+// one million two hundred fifty-six thousand seven hundred twenty-first
+// thirty-one million two hundred fifty-six thousand seven hundred twenty-first
+// six hundred thirty-one million two hundred fifty-six thousand seven hundred twenty-first
+

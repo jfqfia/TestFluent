@@ -51,8 +51,6 @@ S: Ok, so you want to make a 120 euros transfer from your account number 1234567
 * https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
 * http://www.scientificpsychic.com/grammar/regular.html
 
-* Lexicon and grammatical category for "please"
-
 * Análisis funcional de la competencia:
 	- Alexa de Amazon.
 	- Siri de Apple.

@@ -6,30 +6,16 @@
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE	:	
+//	PACKAGE :	
 //	FILE	:	
 //
 // **************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex
-(
-	ParameterValue :
+( 
+	Ordinal :
 	(
-		Number,
-		Ordinal,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-		MoneyAmount,
-
-		MedicalSpeciality,
-		PeselNumber,
-
-		AccountNumber
+		NumberValue
 	)
 )
-
-
 

@@ -25,7 +25,6 @@ classDef:ElementInt
 (
 	lexOffsetDay,
 	lexDayInWeek,
-	lexBaseDay,
 	lexBaseMonth
 )
 

@@ -24,6 +24,7 @@
 // Parameter Types
 #Include "Generic/MainGenericTypes.lkt"
 #Include "Number/MainNumberTypes.lkt"
+#Include "Ordinal/MainOrdinalTypes.lkt"
 #Include "Letter/MainLetterTypes.lkt"
 #Include "DateTime/MainDateTimeTypes.lkt"
 #Include "Social/MainSocialTypes.lkt"

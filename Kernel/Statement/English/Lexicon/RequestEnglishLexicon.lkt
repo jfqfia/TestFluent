@@ -37,3 +37,4 @@
 ("is it all right if you",	lexRequest)
 ("is it all right if i",	lexRequest)
 ("do you think i could",	lexRequest)
+("please",			lexRequest)
