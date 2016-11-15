@@ -55,19 +55,4 @@ AccountNumber convertNumberToAccountNumber(Parameter parameter)
 	return ret;
 }
 
-string getConcatenatedNumber( Parameter parameter )
-{
-	if( parameter.ParameterCategory == 'terminal' )
-	{
-		return ShapeToString(parameter.ParameterValue.Number.NumberValue);
-	}
-	else
-	{
-		string ret;
-
-		ret <- getConcatenatedNumber( parameter.ParameterOperand1 );
-		ret <- LiteralConcat( ret, getConcatenatedNumber ( parameter.ParameterOperand2 ) );
-		return ret;
-	}
-}
 

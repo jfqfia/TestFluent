@@ -1,6 +1,11 @@
+* pesel number literal
+
 * Account number doesn't capture numbers beginning in 0 
-* SpellerPrevent
+
+* SpellerPrevent para ciudades, provincias
+
 * Unknown lex i must revise
+
 * Detectar léxico que viene del corrector: IsTokenSpelled(1) (sin malla)
 
 * Repasar el counter = 2 , se sale de contexto.

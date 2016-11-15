@@ -28,7 +28,7 @@
 		^.ParameterCategory <- 'disjunction';
 		^.ParameterType <- 'phonenumber';
 		^.ParameterOperand1.ParameterValue.PhoneNumber <- #1;
-		^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue <- ShapeToString(#3.NumberValue);
+		^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue <- #3.NumberLiteral;
 	}
 )
 
@@ -41,7 +41,7 @@
 			^ <- #1;
 			string originalNumber;
 			originalNumber <- ^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue; 
-			^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue <- LiteralConcat(originalNumber, ShapeToString(#2.NumberValue));
+			^.ParameterOperand2.ParameterValue.PhoneNumber.PhoneNumberValue <- LiteralConcat(originalNumber, #2.NumberLiteral);
 		}
 		else
 		{
@@ -61,7 +61,7 @@
 (PhoneNumber_Rule02_1 :
  	[ PhoneNumber -> lexDetMy? lexPhoneNumberTerm? lexPhoneNumberTerm? lexPhoneNumberTerm lexVerb Number ]
 	{
-		^.PhoneNumberValue <- ShapeToString(#6.NumberValue);
+		^.PhoneNumberValue <- #6.NumberLiteral;
 		if(#5 && #5.VerbRoot != 'be')
 		{
 			Fail();
@@ -72,7 +72,7 @@
 (PhoneNumber_Rule02_2 :
  	[ PhoneNumber -> lexDetMy? lexPhoneNumberTerm? lexPhoneNumberTerm? lexPhoneNumberTerm lexColon? Number ]
 	{
-		^.PhoneNumberValue <- ShapeToString(#6.NumberValue);
+		^.PhoneNumberValue <- #6.NumberLiteral;
 	}
 )
 
@@ -82,7 +82,7 @@
 (PhoneNumber_Rule03 :
  	[ PhoneNumber -> PhoneNumber < lexComma | lexConjAnd >? Number ]
 	{
-		^.PhoneNumberValue <- LiteralConcat(#1.PhoneNumberValue, ShapeToString(#3.NumberValue));
+		^.PhoneNumberValue <- LiteralConcat(#1.PhoneNumberValue, #3.NumberLiteral);
 	}
 )
 

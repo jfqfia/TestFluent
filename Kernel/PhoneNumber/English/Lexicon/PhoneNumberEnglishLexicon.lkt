@@ -12,13 +12,9 @@
 // **************************************************
 
 ("number", 			lexPhoneNumberTerm)
-
 ("phone", 			lexPhoneNumberTerm)
 ("telephone",			lexPhoneNumberTerm)
-
 ("mobile",			lexPhoneNumberTerm)
 ("cellular",			lexPhoneNumberTerm)
 ("cell",			lexPhoneNumberTerm)
-
-// TODO Types of telephone
 ("land line",			lexPhoneNumberTerm)
