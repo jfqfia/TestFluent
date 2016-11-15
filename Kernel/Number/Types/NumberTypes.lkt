@@ -15,12 +15,18 @@ classDef:StructureComplex
 ( 
 	Number :
 	(
-		NumberValue
+		NumberValue,
+		NumberLiteral
 	)
 )
 
 classDef:ElementInt
 (
 	NumberValue
+)
+
+classDef:ElementLiteral
+(
+	NumberLiteral
 )
 

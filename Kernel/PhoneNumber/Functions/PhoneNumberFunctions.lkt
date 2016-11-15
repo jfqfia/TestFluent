@@ -30,6 +30,7 @@ bool checkPhoneNumberValidity( Parameter parameter )
 {
 	string literal <- parameter.ParameterValue.PhoneNumber.PhoneNumberValue;
 
+	// // TODO Cuidado con +34
 	if( LiteralSize(literal) == 9 )
 	{
 		return True;

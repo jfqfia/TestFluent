@@ -30,14 +30,15 @@
  	[ Number -> lexNumberValue ]
 	{
 		^.NumberValue <- #1;
+		^.NumberLiteral <- ShapeToString(#1);
 	}
 )
 
 (Number_Rule02_2 :
  	[ Number -> lexNumberDigits ]
 	{
-		SpyMessage("Number_Rule02_2: lexNumberDigits => ",TokenInputText(1));
 		^.NumberValue <- #1;
+		^.NumberLiteral <- ShapeToString(TokenInputText(1));
 	}
 )
 
@@ -62,6 +63,7 @@
 		{
 			^.NumberValue <- ^.NumberValue + #4.NumberValue;
         	}
+		^.NumberLiteral <- ShapeToString(^.NumberValue);
 	}
 )
 
@@ -88,6 +90,7 @@
 		{
 			^.NumberValue <- ^.NumberValue + #4.NumberValue;
 		}
+		^.NumberLiteral <- ShapeToString(^.NumberValue);
 	}
 )
 
@@ -116,6 +119,7 @@
 		{
 			^.NumberValue <- ^.NumberValue + #4.NumberValue;
 		}
+		^.NumberLiteral <- ShapeToString(^.NumberValue);
 	}
 )
 
