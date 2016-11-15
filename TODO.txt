@@ -1,10 +1,17 @@
-* pesel number literal
-
-* Account number doesn't capture numbers beginning in 0 
+* Códigos alfanuméricos:
+		if(!! #1)
+		{
+			^.LetterValue <- TokenInputText(1);
+		}
+		else
+		{
+			^.LetterValue <- #1;
+		}
+* Planetarse la posibilidad de poner un parámetro adicioinal
+* setupParserTokenNotFounds = lexLetter (cambiar)
+* signos (+34 en teléfonos, etc.)
 
 * SpellerPrevent para ciudades, provincias
-
-* Unknown lex i must revise
 
 * Detectar léxico que viene del corrector: IsTokenSpelled(1) (sin malla)
 

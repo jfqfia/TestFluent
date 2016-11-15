@@ -30,7 +30,7 @@
 (PeselNumber_Rule02_1 :
  	[ PeselNumber -> lexDetMy? lexPeselNumberTerm? lexPeselNumberTerm? lexPeselNumberTerm lexVerb Number ]
 	{
-		^.PeselNumberValue <- ShapeToString(#6.NumberValue);
+		^.PeselNumberValue <- #6.NumberLiteral;
 		if(#5 && #5.VerbRoot != 'be')
 		{
 			Fail();
@@ -41,7 +41,7 @@
 (PeselNumber_Rule02_2 :
  	[ PeselNumber -> lexDetMy? lexPeselNumberTerm? lexPeselNumberTerm? lexPeselNumberTerm lexColon? Number ]
 	{
-		^.PeselNumberValue <- ShapeToString(#6.NumberValue);
+		^.PeselNumberValue <- #6.NumberLiteral;
 	}
 )
 
@@ -51,7 +51,7 @@
 (PeselNumber_Rule03 :
  	[ PeselNumber -> PeselNumber < lexComma | lexConjAnd >? Number ]
 	{
-		^.PeselNumberValue <- LiteralConcat(#1.PeselNumberValue, ShapeToString(#3.NumberValue));
+		^.PeselNumberValue <- LiteralConcat(#1.PeselNumberValue, #3.NumberLiteral);
 	}
 )
 

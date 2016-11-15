@@ -24,30 +24,15 @@
 (AccountNumber_Rule02 :
  	[ AccountNumber -> lexDetMy? lexAccountNumberPreffix? lexAccountNumberPreffix lexAccountNumberTerm lexAccountNumberTerm? lexColon? Number ]
 	{
-		^.AccountNumberValue <- ShapeToString(#7.NumberValue);
+		^.AccountNumberValue <- #7.NumberLiteral;
 	}
 )
 
 (AccountNumber_Rule03 :
  	[ AccountNumber -> AccountNumber < lexComma | lexConjAnd >? Number ]
 	{
-		^.AccountNumberValue <- LiteralConcat(#1.AccountNumberValue, ShapeToString(#3.NumberValue));
+		^.AccountNumberValue <- LiteralConcat(#1.AccountNumberValue, #3.NumberLiteral);
 	}
 )
 
-(AccountNumber_Rule04 :
- 	[ AccountNumber -> lexPrepFrom AccountNumber ]
-	{
-		^ <- #2;
-		^.AccountLimit <- 'origin';
-	}
-)
-
-(AccountNumber_Rule05 :
- 	[ AccountNumber -> lexPrepTo AccountNumber ]
-	{
-		^ <- #2;
-		^.AccountLimit <- 'target';
-	}
-)
 

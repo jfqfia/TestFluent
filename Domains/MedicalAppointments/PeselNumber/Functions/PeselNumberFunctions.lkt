@@ -45,8 +45,8 @@ PeselNumber convertNumberToPeselNumber(Parameter parameter)
 
 	if(parameter.ParameterCategory == 'terminal')
 	{
-		NumberValue number <- parameter.ParameterValue.Number.NumberValue;
-		ret.PeselNumberValue <- ShapeToString(number);
+		Number number <- parameter.ParameterValue.Number;
+		ret.PeselNumberValue <- ShapeToString(number.NumberLiteral);
 	}
 	if(parameter.ParameterCategory == 'sequential')
 	{

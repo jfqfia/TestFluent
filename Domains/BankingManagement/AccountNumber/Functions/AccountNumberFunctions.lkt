@@ -44,8 +44,8 @@ AccountNumber convertNumberToAccountNumber(Parameter parameter)
 
 	if(parameter.ParameterCategory == 'terminal')
 	{
-		NumberValue number <- parameter.ParameterValue.Number.NumberValue;
-		ret.AccountNumberValue <- ShapeToString(number);
+		Number number <- parameter.ParameterValue.Number;
+		ret.AccountNumberValue <- ShapeToString(number.NumberLiteral);
 	}
 	if(parameter.ParameterCategory == 'sequential')
 	{
