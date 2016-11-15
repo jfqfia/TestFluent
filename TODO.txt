@@ -1,4 +1,6 @@
-* Repasar el counter = 2 en este diálogo.
+* Script especial para saludos recurrentes
+
+* Repasar el counter = 2 , se sale de contexto.
 
 * User parameter segmentation intersentential:
 S: What's your phone number?
@@ -15,9 +17,6 @@ S: 58, right.
 S: 85.
 S: OK, let me confirm your phone number, is it 686575885?
 
-* Explicit confirmation:
-S: Ok, so you want to make a 120 euros transfer from your account number 1234567890. Are you sure you want to continue?
-
 * Repasar el grounded correction
 
 * Poder cancelar cuando se quiera
@@ -25,13 +24,6 @@ S: Ok, so you want to make a 120 euros transfer from your account number 1234567
 * Detectar "as soon as possible"
 
 * Mejorar el negociador de fechas.
-
-* Hacer el parámetro 'ordinal' para conseguir
-* User: i want to make an appointment and consult my balance
-* System: What do you want to do first, consult your balance, make a bank transfer or book an appointment? 
-* User: the FIRST one (or the 2nd, or the third one or the last one...)
-
-* Script especial para saludos recurrentes
 
 * Spanish version of domains
 

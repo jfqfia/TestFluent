@@ -15,7 +15,12 @@ classDef:StructureComplex
 ( 
 	Ordinal :
 	(
-		NumberValue
+		NumberValue,
+		OrdinalReverseFlag
 	)
 )
 
+classDef:ElementBool
+(
+	OrdinalReverseFlag
+)

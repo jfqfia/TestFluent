@@ -19,6 +19,7 @@ classDef:Void
 
 classDef:ElementInt
 (
-	lexOrdinalValue
+	lexOrdinalValue,
+	lexInverseOrdinalValue
 )
 

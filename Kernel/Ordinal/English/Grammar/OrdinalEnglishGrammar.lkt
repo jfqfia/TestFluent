@@ -33,6 +33,18 @@
  	[ Ordinal -> lexDetThe? lexOrdinalValue ]
 	{
 		^.NumberValue <- #2;
+		^.OrdinalReverseFlag <- False;
+	}
+)
+
+// penultimate
+// last
+// the antepenultimate
+(Ordinal_Rule02_2 :
+ 	[ Ordinal -> lexDetThe? lexInverseOrdinalValue ]
+	{
+		^.NumberValue <- #2;
+		^.OrdinalReverseFlag <- True;
 	}
 )
 
@@ -45,10 +57,11 @@
 // 41st
 // 81st
 // But it's not correct 11st nor 22th, etc.
-(Ordinal_Rule02_2 :
+(Ordinal_Rule02_3 :
  	[ Ordinal -> lexDetThe? lexNumberDigits lexOrdinalSuffix]
 	{
 		^.NumberValue <- #2;
+		^.OrdinalReverseFlag <- False;
 	}
 )
 
@@ -57,7 +70,7 @@
 (Ordinal_Rule03:
 	[ Ordinal -> Number? lexNumberValueHundred lexConjAnd? Ordinal ]
 	{
-		if((#1 && #1.NumberValue >= 10) || (#4.NumberValue >= 100))
+		if((#1 && #1.NumberValue >= 10) || (#4.NumberValue >= 100) || (#4.OrdinalReverseFlag == True))
 		{
 			Fail();
 		}
@@ -78,7 +91,7 @@
 (Ordinal_Rule04:
 	[ Ordinal -> Number? lexNumberValueThousand lexConjAnd? Ordinal ]
 	{
-		if((#1 && #1.NumberValue >= 1000) || (#4.NumberValue >= 1000))
+		if((#1 && #1.NumberValue >= 1000) || (#4.NumberValue >= 1000) || (#4.OrdinalReverseFlag == True))
 		{
 			Fail();
 		}
@@ -101,7 +114,7 @@
 (Oridnal_Rule05:
 	[ Ordinal -> Number? lexNumberValueMillion lexConjAnd? Ordinal ] 
 	{
-		if((#1 && #1.NumberValue >= 1000) || (#4.NumberValue >= 1000000))
+		if((#1 && #1.NumberValue >= 1000) || (#4.NumberValue >= 1000000) || (#4.OrdinalReverseFlag == True))
 		{
 			Fail();
 		}

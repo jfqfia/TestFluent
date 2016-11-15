@@ -221,7 +221,6 @@
 ("ninety eighth",	lexOrdinalValue, 98)
 ("ninety nineth",	lexOrdinalValue, 99)
 
-
 ("hundredth",		lexOrdinalValue, 100)
 ("a hundredth",		lexOrdinalValue, 100)
 ("one hundredth",	lexOrdinalValue, 100)
@@ -238,6 +237,22 @@
 ("nd",			lexOrdinalSuffix)
 ("rd",			lexOrdinalSuffix)
 ("th",			lexOrdinalSuffix)
+
+("last",		lexInverseOrdinalValue, 1)
+("latter",		lexInverseOrdinalValue, 1)
+("final",		lexInverseOrdinalValue, 1)
+("latest",		lexInverseOrdinalValue, 1)
+
+("penultimate",		lexInverseOrdinalValue, 2)
+("next-to-last",	lexInverseOrdinalValue, 2)
+("next to last",	lexInverseOrdinalValue, 2)
+("second-to-last",	lexInverseOrdinalValue, 2)
+("second to last",	lexInverseOrdinalValue, 2)
+
+("antepenultimate",	lexInverseOrdinalValue, 3)
+("third from last",	lexInverseOrdinalValue, 3)
+
+
 
 
 

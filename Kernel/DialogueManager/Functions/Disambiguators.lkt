@@ -119,7 +119,6 @@ DialogueScript createWeakDisambiguator(int size, bool nextToBeActivated)
 
 procedure makeWeakDisambiguatorChoices()
 {
-	// TODO Detect ordinals in not digested proferences zone (when they are implemented)
 	int maxScore <- 0;
 	int maxPosition;
 
@@ -150,6 +149,26 @@ procedure makeWeakDisambiguatorChoices()
 		}
 	}
 	int numChoices <- position / 2;
+
+	// Detect ordinals in not digested proferences zone (when they are implemented)
+	if(maxScore == 0 && hasBeenOrdinal())
+	{
+		Ordinal ordinal <- getLastOrdinal();
+
+		if(!! ordinal.OrdinalReverseFlag)
+		{
+			maxPosition <- ordinal.NumberValue;
+		}
+		else
+		{
+			maxPosition <- numChoices - ordinal.NumberValue + 1;
+		}
+
+		if(maxPosition >= 1 && maxPosition <= numChoices)
+		{
+			maxScore <- 1;
+		}
+	}
 
 	if(maxScore == 0)
 	{
@@ -208,6 +227,44 @@ procedure makeWeakDisambiguatorChoices()
 		// push to the top the script in maxPosition
 		BatchInsertEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, selectedScriptDescriptor );
 	}
+}
+
+Ordinal getLastOrdinal()
+{
+	bool found <- False;
+	Ordinal ret;
+	ProferenceChunk proference;
+
+	int size <- BatchSize( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	for( int position <- size; position >= 1 && !! found; position-- )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, position, proference );
+		if( proference.Parameter.ParameterType == 'ordinal' )
+		{
+			ret <- proference.Parameter.ParameterValue.Ordinal;
+			found <- True;
+		}
+	}
+
+	return ret;
+}
+
+bool hasBeenOrdinal()
+{
+	bool ret <- False;
+	ProferenceChunk proference;
+
+	int size <- BatchSize( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, position, proference );
+		if( proference.Parameter.ParameterType == 'ordinal' )
+		{
+			ret <- True;
+		}
+	}
+
+	return ret;
 }
 
 procedure generateWeakDisambiguatorChoices()
@@ -455,7 +512,6 @@ DialogueScript createStrongDisambiguator(int size, bool nextToBeActivated)
 
 procedure makeStrongDisambiguatorChoices()
 {
-	// TODO Detect ordinals in not digested proferences zone (when they are implemented)
 	int maxScore <- 0;
 	int maxPosition;
 
@@ -486,6 +542,26 @@ procedure makeStrongDisambiguatorChoices()
 		}
 	}
 	int numChoices <- position / 2;
+
+	// Detect ordinals in not digested proferences zone (when they are implemented)
+	if(maxScore == 0 && hasBeenOrdinal())
+	{
+		Ordinal ordinal <- getLastOrdinal();
+
+		if(!! ordinal.OrdinalReverseFlag)
+		{
+			maxPosition <- ordinal.NumberValue;
+		}
+		else
+		{
+			maxPosition <- numChoices - ordinal.NumberValue + 1;
+		}
+
+		if(maxPosition >= 1 && maxPosition <= numChoices)
+		{
+			maxScore <- 1;
+		}
+	}
 
 	if(maxScore == 0)
 	{
