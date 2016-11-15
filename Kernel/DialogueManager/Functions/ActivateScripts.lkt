@@ -81,7 +81,7 @@ bool filterDialogueDigest(bool currentFlag, bool activeFlag)
 			{
 				BatchRecoverPosition( $MINDBOARD@DialogueDigest.DigestSchemes, position, digestScheme );
 
-				if( digestScheme.DigestSchemeScore != max && allDigestChunksCovered($MINDBOARD@DialogueDigest.DigestSchemes, digestScheme, position))
+				if( digestScheme.DigestSchemeScore != max && allDigestChunksCovered($MINDBOARD@DialogueDigest.DigestSchemes, digestScheme, position) || digestScheme.ScriptDescriptor == 'RecurrentGreetings')
 				{
 					BatchInsertEnd( schemesToRemove, digestScheme );
 				}

@@ -63,3 +63,32 @@
 	}
 )
 
+(ScriboScheme GenerateWelcome: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'greeting' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'recurrent')
+	}
+	ScriboAction 
+	{
+		int hour <- ClockAskHour();
+		string greet;
+		
+		cond 
+		{
+			(hour < 7)
+				greet <- 'Good night. ';
+			(hour < 14)
+				greet <- 'Good morning. ';
+			(hour < 20)
+				greet <- 'Good afternoon. ';
+			default
+				greet <- 'Good night. ';
+		}
+
+		SetMainAnswerStringRandom( greet, 'Hello again. ', 'Hello to you too. ');
+    	}
+)
+

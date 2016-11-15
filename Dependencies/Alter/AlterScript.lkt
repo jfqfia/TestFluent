@@ -19,9 +19,19 @@ procedure createDialogueScheme()
 
 	dialogueScheme.DialogueSchemeDescriptor <- 'AlterFluency';
 
+	// COMMON SCRIPTS
+
 	// Script - Manager
 	dialogueScript <- createDialogueScriptManager();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
+
+	// Script - Recurrent Greetings
+	dialogueScript <- createDialogueScriptGreetings();
+	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
+
+
+
+	// DOMAIN DEPENDENCES
 
 	// Script - ConsultBalance
 	dialogueScript <- createDialogueScriptConsultBalance();

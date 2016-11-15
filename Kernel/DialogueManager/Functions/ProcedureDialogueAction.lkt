@@ -31,6 +31,10 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 	{
 		pullScript();
 	}
+	else if(dialogueAction.DialogueActionName == 'pull_script_fast')
+	{
+		pullScriptFast();
+	}
 	else if(dialogueAction.DialogueActionName == 'generate_wd_choices')
 	{
 		generateWeakDisambiguatorChoices();
@@ -521,6 +525,17 @@ procedure pullScript()
 	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
 
 	$MINDBOARD@DialogueState.PulledScript <- True;
+}
+
+procedure pullScriptFast()
+{
+	string descriptor;
+	
+	BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
+
+	DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
+	recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
+	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
 }
 
 procedure resetNextLevel()

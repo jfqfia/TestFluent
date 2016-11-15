@@ -1,5 +1,3 @@
-* Script especial para saludos recurrentes
-
 * Repasar el counter = 2 , se sale de contexto.
 
 * User parameter segmentation intersentential:
@@ -19,10 +17,9 @@ S: OK, let me confirm your phone number, is it 686575885?
 
 * Repasar el grounded correction
 
-* Poder cancelar cuando se quiera
+* Poder cancelar cuando se quiera (incluir despedidas y mejorar la despedidas)
 
 * Detectar "as soon as possible"
-
 * Mejorar el negociador de fechas.
 
 * Spanish version of domains
