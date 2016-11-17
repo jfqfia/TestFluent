@@ -36,4 +36,6 @@
 
 #Include "MoneyAmount/English/Lexicon/MoneyAmountEnglishLexicon.lkt"
 
+#Include "Task/English/Lexicon/TaskEnglishLexicon.lkt"
+
 

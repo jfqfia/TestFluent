@@ -162,7 +162,7 @@ procedure activateScripts()
 				digestScriptInfo( digestScheme );
 				removeDigestScheme( digestScheme );
 				activeFlag <- True;
-				if(!! currentFlag)
+				if(!! currentFlag && !! isCurrentScriptPrioritary())
 				{	
 					moveToTopStack( digestScheme.ScriptDescriptor );	
 				}

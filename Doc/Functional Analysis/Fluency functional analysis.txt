@@ -29,7 +29,7 @@ Key Point: The system itself can act as an information provider in order to impr
 
 Main desired features:
 
-1. Flexibility: We can express a request in various forms (suppose the day after tomorrow is Wed, 16 nov)
+1. Flexibility in parameters: We can express a parameter in various forms (suppose the day after tomorrow is Wed, 16 nov)
 U: I would like an appointment for the dentist the day after tomorrow.
 
 U: I need to visit an orthodontics doctor on Wednesday. 
@@ -252,11 +252,26 @@ U: blah
 S: Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning... Please let me know what do you need to do. 
 
 
+29: Cancelling task with user farewell
+S: Good morning. Your Personal Assistant Service speaking. Could you please tell me how can I help you? 
+U: Bye!
+S: It has been a pleasure serving you using this Personal Assistant Service. Hoping to serve you again. Have a good morning.
+
+S: Good morning. Your Personal Assistant Service speaking. Could you please tell me how can I help you? 
+U: I want to book an appopintment.
+S: Ok, I see that you wish to book an appointment for the doctor. I would like to know your preferred town, please. 
+U: Sevilla.
+S: So you are in sevilla. What kind of medical speciality do you want? 
+U: See you later.
+S: Ok, confirm that you want to cancel this task, please.
 
 
-
-
-
+30: Cancelling task with appropiate commands
+S: Hello. Your Personal Assistant Service speaking. Could you please tell me how can I help you? 
+U: I want an appointment in Sevilla.
+S: So you want to make a medical appointment. I understood that you are calling from Sevilla. What kind of medical speciality do you want? 
+U: Cancel this, please.
+S: Are you sure that you want to cancel this task? 
 
 
 

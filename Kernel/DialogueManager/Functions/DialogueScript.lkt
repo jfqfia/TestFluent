@@ -85,7 +85,9 @@ DialogueScript	createDialogueScriptManager()
 
 	// Node - Explicit2
 	nodeExplicit2 <- createScriptNode( 'explicit2', 'execute', 3);
+	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'explicit2', 'finalized' ));
 	BatchInsertEnd( nodeExplicit2.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
+	BatchInsertEnd( nodeExplicit1.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'social', 'goodbye' ));
 	BatchInsertEnd( nodeExplicit2.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'hmihy', 'notfinalized' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicit2 );
@@ -108,6 +110,75 @@ DialogueScript	createDialogueScriptManager()
 	return dialogueScript;
 }
 
+DialogueScript createDialogueScriptGoodbyes()
+{
+	DialogueScript dialogueScript;
+	DialogueAction dialogueAction, emptyDialogueAction;
+	DialogueActionArgument dialogueActionArgument;
+
+	// Script Descriptor
+	dialogueScript.ScriptDescriptor <- 'Goodbyes';
+
+	// Trigger
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'social';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'goodbye';
+
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'social';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'goodbye';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// Nodes
+
+	ScriptNode nodeTrigger, nodeExplicitAgreement, nodeNotTrigger, nodeDisagreement;
+	string suffix = '_goodbyes';
+	string nodeName1, nodeName2, nodeName3, nodeName4;
+
+	// Node - Trigger
+	nodeName1 <- LiteralConcat( 'trigger', suffix );	
+	nodeTrigger <- createScriptNode( nodeName1, 'wait', 1 );
+	nodeTrigger.ScriptNodeContent <- setNodeContent( 'question', 'propositional', 'confirm', 'cancellation');
+	BatchInsertEnd( nodeTrigger.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'is_previous_active_script', 'Manager'));
+	BatchInsertEnd( nodeTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized'));
+	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeTrigger );
+
+	// Node - Trigger
+	nodeName2 <- LiteralConcat( 'not_trigger', suffix );	
+	nodeNotTrigger <- createScriptNode( nodeName2, 'execute', 1 );
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePreconditions, createPrecondition1Arguments( 'is_previous_active_script', 'Manager'));
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_node_state_of_script', 'Manager', 'hmihy', 'finalized' ));
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_node_state_of_script', 'Manager', 'explicit2', 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeNotTrigger );
+
+	// Node - Explicit Agreement
+	nodeName3 <- LiteralConcat( 'explicit_agreement', suffix );	
+	nodeExplicitAgreement <- createScriptNode( nodeName3, 'execute', 2);
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitAgreement );
+	
+	// Node - Disagreement (default)
+	nodeName4 <- LiteralConcat( 'default_disagreement', suffix );	
+	nodeDisagreement <- createScriptNode( nodeName4, 'execute', 3);
+	BatchInsertEnd( nodeDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeDisagreement );
+
+	return dialogueScript;
+}
+
 DialogueScript createDialogueScriptCancellations()
 {
 	DialogueScript dialogueScript;
@@ -118,33 +189,78 @@ DialogueScript createDialogueScriptCancellations()
 	dialogueScript.ScriptDescriptor <- 'Cancellations';
 
 	// Trigger
-	/*
-	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'social';
-	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'greeting';
-	
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'statement';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'request';
+	dialogueScript.ScriptTrigger.ActionDomain <- 'back';
+	dialogueScript.ScriptTrigger.Scope <- 'task';
+
 	// Info
 	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
 
 	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'core';	
 	scriptInfoItem.InfoItemState <- 'empty';	
-	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'social';
-	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'greeting';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'statement';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'request';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	ScriptNode nodeTrigger;
-	string suffix = '_scriptactivation';
-	string nodeName1;
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'action';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.ActionDomain <- 'back';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	// TODO QUITAR
+	/*
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'scope';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.Scope <- 'task';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+	*/
+
+	// Nodes
+
+	ScriptNode nodeTrigger, nodeExplicitAgreement, nodeNotTrigger, nodeDisagreement;
+	string suffix = '_cancellations';
+	string nodeName1, nodeName2, nodeName3, nodeName4;
 
 	// Node - Trigger
 	nodeName1 <- LiteralConcat( 'trigger', suffix );	
-	nodeTrigger <- createScriptNode( nodeName1, 'execute', 1 );
-	nodeTrigger.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'recurrent', '');
+	nodeTrigger <- createScriptNode( nodeName1, 'wait', 1 );
+	nodeTrigger.ScriptNodeContent <- setNodeContent( 'question', 'propositional', 'confirm', 'cancellation');
+	BatchInsertEnd( nodeTrigger.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'is_previous_active_script', 'Manager'));
+	BatchInsertEnd( nodeTrigger.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName1, 'finalized'));
 	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
-	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName1, 'finalized' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeTrigger );
-	*/
+
+	// Node - Trigger
+	nodeName2 <- LiteralConcat( 'not_trigger', suffix );	
+	nodeNotTrigger <- createScriptNode( nodeName2, 'execute', 1 );
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePreconditions, createPrecondition1Arguments( 'is_previous_active_script', 'Manager'));
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_node_state_of_script', 'Manager', 'hmihy', 'finalized' ));
+	BatchInsertEnd( nodeNotTrigger.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_node_state_of_script', 'Manager', 'explicit2', 'finalized' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeNotTrigger );
+
+	// Node - Explicit Agreement
+	nodeName3 <- LiteralConcat( 'explicit_agreement', suffix );	
+	nodeExplicitAgreement <- createScriptNode( nodeName3, 'execute', 2);
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitAgreement );
+	
+	// Node - Disagreement (default)
+	nodeName4 <- LiteralConcat( 'default_disagreement', suffix );	
+	nodeDisagreement <- createScriptNode( nodeName4, 'execute', 3);
+	BatchInsertEnd( nodeDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeDisagreement );
 
 	return dialogueScript;
 }

@@ -33,7 +33,10 @@ copy copying copied copied copies
 
 */
 
+// Kernel actions
 &VERB_IRREGULAR('be', 'being', 'was', 'been', 'is')
+&VERB_REGULAR_TYPE_1(back)
+&VERB_IRREGULAR('get back', 'getting back', 'got back', 'gotten back', 'gets back')
 
 // MedicalAppointment actions
 

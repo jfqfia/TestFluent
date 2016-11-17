@@ -20,6 +20,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, state );
 		setNodeStateToCurrent(node, state);
 	}
+	else if(dialogueAction.DialogueActionName == 'set_node_state_of_script')
+	{
+		string script, node, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, node );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, state );
+		setNodeState(script, node, state);
+	}
 	else if(dialogueAction.DialogueActionName == 'set_counter')
 	{
 		string node, number;

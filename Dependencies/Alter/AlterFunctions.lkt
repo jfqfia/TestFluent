@@ -136,6 +136,8 @@ bool coherentActionScopeAlter(string action, string scope)
 	bool ret;
 	ret = False;
 
+	ret = ret || coherentActionScopeKernel(action, scope);
+
 	// Domain: MedicalAppointment
 	ret = ret || coherentActionScopeMedicalAppointment(action, scope);
 
@@ -150,6 +152,12 @@ Action getActionDomainFromLemma(string lemma)
 	Action ret;
 	string action;
 		
+	action <- getActionDomainFromLemmaKernel(lemma);
+	if( action != 'unknown' )
+	{
+		BatchInsertEnd(ret, action);
+	}
+
 	// Domain: MedicalAppointment
 	action <- getActionDomainFromLemmaMedicalAppointment(lemma);
 	if( action != 'unknown' )

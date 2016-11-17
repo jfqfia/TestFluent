@@ -98,6 +98,11 @@ bool filterDialogueDigest(bool currentFlag, bool activeFlag)
 	return ret;
 }
 
+bool isCurrentScriptPrioritary()
+{
+	return $MINDBOARD@DialogueState.CurrentScriptDescriptor == 'Goodbyes' ||
+	       $MINDBOARD@DialogueState.CurrentScriptDescriptor == 'Cancellations' ;
+}
 
 DigestScheme getFirstWithBigDifferenceFromMax(int max)
 {

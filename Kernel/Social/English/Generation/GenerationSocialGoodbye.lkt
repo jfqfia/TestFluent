@@ -45,7 +45,6 @@
 		SetMainAnswerStringRandom( 'I wish you a ',
 				'Have a ');
 		SetMainAnswerString( greet );
-		SetMainAnswerString( '. ' );
     	}
 )
 

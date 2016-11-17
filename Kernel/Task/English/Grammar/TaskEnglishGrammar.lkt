@@ -1,0 +1,29 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+(Task_Rule01 :
+	[ TaskDialogueAct -> TaskScope ]
+	{
+		^ <- #1;
+	}
+)
+
+(Task_Rule02 :
+ 	[ TransferScope -> < lexDetThe | lexDetThis >?  lexTaskTerm ]
+	{
+		^.Scope <- 'task';
+	}
+)
+
+
+

@@ -34,3 +34,32 @@ bool checkParameterKernel(Parameter parameter)
 
 	return correct;
 }
+
+bool coherentActionScopeKernel(string action, string scope)
+{
+	bool ret;
+
+	ret =   (action == 'back' && scope == 'task');
+
+	return ret;	
+}
+
+string getActionDomainFromLemmaKernel(string lemma)
+{
+	switch (lemma) 
+	{
+		// Action back (scope: 'task')
+		case 'close'		{ return 'back'; }
+		case 'cancel'		{ return 'back'; }
+		case 'back'		{ return 'back'; }
+		case 'drop'		{ return 'back'; }
+		case 'discard'		{ return 'back'; }
+		case 'annul'		{ return 'back'; }
+		case 'get rid of'	{ return 'back'; }
+		case 'get back'		{ return 'back'; }
+	}
+
+	return 'unknown';
+}
+
+

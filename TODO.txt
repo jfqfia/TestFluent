@@ -1,5 +1,4 @@
-* Script para despedidas y cancelaciones
-* Poder cancelar cuando se quiera (incluir despedidas) 
+* Poner en mayúsculas la primera letra del CountryPlace en su generador
 
 * setupParserTokenNotFounds = lexLetter (cambiar) (mira la siguiente línea)
 * Crear tipo alphanumericchunk o algo así

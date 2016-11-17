@@ -43,6 +43,12 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, functionString );
 		ret = digestedCore( dimensionString, functionString );
 	}
+	else if(dialogueAction.DialogueActionName == 'is_previous_active_script')
+	{
+		string descriptor;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, descriptor );
+		ret = isPreviousActiveScript(descriptor);
+	}
 	else if(dialogueAction.DialogueActionName == 'never')
 	{
 		ret = False;
@@ -57,6 +63,18 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 	}
 
 	return ret;	
+}
+
+bool isPreviousActiveScript(string descriptor)
+{
+	string recoveredScriptDescriptor;
+
+	int size <- BatchSize( $MINDBOARD@DialogueState.ActivatedScriptsStack );
+	BatchRecoverPosition( $MINDBOARD@DialogueState.ActivatedScriptsStack, size - 1, recoveredScriptDescriptor );
+
+	DialogueScript script <- getScript( recoveredScriptDescriptor );
+
+	return (script.ScriptDescriptor == descriptor); 
 }
 
 bool isNodeCounterLeq(string nodeDescriptor, string number)

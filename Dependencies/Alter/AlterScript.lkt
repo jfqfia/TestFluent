@@ -11,7 +11,6 @@
 //
 // **************************************************
 
-
 procedure createDialogueScheme()
 {
 	DialogueScheme dialogueScheme;
@@ -29,10 +28,15 @@ procedure createDialogueScheme()
 	dialogueScript <- createDialogueScriptGreetings();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
-	// Script - Cancelation or Goodbyes
+	// Script - Goodbyes
+	dialogueScript <- createDialogueScriptGoodbyes();
+	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
+
+	// Script - Cancellations
 	dialogueScript <- createDialogueScriptCancellations();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
+ 
 	// DOMAIN DEPENDENCES
 
 	// Script - ConsultBalance

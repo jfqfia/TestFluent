@@ -27,7 +27,6 @@
 	}
 )
 
-
 (ScriboScheme GenerateHMIHY: [ DialogueAct ]
 	ScriboCapture 
 	{
@@ -43,6 +42,21 @@
 	}
 )
 
+(ScriboScheme GenerateHMIHY: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirm') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'cancellation'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Are you sure that you want to cancel this task? ',
+					   'Ok, confirm that you want to cancel this task, please. ');
+	}
+)
 
 (ScriboScheme Tell: [ DialogueAct ]
 	ScriboCapture 
