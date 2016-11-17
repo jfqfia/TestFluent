@@ -120,8 +120,8 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'What is your account number, please? ',
-					   'Could you please tell me your account number? ');
+		SetMainAnswerString( 'What is your account number, please? '
+					   );
     	}
 )
 
@@ -137,12 +137,8 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 
-					'Sorry, I did not understand you. ',
-					'I did not understand that. '
-						);
 		SetMainAnswerString(
-					'Could you repeat again your account number? '
+					'Could you tell me your account number? '
 				);
     	}
 )

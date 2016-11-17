@@ -59,11 +59,8 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 
-					'Sorry, I did not understand you. ',
-					'I did not understand that. ');
-		SetMainAnswerStringRandom('Could you repeat again your phone number? ',
-					'Please let me know your phone number to continue with the appointment. '
+		SetMainAnswerStringRandom('Could you tell me your phone number? ',
+					'Please let me know your phone number to continue with this task. '
 					);
     	}
 )
@@ -80,12 +77,11 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerString('In order to continue with the appointment, I need your phone number. '
+		SetMainAnswerString('In order to continue, I really need your phone number. '
 				);
 
-		SetMainAnswerStringRandom(
-				'Could you repeat the phone number again? ',
-				'Do you mind repeating your phone number? '
+		SetMainAnswerString(
+				'Could you tell me your phone number again? '
 				);
     	}
 )

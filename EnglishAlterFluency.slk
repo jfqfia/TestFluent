@@ -70,7 +70,13 @@ CreateDialogue
 //in sevilla
 //no, no, from granada
 
-//i want an appointment on thursday for the dentist in sevilla
+//i want an appointment for the dentist in sevilla my pesel number is 12312312312 and my phone number is 123123123
+
+// Si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script (repasar)
+i want an appointment in sevilla
+no, in granada 
+
+
 
 
 

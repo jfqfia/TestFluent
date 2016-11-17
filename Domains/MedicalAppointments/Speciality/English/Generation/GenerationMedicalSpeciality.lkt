@@ -66,13 +66,8 @@
 	ScriboAction 
 	{
 		SetMainAnswerStringRandom( 
-				'Sorry, I did not understand you. ',
-				'I did not understand that. ',
-				'Could you repeat again? '
-				);
-		SetMainAnswerStringRandom( 
 				'For which medical speciality? ',
-				'Please let me know for which medical speciality you need the appointment. '
+				'Please let me know your desired medical speciality. '
 				);
     	}
 )

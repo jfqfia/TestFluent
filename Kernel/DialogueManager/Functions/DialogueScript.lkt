@@ -108,4 +108,45 @@ DialogueScript	createDialogueScriptManager()
 	return dialogueScript;
 }
 
+DialogueScript createDialogueScriptCancellations()
+{
+	DialogueScript dialogueScript;
+	DialogueAction dialogueAction, emptyDialogueAction;
+	DialogueActionArgument dialogueActionArgument;
+
+	// Script Descriptor
+	dialogueScript.ScriptDescriptor <- 'Cancellations';
+
+	// Trigger
+	/*
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Dimension <- 'social';
+	dialogueScript.ScriptTrigger.CoreDialogueAct.Function <- 'greeting';
+	
+	// Info
+	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'core';	
+	scriptInfoItem.InfoItemState <- 'empty';	
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Dimension <- 'social';
+	scriptInfoItem.InfoItemValue.CoreDialogueAct.Function <- 'greeting';
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
+
+	ScriptNode nodeTrigger;
+	string suffix = '_scriptactivation';
+	string nodeName1;
+
+	// Node - Trigger
+	nodeName1 <- LiteralConcat( 'trigger', suffix );	
+	nodeTrigger <- createScriptNode( nodeName1, 'execute', 1 );
+	nodeTrigger.ScriptNodeContent <- setNodeContent( 'social', 'greeting', 'recurrent', '');
+	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeTrigger.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeTrigger );
+	*/
+
+	return dialogueScript;
+}
+
 

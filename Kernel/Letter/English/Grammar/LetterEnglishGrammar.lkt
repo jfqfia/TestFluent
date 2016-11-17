@@ -24,7 +24,14 @@
 (Number_Rule02 :
  	[ Letter -> lexLetter]
 	{
-		^.LetterValue <- #1;
+		if(!! IsTokenSpelled(1))
+		{
+			^.LetterValue <- #1;
+		}
+		else
+		{
+			Fail();
+		}
 	}
 )
 

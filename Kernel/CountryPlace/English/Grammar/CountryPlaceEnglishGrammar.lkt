@@ -22,16 +22,23 @@
 )
 
 (CountryPlace_Rule02 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace]
 	{
-		^ <- #2;
+		if(!! IsTokenSpelled(2))
+		{
+			^ <- #2;
+		}
+		else
+		{
+			Fail();		
+		}
 	}
 )
 
 (CountryPlace_Rule03 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace lexCountryTownsSufixDK]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixDK]
 	{
-		if( #2.CountryName == 'denmark')
+		if( #2.CountryName == 'denmark' && !! IsTokenSpelled(2))
 		{
 			^ <- #2;	
 		}
@@ -43,9 +50,9 @@
 )
 
 (CountryPlace_Rule04 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace lexCountryTownsSufixLT]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixLT]
 	{
-		if( #2.CountryName == 'lithuania')
+		if( #2.CountryName == 'lithuania' && !! IsTokenSpelled(2))
 		{
 			^ <- #2;	
 		}
@@ -57,9 +64,9 @@
 )
 
 (CountryPlace_Rule05 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear >? lexCountryPlace lexCountryTownsSufixLV]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixLV]
 	{
-		if( #2.CountryName == 'latvia')
+		if( #2.CountryName == 'latvia' && !! IsTokenSpelled(2))
 		{
 			^ <- #2;	
 		}

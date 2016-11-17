@@ -29,7 +29,9 @@ procedure createDialogueScheme()
 	dialogueScript <- createDialogueScriptGreetings();
 	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
-
+	// Script - Cancelation or Goodbyes
+	dialogueScript <- createDialogueScriptCancellations();
+	BatchInsertEnd( dialogueScheme.DialogueScripts,	dialogueScript );
 
 	// DOMAIN DEPENDENCES
 

@@ -101,12 +101,8 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 
-					'Sorry, I did not understand you. ',
-					'I did not understand that. '
-						);
 		SetMainAnswerString(
-					'Could you repeat again your PESEL number? '
+					'Could you please tell me your PESEL number? '
 				);
     	}
 )
@@ -123,7 +119,7 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerString(	'In order to continue with the appointment, I need your PESEL number, so please be kind and provide a valid one. ');
+		SetMainAnswerString(	'In order to continue with the task, I need your PESEL number, so please be kind and provide a valid one. ');
     	}
 )
 

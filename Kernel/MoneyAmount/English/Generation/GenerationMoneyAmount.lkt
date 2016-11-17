@@ -83,12 +83,8 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 
-					'Sorry, I did not understand you. ',
-					'I did not understand that. '
-						);
 		SetMainAnswerString(
-					'Could you repeat again the money amount? '
+					'Could you please tell me the money amount? '
 				);
     	}
 )

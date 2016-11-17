@@ -1,5 +1,13 @@
+* Script para despedidas y cancelaciones
+* Poder cancelar cuando se quiera (incluir despedidas) 
+
 * setupParserTokenNotFounds = lexLetter (cambiar) (mira la siguiente línea)
 * Crear tipo alphanumericchunk o algo así
+
+* Cuando hay muchas confirmaciones implícitas hay que saber desambiguar bien:
+* Si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script (repasar)
+* i want an appointment in sevilla
+* no, in granada 
 
 * Códigos alfanuméricos:
 		if(!! #1)
@@ -10,13 +18,12 @@
 		{
 			^.LetterValue <- #1;
 		}
-* Planetarse la posibilidad de poner un parámetro adicioinal
+* Plantearse la posibilidad de poner un parámetro adicioinal
 * signos (+34 en teléfonos, etc.)
 * Crear patterns para códigos alfanuméricos.
 
-* Detectar léxico que viene del corrector: IsTokenSpelled(1) (sin malla)
-
-* Repasar el counter = 2 , se sale de contexto.
+* Detectar "as soon as possible"
+* Mejorar el negociador de fechas.
 
 * User parameter segmentation intersentential:
 S: What's your phone number?
@@ -32,15 +39,6 @@ U: 58.
 S: 58, right.
 S: 85.
 S: OK, let me confirm your phone number, is it 686575885?
-
-* SpellerPrevent para ciudades, provincias
-
-* Repasar el grounded correction
-
-* Poder cancelar cuando se quiera (incluir despedidas y mejorar la despedidas)
-
-* Detectar "as soon as possible"
-* Mejorar el negociador de fechas.
 
 * Spanish version of domains
 

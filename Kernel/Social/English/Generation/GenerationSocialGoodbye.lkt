@@ -20,7 +20,32 @@
 	}
 	ScriboAction 
 	{
-		SetMainAnswerStringRandom( 'Goodbye! ', 'Bye! ' ); 
+		SetMainAnswerStringRandom( 'Thank you for using the Personal Assistant Service.  ',
+			'It has been a pleasure serving you using this Personal Assistant Service. '
+		);
+
+		SetMainAnswerStringRandom( 'I hope you contact us very soon. ',
+			'Hoping to serve you again. ',
+			'Looking forward to helping you. '
+		);
+
+		int hour <- ClockAskHour();
+		string greet;
+		cond {
+			(hour < 7)
+				greet <- 'good night. ';
+			(hour < 14)
+				greet <- 'good morning. ';
+			(hour < 20)
+				greet <- 'good afternoon. ';
+			default
+				greet <- 'good night. ';
+		}
+
+		SetMainAnswerStringRandom( 'I wish you a ',
+				'Have a ');
+		SetMainAnswerString( greet );
+		SetMainAnswerString( '. ' );
     	}
 )
 
