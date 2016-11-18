@@ -1,3 +1,9 @@
+* CaptureIntersential.lkt en DialogueManager/Functions
+
+* Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt
+
+* Hacer diferente la generación implicita dependiendo de que sea 'pending' o no. GenerationPhoneNumber.lkt Y PESEL NUMBER GENERATION
+
 * Poner en mayúsculas la primera letra del CountryPlace en su generador
 
 * setupParserTokenNotFounds = lexLetter (cambiar) (mira la siguiente línea)

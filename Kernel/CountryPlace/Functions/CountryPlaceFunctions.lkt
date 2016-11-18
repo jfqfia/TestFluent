@@ -49,8 +49,13 @@ bool isCountryPlaceTown( CountryPlace place )
 	return False;
 }
 
-bool checkCountryPlaceValidity( Parameter parameter )
+ScriptNodeStateName checkCountryPlaceValidity( Parameter parameter )
 {
-	return isCountryPlaceProvince( parameter.ParameterValue.CountryPlace );
+	if( isCountryPlaceProvince( parameter.ParameterValue.CountryPlace ) )
+	{
+		return 'correct';
+	}
+
+	return 'incorrect';	
 }
 

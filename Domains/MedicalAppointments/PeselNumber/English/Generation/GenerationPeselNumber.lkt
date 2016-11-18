@@ -32,26 +32,6 @@
     	}
 )
 
-(ScriboScheme ImplicitPeselNumberParameter: [ DialogueAct ]
-	ScriboCapture 
-	{
-		GetHeadPropertyLanguage() == ENGLISH &&
-		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
-        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
-		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
-	}
-	ScriboAction 
-	{
-		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' );
-
-		SetMainAnswerStringRandom( 'So your PESEL number is ' );
-		SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
-		SetMainAnswerString('. ');
-    	}
-)
-
 
 (ScriboScheme IncorrectPeselNumber: [ DialogueAct ]
 	ScriboCapture 
@@ -139,6 +119,47 @@
 					   'I am terribly sorry, but ',
 					   'I need to inform you that ' );
 		SetMainAnswerString( 'I need your PESEL number to fulfil this task. ' );
+    	}
+)
+
+
+
+(ScriboScheme IncorrectPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'raw') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' );
+		SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+		SetMainAnswerString( '. ' );
+    	}
+)
+
+// TODO CAmbiar si está en pending
+(ScriboScheme ImplicitPeselNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' );
+
+		SetMainAnswerStringRandom( 'So your PESEL number is ' );
+		SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+		SetMainAnswerString('. ');
     	}
 )
 

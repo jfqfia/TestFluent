@@ -21,6 +21,7 @@
 ("ok", 					lexAgreement)
 ("that's for sure",			lexAgreement)
 ("right",				lexAgreement)
+("that's right",			lexAgreement)
 ("you are right",			lexAgreement)
 ("you're right",			lexAgreement)
 ("absolutely",				lexAgreement)

@@ -74,14 +74,17 @@ U: Hi, I'm Jose from Sevilla, for the dentist tomorrow morning I need an appoint
 
 7. Incomplete requests:
 U: For the dentist tomorrow, please.
+S: Do you wish to make a medical appointment? 
+U: Yes, that's right!
+S: You said tomorrow. So you need a Orthodontics doctor. From which city do you call? 
 
 
-8. Incomplete parameters (optional parameter):
+8. Incomplete parameters (optional parameter, date in this example):
 U: An appointment for the dentist in Sevilla.
 S: Ok, I see that you wish to book an appointment for the dentist in Sevilla. I will search for a suitable appointment for you as soon as possible. What about today at 16 o´clock? 
 
 
-9. Incomplete parameters (compulsory parameter):
+9. Incomplete parameters (compulsory parameter, city or town in this example):
 U: An appointment for the dentist.
 S: So you want to make a medical appointment for the dentist. Could you please tell me where are you calling from?
 U: I call from Sevilla.
@@ -97,7 +100,7 @@ U: My account number is 1234567890.
 S: With the information that you provided, I think you can choose between these alternatives, make a bank transfer or consult your balance. What do you prefer?
 
 U: My account number is 1234567890 a total amount of 120 euros and for the dentist tomorrow.
-S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to he fact that the information provided only could be used for the previous task)
+S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to the fact that the information provided only could be used for the previous task)
 
 U: Consult.
 S: Please, could you be so kind to confirm that you want to consult the balance of your savings?
@@ -144,7 +147,7 @@ S: In Sevilla, ok. What medical speciality fits you?
 U: For pediatricts, please (user implictly confirms that he calls from Sevilla).
 
 
-16. Explicit confirmation (not yet implemented in Fluency):
+16. Explicit confirmation:
 S: Ok, so you want to make a 120 euros transfer from your account number 1234567890. Are you sure you want to continue?
 
 
@@ -185,7 +188,7 @@ U: 686 57 58 85
 S: So your phone number is 686575885.
 
 
-21. User parameter segmentation intersentential (not yet implemented in Fluency):
+21. User parameter segmentation intersententially:
 S: What's your phone number?
 U: 686.
 S: 686, ok, go on.

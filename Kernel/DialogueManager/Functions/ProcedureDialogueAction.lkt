@@ -35,6 +35,13 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, number );
 		setNodeCounter(node, number);
 	}
+	else if(dialogueAction.DialogueActionName == 'push_script_1')
+	{
+		string script, parameter;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, parameter );
+		pushScript1(script, parameter);
+	}
 	else if(dialogueAction.DialogueActionName == 'pull_script')
 	{
 		pullScript();
@@ -202,9 +209,17 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 	{
 		SpyMessage("");
 		SpyMessage("");
-		SpyMessage("Dialogue Action ", dialogueAction.DialogueActionName, "not implemented (Procedure)");
+		SpyMessage("Dialogue Action ", dialogueAction.DialogueActionName, " not implemented (Procedure)");
 		SpyMessage("");
 		SpyMessage("");
+	}
+}
+
+procedure pushScript1(string scriptName, string parameter)
+{
+	if(scriptName == 'capture_intersentential_parameter')
+	{
+		pushCaptureIntersententialParameter(parameter);
 	}
 }
 

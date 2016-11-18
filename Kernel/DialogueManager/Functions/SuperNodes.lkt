@@ -136,12 +136,13 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	ScriptNode nodeChanged;
 	ScriptNode nodeExplicitAgreement;
 	ScriptNode nodeExplicitDisagreement;
+	ScriptNode nodePendingParameter;
 
 	string suffix = '_capturecompulsoryparameter_';
 	suffix <- LiteralConcat( suffix, ShapeToString(parameterType) );
 	suffix <- LiteralConcat( suffix, '_' );
 	suffix <- LiteralConcat( suffix, ShapeToString(priorityLevel) );
-	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10, nodeName11, nodeName12;
+	string task, nodeName1, nodeName2, nodeName3, nodeName4, nodeName5, nodeName6, nodeName7, nodeName8, nodeName9, nodeName10, nodeName11, nodeName12, nodeName13;
 	string parameterPosition <- recoverParameterPosition(dialogueScript, parameterType);
 
 	// Node - AskParameter
@@ -206,6 +207,7 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	nodeCheckParameter <- createScriptNode( nodeName4, 'execute', priorityLevel );
 	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'checking' ));
 	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'correct' ));
+	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'pending' ));
 	BatchInsertEnd( nodeCheckParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'incorrect' ));
 	BatchInsertEnd( nodeCheckParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'check_parameter', parameterPosition ));
 
@@ -222,6 +224,16 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'reset_next_level' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
+
+	// Node - PendingParameter
+	nodeName13 <- LiteralConcat( 'pendingparameter', suffix );	
+	nodePendingParameter <- createScriptNode( nodeName13, 'execute', priorityLevel );
+	BatchInsertEnd( nodePendingParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName4, 'pending' ));
+	BatchInsertEnd( nodePendingParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', parameterPosition, 'empty' ));
+	BatchInsertEnd( nodePendingParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', nodeName4, 'notfinalized' ));
+	BatchInsertEnd( nodePendingParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'push_script_1', 'capture_intersentential_parameter', parameterPosition ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodePendingParameter );
 
 	// Node - CorrectParameter
 	nodeName6 <- LiteralConcat( 'correctparameter', suffix );	

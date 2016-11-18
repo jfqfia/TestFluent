@@ -86,26 +86,6 @@
     	}
 )
 
-(ScriboScheme ImplicitPhoneNumberParameter: [ DialogueAct ]
-	ScriboCapture 
-	{
-		GetHeadPropertyLanguage() == ENGLISH &&
-		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
-        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
-		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
-		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
-		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
-	}
-	ScriboAction 
-	{
-		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' );
-
-		SetMainAnswerStringRandom( 'So your phone number is ' );
-		SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
-		SetMainAnswerString('. ');
-    	}
-)
-
 
 (ScriboScheme IncorrectPhoneNumber: [ DialogueAct ]
 	ScriboCapture 
@@ -145,3 +125,42 @@
 )
 
 
+(ScriboScheme IncorrectPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'raw') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' );
+
+		SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
+		SetMainAnswerString( '. ' );
+    	}
+)
+
+// TODO Hacer diferente dependiendo de que sea 'pending' o no.
+(ScriboScheme ImplicitPhoneNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' );
+
+		SetMainAnswerStringRandom( 'So your phone number is ' );
+		SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
+		SetMainAnswerString('. ');
+    	}
+)

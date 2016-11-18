@@ -40,9 +40,9 @@ MoneyAmount convertNumberToMoneyAmount(Parameter parameter)
 	return ret;
 }
 
-bool checkMoneyAmountValidity( Parameter parameter )
+ScriptNodeStateName checkMoneyAmountValidity( Parameter parameter )
 {
-	return True;
+	return 'correct';
 }
 
 

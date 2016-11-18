@@ -1,0 +1,71 @@
+// **************************************************
+//
+//
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+ScriptNodeStateName checkFormats(ParameterFormats formats, string value)
+{
+	ScriptNodeStateName ret <- 'incorrect';	
+	ScriptNodeStateName current;	
+
+	ParameterFormat format;
+	int size <- BatchSize(formats);
+	bool end <- False;
+	for(int position <- 1; position <= size && !! end; position++)
+	{
+		BatchRecoverPosition(formats, position, format);
+
+		current <- checkFormat(format, value);
+		if(current == 'correct')
+		{
+			ret <- 'correct';
+			end <- True;
+		}
+		else if(current == 'pending')
+		{
+			ret <- 'pending';
+		}
+	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkFormat(ParameterFormat format, string value)
+{
+	// TODO Comprobación de dígitos en #
+
+	// TODO QUITAR
+	SpyMessage("");
+	SpyMessage("");
+	SpyMessage("Format: ", format);
+	SpyMessage("Value: ", value);
+	SpyMessage("");
+	SpyMessage("");
+
+	ScriptNodeStateName ret;
+
+	int formatSize = LiteralSize( format );
+	int valueSize = LiteralSize ( value );
+	if(valueSize < formatSize)
+	{
+		ret <- 'pending';
+	}
+	else if(valueSize == formatSize)
+	{
+		ret <- 'correct';
+	}
+	else
+	{
+		ret <- 'incorrect';
+	}
+
+	return ret;	
+}

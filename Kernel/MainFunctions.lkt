@@ -47,6 +47,7 @@
 
 // Generic
 #Include "Generic/Functions/GenericFunctions.lkt"
+#Include "Generic/Functions/FormatFunctions.lkt"
 
 
 

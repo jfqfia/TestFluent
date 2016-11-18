@@ -11,28 +11,40 @@
 //
 // **************************************************
 
-bool checkParameterKernel(Parameter parameter)
+ParameterFormats getFormatsFromParameterTypeKernel(ParameterType parameterType)
 {
-	bool correct <- True;
+	ParameterFormats ret;
+
+	if(parameterType == 'phonenumber')
+	{
+		ret <- getParameterFormatsPhoneNumber();
+	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkParameterKernel(Parameter parameter)
+{
+	ScriptNodeStateName ret;
 	
 	if(parameter.ParameterType == 'datetime')
 	{
-		correct <- checkDateTimeValidity( parameter );
+		ret <- checkDateTimeValidity( parameter );
 	}
 	if(parameter.ParameterType == 'countryplace')
 	{
-		correct <- checkCountryPlaceValidity( parameter );
+		ret <- checkCountryPlaceValidity( parameter );
 	}
 	if(parameter.ParameterType == 'moneyamount')
 	{
-		correct <- checkMoneyAmountValidity( parameter );
+		ret <- checkMoneyAmountValidity( parameter );
 	}
 	if(parameter.ParameterType == 'phonenumber')
 	{
-		correct <- checkPhoneNumberValidity( parameter );
+		ret <- checkPhoneNumberValidity( parameter );
 	}
 
-	return correct;
+	return ret;
 }
 
 bool coherentActionScopeKernel(string action, string scope)

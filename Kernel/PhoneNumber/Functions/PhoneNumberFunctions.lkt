@@ -26,17 +26,32 @@ bool canMergeWithAndPhoneNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
-bool checkPhoneNumberValidity( Parameter parameter )
+ParameterFormats getParameterFormatsPhoneNumber()
 {
-	string literal <- parameter.ParameterValue.PhoneNumber.PhoneNumberValue;
+	// A phone number is a 9 digits (0-9) string
+	// TODO Be careful with +34
+	ParameterFormats ret;
+	ParameterFormat format;
 
-	// TODO Cuidado con +34
-	if( LiteralSize(literal) == 9 )
-	{
-		return True;
-	}
+	format <- '#########';
+	BatchInsertEnd(ret, format);
 
-	return False;
+	// TODO QUITAR: se supone que no hay teléfonos con 12 dígitos
+	format <- '############';
+	BatchInsertEnd(ret, format);
+
+	return ret;
+}
+
+ScriptNodeStateName checkPhoneNumberValidity( Parameter parameter )
+{
+	ScriptNodeStateName ret;
+
+	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PhoneNumber.PhoneNumberValue );
+
+	// TODO Additional checks not related with mask format
+
+	return ret;
 }
 
 PhoneNumber convertNumberToPhoneNumber(Parameter parameter)

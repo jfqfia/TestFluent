@@ -26,4 +26,5 @@
 #Include "ReviewStates.lkt"
 #Include "SuperNodes.lkt"
 #Include "Disambiguators.lkt"
+#Include "CaptureIntersentential.lkt"
 

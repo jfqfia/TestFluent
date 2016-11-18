@@ -210,15 +210,6 @@ DialogueScript createDialogueScriptCancellations()
 	scriptInfoItem.InfoItemValue.ActionDomain <- 'back';
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	// TODO QUITAR
-	/*
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'scope';	
-	scriptInfoItem.InfoItemState <- 'empty';	
-	scriptInfoItem.InfoItemValue.Scope <- 'task';
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-	*/
-
 	// Nodes
 
 	ScriptNode nodeTrigger, nodeExplicitAgreement, nodeNotTrigger, nodeDisagreement;

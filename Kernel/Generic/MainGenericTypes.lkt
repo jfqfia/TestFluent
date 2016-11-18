@@ -13,4 +13,5 @@
 
 #Include "Types/GenericTypes.lkt"
 #Include "Types/LexicalGenericTypes.lkt"
+#Include "Types/FormatTypes.lkt"
 

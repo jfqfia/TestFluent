@@ -11,16 +11,28 @@
 //
 // **************************************************
 
-bool checkParameterBankingManagement(Parameter parameter)
+ParameterFormats getFormatsFromParameterTypeBankingManagement(ParameterType parameterType)
 {
-	bool correct <- True;
+	ParameterFormats ret;
+
+	if(parameterType == 'accountnumber')
+	{
+		ret <- getParameterFormatsAccountNumber();
+	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkParameterBankingManagement(Parameter parameter)
+{
+	ScriptNodeStateName ret;
 	
 	if(parameter.ParameterType == 'accountnumber')
 	{
-		correct <- checkAccountNumberValidity( parameter );
+		ret <- checkAccountNumberValidity( parameter );
 	}
 
-	return correct;
+	return ret;
 }
 
 ProferenceChunk convertProferenceToExpectativeBankingManagement(ParameterType typeTarget, ProferenceChunk originalProference)

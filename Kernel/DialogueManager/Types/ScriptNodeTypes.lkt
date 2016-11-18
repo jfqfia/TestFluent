@@ -101,7 +101,7 @@ classDef:ElementRange
 (
 	ScriptNodeStateName : 
 	{
-		'finalized', 'correct', 'incorrect', 'notfinalized'
+		'finalized', 'correct', 'incorrect', 'pending', 'notfinalized'
 	}
 )
 

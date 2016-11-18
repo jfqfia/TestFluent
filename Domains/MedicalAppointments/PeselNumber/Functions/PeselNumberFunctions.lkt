@@ -26,17 +26,27 @@ bool canMergeWithAndPeselNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
-bool checkPeselNumberValidity( Parameter parameter )
+ParameterFormats getParameterFormatsPeselNumber()
 {
-	// TODO The validity of a PESEL number needs to ber implemented
-	string literal <- parameter.ParameterValue.PeselNumber.PeselNumberValue;
+	// A pesel number is a 11 digits (0-9) string
+	ParameterFormats ret;
+	ParameterFormat format;
 
-	if( LiteralSize(literal) == 11 )
-	{
-		return True;
-	}
+	format <- '###########';
+	BatchInsertEnd(ret, format);
 
-	return False;
+	return ret;
+}
+
+ScriptNodeStateName checkPeselNumberValidity( Parameter parameter )
+{
+	ScriptNodeStateName ret;
+
+	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PeselNumber.PeselNumberValue );
+
+	// TODO Additional checks not related with mask format
+
+	return ret;
 }
 
 PeselNumber convertNumberToPeselNumber(Parameter parameter)

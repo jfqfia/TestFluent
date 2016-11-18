@@ -10,21 +10,32 @@
 //	FILE	:	
 //
 // **************************************************
-
-bool checkParameterMedicalAppointment(Parameter parameter)
+ParameterFormats  getFormatsFromParameterTypeMedicalAppointment(ParameterType parameterType)
 {
-	bool correct <- True;
+	ParameterFormats ret;
+
+	if(parameterType == 'peselnumber')
+	{
+		ret <- getParameterFormatsPeselNumber();
+	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkParameterMedicalAppointment(Parameter parameter)
+{
+	ScriptNodeStateName ret;
 	
 	if(parameter.ParameterType == 'medicalspeciality')
 	{
-		correct <- checkMedicalSpecialityValidity( parameter );
+		ret <- checkMedicalSpecialityValidity( parameter );
 	}
 	if(parameter.ParameterType == 'peselnumber')
 	{
-		correct <- checkPeselNumberValidity( parameter );
+		ret <- checkPeselNumberValidity( parameter );
 	}
 
-	return correct;
+	return ret;
 }
 
 

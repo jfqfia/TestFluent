@@ -80,7 +80,7 @@ bool canMergeWithAndDateTime(Parameter parameter1, Parameter parameter2)
 	return ret;
 }
 
-bool checkDateTimeValidity( Parameter parameter )
+ScriptNodeStateName checkDateTimeValidity( Parameter parameter )
 {
 	// Example: 31st November is not valid
 	// Example: 29th February 2008 is correct
@@ -93,13 +93,13 @@ bool checkDateTimeValidity( Parameter parameter )
 	
 	if(datetime.BaseDate.Month < 1 || datetime.BaseDate.Month > 12)	
 	{
-		return False;
+		return 'incorrect';
 	}
 	if(datetime.BaseDate.Day < 1 || datetime.BaseDate.Day > getDaysInMonth(datetime.BaseDate.Month, datetime.BaseDate.Year))	
 	{
-		return False;
+		return 'incorrect';
 	}
 	
-	return True;
+	return 'correct';
 }
 

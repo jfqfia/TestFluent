@@ -69,5 +69,22 @@
     	}
 )
 
-
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'request' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'continue') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'intersentential'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, go on. ',
+					   'Please, continue. ',
+					   'Yes, what else? ',
+					   'Right, continue. ',
+					   'All right, anything else? ');
+	}
+)
 

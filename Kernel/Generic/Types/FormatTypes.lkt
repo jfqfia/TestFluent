@@ -1,0 +1,27 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+classDef:StructureBatch
+(
+	ParameterFormats :
+	(
+		ParameterFormat
+	)
+)
+
+classDef:ElementLiteral
+(
+	ParameterFormat
+)
+
+

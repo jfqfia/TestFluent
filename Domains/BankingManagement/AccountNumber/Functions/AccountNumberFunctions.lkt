@@ -26,16 +26,27 @@ bool canMergeWithAndAccountNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
-bool checkAccountNumberValidity( Parameter parameter )
+ParameterFormats getParameterFormatsAccountNumber()
 {
-	string literal <- parameter.ParameterValue.AccountNumber.AccountNumberValue;
+	// A pesel number is a 20 digits (0-9) string
+	ParameterFormats ret;
+	ParameterFormat format;
 
-	if( LiteralSize(literal) == 10 )
-	{
-		return True;
-	}
+	format <- '####################';
+	BatchInsertEnd(ret, format);
 
-	return False;
+	return ret;
+}
+
+ScriptNodeStateName checkAccountNumberValidity( Parameter parameter )
+{
+	ScriptNodeStateName ret;
+
+	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.AccountNumber.AccountNumberValue );
+
+	// TODO Additional checks not related with mask format
+
+	return ret;
 }
 
 AccountNumber convertNumberToAccountNumber(Parameter parameter)
