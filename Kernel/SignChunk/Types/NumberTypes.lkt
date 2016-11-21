@@ -1,0 +1,32 @@
+// **************************************************
+//
+//	Index of types files.
+//
+// **************************************************
+//
+//	PROJECT	:	Fluency
+//	MODULE  :	Kernel
+//	PACKAGE :	Types.Number
+//	FILE	:	NumberTypes.lkt
+//
+// **************************************************
+
+classDef:StructureComplex
+( 
+	Number :
+	(
+		NumberValue,
+		NumberLiteral
+	)
+)
+
+classDef:ElementInt
+(
+	NumberValue
+)
+
+classDef:ElementLiteral
+(
+	NumberLiteral
+)
+

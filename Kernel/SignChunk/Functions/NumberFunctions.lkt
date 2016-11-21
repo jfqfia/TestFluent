@@ -1,0 +1,43 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+bool canMergeWithOrNumber(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithAndNumber(Parameter parameter1, Parameter parameter2)
+{
+	return False;
+}
+
+string getConcatenatedNumber( Parameter parameter )
+{
+	if( parameter.ParameterCategory == 'terminal' )
+	{
+		return parameter.ParameterValue.Number.NumberLiteral;
+	}
+	else
+	{
+		string ret;
+
+		ret <- getConcatenatedNumber( parameter.ParameterOperand1 );
+		ret <- LiteralConcat( ret, getConcatenatedNumber ( parameter.ParameterOperand2 ) );
+		return ret;
+	}
+}

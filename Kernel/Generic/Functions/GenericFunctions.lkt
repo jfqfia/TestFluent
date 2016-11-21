@@ -74,4 +74,12 @@ string getActionDomainFromLemmaKernel(string lemma)
 	return 'unknown';
 }
 
+string firstUpper(string in)
+{
+	string head <- SubLiteral(in, 1, 1);		
+	string tail <- SubLiteral(in, 2, LiteralSize(in));
+	head <- LiteralConvertUpper(head);
+
+	return LiteralConcat(head, tail);
+}
 

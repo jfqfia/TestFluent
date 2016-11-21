@@ -27,7 +27,7 @@
 
 		SetMainAnswerStringRandom( 'I remember that you are calling from ',
 					   'I think you are in ' );
-		SetMainAnswerString( mostConcretePlace( parameter.ParameterValue.CountryPlace ) );
+		SetMainAnswerString( firstUpper(mostConcretePlace( parameter.ParameterValue.CountryPlace )) );
 		SetMainAnswerString('. ');
     	}
 )
@@ -102,7 +102,7 @@
 
 		SetMainAnswerStringRandom( 'I understood that you are calling from ',
 					   'So you are in ' );
-		SetMainAnswerString( mostConcretePlace( parameter.ParameterValue.CountryPlace ) );
+		SetMainAnswerString( firstUpper(mostConcretePlace( parameter.ParameterValue.CountryPlace )) );
 		SetMainAnswerString('. ');
     	}
 )
@@ -123,7 +123,7 @@
 		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' );
 
 		SetMainAnswerString('Ok, we were talking about an appointment in ');
-		SetMainAnswerString(parameter.ParameterValue.CountryPlace.CountryProvince);
+		SetMainAnswerString( firstUpper(mostConcretePlace( parameter.ParameterValue.CountryPlace )) );
 		SetMainAnswerString('. Is that correct? ');
     	}
 )

@@ -35,6 +35,7 @@
 #Include "PhoneNumber/MainPhoneNumberTypes.lkt"
 #Include "MoneyAmount/MainMoneyAmountTypes.lkt"
 #Include "Task/MainTaskTypes.lkt"
+#Include "SignChunk/MainSignChunkTypes.lkt"
 
 // Dialogue Manager Types
 #Include "DialogueManager/Types/ScriptTypes.lkt"
