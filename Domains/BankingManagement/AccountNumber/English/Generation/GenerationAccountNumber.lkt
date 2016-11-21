@@ -161,6 +161,46 @@
     	}
 )
 
+(ScriboScheme ExplicitAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 	'So your account number is ',
+						'Ok, now I will repeat you account number: ',
+						'Let me repeat you account number: ',
+						'I catched ');
+
+		Parameter parameter;
+		Parameters parameters <- #OBJLOCUTIO-1.Parameters;
+		int size <- BatchSize( #OBJLOCUTIO-1.Parameters );
+		for( int position <- 1; position <= size; position ++)
+		{	
+			BatchRecoverPosition( parameters, position, parameter);
+			SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+			if(position < size)
+			{
+				SetMainAnswerString(' ');
+			}
+			else
+			{	
+				SetMainAnswerString('. ');
+			}
+		}
+
+		SetMainAnswerStringRandom( 	'Is it correct? ',
+						'Correct? ',
+						'Please, confirm that is your correct number. ');
+   	}
+)
+
 
 
 

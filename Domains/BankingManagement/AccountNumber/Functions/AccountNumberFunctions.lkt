@@ -38,17 +38,6 @@ ParameterFormats getParameterFormatsAccountNumber()
 	return ret;
 }
 
-ScriptNodeStateName checkAccountNumberValidity( Parameter parameter )
-{
-	ScriptNodeStateName ret;
-
-	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.AccountNumber.AccountNumberValue );
-
-	// TODO Additional checks not related with mask format
-
-	return ret;
-}
-
 AccountNumber convertNumberToAccountNumber(Parameter parameter)
 {
 	AccountNumber ret;
@@ -65,5 +54,49 @@ AccountNumber convertNumberToAccountNumber(Parameter parameter)
 
 	return ret;
 }
+
+ScriptNodeStateName checkAccountNumberValidity( Parameter parameter )
+{
+	ScriptNodeStateName ret;
+
+	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.AccountNumber.AccountNumberValue );
+
+	// TODO Additional checks not related with mask format
+
+	return ret;
+}
+
+ScriptNodeStateName checkAccountNumberIntersententialValidity(InfoItemHistory history, Parameter lastParameter )
+{
+	ScriptNodeStateName ret;
+	Parameter parameter;
+
+	parameter.ParameterType <- lastParameter.ParameterType;
+	parameter.ParameterValue <- concatenateHistoryAccountNumber(history, lastParameter);
+
+	ret <- checkAccountNumberValidity( parameter );
+
+	return ret;
+}
+
+ParameterValue concatenateHistoryAccountNumber(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	string concatenated <- '';
+	int size <- BatchSize(history);
+	for(int position <- 1; position <= size; position++)
+	{
+		Parameter recoveredParameter;
+		BatchRecoverPosition(history, position, recoveredParameter);		
+
+		concatenated <- LiteralConcat(concatenated, recoveredParameter.ParameterValue.AccountNumber.AccountNumberValue);		
+	}
+
+	ret.AccountNumber.AccountNumberValue <-  LiteralConcat(concatenated, lastParameter.ParameterValue.AccountNumber.AccountNumberValue);
+
+	return ret;
+}
+
 
 

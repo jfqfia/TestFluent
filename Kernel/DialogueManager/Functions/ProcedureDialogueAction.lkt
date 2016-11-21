@@ -28,6 +28,14 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, state );
 		setNodeState(script, node, state);
 	}
+	else if(dialogueAction.DialogueActionName == 'set_info_value_of_script')
+	{
+		string script, info, value;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, info );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, value );
+		setInfoValueState(script, info, value);
+	}
 	else if(dialogueAction.DialogueActionName == 'set_counter')
 	{
 		string node, number;
@@ -153,6 +161,18 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
 		generateParameter(parameterString);
 	}
+	else if(dialogueAction.DialogueActionName == 'generate_history_parameter')
+	{
+		string parameterString;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
+		generateHistoryParameter(parameterString);
+	}
+	else if(dialogueAction.DialogueActionName == 'unroll_parameter')
+	{
+		string parameterString;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
+		unrollParameter(parameterString);
+	}
 	else if(dialogueAction.DialogueActionName == 'swap_history')
 	{
 		string parameterString;
@@ -164,6 +184,12 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		string parameterString;
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
 		checkParameter(parameterString);
+	}
+	else if(dialogueAction.DialogueActionName == 'check_parameter_intersentential')
+	{
+		string parameterString;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
+		checkParameterIntersentential(parameterString);
 	}
 	else if(dialogueAction.DialogueActionName == 'set_info_state')
 	{
@@ -234,6 +260,36 @@ procedure setExpectativeParameter( string parameterType )
 procedure setNodeStateToCurrent(string nodeDescriptor, string state)
 {
 	setNodeState( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor, state );
+}
+
+procedure setInfoValueState(string scriptDescriptor, string infoString, string valueString)
+{
+	DialogueScript script, currentScript;
+	ScriptInfoItem scriptInfoItem, recoveredScriptInfoItem;
+	int infoNumber <- ShapeToInt(infoString);
+	int valueNumber <- ShapeToInt(valueString);
+
+	script <- getScript(scriptDescriptor);
+	currentScript <- getCurrentScript();
+
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	BatchRecoverPosition( currentScript.ScriptInfoItems, valueNumber, recoveredScriptInfoItem );
+	scriptInfoItem.InfoItemValue <- recoveredScriptInfoItem.InfoItemValue;
+
+	// TODO COMPROBAR SI NO HACER MEJOR EN OTRA FUNCIÓN
+	scriptInfoItem.InfoItemState <- 'grounded';
+	scriptInfoItem.InfoItemMoveState <- 'marked';
+
+	//script <- getScript(scriptDescriptor);
+	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	setScript( script );
+
+	// TODO QUITAR
+	SpyMessage("");
+	SpyMessage("");
+	SpyMessage(scriptInfoItem);
+	SpyMessage("");
+	SpyMessage("");
 }
 
 procedure setNodeState(string scriptDescriptor, string nodeDescriptor, string state)
@@ -493,6 +549,42 @@ procedure generate3Parameter(string parameterString1, string parameterString2, s
 	BatchInsertEnd( dialogueAct.Parameters, parameter3 );
 	dialogueAct.DialogueActCounter <- currentNode.ScriptNodeCounter;
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+}
+
+procedure generateHistoryParameter(string parameterString)
+{
+	ScriptNode currentNode <- getCurrentNode();
+	DialogueAct dialogueAct <- currentNode.ScriptNodeContent.DialogueAct;
+
+	int infoNumber <- ShapeToInt( parameterString );
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+
+	dialogueAct.Parameters <- scriptInfoItem.InfoItemHistory;
+	BatchInsertEnd( dialogueAct.Parameters, scriptInfoItem.InfoItemValue.Parameter );
+
+	dialogueAct.DialogueActCounter <- currentNode.ScriptNodeCounter;
+	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
+}
+
+procedure unrollParameter(string parameterString)
+{
+	ScriptNode currentNode <- getCurrentNode();
+	DialogueAct dialogueAct <- currentNode.ScriptNodeContent.DialogueAct;
+
+	int infoNumber <- ShapeToInt( parameterString );
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+
+	ParameterValue value <- concatenateHistory(scriptInfoItem.InfoItemHistory, scriptInfoItem.InfoItemValue.Parameter);
+	InfoItemHistory emptyInfoItemHistory;
+	scriptInfoItem.InfoItemHistory <- emptyInfoItemHistory;
+	scriptInfoItem.InfoItemValue.Parameter.ParameterValue <- value;
+	
+	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	setScript( script );
 }
 
 procedure setInfoState(string infoString, string state)

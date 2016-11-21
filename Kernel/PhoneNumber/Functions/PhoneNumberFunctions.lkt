@@ -43,17 +43,6 @@ ParameterFormats getParameterFormatsPhoneNumber()
 	return ret;
 }
 
-ScriptNodeStateName checkPhoneNumberValidity( Parameter parameter )
-{
-	ScriptNodeStateName ret;
-
-	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PhoneNumber.PhoneNumberValue );
-
-	// TODO Additional checks not related with mask format
-
-	return ret;
-}
-
 PhoneNumber convertNumberToPhoneNumber(Parameter parameter)
 {
 	PhoneNumber ret;
@@ -67,6 +56,49 @@ PhoneNumber convertNumberToPhoneNumber(Parameter parameter)
 	{
 		ret.PhoneNumberValue <- getConcatenatedNumber( parameter );
 	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkPhoneNumberValidity( Parameter parameter )
+{
+	ScriptNodeStateName ret;
+
+	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PhoneNumber.PhoneNumberValue );
+
+	// TODO Additional checks not related with mask format
+
+	return ret;
+}
+
+ScriptNodeStateName checkPhoneNumberIntersententialValidity(InfoItemHistory history, Parameter lastParameter )
+{
+	ScriptNodeStateName ret;
+	Parameter parameter;
+
+	parameter.ParameterType <- lastParameter.ParameterType;
+	parameter.ParameterValue <- concatenateHistoryPhoneNumber(history, lastParameter);
+
+	ret <- checkPhoneNumberValidity( parameter );
+
+	return ret;
+}
+
+ParameterValue concatenateHistoryPhoneNumber(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	string concatenated <- '';
+	int size <- BatchSize(history);
+	for(int position <- 1; position <= size; position++)
+	{
+		Parameter recoveredParameter;
+		BatchRecoverPosition(history, position, recoveredParameter);		
+
+		concatenated <- LiteralConcat(concatenated, recoveredParameter.ParameterValue.PhoneNumber.PhoneNumberValue);		
+	}
+
+	ret.PhoneNumber.PhoneNumberValue <-  LiteralConcat(concatenated, lastParameter.ParameterValue.PhoneNumber.PhoneNumberValue);
 
 	return ret;
 }

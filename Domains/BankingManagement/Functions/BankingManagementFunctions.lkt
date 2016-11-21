@@ -11,6 +11,19 @@
 //
 // **************************************************
 
+ParameterValue concatenateHistoryBankingManagement(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	if(lastParameter.ParameterType == 'accountnumber')
+	{
+		ret <- concatenateHistoryAccountNumber(history, lastParameter);
+	}
+
+	return ret;
+}
+
+
 ParameterFormats getFormatsFromParameterTypeBankingManagement(ParameterType parameterType)
 {
 	ParameterFormats ret;
@@ -30,6 +43,18 @@ ScriptNodeStateName checkParameterBankingManagement(Parameter parameter)
 	if(parameter.ParameterType == 'accountnumber')
 	{
 		ret <- checkAccountNumberValidity( parameter );
+	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkParameterIntersententialBankingManagement(InfoItemHistory history, Parameter parameter)
+{
+	ScriptNodeStateName ret;
+	
+	if(parameter.ParameterType == 'accountnumber')
+	{
+		ret <- checkAccountNumberIntersententialValidity(history, parameter );
 	}
 
 	return ret;

@@ -38,17 +38,6 @@ ParameterFormats getParameterFormatsPeselNumber()
 	return ret;
 }
 
-ScriptNodeStateName checkPeselNumberValidity( Parameter parameter )
-{
-	ScriptNodeStateName ret;
-
-	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PeselNumber.PeselNumberValue );
-
-	// TODO Additional checks not related with mask format
-
-	return ret;
-}
-
 PeselNumber convertNumberToPeselNumber(Parameter parameter)
 {
 	PeselNumber ret;
@@ -65,5 +54,50 @@ PeselNumber convertNumberToPeselNumber(Parameter parameter)
 
 	return ret;
 }
+
+
+ScriptNodeStateName checkPeselNumberValidity( Parameter parameter )
+{
+	ScriptNodeStateName ret;
+
+	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PeselNumber.PeselNumberValue );
+
+	// TODO Additional checks not related with mask format
+
+	return ret;
+}
+
+ScriptNodeStateName checkPeselNumberIntersententialValidity(InfoItemHistory history, Parameter lastParameter )
+{
+	ScriptNodeStateName ret;
+	Parameter parameter;
+
+	parameter.ParameterType <- lastParameter.ParameterType;
+	parameter.ParameterValue <- concatenateHistoryPeselNumber(history, lastParameter);
+
+	ret <- checkPeselNumberValidity( parameter );
+
+	return ret;
+}
+
+ParameterValue concatenateHistoryPeselNumber(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	string concatenated <- '';
+	int size <- BatchSize(history);
+	for(int position <- 1; position <= size; position++)
+	{
+		Parameter recoveredParameter;
+		BatchRecoverPosition(history, position, recoveredParameter);		
+
+		concatenated <- LiteralConcat(concatenated, recoveredParameter.ParameterValue.PeselNumber.PeselNumberValue);		
+	}
+
+	ret.PeselNumber.PeselNumberValue <-  LiteralConcat(concatenated, lastParameter.ParameterValue.PeselNumber.PeselNumberValue);
+
+	return ret;
+}
+
 
 

@@ -20,9 +20,6 @@
 * signos (+34 en teléfonos, etc.)
 * Crear patterns para códigos alfanuméricos.
 
-* Detectar "as soon as possible"
-* Mejorar el negociador de fechas.
-
 * User parameter segmentation intersentential:
 S: What's your phone number?
 U: 686.
@@ -37,6 +34,9 @@ U: 58.
 S: 58, right.
 S: 85.
 S: OK, let me confirm your phone number, is it 686575885?
+
+* Detectar "as soon as possible"
+* Mejorar el negociador de fechas.
 
 * Spanish version of domains
 

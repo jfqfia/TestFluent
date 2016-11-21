@@ -23,6 +23,30 @@ ParameterFormats getFormatsFromParameterTypeKernel(ParameterType parameterType)
 	return ret;
 }
 
+ParameterValue concatenateHistoryKernel(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	if(lastParameter.ParameterType == 'phonenumber')
+	{
+		ret <- concatenateHistoryPhoneNumber(history, lastParameter);
+	}
+
+	return ret;
+}
+
+ScriptNodeStateName checkParameterIntersententialKernel(InfoItemHistory history, Parameter parameter)
+{
+	ScriptNodeStateName ret;
+	
+	if(parameter.ParameterType == 'phonenumber')
+	{
+		ret <- checkPhoneNumberIntersententialValidity(history, parameter );
+	}
+
+	return ret;
+}
+
 ScriptNodeStateName checkParameterKernel(Parameter parameter)
 {
 	ScriptNodeStateName ret;

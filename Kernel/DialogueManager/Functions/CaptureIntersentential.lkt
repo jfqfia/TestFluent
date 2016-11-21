@@ -50,64 +50,70 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	scriptInfoItem.InfoItemState <- 'captured';	
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	scriptInfoItem <- emptyScriptInfoItem;
-	scriptInfoItem.InfoItemType <- 'parameter';	
-	scriptInfoItem.InfoItemParameterType <- recoveredScriptInfoItem.InfoItemParameterType;
-	scriptInfoItem.InfoItemValue <- recoveredScriptInfoItem.InfoItemValue;		
-	scriptInfoItem.InfoItemState <- 'captured';	
-	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
-
 	// Node - CapturedParameter
-	// TODO
-	ScriptNode nodeCapturedParameter <- createScriptNode( 'captured', 'execute', 1 );
-	BatchInsertEnd( nodeCapturedParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'repeat', 'finalized' ));
+	ScriptNode nodeCapturedParameter <- createScriptNode( 'capturednode', 'execute', 1 );
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'captured' ));
-	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeat', 'notfinalized' ));	
-	// TODO Aquí es checking
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'checking' ));
+	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'checkingnode', 'notfinalized' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCapturedParameter );
 
+	// Node - CheckingParameter 
+	ScriptNode nodeCheckingParameter <- createScriptNode( 'checkingnode', 'execute', 2 );
+	BatchInsertEnd( nodeCheckingParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'checkingnode', 'correct' ));
+	BatchInsertEnd( nodeCheckingParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'checkingnode', 'pending' ));
+	BatchInsertEnd( nodeCheckingParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'checkingnode', 'incorrect' ));
+	BatchInsertEnd( nodeCheckingParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'check_parameter_intersentential', '1' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCheckingParameter );
+
+	// Node - CorrectParameter 
+	ScriptNode nodeCorrectParameter <- createScriptNode( 'correctnode', 'wait', 2 );
+	nodeCorrectParameter.ScriptNodeContent <- setNodeContent( 'question', 'propositional', 'explicit', 'parameter' );
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'checkingnode', 'correct' ));
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'correctnode', 'pending' ));
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_history_parameter', '1' ));	
+	BatchInsertEnd( nodeCorrectParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'correctnode', 'pending' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCorrectParameter );
+
+	// Node - Agreement
+	ScriptNode nodeAgreement <- createScriptNode( 'agreementnode', 'execute', 3 );
+	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
+	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'correctnode', 'pending' ));
+	BatchInsertEnd( nodeAgreement.ScriptNodePostconditions, createDialogueAction1Arguments( 'unroll_parameter', '1' ));
+	BatchInsertEnd( nodeAgreement.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_info_value_of_script', script.ScriptDescriptor, parameter, '1'));
+	BatchInsertEnd( nodeAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));	
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeAgreement );
+	
+
+	// TODO COMPLETAR
+	// Node - IncorrectParameter 
+	ScriptNode nodeIncorrectParameter <- createScriptNode( 'incorrectnode', 'wait', 2 );
+	BatchInsertEnd( nodeIncorrectParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', 'checkingnode', 'incorrect' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
+
 	// Node - RepeatParameter
-	ScriptNode nodeRepeatParameter <- createScriptNode( 'repeat', 'execute', 2 );
+	ScriptNode nodeRepeatParameter <- createScriptNode( 'repeatnode', 'execute', 4 );
 	nodeRepeatParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'raw', 'parameter' );
-	BatchInsertEnd( nodeRepeatParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'repeat', 'finalized' ));
+	BatchInsertEnd( nodeRepeatParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'repeatnode', 'finalized' ));
 	BatchInsertEnd( nodeRepeatParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '1' ));	
-	BatchInsertEnd( nodeRepeatParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeat', 'finalized' ));
+	BatchInsertEnd( nodeRepeatParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnode', 'finalized' ));
 	
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRepeatParameter );
 
 	// Node - Continue
-	ScriptNode nodeContinue <- createScriptNode( 'continue', 'wait', 3 );
+	ScriptNode nodeContinue <- createScriptNode( 'continuenode', 'wait', 5 );
 	nodeContinue.ScriptNodeContent <- setNodeContent( 'statement', 'request', 'continue', 'intersentential' );
-	//BatchInsertEnd( nodeContinue.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'continue', 'finalized' ));
 	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));	
 	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_parameter', ShapeToString(recoveredScriptInfoItem.InfoItemParameterType) ));
-	//BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'continue', 'finalized' ));	
+	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'empty' ));
+	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnode', 'notfinalized' ));		
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeContinue );
 
 	return dialogueScript;
 }
-
-/*
-21. User parameter segmentation intersentential (not yet implemented in Fluency):
-S: What's your phone number?
-U: 686.
-S: 686, ok, go on.
-U: 57.
-S: 57, yes.
-U: 59.
-S: 59, all right.
-U: no, no!
-S: Ok, we have 686 57, please continue.
-U: 58.
-S: 58, right.
-S: 85.
-S: OK, let me confirm your phone number, is it 686575885?
-*/
-
-
-
-
 

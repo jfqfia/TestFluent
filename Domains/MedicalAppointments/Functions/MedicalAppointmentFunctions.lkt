@@ -10,7 +10,20 @@
 //	FILE	:	
 //
 // **************************************************
-ParameterFormats  getFormatsFromParameterTypeMedicalAppointment(ParameterType parameterType)
+
+ParameterValue concatenateHistoryMedicalAppointment(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	if(lastParameter.ParameterType == 'peselnumber')
+	{
+		ret <- concatenateHistoryPeselNumber(history, lastParameter);
+	}
+
+	return ret;
+}
+
+ParameterFormats getFormatsFromParameterTypeMedicalAppointment(ParameterType parameterType)
 {
 	ParameterFormats ret;
 
@@ -38,6 +51,17 @@ ScriptNodeStateName checkParameterMedicalAppointment(Parameter parameter)
 	return ret;
 }
 
+ScriptNodeStateName checkParameterIntersententialMedicalAppointment(InfoItemHistory history, Parameter parameter)
+{
+	ScriptNodeStateName ret;
+	
+	if(parameter.ParameterType == 'peselnumber')
+	{
+		ret <- checkPeselNumberIntersententialValidity(history, parameter );
+	}
+
+	return ret;
+}
 
 ProferenceChunk convertProferenceToExpectativeMedicalAppointment(ParameterType typeTarget, ProferenceChunk originalProference)
 {

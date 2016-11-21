@@ -142,7 +142,6 @@
     	}
 )
 
-// TODO CAmbiar si está en pending
 (ScriboScheme ImplicitPeselNumberParameter: [ DialogueAct ]
 	ScriboCapture 
 	{
@@ -164,4 +163,46 @@
 		}
     	}
 )
+
+
+(ScriboScheme ExplicitPeselNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 	'So your PESEL number is ',
+						'Ok, now I will repeat you PESEL number: ',
+						'Let me repeat you PESEL number: ',
+						'I catched ');
+
+		Parameter parameter;
+		Parameters parameters <- #OBJLOCUTIO-1.Parameters;
+		int size <- BatchSize( #OBJLOCUTIO-1.Parameters );
+		for( int position <- 1; position <= size; position ++)
+		{	
+			BatchRecoverPosition( parameters, position, parameter);
+			SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+			if(position < size)
+			{
+				SetMainAnswerString(' ');
+			}
+			else
+			{	
+				SetMainAnswerString('. ');
+			}
+		}
+
+		SetMainAnswerStringRandom( 	'Is it correct? ',
+						'Correct? ',
+						'Please, confirm that is your correct number. ');
+   	}
+)
+
 

@@ -70,6 +70,37 @@ procedure checkParameter(string parameterString)
 	setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, state );		
 }
 
+
+procedure checkParameterIntersentential(string parameterString)
+{
+	ScriptNode currentNode <- getCurrentNode();
+	int infoNumber <- ShapeToInt( parameterString );
+	DialogueScript script <- getCurrentScript();
+	ScriptInfoItem scriptInfoItem;
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber , scriptInfoItem );
+	Parameter parameter <- scriptInfoItem.InfoItemValue.Parameter; 
+
+	ScriptNodeStateName state;
+	if(!! state)
+	{
+		state <- checkParameterIntersententialKernel(scriptInfoItem.InfoItemHistory, parameter);
+	}
+
+	// Domain: BankingManagement
+	if(!! state)
+	{
+		state <- checkParameterIntersententialBankingManagement(scriptInfoItem.InfoItemHistory, parameter );
+	}
+
+	// Domain: MedicalAppointment
+	if(!! state)
+	{
+		state <- checkParameterIntersententialMedicalAppointment(scriptInfoItem.InfoItemHistory, parameter );
+	}
+	
+	setNodeState( script.ScriptDescriptor, currentNode.ScriptNodeDescriptor, state );		
+}
+
 bool compatibleExpectativeTypes(ParameterType type1, ParameterType type2)
 {
 	bool ret;
@@ -398,5 +429,30 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 	return ret;
 }
 
+
+
+ParameterValue concatenateHistory(InfoItemHistory history, Parameter lastParameter)
+{
+	ParameterValue ret;
+
+	if(!! ret)
+	{
+		ret <- concatenateHistoryKernel(history, lastParameter);
+	}
+
+	// Domain: BankingManagement
+	if(!! ret)
+	{
+		ret <- concatenateHistoryBankingManagement(history, lastParameter);
+	}
+
+	// Domain: MedicalAppointment
+	if(!! ret)
+	{
+		ret <- concatenateHistoryMedicalAppointment(history, lastParameter);
+	}
+
+	return ret;
+}
 
 
