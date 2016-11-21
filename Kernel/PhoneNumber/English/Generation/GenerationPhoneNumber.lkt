@@ -158,9 +158,11 @@
 	ScriboAction 
 	{
 		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'phonenumber' );
-
-		SetMainAnswerStringRandom( 'So your phone number is ' );
-		SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
-		SetMainAnswerString('. ');
-    	}
+		if(checkPhoneNumberValidity(parameter) != 'pending')
+		{
+			SetMainAnswerStringRandom( 'So your phone number is ' );
+			SetMainAnswerString(parameter.ParameterValue.PhoneNumber.PhoneNumberValue);
+			SetMainAnswerString('. ');
+		}
+   	}
 )

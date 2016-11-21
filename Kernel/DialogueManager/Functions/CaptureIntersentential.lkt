@@ -28,7 +28,7 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	DialogueScript dialogueScript;
 	string scriptDescriptor <- '';
 	scriptDescriptor <- LiteralConcat(scriptDescriptor, 'capture_intersentential_parameter_' );
-	scriptDescriptor <- LiteralConcat(scriptDescriptor, ShapeToString(parameter) );
+	scriptDescriptor <- LiteralConcat(scriptDescriptor, parameter );
 	dialogueScript.ScriptDescriptor <- scriptDescriptor;
 
 	// Capture parameter of calling script
@@ -42,6 +42,13 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 
 	// Info
 	ScriptInfoItem scriptInfoItem, emptyScriptInfoItem;
+
+	scriptInfoItem <- emptyScriptInfoItem;
+	scriptInfoItem.InfoItemType <- 'parameter';	
+	scriptInfoItem.InfoItemParameterType <- recoveredScriptInfoItem.InfoItemParameterType;
+	scriptInfoItem.InfoItemValue <- recoveredScriptInfoItem.InfoItemValue;		
+	scriptInfoItem.InfoItemState <- 'captured';	
+	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
 	scriptInfoItem <- emptyScriptInfoItem;
 	scriptInfoItem.InfoItemType <- 'parameter';	

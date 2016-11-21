@@ -2,8 +2,6 @@
 
 * Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt
 
-* Hacer diferente la generación implicita dependiendo de que sea 'pending' o no. GenerationPhoneNumber.lkt Y PESEL NUMBER GENERATION
-
 * Cuando hay muchas confirmaciones implícitas hay que saber desambiguar bien:
 * Si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script (repasar)
 * i want an appointment in sevilla

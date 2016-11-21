@@ -64,10 +64,12 @@
 	ScriboAction 
 	{
 		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
-
-		SetMainAnswerStringRandom( 'I understood that the account number is ' );
-		SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
-		SetMainAnswerString('. ');
+		if(checkAccountNumberValidity(parameter) != 'pending')
+		{
+			SetMainAnswerStringRandom( 'I understood that the account number is ' );
+			SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+			SetMainAnswerString('. ');
+		}
     	}
 )
 
