@@ -73,6 +73,14 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialMoneyAmount(parameter1, parameter2);
 		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithSequentialOrdinal(parameter1, parameter2);
+		}
+		case 'signchunk' 
+		{
+			ret <- canMergeWithSequentialSignChunk(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;

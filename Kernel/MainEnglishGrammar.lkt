@@ -41,6 +41,8 @@
 
 #Include "Task/English/Grammar/TaskEnglishGrammar.lkt"
 
+#Include "SignChunk/English/Grammar/SignChunkEnglishGrammar.lkt"
+
 
 
 

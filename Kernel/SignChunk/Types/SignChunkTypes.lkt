@@ -1,32 +1,26 @@
 // **************************************************
 //
-//	Index of types files.
+//	
 //
 // **************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	NumberTypes.lkt
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
 //
 // **************************************************
 
 classDef:StructureComplex
 ( 
-	Number :
+	SignChunk :
 	(
-		NumberValue,
-		NumberLiteral
+		SignChunkLiteral
 	)
-)
-
-classDef:ElementInt
-(
-	NumberValue
 )
 
 classDef:ElementLiteral
 (
-	NumberLiteral
+	SignChunkLiteral
 )
 

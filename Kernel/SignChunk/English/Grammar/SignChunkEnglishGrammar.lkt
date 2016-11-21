@@ -1,0 +1,31 @@
+// ******************************************************************
+//
+//
+//
+// ******************************************************************
+// 
+//	PROJECT	:
+//	DOMAIN	:  
+//	MODULE  : 
+//	PACKAGE	: 
+//	FILE	: 
+// 
+// ******************************************************************
+
+// Output rule for this package
+(SignChunk_Rule01 :
+ 	[ Parameter -> SignChunk ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'signchunk';
+		^.ParameterValue.SignChunk <- #1;
+	}
+)
+
+(SignChunk_Rule02 :
+ 	[ SignChunk -> lexSignChunk ]
+	{
+		^.SignChunkLiteral <- ShapeToString(TokenInputText(1));
+	}
+)
+

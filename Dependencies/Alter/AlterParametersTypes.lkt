@@ -23,6 +23,8 @@ classDef:StructureComplex
 		CountryPlace,
 		PhoneNumber,
 		MoneyAmount,
+		Ordinal,
+		SignChunk,
 
 		MedicalSpeciality,
 		PeselNumber,

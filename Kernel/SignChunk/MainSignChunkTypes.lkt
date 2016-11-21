@@ -1,31 +1,15 @@
 // **************************************************
 //
-//	
+//
 //
 // **************************************************
 //
 //	PROJECT	:	
 //	MODULE  :	
-//	PACKAGE	:	
+//	PACKAGE :	
 //	FILE	:	
 //
 // **************************************************
 
-// TODO Structure explanation
-classDef:StructureComplex
-(
-	ParameterValue :
-	(
-		Number,
-		Letter,		
-		DateTime,
-		CountryPlace,
-		PhoneNumber,
-		MoneyAmount,
-		Ordinal,
-		SignChunk
-	)
-)
-
-
-
+#Include "Types/SignChunkTypes.lkt"
+#Include "Types/LexicalSignChunkTypes.lkt"

@@ -258,6 +258,14 @@ bool canMergeWithSequential(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithSequentialMoneyAmount(parameter1, parameter2);
 		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithSequentialOrdinal(parameter1, parameter2);
+		}
+		case 'signchunk' 
+		{
+			ret <- canMergeWithSequentialSignChunk(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -312,6 +320,14 @@ bool canMergeWithOr(Parameter parameter1, Parameter parameter2)
 		{
 			ret <- canMergeWithOrMoneyAmount(parameter1, parameter2);
 		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithOrOrdinal(parameter1, parameter2);
+		}
+		case 'signchunk' 
+		{
+			ret <- canMergeWithOrSignChunk(parameter1, parameter2);
+		}
 		default
 		{	
 			ret <- True;
@@ -365,6 +381,14 @@ bool canMergeWithAnd(Parameter parameter1, Parameter parameter2)
 		case 'moneyamount' 
 		{
 			ret <- canMergeWithAndMoneyAmount(parameter1, parameter2);
+		}
+		case 'ordinal' 
+		{
+			ret <- canMergeWithAndOrdinal(parameter1, parameter2);
+		}
+		case 'signchunk' 
+		{
+			ret <- canMergeWithAndSignChunk(parameter1, parameter2);
 		}
 		default
 		{	

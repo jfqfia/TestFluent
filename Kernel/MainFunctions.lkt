@@ -34,6 +34,9 @@
 // MoneyAmount
 #Include "MoneyAmount/Functions/MoneyAmountFunctions.lkt"
 
+// SignChunk
+#Include "SignChunk/Functions/SignChunkFunctions.lkt"
+
 // DialogueManager
 #Include "DialogueManager/Functions/DialogueScript.lkth"
 #Include "DialogueManager/Functions/DialogueScheme.lkth"

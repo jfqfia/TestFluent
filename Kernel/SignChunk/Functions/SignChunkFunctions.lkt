@@ -1,0 +1,28 @@
+// **************************************************
+//
+//	
+// 
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+// 	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+bool canMergeWithSequentialSignChunk(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithOrSignChunk(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
+bool canMergeWithAndSignChunk(Parameter parameter1, Parameter parameter2)
+{
+	return True;
+}
+
