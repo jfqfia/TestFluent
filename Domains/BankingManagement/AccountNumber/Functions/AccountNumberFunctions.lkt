@@ -42,7 +42,7 @@ AccountNumber convertNumberToAccountNumber(Parameter parameter)
 {
 	AccountNumber ret;
 
-	if(parameter.ParameterCategory == 'terminal')
+	if(parameter.ParameterCategory == 'terminal' || parameter.ParameterCategory == 'negation')
 	{
 		Number number <- parameter.ParameterValue.Number;
 		ret.AccountNumberValue <- ShapeToString(number.NumberLiteral);

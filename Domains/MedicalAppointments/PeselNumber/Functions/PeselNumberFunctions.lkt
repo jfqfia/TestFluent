@@ -42,7 +42,7 @@ PeselNumber convertNumberToPeselNumber(Parameter parameter)
 {
 	PeselNumber ret;
 
-	if(parameter.ParameterCategory == 'terminal')
+	if(parameter.ParameterCategory == 'terminal' || parameter.ParameterCategory == 'negation')
 	{
 		Number number <- parameter.ParameterValue.Number;
 		ret.PeselNumberValue <- ShapeToString(number.NumberLiteral);

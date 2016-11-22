@@ -39,6 +39,10 @@ ProferenceChunk convertProferenceToExpectativeKernel(ParameterType typeTarget, P
 		ret.Parameter.ParameterValue.PhoneNumber <- phoneNumber;
 		ret.Parameter.ParameterType <- 'phonenumber';
 		ret.Parameter.ParameterCategory <- 'terminal';
+		if( originalProference.Parameter.ParameterCategory == 'negation' )
+		{
+			ret.Parameter.ParameterCategory <- 'negation';
+		}
 	}	
 	if( typeTarget == 'moneyamount' && originalProference.Parameter.ParameterType == 'number' )
 	{
@@ -46,8 +50,12 @@ ProferenceChunk convertProferenceToExpectativeKernel(ParameterType typeTarget, P
 		ret.Parameter.ParameterValue.MoneyAmount <- moneyAmount;
 		ret.Parameter.ParameterType <- 'moneyamount';
 		ret.Parameter.ParameterCategory <- 'terminal';
+		if( originalProference.Parameter.ParameterCategory == 'negation' )
+		{
+			ret.Parameter.ParameterCategory <- 'negation';
+		}
 	}	
-
+	
 	return ret;
 }
 

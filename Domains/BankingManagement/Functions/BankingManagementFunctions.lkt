@@ -70,8 +70,12 @@ ProferenceChunk convertProferenceToExpectativeBankingManagement(ParameterType ty
 		ret.Parameter.ParameterValue.AccountNumber <- accountNumber;
 		ret.Parameter.ParameterType <- 'accountnumber';
 		ret.Parameter.ParameterCategory <- 'terminal';
+		if( originalProference.Parameter.ParameterCategory == 'negation' )
+		{
+			ret.Parameter.ParameterCategory <- 'negation';
+		}
 	}	
-
+	
 	return ret;
 }
 

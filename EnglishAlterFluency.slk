@@ -75,21 +75,77 @@ CreateDialogue
 i want an appointment in sevilla for the dentist
 yes
 
-// Intersentential test 1
-//123
-//no 123
-
-// Intersentential test 2
+// Intersentential test 1: FINISH AGREE (PASSED)
 //123
 //456
 //78
 //999
+//yes
 
-// Intersentential test 3
+// Intersentential test 2: FINISH DISAGREE (PASSED)
+//123
+//456
+//78
+//999
+//no
+
+// Intersentential test 3: FINISH INCORRECT (PASSED)
+//123
+//456
+//78
+//99999
+
+// Intersentential test 4: PARAMETER DISAGREE (PASSED)
+//123
+//456
+//no
+
+// Intersentential test 5: PARAMETER DISAGREE REPEATING (PASSED)
+//123
+//456
+//no 456
+
+// Intersentential test 6: PARAMETER DISAGREE CHANGING (PASSED)
+//123
+//456
+//no 789
+
+// Intersentential test 7: FIRST PARAMETER DISAGREE (PASSED)
+//123
+//no
+
+// Intersentential test 8: FIRST PARAMETER DISAGREE REPEATING (PASSED)
+//123
+//no 123
+
+// Intersentential test 9: FIRST PARAMETER DISAGREE CHANGING (PASSED)
+//123
+//no 456
+
+// Intersentential test 10: INTRASENTENTIAL CORRECTION 1 (PASSED)
+//123
+//456 no 789
+
+// Intersentential test 11: INTRASENTENTIAL CORRECTION 2 (NOT PASSED - NLU FAULT)
+//123
+//456 no 456 789
+
+// Intersentential test 12: INTRASENTENTIAL CORRECTION 3 (NOT PASSED - NLU FAULT)
+//123
+//456 no wait a second 789
+
+// POR AQUI
+
+// Intersentential test 13: UNCERTAIN or NON COOPERATIVE USER
 123
-456
-no
+blah
 
+// Intersentential test 13: UNCERTAIN or NON COOPERATIVE USER
+//123
+//i don't know 
 
+// Intersentential test 14: CANCELLATION
+//123
+//cancel this task, please
 
 

@@ -47,7 +47,7 @@ PhoneNumber convertNumberToPhoneNumber(Parameter parameter)
 {
 	PhoneNumber ret;
 
-	if(parameter.ParameterCategory == 'terminal')
+	if(parameter.ParameterCategory == 'terminal' || parameter.ParameterCategory == 'negation')
 	{
 		Number number <- parameter.ParameterValue.Number;
 		ret.PhoneNumberValue <- number.NumberLiteral;

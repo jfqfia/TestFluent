@@ -62,7 +62,7 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	ScriptNode nodeFirstParameterDisagree <- createScriptNode( 'firstparameterdisagree', 'execute', 1 );
 	nodeFirstParameterDisagree.ScriptNodeContent <- setNodeContent( 'statement', 'request', 'repeat', 'intersentential' );
 	BatchInsertEnd( nodeFirstParameterDisagree.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_counter_leq', 'capturednode', '1' ));
-	BatchInsertEnd( nodeFirstParameterDisagree.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
+	BatchInsertEnd( nodeFirstParameterDisagree.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'rejected' ));
 	BatchInsertEnd( nodeFirstParameterDisagree.ScriptNodePostconditions, createDialogueAction2Arguments( 'clear_info_value_of_script', script.ScriptDescriptor, parameter));
 	BatchInsertEnd( nodeFirstParameterDisagree.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_info_state_of_script', script.ScriptDescriptor, parameter, 'empty'));
 	BatchInsertEnd( nodeFirstParameterDisagree.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));	
@@ -74,15 +74,10 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	ScriptNode nodeParameterDisagree <- createScriptNode( 'parameterdisagree', 'execute', 1 );
 	nodeParameterDisagree.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'intersentential', 'parameter' );
 	BatchInsertEnd( nodeParameterDisagree.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_counter_leq', 'capturednode', '1' ));
-	BatchInsertEnd( nodeParameterDisagree.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));
-
-	// TODO
-	// En qué estado está el parametro si ha sido rechazado
 	BatchInsertEnd( nodeParameterDisagree.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'rejected' ));
-
 	BatchInsertEnd( nodeParameterDisagree.ScriptNodePostconditions, createDialogueAction2Arguments( 'clear_info_value_of_script', dialogueScript.ScriptDescriptor, '1'));
 	BatchInsertEnd( nodeParameterDisagree.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_history_parameter', '1' ));
-	BatchInsertEnd( nodeParameterDisagree.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));		
+	BatchInsertEnd( nodeParameterDisagree.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'checking' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeParameterDisagree );
 

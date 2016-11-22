@@ -63,6 +63,9 @@
 ("negative",				lexDisagreement)
 
 ("i don't know",			lexDontknow)
+("don't know",				lexDontknow)
+("i don't remember",			lexDontknow)
+("don't remember",			lexDontknow)
 ("i have no idea",			lexDontknow)
 ("dunno",				lexDontknow)
 ("i have not a clue",			lexDontknow)

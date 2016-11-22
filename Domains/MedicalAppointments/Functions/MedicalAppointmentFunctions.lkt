@@ -73,8 +73,12 @@ ProferenceChunk convertProferenceToExpectativeMedicalAppointment(ParameterType t
 		ret.Parameter.ParameterValue.PeselNumber <- peselNumber;
 		ret.Parameter.ParameterType <- 'peselnumber';
 		ret.Parameter.ParameterCategory <- 'terminal';
+		if( originalProference.Parameter.ParameterCategory == 'negation' )
+		{
+			ret.Parameter.ParameterCategory <- 'negation';
+		}
 	}	
-
+	
 	return ret;
 }
 

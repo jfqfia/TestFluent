@@ -82,21 +82,9 @@ bool reviewStateTrigger(ScriptDescriptor scriptDescriptor, int position, ScriptI
 	return ret;
 }
 
-// TODO Revisar aquí: estrategia avanzada
-// Si el parámetro es negated y los valores son iguales: Cancelar el valor del parámetro (empty)
-// Si el parámetro es negated y los valores son distintos: Cambiar el valor del parámetro (captured)
 bool reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, ScriptInfoItem scriptInfoItem )
 {
 	bool ret <- False;
-
-	// TODO QUITAR
-/*
-	SpyMessage("");
-	SpyMessage("");
-	SpyMessage(scriptInfoItem);
-	SpyMessage("");
-	SpyMessage("");
-*/
 
 	// Initial state == 'empty' => New captured parameter or remembering
 	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
@@ -116,14 +104,30 @@ bool reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, Scrip
 		scriptInfoItem.InfoItemState <- 'grounded';
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
-	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) )
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) && !! scriptInfoItem.InfoItemValue.Parameter.ParameterCategory == 'negation')
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
+		Parameter parameter;
+		BatchExtractEnd(scriptInfoItem.InfoItemHistory, parameter);
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
-	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem ) )
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) && scriptInfoItem.InfoItemValue.Parameter.ParameterCategory == 'negation')
+	{
+		scriptInfoItem.InfoItemState <- 'rejected';
+		Parameter parameter;
+		BatchExtractEnd(scriptInfoItem.InfoItemHistory, parameter);
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem )  && !! scriptInfoItem.InfoItemValue.Parameter.ParameterCategory == 'negation')
 	{
 		scriptInfoItem.InfoItemState <- 'captured';
+		scriptInfoItem.InfoItemMoveState <- 'marked';
+	}
+	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && hasChanged( scriptInfoItem )  && scriptInfoItem.InfoItemValue.Parameter.ParameterCategory == 'negation')
+	{
+		scriptInfoItem.InfoItemState <- 'captured';
+		Parameter parameter;
+		BatchExtractEnd(scriptInfoItem.InfoItemHistory, parameter);
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
 	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState != 'captured' && hasBeenDisagreement() )
