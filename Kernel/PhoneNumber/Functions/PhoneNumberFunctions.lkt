@@ -36,8 +36,8 @@ ParameterFormats getParameterFormatsPhoneNumber()
 	format <- '#########';
 	BatchInsertEnd(ret, format);
 
-	// TODO QUITAR: se supone que no hay teléfonos con 12 dígitos
-	format <- '############';
+	// TODO QUITAR: se supone que no hay teléfonos con 11 dígitos
+	format <- '###########';
 	BatchInsertEnd(ret, format);
 
 	return ret;

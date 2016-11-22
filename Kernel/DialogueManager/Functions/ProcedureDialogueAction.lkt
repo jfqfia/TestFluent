@@ -34,7 +34,22 @@ procedure executeProcedureDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, info );
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, value );
-		setInfoValueState(script, info, value);
+		setInfoValueScript(script, info, value);
+	}
+	else if(dialogueAction.DialogueActionName == 'clear_info_value_of_script')
+	{
+		string script, info;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, info );
+		clearInfoValueScript(script, info);
+	}
+	else if(dialogueAction.DialogueActionName == 'set_info_state_of_script')
+	{
+		string script, info, state;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, script );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, info );
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 3, state );
+		setInfoStateScript(script, info, state);
 	}
 	else if(dialogueAction.DialogueActionName == 'set_counter')
 	{
@@ -262,7 +277,7 @@ procedure setNodeStateToCurrent(string nodeDescriptor, string state)
 	setNodeState( $MINDBOARD@DialogueState.CurrentScriptDescriptor, nodeDescriptor, state );
 }
 
-procedure setInfoValueState(string scriptDescriptor, string infoString, string valueString)
+procedure setInfoValueScript(string scriptDescriptor, string infoString, string valueString)
 {
 	DialogueScript script, currentScript;
 	ScriptInfoItem scriptInfoItem, recoveredScriptInfoItem;
@@ -276,20 +291,41 @@ procedure setInfoValueState(string scriptDescriptor, string infoString, string v
 	BatchRecoverPosition( currentScript.ScriptInfoItems, valueNumber, recoveredScriptInfoItem );
 	scriptInfoItem.InfoItemValue <- recoveredScriptInfoItem.InfoItemValue;
 
-	// TODO COMPROBAR SI NO HACER MEJOR EN OTRA FUNCIÓN
-	scriptInfoItem.InfoItemState <- 'grounded';
-	scriptInfoItem.InfoItemMoveState <- 'marked';
-
-	//script <- getScript(scriptDescriptor);
 	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
 	setScript( script );
+}
 
-	// TODO QUITAR
-	SpyMessage("");
-	SpyMessage("");
-	SpyMessage(scriptInfoItem);
-	SpyMessage("");
-	SpyMessage("");
+procedure clearInfoValueScript(string scriptDescriptor, string infoString)
+{
+	DialogueScript script;
+	ScriptInfoItem scriptInfoItem;
+	int infoNumber <- ShapeToInt(infoString);
+
+	script <- getScript(scriptDescriptor);
+
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	InfoItemValue emptyInfoItemValue;
+	scriptInfoItem.InfoItemValue <- emptyInfoItemValue;
+
+	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	setScript( script );
+}
+
+procedure setInfoStateScript(string scriptDescriptor, string infoString, string stateString)
+{
+	DialogueScript script, currentScript;
+	ScriptInfoItem scriptInfoItem, recoveredScriptInfoItem;
+	int infoNumber <- ShapeToInt(infoString);
+
+	script <- getScript(scriptDescriptor);
+
+	BatchRecoverPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+
+	scriptInfoItem.InfoItemState <- ShapeToRange(stateString);
+	scriptInfoItem.InfoItemMoveState <- 'marked';
+
+	BatchAssignPosition( script.ScriptInfoItems, infoNumber, scriptInfoItem );
+	setScript( script );
 }
 
 procedure setNodeState(string scriptDescriptor, string nodeDescriptor, string state)
@@ -648,9 +684,16 @@ procedure pullScriptFast()
 	
 	BatchExtractEnd( $MINDBOARD@DialogueState.ActivatedScriptsStack, descriptor );
 
-	DialogueScript recoveredDialogueScript <- removeFromWorkingDialogueScheme( descriptor );
-	recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
-	BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
+	removeFromWorkingDialogueScheme( descriptor );
+	if(!! LiteralIncluded('_', descriptor))
+	{
+		DialogueScript recoveredDialogueScript <- getFromOriginalDialogueScheme( descriptor );
+		BatchInsertEnd( $MINDBOARD@WorkingDialogueScheme.DialogueScripts, recoveredDialogueScript );
+	}
+	else
+	{
+		removeFromOriginalDialogueScheme( descriptor );
+	}
 }
 
 procedure resetNextLevel()

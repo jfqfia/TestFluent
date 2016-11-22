@@ -88,3 +88,21 @@
 	}
 )
 
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'request' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'repeat') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'intersentential'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, let´s try again. ',
+					   'Oh! My fault! ',
+					   'Let´s start from the beginning, please. ');
+	}
+)
+

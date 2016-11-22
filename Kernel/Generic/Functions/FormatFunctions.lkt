@@ -43,12 +43,11 @@ ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 	// TODO Comprobación de dígitos en #
 
 	// TODO QUITAR
-	SpyMessage("");
-	SpyMessage("");
-	SpyMessage("Format: ", format);
-	SpyMessage("Value: ", value);
-	SpyMessage("");
-	SpyMessage("");
+//	SpyMessage("");
+//	SpyMessage("Format: ", format);
+//	SpyMessage("Value: ", value);
+//	SpyMessage("");
+//	SpyMessage("");
 
 	ScriptNodeStateName ret;
 

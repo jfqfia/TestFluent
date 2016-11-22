@@ -13,7 +13,7 @@ setupRuntimeSpyMessageOn
 
 // MainAnswer:On
 // DisplayProcessLocutioOn
- DisplayProcessUnderstandingOn
+// DisplayProcessUnderstandingOn
 // DisplayProcessGenerationOn
 // DisplayProcessScriboOn
 // DisplayProcessRespondoOn
@@ -74,9 +74,21 @@ CreateDialogue
 
 i want an appointment in sevilla for the dentist
 yes
+
+// Intersentential test 1
+//123
+//no 123
+
+// Intersentential test 2
+//123
+//456
+//78
+//999
+
+// Intersentential test 3
 123
-
-
+456
+no
 
 
 

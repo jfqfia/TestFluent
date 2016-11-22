@@ -1,6 +1,6 @@
 * CaptureIntersential.lkt en DialogueManager/Functions
 
-* Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt
+* Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt y en OverCounterParameter en supernodes
 
 * Cuando hay muchas confirmaciones implícitas hay que saber desambiguar bien:
 * Si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script (repasar)

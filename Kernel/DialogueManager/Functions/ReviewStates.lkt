@@ -89,6 +89,15 @@ bool reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, Scrip
 {
 	bool ret <- False;
 
+	// TODO QUITAR
+/*
+	SpyMessage("");
+	SpyMessage("");
+	SpyMessage(scriptInfoItem);
+	SpyMessage("");
+	SpyMessage("");
+*/
+
 	// Initial state == 'empty' => New captured parameter or remembering
 	if( scriptInfoItem.InfoItemState == 'empty' && scriptInfoItem.InfoItemMoveState == 'captured' )
 	{

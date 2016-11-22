@@ -127,7 +127,7 @@
 
 		SetMainAnswerString( ' in ' );
 		parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'countryplace' );	
-		SetMainAnswerString( mostConcretePlace( parameter.ParameterValue.CountryPlace ) );
+		SetMainAnswerString( firstUpper(mostConcretePlace( parameter.ParameterValue.CountryPlace )) );
 
 		SetMainAnswerString( ' has been booked on ' );
 		parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'datetime' );	

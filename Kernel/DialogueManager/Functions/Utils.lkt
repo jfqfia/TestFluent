@@ -220,6 +220,31 @@ DialogueScript removeFromWorkingDialogueScheme( ScriptDescriptor scriptDescripto
 	return ret;
 }
 
+// Removes and returns a dialogue script from the original dialogue scheme
+DialogueScript removeFromOriginalDialogueScheme( ScriptDescriptor scriptDescriptor )
+{
+	DialogueScripts dialogueScripts;
+	DialogueScript ret, recoveredDialogueScript;
+
+	int size <- BatchSize( $MINDBOARD@DialogueScheme.DialogueScripts );
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueScheme.DialogueScripts, position, recoveredDialogueScript );
+		if( recoveredDialogueScript.ScriptDescriptor == scriptDescriptor )
+		{
+			ret <- recoveredDialogueScript;
+		}
+		else
+		{
+			BatchInsertEnd( dialogueScripts, recoveredDialogueScript );
+		}
+	}
+	$MINDBOARD@DialogueScheme.DialogueScripts <- dialogueScripts;	
+
+	return ret;
+}
+
+
 // Looks for a given script in the original dialogue scheme
 DialogueScript getFromOriginalDialogueScheme( ScriptDescriptor scriptDescriptor )
 {
