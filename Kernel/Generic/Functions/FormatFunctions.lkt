@@ -47,6 +47,16 @@ ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 	if(valueSize < formatSize)
 	{
 		ret <- 'pending';
+		int size <- LiteralSize( value );
+		for(int position <- 1; position <= size; position ++)
+		{
+			string formatCaracter <- LiteralPositionValue(format, position);
+			string valueCaracter <- LiteralPositionValue(value, position);
+			if(!! correctFormatCaracter(formatCaracter, valueCaracter))
+			{
+				ret <- 'incorrect';
+			}
+		}
 	}
 	else if(valueSize == formatSize)
 	{
@@ -67,16 +77,15 @@ ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 		ret <- 'incorrect';
 	}
 
-	// TODO QUITAR	
-	//SpyMessage("");
-	//SpyMessage("");
-	//SpyMessage(ret);
-	//SpyMessage("");
-	//SpyMessage("");
-
 	return ret;	
 }
 
+/* Possible mask formats
+# 	Any valid number
+^	Any letter 
+@	Any letter or number
+*	Anything
+*/
 bool correctFormatCaracter(string formatCaracter, string valueCaracter)
 {
 	bool ret <- False;	
@@ -88,6 +97,21 @@ bool correctFormatCaracter(string formatCaracter, string valueCaracter)
 	}
 	// Specific signs
 	if(!! ret && formatCaracter == valueCaracter )
+	{
+		ret <- True;
+	}
+	// ^: Only letters (english alfabet)
+	if(!! ret && formatCaracter == '^' && isLetterCaracter(valueCaracter))
+	{
+		ret <- True;
+	}
+	// @: Only letters and numbers (english alfabet)
+	if(!! ret && formatCaracter == '@' && (isLetterCaracter(valueCaracter) || isNumericCaracter(valueCaracter)))
+	{
+		ret <- True;
+	}
+	// *: Wildcard
+	if(!! ret && formatCaracter == '*' )
 	{
 		ret <- True;
 	}
@@ -106,13 +130,18 @@ bool isNumericCaracter(string caracter)
 	return ret;
 }
 
-/* Possible mask formats
-# 	Any valid number
-U	Any letter 
-A	Any letter or number
-H 	Any hex caracter
-*	Anything
-*/
+bool isLetterCaracter(string caracter)
+{
+	bool ret <- False;
+	if( caracter == 'a' || caracter == 'b' || caracter == 'c' || caracter == 'd' || caracter == 'e' || caracter == 'f' || caracter == 'g' || caracter == 'h' || caracter == 'i' || caracter == 'j' ||
+	    caracter == 'k' || caracter == 'l' || caracter == 'm' || caracter == 'n' || caracter == 'o' || caracter == 'p' || caracter == 'q' || caracter == 'r' || caracter == 's' || caracter == 't' ||
+	    caracter == 'u' || caracter == 'v' || caracter == 'w' || caracter == 'x' || caracter == 'y' || caracter == 'z' )
+	{
+		ret <- True;
+	}
+	
+	return ret;
+}
 
 
 

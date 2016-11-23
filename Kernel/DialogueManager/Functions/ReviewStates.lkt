@@ -107,8 +107,6 @@ bool reviewStateParameter(ScriptDescriptor scriptDescriptor, int position, Scrip
 	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) && !! scriptInfoItem.InfoItemValue.Parameter.ParameterCategory == 'negation')
 	{
 		scriptInfoItem.InfoItemState <- 'grounded';
-		Parameter parameter;
-		BatchExtractEnd(scriptInfoItem.InfoItemHistory, parameter);
 		scriptInfoItem.InfoItemMoveState <- 'marked';
 	}
 	else if( scriptInfoItem.InfoItemState == 'echoed' && scriptInfoItem.InfoItemMoveState == 'captured' && !! hasChanged( scriptInfoItem ) && scriptInfoItem.InfoItemValue.Parameter.ParameterCategory == 'negation')

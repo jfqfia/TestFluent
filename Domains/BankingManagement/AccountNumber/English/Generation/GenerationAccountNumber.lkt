@@ -28,7 +28,7 @@
 
 		SetMainAnswerStringRandom( 'I remember that your account number is ',
 					   'I see that your account number is ' );
-		SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+		SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
 		SetMainAnswerString('. ');
     	}
 )
@@ -47,7 +47,7 @@
 	{
 		SetMainAnswerStringRandom( 'The account number is not valid. ',
 					   'I am afraid that the account number is incorrect. ');
-		SetMainAnswer( 'Remember that a correct account number must have 10 digits exactly. ' );
+		SetMainAnswer( 'Remember that a correct account number must have 20 digits exactly, or to be an IBAN number. ' );
     	}
 )
 
@@ -67,7 +67,7 @@
 		if(checkAccountNumberValidity(parameter) != 'pending')
 		{
 			SetMainAnswerStringRandom( 'I understood that the account number is ' );
-			SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+			SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
 			SetMainAnswerString('. ');
 		}
     	}
@@ -184,7 +184,7 @@
 		for( int position <- 1; position <= size; position ++)
 		{	
 			BatchRecoverPosition( parameters, position, parameter);
-			SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+			SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
 			if(position < size)
 			{
 				SetMainAnswerString(' ');
@@ -214,7 +214,7 @@
 	ScriboAction 
 	{
 		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
-		SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+		SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
 		SetMainAnswerString( '. ' );
     	}
 )
@@ -242,7 +242,7 @@
 		for( int position <- 1; position <= size; position ++)
 		{	
 			BatchRecoverPosition( parameters, position, parameter);
-			SetMainAnswerString(parameter.ParameterValue.AccountNumber.AccountNumberValue);
+			SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
 			if(position < size)
 			{
 				SetMainAnswerString(' ');

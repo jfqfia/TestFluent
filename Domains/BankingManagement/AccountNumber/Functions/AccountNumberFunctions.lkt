@@ -28,11 +28,15 @@ bool canMergeWithAndAccountNumber(Parameter parameter1, Parameter parameter2)
 
 ParameterFormats getParameterFormatsAccountNumber()
 {
-	// A pesel number is a 20 digits (0-9) string
+	// SPANISH ACCOUNT NUMBER
+	// An account number is a 20 digits (0-9) string
 	ParameterFormats ret;
 	ParameterFormat format;
 
 	format <- '####################';
+	BatchInsertEnd(ret, format);
+
+	format <- 'es######################';
 	BatchInsertEnd(ret, format);
 
 	return ret;
@@ -55,13 +59,30 @@ AccountNumber convertNumberToAccountNumber(Parameter parameter)
 	return ret;
 }
 
+AccountNumber convertSignChunkToAccountNumber(Parameter parameter)
+{
+	AccountNumber ret;
+
+	if(parameter.ParameterCategory == 'terminal' || parameter.ParameterCategory == 'negation')
+	{
+		ret.AccountNumberValue <- parameter.ParameterValue.SignChunk.SignChunkLiteral;
+	}
+	if(parameter.ParameterCategory == 'sequential')
+	{
+		ret.AccountNumberValue <- getConcatenatedSignChunk( parameter );
+	}
+
+	return ret;
+}
+
 ScriptNodeStateName checkAccountNumberValidity( Parameter parameter )
 {
 	ScriptNodeStateName ret;
 
 	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.AccountNumber.AccountNumberValue );
 
-	// TODO Additional checks not related with mask format
+	// Additional checks not related with mask format
+	// Check IBAN integrity for example (but we must deal with 30 digits integers, not possible with LEKTA, yet...)
 
 	return ret;
 }

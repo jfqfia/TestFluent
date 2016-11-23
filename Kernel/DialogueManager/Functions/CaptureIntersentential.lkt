@@ -50,7 +50,7 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	scriptInfoItem.InfoItemState <- 'captured';	
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	// Node - CapturedParameter
+	// Node - CapturedParameter - captured
 	ScriptNode nodeCapturedParameter <- createScriptNode( 'capturednode', 'execute', 1 );
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'captured' ));
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'checking' ));
@@ -60,6 +60,23 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCapturedParameter );
 
+	// Node - CapturedParameter - grounded
+	ScriptNode nodeGroundedParameter <- createScriptNode( 'groundednode', 'execute', 1 );
+	BatchInsertEnd( nodeGroundedParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeGroundedParameter.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'digested_parameter', 'signchunk' ));
+	BatchInsertEnd( nodeGroundedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'captured' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeGroundedParameter );
+
+	// Node - CapturedParameter - grounded with rubbish
+	ScriptNode nodeGroundedParameterRubbish <- createScriptNode( 'groundednoderubbish', 'execute', 1 );
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePreconditions, createPrecondition1Arguments( 'digested_parameter', 'signchunk' ));
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_counter_leq', 'groundednoderubbish', ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'captured' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeGroundedParameterRubbish );
+	
 	// Node - FirstParameterDisagree
 	ScriptNode nodeFirstParameterDisagree <- createScriptNode( 'firstparameterdisagree', 'execute', 1 );
 	nodeFirstParameterDisagree.ScriptNodeContent <- setNodeContent( 'statement', 'request', 'repeat', 'intersentential' );

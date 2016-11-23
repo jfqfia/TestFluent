@@ -1,42 +1,13 @@
-* CaptureIntersential.lkt en DialogueManager/Functions
+* PESEL Validity favoritos en mozilla firefox
 
-* Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt y en OverCounterParameter en supernodes
+* Mejorar el negociador de fechas.
+
+* Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt y en OverCounterParameter en supernodes y en CAptureIntersentential
 
 * Cuando hay muchas confirmaciones implícitas hay que saber desambiguar bien:
 * Si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script (repasar)
 * i want an appointment in sevilla
 * no, in granada 
-
-* Códigos alfanuméricos:
-		if(!! #1)
-		{
-			^.LetterValue <- TokenInputText(1);
-		}
-		else
-		{
-			^.LetterValue <- #1;
-		}
-* Plantearse la posibilidad de poner un parámetro adicioinal
-* signos (+34 en teléfonos, etc.)
-* Crear patterns para códigos alfanuméricos.
-
-* User parameter segmentation intersentential:
-S: What's your phone number?
-U: 686.
-S: 686, ok, go on.
-U: 57.
-S: 57, yes.
-U: 59.
-S: 59, all right.
-U: no, no!
-S: Ok, we have 686 57, please continue.
-U: 58.
-S: 58, right.
-S: 85.
-S: OK, let me confirm your phone number, is it 686575885?
-
-* Detectar "as soon as possible"
-* Mejorar el negociador de fechas.
 
 * Spanish version of domains
 

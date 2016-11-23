@@ -11,6 +11,19 @@
 //
 // **************************************************
 
+ParameterFormats getParameterFormatsPhoneNumber()
+{
+	// SPANISH PHONE
+	// A phone number is a 9 digits (0-9) string
+	ParameterFormats ret;
+	ParameterFormat format;
+
+	format <- '#########';
+	BatchInsertEnd(ret, format);
+
+	return ret;
+}
+
 ScriptNodeStateName validFormat(ParameterType parameterType, string value)
 {
 	ParameterFormats formats;

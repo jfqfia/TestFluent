@@ -26,23 +26,6 @@ bool canMergeWithAndPhoneNumber(Parameter parameter1, Parameter parameter2)
 	return False;
 }
 
-ParameterFormats getParameterFormatsPhoneNumber()
-{
-	// A phone number is a 9 digits (0-9) string
-	// TODO Be careful with +34
-	ParameterFormats ret;
-	ParameterFormat format;
-
-	format <- '#########';
-	BatchInsertEnd(ret, format);
-
-	// TODO QUITAR: se supone que no hay teléfonos con 11 dígitos
-	format <- '###########';
-	BatchInsertEnd(ret, format);
-
-	return ret;
-}
-
 PhoneNumber convertNumberToPhoneNumber(Parameter parameter)
 {
 	PhoneNumber ret;

@@ -55,3 +55,47 @@
 )
 
 
+(ColligoScheme ProferenceChunkSequentialNumberSignChunk : [ ProferenceChunk ProferenceChunk >> ProferenceChunk ]
+	ColligoCapture 
+	{
+		#OBJCOLLIGO-1.Parameter.ParameterType == 'number' && 
+		(#OBJCOLLIGO-1.Parameter.ParameterCategory == 'terminal' || #OBJCOLLIGO-1.Parameter.ParameterCategory == 'sequential') && 
+		#OBJCOLLIGO-2.Parameter.ParameterType == 'signchunk' && 
+		(#OBJCOLLIGO-2.Parameter.ParameterCategory == 'terminal' || #OBJCOLLIGO-2.Parameter.ParameterCategory == 'sequential')
+	}
+ 	ColligoAction 
+	{
+		^OBJSENSO.Parameter.ParameterCategory <- 'sequential';
+		^OBJSENSO.Parameter.ParameterType <- 'signchunk';
+
+		string numberString <- getConcatenatedNumber(#OBJCOLLIGO-1.Parameter);
+		^OBJSENSO.Parameter.ParameterOperand1.ParameterValue.SignChunk.SignChunkLiteral <- numberString;
+		^OBJSENSO.Parameter.ParameterOperand1.ParameterCategory <- 'terminal';
+		^OBJSENSO.Parameter.ParameterOperand1.ParameterType <- 'signchunk';
+
+		^OBJSENSO.Parameter.ParameterOperand2 <- #OBJCOLLIGO-2.Parameter;
+	}
+)
+
+(ColligoScheme ProferenceChunkSequentialSignChunkNumber : [ ProferenceChunk ProferenceChunk >> ProferenceChunk ]
+	ColligoCapture 
+	{
+		#OBJCOLLIGO-1.Parameter.ParameterType == 'signchunk' && 
+		(#OBJCOLLIGO-1.Parameter.ParameterCategory == 'terminal' || #OBJCOLLIGO-1.Parameter.ParameterCategory == 'sequential') && 
+		#OBJCOLLIGO-2.Parameter.ParameterType == 'number' && 
+		(#OBJCOLLIGO-2.Parameter.ParameterCategory == 'terminal' || #OBJCOLLIGO-2.Parameter.ParameterCategory == 'sequential')
+	}
+ 	ColligoAction 
+	{
+		^OBJSENSO.Parameter.ParameterCategory <- 'sequential';
+		^OBJSENSO.Parameter.ParameterType <- 'signchunk';
+
+		^OBJSENSO.Parameter.ParameterOperand1 <- #OBJCOLLIGO-1.Parameter;
+
+		string numberString <- getConcatenatedNumber(#OBJCOLLIGO-2.Parameter);
+		^OBJSENSO.Parameter.ParameterOperand2.ParameterValue.SignChunk.SignChunkLiteral <- numberString;
+		^OBJSENSO.Parameter.ParameterOperand2.ParameterCategory <- 'terminal';
+		^OBJSENSO.Parameter.ParameterOperand2.ParameterType <- 'signchunk';
+	}
+)
+

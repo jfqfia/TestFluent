@@ -35,4 +35,18 @@
 	}
 )
 
+(AccountNumber_Rule03 :
+ 	[ AccountNumber -> lexDetMy? lexAccountNumberPreffix? lexAccountNumberPreffix lexAccountNumberTerm lexAccountNumberTerm? lexColon? SignChunk ]
+	{
+		^.AccountNumberValue <- #7.SignChunkLiteral;
+	}
+)
+
+(AccountNumber_Rule04 :
+ 	[ AccountNumber -> AccountNumber < lexComma | lexConjAnd >? SignChunk ]
+	{
+		^.AccountNumberValue <- LiteralConcat(#1.AccountNumberValue, #3.SignChunkLiteral);
+	}
+)
+
 

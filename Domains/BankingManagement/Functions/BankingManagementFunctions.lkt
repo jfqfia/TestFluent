@@ -74,8 +74,19 @@ ProferenceChunk convertProferenceToExpectativeBankingManagement(ParameterType ty
 		{
 			ret.Parameter.ParameterCategory <- 'negation';
 		}
+	}
+	if( typeTarget == 'accountnumber' && originalProference.Parameter.ParameterType == 'signchunk' )
+	{
+		AccountNumber accountNumber <- convertSignChunkToAccountNumber(originalProference.Parameter);
+		ret.Parameter.ParameterValue.AccountNumber <- accountNumber;
+		ret.Parameter.ParameterType <- 'accountnumber';
+		ret.Parameter.ParameterCategory <- 'terminal';
+		if( originalProference.Parameter.ParameterCategory == 'negation' )
+		{
+			ret.Parameter.ParameterCategory <- 'negation';
+		}
 	}	
-	
+
 	return ret;
 }
 
@@ -86,6 +97,10 @@ bool compatibleExpectativeTypesBankingManagement(ParameterType type1, ParameterT
 	ret <- False;
 
 	if( type1 == 'accountnumber' && type2 == 'number' )
+	{
+		ret <- True;
+	}
+	if( type1 == 'accountnumber' && type2 == 'signchunk' )
 	{
 		ret <- True;
 	}
