@@ -1,11 +1,13 @@
-* PESEL Validity favoritos en mozilla firefox
-
-* Mejorar el negociador de fechas.
+* Actualizar functional analysis
 
 * Disambiguators.lkt poner lo que está en ingles en GenerationKernel.lkt y en OverCounterParameter en supernodes y en CAptureIntersentential
 
+* Fix headers in the beginning of every file in the project
+
+* Mejorar el negociador de fechas.
+
 * Cuando hay muchas confirmaciones implícitas hay que saber desambiguar bien:
-* Si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script (repasar)
+* En el siguiente ejemplo, si le quitamos la coma sí funciona bien, pero con la coma se cree que estamos negando la confirmación implicita de la activación del script:
 * i want an appointment in sevilla
 * no, in granada 
 
@@ -14,8 +16,6 @@
 * Script de hoteles 
 * Script de vuelos
 * Script de carros de la compra
-
-* Fix headers in the beginning of every file in the project
 
 * English grammar and lexicon
 * http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions

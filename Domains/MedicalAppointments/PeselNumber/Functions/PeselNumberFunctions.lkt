@@ -62,7 +62,13 @@ ScriptNodeStateName checkPeselNumberValidity( Parameter parameter )
 
 	ret <- validFormat( parameter.ParameterType, parameter.ParameterValue.PeselNumber.PeselNumberValue );
 
-	// TODO Additional checks not related with mask format
+	if(ret == 'correct')
+	{
+		if(!! checkPeselIntegrity( parameter.ParameterValue.PeselNumber.PeselNumberValue ))
+		{
+			ret <- 'incorrect';
+		}
+	}
 
 	return ret;
 }
@@ -98,6 +104,37 @@ ParameterValue concatenateHistoryPeselNumber(InfoItemHistory history, Parameter 
 
 	return ret;
 }
+
+// https://en.wikipedia.org/wiki/PESEL
+bool checkPeselIntegrity( string pesel )
+{
+	
+	int A <- ShapeToInt(LiteralPositionValue(pesel,1));
+	int B <- ShapeToInt(LiteralPositionValue(pesel,2));
+	int C <- ShapeToInt(LiteralPositionValue(pesel,3));
+	int D <- ShapeToInt(LiteralPositionValue(pesel,4));
+	int E <- ShapeToInt(LiteralPositionValue(pesel,5));
+	int F <- ShapeToInt(LiteralPositionValue(pesel,6));
+	int G <- ShapeToInt(LiteralPositionValue(pesel,7));
+	int H <- ShapeToInt(LiteralPositionValue(pesel,8));
+	int I <- ShapeToInt(LiteralPositionValue(pesel,9));
+	int J <- ShapeToInt(LiteralPositionValue(pesel,10));
+	int K <- ShapeToInt(LiteralPositionValue(pesel,11));
+
+	int weighted <- A + 3 * B + 7 * C + 9 * D + E + 3 * F + 7 * G + 9 * H + I + 3 * J;
+	int remainder <- Modulo(weighted, 10);
+	int complement <- Modulo(10 - remainder, 10);
+
+	bool ret <- True;
+	if(complement != K)
+	{
+		ret <- False;
+	}
+	
+	return ret;
+}
+
+
 
 
 

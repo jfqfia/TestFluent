@@ -100,7 +100,7 @@ U: My account number is 1234567890.
 S: With the information that you provided, I think you can choose between these alternatives, make a bank transfer or consult your balance. What do you prefer?
 
 U: My account number is 1234567890 a total amount of 120 euros and for the dentist tomorrow.
-S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to the fact that the information provided only could be used for the previous task)
+S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to the fact that the information provided only could be used for the previous tasks)
 
 U: Consult.
 S: Please, could you be so kind to confirm that you want to consult the balance of your savings?
@@ -277,6 +277,8 @@ U: Cancel this, please.
 S: Are you sure that you want to cancel this task? 
 
 
+31: Formatting Masks
+S:
 
 
 

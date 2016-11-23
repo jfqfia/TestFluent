@@ -27,6 +27,30 @@ CreateDialogue
 	InstanceInterface:1
 )
 
+// Integrity of PESEL number 
+//i want an appointment in sevilla for the dentist my phone number is 123456789
+//yes
+
+// Invalid
+//440514
+//01358
+
+// Valid
+//440514
+//01359
+
+// Valid
+//02070803628
+
+// Invalid
+//02170803628
+
+// Valid
+//07020803628
+
+// Valid
+//00000000000
+
 // Test 1: EXPLICIT NUMBER: IBAN (PASSED)
 //consult balance my account number is ES7620770024003102575766
 
