@@ -40,15 +40,6 @@ ScriptNodeStateName checkFormats(ParameterFormats formats, string value)
 
 ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 {
-	// TODO Comprobación de dígitos en #
-
-	// TODO QUITAR
-//	SpyMessage("");
-//	SpyMessage("Format: ", format);
-//	SpyMessage("Value: ", value);
-//	SpyMessage("");
-//	SpyMessage("");
-
 	ScriptNodeStateName ret;
 
 	int formatSize = LiteralSize( format );
@@ -60,11 +51,70 @@ ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 	else if(valueSize == formatSize)
 	{
 		ret <- 'correct';
+		int size <- LiteralSize( value );
+		for(int position <- 1; position <= size; position ++)
+		{
+			string formatCaracter <- LiteralPositionValue(format, position);
+			string valueCaracter <- LiteralPositionValue(value, position);
+			if(!! correctFormatCaracter(formatCaracter, valueCaracter))
+			{
+				ret <- 'incorrect';
+			}
+		}
 	}
 	else
 	{
 		ret <- 'incorrect';
 	}
 
+	// TODO QUITAR	
+	//SpyMessage("");
+	//SpyMessage("");
+	//SpyMessage(ret);
+	//SpyMessage("");
+	//SpyMessage("");
+
 	return ret;	
 }
+
+bool correctFormatCaracter(string formatCaracter, string valueCaracter)
+{
+	bool ret <- False;	
+
+	// #: Only numeric caracters: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+	if(!! ret && formatCaracter == '#' && isNumericCaracter(valueCaracter))
+	{
+		ret <- True;
+	}
+	// Specific signs
+	if(!! ret && formatCaracter == valueCaracter )
+	{
+		ret <- True;
+	}
+
+	return ret;
+}
+
+bool isNumericCaracter(string caracter)
+{
+	bool ret <- False;
+	if( caracter == '0' || caracter == '1' || caracter == '2' || caracter == '3' || caracter == '4' || caracter == '5' || caracter == '6' || caracter == '7' || caracter == '8' || caracter == '9' )
+	{
+		ret <- True;
+	}
+	
+	return ret;
+}
+
+/* Possible mask formats
+# 	Any valid number
+U	Any letter 
+A	Any letter or number
+H 	Any hex caracter
+*	Anything
+*/
+
+
+
+
+
