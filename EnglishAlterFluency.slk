@@ -137,15 +137,20 @@ yes
 // POR AQUI
 
 // Intersentential test 13: UNCERTAIN or NON COOPERATIVE USER
-123
-blah
-
-// Intersentential test 13: UNCERTAIN or NON COOPERATIVE USER
 //123
-//i don't know 
+//blah
+//blah
+//blah
 
-// Intersentential test 14: CANCELLATION
+// Intersentential test 14: CANCELLATION - POSITIVE
 //123
 //cancel this task, please
+//yes
+
+// Intersentential test 15: CANCELLATION - NEGATIVE
+//123
+//cancel this task, please
+//no
+
 
 

@@ -242,14 +242,15 @@ DialogueScript createDialogueScriptCancellations()
 	nodeExplicitAgreement <- createScriptNode( nodeName3, 'execute', 2);
 	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
 	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
-	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	BatchInsertEnd( nodeExplicitAgreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
 	
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeExplicitAgreement );
 	
 	// Node - Disagreement (default)
 	nodeName4 <- LiteralConcat( 'default_disagreement', suffix );	
 	nodeDisagreement <- createScriptNode( nodeName4, 'execute', 3);
-	BatchInsertEnd( nodeDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script' ));
+	BatchInsertEnd( nodeDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+	BatchInsertEnd( nodeDisagreement.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
 	
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeDisagreement );
 
