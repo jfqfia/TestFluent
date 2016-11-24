@@ -173,8 +173,10 @@ procedure makeWeakDisambiguatorChoices()
 	if(maxScore == 0)
 	{
 		dialogueAct <- emptyDialogueAct;
-		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-		dialogueAct.TaskDialogueAct.Scope <- 'Sorry, I misunderstood what you said... ';
+		dialogueAct.CoreDialogueAct.Dimension <- 'social';
+		dialogueAct.CoreDialogueAct.Function <- 'apology';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'not' );
+		dialogueAct.TaskDialogueAct.Scope <- 'understand';
 		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 		string descriptor;
@@ -276,14 +278,23 @@ procedure generateWeakDisambiguatorChoices()
 	if(LiteralPositionValue(script.ScriptDescriptor, LiteralSize(script.ScriptDescriptor)) == 'F')
 	{
 		dialogueAct <- emptyDialogueAct;
-		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
+
+		dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+		dialogueAct.CoreDialogueAct.Function <- 'inform';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'resume' );
+		dialogueAct.TaskDialogueAct.Scope <- 'previousproference';
+
 		dialogueAct.TaskDialogueAct.Scope <- 'Going back to what you said a moment ago. ';
 		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 	}
 	
 	dialogueAct <- emptyDialogueAct;
-	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-	dialogueAct.TaskDialogueAct.Scope <- 'What do you want to do first';
+
+	dialogueAct.CoreDialogueAct.Dimension <- 'question';
+	dialogueAct.CoreDialogueAct.Function <- 'whquestion';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'do' );
+	dialogueAct.TaskDialogueAct.Scope <- 'first';
+
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 	int size <- BatchSize(script.ScriptInfoItems);
@@ -310,8 +321,12 @@ procedure generateWeakDisambiguatorChoices()
 	BatchRecoverPosition( script.ScriptInfoItems, size, scriptInfoItem2 );				
 
 	dialogueAct <- emptyDialogueAct;
-	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-	dialogueAct.TaskDialogueAct.Scope <- ' or ';
+
+	dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+	dialogueAct.CoreDialogueAct.Function <- 'inform';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'say' );
+	dialogueAct.TaskDialogueAct.Scope <- 'or';
+
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 	dialogueAct <- emptyDialogueAct;
@@ -566,8 +581,12 @@ procedure makeStrongDisambiguatorChoices()
 	if(maxScore == 0)
 	{
 		dialogueAct <- emptyDialogueAct;
-		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-		dialogueAct.TaskDialogueAct.Scope <- 'Sorry, I misunderstood what you said so I cancelled all the possibilities. ';
+
+		dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+		dialogueAct.CoreDialogueAct.Function <- 'inform';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'cancel' );
+		dialogueAct.TaskDialogueAct.Scope <- 'disambiguator';
+
 		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 		string descriptor;
@@ -633,14 +652,22 @@ procedure generateStrongDisambiguatorChoices()
 	if(LiteralPositionValue(script.ScriptDescriptor, LiteralSize(script.ScriptDescriptor)) == 'F')
 	{
 		dialogueAct <- emptyDialogueAct;
-		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-		dialogueAct.TaskDialogueAct.Scope <- 'Going back to what you said a moment ago. ';
+
+		dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+		dialogueAct.CoreDialogueAct.Function <- 'inform';
+		BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'resume' );
+		dialogueAct.TaskDialogueAct.Scope <- 'previousproference';
+
 		BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 	}
 	
 	dialogueAct <- emptyDialogueAct;
-	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-	dialogueAct.TaskDialogueAct.Scope <- 'With the information that you provided, I think you can choose between these alternatives';
+
+	dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+	dialogueAct.CoreDialogueAct.Function <- 'inform';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'choose' );
+	dialogueAct.TaskDialogueAct.Scope <- 'alternatives';
+
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 	int size <- BatchSize(script.ScriptInfoItems);
@@ -667,8 +694,12 @@ procedure generateStrongDisambiguatorChoices()
 	BatchRecoverPosition( script.ScriptInfoItems, size, scriptInfoItem2 );				
 
 	dialogueAct <- emptyDialogueAct;
-	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-	dialogueAct.TaskDialogueAct.Scope <- ' or ';
+
+	dialogueAct.CoreDialogueAct.Dimension <- 'statement';
+	dialogueAct.CoreDialogueAct.Function <- 'inform';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'say' );
+	dialogueAct.TaskDialogueAct.Scope <- 'or';
+
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 	dialogueAct <- emptyDialogueAct;
@@ -679,8 +710,12 @@ procedure generateStrongDisambiguatorChoices()
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 
 	dialogueAct <- emptyDialogueAct;
-	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'tell' );
-	dialogueAct.TaskDialogueAct.Scope <- '. What do you prefer?';
+
+	dialogueAct.CoreDialogueAct.Dimension <- 'question';
+	dialogueAct.CoreDialogueAct.Function <- 'whquestion';
+	BatchInsertEnd( dialogueAct.TaskDialogueAct.Action, 'say' );
+	dialogueAct.TaskDialogueAct.Scope <- 'prefer';
+
 	BatchInsertEnd( $MINDBOARD@DialogueOutput.DialogueActs, dialogueAct );
 }
 

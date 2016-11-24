@@ -1,0 +1,103 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE :	
+//	FILE	:	
+//
+// **************************************************
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'resume') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'previousproference'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Going back to what you said a moment ago.  ' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'do') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'first'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What do you want to do first' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'or'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( ' or ' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'say') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'prefer'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( '. What do you prefer? ' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'choose') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'alternatives'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'With the information that you provided, I think you can choose between these alternatives' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'cancel') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'disambiguator'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Sorry, I misunderstood what you said so I cancelled all the possibilities. ' );
+	}
+)
+

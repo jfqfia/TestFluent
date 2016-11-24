@@ -160,7 +160,7 @@ DialogueScript captureCompulsoryParameter(DialogueScript dialogueScript, int pri
 	// Node - OverCounterParameter
 	nodeName12 <- LiteralConcat( 'overcounterparameter', suffix );	
 	nodeOverCounterParameter <- createScriptNode( nodeName12, 'execute', priorityLevel );
-	nodeOverCounterParameter.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning... ' );
+	nodeOverCounterParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'cancel', 'task' );
 	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', parameterPosition, 'empty' ));
 	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_counter_leq', nodeName1, ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
 	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
@@ -679,7 +679,7 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	// Node - OverCounterParameter
 	nodeName7 <- LiteralConcat( 'overcounternegotiate', suffix );	
 	nodeOverCounter <- createScriptNode( nodeName7, 'execute', priorityLevel );
-	nodeOverCounter.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning... ' );
+	nodeOverCounter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'cancel', 'task' );
 	BatchInsertEnd( nodeOverCounter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_counter_leq', nodeName3, ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
 	BatchInsertEnd( nodeOverCounter.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
 	BatchInsertEnd( nodeOverCounter.ScriptNodePostconditions, createDialogueAction0Arguments( 'delete_disagreement' ));
@@ -691,7 +691,7 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	nodeName4 <- LiteralConcat( 'explicitagreement', suffix );	
 	nodeAgreement <- createScriptNode( nodeName4, 'execute', priorityLevel );
 	nodeAgreement.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
-	nodeAgreement.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'Ok, agreed! ' );
+	nodeAgreement.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'confirm', 'agreement' );
 	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName3, 'finalized' ));
 	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
@@ -704,7 +704,7 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	nodeName5 <- LiteralConcat( 'explicitnotagreement', suffix );	
 	nodeNotAgreement <- createScriptNode( nodeName5, 'execute', priorityLevel );
 	nodeNotAgreement.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
-	nodeNotAgreement.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'I´m sorry, but I didn´t understand you. ' );
+	nodeNotAgreement.ScriptNodeContent <- setNodeContent( 'social', 'apology', 'not', 'understand' );
 	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName3, 'finalized' ));
 	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeNotAgreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'digested_core', 'basicanswer', 'agreement' ));
@@ -718,7 +718,7 @@ DialogueScript negotiateParameter3(DialogueScript dialogueScript, int priorityLe
 	nodeName6 <- LiteralConcat( 'explicitdisagreement', suffix );	
 	nodeDisagreement <- createScriptNode( nodeName6, 'execute', priorityLevel );
 	nodeDisagreement.ScriptNodeState.ScriptNodeResetStateName <- 'notfinalized';
-	nodeDisagreement.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'It seems that you don´t agree with that. ' );
+	nodeDisagreement.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'confirm', 'disagreement' );
 	BatchInsertEnd( nodeDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_state', nodeName3, 'finalized' ));
 	BatchInsertEnd( nodeDisagreement.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', nodeName4, 'finalized' ));
 	BatchInsertEnd( nodeDisagreement.ScriptNodePreconditions, createPrecondition2Arguments( 'digested_core', 'basicanswer', 'disagreement' ));

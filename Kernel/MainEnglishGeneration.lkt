@@ -13,6 +13,7 @@
 
 // Kernel Scripts
 #Include "Generation/English/GenerationKernel.lkt"
+#Include "Generation/English/GenerationDisambiguatorKernel.lkt"
 
 // Social
 #Include "Social/English/Generation/GenerationSocialGoodbye.lkt"

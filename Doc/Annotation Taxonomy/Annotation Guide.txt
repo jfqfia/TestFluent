@@ -8,8 +8,8 @@ social
 	greeting
 	thanking
 	goodbye
-	apology (new one!)
-	downplaying (new one!)
+	apology
+	downplaying
 
 basicanswer
 	agreement

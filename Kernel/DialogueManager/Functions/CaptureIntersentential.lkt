@@ -177,7 +177,7 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 
 	// Node - OverCounterParameter
 	ScriptNode nodeOverCounterParameter <- createScriptNode( 'overcounter', 'execute', 4 );
-	nodeOverCounterParameter.ScriptNodeContent <- setNodeContent( '', '', 'tell', 'Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning... ' );
+	nodeOverCounterParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'cancel', 'task' );
 	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_counter_leq', 'repeatnodenon', ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
 	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
 	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'clear_info_value_of_script', script.ScriptDescriptor, parameter));
