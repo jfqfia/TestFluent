@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Croatia town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/HRCountryTowns
+//
+// ****************************************************************************
+
 ("andrijaševci",	 	lexCountryPlace, ( CountryName : 'croatia', CountryZone : 'hrvatska', CountryRegion : 'kontinentalna hrvatska', CountryProvince : 'vukovarsko-srijemska županija', CountryTown : 'andrijaševci' ))
 ("antunovac",	 	lexCountryPlace, ( CountryName : 'croatia', CountryZone : 'hrvatska', CountryRegion : 'kontinentalna hrvatska', CountryProvince : 'osječko-baranjska županija', CountryTown : 'antunovac' ))
 ("babina greda",	 	lexCountryPlace, ( CountryName : 'croatia', CountryZone : 'hrvatska', CountryRegion : 'kontinentalna hrvatska', CountryProvince : 'vukovarsko-srijemska županija', CountryTown : 'babina greda' ))

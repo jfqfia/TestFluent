@@ -1,0 +1,20 @@
+// ****************************************************************************
+//
+//	Indexfile for functions in Alter domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Alter
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAlterFunctions
+//
+// ****************************************************************************
+
+#Include "/Functions/AlterFunctions.lkt"
+#Include "../MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
+#Include "../BankingManagement/MainBankingManagementFunctions.lkt"
+
+

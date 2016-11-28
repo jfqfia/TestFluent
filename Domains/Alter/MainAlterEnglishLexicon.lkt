@@ -1,0 +1,18 @@
+// ****************************************************************************
+//
+//	Indexfile for english lexicon in Alter domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Alter
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAlterEnglishLexicon
+//
+// ****************************************************************************
+
+#Include "../MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
+#Include "../BankingManagement/MainBankingManagementEnglishLexicon.lkt"
+

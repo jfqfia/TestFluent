@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Romania town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/ROCountryTowns
+//
+// ****************************************************************************
+
 ("municipiul alba iulia",	 	lexCountryPlace, ( CountryName : 'romania', CountryZone : 'macroregiunea unu', CountryRegion : 'centru', CountryProvince : 'alba', CountryTown : 'municipiul alba iulia' ))
 ("municipiul aiud",	 	lexCountryPlace, ( CountryName : 'romania', CountryZone : 'macroregiunea unu', CountryRegion : 'centru', CountryProvince : 'alba', CountryTown : 'municipiul aiud' ))
 ("municipiul blaj",	 	lexCountryPlace, ( CountryName : 'romania', CountryZone : 'macroregiunea unu', CountryRegion : 'centru', CountryProvince : 'alba', CountryTown : 'municipiul blaj' ))

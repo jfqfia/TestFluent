@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generation for DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: English
+// 	FOLDER  : Generation
+// 	FILE	: GenerationDateTime
 //
-// *************************************************
+// ****************************************************************************
 
 (ScriboScheme ImplicitDateTimeParameter: [ DialogueAct ]
 	ScriboCapture 

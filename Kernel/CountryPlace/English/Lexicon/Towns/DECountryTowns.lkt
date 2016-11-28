@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Germany town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/DECountryTowns
+//
+// ****************************************************************************
+
 ("flensburg, stadt",	 	lexCountryPlace, ( CountryName : 'germany', CountryZone : 'schleswig-holstein', CountryRegion : 'schleswig-holstein', CountryProvince : 'flensburg, kreisfreie stadt', CountryTown : 'flensburg, stadt' ))
 ("kiel, landeshauptstadt",	 	lexCountryPlace, ( CountryName : 'germany', CountryZone : 'schleswig-holstein', CountryRegion : 'schleswig-holstein', CountryProvince : 'kiel, kreisfreie stadt', CountryTown : 'kiel, landeshauptstadt' ))
 ("lübeck, hansestadt",	 	lexCountryPlace, ( CountryName : 'germany', CountryZone : 'schleswig-holstein', CountryRegion : 'schleswig-holstein', CountryProvince : 'lübeck, kreisfreie stadt', CountryTown : 'lübeck, hansestadt' ))

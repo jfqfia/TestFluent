@@ -1,41 +1,19 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Header file for utility functions
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: Utils (lkth)
 //
-// **************************************************
+// ****************************************************************************
 
-// Given the script descriptor, returns the position in the working scheme.
-int indexOfScript(string scriptDescriptor);
-
-// Given the script descriptor, returns the script. 
-DialogueScript getScript(string scriptDescriptor);
-
-// Returns de current script.
 DialogueScript getCurrentScript();
-
-// Given the script and a node descriptor, returns the node
-ScriptNode getNodeFromScript(DialogueScript dialogueScript, string nodeDescriptor);
-
-// Given a node descriptor, returns the node inside current script.
-ScriptNode getNodeFromCurrentScript( ScriptNodeDescriptor nodeDescriptor );
-
-// Returns the current node from current script.
 ScriptNode getCurrentNode();
-
-// Returns the type of the current node from current script.
 ScriptNodeType getCurrentNodeType();
-
-// Saves script into working scheme (if it exists).
-procedure setScript(DialogueScript dialogueScript);
-
-// Saves node into script (if it exists).
-procedure setNodeToScript(DialogueScript dialogueScript, ScriptNode scriptNode);
-
 

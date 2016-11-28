@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index of types files.
+//	Index file for types in number parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	MainNumberTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Number
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainNumberTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/NumberTypes.lkt"
 #Include "Types/LexicalNumberTypes.lkt"

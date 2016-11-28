@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Hungary town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/HUCountryTowns
+//
+// ****************************************************************************
+
 ("aba",	 	lexCountryPlace, ( CountryName : 'hungary', CountryZone : 'dunántúl', CountryRegion : 'közép-dunántúl', CountryProvince : 'fejér', CountryTown : 'aba' ))
 ("abádszalók",	 	lexCountryPlace, ( CountryName : 'hungary', CountryZone : 'alföld és észak', CountryRegion : 'észak-alföld', CountryProvince : 'jász-nagykun-szolnok', CountryTown : 'abádszalók' ))
 ("abaliget",	 	lexCountryPlace, ( CountryName : 'hungary', CountryZone : 'dunántúl', CountryRegion : 'dél-dunántúl', CountryProvince : 'baranya', CountryTown : 'abaliget' ))

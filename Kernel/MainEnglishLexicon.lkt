@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english lexicon in Kernel domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Generic/English/Lexicon/GenericEnglishLexicon.lkt"
 #Include "Generic/English/Lexicon/VerbsEnglishLexicon.lkt"
@@ -37,7 +39,4 @@
 #Include "MoneyAmount/English/Lexicon/MoneyAmountEnglishLexicon.lkt"
 
 #Include "Task/English/Lexicon/TaskEnglishLexicon.lkt"
-
-//#Include "SignChunk/English/Lexicon/SignChunkEnglishLexicon.lkt"
-
 

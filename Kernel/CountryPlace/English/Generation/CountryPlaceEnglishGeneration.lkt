@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generation for CountryPlace parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Generation
+// 	FILE	: CountryPlaceEnglishGeneration
 //
-// *************************************************
+// ****************************************************************************
 
 (ScriboScheme RecoveredCountryPlaceParameter: [ DialogueAct ]
 	ScriboCapture 

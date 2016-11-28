@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Generic functions used in Natural Language Generation stage
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generation
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: GenerationFunctions
+//
+// ****************************************************************************
 
 bool containsActionDomain( Action actionBatch, ActionDomain actionDomainToSearch )
 {

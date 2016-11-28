@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English lexicon for PhoneNumber parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : PhoneNumber
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: PhoneNumberEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 ("number", 			lexPhoneNumberTerm)
 ("phone", 			lexPhoneNumberTerm)

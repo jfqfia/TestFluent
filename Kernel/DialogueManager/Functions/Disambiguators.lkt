@@ -1,18 +1,23 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions related with the creation of two scripts used for the
+// 	disambiguation of possible scripts activation:
+//	* WeakDisambiguator: Used to ask for the priority between various 
+//		scripts 
+//	* Strong diambiguator: Used to discard between various scripts and
+//		to choose which will be the next script to be activated
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: Disambiguators
 //
-// **************************************************
+// ****************************************************************************
 
-// Devuelve cierto si el actual es dialogueScript y además es un desambiguador
-// Se llama desde DigestPhases (getCompatibleScriptTriggerComponent)
 bool isCurrentAndDisambiguator(DialogueScript dialogueScript)
 {
 	DialogueScript current <- getCurrentScript();
@@ -558,7 +563,7 @@ procedure makeStrongDisambiguatorChoices()
 	}
 	int numChoices <- position / 2;
 
-	// Detect ordinals in not digested proferences zone (when they are implemented)
+	// Detect ordinals in not digested proferences zone
 	if(maxScore == 0 && hasBeenOrdinal())
 	{
 		Ordinal ordinal <- getLastOrdinal();

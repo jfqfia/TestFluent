@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index of types files.
+//	Index file for types in Letter parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	MainNumberTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Letter
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainLetterTypes
 //
-// **************************************************
+// **************************************************************************
 
 #Include "Types/LetterTypes.lkt"
 #Include "Types/LexicalLetterTypes.lkt"

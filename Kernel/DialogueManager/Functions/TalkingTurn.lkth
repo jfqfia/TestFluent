@@ -1,28 +1,26 @@
-// ******************************************************
-//      Lekta Application
-// ***************************
-//      PROJECT :       Alter
-//      MODULE  :       DManager/Library (Dialogue Scheme)
-//      FILE    :       TalkingTurn.lkth
-// ******************************************************
+// ****************************************************************************
+//
+//	Header file for functions of every phase in the cogito schemata
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: TalkingTurn (lkth)
+//
+// ****************************************************************************
 
 procedure startTalkingTurn();
-
 procedure digestExpectatives();
-
 procedure digestSearchScripts();
-
 procedure activateScripts();
-
 procedure selectCurrentScript();
-
 procedure reviewScriptInfoItemStates();
-
 procedure selectCurrentNode();	
-
 procedure processNode();	
-
 procedure closeTalkingTurn();
 
-procedure deleteDisagreement();
 

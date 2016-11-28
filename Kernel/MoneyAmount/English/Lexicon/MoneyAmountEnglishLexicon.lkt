@@ -1,17 +1,19 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English lexicon in MoneyAmount parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : MoneyAmount
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: MoneyAmountEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
-// Currencies from the world (TODO we could add slangs, for example 'bucks')
+// Currencies from the world (we could add slangs, for example 'bucks')
 
 // Euro
 ("euro",			lexCurrency, 'EUR')

@@ -1,0 +1,32 @@
+// ****************************************************************************
+//
+//	All lenguages grammar in SignChunk parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : SignChunk
+//	PACKAGE	: Grammar
+// 	FOLDER  : -
+// 	FILE	: SignChunkGrammar
+//
+// ****************************************************************************
+
+// Output rule for this package
+(SignChunk_Rule01 :
+ 	[ Parameter -> SignChunk ]
+	{
+		^.ParameterCategory <- 'terminal';
+		^.ParameterType <- 'signchunk';
+		^.ParameterValue.SignChunk <- #1;
+	}
+)
+
+(SignChunk_Rule02 :
+ 	[ SignChunk -> lexSignChunk ]
+	{
+		^.SignChunkLiteral <- ShapeToString(TokenInputText(1));
+	}
+)
+

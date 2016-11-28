@@ -1,32 +1,36 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Locutio Schemata file (now empty)
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Locutio
+// 	FOLDER  : -
+// 	FILE	: LocutioSchemata
 //
-// **************************************************
+// ****************************************************************************
 
-/*
 (LocutioScheme Combined_Echo: [ DialogueAct DialogueAct >> DialogueAct ]
-	/*
-    	LocutioCapture 
+	LocutioCapture 
 	{
         	(
+                  False
+		 /*
 		 ( #OBJRESPONDO-1.DMotion == 'Echo' ) &&
 	         ( #OBJRESPONDO-2.DMotion == 'Echo' ) &&
 		 ( LiteralPrefixCompare (#OBJRESPONDO-1.DItem.DCategory, 'Parameter', 9) == 0) &&
 		 ( LiteralPrefixCompare (#OBJRESPONDO-2.DItem.DCategory, 'Parameter', 9) == 0) 
+		 */
 		)
     	}
-	*/
-/*
+	
+
     	LocutioAction 
 	{	
+		/*
 		^OBJLOCUTIO <- #OBJRESPONDO-1;
 		//^OBJLOCUTIO <& #OBJRESPONDO-2;  
 		//SpyMessage(#OBJRESPONDO-1);
@@ -62,6 +66,6 @@
 	
 		^OBJLOCUTIO.DMotion <- 'Echo';
 		^OBJLOCUTIO.CombinedDMoves <- combined;
-		*/
-/*	}
-)*/
+		*/		
+	}
+)

@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Scripting for testing purposes
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: EnglishAlterFluency.slk
+//
+// ****************************************************************************
+
 LaunchLektaKernel
 ( 
 	ExecStrategy = KernelSynchronous

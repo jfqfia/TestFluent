@@ -1,20 +1,22 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for functions in Kernel domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainFunctions
 //
-// **************************************************
+// ****************************************************************************
 
 // DateTime
 #Include "DateTime/Functions/DateTimeFunctions.lkt"
 #Include "DateTime/Functions/NormalizeDateTimeFunctions.lkt"
-#Include "DateTime/Functions/GenerationDateTimeFunctions.lkt"
+#Include "DateTime/Functions/English/GenerationDateTimeFunctions.lkt"
 
 // Number
 #Include "Number/Functions/NumberFunctions.lkt"
@@ -38,12 +40,10 @@
 #Include "SignChunk/Functions/SignChunkFunctions.lkt"
 
 // DialogueManager
-#Include "DialogueManager/Functions/DialogueScript.lkth"
-#Include "DialogueManager/Functions/DialogueScheme.lkth"
 #Include "DialogueManager/Functions/MindBoard.lkth"
-#Include "DialogueManager/Functions/TalkingTurn.lkth"
+#Include "DialogueManager/Functions/DialogueScheme.lkth"
 #Include "DialogueManager/Functions/Utils.lkth"
-#Include "DialogueManager/Functions/ScriptNode.lkth"
+#Include "DialogueManager/Functions/TalkingTurn.lkth"
 
 // Generation
 #Include "Generation/Functions/GenerationFunctions.lkt"

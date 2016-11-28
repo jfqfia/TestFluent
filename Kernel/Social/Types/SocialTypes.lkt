@@ -1,47 +1,43 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Types in Social dimension/function pair
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Social
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: SocialTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Social = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Greeting = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Bye = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Thanks = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Apology = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Downplaying = CoreDialogueAct

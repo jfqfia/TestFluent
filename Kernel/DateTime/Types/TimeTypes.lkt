@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Types related with time of the day 
+//	Index file for types in DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types
-//	FILE	:	TimeTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainDateTimeTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	GeneralTime :
@@ -24,25 +25,21 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	BaseTime = Time
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	NegotiateModifier = lexTemporalModifierNegotiate
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	MinTime, MaxTime = GeneralTime
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	OffsetTime :
@@ -52,7 +49,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	Time :
@@ -63,7 +59,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:ElementInt
 (
  	Hour,
@@ -72,7 +67,6 @@ classDef:ElementInt
 	TemporalModifierValue
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	PartOfTheDay :
@@ -82,7 +76,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:ElementRange
 (
  	PartOfTheDayInterval :
@@ -93,7 +86,6 @@ classDef:ElementRange
 	}
 )
 
-// TODO Structure explanation
 classDef:ElementRange
 (
  	PartOfTheDayName :
@@ -107,7 +99,6 @@ classDef:ElementRange
 	}
 )
 
-// TODO Structure explanation
 classDef:ElementRange
 (
 	DirectionOfTime :
@@ -117,7 +108,6 @@ classDef:ElementRange
 	} 
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	TemporalModifier :

@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Bulgaria town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/BGCountryTowns
+//
+// ****************************************************************************
+
 ("абланица",	 	lexCountryPlace, ( CountryName : 'bulgaria', CountryZone : 'югозападна и южна централна българия (yugozapadna i yuzhna tsentralna bulgaria)', CountryRegion : 'югозападен (yugozapaden)', CountryProvince : 'благоевград (blagoevgrad)', CountryTown : 'абланица' ))
 ("ablanitsa",	 	lexCountryPlace, ( CountryName : 'bulgaria', CountryZone : 'югозападна и южна централна българия (yugozapadna i yuzhna tsentralna bulgaria)', CountryRegion : 'югозападен (yugozapaden)', CountryProvince : 'благоевград (blagoevgrad)', CountryTown : 'ablanitsa' ))
 ("абланица",	 	lexCountryPlace, ( CountryName : 'bulgaria', CountryZone : 'северна и югоизточна българия (severna i yugoiztochna bulgaria)', CountryRegion : 'северозападен (severozapaden)', CountryProvince : 'ловеч (lovech)', CountryTown : 'абланица' ))

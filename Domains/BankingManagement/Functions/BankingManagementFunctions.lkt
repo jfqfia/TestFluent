@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions in Banking Management domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: BankingManagementFunctions
 //
-// **************************************************
+// ****************************************************************************
 
 ParameterValue concatenateHistoryBankingManagement(InfoItemHistory history, Parameter lastParameter)
 {

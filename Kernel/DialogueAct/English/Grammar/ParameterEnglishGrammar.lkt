@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	English grammar for parameter field of DialogueAct 
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueAct
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: ParameterEnglishGrammar
+//
+// ****************************************************************************
 
 (Parameter_Rule01 :
 	[ Parameter/1 -> lexNegation Parameter/0]
@@ -119,7 +121,8 @@
 	}
 )
 
-// TODO Include in the corpus
+// To be included in the test corpus
+
 // not today
 // not today or not tomorrow
 // today or tomorrow

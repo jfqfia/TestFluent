@@ -1,10 +1,17 @@
-// ******************************************************
-//      Lekta Application
-// ***************************
-//      PROJECT :       Alter
-//      MODULE  :       DManager (Dialogue Manager)
-//      FILE    :       SensoSchemata.lkt
-// ******************************************************
+// ****************************************************************************
+//
+//	Senso Schemata file
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Senso
+// 	FOLDER  : -
+// 	FILE	: SensoSchemata
+//
+// ****************************************************************************
 
 (SensoScheme Booting : [DialogueState]
 	SensoCapture 

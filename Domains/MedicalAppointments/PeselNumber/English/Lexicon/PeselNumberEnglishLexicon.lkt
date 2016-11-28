@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Lexicon in PESEL Number parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : PeselNumber
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: PeselNumberEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 ("number", 			lexPeselNumberTerm)
 ("identifier",			lexPeselNumberTerm)

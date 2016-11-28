@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Sweden town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/SECountryTowns
+//
+// ****************************************************************************
+
 ("upplands väsby",	 	lexCountryPlace, ( CountryName : 'sweden', CountryZone : 'östra sverige', CountryRegion : 'stockholm', CountryProvince : 'stockholms län', CountryTown : 'upplands väsby' ))
 ("vallentuna",	 	lexCountryPlace, ( CountryName : 'sweden', CountryZone : 'östra sverige', CountryRegion : 'stockholm', CountryProvince : 'stockholms län', CountryTown : 'vallentuna' ))
 ("österåker",	 	lexCountryPlace, ( CountryName : 'sweden', CountryZone : 'östra sverige', CountryRegion : 'stockholm', CountryProvince : 'stockholms län', CountryTown : 'österåker' ))

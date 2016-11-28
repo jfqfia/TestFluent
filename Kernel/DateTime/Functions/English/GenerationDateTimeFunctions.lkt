@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Functions for DateTime parameter related with english generation
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: Functions
+// 	FOLDER  : English
+// 	FILE	: GenerationDateTimeFunctions
+//
+// ****************************************************************************
 
 string dateTimeToString( DateTime datetime )
 {

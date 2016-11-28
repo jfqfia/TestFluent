@@ -1,29 +1,28 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Types in Statement dimension
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Statement
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: StatementTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Statement = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Inform = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Request = CoreDialogueAct

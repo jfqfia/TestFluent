@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions related with the stages in the cogito schemata. Every 
+//	function here is called in that file.
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: TalkingTurn
 //
-// **************************************************
+// ****************************************************************************
 
 procedure startTalkingTurn()
 {
@@ -89,8 +92,8 @@ procedure digestSearchScripts()
 	scoreDigestSchemes();
 }
 
+// Sorry this is in spanish, I'll try to translate it as soon as possible!
 /*
-
 Primera estrategia para activación de Scripts
 
 1. Si el script activo está en DialogueDigest, 
@@ -124,7 +127,6 @@ Primera estrategia para activación de Scripts
 5. Meter scripts de desambiguación si hemos metido alguno en el paso anterior
 	5.1 Introducir WD: "Weak Desambiguator" Elegir el orden entre los nuevos que hemos metido que empaten en puntuación o que sean scopes
 	5.2 Introducir SD: "Strong Desambiguator" Elegir cuál ejecutar para descartar uno de ellos (sin scope y empatando en puntuación)
-
 */
 
 procedure activateScripts()
@@ -191,12 +193,10 @@ procedure activateScripts()
 		{
 			if(scopeFlag)
 			{
-				// Meter un WD(digestSize) al final
 				pushWeakDisambiguator(digestSize, True);
 			}
 			else
  			{
-				// Aquí hay mucha más casuística: mirar en Disambiguators.lkt
 				processNewActivatedScriptsWithNoScope(digestSize);
 			}
 		}

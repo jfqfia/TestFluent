@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Finland town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/FICountryTowns
+//
+// ****************************************************************************
+
 ("alajärvi",	 	lexCountryPlace, ( CountryName : 'finland', CountryZone : 'manner-suomi', CountryRegion : 'länsi-suomi', CountryProvince : 'etelä-pohjanmaa', CountryTown : 'alajärvi' ))
 ("alavieska",	 	lexCountryPlace, ( CountryName : 'finland', CountryZone : 'manner-suomi', CountryRegion : 'pohjois- ja itä-suomi', CountryProvince : 'pohjois-pohjanmaa', CountryTown : 'alavieska' ))
 ("alavus",	 	lexCountryPlace, ( CountryName : 'finland', CountryZone : 'manner-suomi', CountryRegion : 'länsi-suomi', CountryProvince : 'etelä-pohjanmaa', CountryTown : 'alavus' ))

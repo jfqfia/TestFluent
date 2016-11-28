@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english grammar in Kernel domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainEnglishGrammar
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Generic/English/Grammar/GenericEnglishGrammar.lkt"
 
@@ -41,7 +43,7 @@
 
 #Include "Task/English/Grammar/TaskEnglishGrammar.lkt"
 
-#Include "SignChunk/English/Grammar/SignChunkEnglishGrammar.lkt"
+#Include "SignChunk/Grammar/SignChunkGrammar.lkt"
 
 
 

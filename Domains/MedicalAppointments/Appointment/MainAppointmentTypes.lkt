@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index for generic types.
+//	Index file for types in Appointment scope
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	MainGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Appointment
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAppointmentTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/AppointmentTypes.lkt"
 #Include "Types/LexicalAppointmentTypes.lkt"

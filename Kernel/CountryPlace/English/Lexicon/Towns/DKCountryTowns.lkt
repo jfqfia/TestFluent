@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Denmark town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/DKCountryTowns
+//
+// ****************************************************************************
+
 ("helligånds",	 	lexCountryPlace, ( CountryName : 'denmark', CountryZone : 'danmark', CountryRegion : 'hovedstaden', CountryProvince : 'byen københavn', CountryTown : 'helligånds' ))
 ("trinitatis",	 	lexCountryPlace, ( CountryName : 'denmark', CountryZone : 'danmark', CountryRegion : 'hovedstaden', CountryProvince : 'byen københavn', CountryTown : 'trinitatis' ))
 ("bethlehem",	 	lexCountryPlace, ( CountryName : 'denmark', CountryZone : 'danmark', CountryRegion : 'hovedstaden', CountryProvince : 'byen københavn', CountryTown : 'bethlehem' ))

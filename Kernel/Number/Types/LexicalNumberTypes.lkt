@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index of types files.
+//	Lexical types in number parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	LexicalMainNumberTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Number
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: LexicalNumberTypes
 //
-// **************************************************
+// ****************************************************************************
 
 classDef:Void
 (

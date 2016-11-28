@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Types related with generic dates
+//	Index file for types in DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types
-//	FILE	:	DateTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainDateTimeTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
     	DateTime:
@@ -24,19 +25,16 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	BaseDate = Date
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	MinDate, MaxDate = DateTime
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	OffsetDate:
@@ -47,7 +45,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	Date:
@@ -60,7 +57,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:ElementInt
 (
 	Day, 

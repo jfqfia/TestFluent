@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Malta town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/MTCountryTowns
+//
+// ****************************************************************************
+
 ("valletta",	 	lexCountryPlace, ( CountryName : 'malta', CountryZone : 'malta', CountryRegion : 'malta', CountryProvince : 'malta', CountryTown : 'valletta' ))
 ("citta' umilissima",	 	lexCountryPlace, ( CountryName : 'malta', CountryZone : 'malta', CountryRegion : 'malta', CountryProvince : 'malta', CountryTown : 'citta\' umilissima' ))
 ("birgu",	 	lexCountryPlace, ( CountryName : 'malta', CountryZone : 'malta', CountryRegion : 'malta', CountryProvince : 'malta', CountryTown : 'birgu' ))

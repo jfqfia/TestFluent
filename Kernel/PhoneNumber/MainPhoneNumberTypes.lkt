@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for types in PhoneNumber parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : PhoneNumber
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainPhoneNumberTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/PhoneNumberTypes.lkt"
 #Include "Types/LexicalPhoneNumberTypes.lkt"

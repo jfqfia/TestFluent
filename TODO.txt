@@ -1,4 +1,19 @@
-* Fix headers in the beginning of every file in the project
+// ****************************************************************************
+//
+//	
+//
+// ****************************************************************************
+//
+//	PROJECT	: 
+// 	DOMAIN  : 
+//	MODULE  : 
+//	PACKAGE	: 
+// 	FOLDER  : 
+// 	FILE	: 
+//
+// ****************************************************************************
+
+* Teaching Lekta...
 
 * Improve datetime negotiation.
 
@@ -12,6 +27,8 @@ U: No, in Granada
 * Hotel booking scripting
 * Flight booking scripting
 * Shop chart scripting
+
+* UK town names
 
 * English grammar and lexicon
 * http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions

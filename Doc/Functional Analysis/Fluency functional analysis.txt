@@ -325,7 +325,12 @@ U: 12345678901234567890
 S: The money amount is 150.34 EUR. Ok, we are having some troubles trying to connect to our servers. Please try again in a few minutes. How may I help you? 
 
 
+35: Ordinal detection for multiple choice question
+U: I want to consult my balance, make a medical appointment and locate my nearest ATM.
+S: What do you want to do first, consult your balance, locate an ATM or book an appointment? 
+U: The first one, please! 
 
+U: Second one.
 
-
+U: The last option.
 

@@ -1,41 +1,38 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Types in BasicAnswer dimension/function pairs
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : BasicAnswer
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: BasicAnswerTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	BasicAnswer = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Agreement = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Disagreement = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Uncertain = CoreDialogueAct
 )
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	Dontknow = CoreDialogueAct

@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Austria town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/ATCountryTowns
+//
+// ****************************************************************************
+
 ("eisenstadt",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich', CountryRegion : 'burgenland', CountryProvince : 'nordburgenland', CountryTown : 'eisenstadt' ))
 ("rust",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich', CountryRegion : 'burgenland', CountryProvince : 'nordburgenland', CountryTown : 'rust' ))
 ("breitenbrunn am neusiedler see",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich', CountryRegion : 'burgenland', CountryProvince : 'nordburgenland', CountryTown : 'breitenbrunn am neusiedler see' ))

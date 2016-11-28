@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Netherlands town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/NLCountryTowns
+//
+// ****************************************************************************
+
 ("appingedam",	 	lexCountryPlace, ( CountryName : 'netherlands', CountryZone : 'noord-nederland', CountryRegion : 'groningen', CountryProvince : 'delfzijl en omgeving', CountryTown : 'appingedam' ))
 ("bedum",	 	lexCountryPlace, ( CountryName : 'netherlands', CountryZone : 'noord-nederland', CountryRegion : 'groningen', CountryProvince : 'overig groningen', CountryTown : 'bedum' ))
 ("bellingwedde",	 	lexCountryPlace, ( CountryName : 'netherlands', CountryZone : 'noord-nederland', CountryRegion : 'groningen', CountryProvince : 'oost-groningen', CountryTown : 'bellingwedde' ))

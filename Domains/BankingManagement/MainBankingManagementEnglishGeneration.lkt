@@ -1,18 +1,20 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english generation in Banking Management domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainBankingManagementEnglishGeneration
 //
-// **************************************************
+// ****************************************************************************
 
-#Include "AccountNumber/English/Generation/GenerationAccountNumber.lkt"
-#Include "Scripts/English/GenerationBankingManagement.lkt"
+#Include "AccountNumber/English/Generation/AccountNumberEnglishGeneration.lkt"
+#Include "Scripts/English/BankingManagementEnglishGeneration.lkt"
 
 
 

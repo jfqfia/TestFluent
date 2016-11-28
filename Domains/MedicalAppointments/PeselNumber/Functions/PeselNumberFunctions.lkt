@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Functions in PESEL Number parameter
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : PeselNumber
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: PeselNumberFunctions
+//
+// ****************************************************************************
 
 bool canMergeWithSequentialPeselNumber(Parameter parameter1, Parameter parameter2)
 {

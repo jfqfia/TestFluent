@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generation in Medical Appointment domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Scripts
+//	PACKAGE	: English
+// 	FOLDER  : -
+// 	FILE	: GenerationMedicalAppointment
 //
-// **************************************************
+// ****************************************************************************
 
 (ScriboScheme ImplicitTriggerConsultBalance: [ DialogueAct ]
 	ScriboCapture 

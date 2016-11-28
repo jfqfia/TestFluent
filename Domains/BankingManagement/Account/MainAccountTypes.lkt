@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index for generic types.
+//	Index for types in account scope
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	MainGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : Account
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAccountTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/AccountTypes.lkt"
 #Include "Types/LexicalAccountTypes.lkt"

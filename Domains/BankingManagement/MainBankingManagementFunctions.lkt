@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for functions in Banking Management domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainBankingManagementEnglishFunctions
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Functions/BankingManagementFunctions.lkt"
 #Include "Functions/BankingManagementBackOffice.lkt"

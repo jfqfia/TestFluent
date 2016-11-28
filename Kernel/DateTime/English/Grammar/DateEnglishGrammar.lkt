@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Rules for dates in english.
+//	English grammar for Date part of DateTime parameter
 //
-// **************************************************
-// 
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Understanding.English.Grammar
-//	FILE	:	DateEnglishGrammar.lkt
-// 
-// **************************************************
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: DateEnglishGrammar
+//
+// ****************************************************************************
 
 (DateRule01_1 :
     	[ Parameter -> < lexPrepFor? | lexPrepBy?> DateTime ] 

@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Generic types.
+//	Generic basic types created from lekta meta-types
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	GenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: GenericTypes
 //
-// **************************************************
+// ****************************************************************************
 
 classDef:ElementBool
 (

@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for types in Kernel domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainTypes
 //
-// **************************************************
+// ****************************************************************************
 
 // Constants
 #Include "Constants/VerbConstants.lkt"
@@ -18,8 +20,8 @@
 #Include "Constants/IntegerConstants.lkt"
 
 // Macros
-#Include "Macros/VerbMacros.lkt"
-#Include "Macros/NounMacros.lkt"
+#Include "Macros/English/VerbMacros.lkt"
+#Include "Macros/English/NounMacros.lkt"
 
 // Parameter Types
 #Include "Generic/MainGenericTypes.lkt"

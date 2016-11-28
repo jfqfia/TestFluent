@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for functions in Medical Appointment domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainMedicalAppointmentFunctions
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Functions/MedicalAppointmentFunctions.lkt"
 #Include "Functions/MedicalAppointmentBackOffice.lkt"

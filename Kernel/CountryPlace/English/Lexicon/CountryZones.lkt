@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Country zones lexicon for CountryPlace parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: CountryZones
+//
+// ****************************************************************************
+
 ("ostösterreich",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich' ))
 ("südösterreich",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'südösterreich' ))
 ("westösterreich",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'westösterreich' ))

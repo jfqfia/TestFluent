@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Italy town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/ITCountryTowns
+//
+// ****************************************************************************
+
 ("agliè",	 	lexCountryPlace, ( CountryName : 'italy', CountryZone : 'nord-ovest', CountryRegion : 'piemonte', CountryProvince : 'torino', CountryTown : 'agliè' ))
 ("airasca",	 	lexCountryPlace, ( CountryName : 'italy', CountryZone : 'nord-ovest', CountryRegion : 'piemonte', CountryProvince : 'torino', CountryTown : 'airasca' ))
 ("ala di stura",	 	lexCountryPlace, ( CountryName : 'italy', CountryZone : 'nord-ovest', CountryRegion : 'piemonte', CountryProvince : 'torino', CountryTown : 'ala di stura' ))

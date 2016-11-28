@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Types for lexical part of the DateTime package.
+//	Index file for types in DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.DateTime
-//	FILE	:	LexicalDateTimeTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainDateTimeTypes
 //
-// **************************************************
+// ****************************************************************************
 
 classDef:Void
 (

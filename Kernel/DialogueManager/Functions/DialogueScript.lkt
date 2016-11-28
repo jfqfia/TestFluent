@@ -1,15 +1,21 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions related with the creation of kernel scripts:
+//	* Manager script
+// 	* Recurrent greetings scripts
+// 	* Script for goodbyes
+//	* Task cancellation scripts
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: DialogueScript
 //
-// **************************************************
+// ****************************************************************************
 
 DialogueScript createDialogueScriptGreetings()
 {

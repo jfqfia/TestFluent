@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Czech republic town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/CZCountryTowns
+//
+// ****************************************************************************
+
 ("želechovice nad dřevnicí",	 	lexCountryPlace, ( CountryName : 'czech republic', CountryZone : 'česká republika', CountryRegion : 'střední morava', CountryProvince : 'zlínský kraj', CountryTown : 'želechovice nad dřevnicí' ))
 ("petrov nad desnou",	 	lexCountryPlace, ( CountryName : 'czech republic', CountryZone : 'česká republika', CountryRegion : 'střední morava', CountryProvince : 'olomoucký kraj', CountryTown : 'petrov nad desnou' ))
 ("libhošť",	 	lexCountryPlace, ( CountryName : 'czech republic', CountryZone : 'česká republika', CountryRegion : 'moravskoslezsko', CountryProvince : 'moravskoslezský kraj', CountryTown : 'libhošť' ))

@@ -1,17 +1,19 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Constants of integer type used in this project
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Constants
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: IntegerConstants
 //
-// **************************************************
+// ****************************************************************************
 
-// Difference between digest schemes scores to be considered as big as the the lower is ignored
+// Difference between digest schemes scores to be considered as big as the lower is ignored
 #Define BIG_DIFFERENCE_DIGEST_SCHEMES 100
 #Define NUMBER_OF_QUESTIONS_BEFORE_ABORTING 3
 

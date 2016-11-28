@@ -1,17 +1,19 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for types in Statement dimension
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Statement
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainStatementTypes
 //
-// **************************************************
+// ****************************************************************************
 
-#Include "Types/LexicalRequestTypes.lkt"
+#Include "Types/LexicalStatementTypes.lkt"
 #Include "Types/StatementTypes.lkt"
 
 

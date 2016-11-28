@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Estonia town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/EECountryTowns
+//
+// ****************************************************************************
+
 ("aegviidu",	 	lexCountryPlace, ( CountryName : 'estonia', CountryZone : 'eesti', CountryRegion : 'eesti', CountryProvince : 'põhja-eesti', CountryTown : 'aegviidu' ))
 ("anija",	 	lexCountryPlace, ( CountryName : 'estonia', CountryZone : 'eesti', CountryRegion : 'eesti', CountryProvince : 'põhja-eesti', CountryTown : 'anija' ))
 ("harku",	 	lexCountryPlace, ( CountryName : 'estonia', CountryZone : 'eesti', CountryRegion : 'eesti', CountryProvince : 'põhja-eesti', CountryTown : 'harku' ))

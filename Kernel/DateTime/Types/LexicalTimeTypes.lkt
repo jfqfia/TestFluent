@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Types for lexical part of the DateTime package.
+//	Index file for types in DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.DateTime
-//	FILE	:	LexicalTimeTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainDateTimeTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Void
 (
 	lexHourTerm,
@@ -23,7 +24,6 @@ classDef:Void
 	lexTimeIntervalMax
 )
 
-// TODO Structure explanation
 classDef:ElementInt 
 (
 	lexMinuteValue,
@@ -31,7 +31,6 @@ classDef:ElementInt
 	lexMinuteOClock
 )
 
-// TODO Structure explanation
 classDef:ElementRange
 (
 	lexTemporalModifierNegotiate:
@@ -41,19 +40,16 @@ classDef:ElementRange
 	}
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	lexTemporalModifierForPartOfTheDay = PartOfTheDayInterval
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	lexPartOfTheDay = PartOfTheDayName
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
 	lexDirectionOfTimeModifier = DirectionOfTime

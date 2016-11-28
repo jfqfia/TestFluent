@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
+//	Functions used for mask formats in several parameters
 //
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: FormatFunctions
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
-//
-// **************************************************
+// ****************************************************************************
 
 ScriptNodeStateName checkFormats(ParameterFormats formats, string value)
 {

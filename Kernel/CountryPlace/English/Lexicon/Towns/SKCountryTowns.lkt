@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Slovakia town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/SKCountryTowns
+//
+// ****************************************************************************
+
 ("nitra",	 	lexCountryPlace, ( CountryName : 'slovakia', CountryZone : 'slovensko', CountryRegion : 'západné slovensko', CountryProvince : 'nitriansky kraj', CountryTown : 'nitra' ))
 ("alekšince",	 	lexCountryPlace, ( CountryName : 'slovakia', CountryZone : 'slovensko', CountryRegion : 'západné slovensko', CountryProvince : 'nitriansky kraj', CountryTown : 'alekšince' ))
 ("báb",	 	lexCountryPlace, ( CountryName : 'slovakia', CountryZone : 'slovensko', CountryRegion : 'západné slovensko', CountryProvince : 'nitriansky kraj', CountryTown : 'báb' ))

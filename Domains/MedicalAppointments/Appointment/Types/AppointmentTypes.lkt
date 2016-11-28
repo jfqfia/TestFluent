@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Types for Appointment scope
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Appointment
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: AppointmentTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Synonym 
 ( 
  	AppointmentScope = TaskDialogueAct

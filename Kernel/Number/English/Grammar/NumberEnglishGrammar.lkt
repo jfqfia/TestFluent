@@ -1,17 +1,18 @@
-// ******************************************************************
+// ****************************************************************************
 //
-//	Grammar rules for english numbers
+//	English grammar for Number parameter
 //
-// ******************************************************************
-// 
+// ****************************************************************************
+//
 //	PROJECT	: Fluency
-//	MODULE  : Kernel	
-//	PACKAGE	: Number	
-//	FILE	: English/Grammar/NumberEnglishGrammar.lkt
-// 
-// ******************************************************************
+// 	DOMAIN  : Kernel
+//	MODULE  : Number
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: NumberEnglishGrammar
+//
+// ****************************************************************************
 
-// Output rule for this package
 (Number_Rule01 :
  	[ Parameter -> Number ]
 	{

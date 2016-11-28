@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	English grammar for DialogueAct root type
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueAct
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: ProferenceChunkEnglishGrammar
+//
+// ****************************************************************************
 
 (ProferenceChunk_Rule01	:
  	[ ProferenceChunk -> CoreDialogueAct ]

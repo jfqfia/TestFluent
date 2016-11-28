@@ -1,17 +1,18 @@
-// ******************************************************************
+// ****************************************************************************
 //
-//	Grammar rules for english numbers
+//	English grammar for CountryPlace parameter
 //
-// ******************************************************************
-// 
+// ****************************************************************************
+//
 //	PROJECT	: Fluency
-//	MODULE  : Kernel	
-//	PACKAGE	: Number	
-//	FILE	: English/Grammar/NumberEnglishGrammar.lkt
-// 
-// ******************************************************************
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: CountryPlaceEnglishGrammar
+//
+// ****************************************************************************
 
-// Output rule for this package
 (CountryPlace_Rule01 :
  	[ Parameter -> CountryPlace ]
 	{
@@ -36,7 +37,7 @@
 )
 
 (CountryPlace_Rule03 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixDK]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixDK?]
 	{
 		if( #2.CountryName == 'denmark' && !! IsTokenSpelled(2))
 		{
@@ -50,7 +51,7 @@
 )
 
 (CountryPlace_Rule04 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixLT]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixLT?]
 	{
 		if( #2.CountryName == 'lithuania' && !! IsTokenSpelled(2))
 		{
@@ -64,7 +65,7 @@
 )
 
 (CountryPlace_Rule05 :
- 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixLV]
+ 	[ CountryPlace -> < lexPrepIn | lexPrepAt | lexPrepNear | lexPrepFrom >? lexCountryPlace lexCountryTownsSufixLV?]
 	{
 		if( #2.CountryName == 'latvia' && !! IsTokenSpelled(2))
 		{

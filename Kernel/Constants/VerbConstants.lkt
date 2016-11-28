@@ -1,16 +1,19 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Constants used in the verbs macros
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Constants
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: VerbConstants
 //
-// **************************************************
+// ****************************************************************************
 
+// English verbs
 #Define _INFINITIVE		VerbForm: 'infinitive'
 #Define _PRESENT_PARTICIPLE	VerbForm: 'present participle'
 #Define _SIMPLE_PAST		VerbForm: 'simple past'

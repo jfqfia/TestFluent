@@ -1,16 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generation in Medical Speciality parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: English
+// 	FOLDER  : Generation
+// 	FILE	: MedicalSpecialityEnglishGeneration
 //
-// *************************************************
-
+// ****************************************************************************
 
 (ScriboScheme ImplicitMedicalSpecialityParameter: [ DialogueAct ]
 	ScriboCapture 

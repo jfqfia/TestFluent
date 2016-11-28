@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions related with the easy creation of some nodes structures often
+//	used in the design of scripts
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: SuperNodes
 //
-// **************************************************
+// ****************************************************************************
 
 DialogueScript defaultNode(DialogueScript dialogueScript, int priorityLevel)
 {

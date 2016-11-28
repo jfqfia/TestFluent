@@ -1,0 +1,18 @@
+// ****************************************************************************
+//
+//	Indexfile for english grammar in Alter domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Alter
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAlterEnglishGrammar
+//
+// ****************************************************************************
+
+#Include "../MedicalAppointments/MainMedicalAppointmentEnglishGrammar.lkt"
+#Include "../BankingManagement/MainBankingManagementEnglishGrammar.lkt"
+

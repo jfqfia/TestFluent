@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index of types files.
+//	Index file for types in CountryPlace parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	MainNumberTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainCountryPlaceTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/CountryPlaceTypes.lkt"
 #Include "Types/LexicalCountryPlaceTypes.lkt"

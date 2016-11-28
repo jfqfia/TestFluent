@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index for generic types.
+//	Index for types in transfer scope
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	MainGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : Transfer
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainTransferTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/TransferTypes.lkt"
 #Include "Types/LexicalTransferTypes.lkt"

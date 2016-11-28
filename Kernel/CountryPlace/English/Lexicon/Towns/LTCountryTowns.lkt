@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Lithuania town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/LTCountryTowns
+//
+// ****************************************************************************
+
 ("alytaus miesto savivaldybė",	 	lexCountryPlace, ( CountryName : 'lithuania', CountryZone : 'lietuva', CountryRegion : 'lietuva', CountryProvince : 'alytaus apskritis', CountryTown : 'alytaus miesto savivaldybė' ))
 ("druskininkų savivaldybė",	 	lexCountryPlace, ( CountryName : 'lithuania', CountryZone : 'lietuva', CountryRegion : 'lietuva', CountryProvince : 'alytaus apskritis', CountryTown : 'druskininkų savivaldybė' ))
 ("alytaus",	 	lexCountryPlace, ( CountryName : 'lithuania', CountryZone : 'lietuva', CountryRegion : 'lietuva', CountryProvince : 'alytaus apskritis', CountryTown : 'alytaus' ))

@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Scripting functions for Alter domain
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Alter
+//	MODULE  : Scripts
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: AlterScript
+//
+// ****************************************************************************
 
 procedure createDialogueScheme()
 {
@@ -58,4 +60,6 @@ procedure createDialogueScheme()
 	$MINDBOARD@DialogueScheme <- dialogueScheme;
 }
 
+#Include "../../BankingManagement/Scripts/BankingManagementScripts.lkt"
+#Include "../../MedicalAppointments/Scripts/MedicalAppointmentScripts.lkt"
 

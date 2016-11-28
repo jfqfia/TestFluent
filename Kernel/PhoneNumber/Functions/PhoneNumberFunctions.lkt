@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Functions in PhoneNumber parameter
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : PhoneNumber
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: PhoneNumberFunctions
+//
+// ****************************************************************************
 
 bool canMergeWithSequentialPhoneNumber(Parameter parameter1, Parameter parameter2)
 {

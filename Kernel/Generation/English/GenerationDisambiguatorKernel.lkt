@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generation for disambiguators scripts
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generation
+//	PACKAGE	: English
+// 	FOLDER  : -
+// 	FILE	: GenerationDisambiguatorKernel
 //
-// **************************************************
+// ****************************************************************************
+
 
 (ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
 	ScriboCapture 

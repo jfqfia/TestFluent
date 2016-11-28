@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english grammar in Banking Management domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainBankingManagementEnglishGrammar
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Account/English/Grammar/AccountEnglishGrammar.lkt"
 #Include "AccountNumber/English/Grammar/AccountNumberEnglishGrammar.lkt"
