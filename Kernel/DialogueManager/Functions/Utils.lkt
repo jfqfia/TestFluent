@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Utility functions related with the extraction or update of information
+// 	in batches sited in mindboard memory
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: DialogueScheme
 //
-// **************************************************
+// ****************************************************************************
 
 // Given the script descriptor, returns the position in the working scheme.
 int indexOfScript(string scriptDescriptor)

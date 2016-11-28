@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Lexical for english date.
+//	English lexicon for Date part of DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Understanding.English.Lexicon
-//	FILE	:	DateEnglishLexicon.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: DateEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 // Basic lexical about dates
 ("day",				lexDayTerm)

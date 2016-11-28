@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//      Main setup file for fluency project
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: AlterFluency
+//
+// ****************************************************************************
+
 lektaProject
 	projectHead
 		projectDescriptor	: "Fluency"
@@ -9,36 +24,30 @@ lektaProject
 	projectSetup
 		setupParserRoots = ProferenceChunk
 		setupTokenizerNormalizeSpecActivate 
-			//setupTokenizerNormalizeSpecDeactivate 
-			//setupTokenizerNormalizeSpecDouble 
+		//setupTokenizerNormalizeSpecDeactivate 
+		//setupTokenizerNormalizeSpecDouble 
 		setupTokenizerNormalizeInputActivate
-			//setupTokenizerNormalizeInputDeactivate
+		//setupTokenizerNormalizeInputDeactivate
 		setupRuntimeSpyMessageOn
-			//TokenizerStrategy:Base
+		//TokenizerStrategy:Base
 		setupTokenizerSpellingChecker
 		setupParserTokenNotFounds = lexSignChunk
 
 	classModel
-		#Include "Dependencies/Alter/AlterParametersTypes.lkt"
 		#Include "Kernel/MainTypes.lkt"
-		#Include "Domains/MedicalAppointments/MainMedicalAppointmentTypes.lkt"
-		#Include "Domains/BankingManagement/MainBankingManagementTypes.lkt"
+		#Include "Domains/Alter/MainAlterTypes.lkt"
 
 	functionModel
-		#Include "Dependencies/Alter/AlterFunctions.lkt"
 		#Include "Kernel/MainFunctions.lkt"
-		#Include "Domains/MedicalAppointments/MainMedicalAppointmentFunctions.lkt"
-		#Include "Domains/BankingManagement/MainBankingManagementFunctions.lkt"
+		#Include "Domains/Alter/MainAlterFunctions.lkt"
 
 	lexicalModel forLanguage English 
 		#Include "Kernel/MainEnglishLexicon.lkt"
-		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishLexicon.lkt"
-		#Include "Domains/BankingManagement/MainBankingManagementEnglishLexicon.lkt"
+		#Include "Domains/Alter/MainAlterEnglishLexicon.lkt"
 
 	grammaticalModel forLanguage English
 		#Include "Kernel/MainEnglishGrammar.lkt"
-		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGrammar.lkt"
-		#Include "Domains/BankingManagement/MainBankingManagementEnglishGrammar.lkt"
+		#Include "Domains/Alter/MainAlterEnglishGrammar.lkt"
 
 	conversationalModel
 		#Include "Kernel/DialogueManager/MindBoard/MindBoardStructure.lkt"
@@ -60,29 +69,21 @@ lektaProject
 	RespondoSchemata
 		#Include "Kernel/DialogueManager/Respondo/RespondoSchemata.lkt"
 
-	//LocutioSchemata
-	//	#Include "Kernel/DialogueManager/Locutio/LocutioSchemata.lkt"
+	LocutioSchemata
+		#Include "Kernel/DialogueManager/Locutio/LocutioSchemata.lkt"
 
 	functionModel
 		#Include "Kernel/DialogueManager/Functions/MainDialogueManagerFunctions.lkt"
-		#Include "Dependencies/Alter/AlterScript.lkt"
-		#Include "Domains/BankingManagement/Scripts/BankingManagementScripts.lkt"
-		#Include "Domains/MedicalAppointments/Scripts/MedicalAppointmentScripts.lkt"
-
+		#Include "Domains/Alter/Scripts/AlterScript.lkt"
 
 	scriboModel forLanguage English
 		ScriboSchemata
 		#Include "Kernel/MainEnglishGeneration.lkt"
-		#Include "Domains/BankingManagement/MainBankingManagementEnglishGeneration.lkt"
-		#Include "Domains/MedicalAppointments/MainMedicalAppointmentEnglishGeneration.lkt"
+		#Include "Domains/Alter/MainAlterEnglishGeneration.lkt"
 
 	/*
-	scriboModel forLanguage Polish
-		ScriboSchemata
-		#Include "Source/NLGenerate/Polish/Main_Generate.lkt"
-
 	projectReview
-		//Print_Dialogue_Project_Setup
+		Print_Dialogue_Project_Setup
 		PrintLexiconByCats ( SelectLanguage: [1], "compile/LexiconByCats.txt")
 		displaySyntacticSpecification ( SelectLanguage: [1], "compile/GrammarSpec.txt")
 		displaySyntacticDefinition ( SelectLanguage: [1], "compile/GrammarDef.txt")

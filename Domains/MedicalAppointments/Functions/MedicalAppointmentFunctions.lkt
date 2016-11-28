@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions in Medical Appointment domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Functions
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MedicalAppointmentFunctions
 //
-// **************************************************
+// ****************************************************************************
 
 ParameterValue concatenateHistoryMedicalAppointment(InfoItemHistory history, Parameter lastParameter)
 {

@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Cogito Schemata file, here it's implemented the dialogue manager
+// 	generic strategy
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Cogito
+// 	FOLDER  : -
+// 	FILE	: CogitoSchemata
 //
-// **************************************************
+// ****************************************************************************
 
 (CogitoScheme BootingDialogue :
 	CogitoCapture 

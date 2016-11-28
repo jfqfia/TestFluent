@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Ad-Hoc script for the correct capture of parameters in various 
+// 	sentences
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: CaptureIntersentential
 //
-// **************************************************
+// ****************************************************************************
 
 procedure pushCaptureIntersententialParameter(string parameter)
 {
@@ -50,14 +53,33 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	scriptInfoItem.InfoItemState <- 'captured';	
 	BatchInsertEnd( dialogueScript.ScriptInfoItems, scriptInfoItem );
 
-	// Node - CapturedParameter
+	// Node - CapturedParameter - captured
 	ScriptNode nodeCapturedParameter <- createScriptNode( 'capturednode', 'execute', 1 );
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'captured' ));
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'checking' ));
 	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'checkingnode', 'notfinalized' ));
+	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_counter', 'repeatnode', '0' ));
+	BatchInsertEnd( nodeCapturedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_counter', 'repeatnodenon', '0' ));
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeCapturedParameter );
 
+	// Node - CapturedParameter - grounded
+	ScriptNode nodeGroundedParameter <- createScriptNode( 'groundednode', 'execute', 1 );
+	BatchInsertEnd( nodeGroundedParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeGroundedParameter.ScriptNodePreconditions, createNegatedPrecondition1Arguments( 'digested_parameter', 'signchunk' ));
+	BatchInsertEnd( nodeGroundedParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'captured' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeGroundedParameter );
+
+	// Node - CapturedParameter - grounded with rubbish
+	ScriptNode nodeGroundedParameterRubbish <- createScriptNode( 'groundednoderubbish', 'execute', 1 );
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePreconditions, createPrecondition2Arguments( 'is_info_state', '1', 'grounded' ));
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePreconditions, createPrecondition1Arguments( 'digested_parameter', 'signchunk' ));
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_counter_leq', 'groundednoderubbish', ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
+	BatchInsertEnd( nodeGroundedParameterRubbish.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'captured' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeGroundedParameterRubbish );
+	
 	// Node - FirstParameterDisagree
 	ScriptNode nodeFirstParameterDisagree <- createScriptNode( 'firstparameterdisagree', 'execute', 1 );
 	nodeFirstParameterDisagree.ScriptNodeContent <- setNodeContent( 'statement', 'request', 'repeat', 'intersentential' );
@@ -133,15 +155,39 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeIncorrectParameter );
 
-	// Node - RepeatParameter
+	// Node - RepeatParameter - Cooperative
 	ScriptNode nodeRepeatParameter <- createScriptNode( 'repeatnode', 'execute', 4 );
 	nodeRepeatParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'raw', 'parameter' );
 	BatchInsertEnd( nodeRepeatParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_info_state', '1', 'empty' ));
+	BatchInsertEnd( nodeRepeatParameter.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_counter_leq', 'repeatnode', '0' ));
 	BatchInsertEnd( nodeRepeatParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'repeatnode', 'finalized' ));
 	BatchInsertEnd( nodeRepeatParameter.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_parameter', '1' ));	
 	BatchInsertEnd( nodeRepeatParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnode', 'finalized' ));
 	
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRepeatParameter );
+
+	// Node - RepeatParameter - Noncooperative
+	ScriptNode nodeRepeatParameterNon <- createScriptNode( 'repeatnodenon', 'execute', 4 );
+	nodeRepeatParameterNon.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'intersentential', 'parameter' );
+	BatchInsertEnd( nodeRepeatParameterNon.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'repeatnode', 'finalized' ));
+	BatchInsertEnd( nodeRepeatParameterNon.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_counter_leq', 'repeatnode', '0' ));
+	BatchInsertEnd( nodeRepeatParameterNon.ScriptNodePreconditions, createPrecondition2Arguments( 'is_node_counter_leq', 'repeatnodenon', ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
+	BatchInsertEnd( nodeRepeatParameterNon.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_state', 'repeatnodenon', 'finalized' ));
+	BatchInsertEnd( nodeRepeatParameterNon.ScriptNodePostconditions, createDialogueAction1Arguments( 'generate_history_parameter', '1' ));	
+	BatchInsertEnd( nodeRepeatParameterNon.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnodenon', 'finalized' ));
+	
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeRepeatParameterNon );
+
+	// Node - OverCounterParameter
+	ScriptNode nodeOverCounterParameter <- createScriptNode( 'overcounter', 'execute', 4 );
+	nodeOverCounterParameter.ScriptNodeContent <- setNodeContent( 'statement', 'inform', 'cancel', 'task' );
+	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePreconditions, createNegatedPrecondition2Arguments( 'is_node_counter_leq', 'repeatnodenon', ShapeToString(NUMBER_OF_QUESTIONS_BEFORE_ABORTING - 1) ));
+	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));
+	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction2Arguments( 'clear_info_value_of_script', script.ScriptDescriptor, parameter));
+	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction3Arguments( 'set_info_state_of_script', script.ScriptDescriptor, parameter, 'empty'));
+	BatchInsertEnd( nodeOverCounterParameter.ScriptNodePostconditions, createDialogueAction0Arguments( 'pull_script_fast' ));
+
+	BatchInsertEnd( dialogueScript.ScriptNodes, nodeOverCounterParameter );
 
 	// Node - Continue
 	ScriptNode nodeContinue <- createScriptNode( 'continuenode', 'wait', 5 );
@@ -149,7 +195,8 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction0Arguments( 'generate' ));	
 	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction1Arguments( 'set_expectative_parameter', ShapeToString(recoveredScriptInfoItem.InfoItemParameterType) ));
 	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_info_state', '1', 'echoed' ));
-	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnode', 'notfinalized' ));		
+	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnode', 'notfinalized' ));
+	BatchInsertEnd( nodeContinue.ScriptNodePostconditions, createDialogueAction2Arguments( 'set_node_state', 'repeatnodenon', 'notfinalized' ));				
 
 	BatchInsertEnd( dialogueScript.ScriptNodes, nodeContinue );
 
@@ -157,18 +204,3 @@ DialogueScript createCaptureIntersententialParameter(string parameter)
 }
 
 
-/*
-S: What's your phone number?
-U: 686.
-S: 686, ok, go on.
-U: 57.
-S: 57, yes.
-U: 59.
-S: 59, all right.
-U: no, no!
-S: Ok, we have 686 57, please continue.
-U: 58.
-S: 58, right.
-S: 85.
-S: OK, let me confirm your phone number, is it 686 57 58 85?
-*/

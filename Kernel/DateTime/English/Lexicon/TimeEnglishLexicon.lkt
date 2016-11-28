@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Lexical for english times.
+//	English lexicon for Time part of DateTime parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Understanding.English.Lexicon
-//	FILE	:	TimeEnglishLexicon.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: TimeEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 // Basic lexical about times
 ("min",				lexMinuteTerm)

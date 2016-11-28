@@ -1,0 +1,21 @@
+// ****************************************************************************
+//
+//	Lexical types in Statement dimension
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Statement
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: LexicalStatementTypes
+//
+// ****************************************************************************
+
+classDef:Void
+(
+	lexRequest
+)
+
+

@@ -1,0 +1,31 @@
+// **************************************************
+//
+//	
+//
+// **************************************************
+//
+//	PROJECT	:	
+//	MODULE  :	
+//	PACKAGE	:	
+//	FILE	:	
+//
+// **************************************************
+
+classDef:StructureComplex
+(
+	ParameterValue :
+	(
+		Number,
+		Letter,		
+		DateTime,
+		CountryPlace,
+		PhoneNumber,
+		MoneyAmount,
+
+		MedicalSpeciality,
+		PeselNumber
+	)
+)
+
+
+

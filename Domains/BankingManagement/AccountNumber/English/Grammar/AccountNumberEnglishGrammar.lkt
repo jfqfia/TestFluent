@@ -1,17 +1,18 @@
-// ******************************************************************
+// ****************************************************************************
 //
-//	
+//	English grammar in Account Number parameter
 //
-// ******************************************************************
-// 
-//	PROJECT	: 
-//	MODULE  : 
-//	PACKAGE	: 
-//	FILE	: 
-// 
-// ******************************************************************
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : AccountNumber
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: AccountNumberEnglishGrammar
+//
+// ****************************************************************************
 
-// Output rule for this package
 (AccountNumber_Rule01_1 :
  	[ Parameter -> AccountNumber ]
 	{
@@ -32,6 +33,20 @@
  	[ AccountNumber -> AccountNumber < lexComma | lexConjAnd >? Number ]
 	{
 		^.AccountNumberValue <- LiteralConcat(#1.AccountNumberValue, #3.NumberLiteral);
+	}
+)
+
+(AccountNumber_Rule03 :
+ 	[ AccountNumber -> lexDetMy? lexAccountNumberPreffix? lexAccountNumberPreffix lexAccountNumberTerm lexAccountNumberTerm? lexColon? SignChunk ]
+	{
+		^.AccountNumberValue <- #7.SignChunkLiteral;
+	}
+)
+
+(AccountNumber_Rule04 :
+ 	[ AccountNumber -> AccountNumber < lexComma | lexConjAnd >? SignChunk ]
+	{
+		^.AccountNumberValue <- LiteralConcat(#1.AccountNumberValue, #3.SignChunkLiteral);
 	}
 )
 

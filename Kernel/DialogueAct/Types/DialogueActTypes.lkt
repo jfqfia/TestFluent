@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Types related with DialogueAct structure.
+//	Types in DialogueAct root type
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	DialogueActTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueAct
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: DialogueActTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex 
 ( 
  	DialogueAct :
@@ -23,13 +24,11 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:ElementInt
 (
 	DialogueActCounter
 )
 
-// TODO Structure explanation
 classDef:StructureBatch
 (
 	Parameters :
@@ -38,7 +37,6 @@ classDef:StructureBatch
 	)
 )
 
-// TODO Structure explanation
 classDef:StructureComplex 
 ( 
  	ProferenceChunk :
@@ -49,7 +47,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
  	CoreDialogueAct :
@@ -59,7 +56,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:ElementRange 
 (
  	Dimension :
@@ -71,7 +67,6 @@ classDef:ElementRange
 	}
 )
 
-// TODO Structure explanation
 classDef:ElementRange 
 (
  	Function :
@@ -93,7 +88,6 @@ classDef:ElementRange
 	}
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	TaskDialogueAct :
@@ -116,13 +110,11 @@ classDef:ElementLiteral
  	ActionDomain
 )
 
-// TODO Structure explanation
 classDef:ElementLiteral
 (
 	Scope
 )
 
-// TODO Structure explanation
 classDef:StructureComplex
 (
 	Parameter :
@@ -135,7 +127,6 @@ classDef:StructureComplex
 	)
 )
 
-// TODO Structure explanation
 classDef:ElementRange 
 (
  	ParameterCategory :
@@ -148,19 +139,16 @@ classDef:ElementRange
 	}
 )
 
-// TODO Structure explanation
 classDef:ElementLiteral
 (
 	ParameterType
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
  	ParameterOperand1 = Parameter
 )
 
-// TODO Structure explanation
 classDef:Synonym
 (
  	ParameterOperand2 = Parameter

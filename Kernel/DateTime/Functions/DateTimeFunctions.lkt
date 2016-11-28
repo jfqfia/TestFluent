@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Main functions for DateTime parameter
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: DateTimeFunctions
+//
+// ****************************************************************************
 
 bool canMergeWithSequentialDateTime(Parameter parameter1, Parameter parameter2)
 {

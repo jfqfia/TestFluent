@@ -1,10 +1,17 @@
-// ******************************************************
-//      Lekta Application
-// ***************************
-//      PROJECT :       Alter
-//      MODULE  :       DManager/Library (Dialogue Scheme)
-//      FILE    :       MindBoard.lkt
-// ******************************************************
+// ****************************************************************************
+//
+//	Functions related mind board engine
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: MindBoard
+//
+// ****************************************************************************
 
 procedure initMindBoard()
 {

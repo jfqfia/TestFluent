@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Luxembourg town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/LUCountryTowns
+//
+// ****************************************************************************
+
 ("dippach",	 	lexCountryPlace, ( CountryName : 'luxembourg', CountryZone : 'luxembourg', CountryRegion : 'luxembourg', CountryProvince : 'luxembourg', CountryTown : 'dippach' ))
 ("dippech",	 	lexCountryPlace, ( CountryName : 'luxembourg', CountryZone : 'luxembourg', CountryRegion : 'luxembourg', CountryProvince : 'luxembourg', CountryTown : 'dippech' ))
 ("garnich",	 	lexCountryPlace, ( CountryName : 'luxembourg', CountryZone : 'luxembourg', CountryRegion : 'luxembourg', CountryProvince : 'luxembourg', CountryTown : 'garnich' ))

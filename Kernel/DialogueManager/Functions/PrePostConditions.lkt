@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions related with the creation of preconditions and postconditions
+// 	used in the script nodes engine
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: ActivateScripts
 //
-// **************************************************
+// ****************************************************************************
 
 bool preconditionsValidated( ScriptNode node )
 {

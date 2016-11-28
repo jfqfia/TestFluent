@@ -1,0 +1,10 @@
+Total files in project:
+
+/Kernel:  	175
+/Domains:	66
+
+
+Total lines in files (country place lexicon not included):
+
+/Kernel:	15934
+/Domains:	4309

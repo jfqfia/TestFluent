@@ -1,0 +1,135 @@
+// ****************************************************************************
+//
+//	English generation in Medical Speciality parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: English
+// 	FOLDER  : Generation
+// 	FILE	: MedicalSpecialityEnglishGeneration
+//
+// ****************************************************************************
+
+(ScriboScheme ImplicitMedicalSpecialityParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' );
+
+		SetMainAnswerStringRandom( 'I understood that you want a  ',
+					   'So you need a ' );
+		SetMainAnswerString( parameter.ParameterValue.MedicalSpeciality.MedicalSpecialityName );
+		SetMainAnswerString(' doctor. ');
+    	}
+)
+
+
+
+(ScriboScheme QuestionWhatMedicalSpeciality: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'medicalspeciality' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 1
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What kind of medical speciality do you want? ',
+					   'What kind of doctor do you need? ',
+					   'What medical speciality fits you? ');
+    	}
+)
+
+(ScriboScheme QuestionWhatMedicalSpeciality: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'medicalspeciality' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 2
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 
+				'For which medical speciality? ',
+				'Please let me know your desired medical speciality. '
+				);
+    	}
+)
+
+(ScriboScheme QuestionWhatMedicalSpeciality: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'medicalspeciality' &&
+		#OBJLOCUTIO-1.DialogueActCounter >= 3
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(
+				'I need to know what type of doctor or speciality you require in order to continue. Please repeat again. '
+			);
+    	}
+)
+
+(ScriboScheme ConfirmChangedParameterMedicalSpeciality: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirmchanged') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' );
+
+		SetMainAnswerString('Ok, we were talking about ');
+		SetMainAnswerString(parameter.ParameterValue.MedicalSpeciality.MedicalSpecialityName);
+		SetMainAnswerString(' medical speciality. Right? ');
+    	}
+)
+
+(ScriboScheme IdontknowAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'idontknow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'medicalspeciality' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I am sorry, but ', 
+					   'I am terribly sorry, but ',
+					   'I need to inform you that ' );
+		SetMainAnswerString( 'It´s necessary for us the kind of doctor that you need. ' );
+    	}
+)
+
+
+
+

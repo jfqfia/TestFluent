@@ -1,0 +1,78 @@
+// ****************************************************************************
+//
+//	Noun creation macros for english language
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Macros
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: NounEnglishMacros
+//
+// ****************************************************************************
+
+#DefMacro	NOUN_ROOT(lemma) \
+		NounRoot: lemma
+
+// Nouns which plural is formed adding 's'
+#DefMacro	NOUN_REGULAR_TYPE_1(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma++s,			lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL))
+
+// Nouns ending in sibilant ('ch', 'x', 's', 'z', 'ss', ...) and some nouns ending in 'o'
+#DefMacro	NOUN_REGULAR_TYPE_2(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma++es,			lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL))
+
+// Nouns ending in consonant + 'y'
+#DefMacro	NOUN_REGULAR_TYPE_3(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma[$-1]++ies,		lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL))
+
+// Some nouns ending in 'o' have two plural forms (mosquito -> mosquitos mosquitoes)
+#DefMacro	NOUN_REGULAR_TYPE_4(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma++s,			lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL)) \
+		(lemma++es,			lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL))
+
+// Nouns ending in 'f' 
+#DefMacro	NOUN_REGULAR_TYPE_5(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma[$-1]++ves,		lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL)) 
+
+// Nouns ending in 'fe' 
+#DefMacro	NOUN_REGULAR_TYPE_6(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma[$-2]++ves,		lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL)) 
+
+// Nouns ending in 'is' 
+#DefMacro	NOUN_REGULAR_TYPE_7(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma[$-2]++es,		lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL)) 
+
+// Nouns ending in 'on' 
+#DefMacro	NOUN_REGULAR_TYPE_8(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR)) \
+		(lemma[$-2]++a,			lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL)) 
+
+// Nouns with special plural form 
+#DefMacro	NOUN_IRREGULAR_TYPE_1(lemma1, lemma2) \
+		(lemma1,			lexNoun, (&NOUN_ROOT(lemma1), _NOUN_SINGULAR)) \
+		(lemma2,			lexNoun, (&NOUN_ROOT(lemma1), _NOUN_PLURAL)) 
+
+// Nouns with two special plural form 
+#DefMacro	NOUN_IRREGULAR_TYPE_2(lemma1, lemma2, lemma3) \
+		(lemma1,			lexNoun, (&NOUN_ROOT(lemma1), _NOUN_SINGULAR)) \
+		(lemma2,			lexNoun, (&NOUN_ROOT(lemma1), _NOUN_PLURAL)) \
+		(lemma3,			lexNoun, (&NOUN_ROOT(lemma1), _NOUN_PLURAL))
+
+// Nouns with only singular form
+#DefMacro	NOUN_IRREGULAR_TYPE_3(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_SINGULAR))
+
+// Nouns with only plural form
+#DefMacro	NOUN_IRREGULAR_TYPE_4(lemma) \
+		(lemma,				lexNoun, (&NOUN_ROOT(lemma), _NOUN_PLURAL))
+

@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English lexicon in Medical Speciality parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: SpecialityEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 // Prefixes
 ("doctor of",				lexMedicalSpecialityPrefix)

@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions implementing preconditions for the activation of script nodes
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: BooleanDialogueAction
 //
-// **************************************************
+// ****************************************************************************
 
 bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 {
@@ -42,6 +44,13 @@ bool executeBooleanDialogueAction( DialogueAction dialogueAction )
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, dimensionString );
 		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 2, functionString );
 		ret = digestedCore( dimensionString, functionString );
+	}
+	else if(dialogueAction.DialogueActionName == 'digested_parameter')
+	{
+		string parameterString;
+		BatchRecoverPosition( dialogueAction.DialogueActionArguments, 1, parameterString );
+
+		ret = digestedParameter( parameterString );
 	}
 	else if(dialogueAction.DialogueActionName == 'is_previous_active_script')
 	{
@@ -115,6 +124,26 @@ bool digestedCore(string dimensionString, string functionString)
 	return ret;
 }
 
+
+bool digestedParameter(string parameterType)
+{
+	bool ret <- False;
+	ProferenceChunk proference;
+	int size <- BatchSize( $MINDBOARD@DialogueState.NotDigestedProferenceChunks );
+
+	for( int position <- 1; position <= size; position++ )
+	{
+		BatchRecoverPosition( $MINDBOARD@DialogueState.NotDigestedProferenceChunks, position, proference );
+
+		if( proference.Parameter.ParameterType == parameterType )
+		{
+			ret <- True;
+		}
+	}
+
+	return ret;
+}
+
 bool isInfoState(string number, string state)
 {
 	DialogueScript script;
@@ -152,4 +181,5 @@ bool isNodeState(string nodeDescriptor, string state)
 
 	return ret;
 }
+
 

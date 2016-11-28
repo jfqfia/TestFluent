@@ -23,20 +23,20 @@ Key Point: Multilingualism.
 
 Key Point: Multi-channel access: Written or spoken.
 
-Key Point: The system itself can act as an information provider in order to improver business strategies.
+Key Point: The system itself can act as an information provider in order to improve business strategies.
 
 
 
 Main desired features:
 
-1. Flexibility in parameters: We can express a parameter in various forms (suppose the day after tomorrow is Wed, 16 nov)
+1. Flexibility in parameters: We can express a parameter in various forms (suppose the day after tomorrow is Wednesday)
 U: I would like an appointment for the dentist the day after tomorrow.
 
 U: I need to visit an orthodontics doctor on Wednesday. 
 
 
 2. Naturalness and idiomatic construction:
-U: Yes, hello? Well, fine, a need an appointment ehh for the dentist, please.
+U: Yes, hello? Well, fine, I need an appointment ehh for the dentist, please.
 
 U: Good morning, miss, I want to make a transfer to my son.
 
@@ -46,7 +46,7 @@ U: Bye, have a nice day.
 
 
 3. Fluidity:
-U: I want an appointment tomorrow early in the morning (we must infer the exact date and possible time intervals, early in the morning, that fit user needs).
+U: I want an appointment tomorrow early in the morning (we must infer the exact date and possible time intervals, that fit user needs).
 
 U: I want to fly to Krakow next month.
 
@@ -100,7 +100,7 @@ U: My account number is 1234567890.
 S: With the information that you provided, I think you can choose between these alternatives, make a bank transfer or consult your balance. What do you prefer?
 
 U: My account number is 1234567890 a total amount of 120 euros and for the dentist tomorrow.
-S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to the fact that the information provided only could be used for the previous task)
+S: What do you want to do first, book an appointment or make a bank transfer? (in this case system has chosen a weak disambiguator due to the fact that the information provided only could be used for the previous tasks)
 
 U: Consult.
 S: Please, could you be so kind to confirm that you want to consult the balance of your savings?
@@ -116,7 +116,7 @@ This is a very complicated sceneario. Imagine that system is able to give assist
 If the user says this:
 U: My account number is 1234567890 a total amount of 120 euros for the dentist tomorrow in Sevilla.
 
-It's possible that ALL above tasks could be activated at the same time, but if we read previous sentence from an human point of view it's natural to discard some alternatives while keeping some of them:
+It's possible that ALL above tasks could be activated at the same time, but if we read previous sentence from a human point of view, it's natural to discard some alternatives while keeping some of them:
 
 S: What do you want to do first, book an appointment or make a bank transfer? 
 
@@ -182,7 +182,7 @@ U: 1231231231
 S: I understood that the account number is 1231231231.
 
 
-20. User parameter segmentation intrasentential:
+20. User parameter segmentation intrasententially:
 S: What's your phone number?
 U: 686 57 58 85
 S: So your phone number is 686575885.
@@ -277,12 +277,60 @@ U: Cancel this, please.
 S: Are you sure that you want to cancel this task? 
 
 
+31: Formatting Mask for alphanumeric parameters 
+S: What is your account number, please? 
+U: ES20
+S: ES20. Right, continue. 
+U: 7700
+S: 7700. Please, continue. 
+U: 0024
+S: 0024. Yes, what else? 
+U: 0031
+S: 0031. All right, anything else? 
+U: 0257
+S: 0257. Yes, what else? 
+U: 5766
+S: So your account number is ES20 7700 0024 0031 0257 5766. Is it correct? 
 
 
+32: Multiple valid masks for parameters 
+S: So you want to consult the balance of your savings. What is your account number, please? 
+U: 2077
+S: 2077. Ok, go on. 
+U: 0024
+S: 0024. All right, anything else? 
+U: 00
+S: 00. Right, continue. 
+U: 3102575766
+S: Ok, now I will repeat you account number: 2077 0024 00 3102575766. Correct? 
 
 
+33: Digit check integrity validation
+S: What is your PESEL number, please? 
+U: 020708
+S: 020708. Please, continue. 
+U: 03628
+S: I catched 020708 03628. Correct? 
+
+S: What is your PESEL number, please? 
+U: 021708
+S: 021708. Ok, go on. 
+U: 03628
+S: The pesel number is not valid. Please try again! 
 
 
+34: Backoffice malfunction messages
+S: Ok, I see that you wish to make a transfer. The money amount is 150.00 EUR. What is your account number, please? 
+U: 12345678901234567890
+S: The money amount is 150.00 EUR. Ok, we are having some troubles trying to connect to our servers. Please try again in a few minutes. How may I help you? 
 
 
+35: Ordinal detection for multiple choice question
+U: I want to consult my balance, make a medical appointment and locate my nearest ATM.
+S: What do you want to do first, consult your balance, locate an ATM or book an appointment? 
+U: The first one, please! 
+
+U: Second one.
+
+U: The last option.
 

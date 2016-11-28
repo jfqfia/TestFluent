@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index for generic types.
+//	Index file for types for generic grammars and lexicon
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	MainGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainGenericTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/GenericTypes.lkt"
 #Include "Types/LexicalGenericTypes.lkt"

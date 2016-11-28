@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index of types files.
+//	Index file for types in ordinal parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Number
-//	FILE	:	MainNumberTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Ordinal
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainOrdinalTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/OrdinalTypes.lkt"
 #Include "Types/LexicalOrdinalTypes.lkt"

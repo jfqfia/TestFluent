@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Poland town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/PLCountryTowns
+//
+// ****************************************************************************
+
 ("andrespol",	 	lexCountryPlace, ( CountryName : 'poland', CountryZone : 'region centralny', CountryRegion : 'łódzkie', CountryProvince : 'łódzki', CountryTown : 'andrespol' ))
 ("brójce",	 	lexCountryPlace, ( CountryName : 'poland', CountryZone : 'region centralny', CountryRegion : 'łódzkie', CountryProvince : 'łódzki', CountryTown : 'brójce' ))
 ("koluszki",	 	lexCountryPlace, ( CountryName : 'poland', CountryZone : 'region centralny', CountryRegion : 'łódzkie', CountryProvince : 'łódzki', CountryTown : 'koluszki' ))

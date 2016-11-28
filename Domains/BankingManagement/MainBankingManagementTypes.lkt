@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for types in Banking Management domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainBankingManagementTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Account/MainAccountTypes.lkt"
 #Include "ATM/MainATMTypes.lkt"

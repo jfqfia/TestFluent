@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Cyprus town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/CYCountryTowns
+//
+// ****************************************************************************
+
 ("λευκωσία",	 	lexCountryPlace, ( CountryName : 'cyprus', CountryZone : 'κυπρος (kypros)', CountryRegion : 'κύπρος (kypros)', CountryProvince : 'κύπρος (kypros)', CountryTown : 'λευκωσία' ))
 ("lefkosia",	 	lexCountryPlace, ( CountryName : 'cyprus', CountryZone : 'κυπρος (kypros)', CountryRegion : 'κύπρος (kypros)', CountryProvince : 'κύπρος (kypros)', CountryTown : 'lefkosia' ))
 ("άγιος δομέτιος",	 	lexCountryPlace, ( CountryName : 'cyprus', CountryZone : 'κυπρος (kypros)', CountryRegion : 'κύπρος (kypros)', CountryProvince : 'κύπρος (kypros)', CountryTown : 'άγιος δομέτιος' ))

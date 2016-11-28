@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for types in BasicAnswer dimension/function pairs
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : BasicAnswer
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainBasicAnswerTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/LexicalBasicAnswerTypes.lkt"
 #Include "Types/BasicAnswerTypes.lkt"

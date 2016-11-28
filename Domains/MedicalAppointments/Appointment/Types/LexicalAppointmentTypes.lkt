@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Lexical types for Appointment scope
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Appointment
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: LexicalAppointmentTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Void 
 (
 	lexAppointmentTerm,

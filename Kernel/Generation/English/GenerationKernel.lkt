@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generation for kernel and manager script
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generation
+//	PACKAGE	: English
+// 	FOLDER  : -
+// 	FILE	: GenerationKernel
 //
-// **************************************************
+// ****************************************************************************
 
 (ScriboScheme GenerateHMIHY: [ DialogueAct ]
 	ScriboCapture 
@@ -105,4 +107,68 @@
 					   'Let´s start from the beginning, please. ');
 	}
 )
+
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirm') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'disagreement'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'It seems that you don´t agree with that. ' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'confirm') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'agreement'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, agreed! ' );
+	}
+)
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'social' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'apology' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'not') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'understand'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I´m sorry, but I didn´t understand you. ',
+					   'Sorry, I misunderstood what you said. ' );
+	}
+)
+
+
+(ScriboScheme GenerateContinueIntersentential: [ DialogueAct ]
+	ScriboCapture 
+	{
+        	GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'cancel') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'task'
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning. ' );
+	}
+)
+
 

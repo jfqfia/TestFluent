@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Types in Medical Speciality parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: SpecialityTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:ElementLiteral
 ( 
 	MedicalSpecialityName

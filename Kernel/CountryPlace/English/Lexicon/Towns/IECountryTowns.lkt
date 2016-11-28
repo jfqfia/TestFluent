@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Ireland town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/IECountryTowns
+//
+// ****************************************************************************
+
 ("carlow urban",	 	lexCountryPlace, ( CountryName : 'ireland', CountryZone : 'ireland', CountryRegion : 'southern and eastern', CountryProvince : 'south-east (ie)', CountryTown : 'carlow urban' ))
 ("graigue urban",	 	lexCountryPlace, ( CountryName : 'ireland', CountryZone : 'ireland', CountryRegion : 'southern and eastern', CountryProvince : 'south-east (ie)', CountryTown : 'graigue urban' ))
 ("clonmore",	 	lexCountryPlace, ( CountryName : 'ireland', CountryZone : 'ireland', CountryRegion : 'southern and eastern', CountryProvince : 'south-east (ie)', CountryTown : 'clonmore' ))

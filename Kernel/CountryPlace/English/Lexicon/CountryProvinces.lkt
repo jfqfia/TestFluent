@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Country provinces lexicon for CountryPlace parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: CountryProvinces
+//
+// ****************************************************************************
+
 ("mittelburgenland",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich', CountryRegion : 'burgenland', CountryProvince : 'mittelburgenland' ))
 ("nordburgenland",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich', CountryRegion : 'burgenland', CountryProvince : 'nordburgenland' ))
 ("südburgenland",	 	lexCountryPlace, ( CountryName : 'austria', CountryZone : 'ostösterreich', CountryRegion : 'burgenland', CountryProvince : 'südburgenland' ))

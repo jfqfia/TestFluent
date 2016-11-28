@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Utility functions often used in the design and creation of script nodes
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: ScriptNode
 //
-// **************************************************
+// ****************************************************************************
 
 ScriptNode createScriptNode( string nodeDescriptor, string nodeType, ScriptNodePriorityLevel priorityLevel )
 {

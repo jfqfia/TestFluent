@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Spain town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/ESCountryTowns
+//
+// ****************************************************************************
+
 ("alegría-dulantzi",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'noreste', CountryRegion : 'país vasco', CountryProvince : 'araba/álava', CountryTown : 'alegría-dulantzi' ))
 ("amurrio",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'noreste', CountryRegion : 'país vasco', CountryProvince : 'araba/álava', CountryTown : 'amurrio' ))
 ("aramaio",	 	lexCountryPlace, ( CountryName : 'spain', CountryZone : 'noreste', CountryRegion : 'país vasco', CountryProvince : 'araba/álava', CountryTown : 'aramaio' ))

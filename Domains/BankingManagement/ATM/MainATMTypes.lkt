@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index for generic types.
+//	Index for types in ATM scope
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	MainGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : ATM
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainATMTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/ATMTypes.lkt"
 #Include "Types/LexicalATMTypes.lkt"

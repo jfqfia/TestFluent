@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Functions for DateTime parameter related with datetime negotiation
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: NormalizedDateTimeFunctions
+//
+// ****************************************************************************
 
 DateTime normalizeDateTime(DateTime current, DateTime last)
 {

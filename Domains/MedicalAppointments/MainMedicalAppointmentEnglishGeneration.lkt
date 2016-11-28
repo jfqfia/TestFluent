@@ -1,19 +1,21 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english generation in Medical Appointment domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainMedicalAppointmentEnglishGeneration
 //
-// **************************************************
+// ****************************************************************************
 
-#Include "PeselNumber/English/Generation/GenerationPeselNumber.lkt"
-#Include "Speciality/English/Generation/GenerationMedicalSpeciality.lkt"
-#Include "Scripts/English/GenerationMedicalAppointment.lkt"
+#Include "PeselNumber/English/Generation/PeselNumberEnglishGeneration.lkt"
+#Include "Speciality/English/Generation/MedicalSpecialityEnglishGeneration.lkt"
+#Include "Scripts/English/MedicalAppointmentEnglishGeneration.lkt"
 
 
 

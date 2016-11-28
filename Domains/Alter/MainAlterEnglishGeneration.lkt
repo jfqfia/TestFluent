@@ -1,0 +1,20 @@
+// ****************************************************************************
+//
+//	Indexfile for english generation in Alter domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Alter
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAlterEnglishGeneration
+//
+// ****************************************************************************
+
+#Include "../BankingManagement/MainBankingManagementEnglishGeneration.lkt"
+#Include "../MedicalAppointments/MainMedicalAppointmentEnglishGeneration.lkt"
+
+
+

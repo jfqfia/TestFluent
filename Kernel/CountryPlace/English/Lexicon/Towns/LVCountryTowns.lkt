@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Latvia town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/LVCountryTowns
+//
+// ****************************************************************************
+
 ("liepāja",	 	lexCountryPlace, ( CountryName : 'latvia', CountryZone : 'latvija', CountryRegion : 'latvija', CountryProvince : 'kurzeme', CountryTown : 'liepāja' ))
 ("ventspils",	 	lexCountryPlace, ( CountryName : 'latvia', CountryZone : 'latvija', CountryRegion : 'latvija', CountryProvince : 'kurzeme', CountryTown : 'ventspils' ))
 ("kuldīgas",	 	lexCountryPlace, ( CountryName : 'latvia', CountryZone : 'latvija', CountryRegion : 'latvija', CountryProvince : 'kurzeme', CountryTown : 'kuldīgas' ))

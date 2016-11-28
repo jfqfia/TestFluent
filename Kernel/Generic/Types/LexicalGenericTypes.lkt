@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Types for lexical part of the kernel module.
+//	Lexical types used for generic lexicon and particles
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE :	Types.Generic
-//	FILE	:	LexicalGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: LexicalGenericTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:Void 
 (
 	lexComma,

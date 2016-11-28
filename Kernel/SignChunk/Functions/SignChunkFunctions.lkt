@@ -1,15 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	Functions in SignChunk parameter
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : SignChunk
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: SignChunkFunctions
+//
+// ****************************************************************************
+
 
 bool canMergeWithSequentialSignChunk(Parameter parameter1, Parameter parameter2)
 {
@@ -24,5 +27,21 @@ bool canMergeWithOrSignChunk(Parameter parameter1, Parameter parameter2)
 bool canMergeWithAndSignChunk(Parameter parameter1, Parameter parameter2)
 {
 	return True;
+}
+
+string getConcatenatedSignChunk( Parameter parameter )
+{
+	if( parameter.ParameterCategory == 'terminal' )
+	{
+		return parameter.ParameterValue.SignChunk.SignChunkLiteral;
+	}
+	else
+	{
+		string ret;
+
+		ret <- getConcatenatedSignChunk( parameter.ParameterOperand1 );
+		ret <- LiteralConcat( ret, getConcatenatedSignChunk ( parameter.ParameterOperand2 ) );
+		return ret;
+	}
 }
 

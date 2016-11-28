@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
+//	Functions used for mask formats in several parameters
 //
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: FormatFunctions
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
-//
-// **************************************************
+// ****************************************************************************
 
 ScriptNodeStateName checkFormats(ParameterFormats formats, string value)
 {
@@ -40,15 +42,6 @@ ScriptNodeStateName checkFormats(ParameterFormats formats, string value)
 
 ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 {
-	// TODO Comprobación de dígitos en #
-
-	// TODO QUITAR
-//	SpyMessage("");
-//	SpyMessage("Format: ", format);
-//	SpyMessage("Value: ", value);
-//	SpyMessage("");
-//	SpyMessage("");
-
 	ScriptNodeStateName ret;
 
 	int formatSize = LiteralSize( format );
@@ -56,10 +49,30 @@ ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 	if(valueSize < formatSize)
 	{
 		ret <- 'pending';
+		int size <- LiteralSize( value );
+		for(int position <- 1; position <= size; position ++)
+		{
+			string formatCaracter <- LiteralPositionValue(format, position);
+			string valueCaracter <- LiteralPositionValue(value, position);
+			if(!! correctFormatCaracter(formatCaracter, valueCaracter))
+			{
+				ret <- 'incorrect';
+			}
+		}
 	}
 	else if(valueSize == formatSize)
 	{
 		ret <- 'correct';
+		int size <- LiteralSize( value );
+		for(int position <- 1; position <= size; position ++)
+		{
+			string formatCaracter <- LiteralPositionValue(format, position);
+			string valueCaracter <- LiteralPositionValue(value, position);
+			if(!! correctFormatCaracter(formatCaracter, valueCaracter))
+			{
+				ret <- 'incorrect';
+			}
+		}
 	}
 	else
 	{
@@ -68,3 +81,71 @@ ScriptNodeStateName checkFormat(ParameterFormat format, string value)
 
 	return ret;	
 }
+
+/* Possible mask formats
+# 	Any valid number
+^	Any letter 
+@	Any letter or number
+*	Anything
+*/
+bool correctFormatCaracter(string formatCaracter, string valueCaracter)
+{
+	bool ret <- False;	
+
+	// #: Only numeric caracters: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+	if(!! ret && formatCaracter == '#' && isNumericCaracter(valueCaracter))
+	{
+		ret <- True;
+	}
+	// Specific signs
+	if(!! ret && formatCaracter == valueCaracter )
+	{
+		ret <- True;
+	}
+	// ^: Only letters (english alfabet)
+	if(!! ret && formatCaracter == '^' && isLetterCaracter(valueCaracter))
+	{
+		ret <- True;
+	}
+	// @: Only letters and numbers (english alfabet)
+	if(!! ret && formatCaracter == '@' && (isLetterCaracter(valueCaracter) || isNumericCaracter(valueCaracter)))
+	{
+		ret <- True;
+	}
+	// *: Wildcard
+	if(!! ret && formatCaracter == '*' )
+	{
+		ret <- True;
+	}
+
+	return ret;
+}
+
+bool isNumericCaracter(string caracter)
+{
+	bool ret <- False;
+	if( caracter == '0' || caracter == '1' || caracter == '2' || caracter == '3' || caracter == '4' || caracter == '5' || caracter == '6' || caracter == '7' || caracter == '8' || caracter == '9' )
+	{
+		ret <- True;
+	}
+	
+	return ret;
+}
+
+bool isLetterCaracter(string caracter)
+{
+	bool ret <- False;
+	if( caracter == 'a' || caracter == 'b' || caracter == 'c' || caracter == 'd' || caracter == 'e' || caracter == 'f' || caracter == 'g' || caracter == 'h' || caracter == 'i' || caracter == 'j' ||
+	    caracter == 'k' || caracter == 'l' || caracter == 'm' || caracter == 'n' || caracter == 'o' || caracter == 'p' || caracter == 'q' || caracter == 'r' || caracter == 's' || caracter == 't' ||
+	    caracter == 'u' || caracter == 'v' || caracter == 'w' || caracter == 'x' || caracter == 'y' || caracter == 'z' )
+	{
+		ret <- True;
+	}
+	
+	return ret;
+}
+
+
+
+
+

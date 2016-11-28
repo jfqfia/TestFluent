@@ -1,0 +1,41 @@
+// ****************************************************************************
+//
+//	Indexfile for types in Alter domain
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Alter
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainAlterTypes
+//
+// ****************************************************************************
+
+classDef:StructureComplex
+(
+	ParameterValue :
+	(
+		Number,
+		Ordinal,
+		Letter,		
+		DateTime,
+		CountryPlace,
+		PhoneNumber,
+		MoneyAmount,
+		Ordinal,
+		SignChunk,
+
+		MedicalSpeciality,
+		PeselNumber,
+
+		AccountNumber
+	)
+)
+
+#Include "../MedicalAppointments/MainMedicalAppointmentTypes.lkt"
+#Include "../BankingManagement/MainBankingManagementTypes.lkt"
+
+
+

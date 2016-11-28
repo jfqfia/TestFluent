@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	English generic lexicon (mostly particles)
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: GenericEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 //  Configure general parameters of the tokenizer.
 setupTokenizerBlanks (" -?!'")

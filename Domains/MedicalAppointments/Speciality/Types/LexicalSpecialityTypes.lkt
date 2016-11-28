@@ -1,17 +1,18 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Lexical types in Medical Speciality parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: Types
+// 	FOLDER  : -
+// 	FILE	: LexicalSpecialityTypes
 //
-// **************************************************
+// ****************************************************************************
 
-// TODO Structure explanation
 classDef:StructureComplex 
 (
 	lexMedicalSpeciality :

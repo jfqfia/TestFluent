@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Portugal town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/PTCountryTowns
+//
+// ****************************************************************************
+
 ("aguada de cima",	 	lexCountryPlace, ( CountryName : 'portugal', CountryZone : 'continente', CountryRegion : 'centro (pt)', CountryProvince : 'região de aveiro', CountryTown : 'aguada de cima' ))
 ("fermentelos",	 	lexCountryPlace, ( CountryName : 'portugal', CountryZone : 'continente', CountryRegion : 'centro (pt)', CountryProvince : 'região de aveiro', CountryTown : 'fermentelos' ))
 ("macinhata do vouga",	 	lexCountryPlace, ( CountryName : 'portugal', CountryZone : 'continente', CountryRegion : 'centro (pt)', CountryProvince : 'região de aveiro', CountryTown : 'macinhata do vouga' ))

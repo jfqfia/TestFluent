@@ -1,15 +1,22 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Constants used to define the languages that can be used
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Constants
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: LanguageConstants
 //
-// **************************************************
+// ****************************************************************************
 
 #Define ENGLISH 1
+#Define SPANISH 2
+#Define POLISH 3
+#Define FRENCH 4
+#Define GERMAN 5
+
 

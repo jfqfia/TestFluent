@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english grammar in Medical Appointment domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainMedicalAppointmentEnglishGrammar
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Appointment/English/Grammar/AppointmentEnglishGrammar.lkt"
 #Include "Speciality/English/Grammar/SpecialityEnglishGrammar.lkt"

@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions in Medical Speciality parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: SpecialityFunctions
 //
-// **************************************************
+// ****************************************************************************
 
 bool canMergeWithSequentialSpeciality(Parameter parameter1, Parameter parameter2)
 {

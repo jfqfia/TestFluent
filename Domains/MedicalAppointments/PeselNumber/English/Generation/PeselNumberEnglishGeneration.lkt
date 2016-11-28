@@ -1,0 +1,245 @@
+// ****************************************************************************
+//
+//	English generation in PESEL Number parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : PeselNumber
+//	PACKAGE	: English
+// 	FOLDER  : Generation
+// 	FILE	: PeselNumberEnglishGeneration
+//
+// ****************************************************************************
+
+(ScriboScheme RecoveredPeselNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'recovered') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' );
+
+		SetMainAnswerStringRandom( 'I think that your PESEL number was ' );
+		SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+		SetMainAnswerString('. ');
+    	}
+)
+
+
+(ScriboScheme IncorrectPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'The pesel number is not valid. ',
+					   'I am afraid that the pesel number is incorrect. ');
+		SetMainAnswer( 'Please try again! ' );
+    	}
+)
+
+
+(ScriboScheme QuestionWhatPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 1		
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'What is your PESEL number, please? '
+					   );
+    	}
+)
+
+(ScriboScheme QuestionWhatPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 2		
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(
+					'Could you please tell me your PESEL number? '
+				);
+    	}
+)
+
+(ScriboScheme QuestionWhatPeselNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'peselnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter >= 3
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(	'In order to continue with the task, I need your PESEL number, so please be kind and provide a valid one. ');
+    	}
+)
+
+(ScriboScheme IdontknowAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'idontknow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I am sorry, but ', 
+					   'I am terribly sorry, but ',
+					   'I need to inform you that ' );
+		SetMainAnswerString( 'I need your PESEL number to fulfil this task. ' );
+    	}
+)
+
+
+
+(ScriboScheme IncorrectPhoneNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'raw') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' );
+		SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+		SetMainAnswerString( '. ' );
+    	}
+)
+
+(ScriboScheme ImplicitPeselNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' );
+		if(checkPeselNumberValidity(parameter) != 'pending')
+		{
+			SetMainAnswerStringRandom( 'So your PESEL number is ' );
+			SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+			SetMainAnswerString('. ');
+		}
+    	}
+)
+
+
+(ScriboScheme ExplicitPeselNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 	'So your PESEL number is ',
+						'Ok, now I will repeat you PESEL number: ',
+						'Let me repeat you PESEL number: ',
+						'I catched ');
+
+		Parameter parameter;
+		Parameters parameters <- #OBJLOCUTIO-1.Parameters;
+		int size <- BatchSize( #OBJLOCUTIO-1.Parameters );
+		for( int position <- 1; position <= size; position ++)
+		{	
+			BatchRecoverPosition( parameters, position, parameter);
+			SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+			if(position < size)
+			{
+				SetMainAnswerString(' ');
+			}
+			else
+			{	
+				SetMainAnswerString('. ');
+			}
+		}
+
+		SetMainAnswerStringRandom( 	'Is it correct? ',
+						'Correct? ',
+						'Please, confirm that is your correct number. ');
+   	}
+)
+
+
+(ScriboScheme ExplicitPhoneNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'intersentential') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'peselnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 	'Ok, I got ',
+						'Ok, untill now I have ',
+						'As far as I know your PESEL number is ');
+
+		Parameter parameter;
+		Parameters parameters <- #OBJLOCUTIO-1.Parameters;
+		int size <- BatchSize( #OBJLOCUTIO-1.Parameters );
+		for( int position <- 1; position <= size; position ++)
+		{	
+			BatchRecoverPosition( parameters, position, parameter);
+			SetMainAnswerString(parameter.ParameterValue.PeselNumber.PeselNumberValue);
+			if(position < size)
+			{
+				SetMainAnswerString(' ');
+			}
+			else
+			{	
+				SetMainAnswerString('. ');
+			}
+		}
+   	}
+)
+
+

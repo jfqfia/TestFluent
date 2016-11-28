@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english lexicon in Medical Appointment domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainMedicalAppointmentEnglishLexicon
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Appointment/English/Lexicon/AppointmentEnglishLexicon.lkt"
 #Include "Speciality/English/Lexicon/SpecialityEnglishLexicon.lkt"

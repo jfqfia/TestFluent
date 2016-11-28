@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Rules for dates in english.
+//	English grammar for Date part of DateTime parameter
 //
-// **************************************************
-// 
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Understanding.English.Grammar
-//	FILE	:	DateEnglishGrammar.lkt
-// 
-// **************************************************
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: DateEnglishGrammar
+//
+// ****************************************************************************
 
 (DateRule01_1 :
     	[ Parameter -> < lexPrepFor? | lexPrepBy?> DateTime ] 
@@ -368,7 +370,6 @@
 	}
 )
 
-// TODO Hacer que el colligo sólo muestre la más lógica
 // one after 25 of august
 // one day after 25 of august
 (DateRule10_2 :

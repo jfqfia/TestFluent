@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Greece town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/ELCountryTowns
+//
+// ****************************************************************************
+
 ("δημοτική κοινότητα κομοτηνής",	 	lexCountryPlace, ( CountryName : 'greece', CountryZone : 'βορεια ελλαδα (voreia ellada)', CountryRegion : 'aνατολική μακεδονία, θράκη (anatoliki makedonia, thraki)', CountryProvince : 'ροδόπη (rodopi)', CountryTown : 'δημοτική κοινότητα κομοτηνής' ))
 ("municipal commune of komotini",	 	lexCountryPlace, ( CountryName : 'greece', CountryZone : 'βορεια ελλαδα (voreia ellada)', CountryRegion : 'aνατολική μακεδονία, θράκη (anatoliki makedonia, thraki)', CountryProvince : 'ροδόπη (rodopi)', CountryTown : 'municipal commune of komotini' ))
 ("τοπική κοινότητα ανθοχωρίου",	 	lexCountryPlace, ( CountryName : 'greece', CountryZone : 'βορεια ελλαδα (voreia ellada)', CountryRegion : 'aνατολική μακεδονία, θράκη (anatoliki makedonia, thraki)', CountryProvince : 'ροδόπη (rodopi)', CountryTown : 'τοπική κοινότητα ανθοχωρίου' ))

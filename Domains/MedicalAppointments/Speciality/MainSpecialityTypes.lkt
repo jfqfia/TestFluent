@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Index for generic types.
+//	Index file for types in Medical Speciality parameter
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Types.Generic
-//	FILE	:	MainGenericTypes.lkt
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Speciality
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainSpecialityTypes
 //
-// **************************************************
+// ****************************************************************************
 
 #Include "Types/SpecialityTypes.lkt"
 #Include "Types/LexicalSpecialityTypes.lkt"

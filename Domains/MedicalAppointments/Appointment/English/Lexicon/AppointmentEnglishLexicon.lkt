@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
-// 
-// **************************************************
+//	English lexicon for Appointment scope
 //
-//	PROJECT	:	
-//	MODULE  :	
-// 	PACKAGE	:	
-//	FILE	:	
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : MedicalAppointments
+//	MODULE  : Appointment
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: AppointmentEnglishLexicon
+//
+// ****************************************************************************
 
 ("doctor", 			lexMedicalTerm)
 ("doctor's", 			lexMedicalTerm)

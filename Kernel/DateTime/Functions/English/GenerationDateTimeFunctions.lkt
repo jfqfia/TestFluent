@@ -1,0 +1,122 @@
+// ****************************************************************************
+//
+//	Functions for DateTime parameter related with english generation
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: Functions
+// 	FOLDER  : English
+// 	FILE	: GenerationDateTimeFunctions
+//
+// ****************************************************************************
+
+string dateTimeToString( DateTime datetime )
+{
+	string ret;
+	DateTime current;
+	current.BaseDate <- getCurrentBaseDate();
+	
+	if(datetime.BaseDate)
+	{
+		if(differenceDateTime(datetime, current) == 1)
+		{
+			ret <- 'tomorrow';
+		}
+		else if(differenceDateTime(datetime, current) == 0)
+		{
+			ret <- 'today';
+		}
+		else if(differenceDateTime(datetime, current) == -1)
+		{
+			ret <- 'yesterday';
+		}
+		else if(differenceDateTime(datetime, current) == 2)
+		{
+			ret <- 'the day after tomorrow';
+		}
+		else
+		{
+			ret <- baseDateToString( datetime );
+		}
+	}
+
+	if(datetime.GeneralTime.NegotiateModifier)
+	{
+		ret <- ShapeToString(datetime.GeneralTime.NegotiateModifier);
+	}
+
+	if( datetime.GeneralTime.BaseTime  )
+	{
+		ret <- LiteralConcat(ret, generalTimeToString(datetime) );
+	}
+
+	return ret;
+}
+
+string generalTimeToString(DateTime datetime)
+{
+	string ret;
+
+	if(Filled(datetime.GeneralTime.BaseTime.Hour) && Filled(datetime.GeneralTime.BaseTime.Minute))
+	{
+		ret <- '';
+		ret <- LiteralConcat(ret, ' at ' );
+		ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Hour ) );
+		
+		if(datetime.GeneralTime.BaseTime.Minute != 0)
+		{
+			ret <- LiteralConcat(ret, ':' );
+			if( datetime.GeneralTime.BaseTime.Minute < 10 )
+			{
+				ret <- LiteralConcat( ret, '0' );
+			}
+			ret <- LiteralConcat(ret, ShapeToString( datetime.GeneralTime.BaseTime.Minute ) );
+		}
+		else
+		{
+			ret <- LiteralConcat(ret, ' o´clock' );
+		}
+	}
+	if(datetime.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName)
+	{
+		ret <- LiteralConcat(ret, ' in the ' );
+		ret <- LiteralConcat(ret, ShapeToString(datetime.GeneralTime.BaseTime.PartOfTheDay.PartOfTheDayName) );
+	}
+
+	return ret;
+}
+
+string baseDateToString(DateTime datetime)
+{
+	string ret;
+
+	ret <- '';
+	if( datetime.BaseDate.DayInWeek )
+	{
+		ret <- LiteralConcat(ret, dayInWeekName( datetime.BaseDate.DayInWeek ) );
+		ret <- LiteralConcat(ret, ', ' );
+	}
+	if( datetime.BaseDate.Day )
+	{
+		ret <- LiteralConcat(ret, ShapeToString( datetime.BaseDate.Day ) );
+		ret <- LiteralConcat(ret, getOrdinalSuffixDateTime( datetime.BaseDate.Day ) );
+	}
+	if( datetime.BaseDate.Month )
+	{
+		ret <- LiteralConcat(ret, ' ' );
+		ret <- LiteralConcat(ret, monthName( datetime.BaseDate.Month ) );
+	}
+	if( datetime.BaseDate.Year && datetime.BaseDate.Year != ClockAskYear())
+	{
+		ret <- LiteralConcat(ret, ', ' );
+		ret <- LiteralConcat(ret, ShapeToString( datetime.BaseDate.Year ) );
+	}
+
+	return ret;
+}
+
+
+

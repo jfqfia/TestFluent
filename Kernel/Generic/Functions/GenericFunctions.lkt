@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
+//	Functions used for generic tasks mostly related with parameters
 //
+// ****************************************************************************
 //
-// **************************************************
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : Generic
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: GenericFunctions
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE	:	
-//	FILE	:	
-//
-// **************************************************
+// ****************************************************************************
 
 ParameterFormats getFormatsFromParameterTypeKernel(ParameterType parameterType)
 {

@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Belgium town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/BECountryTowns
+//
+// ****************************************************************************
+
 ("anderlecht",	 	lexCountryPlace, ( CountryName : 'belgium', CountryZone : 'région de bruxelles-capitale / brussels hoofdstedelijk gewest', CountryRegion : 'région de bruxelles-capitale / brussels hoofdstedelijk gewest', CountryProvince : 'arr. de bruxelles-capitale / arr. van brussel-hoofdstad', CountryTown : 'anderlecht' ))
 ("auderghem",	 	lexCountryPlace, ( CountryName : 'belgium', CountryZone : 'région de bruxelles-capitale / brussels hoofdstedelijk gewest', CountryRegion : 'région de bruxelles-capitale / brussels hoofdstedelijk gewest', CountryProvince : 'arr. de bruxelles-capitale / arr. van brussel-hoofdstad', CountryTown : 'auderghem' ))
 ("oudergem",	 	lexCountryPlace, ( CountryName : 'belgium', CountryZone : 'région de bruxelles-capitale / brussels hoofdstedelijk gewest', CountryRegion : 'région de bruxelles-capitale / brussels hoofdstedelijk gewest', CountryProvince : 'arr. de bruxelles-capitale / arr. van brussel-hoofdstad', CountryTown : 'oudergem' ))

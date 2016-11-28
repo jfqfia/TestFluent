@@ -1,25 +1,28 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Index file for english generation in Kernel domain
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: MainEnglishGeneration
 //
-// **************************************************
+// ****************************************************************************
 
 // Kernel Scripts
 #Include "Generation/English/GenerationKernel.lkt"
+#Include "Generation/English/GenerationDisambiguatorKernel.lkt"
 
 // Social
 #Include "Social/English/Generation/GenerationSocialGoodbye.lkt"
 #Include "Social/English/Generation/GenerationSocialGreeting.lkt"
 
 // CountryPlace
-#Include "CountryPlace/English/Generation/GenerationCountryPlace.lkt"
+#Include "CountryPlace/English/Generation/CountryPlaceEnglishGeneration.lkt"
 
 // DateTime
 #Include "DateTime/English/Generation/GenerationDateTime.lkt"

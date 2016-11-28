@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Scripting for testing purposes
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : -
+//	MODULE  : -
+//	PACKAGE	: -
+// 	FOLDER  : -
+// 	FILE	: EnglishAlterFluency.slk
+//
+// ****************************************************************************
+
 LaunchLektaKernel
 ( 
 	ExecStrategy = KernelSynchronous
@@ -26,6 +41,75 @@ CreateDialogue
 	InstanceLanguage:1 
 	InstanceInterface:1
 )
+
+// Integrity of PESEL number 
+//i want an appointment in sevilla for the dentist my phone number is 123456789
+//yes
+
+// Invalid
+//440514
+//01358
+
+// Valid
+//440514
+//01359
+
+// Valid
+//020708
+//03628
+
+// Invalid
+//021708
+//03628
+
+// Valid
+//07020803628
+
+// Valid
+//00000000000
+
+// Test 1: EXPLICIT NUMBER: IBAN (PASSED)
+//consult balance my account number is ES7620770024003102575766
+
+// Test 2: EXPLICIT NUMBER: CCC (PASSED)
+//consult balance my account number is 20770024003102575766
+
+// Test 3: EXPLICIT NUMBER: IBAN segmentated (PASSED)
+//consult balance my account number is ES76 2077 0024 0031 0257 5766
+
+// Test 4: EXPLICIT NUMBER: CCC (PASSED)
+//consult balance my account number is 2077 0024 00 3102575766
+
+// Test 5: INTERSENTENTIAL 1: CCC (PASSED)
+//consult balance
+//2077
+//0024
+//00
+//3102575766
+
+// Test 6: INTERSENTENTIAL 2: IBAN (PASSED)
+//consult balance
+//ES20
+//7700
+//0024
+//0031
+//0257
+//5766
+
+// Test 7: INTERSENTENTIAL 3: IBAN (PASSED)
+//consult balance
+//ES20 7700
+//0024
+//0031
+//0257
+//5766
+
+// Test 8: INTERSENTENTIAL 4: IBAN (PASSED)
+//consult balance
+//ES20 7700 0024
+//0031
+//0257
+//5766
 
 // Aquí hay unos casos que no se desambiguan bien, pero es difícil de considerar
 // Este lo hace mal
@@ -72,8 +156,8 @@ CreateDialogue
 
 //i want an appointment for the dentist in sevilla my pesel number is 12312312312 and my phone number is 123123123
 
-i want an appointment in sevilla for the dentist
-yes
+//i want an appointment in sevilla for the dentist
+//yes
 
 // Intersentential test 1: FINISH AGREE (PASSED)
 //123
@@ -137,15 +221,20 @@ yes
 // POR AQUI
 
 // Intersentential test 13: UNCERTAIN or NON COOPERATIVE USER
-123
-blah
-
-// Intersentential test 13: UNCERTAIN or NON COOPERATIVE USER
 //123
-//i don't know 
+//blah
+//blah
+//blah
 
-// Intersentential test 14: CANCELLATION
+// Intersentential test 14: CANCELLATION - POSITIVE
 //123
 //cancel this task, please
+//yes
+
+// Intersentential test 15: CANCELLATION - NEGATIVE
+//123
+//cancel this task, please
+//no
+
 
 

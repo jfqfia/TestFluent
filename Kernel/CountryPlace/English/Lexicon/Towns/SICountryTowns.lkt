@@ -1,3 +1,18 @@
+// ****************************************************************************
+//
+//	Slovenia town names
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : CountryPlace
+//	PACKAGE	: English
+// 	FOLDER  : Lexicon
+// 	FILE	: /Towns/SICountryTowns
+//
+// ****************************************************************************
+
 ("beltinci",	 	lexCountryPlace, ( CountryName : 'slovenia', CountryZone : 'slovenija', CountryRegion : 'vzhodna slovenija', CountryProvince : 'pomurska', CountryTown : 'beltinci' ))
 ("tišina",	 	lexCountryPlace, ( CountryName : 'slovenia', CountryZone : 'slovenija', CountryRegion : 'vzhodna slovenija', CountryProvince : 'pomurska', CountryTown : 'tišina' ))
 ("črenšovci",	 	lexCountryPlace, ( CountryName : 'slovenia', CountryZone : 'slovenija', CountryRegion : 'vzhodna slovenija', CountryProvince : 'pomurska', CountryTown : 'črenšovci' ))

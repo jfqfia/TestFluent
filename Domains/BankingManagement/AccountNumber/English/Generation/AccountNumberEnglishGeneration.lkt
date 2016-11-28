@@ -1,0 +1,263 @@
+// ****************************************************************************
+//
+//	English generation in Account Number parameter
+//
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : BankingManagement
+//	MODULE  : AccountNumber
+//	PACKAGE	: English
+// 	FOLDER  : Generation
+// 	FILE	: AccountNumberEnglishGeneration
+//
+// ****************************************************************************
+
+(ScriboScheme RecoveredAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'recovered') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
+
+		SetMainAnswerStringRandom( 'I remember that your account number is ',
+					   'I see that your account number is ' );
+		SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
+		SetMainAnswerString('. ');
+    	}
+)
+
+(ScriboScheme IncorrectAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'incorrect') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'The account number is not valid. ',
+					   'I am afraid that the account number is incorrect. ');
+		SetMainAnswer( 'Remember that a correct account number must have 20 digits exactly, or to be an IBAN number. ' );
+    	}
+)
+
+(ScriboScheme ImplicitAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'implicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
+		if(checkAccountNumberValidity(parameter) != 'pending')
+		{
+			SetMainAnswerStringRandom( 'I understood that the account number is ' );
+			SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
+			SetMainAnswerString('. ');
+		}
+    	}
+)
+
+(ScriboScheme CorrectAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'correct') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'The account number is valid. ',
+					   'And that is a correct account number. ');
+    	}
+)
+
+
+(ScriboScheme IdontknowAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'idontknow') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 'I am sorry, but ', 
+					   'I am terribly sorry, but ',
+					   'I need to inform you that ' );
+		SetMainAnswerString( 'I need the account number in order to complete the task. ' );
+    	}
+)
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 1	
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString( 'What is your account number, please? '
+					   );
+    	}
+)
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter == 2		
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(
+					'Could you tell me your account number? '
+				);
+    	}
+)
+
+(ScriboScheme QuestionWhatAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'whquestion' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'what') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'accountnumber' &&
+		#OBJLOCUTIO-1.DialogueActCounter >= 3
+	}
+	ScriboAction 
+	{
+		SetMainAnswerString(	'In order to continue, I need your account number, so please be kind and provide a valid one. ');
+    	}
+)
+
+(ScriboScheme ExplicitAccountNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'question' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'propositional' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'explicit') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 	'So your account number is ',
+						'Ok, now I will repeat you account number: ',
+						'Let me repeat you account number: ',
+						'I catched ');
+
+		Parameter parameter;
+		Parameters parameters <- #OBJLOCUTIO-1.Parameters;
+		int size <- BatchSize( #OBJLOCUTIO-1.Parameters );
+		for( int position <- 1; position <= size; position ++)
+		{	
+			BatchRecoverPosition( parameters, position, parameter);
+			SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
+			if(position < size)
+			{
+				SetMainAnswerString(' ');
+			}
+			else
+			{	
+				SetMainAnswerString('. ');
+			}
+		}
+
+		SetMainAnswerStringRandom( 	'Is it correct? ',
+						'Correct? ',
+						'Please, confirm that is your correct number. ');
+   	}
+)
+
+(ScriboScheme RawAccountNumber: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'raw') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		Parameter parameter <- parametersRecoverParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' );
+		SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
+		SetMainAnswerString( '. ' );
+    	}
+)
+
+
+(ScriboScheme ExplicitPhoneNumberParameter: [ DialogueAct ]
+	ScriboCapture 
+	{
+		GetHeadPropertyLanguage() == ENGLISH &&
+		#OBJLOCUTIO-1.CoreDialogueAct.Dimension == 'statement' &&
+        	#OBJLOCUTIO-1.CoreDialogueAct.Function == 'inform' &&
+		containsActionDomain( #OBJLOCUTIO-1.TaskDialogueAct.Action, 'intersentential') &&
+		#OBJLOCUTIO-1.TaskDialogueAct.Scope == 'parameter' &&
+		parametersContainsParameterType ( #OBJLOCUTIO-1.Parameters, 'accountnumber' )
+	}
+	ScriboAction 
+	{
+		SetMainAnswerStringRandom( 	'Ok, I got ',
+						'Ok, untill now I have ',
+						'As far as I know your account number is ');
+
+		Parameter parameter;
+		Parameters parameters <- #OBJLOCUTIO-1.Parameters;
+		int size <- BatchSize( #OBJLOCUTIO-1.Parameters );
+		for( int position <- 1; position <= size; position ++)
+		{	
+			BatchRecoverPosition( parameters, position, parameter);
+			SetMainAnswerString(LiteralConvertUpper(parameter.ParameterValue.AccountNumber.AccountNumberValue));
+			if(position < size)
+			{
+				SetMainAnswerString(' ');
+			}
+			else
+			{	
+				SetMainAnswerString('. ');
+			}
+		}
+   	}
+)
+
+
+
+
+
+

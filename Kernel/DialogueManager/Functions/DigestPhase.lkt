@@ -1,22 +1,23 @@
-// **************************************************
+// ****************************************************************************
 //
-//	
+//	Functions related with digest stage in dialogue manager
 //
-// **************************************************
+// ****************************************************************************
 //
-//	PROJECT	:	
-//	MODULE  :	
-//	PACKAGE :	
-//	FILE	:	
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DialogueManager
+//	PACKAGE	: Functions
+// 	FOLDER  : -
+// 	FILE	: DigestPhase
 //
-// **************************************************
+// ****************************************************************************
 
 ScriptTriggerComponent getCompatibleScriptTriggerComponent(DialogueScript dialogueScript, ProferenceChunk proference)
 {
 	ScriptTriggerComponent scriptTriggerComponent;
 	int proferenceActionSize <- BatchSize(proference.TaskDialogueAct.Action);
 
-	// Si está activo un desambiguador se lo mandamos a él todo excepto los parámetros
 	if(isCurrentAndDisambiguator(dialogueScript) && proference.CoreDialogueAct)
 	{
 		return 'core';

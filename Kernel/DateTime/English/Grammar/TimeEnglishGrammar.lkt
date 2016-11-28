@@ -1,15 +1,17 @@
-// **************************************************
+// ****************************************************************************
 //
-//	Rules for times in english.
+//	English grammar for Time part of DateTime parameter
 //
-// **************************************************
-// 
-//	PROJECT	:	Fluency
-//	MODULE  :	Kernel
-//	PACKAGE	:	Understanding.English.Grammar
-//	FILE	:	TimeEnglishGrammar.lkt
-// 
-// **************************************************
+// ****************************************************************************
+//
+//	PROJECT	: Fluency
+// 	DOMAIN  : Kernel
+//	MODULE  : DateTime
+//	PACKAGE	: English
+// 	FOLDER  : Grammar
+// 	FILE	: TimeEnglishGrammar
+//
+// ****************************************************************************
 
 (TimeRule01_1 :
     	[ DateTime -> GeneralTime ] 
