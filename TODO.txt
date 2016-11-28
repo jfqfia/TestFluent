@@ -15,6 +15,9 @@
 
 * Teaching Lekta...
 
+* Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación (Medical apppointment script).
+
+
 * Improve datetime negotiation.
 
 * Difficulties when we have lots of implicit confirmation, in the next example system believes that user is rejecting the whole task (but if you remove comma, it works!)

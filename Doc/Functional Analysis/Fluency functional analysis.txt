@@ -322,7 +322,7 @@ S: The pesel number is not valid. Please try again!
 34: Backoffice malfunction messages
 S: Ok, I see that you wish to make a transfer. The money amount is 150.00 EUR. What is your account number, please? 
 U: 12345678901234567890
-S: The money amount is 150.34 EUR. Ok, we are having some troubles trying to connect to our servers. Please try again in a few minutes. How may I help you? 
+S: The money amount is 150.00 EUR. Ok, we are having some troubles trying to connect to our servers. Please try again in a few minutes. How may I help you? 
 
 
 35: Ordinal detection for multiple choice question

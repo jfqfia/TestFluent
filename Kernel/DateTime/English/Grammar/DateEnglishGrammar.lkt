@@ -370,7 +370,6 @@
 	}
 )
 
-// TODO Hacer que el colligo sólo muestre la más lógica
 // one after 25 of august
 // one day after 25 of august
 (DateRule10_2 :
