@@ -6,5 +6,7 @@ Deployment/
 *.tcp
 *.tps
 *.docx
+*.synctex.gz
+
 
 

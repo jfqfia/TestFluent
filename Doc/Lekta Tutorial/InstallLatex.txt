@@ -1,2 +1,0 @@
-Probar solo con texlive
-http://milq.github.io/install-latex-ubuntu-debian/

@@ -1,0 +1,175 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvips]{graphicx}
+\usepackage[a4paper,left=3cm,right=3cm,top=4cm,bottom=4cm]{geometry}
+\usepackage{amssymb,amsmath,amsthm,stmaryrd}
+\usepackage{indentfirst}
+\usepackage{latexsym}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{inconsolata} 
+
+\usetikzlibrary{arrows,shapes,positioning}
+
+\definecolor{red}{rgb}{0.5,0,0} 			% strings
+\definecolor{green}{rgb}{0.05,0.4,0.25} 	% comments
+\definecolor{purple}{rgb}{0.5,0,0.35} 		% keywords
+\definecolor{blue}{rgb}{0.25,0.35,0.75} 	% types
+\definecolor{gray}{rgb}{0.5,0.5,0.5} 		% delimiters
+\definecolor{brown}{rgb}{0.5,0.25,0} 		% messages
+
+\lstdefinelanguage{lekta}
+{
+	stringstyle = \color{red},
+	commentstyle = \color{green},
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	sensitive = true,
+	string = [b]",
+	morestring = [b]',
+	tabsize = 3,
+	morekeywords = [1] { classDef,StructureComplex},
+	morekeywords = [2] {ElementBool,bool},	
+	keywordstyle = [1] \color{purple},
+	keywordstyle = [2] \color{blue}\bfseries,
+	showspaces = true,
+}
+
+\lstdefinestyle{lekta-plain}
+{
+    language = lekta,
+    basicstyle = \scriptsize\ttfamily\mdseries\fontfamily{zi4}\selectfont
+}
+
+\lstset
+{
+    language = lekta,
+    style = lekta-plain,
+    showstringspaces = false,
+    breaklines
+}
+
+\renewcommand*{\ttdefault}{cmtt}
+
+\begin{document}
+\large
+\begin{center}
+\textsc{Lekta documents} \\
+
+\LARGE
+\vspace{24pt}
+\textbf{Lekta Tutorial}
+\vspace{24pt}
+\end{center}
+
+\normalsize
+\begin{flushleft}
+\emph{Document Type:} Tutorial \\
+\emph{Date:} 2016/11/29 \\
+\emph{Version:} 0.1
+\end{flushleft}
+
+\vspace{24pt}
+\section{Introduction}
+
+\subsection{What is Natural Language Processing?}
+
+
+\subsection{What is Lekta?}
+
+Lekta is a high level programming language specially designed to create and execute applications 
+related with Natural Language Processing (NLP).
+
+\begin{lstlisting}[language=lekta]
+
+classDef:StructureComplex 
+(
+	DialogueState : 
+	(
+		DialoguePhase,
+		ActivatedScriptsStack,
+		CurrentScriptDescriptor,
+		NotDigestedProferenceChunks,
+		PulledScript
+	)
+)
+
+classDef:ElementBool
+(
+	PulledScript
+)
+
+classDef:Synonym
+(
+	NotDigestedProferenceChunks = ProferenceChunks
+)
+
+// This is a comment
+/* This is a multi-line
+	comment */
+	
+bool parameterTypesContains(ParameterTypes parameterTypesBatch, ParameterType parameterType)
+{
+	string s1 <- 'Hello, world';
+	string s2 <- "Hello, world!";
+	ParameterType recoveredParameterType;
+
+	int size <- BatchSize( parameterTypesBatch );
+	for(int position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition(parameterTypesBatch, position, recoveredParameterType);
+		if( recoveredParameterType == parameterType )
+		{
+			return True;
+		}
+	}
+	
+	return False;
+}
+\end{lstlisting}
+
+\end{document}
+
+
+
+%\begin{enumerate}
+%	\item Introduction
+%	\begin{enumerate}
+%		\item What is Lekta?
+%		\item Features of Lekta Programming Language
+%	\end{enumerate}
+%	\item Your first Lekta project
+%		\begin{enumerate}
+%			\item Setting up a lekta project
+%			\item Folder and file structure
+%		\end{enumerate}
+%	\item Automatic Speech Recognition
+%	\item Natural Language Understanding
+%	\begin{enumerate}
+%		\item Lexicons
+%		\item Grammars
+%	\end{enumerate}
+%	\item Dialogue Manager
+%	\begin{enumerate}
+%		\item Colligo
+%		\item Senso
+%		\item MindBoard
+%		\item Respondo
+%		\item Locutio
+%	\end{enumerate}
+%	\item Natural Language Generation
+%	\begin{enumerate}
+%		\item Templates
+%	\end{enumerate}
+%	\item Text to Speech Synthesis
+%	\item Programmer Reference
+%	\begin{enumerate}
+%		\item Metatypes
+%		\item Declaring new types in Lekta
+%		\item Basic programming structures
+%		\item Lekta own commands 
+%		\item Built-in functions
+%	\end{enumerate}
+%\end{enumerate}
