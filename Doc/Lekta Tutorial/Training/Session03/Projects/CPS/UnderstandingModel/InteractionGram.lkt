@@ -1,0 +1,63 @@
+/*******************************
+ ** GRAMMAR
+ *******************************
+ ** Interaction
+ ** InteractionPuct
+ *******************************/
+
+(RInteraction1 : 
+	[Interaction/1 -> lexInteractionAuxiliar? lexInteraction]
+		{ ^ <- #2; } )
+
+/*
+(RInteraction2 : 
+	[Interaction/1 -> Interaction/1 lexInteraction]
+		{ ^ <- #1; } )
+*/
+
+!PRS(RInteraction2 : 
+	[Interaction/1 -> lexInteractionAuxiliarComp lexInteractionComp]
+		{ ^ <- #2; } )
+
+(RInteraction3 : 
+	[Interaction/1 -> Interaction/1 lexInteractionAuxiliar]
+		{ ^ <- #1; } )
+
+!PRS(RInteraction5 : 
+	[Interaction/2 -> Interaction/2 Interaction/1]
+		{ ^ <- #1; ^ <| #2; } )
+
+!PRS(RInteraction4 : 
+	[Interaction/3 -> lexInteractionAuxiliar 
+			< punctColon | punctComma | punctDot | punctSemicolon > ?
+			Interaction/3]
+		{ ^ <- #3; } )
+
+!PRS(RInteractionPunct1 : 
+	[InteractionPunct/1 -> Interaction/3 
+			< punctColon | punctComma | punctDot | punctSemicolon |
+			  punctExclamationClose | punctQuestionClose > ]
+		{ ^ <- #1; } )
+
+!PRS(RInteractionPunct2 : 
+	[InteractionPunct/1 -> InteractionPunct/1 
+			< punctColon | punctComma | punctDot | punctSemicolon |
+			  punctExclamationClose | punctQuestionClose > ]
+		{ ^ <- #1; } )
+
+!PRS(RInteractionPunct3 : 
+	[InteractionPunct/2 -> < punctExclamationOpen | punctQuestionOpen >
+			Interaction/3 ]
+		{ ^ <- #2; } )
+!PRS(RInteractionPunct4 : 
+	[InteractionPunct/2 -> < punctExclamationOpen | punctQuestionOpen >
+			InteractionPunct/2 ]
+		{ ^ <- #2; } )
+
+!PRS(RInteractionPunct5 : 
+	[InteractionPunct/3 -> InteractionPunct/3 InteractionPunct/2]
+		{ ^ <- #1; ^ <| #2; } )
+
+!PRS(RInteractionPunct6 : 
+	[Interaction/4 -> InteractionPunct/3 ]
+		{ ^ <- #1; } )

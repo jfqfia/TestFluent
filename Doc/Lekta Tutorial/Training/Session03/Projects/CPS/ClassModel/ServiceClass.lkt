@@ -1,0 +1,47 @@
+
+/*******************************
+ ** Service
+ *******************************/
+
+	classDef:ElementLiteral	( lexServiceId, ServiceId )
+			/*
+				{ 'MED',
+				  'PED',
+				  'ATS',
+				  'ANE',
+				  'VAC',
+				  'NIS',
+				  'ANA',
+				  'ESP',
+				  'INT',
+				  'ODO',
+				  'TRA',
+				  'OTO',
+				  'GIN',
+				  'OBS',
+				  'TOC',
+				  'MAT',
+				  'URO',
+				  'CAR',
+				  'CIR',
+				  'OFT',
+				  'DER',
+				  'END',
+				  'NEU',
+				  'ONC',
+				  'PSI',
+				  'RAD',
+				  'REU',
+				  'POD'
+				} )
+			*/
+
+	classDef:StructureComplex	( Service:
+				( ServiceId,
+				  ServiceAnd,
+				  VerifyType) )
+
+	classDef:Synonym		( ServiceDenial, ServiceAnd = Service )
+
+	ParserGrammaticalScore:FocalCats = lexServiceId, Service
+	UnifierGenusnticScore:FocalCats = Service

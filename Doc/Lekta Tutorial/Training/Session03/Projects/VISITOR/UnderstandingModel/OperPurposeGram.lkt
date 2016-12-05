@@ -1,0 +1,41 @@
+/*******************************
+ ** OperPurpose
+ *******************************/
+
+/*************************/
+/** OperPurpose		**/
+/*************************/
+(ROperPurpose1 : 
+	[ OperPurpose -> strAuxIWant? OperPurposeVerb] 
+		{ ^ <- #2; } )
+
+(ROperPurpose2 : 
+	[ OperPurpose -> lexPeriodBefore OperPurpose] 
+		{ ^ <- #2; } )
+
+(ROperPurpose3 : 
+	[ OperPurpose -> OperPurpose lexPeriodBefore] 
+		{ ^ <- #1; } )
+
+/*************************/
+/** strAuxIWant	**/
+/*************************/
+
+(RstrAuxIWant1 : 
+		[ strAuxIWant -> lexAuxPronoun? lexAuxIWant ] )
+
+/*************************/
+/** OperPurposeVerb		**/
+/*************************/
+
+(ROperPurposeVerb1 : 
+	[ OperPurposeVerb -> lexAuxPartFor? lexOperPurposeVerb ]
+		{ ^ <- #2; } )
+
+(ROperPurposeVerb2 : 
+	[ OperPurposeVerb -> lexAuxPartFor? lexAuxAskFor lexAuxUndefArticle? lexOperPurposeNoun ]
+		{ ^ <- #4; } )
+
+(ROperPurposeVerb3 : 
+	[ OperPurposeVerb -> lexAuxPartFor? lexAuxUndefArticle? lexOperPurposeNoun ]
+		{ ^ <- #3; } )

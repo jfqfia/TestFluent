@@ -1,0 +1,24 @@
+
+/*******************************
+ ** OperPurpose
+ *******************************/
+
+	classDef:ElementRange ( OperPurposeDescriptor : 
+				{ 'lexAuxEmpty',
+				  'cancel',
+				  'consult',
+				  'modify',
+				  'request' } )
+
+	classDef:ElementInt ( ModifyDirection )
+
+	classDef:StructureComplex ( OperPurpose :
+				( OperPurposeDescriptor,
+				  ModifyDirection,
+				  VerifyType ) )
+
+	classDef:Synonym ( lexOperPurposeVerb, lexOperPurposeNoun, OperPurposeVerb,
+					OperPurpose_Denial_F, OperPurpose_Denial_L = OperPurpose )
+
+	ParserGrammaticalScore:FocalCats = lexOperPurposeVerb, lexOperPurposeNoun, OperPurposeVerb, OperPurpose
+	UnifierGenusnticScore:FocalCats = OperPurpose

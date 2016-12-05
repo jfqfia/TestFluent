@@ -1,0 +1,207 @@
+/*******************************
+ ** Interaction / Scribo 
+ *******************************/
+
+(ScriboScheme NLG_Interaction_Welcome: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'welcome')
+    }
+
+    ScriboAction {
+	integer hour;
+	
+	SetMainAnswerText("Bienvenido al sistema Devices, ");
+
+	hour <- ClockAskHour();
+
+	cond {
+		(hour <  7) { SetMainAnswerText("buenas noches. "); }
+		(hour < 12) { SetMainAnswerText("buenos días. "); }
+		(hour < 20) { SetMainAnswerText("buenas tardes. "); }
+		default     { SetMainAnswerText("buenas noches. "); }
+	     }
+
+	SetMainAnswerTextRandom(
+		"¿En qué le puedo ayudar?",
+		"¿En qué puedo ayudarle?",
+		"¿En qué le puedo atender?",
+		"¿En qué puedo atenderle?",
+		"Dígame, por favor, qué desea."
+		);
+    }
+)
+
+(ScriboScheme NLG_Interaction_InterFarewell: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'close')
+    }
+
+    ScriboAction {
+		SetMainAnswerTextRandom("Perdone, ¿quiere dejar de usar el sistema?",
+				"Disculpe, ¿quiere abandonar el sistema?",
+				"Sí, ¿quiere salir del sistema?");
+     }
+)
+
+(ScriboScheme NLG_Interaction_InterFarewell: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'goodbye')
+    }
+
+    ScriboAction {
+	integer hour;
+
+	SetMainAnswerTextRandom("Muy bien. ",
+			"De acuerdo. ");
+
+	hour <- ClockAskHour();
+
+	cond {
+                (hour <  7) { SetMainAnswerText("Buenas noches "); }
+                (hour < 12) { SetMainAnswerText("Buenos días "); }
+                (hour < 20) { SetMainAnswerText("Buenas tardes "); }
+                default     { SetMainAnswerText("Buenas noches "); }
+        }
+
+	SetMainAnswerTextRandom("y gracias por usar el sistema.",
+				"y muchas gracias.");
+
+     }
+)
+
+(ScriboScheme NLG_Interaction_New: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'new')
+    }
+
+    ScriboAction {
+		SetMainAnswerTextRandom(
+			" ¿En qué le puedo ayudar ahora?",
+			" ¿En qué le puedo atender a continuación?",
+			" Dígame, por favor, qué desea realizar a continuación."
+		);
+     }
+)
+
+(ScriboScheme NLG_Interaction_Rep: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'rep')
+    }
+
+    ScriboAction {
+		SetMainAnswerTextRandom(
+			" Continúe, por favor.",
+			" Por favor, continúe indicándome lo que desea realizar.",
+			" Dígame, por favor, qué desea realizar además."
+		);
+     }
+)
+
+(ScriboScheme NLG_Interaction_New_No_Input: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'new-no-input')
+    }
+
+    ScriboAction {
+	SetMainAnswerTextRandom(
+		" Disculpe. ",
+		" Perdone. ",
+		" Lo siento. ");
+
+	SetMainAnswerTextRandom(
+		"No entiendo. ",
+		"No le he entendido bien. ");
+
+	SetMainAnswerTextRandom(
+		" ¿Me repite, por favor?",
+		" ¿Podría repetírmelo?");
+     }
+)
+
+(ScriboScheme NLG_Interaction_Next: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'next')
+    }
+
+    ScriboAction {
+		SetMainAnswerTextRandom(
+			"¿En qué le puedo ayudar a continuación?",
+			"¿En qué puedo ayudarle ahora?",
+			"¿En qué le puedo atender a continuación?",
+			"¿En qué le puedo ayudar?",
+			"Dígame, por favor, qué más desea realizar."
+		);
+     }
+)
+
+(ScriboScheme NLG_Interaction_Continuation: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'continuation')
+    }
+
+    ScriboAction {
+		SetMainAnswerTextRandom(
+			" ¿Desea realizar alguna operación adicional?",
+			" ¿Necesita realizar alguna otra gestión?");
+    }
+)
+
+(ScriboScheme NLG_Interaction_Continuation: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'continuation-no-input')
+    }
+
+    ScriboAction {
+	SetMainAnswerTextRandom(
+			"Disculpe. ",
+			"Perdone. ",
+			"Lo siento. ");
+
+	SetMainAnswerTextRandom(
+			"No entiendo. ",
+			"No le he entendido bien. ");
+
+	SetMainAnswerTextRandom(
+		" ¿Me repite, por favor?",
+		" ¿Podría repetírmelo?");
+	}
+)
+
+(ScriboScheme NLG_Interaction_Hello: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'hello')
+    }
+
+    ScriboAction {
+	SetMainAnswerTextRandom(
+		"Sí, hola. ",
+		"Hola. ");
+	SetMainAnswerTextRandom(
+		"Por favor, dígame en qué le puedo ayudar.",
+		"¿En qué puedo ayudarle? ",
+		"¿En qué le puedo atender, por favor? ",
+		"¿Me dice qué necesita? ",
+		"Dígame, por favor, qué desea. "
+	);
+     }
+)
+
+(ScriboScheme NLG_Interaction_InterPardon: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'relation',TField:'pardon')
+    }
+
+    ScriboAction {
+	SetMainAnswerTextRandom(
+		"Sí. ",
+		"Muy bien. ");
+
+	SetMainAnswerTextRandom(
+		"Por favor, dígame en qué le puedo ayudar.",
+		"¿En qué puedo ayudarle? ",
+		"¿En qué le puedo atender, por favor? ",
+		"¿Me dice qué necesita? ",
+		"Dígame, por favor, qué desea. "
+	);
+     }
+)

@@ -1,0 +1,468 @@
+a                     | lexAuxPrepA                 | 
+                        lexAuxPartFor               | 
+a ver                 | lexInteraction              | 
+abras                 | lexOperPurposeVerb          | 
+abre                  | lexOperPurposeVerb          | 
+abrir                 | lexOperPurposeVerb          | 
+acerca                | lexAuxPartFor               | 
+acerca de             | lexAuxPartFor               | 
+activa                | lexOperPurposeVerb          | 
+activar               | lexOperPurposeVerb          | 
+actives               | lexOperPurposeVerb          | 
+adios                 | lexInteraction              | 
+ah                    | lexInteractionAuxiliar      | 
+ah por cierto         | lexInteraction              | 
+aja                   | lexAgree                    | 
+al                    | lexAuxPrepAL                | 
+alarma                | lexActScopeNoun             | 
+algun                 | lexAuxUndefArticle          | 
+alguna                | lexAuxUndefArticle          | 
+alguno                | lexAuxUndefArticle          | 
+apaga                 | lexOperPurposeVerb          | 
+apagar                | lexOperPurposeVerb          | 
+apagues               | lexOperPurposeVerb          | 
+asi                   | lexConversation             | 
+asi es                | lexAgree                    | 
+bien                  | lexInteractionAuxiliar      | 
+                        lexAgree                    | 
+bombilla              | lexActScopeNoun             | 
+bombillas             | lexActScopeNoun             | 
+buenas                | lexInteraction              | 
+buenas noches         | lexInteraction              | 
+buenas tardes         | lexInteraction              | 
+bueno                 | lexInteractionAuxiliar      | 
+                        lexAgree                    | 
+buenos dias           | lexInteraction              | 
+caballero             | lexInteraction              | 
+calefaccion           | lexActScopeNoun             | 
+cambia                | lexOperPurposeVerb          | 
+cambiar               | lexOperPurposeVerb          | 
+cambies               | lexOperPurposeVerb          | 
+catorce               | lexNumber                   | 
+celsius               | lexTemperatureScale         | 
+cero                  | lexZero                     | 
+                        lexNumber                   | 
+cerrar                | lexOperPurposeVerb          | 
+chao                  | lexInteraction              | 
+cien                  | lexNumber                   | 
+ciento                | lexNumber                   | 
+cierra                | lexOperPurposeVerb          | 
+cierres               | lexOperPurposeVerb          | 
+cierta                | lexAuxUndefArticle          | 
+ciertas               | lexAuxUndefArticle          | 
+cinco                 | lexNumber                   | 
+cincuenta             | lexNumber                   | 
+cincuenticinco        | lexNumber                   | 
+cincuenticuatro       | lexNumber                   | 
+cincuentidos          | lexNumber                   | 
+cincuentinueve        | lexNumber                   | 
+cincuentiocho         | lexNumber                   | 
+cincuentiseis         | lexNumber                   | 
+cincuentisiete        | lexNumber                   | 
+cincuentitres         | lexNumber                   | 
+cincuentiun           | lexNumber                   | 
+cincuentiuna          | lexNumber                   | 
+cincuentiuno          | lexNumber                   | 
+cocina                | lexLocationDescriptor       | 
+como dice             | lexRepeat                   | 
+con                   | lexAuxPrepCON               | 
+conecta               | lexOperPurposeVerb          | 
+conectar              | lexOperPurposeVerb          | 
+conectes              | lexOperPurposeVerb          | 
+consulta              | lexOperPurposeVerb          | 
+consultar             | lexOperPurposeVerb          | 
+consultes             | lexOperPurposeVerb          | 
+correcto              | lexAgree                    | 
+creo                  | lexConversation             | 
+creo que              | lexConversation             | 
+cual                  | lexAuxWhat                  | 
+cual es               | lexAuxWhat                  | 
+cuales                | lexAuxWhat                  | 
+cuales son            | lexAuxWhat                  | 
+cuarenta              | lexNumber                   | 
+cuarenticinco         | lexNumber                   | 
+cuarenticuatro        | lexNumber                   | 
+cuarentidos           | lexNumber                   | 
+cuarentinueve         | lexNumber                   | 
+cuarentiocho          | lexNumber                   | 
+cuarentiseis          | lexNumber                   | 
+cuarentisiete         | lexNumber                   | 
+cuarentitres          | lexNumber                   | 
+cuarentiun            | lexNumber                   | 
+cuarentiuna           | lexNumber                   | 
+cuarentiuno           | lexNumber                   | 
+cuatro                | lexNumber                   | 
+cuatro cientos        | lexNumber                   | 
+cuatrocientos         | lexNumber                   | 
+de                    | lexAuxPrepDE                | 
+de acuerdo            | lexInteractionAuxiliar      | 
+                        lexAgree                    | 
+de ninguna forma      | lexRefuse                   | 
+de ninguna manera     | lexRefuse                   | 
+del                   | lexAuxPrepDEL               | 
+desactiva             | lexOperPurposeVerb          | 
+desactivar            | lexOperPurposeVerb          | 
+desactives            | lexOperPurposeVerb          | 
+desconecta            | lexOperPurposeVerb          | 
+desconectar           | lexOperPurposeVerb          | 
+desconectes           | lexOperPurposeVerb          | 
+desde                 | lexAuxPrepDESDE             | 
+deseaba               | lexAuxIWant                 | 
+desearia              | lexAuxIWant                 | 
+deseo                 | lexAuxIWant                 | 
+diecinueve            | lexNumber                   | 
+dieciocho             | lexNumber                   | 
+dieciseis             | lexNumber                   | 
+diecisiete            | lexNumber                   | 
+diez                  | lexNumber                   | 
+disculpa              | lexInteraction              | 
+disculpame            | lexInteraction              | 
+disculpe              | lexInteraction              | 
+disculpeme            | lexInteraction              | 
+doce                  | lexNumber                   | 
+dormitorio            | lexLocationDescriptor       | 
+dos                   | lexNumber                   | 
+dos cientos           | lexNumber                   | 
+doscientos            | lexNumber                   | 
+ea                    | lexInteraction              | 
+efectivamente         | lexAgree                    | 
+el                    | lexAuxArticleEL             | 
+                        lexAuxDefArticle            | 
+en                    | lexAuxPrepEN                | 
+en absoluto           | lexRefuse                   | 
+en efecto             | lexAgree                    | 
+en ese caso           | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+en ningun caso        | lexRefuse                   | 
+encender              | lexOperPurposeVerb          | 
+enciendas             | lexOperPurposeVerb          | 
+enciende              | lexOperPurposeVerb          | 
+entonces              | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+entonces nada         | lexRefuse                   | 
+entre                 | lexAuxPrepENTRE             | 
+era                   | lexAuxIWant                 | 
+era a ver             | lexInteraction              | 
+es                    | lexAuxVerbBe                | 
+eso                   | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+eso es                | lexAgree                    | 
+esta bien             | lexAgree                    | 
+estamos de acuerdo    | lexAgree                    | 
+estoy de acuerdo      | lexAgree                    | 
+estoy interesado      | lexAuxIWant                 | 
+estoy interesado en   | lexAuxIWant                 | 
+estupendo             | lexAgree                    | 
+exactamente           | lexAgree                    | 
+exacto                | lexAgree                    | 
+fahrenheit            | lexTemperatureScale         | 
+fatal                 | lexRefuse                   | 
+fenomenal             | lexAgree                    | 
+garaje                | lexLocationDescriptor       | 
+genial                | lexAgree                    | 
+gracias               | lexInteraction              | 
+gracias por todo      | lexInteraction              | 
+grados                | lexTemperatureDescriptor    | 
+gustaria              | lexAuxIWant                 | 
+ha sido muy amable    | lexInteraction              | 
+habia                 | lexAuxVerbBe                | 
+habria                | lexAuxVerbBe                | 
+hacer                 | lexAuxAskFor                | 
+hacerle               | lexAuxAskFor                | 
+hacerte               | lexAuxAskFor                | 
+hacia                 | lexAuxPrepHACIA             | 
+hasta                 | lexAuxPrepHASTA             | 
+hasta luego           | lexInteraction              | 
+hay                   | lexAuxVerbBe                | 
+hola                  | lexInteraction              | 
+kelvin                | lexTemperatureScale         | 
+la                    | lexAuxArticleLA             | 
+                        lexAuxDefArticle            | 
+las                   | lexAuxArticleLAS            | 
+                        lexAuxDefArticle            | 
+le                    | lexAuxPronoun               | 
+llamaba               | lexAuxIWant                 | 
+llamo                 | lexAuxIWant                 | 
+lo                    | lexConversation             | 
+lo siento             | lexInteractionAuxiliar      | 
+los                   | lexAuxArticleLOS            | 
+                        lexAuxDefArticle            | 
+luces                 | lexActScopeNoun             | 
+luego                 | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+luz                   | lexActScopeNoun             | 
+mal                   | lexRefuse                   | 
+me                    | lexAuxPronoun               | 
+                        lexConversation             | 
+me gustaria           | lexAuxIWant                 | 
+me parece             | lexConversation             | 
+me parece bien        | lexAgree                    | 
+me viene              | lexConversation             | 
+mi                    | lexAuxDefArticle            | 
+mil                   | lexNumberThousand           | 
+millon                | lexNumberMillion            | 
+millones              | lexNumberMillion            | 
+mira                  | lexInteraction              | 
+mire                  | lexInteraction              | 
+mis                   | lexAuxDefArticle            | 
+modifica              | lexOperPurposeVerb          | 
+modificar             | lexOperPurposeVerb          | 
+mofifiques            | lexOperPurposeVerb          | 
+muchas gracias        | lexInteraction              | 
+muchisimas gracias    | lexInteraction              | 
+muy amable            | lexInteraction              | 
+muy bien              | lexInteractionAuxiliar      | 
+                        lexAgree                    | 
+muy buenas            | lexInteraction              | 
+nada                  | lexRefuse                   | 
+nada mas              | lexInteraction              | 
+necesitaba            | lexAuxIWant                 | 
+necesitaria           | lexAuxIWant                 | 
+necesito              | lexAuxIWant                 | 
+ni hablar             | lexRefuse                   | 
+no                    | lexRefuse                   | 
+no entiendo           | lexRepeat                   | 
+no lo entiendo        | lexRepeat                   | 
+no lo he entendido    | lexRepeat                   | 
+no perdon             | lexRefuse                   | 
+no podria ser         | lexRefuse                   | 
+no puede ser          | lexRefuse                   | 
+novecientos           | lexNumber                   | 
+noventa               | lexNumber                   | 
+noventicinco          | lexNumber                   | 
+noventicuatro         | lexNumber                   | 
+noventidos            | lexNumber                   | 
+noventinueve          | lexNumber                   | 
+noventiocho           | lexNumber                   | 
+noventiseis           | lexNumber                   | 
+noventisiete          | lexNumber                   | 
+noventitres           | lexNumber                   | 
+noventiun             | lexNumber                   | 
+noventiuna            | lexNumber                   | 
+noventiuno            | lexNumber                   | 
+nueve                 | lexNumber                   | 
+o                     | conjO                       | 
+obtener               | lexAuxAskFor                | 
+ochenta               | lexNumber                   | 
+ochenticinco          | lexNumber                   | 
+ochenticuatro         | lexNumber                   | 
+ochentidos            | lexNumber                   | 
+ochentinueve          | lexNumber                   | 
+ochentiocho           | lexNumber                   | 
+ochentiseis           | lexNumber                   | 
+ochentisiete          | lexNumber                   | 
+ochentitres           | lexNumber                   | 
+ochentiun             | lexNumber                   | 
+ochentiuna            | lexNumber                   | 
+ochentiuno            | lexNumber                   | 
+ocho                  | lexNumber                   | 
+ocho cientos          | lexNumber                   | 
+ochocientos           | lexNumber                   | 
+oiga                  | lexInteraction              | 
+ok                    | lexInteractionAuxiliar      | 
+                        lexAgree                    | 
+once                  | lexNumber                   | 
+otra cosa             | lexInteraction              | 
+oye                   | lexInteraction              | 
+para                  | lexAuxPrepPARA              | 
+                        lexAuxPartFor               | 
+para nada             | lexRefuse                   | 
+pedir                 | lexAuxAskFor                | 
+pedirle               | lexAuxAskFor                | 
+pedirte               | lexAuxAskFor                | 
+perdon                | lexInteractionAuxiliar      | 
+                        lexRepeat                   | 
+perdona               | lexInteractionAuxiliar      | 
+                        lexRepeat                   | 
+perdoname             | lexInteractionAuxiliar      | 
+                        lexRepeat                   | 
+perdone               | lexInteractionAuxiliar      | 
+                        lexRepeat                   | 
+perdoneme             | lexInteractionAuxiliar      | 
+perfecto              | lexAgree                    | 
+podria                | lexAuxIWant                 | 
+podrias               | lexAuxIWant                 | 
+pon                   | lexOperPurposeVerb          | 
+poner                 | lexOperPurposeVerb          | 
+pongas                | lexOperPurposeVerb          | 
+por                   | lexAuxPrepPOR               | 
+                        lexAuxPartFor               | 
+por cierto            | lexInteraction              | 
+por favor             | lexInteraction              | 
+por supuesto          | lexAgree                    | 
+puede                 | lexAuxIWant                 | 
+puedes                | lexAuxIWant                 | 
+puerta                | lexActScopeNoun             | 
+puertas               | lexActScopeNoun             | 
+pues                  | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+pues entonces         | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+pues nada             | lexInteraction              | 
+que                   | lexAuxWhat                  | 
+que dijiste           | lexRepeat                   | 
+que has dicho         | lexRepeat                   | 
+que hay               | lexInteraction              | 
+que me dijiste        | lexRepeat                   | 
+que me has dicho      | lexRepeat                   | 
+que pasa              | lexInteraction              | 
+que tal               | lexInteraction              | 
+que va                | lexRefuse                   | 
+queda                 | lexAuxVerbBe                | 
+quedaban              | lexAuxVerbBe                | 
+quedan                | lexAuxVerbBe                | 
+quedaran              | lexAuxVerbBe                | 
+quedaria              | lexAuxVerbBe                | 
+quedarian             | lexAuxVerbBe                | 
+queria                | lexAuxIWant                 | 
+querria               | lexAuxIWant                 | 
+quiero                | lexAuxIWant                 | 
+quince                | lexNumber                   | 
+quinientos            | lexNumber                   | 
+quisiera              | lexAuxIWant                 | 
+quita                 | lexOperPurposeVerb          | 
+quitar                | lexOperPurposeVerb          | 
+quites                | lexOperPurposeVerb          | 
+repite                | lexRepeat                   | 
+repitelo              | lexRepeat                   | 
+repitemelo            | lexRepeat                   | 
+repites               | lexRepeat                   | 
+riego                 | lexActScopeNoun             | 
+salon                 | lexLocationDescriptor       | 
+seguridad             | lexActScopeNoun             | 
+seis                  | lexNumber                   | 
+seis cientos          | lexNumber                   | 
+seiscientos           | lexNumber                   | 
+seorita               | lexInteraction              | 
+ser                   | lexAuxVerbBe                | 
+seria                 | lexAuxVerbBe                | 
+sesenta               | lexNumber                   | 
+sesenticinco          | lexNumber                   | 
+sesenticuatro         | lexNumber                   | 
+sesentidos            | lexNumber                   | 
+sesentinueve          | lexNumber                   | 
+sesentiocho           | lexNumber                   | 
+sesentiseis           | lexNumber                   | 
+sesentisiete          | lexNumber                   | 
+sesentitres           | lexNumber                   | 
+sesentiun             | lexNumber                   | 
+sesentiuna            | lexNumber                   | 
+sesentiuno            | lexNumber                   | 
+setecientos           | lexNumber                   | 
+setenta               | lexNumber                   | 
+setenticinco          | lexNumber                   | 
+setenticuatro         | lexNumber                   | 
+setentidos            | lexNumber                   | 
+setentinueve          | lexNumber                   | 
+setentiocho           | lexNumber                   | 
+setentiseis           | lexNumber                   | 
+setentisiete          | lexNumber                   | 
+setentitres           | lexNumber                   | 
+setentiun             | lexNumber                   | 
+setentiuna            | lexNumber                   | 
+setentiuno            | lexNumber                   | 
+si                    | lexAuxPartIf                | 
+                        lexAgree                    | 
+si eres tan amable    | lexInteraction              | 
+si es ese             | lexAgree                    | 
+si fueses tan amable  | lexInteraction              | 
+siete                 | lexNumber                   | 
+sin                   | lexAuxPrepSIN               | 
+sistema de seguridad  | lexActScopeNoun             | 
+sobre                 | lexAuxPrepSOBRE             | 
+                        lexAuxPartFor               | 
+su                    | lexAuxDefArticle            | 
+sus                   | lexAuxDefArticle            | 
+te                    | lexAuxPronoun               | 
+te agradezco          | lexInteraction              | 
+te lo agradezco       | lexInteraction              | 
+tendria               | lexAuxVerbBe                | 
+tendrian              | lexAuxVerbBe                | 
+tendrias              | lexAuxVerbBe                | 
+teneis                | lexAuxVerbBe                | 
+tengo                 | lexAuxVerbBe                | 
+tenia                 | lexAuxVerbBe                | 
+tenian                | lexAuxVerbBe                | 
+tenias                | lexAuxVerbBe                | 
+tiene                 | lexAuxVerbBe                | 
+tienen                | lexAuxVerbBe                | 
+tienes                | lexAuxVerbBe                | 
+trece                 | lexNumber                   | 
+treinta               | lexNumber                   | 
+treinticinco          | lexNumber                   | 
+treinticuatro         | lexNumber                   | 
+treintidos            | lexNumber                   | 
+treintinueve          | lexNumber                   | 
+treintiocho           | lexNumber                   | 
+treintiseis           | lexNumber                   | 
+treintisiete          | lexNumber                   | 
+treintitres           | lexNumber                   | 
+treintiun             | lexNumber                   | 
+treintiuna            | lexNumber                   | 
+treintiuno            | lexNumber                   | 
+trenticinco           | lexNumber                   | 
+trenticuatro          | lexNumber                   | 
+trentidos             | lexNumber                   | 
+trentinueve           | lexNumber                   | 
+trentiocho            | lexNumber                   | 
+trentiseis            | lexNumber                   | 
+trentisiete           | lexNumber                   | 
+trentitres            | lexNumber                   | 
+trentiuna             | lexNumber                   | 
+trentiuno             | lexNumber                   | 
+tres                  | lexNumber                   | 
+tres cientos          | lexNumber                   | 
+trescientos           | lexNumber                   | 
+uhu                   | lexAgree                    | 
+uju                   | lexAgree                    | 
+un                    | lexAuxUndefArticle          | 
+                        lexNumber                   | 
+una                   | lexAuxUndefArticle          | 
+                        lexNumber                   | 
+unas                  | lexAuxUndefArticle          | 
+uno                   | lexNumber                   | 
+unos                  | lexAuxUndefArticle          | 
+usted                 | lexInteraction              | 
+vale                  | lexInteractionAuxiliar      | 
+                        lexAgree                    | 
+vamos a ver           | lexInteraction              | 
+veinte                | lexNumber                   | 
+veinticinco           | lexNumber                   | 
+veinticuatro          | lexNumber                   | 
+veintidos             | lexNumber                   | 
+veintinueve           | lexNumber                   | 
+veintiocho            | lexNumber                   | 
+veintiseis            | lexNumber                   | 
+veintisiete           | lexNumber                   | 
+veintitres            | lexNumber                   | 
+veintiun              | lexNumber                   | 
+veintiuna             | lexNumber                   | 
+veintiuno             | lexNumber                   | 
+venga                 | lexInteractionAuxiliar      | 
+                        lexConversation             | 
+                        lexAgree                    | 
+ventana               | lexActScopeNoun             | 
+ventanas              | lexActScopeNoun             | 
+venticinco            | lexNumber                   | 
+venticuatro           | lexNumber                   | 
+ventidos              | lexNumber                   | 
+ventinueve            | lexNumber                   | 
+ventiocho             | lexNumber                   | 
+ventiseis             | lexNumber                   | 
+ventisiete            | lexNumber                   | 
+ventitres             | lexNumber                   | 
+ventiuna              | lexNumber                   | 
+ventiuno              | lexNumber                   | 
+vuelve a decirmelo    | lexRepeat                   | 
+vuelve decirlo        | lexRepeat                   | 
+y                     | conjY                       | 
+y otra cosa           | lexInteraction              | 
+ya le llamare         | lexInteraction              | 
+ya le llamo           | lexInteraction              | 
+ya llamare            | lexInteraction              | 
+ya llamo              | lexInteraction              | 
+ya te llamare         | lexInteraction              | 
+ya te llamo           | lexInteraction              | 
+yo                    | lexAuxPronoun               | 
+                        lexInteractionAuxiliar      | 
+                        lexConversation             | 

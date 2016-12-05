@@ -1,0 +1,246 @@
+/*******************************
+ ** Task / UserId
+ *******************************/
+
+TaskLine	LookIdentityPersonalId(TaskLine tline)
+{
+/*
+	cond {
+		(tline.ReceivedCommand.Conversation.Verify) {
+			tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'yes';
+			tline.WStep <- 'ask-identity-personalid';
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'no';
+			tline.WStep <- 'ask-identity-personalid';
+			Erase(tline.ReceivedCommand.Conversation.Refuse);
+		}
+		default {
+*/
+			if (tline.GModel.LinkedInfo.UserId) {
+				tline.WStep <- 'run-task';
+			} else {
+				if (tline.CModel.LinkedInfo.UserId) {
+					tline.WStep <- 'check-identity-personalid';
+				} else {
+					tline.WStep <- 'ask-identity-personalid';
+				}
+			}
+//		}
+//	}
+
+	return tline;
+}
+
+TaskLine	AskIdentityPersonalId(TaskLine tline)
+{
+	Person person;
+
+	if (tline.GModel.LinkedInfo.Person) {
+		person <- tline.GModel.LinkedInfo.Person;
+	} else {
+		person <- tline.CModel.LinkedInfo.Person;
+	}
+		
+	if (PossibleEnfant(person)) {
+		cond {
+			(person.PersonHasPersonalId == 'no') {
+				LOutput loutput <- (LMode:'ask',TField:'personalid');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			}
+			(person.PersonHasPersonalId == 'yes') {
+				LOutput loutput <- (LMode:'ask',TField:'personalid');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			}
+			default {
+				cond {
+					(tline.ReceivedCommand.Conversation.Verify) {
+						tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'yes';
+						tline.WStep <- 'ask-identity-personalid';
+						Erase(tline.ReceivedCommand.Conversation.Verify);
+						LOutput loutput <- (LMode:'ask',TField:'personalid');
+						loutput.TContext <- tline;
+						BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+					}
+					(tline.ReceivedCommand.Conversation.Refuse) {
+						tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'no';
+						tline.WStep <- 'ask-identity-personalid';
+						Erase(tline.ReceivedCommand.Conversation.Refuse);
+						LOutput loutput <- (LMode:'ask',TField:'personalid');
+						loutput.TContext <- tline;
+						BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+					}
+					default {
+						LOutput loutput <- (LMode:'ask',TField:'if_personalid');
+						loutput.TContext <- tline;
+						BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+					}
+				}
+			}
+		}
+	} else {
+		tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'yes';
+		LOutput loutput <- (LMode:'ask',TField:'personalid');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	return tline;
+}
+
+TaskLine	AskIfIdentityPersonalId(TaskLine tline)
+{
+	cond {
+		(tline.ReceivedCommand.Conversation.Verify) {
+			tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'yes';
+			tline.WStep <- 'ask-identity-personalid';
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			tline.GModel.LinkedInfo.Person.PersonHasPersonalId <- 'no';
+			tline.WStep <- 'ask-identity-personalid';
+			Erase(tline.ReceivedCommand.Conversation.Refuse);
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	VerifyIdentityPersonalId(TaskLine tline)
+{
+	cond {
+		(tline.ReceivedCommand.Conversation.Verify) {
+			if (LiteralSize(tline.CModel.LinkedInfo.UserId.PersonalIdentity.valStr) >= 8) {
+				tline.GModel.LinkedInfo.UserId.PersonalIdentity <- tline.CModel.LinkedInfo.UserId.PersonalIdentity;
+				Erase(tline.CModel.LinkedInfo.UserId.PersonalIdentity);
+				tline.WStep <- 'run-task';
+			} else {
+				tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valLst <& 
+					tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast.valLst;
+				if (tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valStr) {
+					tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valStr <-
+						LiteralConcat(tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valStr,
+							  tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast.valStr);
+				} else {
+					tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valStr <-
+							  tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast.valStr;
+				}
+				tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valNum <-
+					ShapeToInt(tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons.valStr);
+				Erase(tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast);
+				tline.CModel.LinkedInfo.UserId.PersonalIdentity <-
+						tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons;
+				LOutput loutput <- (LMode:'re-ask',TField:'personalid');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			}
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+			Erase(tline.LastCommand.LinkedInfo);
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			if (tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons) {
+				tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast <- 
+					tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons;
+				Erase(tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityCons);
+				tline.CModel.LinkedInfo.UserId.PersonalIdentity <-
+						tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast;
+				LOutput loutput <- (LMode:'re-ask',TField:'personalid');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				Erase(tline.ReceivedCommand.Conversation.Refuse);
+			} else {
+				Erase(tline.LastCommand.LinkedInfo.UserId.PersonalIdentityBuild.PersonalIdentityLast);
+				LOutput loutput <- (LMode:'start-over',TField:'personalid');
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				Erase(tline.ReceivedCommand.Conversation.Refuse);
+			}
+
+		}
+		default {
+			LOutput loutput <- (LMode:'check',TField:'personalid');
+			loutput.TContext <- tline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	ErrorIdentityPersonalId(TaskLine tline)
+{
+	tline.CModel.LinkedInfo.UserId.PersonalIdentity <- 
+			tline.GModel.LinkedInfo.UserId.PersonalIdentity;
+
+	Erase(tline.GModel.LinkedInfo.UserId.PersonalIdentity);
+	//Erase(tline.CModel.LinkedInfo.UserId.PersonalIdentity);
+	//Erase(tline.ReceivedCommand.LinkedInfo.UserId.PersonalIdentity);
+	//Erase(tline.LastCommand.LinkedInfo.UserId.PersonalIdentity);
+
+	LOutput loutput <- (LMode:'error',TField:'personalid');
+	loutput.TContext <- tline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return tline;
+}
+
+TaskLine	MultipleIdentityPersonalId(TaskLine tline)
+{
+	//SpyMessage("MultipledentityPersonalId");
+	if (tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+		tline.WStep <- 'look-multiple-identity-personalid';
+	} else {
+		LOutput loutput <- (LMode:'ask',TField:'birthdate');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	return tline;
+}
+
+TaskLine	LookMultipleIdentityPersonalId(TaskLine tline)
+{
+	//SpyMessage("LookMultipledentityPersonalId");
+	integer	found;
+	integer	year;
+	PatientSeq	patientseq;
+	integer		patientlen;
+	integer		patientpos;
+	PatientData	patientdata;
+
+	year <- tline.ReceivedCommand.LinkedInfo.GlobalDate.PeriodYear.AbsPeriodYear;
+
+	Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+
+	found <- 0;
+	patientseq <- tline.WData.PatientInfo.PatientSeq;
+	patientlen <- BatchSize(patientseq);
+	patientpos <- 1;
+	while ((found == 0) && (patientpos <= patientlen)) {
+		BatchRecoverPosition(patientseq,patientpos,patientdata);
+		if (patientdata.PatientBirthGlobalDate.BirthGlobalDatePeriodYear == year) {
+			found <- 1;
+			tline.WData.PatientData <- patientdata;
+		} else {
+			patientpos <- patientpos + 1;
+		}
+	}
+	
+	if (found == 1) {
+		if (tline.WData.PatientData.AppointInfo.AppointNumb == 0) {
+			tline.WStep <- 'inform-consult-appoint-no';
+		} else {
+			tline.WStep <- 'inform-consult-appoint-ok';
+		}
+		Erase(tline.WData.PatientInfo);
+	} else {
+		LOutput loutput <- (LMode:'re-ask',TField:'birthdate');
+		tline.LastCommand.LinkedInfo.GlobalDate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	return tline;
+}

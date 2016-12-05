@@ -1,0 +1,36 @@
+/*******************************
+ ** OScheme (Output Scheme)
+ *******************************/
+
+	// LocutiveMode
+	classDef:ElementRange ( LMode : { 	
+						'relation', 
+						'ask', 
+						're-ask', 
+						'out',
+						'check',
+						'error',
+						'inform',
+						'informmove',
+						'errormove' } )
+
+	// TellingField
+	classDef:ElementLiteral ( TField )
+		
+	// InformationContext
+	classDef:Synonym ( IContext = MindTaskItem )
+
+	// Locutive Output
+	classDef:StructureComplex ( LOutput : ( 
+						LMode,
+						TField,
+						IContext ) ) 
+
+	// Output Scheme
+	classDef:StructureBatch ( OScheme : (
+						LOutput ) )
+
+	// Output Struct
+	classDef:StructureComplex ( OStruct : (
+						OScheme ) )
+

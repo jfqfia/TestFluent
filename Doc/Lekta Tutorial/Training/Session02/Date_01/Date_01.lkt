@@ -1,0 +1,72 @@
+/***************************************************************************
+ * SOURCEFILE => Data_01.lkt
+ ***************************************************************************/
+
+lektaProject
+
+	projectHead
+		projectDescriptor       : "Date_01"
+		projectLanguageScope    : [ es ]
+		projectOperationScope   : [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput    : ".Date_01.olk"
+
+	projectSetup
+		setupParserRoots = Command 
+
+	classModel
+		classDef:ElementRange ( askInfo: 
+				{ 'day', 'hour'} )
+		classDef:StructureComplex ( askCommand, Command : (askInfo) )
+
+	lexicalModel forLanguage es
+		("dime el día",   askCommand,      (askInfo:'day'))
+		("dime la hora",  askCommand,      (askInfo:'hour'))
+
+	grammaticalModel forLanguage es
+		(R1: [ Command -> askCommand ]
+			{ ^ <- #1; } )
+
+	conversationalModel
+		MindBoardStructure: {
+			(Mind / Command)
+		}
+
+		SensoSchemata
+			(SensoScheme SenseCommand : [Command]
+				SensoAction {
+					$MINDBOARD@Mind <- #OBJSENSO-1;
+				}
+			)
+
+		RespondoSchemata
+			(RespondoScheme Command: [Command] 
+				RespondoAction {
+					^OBJRESPONDO <- $MINDBOARD@Mind;
+				}
+			)
+   
+	scriboModel forLanguage es
+		ScriboSchemata
+			(ScriboScheme Command: [Command]
+				ScriboCapture {
+					#OBJLOCUTIO-1 == (askInfo:'day')
+				}
+				ScriboAction {
+					SetMainAnswer("Es el día ");
+					SetMainAnswer(ClockAskDayOfTheMonth());
+				}
+			)
+
+			(ScriboScheme Command: [Command]
+				ScriboCapture {
+					#OBJLOCUTIO-1 == (askInfo:'hour')
+				}
+				ScriboAction {
+					SetMainAnswer("Son las ");
+					SetMainAnswer(ClockAskHour());
+					SetMainAnswer(":");
+					SetMainAnswer(ClockAskMinute());
+				}
+			)
+

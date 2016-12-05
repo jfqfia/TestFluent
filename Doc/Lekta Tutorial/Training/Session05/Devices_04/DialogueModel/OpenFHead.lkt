@@ -1,0 +1,23 @@
+/*******************************
+ ** Open / Heads
+ *******************************/
+
+integer	coherentCommands(Command commandprev, 
+		Command commandnew);
+
+integer	coherentCommandsScope(string operPurposeDescriptor,
+		Command commandprev, 
+		Command commandnew);
+
+integer	coherentCommandsInfo(string operPurposeDescriptor,
+		string actScopeDescriptor,
+		Command commandprev, 
+		Command commandnew);
+
+integer	addOpenActionModel(Command command);
+
+integer	addWaitingTasksModel(Command command);
+
+integer	fusionOpenActionModel(Task activeTaskItem,
+		Command command,
+		integer profTrigger);

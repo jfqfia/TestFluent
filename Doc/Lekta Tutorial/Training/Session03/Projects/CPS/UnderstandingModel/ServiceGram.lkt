@@ -1,0 +1,27 @@
+/*******************************
+ ** Service
+ *******************************/
+
+!ASR(RService_Asr_Root : 
+	[S -> NS_B ServiceDenial NS_E] )
+
+!ASR(RServiceDenial1 : 
+	[ServiceDenial -> Service] )
+
+!ASR(RServiceDenial2 : 
+	[ServiceDenial -> lexDenial Service lexDenial? Service lexDenial?] )
+
+!ASR(RServiceDenial3 : 
+	[ServiceDenial -> Service lexDenial Service lexDenial?] )
+
+!ASR(RServiceDenial4 : 
+	[ServiceDenial -> Service Service lexDenial] )
+
+(RService1 : 
+	[Service/0 -> <lexAuxPrepCON|lexAuxPrepPARA|lexAuxPrepDEL>? lexAuxDefArticle? lexServiceId]
+		{ ^.ServiceId <- #3; })
+
+!PRS(RService2 : 
+	[Service/1 -> Service/0 conjY? Service/1]
+		{ ^ <- #1;
+		  ^.ServiceAnd <- #3; })

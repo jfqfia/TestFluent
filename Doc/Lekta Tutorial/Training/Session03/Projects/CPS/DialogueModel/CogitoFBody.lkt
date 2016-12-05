@@ -1,0 +1,389 @@
+/*******************************
+ ** Cogito / Functions
+ *******************************/
+
+integer	CogitoStart() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'welcome');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoTimeOutRecall() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'recall');
+	//Erase($MINDBOARD@OStruct);
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutWarning() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'warning');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutFinish() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'finish');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutKill() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'kill');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoBadInput() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'badinput');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoContinuation() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'continuation');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('Conversation');
+	SetActiveExpectation('Start');
+
+	$MINDBOARD@Setup.ActionSetup <- 'cont';
+
+	return 1;
+}
+
+integer	CogitoNext() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'next');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('Conversation');
+	SetActiveExpectation('Start');
+
+	$MINDBOARD@Setup.ActionSetup <- 'cont';
+
+	return 1;
+}
+
+integer	CogitoContinuationFromNoInput() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'continuation-no-input');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('Conversation');
+	SetActiveExpectation('Start');
+
+	$MINDBOARD@Setup.ActionSetup <- 'cont';
+
+	return 1;
+}
+
+integer	CogitoHello() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'hello');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoMindBoard() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'mindboard');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+/*
+integer	CogitoRecover(TaskLine tline) 
+{
+	LOutput loutput <- (LMode:'relation',TField:'recover');
+	loutput.TContext <- tline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('Start');
+	SetActiveExpectation('Conversation');
+
+	return 1;
+}
+*/
+
+integer	CogitoNew() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'new');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoRep() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'rep');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoNewFromNoInput() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'new-no-input');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoClose() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'close');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('Conversation');
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoStop() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'goodbye');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTransferTry() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'transfer_try');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('Conversation');
+	SetActiveExpectation('Start');
+
+	return 1;
+}
+
+integer	CogitoTransferExec() 
+{
+	LOutput loutput <- (LMode:'relation',TField:'transfer_exec');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+TaskLine	RunOpen(TaskLine tline)
+{
+	if (tline.ReceivedCommand) {
+		tline <- AnalyzeOperPurpose(tline);
+		tline <- AnalyzeActScope(tline);
+		tline <- AssignOperPurposeActScopeDefault(tline);
+		tline <- AnalyzeLinkedInfo(tline);
+		tline <- AssignTask(tline);
+		tline <- ExecuteTask(tline);
+	} else {
+		if (tline.CModel) {
+			tline <- AnalyzeOperPurpose(tline);
+			tline <- AnalyzeActScope(tline);
+			tline <- AssignOperPurposeActScopeDefault(tline);
+			tline <- AnalyzeLinkedInfo(tline);
+			tline <- AssignTask(tline);
+			tline <- ExecuteTask(tline);
+		} else {
+			if (tline.GModel) {
+				tline <- AnalyzeOperPurpose(tline);
+				tline <- AnalyzeActScope(tline);
+				tline <- AssignOperPurposeActScopeDefault(tline);
+				tline <- AnalyzeLinkedInfo(tline);
+				tline <- AssignTask(tline);
+				tline <- ExecuteTask(tline);
+			}
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	AnalyzeOperPurpose(TaskLine tline)
+{
+	// 	      | RaiseModel | VerifyModel | GroundModel |
+	//            -------------------------------------------
+	//            |      1     |       1      |      1      | ** No (Verify & Ground)
+	//            |      1     |       1      |      0      |
+	//            |      1     |       0      |      1      |
+	//            |      1     |       0      |      0      |
+	//            |      0     |       1      |      1      | ** No (Verify & Ground)
+	//            |      0     |       1      |      0      |
+	//            |      0     |       0      |      1      |
+	//            |      0     |       0      |      0      |
+	//            -------------------------------------------
+	if (tline.ReceivedCommand.OperPurpose) {
+		if (tline.CModel.OperPurpose) { 		// 1 1 0
+			if (tline.ReceivedCommand.OperPurpose.OperPurposeDescriptor =:= 
+					tline.CModel.OperPurpose.OperPurposeDescriptor) {
+				tline.GModel.OperPurpose <| tline.CModel.OperPurpose;
+				Erase(tline.CModel.OperPurpose);
+			} else {
+				tline.CModel.OperPurpose <| tline.ReceivedCommand.OperPurpose;
+				Erase(tline.ReceivedCommand.OperPurpose);
+				tline.CModel.OperPurpose.VerifyType <- 'raise';
+			}
+		} else { 
+			if (tline.GModel.OperPurpose) { 	// 1 0 1
+				if (tline.ReceivedCommand.OperPurpose.OperPurposeDescriptor =:= 
+						tline.GModel.OperPurpose.OperPurposeDescriptor) {
+					tline.GModel.OperPurpose <| tline.ReceivedCommand.OperPurpose;
+					Erase(tline.ReceivedCommand.OperPurpose);
+				} else {
+					// Conflicto R - G
+					tline.CModel.OperPurpose <| tline.ReceivedCommand.OperPurpose;
+					Erase(tline.ReceivedCommand.OperPurpose);
+					Erase(tline.GModel.OperPurpose);
+					tline.CModel.OperPurpose.VerifyType <- 'clash';
+				}
+			} else {				// 1 0 0
+				tline.CModel.OperPurpose <- tline.ReceivedCommand.OperPurpose;
+				Erase(tline.ReceivedCommand.OperPurpose);
+				tline.CModel.OperPurpose.VerifyType <- 'raise';
+			}
+		}
+	} else {
+		if (tline.CModel.OperPurpose) { 		
+			if (!!tline.GModel.OperPurpose) { 	// 0 1 0
+				tline.GModel.OperPurpose <- tline.CModel.OperPurpose;
+				Erase(tline.CModel.OperPurpose);
+			} 
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	AnalyzeActScope(TaskLine tline)
+{
+	// 	      | RaiseModel | VerifyModel | GroundModel |
+	//            -------------------------------------------
+	//            |      1     |       1      |      1      | ** No (Verify & Ground)
+	//            |      1     |       1      |      0      |
+	//            |      1     |       0      |      1      |
+	//            |      1     |       0      |      0      |
+	//            |      0     |       1      |      1      | ** No (Verify & Ground)
+	//            |      0     |       1      |      0      |
+	//            |      0     |       0      |      1      |
+	//            |      0     |       0      |      0      |
+	//            -------------------------------------------
+	if (tline.ReceivedCommand.ActScope) {
+		if (tline.CModel.ActScope) { 		// 1 1 0
+			if (tline.ReceivedCommand.ActScope.ActScopeDescriptor =:= 
+					tline.CModel.ActScope.ActScopeDescriptor) {
+				tline.GModel.ActScope <| tline.CModel.ActScope;
+				Erase(tline.CModel.ActScope);
+			} else {
+				tline.CModel.ActScope <| tline.ReceivedCommand.ActScope;
+				Erase(tline.ReceivedCommand.ActScope);
+				tline.CModel.ActScope.VerifyType <- 'raise';
+			}
+		} else { 
+			if (tline.GModel.ActScope) { 	// 1 0 1
+				if (tline.ReceivedCommand.ActScope.ActScopeDescriptor =:= 
+						tline.GModel.ActScope.ActScopeDescriptor) {
+					tline.GModel.ActScope <| tline.ReceivedCommand.ActScope;
+					Erase(tline.ReceivedCommand.ActScope);
+				} else {
+					// Conflicto R - G
+					tline.CModel.ActScope <| tline.ReceivedCommand.ActScope;
+					Erase(tline.ReceivedCommand.ActScope);
+					Erase(tline.GModel.ActScope);
+					tline.CModel.ActScope.VerifyType <- 'clash';
+				}
+			} else {				// 1 0 0
+				tline.CModel.ActScope <- tline.ReceivedCommand.ActScope;
+				Erase(tline.ReceivedCommand.ActScope);
+				tline.CModel.ActScope.VerifyType <- 'raise';
+			}
+		}
+	} else {
+		if (tline.CModel.ActScope) { 		
+			if (!!tline.GModel.ActScope) { 	// 0 1 0
+				tline.GModel.ActScope <- tline.CModel.ActScope;
+				Erase(tline.CModel.ActScope);
+			} 
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	AssignOperPurposeActScopeDefault(TaskLine tline)
+{
+	// No OperPurpose en GroundModel & VerifyModel
+	if ((!!tline.GModel.OperPurpose) && (!!tline.CModel.OperPurpose)) {
+		// No ActScope en GroundModel & VerifyModel
+		if ((!!tline.GModel.ActScope) && (!!tline.CModel.ActScope)) {
+			cond {
+				(tline.ReceivedCommand.LinkedInfo.Service) {
+					tline <- AssignDefaultOperPurposeActScope(tline);
+					tline.CModel.OperPurpose.VerifyType <- 'infer';
+					tline.CModel.ActScope.VerifyType <- 'infer';
+				}
+				(tline.ReceivedCommand.LinkedInfo.Person) {
+					tline <- AssignDefaultOperPurposeActScope(tline);
+					tline.CModel.OperPurpose.VerifyType <- 'infer';
+					tline.CModel.ActScope.VerifyType <- 'infer';
+				}
+				(tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+					tline <- AssignDefaultOperPurposeActScope(tline);
+					tline.CModel.OperPurpose.VerifyType <- 'infer';
+					tline.CModel.ActScope.VerifyType <- 'infer';
+				}
+			}
+		} else {
+			tline <- AssignDefaultOperPurposeFromActScope(tline);
+			tline.CModel.OperPurpose.VerifyType <- 'infer';
+		}
+	} else {
+		// No ActScope en GroundModel & VerifyModel
+		if ((!!tline.GModel.ActScope) && (!!tline.CModel.ActScope)) {
+			tline <- AssignDefaultActScopeFromOperPurpose(tline);
+			if (tline.CModel.OperPurpose.VerifyType =!= 'uncertain') {
+				tline.CModel.ActScope.VerifyType <- 'infer';
+			}
+		}
+	}
+
+	return tline;
+}

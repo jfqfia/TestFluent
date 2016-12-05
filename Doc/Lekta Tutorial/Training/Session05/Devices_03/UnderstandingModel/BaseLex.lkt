@@ -1,0 +1,193 @@
+/*******************************
+ ** Puntuacion
+ *******************************/
+
+	setupTokenizerPunctuation("!", 	punctExclamationOpen )
+	setupTokenizerPunctuation("!", 	punctExclamationClose )
+	setupTokenizerPunctuation("?", 	punctQuestionOpen )
+	setupTokenizerPunctuation("?", 	punctQuestionClose )
+	setupTokenizerPunctuation(".", 	punctDot )
+	setupTokenizerPunctuation(":", 	punctColon )
+	setupTokenizerPunctuation(",", 	punctComma )
+	setupTokenizerPunctuation(";", 	punctSemicolon )
+	setupTokenizerPunctuation("(", 	punctParenthesisOpen )
+	setupTokenizerPunctuation("[", 	punctParenthesisOpen )
+	setupTokenizerPunctuation("<", 	punctParenthesisOpen )
+	setupTokenizerPunctuation(")", 	punctParenthesisClose )
+	setupTokenizerPunctuation("]", 	punctParenthesisClose )
+	setupTokenizerPunctuation(">", 	punctParenthesisClose )
+	setupTokenizerPunctuation("/", 	punctBar )
+
+
+/*******************************
+ ** Preposiciones
+ *******************************/
+	("a", 			lexAuxPrepA )
+	("con", 		lexAuxPrepCON )
+	("de", 			lexAuxPrepDE )
+	("desde", 		lexAuxPrepDESDE )
+	("en", 			lexAuxPrepEN )
+	("entre", 		lexAuxPrepENTRE )
+	("hacia", 		lexAuxPrepHACIA )
+	("hasta", 		lexAuxPrepHASTA )
+	("para", 		lexAuxPrepPARA )
+	("por", 		lexAuxPrepPOR )
+	("sin", 		lexAuxPrepSIN )
+	("sobre", 		lexAuxPrepSOBRE )
+	("al", 			lexAuxPrepAL )
+	("del", 		lexAuxPrepDEL )
+
+/*******************************
+ ** Conjunciones
+ *******************************/
+	("y", 			conjY )
+	("o", 			conjO )
+
+/*******************************
+ ** Determinantes
+ *******************************/
+	("el", 			lexAuxArticleEL )
+	("los", 		lexAuxArticleLOS )
+	("la", 			lexAuxArticleLA )
+	("las", 		lexAuxArticleLAS )
+
+/*************************/
+/** lexAuxUndefArticle	**/
+/*************************/
+
+	("algun",		lexAuxUndefArticle)
+	("alguna",		lexAuxUndefArticle)
+	("alguno",		lexAuxUndefArticle)
+	("cierta",		lexAuxUndefArticle)
+	("ciertas",		lexAuxUndefArticle)
+	("un",			lexAuxUndefArticle)
+	("una",			lexAuxUndefArticle)
+	("unas",		lexAuxUndefArticle)
+	("unos",		lexAuxUndefArticle)
+
+/*************************/
+/** lexAuxPronoun	**/
+/*************************/
+
+	("le",			lexAuxPronoun)
+	("me",			lexAuxPronoun)
+	("te",			lexAuxPronoun)
+	("yo",			lexAuxPronoun)
+
+/*************************/
+/** lexAuxIWant	**/
+/*************************/
+
+	("deseaba",		lexAuxIWant)
+	("desearia",		lexAuxIWant)
+	("deseo",		lexAuxIWant)
+
+	("era",			lexAuxIWant)
+	("estoy interesado",	lexAuxIWant)
+	("estoy interesado en",	lexAuxIWant)
+
+	("gustaria",		lexAuxIWant)
+	("me gustaria",		lexAuxIWant)
+
+	("llamo",		lexAuxIWant)
+	("llamaba",		lexAuxIWant)
+
+	("necesito",		lexAuxIWant)
+	("necesitaba",		lexAuxIWant)
+	("necesitaria",		lexAuxIWant)
+
+	("podria",		lexAuxIWant)
+	("podrias",		lexAuxIWant)
+	("puede",		lexAuxIWant)
+	("puedes",		lexAuxIWant)
+
+	("queria",		lexAuxIWant)
+	("querria",		lexAuxIWant)
+	("quiero",		lexAuxIWant)
+	("quisiera",		lexAuxIWant)
+
+/*************************/
+/** lexAuxPartFor	**/
+/*************************/
+
+	("a",			lexAuxPartFor)
+	("acerca",		lexAuxPartFor)
+	("acerca de",		lexAuxPartFor)
+	("para",		lexAuxPartFor)
+	("por",			lexAuxPartFor)
+	("sobre",		lexAuxPartFor)
+
+/*************************/
+/** lexAuxDefArticle	**/
+/*************************/
+
+	("el",			lexAuxDefArticle)
+	("la",			lexAuxDefArticle)
+	("los",			lexAuxDefArticle)
+	("las",			lexAuxDefArticle)
+	("mi",			lexAuxDefArticle)
+	("mis",			lexAuxDefArticle)
+	("su",			lexAuxDefArticle)
+	("sus",			lexAuxDefArticle)
+
+/*************************/
+/** lexAuxAskFor	**/
+/*************************/
+
+	("hacer",		lexAuxAskFor)
+	("hacerle",		lexAuxAskFor)
+	("hacerte",		lexAuxAskFor)
+
+	("obtener",		lexAuxAskFor)
+
+	("pedir",		lexAuxAskFor)
+	("pedirle",		lexAuxAskFor)
+	("pedirte",		lexAuxAskFor)
+
+/*************************/
+/** lexAuxPartIf	**/
+/*************************/
+
+	("si",			lexAuxPartIf)
+
+/*************************/
+/** lexAuxVerbBe	**/
+/*************************/
+
+	("es",			lexAuxVerbBe)
+	("seria",		lexAuxVerbBe)
+	("ser",			lexAuxVerbBe)
+
+	("hay",			lexAuxVerbBe)
+	("habia",		lexAuxVerbBe)
+	("habria",		lexAuxVerbBe)
+
+	("queda",		lexAuxVerbBe)
+	("quedan",		lexAuxVerbBe)
+	("quedaran",		lexAuxVerbBe)
+	("quedaria",		lexAuxVerbBe)
+	("quedarian",		lexAuxVerbBe)
+	("quedaban",		lexAuxVerbBe)
+
+	("tengo",		lexAuxVerbBe)
+	("teneis",		lexAuxVerbBe)
+	("tenia",		lexAuxVerbBe)
+	("tenian",		lexAuxVerbBe)
+	("tenias",		lexAuxVerbBe)
+	("tendria",		lexAuxVerbBe)
+	("tendrian",		lexAuxVerbBe)
+	("tendrias",		lexAuxVerbBe)
+	("tiene",		lexAuxVerbBe)
+	("tienen",		lexAuxVerbBe)
+	("tienes",		lexAuxVerbBe)
+
+/*************************/
+/** lexAuxWhat	**/
+/*************************/
+
+	("que",			lexAuxWhat)
+	("cual",		lexAuxWhat)
+	("cual es",		lexAuxWhat)
+	("cuales",		lexAuxWhat)
+	("cuales son",		lexAuxWhat)
+

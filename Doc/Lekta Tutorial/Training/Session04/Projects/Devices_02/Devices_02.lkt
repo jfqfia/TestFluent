@@ -1,0 +1,126 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_02.lkt
+ ***************************************************************************/
+
+lektaProject
+
+	projectHead
+		projectDescriptor       : "Devices"
+		projectLanguageScope    : [ es ]
+		projectOperationScope   : [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput    : ".Devices_02.olk"
+
+	projectSetup
+		setupParserRoots = OperPurpose, 
+				ActScope, 
+				LinkedInfo, 
+				Interaction, 
+				Conversation
+		setupRuntimeSpyMessageOff
+
+	classModel
+		// Base
+		#Include "ClassModel/BaseClass.lkt"
+		#Include "ClassModel/InteractionClass.lkt"
+		#Include "ClassModel/ConversationClass.lkt"
+
+		// OperPurpose
+		#Include "ClassModel/OperPurposeClass.lkt"
+
+		// ActScope
+		#Include "ClassModel/ActScopeClass.lkt"
+
+		// LinkedInfo
+		#Include "ClassModel/LinkedInfoClass.lkt"
+		#Include "ClassModel/LocationClass.lkt"
+		#Include "ClassModel/TemperatureClass.lkt"
+		#Include "ClassModel/NumberClass.lkt"
+
+		// Command
+		#Include "ClassModel/CommandClass.lkt"
+
+		// TaskModel
+		#Include "ClassModel/TaskModelClass.lkt"
+
+		// OutputModel
+		#Include "ClassModel/OutFrameClass.lkt"
+
+   	//////////////////////////
+		#Include "ClassModel/MindBoardClass.lkt"
+
+	lexicalModel forLanguage es
+		// Base
+		#Include "UnderstandingModel/BaseLex.lkt"
+		#Include "UnderstandingModel/InteractionLex.lkt"
+		#Include "UnderstandingModel/ConversationLex.lkt"
+
+		// OperPurpose
+		#Include "UnderstandingModel/OperPurposeLex.lkt"
+
+		// ActScope
+		#Include "UnderstandingModel/ActScopeLex.lkt"
+
+		// LinkedInfo
+		#Include "UnderstandingModel/LocationLex.lkt"
+		#Include "UnderstandingModel/TemperatureLex.lkt"
+		#Include "UnderstandingModel/NumberLex.lkt"
+
+
+	grammaticalModel forLanguage es
+		// Base
+		#Include "UnderstandingModel/ConversationGram.lkt"
+		#Include "UnderstandingModel/InteractionGram.lkt"
+
+		// OperPurpose
+		#Include "UnderstandingModel/OperPurposeGram.lkt"
+
+		// ActScope
+		#Include "UnderstandingModel/ActScopeGram.lkt"
+
+		// LinkedInfo
+		#Include "UnderstandingModel/LinkedInfoGram.lkt"
+		#Include "UnderstandingModel/LocationGram.lkt"
+		#Include "UnderstandingModel/TemperatureGram.lkt"
+		#Include "UnderstandingModel/NumberGram.lkt"
+
+	functionModel
+		#Include "DialogueModel/OpenFHead.lkt"
+		#Include "DialogueModel/SensoFHead.lkt"
+		#Include "DialogueModel/CogitoFHead.lkt"
+		#Include "DialogueModel/Verify-Coherence.lkt"
+
+	conversationalModel
+		#Include "DialogueModel/MindBoardDialogue.lkt"
+
+		#Include "DialogueModel/ControlDialogue.lkt"
+
+		ColligoSchemata
+		#Include "DialogueModel/ColligoDialogue.lkt"
+
+		SensoSchemata
+		#Include "DialogueModel/SensoDialogue.lkt"
+
+		CogitoSchemata
+		#Include "DialogueModel/CogitoDialogue.lkt"
+
+		RespondoSchemata
+		#Include "DialogueModel/RespondoDialogue.lkt"
+
+		LocutioSchemata
+		#Include "DialogueModel/LocutioDialogue.lkt"
+
+	functionModel
+		#Include "DialogueModel/SensoFBody.lkt"
+		#Include "DialogueModel/OpenFBody.lkt"
+		#Include "DialogueModel/CogitoFBody.lkt"
+		#Include "GenerationModel/ScriboFHead.lkt"
+
+	scriboModel forLanguage es
+		ScriboSchemata
+		#Include "GenerationModel/Ask-Scribo.lkt"
+		#Include "GenerationModel/Inform-Scribo.lkt"
+		#Include "GenerationModel/Interaction-Scribo.lkt"
+
+	functionModel
+		#Include "GenerationModel/ScriboFBody.lkt"

@@ -1,0 +1,628 @@
+/*******************************
+ ** Colligo
+ *******************************/
+
+
+/////////////////////////////////////////////
+///// Conversation Model
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_Denial : [Conversation >> Denial]
+	ColligoCapture {
+		#OBJCOLLIGO-1.Refuse == 'on'
+	}
+
+	ColligoAction {
+		^OBJSENSO.Refuse = #OBJCOLLIGO-1.Refuse;
+	}
+)
+
+(ColligoScheme COLLIGO_Assert : [Conversation >> Assert]
+	ColligoCapture {
+		#OBJCOLLIGO-1.Agree == 'on'
+	}
+
+	ColligoAction {
+		^OBJSENSO.Agree = #OBJCOLLIGO-1.Agree;
+	}
+)
+
+(ColligoScheme COLLIGO_Denial_Interaction : [Denial Interaction >> Denial]
+	ColligoCapture {
+		#OBJCOLLIGO-2.InterThanks == 'on'
+	}
+
+	ColligoAction {
+		ColligoRetake(#OBJCOLLIGO-1);
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_Assert_Interaction : [Assert Interaction >> Assert]
+	ColligoCapture {
+		#OBJCOLLIGO-2.InterThanks == 'on'
+	}
+
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_Interaction_Denial : [Interaction Denial >> Denial]
+	ColligoCapture {
+		#OBJCOLLIGO-1.InterThanks == 'on'
+	}
+
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Interaction_Assert : [Interaction Assert >> Assert]
+	ColligoCapture {
+		#OBJCOLLIGO-1.InterThanks == 'on'
+	}
+
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// Command Model - Blocks 3
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_3A : [OperPurpose ActScope LinkedInfo >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-1.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.ActScopeDescriptor)) &&
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurposeDescriptor,
+					#OBJCOLLIGO-3.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-2.ActScopeDescriptor,
+					#OBJCOLLIGO-3.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-1;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-2;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-3;
+	}
+)
+
+(ColligoScheme COLLIGO_3B : [OperPurpose LinkedInfo ActScope >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-1.OperPurposeDescriptor,
+					#OBJCOLLIGO-3.ActScopeDescriptor)) &&
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-3.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-1;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-3;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_3C : [ActScope OperPurpose LinkedInfo >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScopeDescriptor)) &&
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurposeDescriptor,
+					#OBJCOLLIGO-3.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScopeDescriptor,
+					#OBJCOLLIGO-3.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-2;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-1;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-3;
+	}
+)
+
+(ColligoScheme COLLIGO_3D : [ActScope LinkedInfo OperPurpose >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-3.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScopeDescriptor)) &&
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-3.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-3;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-1;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_3E : [LinkedInfo OperPurpose ActScope >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurposeDescriptor,
+					#OBJCOLLIGO-3.ActScopeDescriptor)) &&
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-3.ActScopeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-2;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-3;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_3F : [LinkedInfo ActScope OperPurpose >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-3.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.ActScopeDescriptor)) &&
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-3.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-2.ActScopeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-3;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-2;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-1;
+	}
+)
+
+/////////////////////////////////////////////
+///// Command Model - Blocks 2
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_2A : [OperPurpose ActScope >> Command_Purpose_Scope]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-1.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.ActScopeDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-1;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_2B : [ActScope OperPurpose >> Command_Purpose_Scope]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScopeDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-2;
+		^OBJSENSO.ActScope = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_2C : [OperPurpose LinkedInfo >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-1;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_2D : [LinkedInfo OperPurpose >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-2;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_2E : [ActScope LinkedInfo >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.ActScope = #OBJCOLLIGO-1;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_2F : [LinkedInfo ActScope >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-2.ActScopeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfoDescriptor))
+	}
+	ColligoAction {
+		^OBJSENSO.ActScope = #OBJCOLLIGO-2;
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-1;
+	}
+)
+
+/////////////////////////////////////////////
+///// Command Model - Blocks 1
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_Pur : [OperPurpose >> Command_Purpose]
+	ColligoAction {
+		^OBJSENSO.OperPurpose = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_Sco : [ActScope >> Command_Scope]
+	ColligoAction {
+		^OBJSENSO.ActScope = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_Inf : [LinkedInfo >> Command_Info]
+	ColligoAction {
+		^OBJSENSO.LinkedInfo = #OBJCOLLIGO-1;
+	}
+)
+
+/////////////////////////////////////////////
+///// Purpose +      Purpose / Scope / Info 
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_Pur_Pur : [Command_Purpose Command_Purpose >> Command_Purpose]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor == #OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_Pur_Sco : [Command_Purpose Command_Scope >> Command_Purpose_Scope]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.ActScope.ActScopeDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Pur_Inf : [Command_Purpose Command_Info >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// PurposeScope +      Purpose / Scope / Info 
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_PurSco_Pur : [Command_Purpose_Scope Command_Purpose >> Command_Purpose_Scope]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor == #OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_PurSco_Sco : [Command_Purpose_Scope Command_Scope >> Command_Purpose_Scope]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor =:= #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		if (#OBJCOLLIGO-1.ActScope.ActScopeDescriptor =!= #OBJCOLLIGO-2.ActScope.ActScopeDescriptor) {
+			^OBJSENSO.ActScope.ActScopeDescriptor = 
+					#OBJCOLLIGO-2.ActScope.ActScopeDescriptor;
+		}
+	}
+)
+
+(ColligoScheme COLLIGO_PurSco_Inf : [Command_Purpose_Scope Command_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// PurposeInfo +      Purpose / Scope / Info 
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_PurInf_Pur : [Command_Purpose_Info Command_Purpose >> Command_Purpose_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor == #OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_PurInf_Sco : [Command_Purpose_Info Command_Scope >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.ActScope.ActScopeDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_PurInf_Inf : [Command_Purpose_Info Command_Info >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// PurposeScopeInfo +      Purpose / Scope / Info 
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_PurScoInf_Pur : [Command_Purpose_Scope_Info Command_Purpose >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor == #OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_PurScoInf_Sco : [Command_Purpose_Scope_Info Command_Scope >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor =:= #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_PurScoInf_Inf : [Command_Purpose_Scope_Info Command_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-1.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// Scope +      Purpose / Scope / Info / PurposeScope / PurposeInfo / ScopeInfo
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_Sco_Pur : [Command_Scope Command_Purpose >> Command_Purpose_Scope]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScope.ActScopeDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Sco_Sco : [Command_Scope Command_Scope >> Command_Scope]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor == #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_Sco_Inf : [Command_Scope Command_Info >> Command_Scope_Info]
+	ColligoCapture {
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Sco_PurSco : [Command_Scope Command_Purpose_Scope >> Command_Purpose_Scope]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor == #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Sco_PurInf : [Command_Scope Command_Purpose_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScope.ActScopeDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Sco_PurScoInf : [Command_Scope Command_Purpose_Scope_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor == #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// Info +      Purpose / Scope / PurposeScope / PurposeInfo / PurposeScopeInfo
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_Inf_Pur : [Command_Info Command_Purpose >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Inf_Sco : [Command_Info Command_Scope >> Command_Scope_Info]
+	ColligoCapture {
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-2.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Inf_PurSco : [Command_Info Command_Purpose_Scope >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-2.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Inf_PurInf : [Command_Info Command_Purpose_Info >> Command_Purpose_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_Inf_PurScoInf : [Command_Info Command_Purpose_Scope_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeLinkedInfoCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor)) &&
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-2.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-1.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+/////////////////////////////////////////////
+///// ScopeInfo +      Purpose / Scope / Info / PurposeScope / PurposeInfo / ScopeInfo
+/////////////////////////////////////////////
+
+(ColligoScheme COLLIGO_ScoInf_Pur : [Command_Scope_Info Command_Purpose >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScope.ActScopeDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_ScoInf_Sco : [Command_Scope_Info Command_Scope >> Command_Scope_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor == #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+	}
+)
+
+(ColligoScheme COLLIGO_ScoInf_Inf : [Command_Scope_Info Command_Info >> Command_Scope_Info]
+	ColligoCapture {
+		(AnalyzeActScopeLinkedInfoCoherence(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor,
+					#OBJCOLLIGO-2.LinkedInfo.LinkedInfoDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_ScoInf_PurSco : [Command_Scope_Info Command_Purpose_Scope >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor == #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_ScoInf_PurInf : [Command_Scope_Info Command_Purpose_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(AnalyzeOperPurposeActScopeCoherence(#OBJCOLLIGO-2.OperPurpose.OperPurposeDescriptor,
+					#OBJCOLLIGO-1.ActScope.ActScopeDescriptor))
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+
+(ColligoScheme COLLIGO_ScoInf_PurScoInf : [Command_Scope_Info Command_Purpose_Scope_Info >> Command_Purpose_Scope_Info]
+	ColligoCapture {
+		(#OBJCOLLIGO-1.ActScope.ActScopeDescriptor == #OBJCOLLIGO-2.ActScope.ActScopeDescriptor)
+	}
+		
+	ColligoAction {
+		^OBJSENSO = #OBJCOLLIGO-1;
+		^OBJSENSO <OW< #OBJCOLLIGO-2;
+	}
+)
+

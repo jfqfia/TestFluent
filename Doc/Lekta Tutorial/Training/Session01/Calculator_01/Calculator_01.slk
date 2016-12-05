@@ -1,0 +1,12 @@
+/***************************************************************************
+ * Sistema:             pLekta v2 - 2013
+ *    LektaTraining: Level 1 - Calculator_01.lkt
+ ***************************************************************************/
+
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".Calculator_01.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()

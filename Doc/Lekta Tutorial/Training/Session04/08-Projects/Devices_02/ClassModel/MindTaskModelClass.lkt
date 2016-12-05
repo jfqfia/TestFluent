@@ -1,0 +1,42 @@
+
+/*******************************
+ ** ActiveTasks
+ *******************************/
+
+	classDef:ElementInt		( profNumber )
+
+	classDef:StructureComplex	( Task :
+						( 
+						  ActiveCommand,
+						  profNumber,
+
+						  InputCommand,
+						  LastCommand,
+						  ReceivedCommand,
+						  NewCommand,
+
+						  commandStage,
+						  CommandList
+						  ) )
+
+	classDef:StructureBatch		( ActiveTasks, WaitingTasks :
+						( Task ) )
+
+	classDef:StructureComplex	( TaskFrame :
+						( ActiveTasks,
+						  WaitingTasks ) )
+
+	classDef:Synonym 		( ActiveCommand, 
+						 ReceivedCommand, 
+						 NewCommand, 
+						 LastCommand, 
+						 InputCommand = Command )
+
+	classDef:ElementRange		( commandStage : {
+						'starting',
+						'purposeOk',
+						'scopeOk',
+						'taskOk',
+						'out',
+						'fail',
+						'done' } )

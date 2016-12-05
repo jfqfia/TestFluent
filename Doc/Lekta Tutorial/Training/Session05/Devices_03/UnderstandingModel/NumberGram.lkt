@@ -1,0 +1,76 @@
+/*******************************
+ ** Expresiones numericas
+ *******************************/
+
+/*************************/
+/** Integer		**/
+/*************************/
+
+(Integer1 : 
+	[Integer -> numInteger]
+		{ ^.IntegerValue <- #1; })
+
+(Integer2 : 
+	[Integer/1 -> lexNumber]
+		{ ^.IntegerValue <- #1; })
+
+(Integer3 : 
+	[Integer/2 -> Integer/1 
+				conjY? 
+				Integer/2]
+		{ if (IntegerAfter(#1.IntegerValue,#3.IntegerValue)) {
+			^.IntegerValue <- #1.IntegerValue + #3.IntegerValue; 
+		  } else {
+			Fail();
+		  }
+		})
+
+(Integer4 : 
+	[Integer/3 -> lexNumberThousand]
+		{ ^.IntegerValue <- #1; })
+
+(Integer5 : 
+	[Integer/3 -> lexNumberThousand 
+				conjY? 
+				Integer/2]
+		{ ^.IntegerValue <- #3.IntegerValue + #1; })
+
+(Integer6 : 
+	[Integer/3 -> Integer/2 
+				conjY? 
+				lexNumberThousand]
+		{ ^.IntegerValue <- #1.IntegerValue * #3; })
+
+(Integer7 : 
+	[Integer/3 -> Integer/2 
+				conjY? 
+				lexNumberThousand 
+				conjY? 
+				Integer/2]
+		{ ^.IntegerValue <- (#1.IntegerValue * #3) + #5.IntegerValue; })
+
+
+(Integer8 : 
+	[Integer/4 -> lexNumberMillion]
+		{ ^.IntegerValue <- #1; })
+
+(Integer9 : 
+	[Integer/4 -> lexNumberMillion 
+				conjY? 
+				Integer/3]
+		{ ^.IntegerValue <- #3.IntegerValue + #1; })
+
+(Integer10 : 
+	[Integer/4 -> Integer/3 
+				conjY? 
+				lexNumberMillion]
+		{ ^.IntegerValue <- #1.IntegerValue * #3; })
+
+(Integer11 : 
+	[Integer/4 -> Integer/3 
+				conjY? 
+				lexNumberMillion 
+				conjY? 
+				Integer/3]
+		{ ^.IntegerValue <- (#1.IntegerValue * #3) + #5.IntegerValue; })
+

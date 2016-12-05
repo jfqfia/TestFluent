@@ -1,0 +1,33 @@
+/*******************************
+ ** UserId
+ *******************************/
+
+	("el_DNI",				lexPersonalDescriptor,		| e l d e n e i |)
+	("mi_DNI",				lexPersonalDescriptor,		| m i D e n e i |)
+	("su_DNI",				lexPersonalDescriptor,		| s u D e n e i |)
+	("el_carnet",				lexPersonalDocument,		| e l k a r n e D |)
+	("mi_carnet",				lexPersonalDocument,		| m i k a r n e D |)
+	("su_carnet",				lexPersonalDocument,		| s u k a r n e D |)
+	("el_carné",				lexPersonalDocument,		| e l k a r n e |)
+	("mi_carné",				lexPersonalDocument,		| m i k a r n e |)
+	("su_carné",				lexPersonalDocument,		| s u k a r n e |)
+	("el_documento",			lexPersonalDocument,		| e l d o k u m e n t o |)
+	("mi_documento",			lexPersonalDocument,		| m i D o k u m e n t o |)
+	("su_documento",			lexPersonalDocument,		| s u D o k u m e n t o |)
+	("identidad",				lexPersonalIdentity)
+	("de_identidad",			lexPersonalIdentity,		| d e j D e n t i D a D |)
+
+	("la_tarjeta",				lexTsFull,		| l a t a r x e t a |)
+	("mi_tarjeta",				lexTsFull,		| m i t a r x e t a |)
+	("su_tarjeta",				lexTsFull,		| s u t a r x e t a |)
+	("la_tarjeta_sanitaria",		lexTsFull,		| l a t a r x e t a s a n i t a r j a |)
+	("mi_tarjeta_sanitaria",		lexTsFull,		| m i t a r x e t a s a n i t a r j a |)
+	("su_tarjeta_sanitaria",		lexTsFull,		| s u t a r x e t a s a n i t a r j a |)
+	("sanitaria",				lexTsAux)
+
+	("valor",				lexUserIdNumber)
+	("el_número",				lexUserIdNumber,	| e l n u m e r o |)
+	("mi_número",				lexUserIdNumber,	| m i n u m e r o |)
+	("su_número",				lexUserIdNumber,	| s u n u m e r o |)
+     //	("valor correcto",			lexUserIdNumber)
+     //	("número correcto",			lexUserIdNumber)

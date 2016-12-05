@@ -1,0 +1,13 @@
+#!/bin/bash
+./updlkt.sh 'Features'  'Classes'
+./updlkt.sh 'Feature'  'Class'
+./updlkt.sh 'FM-Spec'  'ClassModel'
+./updlkt.sh 'auxAcknowledge'  'lexAcknowledge'
+./updlkt.sh 'AcknowledgeSeq'  'ConvCommandList'
+./updlkt.sh 'AcknowledgePunct'  'ConvCommandPunct'
+./updlkt.sh 'Acknowledge'  'ConvCommand'
+./updlkt.sh 'Check'  'Verify'
+./updlkt.sh 'Confirm'  'Verify'
+./updlkt.sh 'Reject'  'Refuse'
+./updlkt.sh 'Neg'  'Denial'
+./updlkt.sh 'Aff'  'Assert'

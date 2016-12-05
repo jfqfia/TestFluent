@@ -1,0 +1,261 @@
+/*******************************
+ ** Task / GlobalDate
+ *******************************/
+
+TaskLine	LookGlobalDate(TaskLine tline)
+{
+	if (tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'clash') {
+		Erase(tline.CModel.LinkedInfo.GlobalDate);
+		Erase(tline.GModel.LinkedInfo.GlobalDate);
+	}
+
+	if (tline.SModel.LinkedInfo.GlobalDate) {
+		if (!!tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+			tline.ReceivedCommand.LinkedInfo.GlobalDate <- tline.SModel.LinkedInfo.GlobalDate;
+		}
+		Erase(tline.SModel.LinkedInfo.GlobalDate);
+	}
+
+	if (!!(tline.WData.Today)) {
+		tline.WData.Today <- CalcToday();
+	}
+
+	if (tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+		tline.ReceivedCommand.LinkedInfo.GlobalDate <- CompactGlobalDate(tline.ReceivedCommand.LinkedInfo.GlobalDate,
+				tline.WData.Today);
+		if (ValidRequestGlobalDate(tline.ReceivedCommand.LinkedInfo.GlobalDate) == 0) {
+			tline.WStep <- 'error-date';
+			return tline;
+		}
+		if (tline.CModel.LinkedInfo.GlobalDate) { 		// 1 1 0
+			if (tline.ReceivedCommand.LinkedInfo.GlobalDate =:= tline.CModel.LinkedInfo.GlobalDate) {
+				tline.GModel.LinkedInfo.GlobalDate <| tline.CModel.LinkedInfo.GlobalDate;
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+				tline.WStep <- 'run2-task';
+			} else {
+				if (tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'infer') {
+					tline.CModel.LinkedInfo.GlobalDate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+					Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+					tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'raise';
+					tline.WStep <- 'check-date';
+				} else {
+					tline.CModel.LinkedInfo.GlobalDate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+					Erase(tline.CModel.LinkedInfo.GlobalDate);
+					Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+					Erase(tline.GModel.LinkedInfo.GlobalDate);
+					tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'clash';
+					tline.WStep <- 'ask-date';
+				}
+			}
+		} else { 
+			if (tline.GModel.LinkedInfo.GlobalDate) { 	// 1 0 1
+				if (tline.ReceivedCommand.LinkedInfo.GlobalDate =:= tline.GModel.LinkedInfo.GlobalDate) {
+					tline.GModel.LinkedInfo.GlobalDate <| tline.ReceivedCommand.LinkedInfo.GlobalDate;
+					Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+					tline.WStep <- 'run2-task';
+				} else {
+					// Conflicto R - G
+					tline.CModel.LinkedInfo.GlobalDate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+					Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+					Erase(tline.GModel.LinkedInfo.GlobalDate);
+					tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'clash';
+					tline.WStep <- 'ask-date';
+				}
+			} else {				// 1 0 0
+				tline.CModel.LinkedInfo.GlobalDate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+				Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+				tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'raise';
+				tline.WStep <- 'check-date';
+			}
+		}
+	} else {
+		if (tline.GModel.LinkedInfo.GlobalDate) {
+			tline.WStep <- 'run2-task';
+		} else {
+			if (tline.CModel.LinkedInfo.GlobalDate) {
+				cond {
+					(tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'infer') {
+						tline.WStep <- 'check-date';
+					}
+					(tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'raise') {
+						tline.GModel.LinkedInfo.GlobalDate <- tline.CModel.LinkedInfo.GlobalDate;
+						Erase(tline.CModel.LinkedInfo.GlobalDate);
+						tline.WStep <- 'run2-task';
+					}
+					(tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'clash') {
+						tline.WStep <- 'ask-date';
+					}
+				}
+			} else {
+				if (tline.LTask.GModel.LinkedInfo.GlobalDate) {
+					tline.CModel.LinkedInfo.GlobalDate <- tline.LTask.GModel.LinkedInfo.GlobalDate;
+					tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'repeat';
+					tline.WStep <- 'check-date';
+				} else {
+					tline.CModel.LinkedInfo.GlobalDate <- DefaultLinkedInfoGlobalDate();
+					tline.CModel.LinkedInfo.GlobalDate <- CompactGlobalDate(tline.CModel.LinkedInfo.GlobalDate,
+							tline.WData.Today);
+					tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'infer';
+					tline.WStep <- 'run2-task';
+				}
+			}
+		}
+	}
+
+	return tline;
+}
+
+integer		ValidRequestGlobalDate(GlobalDate date)
+{
+	if (date.DRef.Distance < 0) {
+		return 0;
+	}
+	if (date.DRef.Distance > 60) {
+		return 0;
+	}
+
+	return 1;
+}
+
+TaskLine	AskGlobalDate(TaskLine tline)
+{
+	if (!!(tline.CModel.LinkedInfo.GlobalDate)) {
+		LOutput loutput <- (LMode:'ask',TField:'date');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	return tline;
+}
+
+TaskLine	ErrorGlobalDate(TaskLine tline)
+{
+	if (!!(tline.CModel.LinkedInfo.GlobalDate)) {
+		LOutput loutput <- (LMode:'error',TField:'date');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	return tline;
+}
+
+TaskLine	AnalyzeGlobalDate(TaskLine tline)
+{
+	cond {
+		(tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+			tline.WStep <- 'look-date';
+		}
+		(tline.ReceivedCommand.Conversation.Verify) {
+			if (tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'repeat') {
+				tline.GModel.LinkedInfo.GlobalDate <- tline.CModel.LinkedInfo.GlobalDate;
+				tline.GModel.LinkedInfo.GlobalDate <- tline.LTask.GModel.LinkedInfo.GlobalDate;
+				tline.GModel.LinkedInfo.UserId <- tline.LTask.GModel.LinkedInfo.UserId;
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+				tline.WStep <- 'run2-task';
+				Erase(tline.ReceivedCommand.Conversation.Verify);
+			} else {
+				tline.GModel.LinkedInfo.GlobalDate <- tline.CModel.LinkedInfo.GlobalDate;
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+				tline.WStep <- 'run2-task';
+				Erase(tline.ReceivedCommand.Conversation.Verify);
+			}
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			Erase(tline.CModel.LinkedInfo.GlobalDate);
+			tline.WStep <- 'ask-date';
+			Erase(tline.ReceivedCommand.Conversation.Refuse);
+		}
+		(tline.CModel.LinkedInfo.GlobalDate.VerifyType == 'infer') {
+			tline.WStep <- 'run2-task';
+		}
+		default {
+			LOutput loutput <- (LMode:'check',TField:'date');
+			loutput.TContext <- tline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	ModifyGlobalDate(TaskLine tline)
+{
+	GlobalDate	mdate;
+	AvailData availdata;
+	AgrSlot agrslot;
+	integer newslot;
+
+	mdate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+
+	cond {
+		(mdate.PeriodDay.AbsPeriodDay) {
+			Erase(tline.CModel.LinkedInfo.GlobalDate);
+			Erase(tline.GModel.LinkedInfo.GlobalDate);
+			tline.WStep <- 'look-date';
+		}
+		(mdate.PeriodDay.PeriodPeriodDayRelative) {
+			Erase(tline.CModel.LinkedInfo.GlobalDate);
+			Erase(tline.GModel.LinkedInfo.GlobalDate);
+			tline.WStep <- 'look-date';
+		}
+		(mdate.Time.RelPos == 1) {
+			availdata <- tline.WData.AgrAppoint.MindBoardAgrAppoint.AvailData;
+			agrslot <- tline.WData.AgrAppoint.MindBoardAgrAppoint.AgrSlot;
+			if (agrslot.NumMindBoardAgrSlot < agrslot.NumBottomAgrSlot) {
+				newslot <- agrslot.NumMindBoardAgrSlot +
+					((agrslot.NumBottomAgrSlot - agrslot.NumMindBoardAgrSlot) / 2);
+				if (newslot == agrslot.NumMindBoardAgrSlot) {
+					newslot <- newslot + 1;
+				}
+				agrslot.NumTopAgrSlot <- agrslot.NumMindBoardAgrSlot + 1;
+				agrslot.NumMindBoardAgrSlot <- newslot;
+				BatchRecoverPosition(availdata.SlotSeq,agrslot.NumMindBoardAgrSlot,agrslot.MindBoardAgrSlot);
+				tline.WData.AgrAppoint.MindBoardAgrAppoint.AgrSlot <- agrslot;
+				LOutput loutput <- (LMode:'re-propose',TField:'appoint');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				tline.WStep <- 'check-appoint';
+			} else {
+				LOutput loutput <- (LMode:'error',TField:'appoint');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				tline.WStep <- 'ask-date';
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+				Erase(tline.GModel.LinkedInfo.GlobalDate);
+			}
+
+			Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+		}
+		(mdate.Time.RelPos == -1) {
+			availdata <- tline.WData.AgrAppoint.MindBoardAgrAppoint.AvailData;
+			agrslot <- tline.WData.AgrAppoint.MindBoardAgrAppoint.AgrSlot;
+			if (agrslot.NumMindBoardAgrSlot > agrslot.NumTopAgrSlot) {
+				newslot <- agrslot.NumMindBoardAgrSlot -
+					((agrslot.NumMindBoardAgrSlot - agrslot.NumTopAgrSlot) / 2);
+				if (newslot == agrslot.NumMindBoardAgrSlot) {
+					newslot <- newslot - 1;
+				}
+				agrslot.NumBottomAgrSlot <- agrslot.NumMindBoardAgrSlot - 1;
+				agrslot.NumMindBoardAgrSlot <- newslot;
+				BatchRecoverPosition(availdata.SlotSeq,agrslot.NumMindBoardAgrSlot,agrslot.MindBoardAgrSlot);
+				tline.WData.AgrAppoint.MindBoardAgrAppoint.AgrSlot <- agrslot;
+				LOutput loutput <- (LMode:'re-propose',TField:'appoint');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				tline.WStep <- 'check-appoint';
+			} else {
+				LOutput loutput <- (LMode:'error',TField:'appoint');
+				loutput.TContext <- tline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				tline.WStep <- 'ask-date';
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+				Erase(tline.GModel.LinkedInfo.GlobalDate);
+			}
+
+			Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+		}
+	}
+
+	return tline;
+}
+

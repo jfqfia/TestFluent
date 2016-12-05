@@ -1,0 +1,347 @@
+/*******************************
+ ** Verify / Action / Coherence
+ *******************************/
+
+integer	AnalyzeOperPurposeActScopeCoherence(OperPurposeDescriptor igoal,ActScopeDescriptor cdomain) 
+{
+	switch (igoal) {
+		case 'cancel' {
+			switch (cdomain) {
+				case 'appoint' {
+					return 1;
+				}
+			}
+		}
+		case 'consult' {
+			switch (cdomain) {
+				case 'appoint' {
+					return 1;
+				}
+				case 'timetable' {
+					return 1;
+				}
+			}
+		}
+		case 'modify' {
+			switch (cdomain) {
+				case 'appoint' {
+					return 1;
+				}
+			}
+		}
+		case 'request' {
+			switch (cdomain) {
+				case 'appoint' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeOperPurposeLinkedInfoCoherence(OperPurposeDescriptor igoal,LinkedInfoDescriptor rdata) 
+{
+	switch (igoal) {
+		case 'cancel' {
+			switch (rdata) {
+				case 'date' {
+					return 1;
+				}
+				case 'number' {
+					return 1;
+				}
+				case 'person' {
+					return 1;
+				}
+				case 'service' {
+					return 1;
+				}
+				case 'userid' {
+					return 1;
+				}
+			}
+		}
+		case 'consult' {
+			switch (rdata) {
+				case 'date' {
+					return 1;
+				}
+				case 'number' {
+					return 1;
+				}
+				case 'person' {
+					return 1;
+				}
+				case 'service' {
+					return 1;
+				}
+				case 'userid' {
+					return 1;
+				}
+			}
+		}
+		case 'modify' {
+			switch (rdata) {
+				case 'date' {
+					return 1;
+				}
+				case 'number' {
+					return 1;
+				}
+				case 'person' {
+					return 1;
+				}
+				case 'service' {
+					return 1;
+				}
+				case 'userid' {
+					return 1;
+				}
+			}
+		}
+		case 'request' {
+			switch (rdata) {
+				case 'date' {
+					return 1;
+				}
+				case 'number' {
+					return 1;
+				}
+				case 'person' {
+					return 1;
+				}
+				case 'service' {
+					return 1;
+				}
+				case 'userid' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeActScopeActScopeCoherence(ActScopeDescriptor cdomain1,ActScopeDescriptor cdomain2) 
+{
+	if (cdomain1 == cdomain2) {
+		return 1;
+	}
+
+	switch (cdomain1) {
+		case 'appoint' {
+			switch (cdomain2) {
+				case 'timetable' {
+					return 1;
+				}
+			}
+		}
+
+		case 'timetable' {
+			switch (cdomain2) {
+				case 'appoint' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeActScopeLinkedInfoCoherence(ActScopeDescriptor cdomain,LinkedInfoDescriptor rdataclass) 
+{
+	switch (cdomain) {
+		case 'appoint' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'number' {
+					return 1;
+				}
+				case 'person' {
+					return 1;
+				}
+				case 'service' {
+					return 1;
+				}
+				case 'userid' {
+					return 1;
+				}
+			}
+		}
+		case 'timetable' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'number' {
+					return 1;
+				}
+				case 'person' {
+					return 1;
+				}
+				case 'service' {
+					return 1;
+				}
+				case 'userid' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+ActScopeDescriptor	AssignActScopeActScopeCoherence(ActScopeDescriptor cdomain1,ActScopeDescriptor cdomain2) 
+{
+	switch (cdomain1) {
+		case 'appoint' {
+			switch (cdomain2) {
+				case 'timetable' {
+					return 'appoint';
+				}
+			}
+		}
+
+		case 'timetable' {
+			switch (cdomain2) {
+				case 'appoint' {
+					return 'appoint';
+				}
+			}
+		}
+	}
+
+	return cdomain1;
+}
+
+integer	VerifyLinkedInfoLinkedInfoCoherence(LinkedInfoDescriptor rdataclass1,LinkedInfoDescriptor rdataclass2) 
+{
+	return 1;
+}
+
+///////////////////////
+/*
+OperPurposeDescriptor	DefaultOperPurpose(ActiveCommand amodel) 
+{
+	switch (amodel.ActScope.ActScopeDescriptor) {
+		case 'appoint' {
+			return 'request';
+		}
+		case 'timetable' {
+			return 'consult';
+		}
+	}
+
+	return 'lexAuxEmpty';
+}
+
+ActScopeDescriptor	DefaultActScope(ActiveCommand amodel)
+{
+	switch (amodel.OperPurpose.OperPurposeDescriptor) {
+		case 'cancel' {
+			return 'appoint';
+		}
+		case 'consult' {
+			return 'appoint';
+		}
+		case 'modify' {
+			return 'appoint';
+		}
+		case 'request' {
+			return 'appoint';
+		}
+	}
+
+	return 'lexAuxEmpty';
+}
+*/
+
+integer		VerifyExpectationCoherence(TField expec,LinkedInfo rdata) 
+{
+	LinkedInfoDescriptor rdataclass;
+
+	rdataclass <- rdata.LinkedInfoDescriptor;
+
+/*
+	switch (expec) {
+		case 'personalid' {
+			switch (rdataclass) {
+				case 'personalid' {
+					return 1;
+				}
+				case 'number' {
+					if (LiteralSize(rdata.Number.IntegerString) > 6) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
+		case 'route' {
+			switch (rdataclass) {
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'route-origin' {
+			switch (rdataclass) {
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'route-destination' {
+			switch (rdataclass) {
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'dateDeparture' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'number' {
+					if (ShapeToInt(rdata.Number.IntegerString) < 32) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
+		case 'dateReturn' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'number' {
+					if (ShapeToInt(rdata.Number.IntegerString) < 32) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
+	}
+*/
+
+	return 0;
+}

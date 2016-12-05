@@ -1,0 +1,143 @@
+/*******************************
+ ** Cogito
+ *******************************/
+
+(CogitoScheme TS_Run : 
+	CogitoCapture {
+		( ($MINDBOARD@Setup.DialogueState == 'run')  ||
+		  ($MINDBOARD@Setup.DialogueState == 'cont') )
+	}
+
+	CogitoAction {
+		Task 	activeTaskItem,activeTaskItem_tmp,activeTaskItem_in,activeTaskItem_out;
+		ActiveTasks	donetasks;
+		integer profNumber;
+		integer taskpos,tasklen;
+		integer	processTaskCounter;
+
+		SpyMessage("INIT OF COGITO");
+		SpyMessage("=> OPEN");
+		SpyMessage($MINDBOARD@Open);
+		SpyMessage("=========================================");
+
+		Erase($MINDBOARD@OutModel);
+
+		processTaskCounter  = 0;
+		profNumber = DialogueInteractionCounter();
+
+		tasklen = BatchSize($MINDBOARD@Open.ActiveTasks);
+		taskpos = 1;
+		while (taskpos <= tasklen) {
+			BatchExtractInit($MINDBOARD@Open.ActiveTasks,activeTaskItem_in);
+
+			activeTaskItem_out = ProcessActionLine(activeTaskItem_in);
+
+			processTaskCounter = processTaskCounter + 1;
+
+			switch (activeTaskItem_out.commandStage) {
+				case 'done' {
+					BatchInsertInit(donetasks,activeTaskItem_out);
+				}
+				case 'out' {
+					BatchInsertInit(donetasks,activeTaskItem_out);
+				}
+				default {
+					BatchInsertEnd($MINDBOARD@Open.ActiveTasks,
+							activeTaskItem_out);
+				}
+			}
+
+			taskpos = taskpos + 1;
+		}
+
+		if (BatchSize(donetasks) > 0) {
+			$MINDBOARD@Done.ActiveTasks <- BatchJoin($MINDBOARD@Done.ActiveTasks,donetasks);
+		}
+
+		if (processTaskCounter == 0) { 
+			processTaskCounter <- CogitoCMap();
+		}
+
+		if (processTaskCounter > 0) { 
+			cond {
+				($MINDBOARD@Interaction.InterPardon == 'on') {
+					CogitoInterPardon();
+				}
+				($MINDBOARD@Interaction.InterGreeting) {
+					CogitoHello();
+				}
+				($MINDBOARD@Interaction.InterThanks == 'on') {
+					CogitoHello();
+				}
+				($MINDBOARD@Interaction.InterFarewell == 'on') {
+					CogitoClose();
+				}
+			}
+		}
+
+		SpyMessage("END OF COGITO");
+		SpyMessage("=> DONE");
+		SpyMessage($MINDBOARD@Done);
+		SpyMessage("=> OPEN");
+		SpyMessage($MINDBOARD@Open);
+		SpyMessage("=> OUTPUT");
+		SpyMessage($MINDBOARD@OutModel);
+		SpyMessage("=========================================");
+
+		Erase($MINDBOARD@Open.WaitingTasks);
+		Erase($MINDBOARD@Interaction);
+	}
+)
+
+(CogitoScheme TS_Start : 
+	CogitoCapture {
+		($MINDBOARD@Setup.DialogueState == 'start') 
+	}
+
+	CogitoAction {
+		CogitoStart();
+	}
+)
+
+(CogitoScheme TS_CMap : 
+	CogitoCapture {
+		($MINDBOARD@Setup.DialogueState == 'cmap') 
+	}
+
+	CogitoAction {
+		integer processTaskCounter;
+		processTaskCounter <- CogitoCMap();
+		if (processTaskCounter == 0)
+			CogitoContinuation();
+	}
+)
+
+(CogitoScheme TS_Close : 
+	CogitoCapture {
+		($MINDBOARD@Setup.DialogueState == 'close') 
+	}
+
+	CogitoAction {
+		CogitoClose();
+	}
+)
+
+(CogitoScheme TS_Stop : 
+	CogitoCapture {
+		($MINDBOARD@Setup.DialogueState == 'stop') 
+	}
+
+	CogitoAction {
+		CogitoStop();
+	}
+)
+
+(CogitoScheme TS_New : 
+	CogitoCapture {
+		($MINDBOARD@Setup.DialogueState == 'new') 
+	}
+
+	CogitoAction {
+		CogitoNew();
+	}
+)

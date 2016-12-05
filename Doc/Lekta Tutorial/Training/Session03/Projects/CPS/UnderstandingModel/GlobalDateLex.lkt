@@ -1,0 +1,303 @@
+/*******************************
+ ** Fechas
+ *******************************/
+
+	("próxima",			lexPeriodNext,	| p r o G s i m a |)
+	("próximo",			lexPeriodNext,	| p r o G s i m o |)
+	("que_viene",			lexPeriodNext,	| k e B j e n e |)
+	("siguiente",			lexPeriodNext,	| s i G j e n t e |)
+
+	("dentro",			auxPeriodNext)
+	("dentro_de",			auxPeriodNext,	| d e n t r o D e |)
+
+	("antes_de",			auxPeriodRelative,	| a n t e s D e |,			-1)
+	("antes_del",			auxPeriodRelative,	| a n t e s D e l |,			-1)
+	("antes",			auxPeriodRelative,	| a n t e s |,				-1)
+	("un_poco_antes",		auxPeriodRelative,	| u m p o k o a n t e s |,		-1)
+	("no_más_tarde_de",		auxPeriodRelative,	| n o m a s t a r D e D e |,		-1)
+	("no_más_tarde_del",		auxPeriodRelative,	| n o m a s t a r D e D e l |,		-1)
+	("más_temprano",		auxPeriodRelative,	| m a s t e m p r a n o |,		-1)
+	("un_poco_más_temprano",	auxPeriodRelative,	| u m p o k o m a s t e m p r a n o |,	-1)
+	("no_antes_de",			auxPeriodRelative,	| n o a n t e s D e |,			1)
+	("no_antes_del",		auxPeriodRelative,	| n o a n t e s D e l |,		1)
+	("después_de",			auxPeriodRelative,	| d e s p w e s D e |,			1)
+	("después_del",			auxPeriodRelative,	| d e s p w e s D e l |,		1)
+	("después",			auxPeriodRelative,	| d e s p w e s |,			1)
+	("un_poco_después",		auxPeriodRelative,	| u m p o k o D e s p w e s |,		1)
+	("a_partir_de",			auxPeriodRelative,	| a p a r t i r D e |,			1)
+	("a_partir_del",		auxPeriodRelative,	| a p a r t i r D e l |,		1)
+	("pasadas",			auxPeriodRelative,	| p a s a D a s |,			1)
+	("más_tarde",			auxPeriodRelative,	| m a s t a r D e |,			1)
+	("un_poco_más_tarde",		auxPeriodRelative,	| u m p o k o m a s t a r D e |,	1)
+	// JFQ
+	("algo_más_tarde",		auxPeriodRelative,	| a l G o m a s t a r D e |,		1)
+	("algo_mas_temprano",		auxPeriodRelative,	| a l G o m a s t e m p r a n o |,	-1)
+
+	("anterior",			lexPeriodPrev)
+	("pasada",			lexPeriodPrev,	| p a s a D a |)
+	("pasado",			lexPeriodPrev,	| p a s a D o |)
+
+	("hace",			auxPeriodPrev,	| a T e |)
+
+/*************************/
+/** PeriodYear		**/
+/*************************/
+
+	("año",				lexPeriodYear,	| a J o |)
+	("años",			lexPeriodYear)
+
+/*************************/
+/** PeriodMonth		**/
+/*************************/
+
+	("mes",				lexPeriodMonth,	| m e s |)
+	("meses",			lexPeriodMonth)
+
+	("enero",			lexPeriodPeriodMonthDesc,	| e n e r o |,		1)
+	("febrero",			lexPeriodPeriodMonthDesc,	| f e B r e r o |,	2)
+	("marzo",			lexPeriodPeriodMonthDesc,	| m a r T o |,		3)
+	("abril",			lexPeriodPeriodMonthDesc,	| a B r i l |,		4)
+	("mayo",			lexPeriodPeriodMonthDesc,	| m a jj o |,		5)
+	("junio",			lexPeriodPeriodMonthDesc,	| x u n j o |,		6)
+	("julio",			lexPeriodPeriodMonthDesc,	| x u l j o |,		7)
+	("agosto",			lexPeriodPeriodMonthDesc,	| a G o s t o |,	8)
+	("septiembre",			lexPeriodPeriodMonthDesc,	| s e p t j e m b r e |,9)
+	("setiembre",			lexPeriodPeriodMonthDesc,	| s e t j e m b r e |,	9)
+	("octubre",			lexPeriodPeriodMonthDesc,	| o k t u B r e |,	10)
+	("noviembre",			lexPeriodPeriodMonthDesc,	| n o B j e m b r e |,	11)
+	("diciembre",			lexPeriodPeriodMonthDesc,	| d i T j e m b r e |,	12)
+
+/*************************/
+/** PeriodWeek		**/
+/*************************/
+
+	("genusna",			lexPeriodWeek, 	| s e m a n a |)
+	("genusnas",			lexPeriodWeek)
+
+/*************************/
+/** PeriodDay			**/
+/*************************/
+
+	("día",				lexPeriodDay,		| d i a |)
+	("días",			lexPeriodDay,		| d i a s |)
+
+	("lunes",			lexPeriodPeriodDayDesc, | l u n e s |,			1)
+	("martes",			lexPeriodPeriodDayDesc, | m a r t e s |,		2)
+	("miércoles",			lexPeriodPeriodDayDesc, | m j e r k o l e s |,		3)
+	("jueves",			lexPeriodPeriodDayDesc, | x w e B e s |,		4)
+	("viernes",			lexPeriodPeriodDayDesc, | b j e r n e s |,		5)
+	("sábado",			lexPeriodPeriodDayDesc, | s a B a D o |,		6)
+	("domingo",			lexPeriodPeriodDayDesc,	| d o m i N g o |,		7)
+
+	("ayer",			lexPeriodPeriodDayRelative, 					-1)
+	("hoy",				lexPeriodPeriodDayRelative,	| o j |,			0)
+	("mañana",			lexPeriodPeriodDayRelative,	| m a J a n a |,		1)
+	("pasadomañana",		lexPeriodPeriodDayRelative, 					2)
+	("pasado_mañana",		lexPeriodPeriodDayRelative,	| p a s a D o m a J a n a |,	2)
+
+	("uno",				lexPeriodDayVal,	| u n o |,			1)
+	("dos",				lexPeriodDayVal,	| d o s |,			2)
+	("tres",			lexPeriodDayVal,	| t r e s |,    		3)
+	("cuatro",			lexPeriodDayVal,	| k w a t r o |,		4)
+	("cinco",			lexPeriodDayVal,	| T i N k o |,			5)
+	("seis",			lexPeriodDayVal,	| s e j s |,			6)
+	("siete",			lexPeriodDayVal,	| s j e t e |,			7)
+	("ocho",			lexPeriodDayVal,	| o tS o |,			8)
+	("nueve",			lexPeriodDayVal,	| n w e B e |,			9)
+
+	("diez",			lexPeriodDayVal,	| d j e T |,			10)
+	("once",			lexPeriodDayVal,	| o N T e |,			11)
+	("doce",			lexPeriodDayVal,	| d o T e |,			12)
+	("trece",			lexPeriodDayVal,	| t r e T e |,			13)
+	("catorce",			lexPeriodDayVal,	| k a t o r T e |,		14)
+	("quince",			lexPeriodDayVal,	| k i n T e |,			15)
+	("dieciséis",			lexPeriodDayVal,	| d j e T i s e j s |,		16)
+	("diecisiete",			lexPeriodDayVal,	| d j e T i s j e t e |,	17)
+	("dieciocho",			lexPeriodDayVal,	| d j e T j o tS o |,		18)
+	("diecinueve",			lexPeriodDayVal,	| d j e T i n w e B e |,	19)
+
+	("veinte",			lexPeriodDayVal,	| b e j n t e |,		20)
+	!TOK("vente",			lexPeriodDayVal,	| b e n t e |,			20)
+	!ASR("veinte",			lexPeriodDayVal,	| b e n t e |,			20)
+	("veintiuno",			lexPeriodDayVal,	| b e j n t j u n o |,		21)
+	!TOK("ventiuno",		lexPeriodDayVal,	| b e n t j u n o |,		21)
+	!ASR("veintiuno",		lexPeriodDayVal,	| b e n t j u n o |,		21)
+//	("veintidós",			lexPeriodDayVal,	| b e j n t i D o s |,		22)
+//	!TOK("ventidós",		lexPeriodDayVal,	| b e n t i D o s |,		22)
+	!ASR("veintidós",		lexPeriodDayVal,	| b e n t i D o s |,		22)
+//	("veintitrés",			lexPeriodDayVal,	| b e j n t i t r e s |,	23)
+//	!TOK("ventitrés",		lexPeriodDayVal,	| b e n t i t r e s |,		23)
+	!ASR("veintitrés",		lexPeriodDayVal,	| b e n t i t r e s |,		23)
+	("veinticuatro",		lexPeriodDayVal,	| b e j n t i k w a t r o |,	24)
+	!TOK("venticuatro",		lexPeriodDayVal,	| b e n t i k w a t r o |,	24)
+	!ASR("venticuatro",		lexPeriodDayVal,	| b e n t i k w a t r o |,	24)
+	("veinticinco",			lexPeriodDayVal,	| b e j n t i T i N k o |,	25)
+	!TOK("venticinco",		lexPeriodDayVal,	| b e n t i T i N k o |,	25)
+	!ASR("veinticinco",		lexPeriodDayVal,	| b e n t i T i N k o |,	25)
+//	("veintiséis",			lexPeriodDayVal,	| b e j n t i s e j s |, 	26)
+//	!TOK("ventiséis",		lexPeriodDayVal,	| b e n t i s e j s |,		26)
+	!ASR("veintiséis",		lexPeriodDayVal,	| b e n t i s e j s |,		26)
+	("veintisiete",			lexPeriodDayVal,	| b e j n t i s j e t e |,	27)
+	!TOK("ventisiete",		lexPeriodDayVal,	| b e n t i s j e t e |,	27)
+	!ASR("veintisiete",		lexPeriodDayVal,	| b e n t i s j e t e |,	27)
+	("veintiocho",			lexPeriodDayVal,	| b e j n t j o tS o |,		28)
+	!TOK("ventiocho",		lexPeriodDayVal,	| b e n t j o tS o |,		28)
+	!ASR("veintiocho",		lexPeriodDayVal,	| b e n t j o tS o |,		28)
+	("veintinueve",			lexPeriodDayVal,	| b e j n t i n w e B e |,	29)
+	!TOK("ventinueve",		lexPeriodDayVal,	| b e n t i n w e B e |,	29)
+	!ASR("veintinueve",		lexPeriodDayVal,	| b e n t i n w e B e |,	29)
+
+	("treinta",			lexPeriodDayVal,	| t r e j n t a |,		30)
+	!TOK("trenta",			lexPeriodDayVal,	| t r e n t a |,		30)
+	!ASR("treinta",			lexPeriodDayVal,	| t r e n t a |,		30)
+	("treinta_y_uno",		lexPeriodDayVal,	| t r e j n t a j u n o |,	31)
+	!TOK("treintiuno",		lexPeriodDayVal,	| t r e j n t j u n o |,	31)
+	!ASR("treinta_y_uno",		lexPeriodDayVal,	| t r e j n t j u n o |,	31)
+	!TOK("trentiuno",		lexPeriodDayVal,	| t r e n t j u n o |,		31)
+	!ASR("treinta_y_uno",		lexPeriodDayVal,	| t r e n t j u n o |,		31)
+
+/*************************/
+/** PeriodDaySection		**/
+/*************************/
+
+	("ahora",			lexPeriodDayToday, 	| a o r a |,			'now')
+//	("justo ahora",			lexPeriodDayToday, 	'now')
+	("ahora mismo",			lexPeriodDayToday, 	| a o r a m i z m o |,		'now')
+	("esta_mañana",			lexPeriodDayToday, 	| e s t a m a J a n a |,	'morning')
+	("este_mediodía",		lexPeriodDayToday, 	| e s t e m e D j o D i a |,	'noon')
+	("esta_tarde",			lexPeriodDayToday, 	| e s t a t a r D e |,		'afternoon')
+	("esta_noche",			lexPeriodDayToday,	| e s t a n o tS e |,		'evening')
+
+	("a_primera_hora",		lexPeriodDaySection,	| a p r i m e r a o r a |,	'first_time')
+	("temprano",			lexPeriodDaySection,	| t e m p r a n o |,		'first_time')
+	// JFQ
+	//("algo mas temprano",		lexPeriodDaySection,	| t e m p r a n o |,		'first_time')
+	//("un poco mas temprano",	lexPeriodDaySection,	| t e m p r a n o |,		'first_time')
+	("a_última_hora",		lexPeriodDaySection,	| a w l t i m a o r a |,	'last_time')
+	("tarde",			lexPeriodDaySection,	| t a r D e |,			'last_time')
+
+	("la_mañana",			lexPeriodDaySection,	| l a m a J a n a |, 		'morning')
+	("de_la_mañana",		lexPeriodDaySection,	| d e l a m a J a n a |,	'morning')
+	("por_la_mañana",		lexPeriodDaySection,	| p o r l a m a J a n a |,	'morning')
+
+	("mediodía",			lexPeriodDaySection,	| m e D j o D i a |,		'noon')
+	("al_mediodía",			lexPeriodDaySection,	| a l m e D j o D i a |,	'noon')
+	("el mediodía",			lexPeriodDaySection,	| e l m e D j o D i a |,	'noon')
+	("del_mediodía",		lexPeriodDaySection,	| d e l m e D j o D i a |,	'noon')
+	("por_el_mediodía",		lexPeriodDaySection,	| p o r e l m e D j o D i a |,	'noon')
+
+	("la_tarde",			lexPeriodDaySection,	| l a t a r D e |,		'afternoon')
+	("de_la_tarde",			lexPeriodDaySection,	| d e l a t a r D e |,		'afternoon')
+	("por_la_tarde",		lexPeriodDaySection,	| p o r l a t a r D e |,	'afternoon')
+
+	("la_noche",			lexPeriodDaySection,	| l a n o tS e |,		'evening')
+	("de_la_noche",			lexPeriodDaySection,	| d e l a n o tS e |,		'evening')
+	("por_la_noche",		lexPeriodDaySection,	| p o r l a n o tS e |,		'evening')
+
+/*************************/
+/** Time		**/
+/*************************/
+
+	("hora",			lexPeriodHour)
+	("horas",			lexPeriodHour,	| o r a s |)
+	("minuto",			lexPeriodMinute)
+	("minutos",			lexPeriodMinute,	| m i n u t o s |)
+
+	("cero",			lexPeriodHourVal,	| T e r o |,			0)
+	("una",				lexPeriodHourVal,	| u n a |,			1)
+	("dos",				lexPeriodHourVal,	| d o s |,			2)
+	("tres",			lexPeriodHourVal,	| t r e s |,    		3)
+	("cuatro",			lexPeriodHourVal,	| k w a t r o |,		4)
+	("cinco",			lexPeriodHourVal,	| T i N k o |,			5)
+	("seis",			lexPeriodHourVal,	| s e j s |,			6)
+	("siete",			lexPeriodHourVal,	| s j e t e |,			7)
+	("ocho",			lexPeriodHourVal,	| o tS o |,			8)
+	("nueve",			lexPeriodHourVal,	| n w e B e |,			9)
+
+	("diez",			lexPeriodHourVal,	| d j e T |,			10)
+	("once",			lexPeriodHourVal,	| o N T e |,			11)
+	("doce",			lexPeriodHourVal,	| d o T e |,			12)
+	("trece",			lexPeriodHourVal,	| t r e T e |,			13)
+	("catorce",			lexPeriodHourVal,	| k a t o r T e |,		14)
+	("quince",			lexPeriodHourVal,	| k i n T e |,			15)
+	("dieciséis",			lexPeriodHourVal,	| d j e T i s e j s |,		16)
+	("diecisiete",			lexPeriodHourVal,	| d j e T i s j e t e |,	17)
+	("dieciocho",			lexPeriodHourVal,	| d j e T j o tS o |,		18)
+	("diecinueve",			lexPeriodHourVal,	| d j e T i n w e B e |,	19)
+
+	("veinte",			lexPeriodHourVal,	| b e j n t e |,		20)
+	!TOK("vente",			lexPeriodHourVal,	| b e n t e |,			20)
+	!ASR("veinte",			lexPeriodHourVal,	| b e n t e |,			20)
+	("veintiuna",			lexPeriodHourVal,	| b e j n t j u n a |,		21)
+	!TOK("ventiuna",		lexPeriodHourVal,	| b e n t j u n a |,		21)
+	!ASR("veintiuna",		lexPeriodHourVal,	| b e n t j u n a |,		21)
+	("veintidós",			lexPeriodHourVal,	| b e j n t i D o s |,		22)
+	!TOK("ventidós",		lexPeriodHourVal,	| b e n t i D o s |,		22)
+	!ASR("veintidós",		lexPeriodHourVal,	| b e n t i D o s |,		22)
+	("veintitrés",			lexPeriodHourVal,	| b e j n t i t r e s |,	23)
+	!TOK("ventitrés",		lexPeriodHourVal,	| b e n t i t r e s |,		23)
+	!ASR("veintitrés",		lexPeriodHourVal,	| b e n t i t r e s |,		23)
+	("veinticuatro",		lexPeriodHourVal,	| b e j n t i k w a t r o |,	0)
+	!TOK("venticuatro",		lexPeriodHourVal,	| b e n t i k w a t r o |,	0)
+	!ASR("veinticuatro",		lexPeriodHourVal,	| b e n t i k w a t r o |,	0)
+
+	("en_punto",			lexPeriodQuarter,	| e n p u n t o |,			0)
+     //	("cero_cero",			lexPeriodQuarter,	| T e r o T e r o |,			0)
+	("y_cinco",			lexPeriodQuarter,	| i T i N k o |,			5)
+     //	("cero_cinco",			lexPeriodQuarter,	| T e r o T i N k o |,			5)
+	("y_diez",			lexPeriodQuarter,	| i D j e T |,				10)
+	("diez",			lexPeriodQuarter,	| D j e T |,				10)
+	("y_cuarto",			lexPeriodQuarter, 	| i k w a r t o |,			15)
+	("quince",			lexPeriodQuarter, 	| k i n T e |,				15)
+	("y_veinte",			lexPeriodQuarter,	| i B e j n t e |,			20)
+	!TOK("y_vente",			lexPeriodQuarter,	| i B e n t e |,			20)
+	!ASR("y_veinte",		lexPeriodQuarter,	| i B e n t e |,			20)
+	("veinte",			lexPeriodQuarter,	| B e j n t e |,			20)
+	!TOK("vente",			lexPeriodQuarter,	| B e n t e |,				20)
+	!ASR("veinte",			lexPeriodQuarter,	| B e n t e |,				20)
+	("y_veinticinco",		lexPeriodQuarter,	| i B e j n t i T i N k o |,		25)
+	!TOK("y_venticinco",		lexPeriodQuarter,	| i B e n t i T i N k o |,		25)
+	!ASR("y_veinticinco",		lexPeriodQuarter,	| i B e n t i T i N k o |,		25)
+	("veinticinco",			lexPeriodQuarter,	| B e j n t i T i N k o |,		25)
+	!TOK("venticinco",		lexPeriodQuarter,	| B e n t i T i N k o |,		25)
+	!ASR("veinticinco",		lexPeriodQuarter,	| B e n t i T i N k o |,		25)
+	("y_media",			lexPeriodQuarter, 	| i m e D j a |,			30)
+	("treinta",			lexPeriodQuarter, 	| t r e j n t a |,			30)
+	!TOK("trenta",			lexPeriodQuarter, 	| t r e n t a |,			30)
+	!ASR("treinta",			lexPeriodQuarter, 	| t r e n t a |,			30)
+	("menos_veinticinco",		lexPeriodQuarter,	| m e n o z B e j n t i T i N k o |,	35)
+	!TOK("menos_venticinco",	lexPeriodQuarter,	| m e n o z B e n t i T i N k o |,	35)
+	!ASR("menos_veinticinco",	lexPeriodQuarter,	| m e n o z B e n t i T i N k o |,	35)
+	("treinta_y_cinco",		lexPeriodQuarter,	| t r e j n t a j T i N k o |,		35)
+	!TOK("trenta_y_cinco",		lexPeriodQuarter,	| t r e n t a j T i N k o |,		35)
+	!ASR("treinta_y_cinco",		lexPeriodQuarter,	| t r e n t a j T i N k o |,		35)
+	("treinticinco",		lexPeriodQuarter,	| t r e j n t i T i N k o |,		35)
+	!TOK("trenticinco",		lexPeriodQuarter,	| t r e n t i T i N k o |,		35)
+	!ASR("treinticinco",		lexPeriodQuarter,	| t r e n t i T i N k o |,		35)
+	("menos_veinte",		lexPeriodQuarter,	| m e n o z B e j n t e |,		40)
+	!TOK("menos_vente",		lexPeriodQuarter,	| m e n o z B e n t e |,		40)
+	!ASR("menos_veinte",		lexPeriodQuarter,	| m e n o z B e n t e |,		40)
+	("cuarenta",			lexPeriodQuarter,	| k w a r e n t a |,			40)
+	("menos_cuarto",		lexPeriodQuarter, 	| m e n o s k w a r t o |,		45)
+	("cuarenta_y_cinco",		lexPeriodQuarter, 	| k w a r e n t a j T i N k o |,	45)
+	!TOK("cuarenticinco",		lexPeriodQuarter, 	| k w a r e n t i T i N k o |,		45)
+	!ASR("cuarenta_y_cinco",	lexPeriodQuarter, 	| k w a r e n t i T i N k o |,		45)
+	("menos_diez",			lexPeriodQuarter,	| m e n o z D j e T |,			50)
+	("cincuenta",			lexPeriodQuarter,	| T i N k w e n t a |,			50)
+	("menos_cinco",			lexPeriodQuarter,	| m e n o s T i N k o |,		55)
+	("cincuenta_y_cinco",		lexPeriodQuarter,	| T i N k w e n t a j T i N k o |,	55)
+	!TOK("cincuenticinco",		lexPeriodQuarter,	| T i N k w e n t i T i N k o |,	55)
+	!ASR("cincuenta_y_cinco",	lexPeriodQuarter,	| T i N k w e n t i T i N k o |,	55)
+
+/*
+antes
+después
+
+este año
+este mes
+esta genusna
+
+a principios
+a finales
+entre
+*/

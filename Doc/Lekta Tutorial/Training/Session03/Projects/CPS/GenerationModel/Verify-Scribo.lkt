@@ -1,0 +1,28 @@
+/*******************************
+ ** Scribo / Verify
+ *******************************/
+
+/*
+(ScriboScheme NLG_Inform_Point: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'check',TField:'user-id')
+    }
+
+    ScriboAction {
+	SetMainAnswer("¿Es usted ");
+
+	switch (#OBJLOCUTIO-1.IContext.TemporalMemory.TemporalData.PersonalRecord.UserData.UserGenre) {
+		case 'male' {
+			SetMainAnswer("Don ");
+		}
+		case 'female' {
+			SetMainAnswer("Doña ");
+		}
+	}
+	SetMainAnswer(#OBJLOCUTIO-1.IContext.TemporalMemory.TemporalData.PersonalRecord.UserData.UserName);
+	SetMainAnswer(" ");
+	SetMainAnswer(#OBJLOCUTIO-1.IContext.TemporalMemory.TemporalData.PersonalRecord.UserData.UserSurname);
+	SetMainAnswer("? ");
+    }
+)
+*/

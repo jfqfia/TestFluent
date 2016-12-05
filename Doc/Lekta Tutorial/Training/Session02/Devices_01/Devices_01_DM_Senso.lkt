@@ -1,0 +1,30 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_01_DM_Senso.lkt
+ ***************************************************************************/
+
+         (SensoScheme RSetup : [Control]
+            SensoCapture {
+               #OBJSENSO-1.Position == 'start'
+            }
+            SensoAction {
+               $MINDBOARD@Control <- #OBJSENSO-1;
+            }
+         )
+
+         (SensoScheme RDis : [Device]
+            SensoAction {
+               $MINDBOARD@Input.Device <- #OBJSENSO-1;
+            }
+         )
+
+         (SensoScheme RFun : [Operation]
+            SensoAction {
+               $MINDBOARD@Input.Operation <- #OBJSENSO-1;
+            }
+         )
+
+         (SensoScheme RGen : [Command]
+            SensoAction {
+               $MINDBOARD@Input.Command <- #OBJSENSO-1;
+            }
+         )

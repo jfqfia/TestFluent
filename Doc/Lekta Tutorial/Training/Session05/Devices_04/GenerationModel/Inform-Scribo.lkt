@@ -1,0 +1,42 @@
+/*******************************
+ ** Scribo / Inform
+ *******************************/
+
+(ScriboScheme NLG_Inform_Task: [OutItem]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (OutFunction:'inform',OutParameter:'task')
+    }
+
+    ScriboAction {
+        SetMainAnswerTextRandom(
+		"Estupendo, ",
+		"Muy bien, ",
+		"Sin problemas, ",
+		"Perfecto, ",
+		"Hecho, ");
+
+    	SetMainAnswer(scopeDescription(#OBJLOCUTIO-1.Command));
+    	SetMainAnswer(purposeDescription(#OBJLOCUTIO-1.Command));
+	SetMainAnswer(". ");
+    }
+)
+
+(ScriboScheme NLG_Inform_Already: [OutItem]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (OutFunction:'inform',OutParameter:'already')
+    }
+
+    ScriboAction {
+        SetMainAnswerTextRandom(
+		"Disculpe, ",
+		"Perdon, ",
+		"Me temo que se ha equivocado, ");
+
+	SetMainAnswer("pero ");
+
+    	SetMainAnswer(scopeDescription(#OBJLOCUTIO-1.Command));
+
+    	SetMainAnswer(purposeDescriptionAlready(#OBJLOCUTIO-1.Command));
+	SetMainAnswer(". ");
+    }
+)

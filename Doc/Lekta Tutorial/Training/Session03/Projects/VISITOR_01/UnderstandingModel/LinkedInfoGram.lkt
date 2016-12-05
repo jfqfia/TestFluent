@@ -1,0 +1,38 @@
+/*******************************
+ ** LinkedInfo
+ *******************************/
+
+(RLinkedInfo1 : 
+	[ LinkedInfo -> GlobalDate/2 ] 
+		{ ^.LinkedInfoDescriptor <- 'date';
+		  ^.GlobalDate <- #1; } )
+
+(RLinkedInfo2 : 
+	[ LinkedInfo -> DepartureGlobalDate/2 ] 
+		{ ^.LinkedInfoDescriptor <- 'dateDeparture';
+		  ^.DepartureGlobalDate <- #1; } )
+
+(RLinkedInfo2 : 
+	[ LinkedInfo -> ReturnGlobalDate/2 ] 
+		{ ^.LinkedInfoDescriptor <- 'dateReturn';
+		  ^.ReturnGlobalDate <- #1; } )
+
+(RLinkedInfo2 : 
+	[ LinkedInfo -> PersonalId ] 
+		{ ^.LinkedInfoDescriptor <- 'personalid';
+		  ^.PersonalId <- #1; } )
+
+(RLinkedInfo3 : 
+	[ LinkedInfo -> FlightType ] 
+		{ ^.LinkedInfoDescriptor <- 'fmode';
+		  ^.FlightType <- #1; } )
+
+(RLinkedInfo6 : 
+	[ LinkedInfo -> IntSeqn ] 
+		{ ^.LinkedInfoDescriptor <- 'intseqn';
+		  ^.IntSeqn <- #1; } )
+
+(RLinkedInfo7 : 
+	[ LinkedInfo -> Itinerary ] 
+		{ ^.LinkedInfoDescriptor <- 'route';
+		  ^.Itinerary <- #1; } )

@@ -1,0 +1,31 @@
+/*******************************
+ ** Senso / Heads
+ *******************************/
+
+// ICR
+integer	RaiseICR(Command linput);
+
+// CR
+integer	RaiseCR(Command linput);
+
+// R
+integer	RaiseR(Command linput);
+
+// IDenial
+integer	RaiseIDenialSingle(Command linput);
+integer	RaiseIDenialDouble(Command linput1,Command linput2);
+
+// Conversation
+integer	RaiseDenial(Denial neg);
+integer	RaiseAssert(Assert aff);
+
+// Interaction
+integer	RaiseInteraction(Interaction relation);
+
+// Aux
+integer	raiseNewOpenModel(Command linput);
+integer	raiseFusionOpenModel(Command linput);
+integer	raisePendModel(Command linput);
+integer	raiseNewPendModel(Command linput);
+integer	raiseFusionPendModel(TaskLine taskline,Command linput,integer open_pos);
+

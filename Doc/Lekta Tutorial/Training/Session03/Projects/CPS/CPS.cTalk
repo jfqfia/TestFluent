@@ -1,0 +1,44 @@
+//
+// Talk Manager
+//      Main File
+//
+
+LaunchLektaKernel 
+	(ExecStrategy		= KernelSynchronous
+	 LangExDialReport		= REPORT_ON
+	 LangExDialStoreLog 	= "/home/plekta/WorkCPS/Logs/LangExDialStore/"
+	 LangExDialCallsLog   	= "/home/plekta/WorkCPS/Logs/LangExDialCalls/")
+
+UseProject 
+	(ProjectCompile	= ".CPS.dialmem" 
+	 TemporalFolder		= "/home/plekta/WorkCPS/"
+	 BackOfficeWebServiceConnectUrl	
+				= "http://cranion.naturallanguage.es/BackOffice/ws_server.php"
+				//= "http://cosmos.naturallanguage.es/webservice/ws_server.php"
+				//= "http://localhost/webservice/ws_server.php"
+	 BackOfficeWebServiceConnectWsdl 
+				= "http://cranion.naturallanguage.es/BackOffice/ws.wsdl"
+				//= "http://cosmos.naturallanguage.es/webservice/ws.wsdl"
+				//= "http://localhost/webservice/ws.wsdl"
+	 CleanTimeOut 		= 20 
+	 BirthAreaSize 		= 3 
+	 GrowthAreaSize		= 2)
+
+ConnectionInterface
+	(ConnectionMode		= 21
+	 ConnectionOrigin	= "teorema.naturallanguage.es")
+
+/*
+ShareSetDisplayProcess DisplayProcessParserOn
+ShareSetDisplayProcess DisplayProcessTokenizerOn
+ShareSetDisplayProcess DisplayProcessParserOn
+ShareSetDisplayProcess DisplayProcessUnifierOn
+ShareSetDisplayProcess DisplayProcessColligoOn
+ShareSetDisplayProcess DisplayProcessSensoOn
+ShareSetDisplayProcess DisplayProcessCogitoOn
+ShareSetDisplayProcess DisplayProcessRespondoOn
+ShareSetDisplayProcess DisplayProcessScriboOn
+ShareSetDisplayProcess DisplayProcessAbstractOn
+*/
+
+CreateDialogue(InstanceOperation:2 InstanceLanguage:3 InstanceInterface:1)

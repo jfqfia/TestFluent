@@ -1,0 +1,313 @@
+/*******************************
+ ** Verify / Action / Coherence
+ *******************************/
+
+integer	AnalyzeOperPurposeActScopeCoherence(OperPurposeDescriptor igoal,ActScopeDescriptor cdomain) 
+{
+	switch (igoal) {
+		case 'buy' {
+			switch (cdomain) {
+				case 'flight' {
+					return 1;
+				}
+			}
+		}
+		case 'cancel' {
+			switch (cdomain) {
+				case 'flight' {
+					return 1;
+				}
+			}
+		}
+		case 'consult' {
+			switch (cdomain) {
+				case 'point' {
+					return 1;
+				}
+				case 'flight' {
+					return 1;
+				}
+			}
+		}
+		case 'modify' {
+			switch (cdomain) {
+				case 'flight' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeOperPurposeLinkedInfoCoherence(OperPurposeDescriptor igoal,LinkedInfoDescriptor rdata) 
+{
+	switch (igoal) {
+		case 'buy' {
+			switch (rdata) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'personalid' {
+					return 1;
+				}
+				case 'fmode' {
+					return 1;
+				}
+				case 'pax' {
+					return 1;
+				}
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'cancel' {
+			switch (rdata) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'personalid' {
+					return 1;
+				}
+				case 'fmode' {
+					return 1;
+				}
+				case 'pax' {
+					return 1;
+				}
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'consult' {
+			switch (rdata) {
+				case 'personalid' {
+					return 1;
+				}
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'fmode' {
+					return 1;
+				}
+				case 'intseqn' {
+					return 1;
+				}
+				case 'pax' {
+					return 1;
+				}
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'modify' {
+			switch (rdata) {
+				case 'personalid' {
+					return 1;
+				}
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'fmode' {
+					return 1;
+				}
+				case 'pax' {
+					return 1;
+				}
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeActScopeLinkedInfoCoherence(ActScopeDescriptor cdomain,LinkedInfo rdata) 
+{
+	LinkedInfoDescriptor rdataclass;
+
+	rdataclass = rdata.LinkedInfoDescriptor;
+
+	switch (cdomain) {
+		case 'point' {
+			switch (rdataclass) {
+				case 'personalid' {
+					return 1;
+				}
+			}
+		}
+		case 'flight' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'fmode' {
+					return 1;
+				}
+				case 'intseqn' {
+					if (ShapeToInt(rdata.IntSeqn.IntegerString) < 32) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+OperPurposeDescriptor	DefaultOperPurpose(ActiveCommand amodel) 
+{
+	switch (amodel.ActScope.ActScopeDescriptor) {
+		case 'point' {
+			return 'consult';
+		}
+		case 'flight' {
+			return 'consult';
+		}
+	}
+
+	return 'lexAuxEmpty';
+}
+
+ActScopeDescriptor	DefaultActScope(ActiveCommand amodel)
+{
+	switch (amodel.OperPurpose.OperPurposeDescriptor) {
+		case 'buy' {
+			return 'flight';
+		}
+		case 'cancel' {
+			return 'flight';
+		}
+		case 'consult' {
+			return 'flight';
+		}
+		case 'modify' {
+			return 'flight';
+		}
+	}
+
+	return 'lexAuxEmpty';
+}
+
+integer		VerifyExpectationCoherence(TField expec,LinkedInfo rdata) 
+{
+	LinkedInfoDescriptor rdataclass;
+
+	rdataclass = rdata.LinkedInfoDescriptor;
+
+	switch (expec) {
+		case 'personalid' {
+			switch (rdataclass) {
+				case 'personalid' {
+					return 1;
+				}
+				case 'intseqn' {
+					if (LiteralSize(rdata.IntSeqn.IntegerString) > 6) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
+		case 'route' {
+			switch (rdataclass) {
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'route-origin' {
+			switch (rdataclass) {
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'route-destination' {
+			switch (rdataclass) {
+				case 'route' {
+					return 1;
+				}
+			}
+		}
+		case 'dateDeparture' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateDeparture' {
+					return 1;
+				}
+				case 'intseqn' {
+					if (ShapeToInt(rdata.IntSeqn.IntegerString) < 32) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
+		case 'dateReturn' {
+			switch (rdataclass) {
+				case 'date' {
+					return 1;
+				}
+				case 'dateReturn' {
+					return 1;
+				}
+				case 'intseqn' {
+					if (ShapeToInt(rdata.IntSeqn.IntegerString) < 32) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
+	}
+
+	return 0;
+}

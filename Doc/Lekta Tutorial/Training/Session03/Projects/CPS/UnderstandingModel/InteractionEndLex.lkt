@@ -1,0 +1,100 @@
+/*******************************
+ ** LEXICON
+ *******************************
+ ** InteractionEnd
+ **	lexInteractionAuxiliarEnd
+ **	lexInteractionEnd
+ *******************************/
+
+/*************************************************/
+/** 	InteractionEnd				**/
+
+/**		 InteractionEnd/lexInteractionAuxiliarEnd	**/
+
+	("bueno",		lexInteractionAuxiliarEnd,	| b w e n o |)
+	("bien",		lexInteractionAuxiliarEnd,	| b j e n |)
+	("de_acuerdo",		lexInteractionAuxiliarEnd,	| d e a k w e r D o |)
+	("entonces",		lexInteractionAuxiliarEnd,	| e n t o n T e s |)
+	("muy bien",		lexInteractionAuxiliarEnd,	| m w i b j e n |)
+	("ok",			lexInteractionAuxiliarEnd,	| o k e j |)
+	("perdona",		lexInteractionAuxiliarEnd,	| p e r D o n a |)
+	("perdone",		lexInteractionAuxiliarEnd,	| p e r D o n e |)
+	("pues",		lexInteractionAuxiliarEnd,	| p w e s |)
+	("sí",			lexInteractionAuxiliarEnd,	| s i |)
+	("vale",		lexInteractionAuxiliarEnd,	| b a l e |)
+	("venga",		lexInteractionAuxiliarEnd,	| b e N g a |)
+	("nada",		lexInteractionAuxiliarEnd,	| n a D a |)
+	("ea",			lexInteractionAuxiliarEnd,	| e a |)
+	("no",			lexInteractionAuxiliarEnd,	| n o |)
+
+/**		InteractionEnd/InterFarewell		**/
+
+	("adiós",		lexInteractionEnd,	| a D j o s |,				(InterFarewell:'on'))
+	("chao",		lexInteractionEnd,	| tS a o |,				(InterFarewell:'on'))
+	("hasta_luego",		lexInteractionEnd,	| a s t a l w e G o |,			(InterFarewell:'on'))
+	("ta_luego",		lexInteractionEnd,	| t a l w e G o |,			(InterFarewell:'on'))
+	("nada_más",		lexInteractionEnd,	| n a D a m a s |,			(InterFarewell:'on'))
+	("salir",		lexInteractionEnd,	| s a l i r |,				(InterFarewell:'on'))
+	("para_salir",		lexInteractionEnd,	| p a r a s a l i r |,			(InterFarewell:'on'))
+	("quiero_salir",	lexInteractionEnd,	| k j e r o s a l i r |,		(InterFarewell:'on'))
+	("para_terminar",	lexInteractionEnd,	| p a r a t e r m i n a r |,		(InterFarewell:'on'))
+	("quiero_terminar",	lexInteractionEnd,	| k j e r o t e r m i n a r |,		(InterFarewell:'on'))
+	("ya llamaré",		lexInteractionEnd,	(InterFarewell:'on'))
+	("ya llamo",		lexInteractionEnd,	(InterFarewell:'on'))
+	("ya le llamaré",	lexInteractionEnd,	(InterFarewell:'on'))
+	("ya le llamo",		lexInteractionEnd,	(InterFarewell:'on'))
+	("ya te llamaré",	lexInteractionEnd,	(InterFarewell:'on'))
+	("ya te llamo",		lexInteractionEnd,	(InterFarewell:'on'))
+
+/**		InteractionEnd/InterThanks			**/
+
+	("gracias",		lexInteractionEnd,	| g r a T j a s |,			(InterThanks:'on'))
+	("gracias_por_todo",	lexInteractionEnd,	| g r a T j a s p o r t o D o |,	(InterThanks:'on'))
+	("ha_sido_muy_amable",	lexInteractionEnd,	| a s i D o m w i a m a B l e |,	(InterThanks:'on'))
+	("muchas_gracias",	lexInteractionEnd,	| m u tS a z G r a T j a s |,		(InterThanks:'on'))
+	("muchísimas_gracias",	lexInteractionEnd,	| m u tS i s i m a z G r a T j a s |,	(InterThanks:'on'))
+	("muy_amable",		lexInteractionEnd,	| m w i a m a B l e |,			(InterThanks:'on'))
+	("te_agradezco",	lexInteractionEnd,	| t e a G r a D e T k o |,		(InterThanks:'on'))
+	("te_lo_agradezco",	lexInteractionEnd,	| t e l o a G r a D e T k o |,		(InterThanks:'on'))
+
+	("páseme",		lexTransfer,	| p a s e m e |)
+	("pásame",		lexTransfer,	| p a s a m e |)
+	("pasarme",		lexTransfer,	| p a s a r m e |)
+	("me_pasa",		lexTransfer,	| m e p a s a |)
+	("me_pasas",		lexTransfer,	| m e p a s a s |)
+	("que_me_pase",		lexTransfer,	| k e m e p a s e |)
+	("que_me_pases",	lexTransfer,	| k e m e p a s e s |)
+	("que_me_pasara",	lexTransfer,	| k e m e p a s a r a |)
+	("que_me_pasaras",	lexTransfer,	| k e m e p a s a r a |)
+	("que_me_pasase",	lexTransfer,	| k e m e p a s a s e |)
+	("que_me_pasases",	lexTransfer,	| k e m e p a s a s e s |)
+	("pongame",		lexTransfer,	| p o N g a m e |)
+	("ponme",		lexTransfer,	| p o m m e |)
+	("ponerme",		lexTransfer,	| p o n e r m e |)
+	("me_pone",		lexTransfer,	| m e p o n e |)
+	("me_pones",		lexTransfer,	| m e p o n e s |)
+	("que_me_ponga",	lexTransfer,	| k e m e p o N g a |)
+	("que_me_pongas",	lexTransfer,	| k e m e p o N g a s |)
+	("que_me_pusiera",	lexTransfer,	| k e m e p u s j e r a |)
+	("que_me_pusieras",	lexTransfer,	| k e m e p u s j e r a s |)
+	("que_me_pusiese",	lexTransfer,	| k e m e p u s j e s e |)
+	("que_me_pusieses",	lexTransfer,	| k e m e p u s j e s e s |)
+	("hablar",		lexTransfer,	| a B l a r |)
+	("que_me_hable",	lexTransfer,	| k e m e a B l e |)
+	("atenderme",		lexTransfer,	| a t e n d e r m e |)
+	("que_me_atienda",	lexTransfer,	| k e m e a t j e n d a |)
+
+	("operadora",		lexTransferAux,	| o p e r a D o r a |,			(Transfer:'on'))
+	("una_operadora",	lexTransferAux,	| u n a o p e r a D o r a |,		(Transfer:'on'))
+	("la_operadora",	lexTransferAux,	| l a o p e r a D o r a |,		(Transfer:'on'))
+	("alguna_operadora",	lexTransferAux,	| a l G u n a o p e r a D o r a |,	(Transfer:'on'))
+	("un_humano",		lexTransferAux,	| u n u m a n o |,			(Transfer:'on'))
+	("algún_humano",	lexTransferAux,	| a l G u n u m a n o |,		(Transfer:'on'))
+	("una_persona",		lexTransferAux,	| u n a p e r s o n a |,		(Transfer:'on'))
+	("alguna_persona",	lexTransferAux,	| a l G u n a p e r s o n a |,		(Transfer:'on'))
+	("un_hombre",		lexTransferAux,	| u n o m b r e |,			(Transfer:'on'))
+	("algún_hombre",	lexTransferAux,	| a l G u n o m b r e |,		(Transfer:'on'))
+	("una_señorita",	lexTransferAux,	| u n a s e J o r i t a |,		(Transfer:'on'))
+	("la_señorita",		lexTransferAux,	| l a s e J o r i t a |,		(Transfer:'on'))
+	("alguna_señorita",	lexTransferAux,	| a l G u n a s e J o r i t a |,	(Transfer:'on'))
+	("alguien",		lexTransferAux,	| a l G j e n |,			(Transfer:'on'))

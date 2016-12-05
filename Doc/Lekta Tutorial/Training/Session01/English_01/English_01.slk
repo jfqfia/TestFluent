@@ -1,0 +1,7 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".English_01.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()

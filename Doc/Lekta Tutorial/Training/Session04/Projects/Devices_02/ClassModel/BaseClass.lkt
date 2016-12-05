@@ -1,0 +1,72 @@
+/*******************************
+ ** Generales
+ *******************************/
+	classDef:ElementInt ( integer )
+	classDef:ElementReal ( real )
+	classDef:ElementLiteral ( string )
+	classDef:ElementMessage ( message )
+
+/*******************************
+ ** Puntuation
+ *******************************/
+	classDef:Void ( punctBar )
+	classDef:Void ( punctColon )
+	classDef:Void ( punctComma )
+	classDef:Void ( punctDot )
+	classDef:Void ( punctExclamationOpen )
+	classDef:Void ( punctExclamationClose )
+	classDef:Void ( punctParenthesisOpen )
+	classDef:Void ( punctParenthesisClose )
+	classDef:Void ( punctQuestionOpen )
+	classDef:Void ( punctQuestionClose )
+	classDef:Void ( punctSemicolon )
+
+/*******************************
+ ** Preposiciones
+ *******************************/
+	classDef:Void ( lexAuxPrepA	)
+	classDef:Void ( lexAuxPrepAL )
+	classDef:Void ( lexAuxPrepCON )
+	classDef:Void ( lexAuxPrepDE )
+	classDef:Void ( lexAuxPrepDEL )
+	classDef:Void ( lexAuxPrepDESDE )
+	classDef:Void ( lexAuxPrepEN )
+	classDef:Void ( lexAuxPrepENTRE )
+	classDef:Void ( lexAuxPrepHACIA )
+	classDef:Void ( lexAuxPrepHASTA )
+	classDef:Void ( lexAuxPrepPARA )
+	classDef:Void ( lexAuxPrepPOR )
+	classDef:Void ( lexAuxPrepSIN )
+	classDef:Void ( lexAuxPrepSOBRE )
+
+/*******************************
+ ** Conjunciones
+ *******************************/
+	classDef:Void ( conjY )
+	classDef:Void ( conjO )
+
+/*******************************
+ ** Determinantes
+ *******************************/
+	classDef:Void ( lexAuxDefArticle )
+	classDef:Void ( lexAuxUndefArticle )
+	classDef:Void ( lexAuxArticleEL )
+	classDef:Void ( lexAuxArticleLOS )
+	classDef:Void ( lexAuxArticleLA )
+	classDef:Void ( lexAuxArticleLAS )
+
+/*******************************
+ ** Particulas varias
+ *******************************/
+
+	classDef:Void	( lexAuxPronoun )
+	classDef:Void	( lexAuxIWant )
+	classDef:Void	( lexAuxPartFor )
+	classDef:Void 	( lexAuxAskFor )
+
+	classDef:Void 	( lexAuxPartIf )
+	classDef:Void 	( lexAuxVerbBe )
+	classDef:Void 	( lexAuxWhat )
+
+	classDef:Void	( strAuxIWant )
+

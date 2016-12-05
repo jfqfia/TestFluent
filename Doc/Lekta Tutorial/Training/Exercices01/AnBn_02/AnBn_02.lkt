@@ -1,0 +1,32 @@
+/***************************************************************************
+ *         Fichero:	AnBn.lkt
+ ***************************************************************************/
+
+lektaProject
+
+        projectHead
+		projectDescriptor       : "AnBn"
+		projectLanguageScope    : [ es ]
+		projectOperationScope   : [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput    : ".AnBn.olk"
+
+	projectSetup
+		setupParserRoots = S
+
+	classModel
+		classDef:Void ( S, AB, A, B, a, b)
+
+	lexicalModel forLanguage es
+		setupTokenizerBlanks(" ")
+		("a",		a)
+		("b",		b)
+
+	grammaticalModel forLanguage es
+		(R1: [ S -> &[+^] AB [+$]& ])
+		(R1: [ AB -> ])
+		(R2: [ AB -> A AB B ])
+		(R3: [ A -> a ])
+		(R4: [ B -> b ])
+
+

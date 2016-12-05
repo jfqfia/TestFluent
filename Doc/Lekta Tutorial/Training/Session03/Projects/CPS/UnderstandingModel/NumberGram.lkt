@@ -1,0 +1,430 @@
+/*******************************
+ ** Expresiones numericas
+ *******************************/
+
+/*************************/
+/** Integer		**/
+/*************************/
+
+!PRS(Integer1 : 
+	[Integer -> numInteger]
+		{ ^.valNum <- #1; 
+		  //^.valLst <- VectorNew(ShapeToString(#1));
+		  ^.valStr <- ShapeToString(#1); } )
+
+!PRS(Integer2 : 
+	[Integer/1 -> lexNumber]
+		{ ^ <- #1;
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!PRS(Integer3 : 
+	[Integer/2 -> Integer/1 
+				conjY? 
+				Integer/2]
+		{ if (IntegerAfter(#1.valNum,#3.valNum)) {
+			^.valNum <- #1.valNum + #3.valNum;
+			^.valStr <- ShapeToString(^.valNum);
+			^.valLst <- #1.valLst;
+			//^.valLst <& ['y'];
+			^.valLst <& #3.valLst;
+		  } else {
+			Fail();
+		  }
+		})
+
+!PRS(Integer4 : 
+	[Integer/3 -> lexNumberThousand]
+		{ ^ <- #1;
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!PRS(Integer5 : 
+	[Integer/3 -> lexNumberThousand 
+				conjY? 
+				Integer/2]
+		{ ^.valNum <- #3.valNum + #1.valNum;
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Integer6 : 
+	[Integer/3 -> Integer/2 
+				conjY? 
+				lexNumberThousand]
+		{ ^.valNum <- #1.valNum * #3.valNum;
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Integer7 : 
+	[Integer/3 -> Integer/2 
+				conjY? 
+				lexNumberThousand 
+				conjY? 
+				Integer/2]
+		{ ^.valNum <- (#1.valNum * #3.valNum) + #5.valNum;
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst;
+		  ^.valLst <& #5.valLst; } )
+
+!PRS(Integer8 : 
+	[Integer/4 -> lexNumberMillion]
+		{ ^ <- #1;
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!PRS(Integer9 : 
+	[Integer/4 -> lexNumberMillion 
+				conjY? 
+				Integer/3]
+		{ ^.valNum <- #1.valNum + #3.valNum;
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Integer10 : 
+	[Integer/4 -> Integer/3 
+				conjY? 
+				lexNumberMillion]
+		{ ^.valNum <- #1.valNum * #3.valNum;
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Integer11 : 
+	[Integer/4 -> Integer/3 
+				conjY? 
+				lexNumberMillion 
+				conjY? 
+				Integer/3]
+		{ ^.valNum <- (#1.valNum * #3.valNum) + #5.valNum;
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst;
+		  ^.valLst <& #5.valLst; } )
+
+!ASR(IntegerTens1 : 
+	[IntegerTens -> lexNumberUnits]
+		{ ^ <- #1; 
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!ASR(IntegerTens2 : 
+	[IntegerTens -> lexNumberTens]
+		{ ^ <- #1; 
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!ASR(IntegerTens3 : 
+	[IntegerTens -> lexNumber]
+		{ ^ <- #1; 
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!ASR(IntegerTens4 : 
+	[IntegerTens -> lexNumberTens conjY lexNumberUnits]
+		{ ^.valNum <- #1.valNum + #3.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& ['y'];
+		  ^.valLst <& #3.valLst; } )
+
+!ASR(IntegerHundreds1 : 
+ 	[IntegerHundreds -> IntegerTens]
+		{ ^ <- #1; })
+
+!ASR(IntegerHundreds2 : 
+ 	[IntegerHundreds -> lexNumberHundreds]
+		{ ^ <- #1; 
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!ASR(IntegerHundreds3 : 
+ 	[IntegerHundreds -> lexNumberHundreds IntegerTens]
+		{ ^.valNum <- #1.valNum + #2.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst; } )
+
+!ASR(IntegerThousands1 : 
+	[IntegerThousands -> IntegerHundreds]
+		{ ^ <- #1; })
+
+!ASR(IntegerThousands2 : 
+	[IntegerThousands -> lexNumberThousand]
+		{ ^ <- #1; 
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!ASR(IntegerThousands3 : 
+	[IntegerThousands -> IntegerHundreds lexNumberThousand]
+		{ ^.valNum <- #1.valNum * #2.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst; } )
+
+!ASR(IntegerThousands4 : 
+	[IntegerThousands -> lexNumberThousand IntegerHundreds]
+		{ ^.valNum <- #1.valNum + #2.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst; } )
+
+!ASR(IntegerThousands5 : 
+	[IntegerThousands -> IntegerHundreds lexNumberThousand IntegerHundreds]
+		{ ^.valNum <- (#1.valNum * #2.valNum) + #3.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!ASR(Integer0 : 
+	[Integer -> lexZero]
+		{ ^ <- #1; 
+		  ^.valStr <- ShapeToString(#1.valNum); } )
+
+!ASR(Integer1 : 
+	[Integer -> IntegerThousands]
+		{ ^ <- #1; })
+
+!ASR(Integer2 : 
+	[Integer -> IntegerThousands lexNumberMillion]
+		{ ^.valNum <- #1.valNum * #2.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst; } )
+
+
+!ASR(Integer3 : 
+	[Integer -> IntegerThousands lexNumberMillion IntegerThousands]
+		{ ^.valNum <- (#1.valNum * #2.valNum) + #3.valNum; 
+		  ^.valStr <- ShapeToString(^.valNum);
+		  ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+/*************************/
+/** Number		**/
+/*************************/
+
+!ASR(RNumber_Asr_Root : 
+	[S -> NS_B Number NS_E] )
+
+!ASR(NumberSeq1 : 
+	[NumberSeq -> Integer]
+		{ ^ <- #1; })
+
+!ASR(NumberSeq2 : 
+	[NumberSeq -> NumberSeq Integer]
+		{ /*SpyMessage("Call: Number2:");
+		  SpyMessage("   => #1: ",#1);
+		  SpyMessage("   => #2: ",#2);
+		  SpyMessage("       IntegerAfter -> ",IntegerAfter(#1.valNum,#2.valNum));
+		  integer len;
+		  len <- VectorSize(#1.valLst);
+		  SpyMessage("   => VectorSize -> ",len);
+		  SpyMessage("   => VectorRecoverPosition   -> ",VectorRecoverPosition(#1.valLst,len));
+		  */
+		  if ((VectorRecoverPosition(#1.valLst,VectorSize(#1.valLst)) =!= 'cero') && (IntegerAfter(#1.valNum, #2.valNum))) {
+			^.valStr <- ShapeToString(#1.valNum + #2.valNum);
+		  } else {
+			//^.valStr <- LiteralConcat(#1.valStr, '-', ShapeToString(#2.valNum));
+			^.valStr <- LiteralConcat(#1.valStr, ShapeToString(#2.valNum));
+		  }			
+		  //		  ^.valNum <- ShapeToInt(^.valStr);
+		  ^.valLst   <- #1.valLst; 
+		  ^.valLst   <& #2.valLst; })
+		  //SpyMessage("   => ^: ",^); })
+
+(Number1 : 
+	[Number -> lexAuxVerbBe? <lexAuxArticleEL|lexAuxArticleLA>? NumberSeq]
+		{ ^ <- #3; })
+
+(Number2 : 
+	[Number -> <lexAuxPrepEN ! lexAuxArticleEL>? Integer]
+		{ ^ <- #3; })
+
+(Number3 : 
+	[Number -> <lexAuxPrepDE|lexAuxPrepDEL> Integer]
+		{ ^ <- #2; })
+
+!ASR(Number4 : 
+	[Number -> lexVerify lexAuxVerbBe? <lexAuxArticleEL|lexAuxArticleLA>? NumberSeq] )
+
+!PRS(Number1 : 
+	[NumberSeq -> lexNumber]
+		{ ^.valStr <- ShapeToString(#1.valNum);
+		  ^.valLst <- #1.valLst; })
+
+!PRS(Number2 : 
+	[NumberSeq/4 -> numInteger]
+		{ //^.valLst <- VectorNew(ShapeToString(#1));
+		  ^.valStr <- ShapeToString(#1); })
+
+!PRS(Number21 : 
+	[NumberSeq/4 -> NumberSeq/4 numInteger]
+		{ ^.valStr <- LiteralConcat(#1.valStr,ShapeToString(#2)); })
+		  //^.valLst <- VectorJoin(#1.valLst,VectorNew(ShapeToString(#2))); })
+
+!PRS(Number3 : 
+	[NumberSeq/2 -> NumberSeq/2 
+				NumberSeq/1]
+		{ cond {
+			(ShapeToInt(#2.valStr) == 0) {
+				^.valStr <- LiteralConcat(#1.valStr,'0');
+			}
+		  	((VectorRecoverPosition(#1.valLst,VectorSize(#1.valLst)) =!= 'cero') && IntegerAfter(ShapeToInt(#1.valStr),
+							ShapeToInt(#2.valStr))) {
+				^.valStr <- ShapeToString(
+					ShapeToInt(#1.valStr) + 
+					ShapeToInt(#2.valStr));
+			}
+		  	default {
+				^.valStr <- LiteralConcat(#1.valStr,
+							#2.valStr);
+			}
+		  }
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #2.valLst; 
+		})
+
+!PRS(Number3 : 
+	[NumberSeq/2 -> NumberSeq/2 
+				conjY
+				NumberSeq/1]
+		{ cond {
+			(ShapeToInt(#3.valStr) == 0) {
+				^.valStr <- LiteralConcat(#1.valStr,'0');
+			}
+		  	((VectorRecoverPosition(#1.valLst,VectorSize(#1.valLst)) =!= 'cero') && IntegerAfter(ShapeToInt(#1.valStr),
+							ShapeToInt(#3.valStr))) {
+				^.valStr <- ShapeToString(
+					ShapeToInt(#1.valStr) + 
+					ShapeToInt(#3.valStr));
+			}
+		  	default {
+				^.valStr <- LiteralConcat(#1.valStr,
+							#3.valStr);
+			}
+		  }
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& ['y'];
+		  ^.valLst <& #3.valLst; 
+		})
+
+!PRS(Number4 : 
+	[NumberSeq/3 -> lexNumberThousand]
+		{ ^.valStr <- ShapeToString(#1.valNum); 
+		  ^.valLst <- #1.valLst; })
+
+!PRS(Number5 : 
+	[NumberSeq/3 -> lexNumberThousand 
+				conjY? 
+				NumberSeq/2]
+		{ if (ShapeToInt(#3.valStr) == 0) {
+			^.valStr <- LiteralConcat(ShapeToString(#1.valNum),'0');
+		  } else {
+			^.valStr <- ShapeToString(
+					#1.valNum + 
+					ShapeToInt(#3.valStr));
+		  }
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Number6 : 
+	[NumberSeq/3 -> NumberSeq/2 
+				conjY? 
+				lexNumberThousand]
+		{ ^.valStr <- LiteralConcat(#1.valStr,'000'); 
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Number7 : 
+	[NumberSeq/3 -> NumberSeq/2 
+				conjY? 
+				lexNumberThousand 
+				conjY? 
+				NumberSeq/2]
+		{ ^.valStr <- ShapeToString((ShapeToInt(#1.valStr) * #3.valNum) + ShapeToInt(#5.valStr)); 
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; 
+		  ^.valLst <& #5.valLst; } )
+
+!PRS(Number8 : 
+	[NumberSeq/4 -> lexNumberMillion]
+		{ ^.valStr <- ShapeToString(#1.valNum); 
+		  ^.valLst <- #1.valLst; })
+
+!PRS(Number9 : 
+	[NumberSeq/4 -> lexNumberMillion 
+				conjY? 
+				NumberSeq/3]
+		{ ^.valStr <- ShapeToString(#1.valNum + ShapeToInt(#3.valStr)); 
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Number10 : 
+	[NumberSeq/4 -> NumberSeq/3 
+				conjY? 
+				lexNumberMillion]
+		{ ^.valStr <- LiteralConcat(#1.valStr,'000000'); 
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; } )
+
+!PRS(Number11 : 
+	[NumberSeq/4 -> NumberSeq/3 
+				conjY? 
+				lexNumberMillion 
+				conjY? 
+				NumberSeq/3]
+		{ ^.valStr <- ShapeToString((ShapeToInt(#1.valStr) * #3.valNum) + 
+				ShapeToInt(#5.valStr)); 
+	          ^.valLst <- #1.valLst;
+		  ^.valLst <& #3.valLst; 
+		  ^.valLst <& #5.valLst; } )
+
+/*************************/
+/** Real		**/
+/*************************/
+
+!PRS(Real1 : 
+	[Real -> numReal]
+		{ ^.RealValue <- #1; })
+
+/*************************/
+/** Ordinal		**/
+/*************************/
+
+(Ordinal1 : 
+	[Ordinal/1 -> lexOrdinal]
+		{ ^.OrdinalValue <- #1; })
+
+!PRS(Ordinal2 : 
+	[Ordinal/2 -> Ordinal/1 conjY? Ordinal/2]
+		{ if (IntegerAfter(#1.OrdinalValue,#3.OrdinalValue)) {
+			^.OrdinalValue <- #1.OrdinalValue + #3.OrdinalValue; 
+		  } else {
+			Fail();
+		  }
+		})
+
+// JFQ
+(Ordinal3 : 
+	[Ordinal/1 -> lexOrdinal lexActScopeNoun]
+		{ ^.OrdinalValue <- #1; })
+
+
+(NumberO : 
+	[Number -> Ordinal/1]
+		{ ^.valOrd <- #1.OrdinalValue; })
+
+/*************************/
+/** Terminal		**/
+/*************************/
+
+(Terminal1 : 
+	[Terminal/1 -> lexTerminal]
+		{ ^.TerminalValue <- #1; })
+
+// JFQ
+(Terminal1 : 
+	[Terminal/1 -> lexTerminal lexActScopeNoun]
+		{ ^.TerminalValue <- #1; })
+
+(NumberT : 
+	[Number -> Terminal/1]
+		{ ^.valTer <- #1.TerminalValue; })

@@ -1,0 +1,156 @@
+/*******************************
+ ** Task / Person
+ *******************************/
+
+TaskLine	LookPerson(TaskLine tline)
+{
+	WStep prev_wstep;
+
+	prev_wstep <- tline.WStep;
+
+	if (tline.CModel.LinkedInfo.Person.VerifyType == 'repeat') {
+		tline.CModel.LinkedInfo.Person.VerifyType <- 'raise';
+		if (tline.ReceivedCommand.Conversation.Verify == 'on') {
+			tline.GModel.LinkedInfo.Person <- tline.CModel.LinkedInfo.Person;
+			Erase(tline.CModel.LinkedInfo.Person);
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+			tline.WData.PatientData <- tline.LTask.WData.PatientData;
+			tline.WStep <- 'run-task';
+			return tline;
+		}
+		if (tline.ReceivedCommand.Conversation.Verify == 'on') {
+			Erase(tline.CModel.LinkedInfo.Person);
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+			tline.WStep <- 'ask-person';
+			return tline;
+		}
+	}
+
+	if (tline.CModel.LinkedInfo.Person.VerifyType == 'clash') {
+		Erase(tline.CModel.LinkedInfo.Person);
+		Erase(tline.GModel.LinkedInfo.Person);
+	}
+
+	if (tline.ReceivedCommand.LinkedInfo.Person) {
+		tline.ReceivedCommand.LinkedInfo.Person <- CompactPerson(tline.ReceivedCommand.LinkedInfo.Person );
+		if (tline.CModel.LinkedInfo.Person) { 		// 1 1 0
+			if (tline.ReceivedCommand.LinkedInfo.Person =:= tline.CModel.LinkedInfo.Person) {
+				tline.GModel.LinkedInfo.Person <| tline.CModel.LinkedInfo.Person;
+				Erase(tline.CModel.LinkedInfo.Person);
+				tline.WStep <- 'look-identity-personalid';
+			} else {
+				if (tline.CModel.LinkedInfo.Person.VerifyType == 'infer') {
+					tline.CModel.LinkedInfo.Person <- tline.ReceivedCommand.LinkedInfo.Person;
+					Erase(tline.ReceivedCommand.LinkedInfo.Person);
+					tline.CModel.LinkedInfo.Person.VerifyType <- 'raise';
+					tline.WStep <- 'check-person';
+				} else {
+					tline.CModel.LinkedInfo.Person <- tline.ReceivedCommand.LinkedInfo.Person;
+					Erase(tline.CModel.LinkedInfo.Person);
+					Erase(tline.ReceivedCommand.LinkedInfo.Person);
+					Erase(tline.GModel.LinkedInfo.Person);
+					tline.CModel.LinkedInfo.Person.VerifyType <- 'clash';
+					tline.WStep <- 'ask-person';
+				}
+			}
+		} else { 
+			if (tline.GModel.LinkedInfo.Person) { 	// 1 0 1
+				if (tline.ReceivedCommand.LinkedInfo.Person =:= tline.GModel.LinkedInfo.Person) {
+					tline.GModel.LinkedInfo.Person <| tline.ReceivedCommand.LinkedInfo.Person;
+					Erase(tline.ReceivedCommand.LinkedInfo.Person);
+					tline.WStep <- 'look-identity-personalid';
+				} else {
+					// Conflicto R - G
+					tline.CModel.LinkedInfo.Person <- tline.ReceivedCommand.LinkedInfo.Person;
+					Erase(tline.ReceivedCommand.LinkedInfo.Person);
+					Erase(tline.GModel.LinkedInfo.Person);
+					tline.CModel.LinkedInfo.Person.VerifyType <- 'clash';
+					tline.WStep <- 'ask-person';
+				}
+			} else {				// 1 0 0
+				tline.CModel.LinkedInfo.Person <- tline.ReceivedCommand.LinkedInfo.Person;
+				Erase(tline.ReceivedCommand.LinkedInfo.Person);
+				tline.CModel.LinkedInfo.Person.VerifyType <- 'raise';
+				tline.WStep <- 'check-person';
+			}
+		}
+	} else {
+		if (tline.GModel.LinkedInfo.Person) {
+			//tline.WStep <- 'look-identity-personalid';
+			tline.WStep <- prev_wstep;
+		} else {
+			if (tline.CModel.LinkedInfo.Person) {
+				cond {
+					(tline.CModel.LinkedInfo.Person.VerifyType == 'infer') {
+						tline.WStep <- 'check-person';
+					}
+					(tline.CModel.LinkedInfo.Person.VerifyType == 'raise') {
+						tline.GModel.LinkedInfo.Person <- tline.CModel.LinkedInfo.Person;
+						Erase(tline.CModel.LinkedInfo.Person);
+						tline.WStep <- 'look-identity-personalid';
+					}
+					(tline.CModel.LinkedInfo.Person.VerifyType == 'clash') {
+						tline.WStep <- 'ask-person';
+					}
+				}
+			} else {
+				if (tline.LTask.GModel.LinkedInfo.Person) {
+					tline.CModel.LinkedInfo.Person <- tline.LTask.GModel.LinkedInfo.Person;
+					tline.CModel.LinkedInfo.Person.VerifyType <- 'repeat';
+					//tline.WStep <- 'check-person';
+					tline.WStep <- prev_wstep;
+				} else {
+					tline.CModel.LinkedInfo.Person <- DefaultLinkedInfoPerson(tline);
+					tline.CModel.LinkedInfo.Person.VerifyType <- 'infer';
+					tline.WStep <- 'check-person';
+				}
+			}
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	AskPerson(TaskLine tline)
+{
+	if (!!(tline.CModel.LinkedInfo.Person)) {
+		LOutput loutput <- (LMode:'ask',TField:'person');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	return tline;
+}
+
+TaskLine	VerifyPerson(TaskLine tline)
+{
+	cond {
+		(tline.ReceivedCommand.Conversation.Verify) {
+			if (tline.CModel.LinkedInfo.Person.VerifyType == 'repeat') {
+				tline.GModel.LinkedInfo.Person <- tline.CModel.LinkedInfo.Person;
+				tline.GModel.LinkedInfo.Person <- tline.LTask.GModel.LinkedInfo.Person;
+				tline.GModel.LinkedInfo.UserId <- tline.LTask.GModel.LinkedInfo.UserId;
+				Erase(tline.CModel.LinkedInfo.Person);
+				tline.WStep <- 'run-task';
+				Erase(tline.ReceivedCommand.Conversation.Verify);
+			} else {
+				tline.GModel.LinkedInfo.Person <- tline.CModel.LinkedInfo.Person;
+				Erase(tline.CModel.LinkedInfo.Person);
+				tline.WStep <- 'look-identity-personalid';
+				Erase(tline.ReceivedCommand.Conversation.Verify);
+			}
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			Erase(tline.CModel.LinkedInfo.Person);
+			tline.WStep <- 'ask-person';
+			Erase(tline.ReceivedCommand.Conversation.Refuse);
+		}
+		(tline.CModel.LinkedInfo.Person.VerifyType == 'raise') {
+			tline.GModel.LinkedInfo.Person <- tline.CModel.LinkedInfo.Person;
+			Erase(tline.CModel.LinkedInfo.Person);
+			tline.WStep <- 'look-identity-personalid';
+		}
+	}
+
+	return tline;
+}

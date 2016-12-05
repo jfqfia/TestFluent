@@ -1,0 +1,14 @@
+
+/*******************************
+ ** ActScope
+ *******************************/
+
+	classDef:ElementRange ( ActScopeDescriptor : 
+				{ 'lexAuxEmpty',
+				  'flight',
+				  'point' } )
+
+	classDef:StructureComplex ( ActScope :
+				( ActScopeDescriptor ) )
+
+	classDef:Synonym	( lexActScopeNoun, ActScopeNoun = ActScope )

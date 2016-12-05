@@ -1,0 +1,19 @@
+/***************************************************************************
+ * Sistema:             pLekta v2 - 2013
+ *    LektaTraining: Level 1 - Calculator_02.lkt
+ ***************************************************************************/
+
+LektaStart()
+
+UseProject (ProjectCompile : ".Calculator.olk"
+		TemporalFolder : "."
+		MaxActiveConversations : 1)
+
+
+CreateDialogue(DialogueOperation:1 DialogueLanguage:1 DialogueInterface:1)
+
+DestroyDialogue 1
+
+DiscardProject()
+
+//LektaExit()

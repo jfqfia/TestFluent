@@ -1,0 +1,81 @@
+/*******************************
+ ** OScheme (Output Scheme)
+ *******************************/
+
+	// LocutiveMode
+	classDef:ElementRange ( LMode : { 	
+						'confirm',
+						'confirm_rec',
+
+						'relation', 
+						'ask', 
+						're-ask', 
+						'start-over', 
+						'exec',
+						'propose',
+						're-propose',
+						'out',
+						'check',
+						'error',
+						'inform' } )
+
+	// TellingField
+	classDef:ElementLiteral ( TField )
+					/* { 	
+						'welcome',
+						'recall',
+						'warning',
+						'finish',
+						'hello',
+						'mindboard',
+						'goodbye',
+						'greet',
+						'thanks',
+						'continuation',
+						'continuation-no-input',
+						'next',
+						'new',
+						'recover',
+						'new-no-input',
+						'close',
+
+						'yes-no',
+
+						'igoal',
+						'cdomain',
+
+						'user-id',
+						'phaseInformPersonalIdNonExistent',
+						'phaseInformPersonalIdInvalid',
+						'phasePersonalIdError',
+						'personalid-correct',
+
+						'personalid',
+						'point',
+
+						'route',
+						'route-origin',
+						'route-destination',
+						'dateDeparture',
+						'dateReturn',
+						'timetable-go',
+						'timetable-back' } )
+					*/
+		
+	// InformationContext
+	classDef:Synonym ( TContext = TaskLine )
+
+	// Locutive Output
+	classDef:StructureComplex ( LOutput : ( 
+						LMode,
+						TField,
+						TContext ) ) 
+
+	// Output Scheme
+	classDef:StructureBatch ( OScheme : (
+						LOutput ) )
+
+	// Output Struct
+	classDef:StructureComplex ( OStruct : (
+						OScheme ) )
+

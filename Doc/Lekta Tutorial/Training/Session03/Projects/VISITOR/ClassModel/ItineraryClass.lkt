@@ -1,0 +1,42 @@
+/*******************************
+ ** CLASSMODEL SPECIFICATION
+ *******************************
+ ** Site 
+ **	lexSiteNode
+ **	lexSiteDesc
+ **	lexSiteDepart
+ **	lexSiteArrival
+ *******************************/
+
+	classDef:Void		( auxItinerary )
+
+	classDef:VectorLiteral	( lexSiteNode,
+						  SiteNode)
+	classSetup:VectorUnificationMode:Intersection	( lexSiteNode, SiteNode )
+	classSetup:VectorUnificationBreak:Apply		( lexSiteNode, SiteNode )
+
+	classDef:VectorRange	( lexSiteDesc, SiteDesc:
+							['island', 'city', 'airport'] )
+
+	classSetup:VectorUnificationMode:Union		( lexSiteDesc, SiteDesc )
+	classSetup:VectorUnificationBreak:Avoid		( lexSiteDesc, SiteDesc )
+
+	classDef:Void		( auxSiteDepart,
+						  auxSiteArrival,
+						  auxSiteConnect )
+
+	classDef:StructureComplex		( Site :
+							(SiteNode, 
+							 SiteDesc ) )
+
+	classDef:StructureComplex		( Origin,
+						  Destination:	
+							(Site,
+							 DepartureGlobalDate,
+							 ReturnGlobalDate) )
+
+	classDef:StructureComplex		( Itinerary:	
+							(Site,
+							 Origin, 
+							 Destination) )
+

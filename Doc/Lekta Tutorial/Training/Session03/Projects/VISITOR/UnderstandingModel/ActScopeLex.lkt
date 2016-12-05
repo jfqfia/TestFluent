@@ -1,0 +1,44 @@
+/*******************************
+ ** ActScope
+ *******************************/
+
+/*************************/
+/** lexActScopeNoun	**/
+/*************************/
+
+	("importe",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("importes",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("precio",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("precios",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("tarifa",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("tarifas",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("coste",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("cuanto vale",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("cuanto cuesta",	lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+
+	("viaje",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("viajes",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("viajar",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+
+	("punto",		lexActScopeNoun,	(ActScopeDescriptor:'point'))
+	("puntos",		lexActScopeNoun,	(ActScopeDescriptor:'point'))
+
+	("volar",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("vuelo",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("vuelos",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("avion",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("aviones",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("billete",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("billetes",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("billete de avion",	lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("billete de avion",	lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+
+	("disponibilidad",	lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("la disponibilidad",	lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+
+	("pasaje",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("un pasaje",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("el pasaje",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("pasajes",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("plaza",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))
+	("plazas",		lexActScopeNoun,	(ActScopeDescriptor:'flight'))

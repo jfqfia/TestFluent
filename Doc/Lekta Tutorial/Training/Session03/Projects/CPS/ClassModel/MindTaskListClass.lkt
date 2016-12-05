@@ -1,0 +1,61 @@
+
+/*******************************
+ ** MindTaskList
+ *******************************/
+
+	classDef:Synonym		( GModel, CModel, LastCommand, ReceivedCommand, SModel = Command )
+		// GroundModel
+		// VerifyModel
+		// ProcessModel
+		// StayModel
+		// WaitingModel
+
+	classDef:ElementRange( VerifyClass: {
+						'clash',
+						'infer',
+						'raise',
+						'repeat',
+						'uncertain' } )
+
+	classDef:ElementInt	( RProf )
+
+	classDef:VectorRange( SConf, SAsk, SExpect : [
+						'igoal',
+						'cdomain',
+						'ack',
+						'birthdate',
+						'date',
+						'personalid',
+						'number',
+						'person' ] )
+	SetClass:List_Mode_Concat	( SConf, SAsk, SExpect )
+	SetClass:List_Fail_Never 	( SConf, SAsk, SExpect )
+						
+					
+	classDef:StructureComplex	( Strat : (
+						SConf,
+						SAsk,
+						SExpect ) )
+
+	classDef:ElementInt	( TRecov )
+
+	classDef:StructureComplex	( TaskLine, LTask : (
+						GModel,
+						CModel,
+						LastCommand,
+						ReceivedCommand,
+						SModel,
+						ProcessControl,
+						WStep,
+						WData,
+						Strat,
+						RProf,
+						TRecov,
+						LTask ) )
+
+	classDef:StructureBatch	( TaskScheme: ( 
+						TaskLine ) )
+
+	classDef:StructureComplex	( TaskStruct : (
+						TaskScheme ) )
+

@@ -1,0 +1,43 @@
+/*******************************
+ ** Cogito / Heads
+ *******************************/
+
+integer	CogitoStart();
+integer	CogitoTimeOutRecall();
+integer	CogitoTimeOutWarning();
+integer	CogitoTimeOutFinish();
+integer	CogitoTimeOutKill();
+integer	CogitoBadInput();
+integer	CogitoContinuation();
+integer	CogitoNext();
+integer	CogitoContinuationFromNoInput();
+integer	CogitoNew();
+integer	CogitoRep();
+integer	CogitoNewFromNoInput();
+integer	CogitoClose();
+integer	CogitoStop();
+integer	CogitoTransferTry();
+integer	CogitoTransferExec();
+integer	CogitoHello();
+integer	CogitoMindBoard();
+integer	CogitoRecover(TaskLine tline);
+
+TaskLine	RunOpen(TaskLine tline);
+TaskLine	AnalyzeOperPurpose(TaskLine tline);
+TaskLine	AnalyzeActScope(TaskLine tline);
+
+// Tasks
+
+// SebServices
+PatientInfo	WS_RequestPatientIdentity(PersonalIdentity personalid,
+				string personhaspersonalid);
+integer		WS_CancelAppointmentRequest(PatientData patientdata,
+				AppointData appointdata);
+AvailInfo	WS_AppointmentAvailabilityRequest(TaskLine tline);
+integer		WS_SetAppointmentRequest(TaskLine tline,
+				AvailGlobalDate availdate,
+				Slot slot);
+
+// Links
+integer	LinkScribo(TaskLine tline);
+integer LinkScriboUserProfile(integer age);

@@ -1,0 +1,60 @@
+/*******************************
+ ** Scribo / Verify / Functions
+ *******************************/
+
+string	GenerateAnalyzeOperPurposeActScope(OperPurposeDescriptor igoaltype, ActScopeDescriptor cdomaintype)
+{
+	switch (igoaltype) {
+		case 'cancel' {
+			switch (cdomaintype) {
+				case 'appoint' {
+					return GenerateVerifyCancelAppoint();
+				}
+			}
+		}
+		case 'consult' {
+			switch (cdomaintype) {
+				case 'appoint' {
+					return GenerateVerifyConsultAppoint();
+				}
+			}
+		}
+		case 'modify' {
+			switch (cdomaintype) {
+				case 'appoint' {
+					return GenerateVerifyModifyAppoint();
+				}
+			}
+		}
+		case 'request' {
+			switch (cdomaintype) {
+				case 'appoint' {
+					return GenerateVerifyRequestAppoint();
+				}
+			}
+		}
+	}
+
+	return ' ';
+}
+
+string	GenerateVerifyCancelAppoint()
+{
+	return 'cancelar una cita';
+}
+
+string	GenerateVerifyConsultAppoint()
+{
+	return 'consultar una cita';
+}
+
+string	GenerateVerifyModifyAppoint()
+{
+	return 'modificar una cita';
+}
+
+string	GenerateVerifyRequestAppoint()
+{
+	return 'pedir una cita';
+}
+

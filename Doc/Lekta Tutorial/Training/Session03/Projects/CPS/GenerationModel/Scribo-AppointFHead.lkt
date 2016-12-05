@@ -1,0 +1,8 @@
+/*******************************
+ ** Scribo / GlobalDate / Heads
+ *******************************/
+
+string	AppointGlobalDate2String(AppointGlobalDate appointdate);
+string	AppointGlobalDate2StringContrast(AppointGlobalDate appointdate,AppointGlobalDate appointdateprev);
+string	Doctor2String(AppointDoctor appointdoctor);
+string	Doctor2StringContrast(AppointDoctor appointdoctor,AppointDoctor appointdoctorprev);

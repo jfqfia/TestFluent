@@ -1,0 +1,7 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".Devices_03.olk")
+
+DisplayProcessAbstractOn
+
+CreateDialogue()

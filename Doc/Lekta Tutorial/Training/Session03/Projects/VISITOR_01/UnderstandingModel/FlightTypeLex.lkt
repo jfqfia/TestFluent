@@ -1,0 +1,27 @@
+/*******************************
+ ** FlightType
+ *******************************/
+
+	("vuelo",			lexFlightType)
+	("avion",			lexFlightType)
+	("vuelo",			lexFlightType)
+
+	("directo",			FlightTypeWay, 'direct')
+	("solo ida",			FlightTypeWay, 'one_way')
+	("de ida",			FlightTypeWay, 'one_way')
+	("de solo ida",			FlightTypeWay, 'one_way')
+	("ida y vuelta",		FlightTypeWay, 'round_trip')
+	("la ida y vuelta",		FlightTypeWay, 'round_trip')
+	("de ida y vuelta",		FlightTypeWay, 'round_trip')
+
+	("ida",				lexFlightTypeDeparture)
+	("la ida",			lexFlightTypeDeparture)
+
+	("regreso",			lexFlightTypeReturn)
+	("el regreso",			lexFlightTypeReturn)
+	("regresando",			lexFlightTypeReturn)
+	("regresar",			lexFlightTypeReturn)
+	("vuelta",			lexFlightTypeReturn)
+	("la vuelta",			lexFlightTypeReturn)
+	("volviendo",			lexFlightTypeReturn)
+	("volver",			lexFlightTypeReturn)

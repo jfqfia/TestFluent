@@ -1,0 +1,558 @@
+/*******************************
+ ** Cogito / Functions
+ *******************************/
+
+integer	CogitoStart() 
+{
+	LOutput loutput = (LMode:'relation',TField:'welcome');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	return 1;
+}
+
+integer	CogitoTimeOutRecall() 
+{
+	LOutput loutput = (LMode:'relation',TField:'recall');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutWarning() 
+{
+	LOutput loutput = (LMode:'relation',TField:'warning');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutFinish() 
+{
+	LOutput loutput = (LMode:'relation',TField:'finish');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutKill() 
+{
+	LOutput loutput = (LMode:'relation',TField:'kill');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoTimeOutDestroy() 
+{
+	LOutput loutput = (LMode:'relation',TField:'destroy');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoBadInput() 
+{
+	LOutput loutput = (LMode:'relation',TField:'new-no-input');
+	//LOutput loutput = (LMode:'relation',TField:'badinput');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+integer	CogitoContinuation() 
+{
+	LOutput loutput = (LMode:'relation',TField:'continuation');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'cont';
+
+	return 1;
+}
+
+integer	CogitoContinuationFromNoInput() 
+{
+	LOutput loutput = (LMode:'relation',TField:'continuation-no-input');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'cont';
+
+	return 1;
+}
+
+integer	CogitoHello() 
+{
+	LOutput loutput = (LMode:'relation',TField:'hello');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+	
+	return 1;
+}
+
+integer	CogitoInterPardon() 
+{
+	LOutput loutput = (LMode:'relation',TField:'pardon');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	return 1;
+}
+
+integer	CogitoRecover(MindTaskItem aline) 
+{
+	LOutput loutput = (LMode:'relation',TField:'recover');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	return 1;
+}
+
+integer	CogitoNew() 
+{
+	LOutput loutput = (LMode:'relation',TField:'new');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	return 1;
+}
+
+integer	CogitoRep() 
+{
+	LOutput loutput = (LMode:'relation',TField:'rep');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	return 1;
+}
+
+integer	CogitoNewFromNoInput() 
+{
+	LOutput loutput = (LMode:'relation',TField:'new-no-input');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	return 1;
+}
+
+integer	CogitoClose() 
+{
+	LOutput loutput = (LMode:'relation',TField:'close');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	$MINDBOARD@Setup.ActionSetup = 'close';
+
+	return 1;
+}
+
+integer	CogitoStop() 
+{
+	LOutput loutput = (LMode:'relation',TField:'goodbye');
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	return 1;
+}
+
+MindTaskItem	ProcessActionLine(MindTaskItem aline_in)
+{
+	MindTaskItem	aline_proc;
+	integer cycle;
+	controlCommandPhase	prev_astage;
+
+	if (!!aline_in.controlCommandPhase) {
+		aline_in.controlCommandPhase = 'starting';
+	}
+
+	aline_proc = aline_in;
+
+	switch (aline_in.ActiveCommand.OperPurpose.OperPurposeDescriptor) {
+		case 'buy' {
+			aline_proc.controlCommandPhase = 'out';
+
+			LOutput loutput = (LMode:'out',TField:'buy');
+			loutput.IContext = aline_proc;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+			return aline_proc;
+		}
+	}
+
+	cycle = 1;
+	while (cycle == 1) {
+		prev_astage = aline_proc.controlCommandPhase;
+		switch (aline_proc.controlCommandPhase) {
+			case 'starting' {
+				aline_proc = AnalyzeOperPurpose(aline_proc);
+			}
+			case 'purposeOk' {
+				aline_proc = AnalyzeActScope(aline_proc);
+			}
+			case 'scopeOk' {
+				aline_proc = AssignTask(aline_proc);
+			}
+			case 'taskOk' {
+				aline_proc = ExecuteTask(aline_proc);
+			}
+		}
+		if (prev_astage == aline_proc.controlCommandPhase) {
+			cycle = 0;
+		}
+	}
+
+	return aline_proc;
+}
+
+MindTaskItem	InlangexlistdialteLast(MindTaskItem aline_in)
+{
+	MindTaskItem 	aline_proc;
+	MindTaskItem 	aline_prev;
+	LinkedInfo	rdata;
+
+	aline_proc = aline_in;
+
+	if (($MINDBOARD@LastPrev.MindTaskList) && (BatchSize($MINDBOARD@LastPrev.MindTaskList) > 0)) {
+		BatchRecoverPosition($MINDBOARD@LastPrev.MindTaskList,1,aline_prev);
+
+		rdata = aline_prev.ActiveCommand.LinkedInfo;
+
+		if ((rdata.GlobalDate) && (!!aline_proc.ActiveCommand.LinkedInfo.GlobalDate)) {
+			aline_proc.ActiveCommand.LinkedInfo.GlobalDate = rdata.GlobalDate;
+		}
+
+		if ((rdata.DepartureGlobalDate) && (!!aline_proc.ActiveCommand.LinkedInfo.DepartureGlobalDate)) {
+			aline_proc.ActiveCommand.LinkedInfo.DepartureGlobalDate = rdata.DepartureGlobalDate;
+		}
+
+		if ((rdata.ReturnGlobalDate) && (!!aline_proc.ActiveCommand.LinkedInfo.ReturnGlobalDate)) {
+			aline_proc.ActiveCommand.LinkedInfo.ReturnGlobalDate = rdata.ReturnGlobalDate;
+		}
+
+		if ((rdata.PersonalId) && (!!aline_proc.ActiveCommand.LinkedInfo.PersonalId)) {
+			aline_proc.ActiveCommand.LinkedInfo.PersonalId = rdata.PersonalId;
+		}
+
+		if ((rdata.FlightType) && (!!aline_proc.ActiveCommand.LinkedInfo.FlightType)) {
+			aline_proc.ActiveCommand.LinkedInfo.FlightType = rdata.FlightType;
+		}
+
+		if ((rdata.Integer) && (!!aline_proc.ActiveCommand.LinkedInfo.Integer)) {
+			aline_proc.ActiveCommand.LinkedInfo.Integer = rdata.Integer;
+		}
+
+		if ((rdata.IntSeqn) && (!!aline_proc.ActiveCommand.LinkedInfo.IntSeqn)) {
+			aline_proc.ActiveCommand.LinkedInfo.IntSeqn = rdata.IntSeqn;
+		}
+
+		if ((rdata.Itinerary.Origin) && (!!aline_proc.ActiveCommand.LinkedInfo.Itinerary.Origin)) {
+			aline_proc.ActiveCommand.LinkedInfo.Itinerary.Origin = rdata.Itinerary.Origin;
+		}
+
+		if ((rdata.Itinerary.Destination) && (!!aline_proc.ActiveCommand.LinkedInfo.Itinerary.Destination)) {
+			aline_proc.ActiveCommand.LinkedInfo.Itinerary.Destination = rdata.Itinerary.Destination;
+		}
+
+	}
+
+	return aline_proc;
+}
+
+MindTaskItem	AnalyzeOperPurpose(MindTaskItem aline)
+{
+	if (!!aline.ActiveCommand.OperPurpose.OperPurposeDescriptor) {
+		OperPurposeDescriptor igoaltype;
+
+		if (!!aline.ActiveCommand) {
+			LOutput loutput = (LMode:'ask',TField:'igoal');
+			loutput.IContext = aline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			aline.AExpec = (TField:'igoal');
+		} else {
+			igoaltype = DefaultOperPurpose(aline.ActiveCommand);
+			if (igoaltype != 'lexAuxEmpty') {
+				aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = igoaltype;
+				aline.controlCommandPhase = 'purposeOk';
+			} else {
+				LOutput loutput = (LMode:'ask',TField:'igoal');
+				loutput.IContext = aline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				aline.AExpec = (TField:'igoal');
+			}
+		}
+	} else {
+		aline.controlCommandPhase = 'purposeOk';
+	}
+
+	return aline;
+}
+
+MindTaskItem	AnalyzeActScope(MindTaskItem aline)
+{
+	if (!!aline.ActiveCommand.ActScope.ActScopeDescriptor) {
+		ActScopeDescriptor cdomaintype;
+
+		cdomaintype = DefaultActScope(aline.ActiveCommand);
+		if (cdomaintype != 'lexAuxEmpty') {
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = cdomaintype;
+			aline.controlCommandPhase = 'scopeOk';
+		} else {
+			LOutput loutput = (LMode:'ask',TField:'cdomain');
+			loutput.IContext = aline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			aline.AExpec = (TField:'cdomain');
+		}
+	} else {
+		aline.controlCommandPhase = 'scopeOk';
+	}
+
+	return aline;
+}
+
+MindTaskItem	DefaultOperPurposeActScope(MindTaskItem aline)
+{
+	switch (aline.ActiveCommand.LinkedInfo.LinkedInfoDescriptor) {
+		case 'date' {
+			aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = 'consult';
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = 'flight';
+		}
+		case 'dateDeparture' {
+			aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = 'consult';
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = 'flight';
+		}
+		case 'dateReturn' {
+			aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = 'consult';
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = 'flight';
+		}
+		case 'personalid' {
+			aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = 'consult';
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = 'point';
+		}
+		case 'fmode' {
+			aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = 'consult';
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = 'flight';
+		}
+		case 'route' {
+			aline.ActiveCommand.OperPurpose.OperPurposeDescriptor = 'consult';
+			aline.ActiveCommand.ActScope.ActScopeDescriptor = 'flight';
+		}
+	}
+
+	return aline;
+}
+
+MindTaskItem	AssignTask(MindTaskItem aline)
+{
+	switch (aline.ActiveCommand.OperPurpose.OperPurposeDescriptor) {
+		case 'buy' {
+			switch (aline.ActiveCommand.ActScope.ActScopeDescriptor) {
+				case 'flight' {
+					aline.ProcessControl.ProcessStage = 'getTicket';
+					aline.controlCommandPhase = 'taskOk';
+				}
+			}
+		}
+		case 'cancel' {
+			switch (aline.ActiveCommand.ActScope.ActScopeDescriptor) {
+				case 'flight' {
+					aline.ProcessControl.ProcessStage = 'cancelTicket';
+					aline.controlCommandPhase = 'taskOk';
+				}
+			}
+		}
+		case 'consult' {
+			switch (aline.ActiveCommand.ActScope.ActScopeDescriptor) {
+				case 'point' {
+					aline.ProcessControl.ProcessStage = 'searchPoints';
+					aline.controlCommandPhase = 'taskOk';
+				}
+				case 'flight' {
+					aline.ProcessControl.ProcessStage = 'searchTicket';
+					aline.controlCommandPhase = 'taskOk';
+				}
+			}
+		}
+		case 'modify' {
+			switch (aline.ActiveCommand.ActScope.ActScopeDescriptor) {
+				case 'flight' {
+					aline.ProcessControl.ProcessStage = 'changeTicket';
+					aline.controlCommandPhase = 'taskOk';
+				}
+			}
+		}
+	}
+
+	return aline;
+}
+
+MindTaskItem	ExecuteTask(MindTaskItem aline)
+{
+	switch (aline.ProcessControl.ProcessStage) {
+		case 'searchTicket' {
+			aline = ProcessControl_Consult_Flight(aline);
+		}
+		case 'searchPoints' {
+			aline = ProcessControl_Consult_Point(aline);
+		}
+	}
+
+	return aline;
+}
+
+DRef    CalcToday()
+{
+        DRef today;
+
+        today.AbsPeriodYear   = ClockAskYear();
+        today.AbsPeriodMonth  = ClockAskMonth();
+        today.AbsPeriodDay    = ClockAskDayOfTheMonth();
+        today.PeriodWeekPeriodDay   = ClockAskDayOfTheWeek();
+        today.PeriodHour      = ClockAskHour();
+        today.PeriodMinute    = ClockAskMinute();
+
+        return today;
+}
+
+GlobalDate	CompactGlobalDate(GlobalDate date,DRef today)
+{
+	if (date.Time.RelPos) {
+		return date;
+	}
+
+	if (date.PeriodDay.PeriodPeriodDayRelative) {
+		date.DRef = today;
+		date.DRef.AbsPeriodDay = date.DRef.AbsPeriodDay + date.PeriodDay.PeriodPeriodDayRelative;
+	} 
+
+	if (date.PeriodDay.ModPeriodDay) {
+		date.DRef.AbsPeriodDay = date.DRef.AbsPeriodDay + date.PeriodDay.ModPeriodDay;
+	}
+
+	if (date.PeriodMonth.RelPeriodMonth) {
+		date.DRef.AbsPeriodMonth = today.AbsPeriodMonth + date.PeriodMonth.AbsPeriodMonth;
+	}
+
+	if (date.PeriodMonth.AbsPeriodMonth) {
+		date.DRef.AbsPeriodMonth = date.PeriodMonth.AbsPeriodMonth;
+	}
+
+	if (date.PeriodYear.AbsPeriodYear) {
+		date.DRef.AbsPeriodYear = date.PeriodYear.AbsPeriodYear;
+	}
+
+	if (date.PeriodDay.AbsPeriodDay) {
+		date.DRef.AbsPeriodDay = date.PeriodDay.AbsPeriodDay;
+	}
+
+	if (date.PeriodDay.PeriodWeekPeriodDay) {
+		date.DRef = today;
+		if (date.PeriodDay.PeriodWeekPeriodDay >= today.PeriodWeekPeriodDay) {
+			date.DRef.AbsPeriodDay = today.AbsPeriodDay + (date.PeriodDay.PeriodWeekPeriodDay - today.PeriodWeekPeriodDay);
+		} else {
+			date.DRef.AbsPeriodDay = today.AbsPeriodDay + ( 7 - (today.PeriodWeekPeriodDay - date.PeriodDay.PeriodWeekPeriodDay) );
+		}
+	}
+
+	if (date.DRef.AbsPeriodDay) {
+		if (!!date.DRef.AbsPeriodMonth) {
+			if (date.DRef.AbsPeriodDay >= today.AbsPeriodDay) {
+				date.DRef.AbsPeriodMonth = today.AbsPeriodMonth;
+			} else {
+				date.DRef.AbsPeriodMonth = today.AbsPeriodMonth + 1;
+			}
+		}
+	} else {
+		if (date.DRef.AbsPeriodMonth) {
+			date.DRef.AbsPeriodDay = 1;
+		} else {
+			date.DRef = today;
+		}
+	}
+
+	if (!!(date.DRef.AbsPeriodYear)) {
+		if (date.DRef.AbsPeriodMonth < today.AbsPeriodMonth) {
+			date.DRef.AbsPeriodYear = today.AbsPeriodYear + 1;
+		} else {
+			date.DRef.AbsPeriodYear = today.AbsPeriodYear;
+		}
+	}
+
+	integer lastPeriodDay;
+
+	if (date.DRef.AbsPeriodDay <= 0) {
+		date.DRef.AbsPeriodMonth = date.DRef.AbsPeriodMonth - 1;
+		if (date.DRef.AbsPeriodMonth =:= 0) {
+			date.DRef.AbsPeriodMonth = 12;
+			date.DRef.AbsPeriodYear = date.DRef.AbsPeriodYear - 1;
+		}
+		lastPeriodDay = PeriodDaysByPeriodMonth(date.DRef.AbsPeriodMonth);
+		date.DRef.AbsPeriodDay = lastPeriodDay - date.DRef.AbsPeriodDay;
+	} else {
+		lastPeriodDay = PeriodDaysByPeriodMonth(date.DRef.AbsPeriodMonth);
+	}
+
+	if (date.DRef.AbsPeriodDay > lastPeriodDay) {
+		date.DRef.AbsPeriodMonth = date.DRef.AbsPeriodMonth + 1;
+		if (date.DRef.AbsPeriodMonth =:= 13) {
+			date.DRef.AbsPeriodMonth = 1;
+			date.DRef.AbsPeriodYear = date.DRef.AbsPeriodYear + 1;
+		}
+		date.DRef.AbsPeriodDay = date.DRef.AbsPeriodDay - lastPeriodDay;
+	}
+
+	date.DRef.Distance = ((date.DRef.AbsPeriodYear - today.AbsPeriodYear) * 365) +
+			 ((date.DRef.AbsPeriodMonth - today.AbsPeriodMonth) * 31) +
+			  (date.DRef.AbsPeriodDay - today.AbsPeriodDay);
+	
+	Erase(date.PeriodDay);
+	Erase(date.PeriodWeek);
+	Erase(date.PeriodMonth);
+	Erase(date.PeriodYear);
+
+	return date;
+}
+			
+integer	PeriodDaysByPeriodMonth(integer month)
+{
+	switch (month) {
+		case  1	{ return 31; }
+		case  2	{ return 28; }
+		case  3	{ return 31; }
+		case  4	{ return 30; }
+		case  5	{ return 31; }
+		case  6	{ return 30; }
+		case  7	{ return 31; }
+		case  8	{ return 31; }
+		case  9	{ return 30; }
+		case 10	{ return 31; }
+		case 11	{ return 30; }
+		case 12	{ return 31; }
+	}
+
+	return 0;
+}
+
+string	PeriodDaySection2String(AbsPeriodDaySection block)
+{
+	cond {
+		(VectorElement('morning',block)) {
+			return 'por la mañana';
+		}
+		(VectorElement('afternoon',block)) {
+			return 'por la tarde';
+		}
+		(VectorElement('evening',block)) {
+			return 'por la noche';
+		}
+		default {
+			return '';
+		}
+	}
+}
+		

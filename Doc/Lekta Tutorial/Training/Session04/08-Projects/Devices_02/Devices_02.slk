@@ -1,0 +1,10 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".Devices_02.olk")
+
+//DisplayProcessUnderstandingOn
+//DisplayProcessColligoOn
+//DisplayProcessAbstractOn
+
+CreateDialogue()
+//quiero activar el riego eso si activar activar el riego

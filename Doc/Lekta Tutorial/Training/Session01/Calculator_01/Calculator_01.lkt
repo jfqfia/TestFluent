@@ -1,0 +1,107 @@
+/***************************************************************************
+ * Sistema:             pLekta v2 - 2013
+ *    LektaTraining: Level 1 - Calculator_01.slk
+ ***************************************************************************/
+
+lektaProject
+
+   projectHead
+	projectDescriptor       : "Calculator_01"
+	projectLanguageScope    : [ es ]
+	projectOperationScope   : [ test ]
+	projectInterfaceScope   : [ dialogue ]
+	projectCompileOutput    : ".Calculator_01.olk"
+
+   projectSetup
+      setupParserRoots = Expresion 
+
+   classModel
+      classDef:Void ( suma, resta, multiplica, divide, elevado )
+      classDef:Void ( abre_parentesis, cierra_parentesis )
+
+      classDef:ElementInt ( integer )
+
+      classDef:ElementInt ( Valor, ValorActual )
+      classDef:ElementRange ( Operador: { '+', '-', '*', '/', '^' } )
+      classDef:StructureComplex ( Expresion: 
+	            (Valor, 
+		     Operador, 
+		     Expresion1, 
+		     Expresion2) )
+
+      classDef:Synonym ( Expresion1 = Expresion)
+      classDef:Synonym ( Expresion2 = Expresion)
+
+   lexicalModel forLanguage es
+      setupTokenizerIntegerClass   (integer,".,")
+      setupTokenizerPunctuation   ("+", suma)
+      setupTokenizerPunctuation   ("-", resta)
+      setupTokenizerPunctuation   ("*", multiplica)
+      setupTokenizerPunctuation   ("/", divide)
+      setupTokenizerPunctuation   ("^", elevado)
+      setupTokenizerPunctuation   ("(", abre_parentesis)
+      setupTokenizerPunctuation   (")", cierra_parentesis)
+
+      ("cero",   integer,      0)
+      ("uno",    integer,      1)
+      ("dos",    integer,      2)
+      ("tres",   integer,      3)
+      ("cuatro", integer,      4)
+      ("cinco",  integer,      5)
+      ("seis",   integer,      6)
+      ("siete",  integer,      7)
+      ("ocho",   integer,      8)
+      ("nueve",  integer,      9)
+
+      ("mas",     suma)
+      ("menos",   resta)
+      ("entre",   divide)
+      ("por",     multiplica)
+      ("elevado a",   elevado)
+
+      ("abre",             abre_parentesis)
+      ("abre parentesis",  abre_parentesis)
+      ("cierra",           cierra_parentesis)
+      ("cierra parentesis",cierra_parentesis)
+
+
+   grammaticalModel forLanguage es
+
+      (R1: [ Expresion/0 -> integer ]
+         { ^.Valor <- #1; } )
+
+      (R2: [ Expresion/0 -> &[-Expresion] resta integer ]
+         { ^.Valor <- - #2; } )
+
+      (R3: [ Expresion/0 -> abre_parentesis Expresion/10 cierra_parentesis ]
+         { ^ <- #2; } )
+
+      (R4: [ Expresion/3 -> Expresion/3 suma Expresion/2 ]
+         { ^.Operador <- '+';
+           ^.Valor <- #1.Valor + #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R5: [ Expresion/3 -> Expresion/3 resta Expresion/2 ]
+         { ^.Operador <- '-';
+           ^.Valor <- #1.Valor - #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R6: [ Expresion/2 -> Expresion/2 multiplica Expresion/1 ]
+         { ^.Operador <- '*';
+           ^.Valor <- #1.Valor * #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R7: [ Expresion/2 -> Expresion/2 divide Expresion/1 ]
+         { ^.Operador <- '/';
+           ^.Valor <- #1.Valor / #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R8: [ Expresion/1 -> Expresion/1 elevado Expresion/0 ]
+         { ^.Operador <- '^';
+           ^.Valor <- Pow(#1.Valor,#3.Valor);
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )

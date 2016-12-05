@@ -1,0 +1,11 @@
+/*******************************
+ ** Senso / Heads
+ *******************************/
+
+integer	RaiseOperPurpose(Command linput);
+integer	RaiseActScope(Command linput);
+integer	RaiseLinkedInfo(Command linput);
+
+integer	RaiseDenial(Denial neg);
+integer	RaiseAssert(Assert aff);
+integer	RaiseInteraction(Interaction relation);

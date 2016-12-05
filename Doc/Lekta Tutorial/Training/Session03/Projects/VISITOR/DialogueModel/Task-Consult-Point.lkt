@@ -1,0 +1,283 @@
+/*******************************
+ ** Task / Consult Point
+ *******************************/
+
+MindTaskItem	ProcessControl_Consult_Point(MindTaskItem aline_in)
+{
+	MindTaskItem aline_proc;
+	integer cycle;
+	PhaseControlSearchPointsPoint prev_wprotocol;
+
+	if (!!aline_in.ControlTask) {
+		aline_in.ControlTask.PhaseControlSearchPointsPoint = 'phaseSeekPersonalId';
+	}
+
+	/*
+	if (aline_in.CopyTemporalMemory) {
+		aline_in.TemporalMemory = aline_in.CopyTemporalMemory;
+	}
+	*/
+
+	aline_proc = aline_in;
+	cycle = 1;
+	while (cycle == 1) {
+		prev_wprotocol = aline_proc.ControlTask.PhaseControlSearchPointsPoint;
+
+		switch (aline_proc.ControlTask.PhaseControlSearchPointsPoint) {
+			case 'phaseSeekPersonalId' {
+				aline_proc = LookPersonalId(aline_proc);
+			}
+			case 'phaseAskPersonalId' {
+				aline_proc = RequestPersonalRecord(aline_proc);
+			}
+			case 'phaseInformPersonalIdNonExistent' {
+				aline_proc = ErrorNoUser(aline_proc);
+			}
+			case 'phaseVerifyPersonalId' {
+				aline_proc = AnalyzePersonalRecord(aline_proc);
+			}
+			case 'phaseInformPersonalIdInvalid' {
+				aline_proc = ErrorUserId(aline_proc);
+			}
+			case 'phasePersonalIdError' {
+				aline_proc = ErrorUserIncoherence(aline_proc);
+			}
+			case 'phaseSeekPersonalId-correct' {
+				aline_proc = LookPersonalIdCorrect(aline_proc);
+			}
+			case 'phaseInformPoints' {
+				aline_proc = InformPoint(aline_proc);
+			}
+			case 'close' {
+				aline_proc.controlCommandPhase = 'done';
+			}
+			case 'fail' {
+				aline_proc.controlCommandPhase = 'fail';
+				cycle = 0;
+			}
+		}
+		if (prev_wprotocol == aline_proc.ControlTask.PhaseControlSearchPointsPoint) {
+			cycle = 0;
+		}
+	}
+	
+	return aline_proc;
+}
+
+MindTaskItem	LookPersonalId(MindTaskItem aline)
+{
+	cond {
+		(aline.ActiveCommand.LinkedInfo.PersonalId) {
+			Erase(aline.RExpec.EValue);
+			aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+		}
+		(aline.RExpec.EValue.Command.LinkedInfo) {
+			switch (aline.RExpec.EValue.Command.LinkedInfo.LinkedInfoDescriptor) {
+				case 'personalid' {
+					aline.ActiveCommand.LinkedInfo.PersonalId =  
+						aline.RExpec.EValue.Command.LinkedInfo.PersonalId;
+					aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+				}
+				case 'intseqn' {
+					aline.ActiveCommand.LinkedInfo.PersonalId.PersonalRef = 
+						aline.RExpec.EValue.Command.LinkedInfo.IntSeqn.IntegerString;
+					aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+				}
+			}
+			Erase(aline.RExpec.EValue.Command.LinkedInfo);
+		}
+		default {
+			LOutput loutput = (LMode:'ask',TField:'personalid');
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			aline.AExpec = (TField:'personalid'|'intseqn');
+
+		}
+	}
+
+	return aline;
+}
+
+MindTaskItem	LookPersonalIdCorrect(MindTaskItem aline)
+{
+	if (aline.RExpec.EValue.Command.LinkedInfo) {
+		switch (aline.RExpec.EValue.Command.LinkedInfo.LinkedInfoDescriptor) {
+			case 'personalid' {
+				aline.ActiveCommand.LinkedInfo.PersonalId =  
+					aline.RExpec.EValue.Command.LinkedInfo.PersonalId;
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+			}
+			case 'intseqn' {
+				aline.ActiveCommand.LinkedInfo.PersonalId.PersonalRef = 
+					aline.RExpec.EValue.Command.LinkedInfo.IntSeqn.IntegerString;
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+			}
+		}
+	} else {
+		if (aline.RExpec.EValue.Assert.Agree == 'on') {
+			Erase(aline.AExpec.EValue.Assert);
+			LOutput loutput = (LMode:'error',TField:'phasePersonalIdError');
+			loutput.IContext = aline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			aline.ControlTask.PhaseControlSearchPointsPoint = 'fail';
+
+		} else {
+			LOutput loutput = (LMode:'ask',TField:'personalid-correct');
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			aline.AExpec = (TField:'personalid'|'intseqn');
+
+
+		}
+	}
+	Erase(aline.RExpec);
+
+	return aline;
+}
+
+MindTaskItem	RequestPersonalRecord(MindTaskItem aline)
+{
+	aline.TemporalMemory.TemporalData.PersonalRecord = WS_RequestPersonalRecord(aline.ActiveCommand.LinkedInfo.PersonalId.PersonalRef);
+
+	cond {
+		(aline.TemporalMemory.TemporalData.PersonalRecord.UserData) {
+			aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseVerifyPersonalId';
+		}
+		(aline.TemporalMemory.TemporalData.PersonalRecord.UserError) {
+			aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseInformPersonalIdNonExistent';
+		}
+	}
+
+	return aline;
+}
+
+MindTaskItem	ErrorNoUser(MindTaskItem aline)
+{
+	if (aline.RExpec.EValue.Command.LinkedInfo) {
+		switch (aline.RExpec.EValue.Command.LinkedInfo.LinkedInfoDescriptor) {
+			case 'personalid' {
+				aline.ActiveCommand.LinkedInfo.PersonalId =  
+					aline.RExpec.EValue.Command.LinkedInfo.PersonalId;
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+			}
+			case 'intseqn' {
+				aline.ActiveCommand.LinkedInfo.PersonalId.PersonalRef = 
+					aline.RExpec.EValue.Command.LinkedInfo.IntSeqn.IntegerString;
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+			}
+		}
+	} else {
+		LOutput loutput = (LMode:'error',TField:'phaseInformPersonalIdNonExistent');
+		loutput.IContext = aline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+		aline.AExpec = (TField:'personalid'|'intseqn');
+
+	}
+	Erase(aline.RExpec);
+
+	return aline;
+}
+
+MindTaskItem	AnalyzePersonalRecord(MindTaskItem aline)
+{
+	cond {
+		(aline.RExpec.EValue.Command.LinkedInfo) {
+			switch (aline.RExpec.EValue.Command.LinkedInfo.LinkedInfoDescriptor) {
+				case 'personalid' {
+					aline.ActiveCommand.LinkedInfo.PersonalId =  
+						aline.RExpec.EValue.Command.LinkedInfo.PersonalId;
+					aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+				}
+				case 'intseqn' {
+					aline.ActiveCommand.LinkedInfo.PersonalId.PersonalRef = 
+						aline.RExpec.EValue.Command.LinkedInfo.IntSeqn.IntegerString;
+					aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+				}
+			}
+		}
+		(aline.RExpec.EValue.Denial.Refuse == 'on') {
+			Erase(aline.AExpec.EValue.Denial);
+			aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseInformPersonalIdInvalid';
+		}
+		(aline.RExpec.EValue.Assert.Agree == 'on') {
+			Erase(aline.AExpec.EValue.Assert);
+			aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseInformPoints';
+		}
+		default {
+			LOutput loutput = (LMode:'check',TField:'user-id');
+			loutput.IContext = aline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+			aline.AExpec = (TField:'yes-no'|'personalid'|'intseqn');
+
+		}
+	}
+	Erase(aline.RExpec);
+
+	return aline;
+}
+
+MindTaskItem	ErrorUserId(MindTaskItem aline)
+{
+	if (aline.RExpec.EValue.Command.LinkedInfo) {
+		switch (aline.RExpec.EValue.Command.LinkedInfo.LinkedInfoDescriptor) {
+			case 'personalid' {
+				aline.ActiveCommand.LinkedInfo.PersonalId =  
+					aline.RExpec.EValue.Command.LinkedInfo.PersonalId;
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+			}
+			case 'intseqn' {
+				aline.ActiveCommand.LinkedInfo.PersonalId.PersonalRef = 
+					aline.RExpec.EValue.Command.LinkedInfo.IntSeqn.IntegerString;
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseAskPersonalId';
+			}
+		}
+	} else {
+		cond {
+			(aline.RExpec.EValue.Denial.Refuse == 'on') {
+				aline.AExpec = (TField:'personalid'|'intseqn'|'yes-no');
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'phaseSeekPersonalId-correct';
+
+			}
+			(aline.RExpec.EValue.Assert.Agree == 'on') {
+				LOutput loutput = (LMode:'error',TField:'phasePersonalIdError');
+				loutput.IContext = aline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				aline.ControlTask.PhaseControlSearchPointsPoint = 'fail';
+
+			}
+			default {
+				LOutput loutput = (LMode:'error',TField:'phaseInformPersonalIdInvalid');
+				loutput.IContext = aline;
+				BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+				aline.AExpec = (TField:'personalid'|'intseqn'|'yes-no');
+
+
+			}
+		}
+	}
+	Erase(aline.RExpec);
+
+	return aline;
+}
+
+MindTaskItem	ErrorUserIncoherence(MindTaskItem aline)
+{
+	LOutput loutput = (LMode:'error',TField:'phasePersonalIdError');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	aline.ControlTask.PhaseControlSearchPointsPoint = 'fail';
+
+
+	return aline;
+}
+
+MindTaskItem	InformPoint(MindTaskItem aline)
+{
+	LOutput loutput = (LMode:'inform',TField:'point');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	aline.ControlTask.PhaseControlSearchPointsPoint = 'close';
+
+
+	return aline;
+}

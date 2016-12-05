@@ -1,0 +1,29 @@
+/*******************************
+ ** Scribo / Out
+ *******************************/
+
+/*
+(ScriboScheme NLG_Out_Reserv: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'out',TField:'reserv')
+    }
+
+    ScriboAction {
+	SetMainAnswerTextRandom(
+		"Disculpe, pero actualmente desde este sistema no le podemos hacer reservas. No obstante, sí le podemos dar información acerca de horarios, precios y disponibilidad de vuelos.",
+		"Este sistema no permite realizar reservas en línea. Sí que podemos ofrecerle información sobre los vuelos que operamos, tanto disponibilidad como precios y horarios.");
+    }
+)
+
+(ScriboScheme NLG_Out_Reserv: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'out',TField:'buy')
+    }
+
+    ScriboAction {
+	SetMainAnswerTextRandom(
+		"Disculpe, pero actualmente desde este sistema no puede hacer compras de billetes. No obstante, sí le podemos dar información acerca de horarios, precios y disponibilidad de vuelos.",
+		"Este sistema no permite realizar compras en línea. Sí que podemos ofrecerle información sobre los vuelos que operamos, tanto disponibilidad como precios y horarios.");
+    }
+)
+*/

@@ -1,0 +1,13 @@
+/*******************************
+ ** Scribo / Functions
+ *******************************/
+
+string scopeName(string scopeDescriptor);
+string scopeGender(string scopeDescriptor);
+
+string locationName(string locationRef);
+
+string scopeDescription(Command command);
+
+string purposeName(string purposeDescriptor, string gender);
+string purposeDescription(Command command);

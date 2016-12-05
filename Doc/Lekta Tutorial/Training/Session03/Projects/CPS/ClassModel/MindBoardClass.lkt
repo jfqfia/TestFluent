@@ -1,0 +1,86 @@
+/*******************************
+ ** MindBoard
+ *******************************/
+
+	// -> MindBoard / Setup
+	classDef:ElementRange 
+		( ModalSetup: {
+			'phone',
+			'web'
+		} )
+
+	classDef:ElementRange
+		( SpeakerName: {
+			'Ana',
+			'Pablo' } )
+
+	classDef:ElementRange 
+		( ActionSetup,ActionFrom: {
+			'start',
+			'run',
+			'cont',
+			'new',
+			'next',
+			'close',
+			'stop',
+			'transfer_try',
+			'transfer_exec'
+		} )
+
+	classDef:StructureComplex
+		( LangExDialStart : (
+			ActionSetup
+		) )
+
+	classDef:ElementRange 
+		( ActionTimeOut: {
+			'recall',
+			'warning',
+			'finish',
+			'kill'
+		} )
+
+	classDef:StructureComplex
+		( LangExDialTimeOut : (
+			ActionTimeOut
+		) )
+
+	classDef:ElementRange
+		( ActionHangUp: {
+			'hangup'
+		} )
+
+	classDef:StructureComplex
+		( LangExDialHangUp : (
+			ActionHangUp
+		) )
+
+	classDef:ElementRange
+		( ActionBadInput: {
+			'nfw_threshold'
+		} )
+
+	classDef:StructureComplex
+		( LangExDialBadInput : (
+			ActionBadInput
+		) )
+
+	classDef:ElementInt
+		( ActionProc )
+
+	classDef:ElementInt
+		( CurrentHomeLink )
+
+	classDef:StructureComplex 
+		( ST: (
+			ModalSetup,
+			SpeakerName,
+			ActionProc,
+			ActionFrom,
+			ActionSetup,
+			ActionTimeOut,
+			ActionHangUp,
+			ActionBadInput,
+			CurrentHomeLink
+		) )
+

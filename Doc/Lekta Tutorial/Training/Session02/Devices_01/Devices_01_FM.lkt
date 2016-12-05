@@ -1,0 +1,48 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_01_FM.lkt
+ ***************************************************************************/
+
+      // AUXILIAR
+      classDef:ElementInt	(integer)
+      classDef:ElementLiteral	(string)
+
+      // INPUT
+      classDef:ElementRange	(DeviceId: 
+			{ 'alarm', 'heating', 'irrigation' } )
+
+      classDef:ElementRange	(OperationId: 
+			{ 'activate', 'deactivate' } )
+
+      classDef:ElementRange	(CommandId: 
+			{ 'help', 'back', 'exit' } )
+
+      classDef:StructureComplex	(Device: (DeviceId) )
+      classDef:StructureComplex	(Operation: (OperationId) )
+      classDef:StructureComplex	(Command: (CommandId) )
+
+      // OUTPUT
+      classDef:ElementRange 	(AnswerCommand: 
+			{ 'interactivate', 'mensaje', 'outcome' })
+
+      classDef:ElementRange 	(AnswerClass: 
+			{ 'welcome', 'goodbye',
+			  'askDevice', 'askHelp', 
+			  'askOperationAlarm', 'askOperationHeating', 'askOperationIrrigation', 
+			  'informAlarmOn', 'informAlarmOff', 'helpAlarm', 
+			  'informHeatingOn', 'informHeatingOff', 'helpHeating',
+			  'informIrrigationOn', 'informIrrigationOff', 'helpIrrigation' })
+
+      classDef:StructureComplex 	(OutputItem: (AnswerCommand, AnswerClass) )
+
+      classDef:StructureBatch 	(OutputBatch: (OutputItem) )
+
+      classDef:StructureComplex 	(OutputModel: (OutputBatch) )
+
+      // MEMORY
+      classDef:StructureComplex	(InputModel: (Device, Operation, Command) )
+
+      classDef:ElementRange	(Position: { 'start', 'quit',
+			'askDevice', 'askHelp',
+			'askOperationAlarm', 'askOperationHeating', 'askOperationIrrigation' } )
+
+      classDef:StructureComplex	(Control: (Position) )

@@ -1,0 +1,126 @@
+/*******************************
+ ** Verify / Coherence
+ *******************************/
+
+integer	AnalyzeOperPurposeActScopeCoherence(OperPurposeDescriptor operPurpose,
+		ActScopeDescriptor actScope) 
+{
+	switch (operPurpose) {
+		case 'activate' {
+			switch (actScope) {
+				case 'light' 		return 1;
+				case 'alarm' 		return 1;
+				case 'heating' 		return 1;
+				case 'irrigation' 	return 1;
+			}
+		}
+		case 'deactivate' {
+			switch (actScope) {
+				case 'light' 		return 1;
+				case 'alarm' 		return 1;
+				case 'heating' 		return 1;
+				case 'irrigation' 	return 1;
+			}
+		}
+		case 'open' {
+			switch (actScope) {
+				case 'window' 		return 1;
+				case 'door' 		return 1;
+			}
+		}
+		case 'close' {
+			switch (actScope) {
+				case 'window' 		return 1;
+				case 'door' 		return 1;
+			}
+		}
+		case 'consult' {
+			return 1;
+		}
+		case 'modify' {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeOperPurposeLinkedInfoCoherence(OperPurposeDescriptor operPurpose,
+		LinkedInfoDescriptor linkedInfo) 
+{
+	switch (operPurpose) {
+		case 'activate' {
+			switch (linkedInfo) {
+				case 'location' 	return 1;
+				case 'temperature' 	return 1;
+			}
+		}
+		case 'deactivate' {
+			switch (linkedInfo) {
+				case 'location' 	return 1;
+				case 'temperature' 	return 1;
+			}
+		}
+		case 'open' {
+			switch (linkedInfo) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'close' {
+			switch (linkedInfo) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'consult' {
+			switch (linkedInfo) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'modify' {
+			switch (linkedInfo) {
+				case 'location' 	return 1;
+				case 'temperature' 	return 1;
+			}
+		}
+	}
+
+	return 0;
+}
+
+integer	AnalyzeActScopeLinkedInfoCoherence(ActScopeDescriptor actScope,
+		LinkedInfoDescriptor linkedInfoDescriptor) 
+{
+	switch (actScope) {
+		case 'window' {
+			switch (linkedInfoDescriptor) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'door' {
+			switch (linkedInfoDescriptor) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'light' {
+			switch (linkedInfoDescriptor) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'alarm' {
+			switch (linkedInfoDescriptor) {
+				case 'location' 	return 1;
+			}
+		}
+		case 'heating' {
+			switch (linkedInfoDescriptor) {
+				case 'location' 	return 1;
+				case 'temperature' 	return 1;
+			}
+		}
+		case 'irrigation' {
+			return 0;
+		}
+	}
+
+	return 0;
+}

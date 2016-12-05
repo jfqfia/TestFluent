@@ -1,0 +1,63 @@
+/*******************************
+ ** Senso / Conversation / Functions
+ *******************************/
+
+integer	RaiseDenial(Denial neg) 
+{
+	//SpyMessage("=> RaiseDenial / Input:");
+	//SpyMessage(neg);
+
+	switch ($MINDBOARD@Setup.ActionSetup) {
+		case 'cont' {
+			$MINDBOARD@Setup.ActionSetup <- 'stop';
+		}
+		case 'close' {
+			$MINDBOARD@Setup.ActionSetup <- 'run';
+			$MINDBOARD@Setup.ActionFrom <- 'close';
+		}
+		case 'transfer_try' {
+			$MINDBOARD@Setup.ActionSetup <- 'run';
+			$MINDBOARD@Setup.ActionFrom <- 'close';
+		}
+		default {
+			integer cupn;
+			cupn <- DialogueInteractionCounter();
+			$MINDBOARD@fOpen.ReceivedCommand.Conversation.Refuse <- neg.Refuse;
+			$MINDBOARD@fOpen.RProf  <- cupn;
+		}
+	}
+	
+	//SpyMessage("=> RaiseDenial / Output:");
+	//SpyMessage($MINDBOARD@fOpen);
+
+	return 1;
+}
+
+integer	RaiseAssert(Assert aff) 
+{
+	//SpyMessage("=> RaiseAssert / Input:");
+	//SpyMessage(aff);
+
+	switch ($MINDBOARD@Setup.ActionSetup) {
+		case 'cont' {
+			$MINDBOARD@Setup.ActionSetup <- 'new';
+		}
+		case 'close' {
+			$MINDBOARD@Setup.ActionSetup <- 'stop';
+		}
+		case 'transfer_try' {
+			$MINDBOARD@Setup.ActionSetup <- 'transfer_exec';
+		}
+		default {
+			integer cupn;
+			cupn <- DialogueInteractionCounter();
+			$MINDBOARD@fOpen.ReceivedCommand.Conversation.Verify <- aff.Verify;
+			$MINDBOARD@fOpen.RProf  <- cupn;
+		}
+	}
+	
+	//SpyMessage("=> RaiseDenial / Output:");
+	//SpyMessage($MINDBOARD@fOpen);
+
+	return 1;
+}

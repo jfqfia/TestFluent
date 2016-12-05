@@ -1,0 +1,303 @@
+/*******************************
+ ** Senso / Functions
+ *******************************/
+
+integer	RaiseOperPurpose(Command linput) 
+{
+
+	//SpyMessage("=> RaiseOperPurpose / Input:");
+	//SpyMessage(linput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	if (!!($MINDBOARD@Open.MindTaskList)) {
+		addOpenActionModel(linput);
+	} else {
+		MindTaskItem aline;
+		integer npos,nlen,found;
+		nlen = BatchSize($MINDBOARD@Open.MindTaskList);
+		found = 0;
+		npos = 1;
+		while ((!!found) && (npos <= nlen)) {
+			BatchRecoverPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+			if (aline.ActiveCommand.OperPurpose =:= linput.OperPurpose) {
+				fusionOpenActionModel(aline,linput,npos);
+				found = 1;
+			} else {
+				npos = npos + 1;
+			}
+		}
+		if (!!found) {
+			addOpenActionModel(linput);
+		}
+	}
+
+	//SpyMessage("=> RaiseOperPurpose / Output:");
+	//SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	RaiseActScope(Command linput) 
+{
+//	SpyMessage("=> RaiseActScope / Input:");
+//	SpyMessage(linput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+
+	if (!!($MINDBOARD@Open.MindTaskList)) {
+		addOpenActionModel(linput);
+	} else {
+		MindTaskItem aline;
+		integer npos,nlen,found;
+		nlen = BatchSize($MINDBOARD@Open.MindTaskList);
+		found = 0;
+		npos = 1;
+		while ((!!found) && (npos <= nlen)) {
+			BatchRecoverPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+			if (aline.ActiveCommand.ActScope) {
+				fusionOpenActionModel(aline,linput,npos);
+				found = 1;
+			} else {
+				if (AnalyzeOperPurposeActScopeCoherence(aline.ActiveCommand.OperPurpose.OperPurposeDescriptor,
+						linput.ActScope.ActScopeDescriptor)) {
+					fusionOpenActionModel(aline,linput,npos);
+					found = 1;
+				} else {
+					npos = npos + 1;
+				}
+			}
+		}
+		if (!!found) {
+			addOpenActionModel(linput);
+		}
+	}
+
+//	SpyMessage("=> RaiseActScope / Output:");
+//	SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	RaiseLinkedInfo(Command linput) 
+{
+	//SpyMessage("=> RaiseLinkedInfo / Input:");
+	//SpyMessage(linput);
+
+	$MINDBOARD@Setup.ActionSetup = 'run';
+	integer cupn;
+	cupn = DialogueInteractionCounter();
+
+	if (!!($MINDBOARD@Open.MindTaskList)) {
+		addMindTaskPendingModel(linput);
+	} else {
+		MindTaskItem aline;
+		integer npos,nlen,found,check;
+		nlen = BatchSize($MINDBOARD@Open.MindTaskList);
+		found = 0;
+		check = 0;
+		npos = 1;
+		while ((!!found) && (npos <= nlen)) {
+			BatchRecoverPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+
+			if ((aline.AExpec.TField) &&
+					(VerifyExpectationCoherence(aline.AExpec.TField,
+							linput.LinkedInfo) == 1)) {
+				aline.AExpec.EValue.Command = linput;
+				aline.ProferenceNumberControl = cupn;
+				BatchAssignPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+				found = 1;
+			} else {
+				npos = npos + 1;
+			}
+		}
+
+		npos = 1;
+		while ((!!found) && (npos <= nlen)) {
+			BatchRecoverPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+
+			if (aline.ActiveCommand.OperPurpose) {
+				if (AnalyzeOperPurposeLinkedInfoCoherence(
+						aline.ActiveCommand.OperPurpose.OperPurposeDescriptor,
+						linput.LinkedInfo.LinkedInfoDescriptor)) {
+					if (aline.ActiveCommand.ActScope) {
+						if (AnalyzeActScopeLinkedInfoCoherence(
+								aline.ActiveCommand.ActScope.ActScopeDescriptor,
+								linput.LinkedInfo)) {
+							check = 1;
+						}
+					} else {
+						check = 1;
+					}
+				}
+			} else {
+				if (aline.ActiveCommand.ActScope) {
+					if (AnalyzeActScopeLinkedInfoCoherence(
+							aline.ActiveCommand.ActScope.ActScopeDescriptor,
+							linput.LinkedInfo)) {
+						check = 1;
+					}
+				}
+			}
+
+			if (check == 1) {
+				fusionOpenActionModel(aline,linput,npos);
+				found = 1;
+			} else {
+				npos = npos + 1;
+			}
+		}
+		if (!!found) {
+			addMindTaskPendingModel(linput);
+		}
+	}
+
+	//SpyMessage("=> RaiseLinkedInfo / Output:");
+	//SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	RaiseDenial(Denial neg) 
+{
+	//SpyMessage("=> RaiseDenial / Input:");
+	//SpyMessage(linput);
+	integer cupn;
+	cupn = DialogueInteractionCounter();
+
+	switch ($MINDBOARD@Setup.ActionSetup) {
+		case 'cont' {
+			$MINDBOARD@Setup.ActionSetup = 'stop';
+		}
+		case 'close' {
+			$MINDBOARD@Setup.ActionSetup = 'run';
+			$MINDBOARD@Setup.ActionFrom = 'close';
+		}
+		default {
+			MindTaskItem aline;
+			integer npos,nlen,found,check;
+			nlen = BatchSize($MINDBOARD@Open.MindTaskList);
+			found = 0;
+			check = 0;
+			npos = 1;
+			while ((!!found) && (npos <= nlen)) {
+				BatchRecoverPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+				if (aline.AExpec.TField =:= 'yes-no') {
+					aline.AExpec.EValue.Denial = neg;
+					aline.ProferenceNumberControl = cupn;
+					BatchAssignPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+					found = 1;
+				}
+		
+				if (!!found) {
+					npos = npos + 1;
+				}
+			}
+		}
+	}
+	
+	//SpyMessage("=> RaiseDenial / Output:");
+	//SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	RaiseAssert(Assert aff) 
+{
+	//SpyMessage("=> RaiseAssert / Input:");
+	//SpyMessage(aff);
+	integer cupn;
+	cupn = DialogueInteractionCounter();
+
+	switch ($MINDBOARD@Setup.ActionSetup) {
+		case 'cont' {
+			$MINDBOARD@Setup.ActionSetup = 'new';
+		}
+		case 'close' {
+			$MINDBOARD@Setup.ActionSetup = 'stop';
+		}
+		default {
+			MindTaskItem aline;
+			integer npos,nlen,found,check;
+			nlen = BatchSize($MINDBOARD@Open.MindTaskList);
+			found = 0;
+			check = 0;
+			npos = 1;
+			while ((!!found) && (npos <= nlen)) {
+				BatchRecoverPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+				if (aline.AExpec.TField =:= 'yes-no') {
+					aline.AExpec.EValue.Assert = aff;
+					aline.ProferenceNumberControl = cupn;
+					BatchAssignPosition($MINDBOARD@Open.MindTaskList,npos,aline);
+					found = 1;
+				}
+		
+				if (!!found) {
+					npos = npos + 1;
+				}
+			}
+		}
+	}
+	
+	//SpyMessage("=> RaiseAssert / Output:");
+	//SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	RaiseInteraction(Interaction relation)
+{
+	//SpyMessage("=> RaiseInteraction / Input:");
+	//SpyMessage(relation);
+
+	cond {
+		(relation.InterFarewell == 'on') {
+			switch ($MINDBOARD@Setup.ActionSetup) {
+				case 'cont' {
+					$MINDBOARD@Setup.ActionSetup = 'stop';
+				}
+				case 'close' {
+					$MINDBOARD@Setup.ActionSetup = 'stop';
+				}
+				case 'run' {
+					$MINDBOARD@Setup.ActionSetup = 'close';
+				}
+				default {
+					$MINDBOARD@Setup.ActionSetup = 'close';
+				}
+			}
+		}
+		(relation.InterThanks == 'on') {
+			switch ($MINDBOARD@Setup.ActionSetup) {
+				case 'cont' {
+					$MINDBOARD@Setup.ActionSetup = 'close';
+				}
+				case 'close' {
+					$MINDBOARD@Setup.ActionSetup = 'stop';
+				}
+				case 'run' {
+					$MINDBOARD@Setup.ActionSetup = 'close';
+				}
+				default {
+					$MINDBOARD@Setup.ActionSetup = 'run';
+				}
+			}
+		}
+		(relation.InterPlease == 'on') {
+			switch ($MINDBOARD@Setup.ActionSetup) {
+				case 'close' {
+					$MINDBOARD@Setup.ActionSetup = 'stop';
+				}
+			}
+		}
+		default {
+			$MINDBOARD@Interaction <OW< relation;
+			$MINDBOARD@Setup.ActionSetup = 'run';
+		}
+	}
+
+	//SpyMessage("=> RaiseInteraction / Output:");
+	//SpyMessage($MINDBOARD@Interaction);
+
+	return 1;
+}

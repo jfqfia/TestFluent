@@ -1,0 +1,18 @@
+/*******************************
+ ** OperPurpose
+ *******************************/
+
+/*************************/
+/** OperPurpose		**/
+/*************************/
+(RstrAuxIWant1 : 
+		[ strAuxIWant -> lexAuxPronoun? lexAuxIWant lexAuxWhat? ] )
+
+(ROperPurpose1 : 
+	[ OperPurpose -> strAuxIWant? OperPurposeVerb] 
+		{ ^ <- #2; } )
+
+(ROperPurposeVerb1 : 
+	[ OperPurposeVerb -> lexAuxPartFor? lexOperPurposeVerb ]
+		{ ^ <- #2; } )
+

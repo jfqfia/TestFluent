@@ -1,0 +1,5 @@
+/*******************************
+ ** Scribo / Patient / Heads
+ *******************************/
+
+string	GeneratePatientRef(TaskLine tcontext);

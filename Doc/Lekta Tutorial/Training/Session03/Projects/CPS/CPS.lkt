@@ -1,0 +1,389 @@
+/***************************************************************************
+ *      $$$      $$$$$$$  $$$ $$$  $$$$$$$  $$$$$$$     pLekta Version P   *
+ *     $$$      $$$      $$$$$$$    $$$    $$   $$           J F Quesada   *
+ *    $$$      $$$$$$   $$$        $$$    $$$$$$$            PLEKTA:2013   *
+ *   $$$      $$$      $$$$$      $$$    $$   $$                           *
+ *  $$$$$$$  $$$$$$$  $$$ $$$    $$$    $$   $$                            *
+ *                                                   J F Quesada 2004/05/06*
+ ***************************************************************************
+ *                                                                         *
+ *                             G E N U S                                   *
+ *                                                                         *
+ ***************************************************************************
+ * Sistema:		pLekta v1 / 2004/05/06
+ *     Proyecto:	CPS (Contactel/CPS)
+ *         Fichero:	CPS.lkt
+ ***************************************************************************/
+
+lektaProject
+
+        projectHead
+                projectDescriptor		= "CPS"
+                projectVersion		= "0.1"
+                projectDescriptor	= "Saude"
+                projectOperationScope		= 1 / "Atención a clientes"
+                projectOperationScope		= 2 / "Empleados"
+                projectLanguageScope		= 1 / "Español"
+                projectLanguageScope		= 2 / "Inglés"
+                projectLanguageScope		= 3 / "Francés"
+		projectInteractionScope	= 1 / "Diálogo" 
+								/ SpokenLangExDial
+		projectInteractionScope	= 2 / "Diálogo+Enlaces" 
+								/ SpokenLangExDial&LINK
+        Close:LangExDial_Project_Head
+
+/************************
+ ***  SETUP
+ ************************/
+	Open:LangExDial_Project_Setup
+		TokenizerAlgorithm:TOKSPACE
+		TokenizerLoadMode:Memory
+		setupTokenizerNormalizeSpecDouble // Off - Reduce
+		TokenizerStrategy:Link
+		TokenizerPeriodDaySectionMode:LongTokens
+		SetupTokenizerSpellingVerifyer
+		setupTokenizerNormalizeInputActivate
+		ParserAlgorithm:ADP
+		ParserContextReferee:On
+		ParserGrammaticalScore:Mode:Off
+		ParserGrammaticalScore:Function:Mean
+		//setupParserTokenNotFounds = 
+		//setupParserIgnorePOS = lexAuxEmpty
+		setupParserRoots = 
+				Interaction,
+				Conversation,
+				OperPurpose,
+				ActScope,
+				LinkedInfo
+
+		RootSelectorAlgorithm:DENSE
+		UnifierRandomFunction:On
+
+		// Modo ASR
+		
+		TokenizerFunctionMode:AsrBest =
+				(AsrBestSep: '|', AsrBestLength: 3, AsrBestThreshold: 100)
+		
+		ParserGrammaticalScore:Mode:On
+		ParserGrammaticalScore:Function:Min
+		ParserGrammaticalScore:MaxInterRhsRefuse = 1
+		ParserGrammaticalScore:RefuseThreshold = 200
+		UnifierGenusnticScore:Mode:On
+
+		setupRuntimeSpyMessageOff
+                UnifierDoubleAsrFusion:AfterNLU
+                //UnifierDoubleAsrFusion:AfterCOLLIGO
+                UnifierDoubleAsrFusion:OnConflict:Devoid
+                UnifierDoubleAsrFusion:OnConflict:SelectGram
+                //UnifierDoubleAsrFusion:OnConflict:SelectStat
+                //UnifierDoubleAsrFusion:OnConflict:SelectGramStat
+                //UnifierDoubleAsrFusion:OnConflict:SelectStatGram
+                UnifierDoubleAsrFusion:OnConflict:GramThreshold = 500
+                UnifierDoubleAsrFusion:OnConflict:StatThreshold = 500
+	Close:LangExDial_Project_Setup
+
+/************************
+ ***  CLASSMODEL MODEL
+ ************************/
+
+	classModel
+		// Auxiliar
+		#Include "ClassModel/AuxiliarClass.lkt"
+
+		// Intentional Goal
+		#Include "ClassModel/OperPurposeClass.lkt"
+
+		// Conceptual Domain
+		#Include "ClassModel/ActScopeClass.lkt"
+
+		// Referential Data
+		#Include "ClassModel/LinkedInfoClass.lkt"
+		#Include "ClassModel/GlobalDateClass.lkt"
+		#Include "ClassModel/NumberClass.lkt"
+		#Include "ClassModel/PersonClass.lkt"
+		#Include "ClassModel/ServiceClass.lkt"
+		#Include "ClassModel/UserIdClass.lkt"
+
+		// Working Task
+		#Include "ClassModel/ProcessControlClass.lkt"
+
+		// Back Office
+		#Include "ClassModel/BackDataClass.lkt"
+
+		// Locutive Input
+		#Include "ClassModel/CommandClass.lkt"
+		// Action Scheme
+		#Include "ClassModel/MindTaskListClass.lkt"
+		// Output Scheme
+		#Include "ClassModel/OSchemeClass.lkt"
+
+		//////////////////////////
+		#Include "ClassModel/InteractionClass.lkt"
+		#Include "ClassModel/ConversationClass.lkt"
+		#Include "ClassModel/MindBoardClass.lkt"
+
+	Close:Class_Model_Specification
+
+/************************
+ ***  LEXICON
+ ************************/
+
+	lexicalModel [1]
+		// Auxiliar
+		#Include "UnderstandingModel/AuxiliarLex.lkt"
+
+		// Intentional Goal
+		#Include "UnderstandingModel/OperPurposeLex.lkt"
+
+		// Conceptual Domain
+		#Include "UnderstandingModel/ActScopeLex.lkt"
+
+		// Referential Data
+		#Include "UnderstandingModel/GlobalDateLex.lkt"
+		#Include "UnderstandingModel/NumberLex.lkt"
+		#Include "UnderstandingModel/PersonLex.lkt"
+		#Include "UnderstandingModel/ServiceLex.lkt"
+		#Include "UnderstandingModel/UserIdLex.lkt"
+
+		/////////////////////////////////
+		#Include "UnderstandingModel/InteractionLex.lkt"
+		#Include "UnderstandingModel/InteractionEndLex.lkt"
+		#Include "UnderstandingModel/ConversationLex.lkt"
+
+	Close:Lexical_Object_Specification
+
+/************************
+ ***  NONTERMINALS
+ ************************/
+
+/************************
+ ***  GRAMMAR
+ ************************/
+
+	grammaticalModel [1]
+		// Intentional Goal
+		#Include "UnderstandingModel/OperPurposeGram.lkt"
+
+		// Conceptual Domain
+		#Include "UnderstandingModel/ActScopeGram.lkt"
+
+		// Referential Data
+		#Include "UnderstandingModel/LinkedInfoGram.lkt"
+		#Include "UnderstandingModel/GlobalDateGram.lkt"
+		#Include "UnderstandingModel/NumberGram.lkt"
+		#Include "UnderstandingModel/PersonGram.lkt"
+		#Include "UnderstandingModel/ServiceGram.lkt"
+		#Include "UnderstandingModel/UserIdGram.lkt"
+
+		/////////////////////////////////
+		#Include "UnderstandingModel/StartGram.lkt"
+		#Include "UnderstandingModel/ConversationGram.lkt"
+		#Include "UnderstandingModel/InteractionGram.lkt"
+		#Include "UnderstandingModel/InteractionEndGram.lkt"
+		#Include "UnderstandingModel/BirthGlobalDateGram.lkt"
+
+	Close:Grammar_Rules_Specification
+
+/************************
+ ***  ASR LINK
+ ************************/
+
+/*
+	Open:Asr_Link_Specification
+      		Asr_Link_Format: ASR_FORMAT_SRGS_ABNF
+		Asr_Link_Scribo_Path: "./ASR-Model/loquendo"
+
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: Start
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (Start)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: PersonalIdentity
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (PersonalIdentityDenialASR)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: Number
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (Number)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: GlobalDate
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (GlobalDateDenialASR)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: Person
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (PersonDenialASR)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: Service
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (ServiceDenial)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: Conversation
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (ConversationList)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: BirthGlobalDate
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (BirthGlobalDateDenial)
+		}
+		Asr_Link_Model {
+        		Asr_Link_Model_Language: 1
+			Asr_Link_Model_Name: InteractionEnd
+			Asr_Link_Model_Language_KeyWord: "es-es"
+			Asr_Link_Model_Select_Symbol: (InteractionEnd)
+		}
+	Close:Asr_Link_Specification
+*/
+
+/************************
+ ***  LANGEXDIAL
+ ************************/
+	functionModel
+		#Include "DialogueModel/Specific-GlobalFHead.lkt"
+		#Include "DialogueModel/Specific-GlobalDateFHead.lkt"
+		#Include "DialogueModel/Specific-NumberFHead.lkt"
+		#Include "DialogueModel/Specific-PersonFHead.lkt"
+		#Include "DialogueModel/Specific-ServiceFHead.lkt"
+		#Include "DialogueModel/Specific-UserIdFHead.lkt"
+		#Include "DialogueModel/Verify-ModelFHead.lkt"
+		#Include "DialogueModel/SensoFHead.lkt"
+		#Include "DialogueModel/CogitoFHead.lkt"
+		#Include "DialogueModel/WebServiceBackOffice.lkt"
+		#Include "DialogueModel/Verify-ICR-Coherence.lkt"
+	Close:Function_Specification
+
+	Open:LangExDial_Model_Specification
+
+		#Include "DialogueModel/MindBoardDialogue.lkt"
+
+		Open:ControlStrategies
+		#Include "DialogueModel/ControlDialogue.lkt"
+		Close:ControlStrategies
+
+		ColligoSchemata
+		#Include "DialogueModel/ColligoDialogue.lkt"
+		Close:ColligoSchemata
+
+		SensoSchemata
+		#Include "DialogueModel/SensoDialogue.lkt"
+		Close:SensoSchemata
+
+		CogitoSchemata
+		#Include "DialogueModel/CogitoDialogue.lkt"
+		Close:CogitoSchemata
+
+		RespondoSchemata
+		#Include "DialogueModel/RespondoDialogue.lkt"
+		Close:RespondoSchemata
+
+	Close:LangExDial_Model_Specification
+
+	functionModel
+		#Include "DialogueModel/Specific-GlobalFBody.lkt"
+		#Include "DialogueModel/Specific-GlobalDateFBody.lkt"
+		#Include "DialogueModel/Specific-NumberFBody.lkt"
+		#Include "DialogueModel/Specific-PersonFBody.lkt"
+		#Include "DialogueModel/Specific-ServiceFBody.lkt"
+		#Include "DialogueModel/Specific-UserIdFBody.lkt"
+
+		#Include "DialogueModel/Verify-ModelFBody.lkt"
+
+		#Include "DialogueModel/Senso-ICRFBody.lkt"
+		#Include "DialogueModel/Senso-CRFBody.lkt"
+		#Include "DialogueModel/Senso-RFBody.lkt"
+		#Include "DialogueModel/Senso-IDenialFBody.lkt"
+		#Include "DialogueModel/Senso-ConversationFBody.lkt"
+		#Include "DialogueModel/Senso-InteractionFBody.lkt"
+		#Include "DialogueModel/Senso-AuxFBody.lkt"
+
+		#Include "DialogueModel/CogitoFBody.lkt"
+		#Include "DialogueModel/GTaskFBody.lkt"
+		#Include "DialogueModel/LinkScribo.lkt"
+
+/************************
+ ***  SCRIBO
+ ************************/
+
+		#Include "GenerationModel/Scribo-AppointFHead.lkt"
+		#Include "GenerationModel/Scribo-GlobalDateFHead.lkt"
+		#Include "GenerationModel/Scribo-PersonalIdFHead.lkt"
+		#Include "GenerationModel/Scribo-PatientFHead.lkt"
+		#Include "GenerationModel/Scribo-PersonFHead.lkt"
+		#Include "GenerationModel/Scribo-ServiceFHead.lkt"
+		#Include "GenerationModel/Scribo-VerifyFHead.lkt"
+	Close:Function_Specification
+
+	ScriboSchemata [1]
+		ScriboSchemata
+		#Include "GenerationModel/Strategies-Verify.lkt"
+		#Include "GenerationModel/Strategies-GlobalDate.lkt"
+		#Include "GenerationModel/Strategies-Person.lkt"
+		#Include "GenerationModel/Strategies-UserId.lkt"
+		#Include "GenerationModel/Strategies-Appoint.lkt"
+
+		#Include "GenerationModel/Out-Scribo.lkt"
+		#Include "GenerationModel/Verify-Scribo.lkt"
+		#Include "GenerationModel/Inform-Scribo.lkt"
+		#Include "GenerationModel/Interaction-Scribo.lkt"
+		#Include "GenerationModel/Error-Scribo.lkt"
+		Close:ScriboSchemata
+	Close:Generator_Specification
+
+	functionModel
+		#Include "GenerationModel/Scribo-AppointFBody.lkt"
+		#Include "GenerationModel/Scribo-GlobalDateFBody.lkt"
+		#Include "GenerationModel/Scribo-PersonalIdFBody.lkt"
+		#Include "GenerationModel/Scribo-PatientFBody.lkt"
+		#Include "GenerationModel/Scribo-PersonFBody.lkt"
+		#Include "GenerationModel/Scribo-ServiceFBody.lkt"
+		#Include "GenerationModel/Scribo-VerifyFBody.lkt"
+	Close:Function_Specification
+
+
+/************************
+ ***  ASSEMBLER
+ ************************/
+        Open:LangExDial_Project_Review
+                projectCompileOutput                = ".CPS.dialmem"
+                Compilation_Exec
+		//displaySyntacticSpecification
+		//displaySyntacticDefstartingion
+		//displaySyntacticRepresentation
+		//PrintLexiconGlobal("CPS.print.lexicon.global")
+		//PrintLexiconGlobalAsr("CPS.print.lexicon.global_asr")
+		//PrintLexiconGlobalTok("CPS.print.lexicon.global_tok")
+		//PrintLexiconGlobalAsrPhoneFormat("CPS.print.lexicon.global_phone")
+		//PrintLexiconByCats("CPS.print.lexicon.bycats")
+		//PrintLexiconByCatsAsr("CPS.print.lexicon.bycats_asr")
+		//PrintLexiconByCatsTok("CPS.print.lexicon.bycats_tok")
+		//PrintLexiconByCatsAsrPhoneFormat("CPS.print.lexicon.bycats_phone")
+		//PrintLexiconSelectCatsName("CPS.print.lexicon.selectcats",
+		//		[lexAuxWhat,opMenos])
+		//PrintLexiconSelectCatsNameAsr("CPS.print.lexicon.selectcats_asr",
+		//		[lexAuxWhat,opMenos])
+		//PrintLexiconSelectCatsNameTok("CPS.print.lexicon.selectcats_tok",
+		//		[lexAuxWhat,opMenos])
+		//PrintLexiconSelectCatsNameAsrPhoneFormat("CPS.print.lexicon.selectcats_phone",
+		//		[lexAuxWhat,opMenos])
+
+
+        Close:LangExDial_Project_Review
+
+
+
+End:pLekta_LangExDial_Specifier

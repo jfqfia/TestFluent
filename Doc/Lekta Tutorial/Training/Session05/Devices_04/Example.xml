@@ -1,0 +1,11 @@
+info#<Task>
+     <profNumber>    <DISJ> 1 </DISJ> </profNumber>
+     <ActiveCommand>
+                  <OperPurpose>
+                             <OperPurposeDescriptor> <DISJ> activate </DISJ> </OperPurposeDescriptor>
+                  </OperPurpose>
+                  <ActScope>
+                          <ActScopeDescriptor> <DISJ> irrigation </DISJ> </ActScopeDescriptor>
+                  </ActScope>
+     </ActiveCommand>
+</Task>

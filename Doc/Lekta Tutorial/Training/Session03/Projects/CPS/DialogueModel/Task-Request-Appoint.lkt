@@ -1,0 +1,258 @@
+/*******************************
+ ** Task / Request Appoint
+ *******************************/
+
+TaskLine	ExecuteTaskRequestAppoint(TaskLine tline_in)
+{
+	TaskLine tline_proc;
+	integer cycle;
+	WStep prev_wprotocol;
+
+	if (!!tline_in.WStep) {
+		tline_in.WStep <- 'look-person';
+	}
+
+	switch (tline_in.WStep) {
+		case 'ask-identity-personalid' {
+			tline_in.WStep <- 'look-identity-personalid';
+		}
+		case 'check-identity-personalid' {
+			tline_in.WStep <- 'look-identity-personalid';
+		}
+		case 'error-identity-personalid' {
+			tline_in.WStep <- 'look-identity-personalid';
+		}
+		case 'ask-date' {
+			tline_in.WStep <- 'look-date';
+		}
+		case 'error-date' {
+			tline_in.WStep <- 'look-date';
+		}
+	}
+
+	if (tline_in.ReceivedCommand.LinkedInfo.Person) {
+		tline_in.WStep <- 'look-person';
+	}
+
+	tline_proc <- tline_in;
+
+	tline_proc <- LookPerson(tline_proc);
+
+	cycle <- 1;
+	while (cycle == 1) {
+		prev_wprotocol <- tline_proc.WStep;
+		//SpyMessage("=> Protocol: ",tline_proc.WStep);
+		switch (tline_proc.WStep) {
+			case 'look-person' {
+				tline_proc <- LookPerson(tline_proc);
+				SetLangExDialStrategy(110);
+			}
+			case 'ask-person' {
+				tline_proc <- AskPerson(tline_proc);
+				SetLangExDialStrategy(120);
+			}
+			case 'check-person' {
+				tline_proc <- VerifyPerson(tline_proc);
+				SetLangExDialStrategy(130);
+			}
+			case 'look-identity-personalid' {
+				tline_proc <- LookIdentityPersonalId(tline_proc);
+				SetLangExDialStrategy(210);
+			}
+			case 'ask-identity-personalid' {
+				tline_proc <- AskIdentityPersonalId(tline_proc);
+				SetLangExDialStrategy(220);
+			}
+			case 'check-identity-personalid' {
+				tline_proc <- VerifyIdentityPersonalId(tline_proc);
+				SetLangExDialStrategy(230);
+			}
+			case 'error-identity-personalid' {
+				tline_proc <- ErrorIdentityPersonalId(tline_proc);
+				SetLangExDialStrategy(240);
+			}
+			case 'multiple-identity-personalid' {
+				tline_proc <- MultipleIdentityPersonalId(tline_proc);
+				//SetLangExDialStrategy(240);
+			}
+			case 'look-multiple-identity-personalid' {
+				tline_proc <- LookMultipleIdentityPersonalId(tline_proc);
+				//SetLangExDialStrategy(240);
+			}
+			case 'run-task' {
+				tline_proc <- ConsultAppoint(tline_proc);
+				SetLangExDialStrategy(510);
+			}
+			case 'inform-consult-appoint-ok' {
+				tline_proc <- InformConsultAppointOk(tline_proc);
+				tline_proc.WStep <- 'ask-new-appoint';
+				SetLangExDialStrategy(910);
+			}
+			case 'inform-consult-appoint-no' {
+				tline_proc.WStep <- 'look-date';
+				SetLangExDialStrategy(920);
+			}
+			case 'ask-new-appoint' {
+				tline_proc <- AskNewAppoint(tline_proc);
+			}
+			case 'look-date' {
+				tline_proc <- LookGlobalDate(tline_proc);
+			}
+			case 'ask-date' {
+				tline_proc <- AskGlobalDate(tline_proc);
+			}
+			case 'modify-date' {
+				tline_proc <- ModifyGlobalDate(tline_proc);
+			}
+			case 'error-date' {
+				tline_proc <- ErrorGlobalDate(tline_proc);
+			}
+			case 'check-date' {
+				tline_proc <- AnalyzeGlobalDate(tline_proc);
+			}
+			case 'run2-task' {
+				tline_proc.WStep <- 'request-appoint';
+			}
+			case 'request-appoint' {
+				tline_proc <- RequestAppoint(tline_proc);
+			}
+			case 'check-appoint' {
+				tline_proc <- VerifyAppoint(tline_proc);
+			}
+			case 'exec-appoint' {
+				tline_proc <- ExecAppoint(tline_proc);
+			}
+			case 'close' {
+				tline_proc.WStep <- 'done';
+			}
+			case 'fail' {
+				tline_proc.WStep <- 'fail';
+				cycle <- 0;
+			}
+		}
+		if (prev_wprotocol == tline_proc.WStep) {
+			cycle <- 0;
+		}
+	}
+	
+	return tline_proc;
+}
+
+TaskLine	RequestAppoint(TaskLine tline)
+{
+	AvailInfo	availinfo;
+	AvailData 	availdata;
+	AgrAppoint	agrappoint;
+	AgrSlot		agrslot;
+	Slot 		firstslot;
+
+	availinfo <- WS_AppointmentAvailabilityRequest(tline);
+
+	BatchRecoverPosition(availinfo.AvailSeq,1,availdata);
+	BatchRecoverPosition(availdata.SlotSeq,1,firstslot);
+
+	Erase(tline.WData.AgrAppoint);
+
+	agrslot.MindBoardAgrSlot 	<- firstslot;
+
+	agrslot.NumTopAgrSlot	<- 1;
+	agrslot.NumMindBoardAgrSlot	<- 1;
+	agrslot.NumBottomAgrSlot<- BatchSize(availdata.SlotSeq);
+
+	agrappoint.FirstAgrAppoint.AvailData 	<- availdata;
+	agrappoint.MindBoardAgrAppoint.AvailData 	<- availdata;
+	agrappoint.TopAgrAppoint.AvailData 	<- availdata;
+	agrappoint.MindBoardAgrAppoint.AgrSlot	<- agrslot;
+
+	tline.WData.AgrAppoint <- agrappoint;
+	tline.WData.AvailInfo <- availinfo;
+
+	LOutput loutput <- (LMode:'propose',TField:'appoint');
+	loutput.TContext <- tline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	SetActiveExpectation('GlobalDate');
+	SetActiveExpectation('Acknolwledge');
+
+	tline.WStep <- 'check-appoint';
+
+	return tline;
+}
+
+TaskLine	AskNewAppoint(TaskLine tline)
+{
+	cond {
+		(tline.ReceivedCommand.Conversation.Verify) {
+			tline.WStep <- 'look-date';
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			tline.WStep <- 'done';
+			Erase(tline.ReceivedCommand.Conversation.Refuse);
+		}
+		default {
+			LOutput loutput <- (LMode:'ask',TField:'new-appoint');
+			loutput.TContext <- tline;
+			BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	VerifyAppoint(TaskLine tline)
+{
+	cond {
+		(tline.ReceivedCommand.Conversation.Verify) {
+			tline.WStep <- 'exec-appoint';
+			Erase(tline.ReceivedCommand.Conversation.Verify);
+		}
+		(tline.ReceivedCommand.Conversation.Refuse) {
+			tline.WStep <- 'ask-date';
+			Erase(tline.ReceivedCommand.Conversation.Refuse);
+		}
+		(tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+			tline.WStep <- 'modify-date';
+		}
+	}
+
+	return tline;
+}
+
+TaskLine	ExecAppoint(TaskLine tline)
+{
+	integer	iexec;
+	MindBoardAgrAppoint mindboardagrappoint;
+	MindBoardAgrSlot    mindboardagrslot;
+
+	mindboardagrappoint <- tline.WData.AgrAppoint.MindBoardAgrAppoint;
+	mindboardagrslot    <- mindboardagrappoint.AgrSlot.MindBoardAgrSlot;
+
+	tline.WData.AppointData.AppointGlobalDate.AppointPeriodYear		<- mindboardagrappoint.AvailData.AvailGlobalDate.AbsPeriodYear;
+	tline.WData.AppointData.AppointGlobalDate.AppointPeriodMonth	<- mindboardagrappoint.AvailData.AvailGlobalDate.AbsPeriodMonth;
+	tline.WData.AppointData.AppointGlobalDate.AppointPeriodDay		<- mindboardagrappoint.AvailData.AvailGlobalDate.AbsPeriodDay;
+	tline.WData.AppointData.AppointGlobalDate.AppointPeriodHourInit	<- mindboardagrslot.SlotPeriodHourInit;
+	tline.WData.AppointData.AppointGlobalDate.AppointMinInit	<- mindboardagrslot.SlotMinInit;
+
+	tline.WData.AppointData.AppointDoctor			<- tline.WData.AvailInfo.AppointDoctor;
+
+	tline.WData.AppointData.AppointService			<- tline.WData.AvailInfo.AppointService;
+
+	iexec <- WS_SetAppointmentRequest(tline,
+				mindboardagrappoint.AvailData.AvailGlobalDate,
+				mindboardagrslot);
+
+	if (iexec == 1) {
+		LOutput loutput <- (LMode:'exec',TField:'exec-appoint-ok');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+		tline.WStep <- 'done';
+	} else {
+		LOutput loutput <- (LMode:'exec',TField:'exec-appoint-error');
+		loutput.TContext <- tline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+		tline.WStep <- 'ask-date';
+	}
+
+	return tline;
+}

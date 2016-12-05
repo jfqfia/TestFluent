@@ -1,0 +1,43 @@
+/*******************************
+ ** Expresiones numéricas
+ *******************************/
+
+	classDef:ElementInt 	( numInteger )
+	classDef:ElementReal 	( numReal )
+
+	classDef:ElementInt	( valNum )
+	classDef:ElementInt	( valOrd )
+	classDef:ElementInt	( valTer )
+	classDef:VectorLiteral	( valLst )
+	SetClass:List_Mode_Concat	( valLst )
+	classDef:ElementLiteral	( valStr )
+	classDef:StructureComplex	( Integer:	
+						(valNum,
+						 valLst,
+						 valStr,
+						 valOrd,
+						 valTer) )
+
+	classDef:Synonym	( IntegerTens, IntegerHundreds, IntegerThousands, IntegerMillions = Integer)
+
+	classDef:Synonym	( lexZero, lexNumber, lexNumberUnits, lexNumberTens, lexNumberHundreds, 
+				  lexNumberThousand, lexNumberMillion = Integer)
+
+	classDef:Synonym	( Number, NumberSeq, NumberDenial = Integer )
+
+	classDef:ElementReal		( RealValue )
+	classDef:StructureComplex	( Real:	
+						(RealValue) )
+
+	classDef:ElementInt	( lexOrdinal )
+	classDef:ElementInt	( OrdinalValue )
+	classDef:StructureComplex	( Ordinal:	
+						(OrdinalValue) )
+
+	classDef:ElementInt	( lexTerminal )
+	classDef:ElementInt	( TerminalValue )
+	classDef:StructureComplex	( Terminal:	
+						(TerminalValue) )
+
+	ParserGrammaticalScore:FocalCats = lexNumber, lexNumberThousand, lexNumberMillion, Integer, Real, lexOrdinal, Ordinal, lexTerminal, numInteger, Terminal, NumberSeq, Number
+	UnifierGenusnticScore:FocalCats = Number

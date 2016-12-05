@@ -1,0 +1,19 @@
+/*******************************
+ ** FlightType
+ *******************************/
+
+	classDef:Void	( lexFlightType )
+	classDef:ElementInt	( FlightTypeCode )
+
+	classDef:StructureComplex	( FlightTypeId :
+						( FlightTypeCode ))
+
+	classDef:ElementRange( FlightTypeWay: 
+					{'direct', 'one_way', 'round_trip'} )
+
+	classDef:StructureComplex	( FlightType :
+						( FlightTypeWay))
+
+
+	classDef:Void	( lexFlightTypeDeparture, lexFlightTypeReturn )
+

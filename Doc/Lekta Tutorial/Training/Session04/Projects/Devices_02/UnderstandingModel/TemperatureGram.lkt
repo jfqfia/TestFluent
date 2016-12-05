@@ -1,0 +1,16 @@
+/*******************************
+ ** Temperature
+ *******************************/
+
+(RTemperature1 : 
+	[Temperature -> <lexAuxPrepA|lexAuxPrepHACIA|lexAuxPrepSOBRE>?
+				Integer
+				lexTemperatureDescriptor
+				lexTemperatureScale? ]
+		{ ^.Value <- #2.IntegerValue; 
+		  if (Filled(#4)) {
+		      ^.Scale <- #4;
+		  } else {
+		      ^.Scale <- 'celsius';
+		  }
+		} )

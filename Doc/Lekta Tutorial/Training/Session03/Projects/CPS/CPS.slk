@@ -1,0 +1,176 @@
+//
+// Talk Manager
+//      Main File
+//
+
+LaunchLektaKernel 
+	(ExecStrategy		= KernelSynchronous
+	 LangExDialReport		= REPORT_ON
+	 LangExDialStoreLog 	= "/home/plekta/WorkCPS/Logs/LangExDialStore/"
+	 LangExDialCallsLog   	= "/home/plekta/WorkCPS/Logs/LangExDialCalls/")
+
+UseProject 
+	(ProjectCompile	= ".CPS.dialmem" 
+	 TemporalFolder		= "/home/plekta/WorkCPS/"
+	 BackOfficeWebServiceConnectUrl	
+				//= "http://cranion.naturallanguage.es/BackOffice/ws_server.php"
+				= "http://cosmos.naturallanguage.es/dpaServer/services/SaudeDataProviderAgent"
+				//= "http://localhost/BackOffice/ws_server.php"
+	 BackOfficeWebServiceConnectWsdl 
+				//= "http://cranion.naturallanguage.es/BackOffice/ws.wsdl"
+				= "http://cosmos.naturallanguage.es/dpaServer/services/SaudeDataProviderAgent?WSDL"
+				//= "http://localhost/BackOffice/ws.wsdl"
+	 CleanTimeOut 		= 20 
+	 BirthAreaSize 		= 3 
+	 GrowthAreaSize		= 2)
+
+ConnectionInterface
+	(ConnectionMode		= 20
+	 ConnectionOrigin	= "cranion.naturallanguage.es")
+
+/*
+ShareSetDisplayProcess DisplayProcessAbstractOn
+ShareSetDisplayProcess DisplayProcessParserOn
+ShareSetDisplayProcess DisplayProcessTokenizerOn
+ShareSetDisplayProcess DisplayProcessParserOn
+ShareSetDisplayProcess DisplayProcessUnifierOn
+ShareSetDisplayProcess DisplayProcessColligoOn
+ShareSetDisplayProcess DisplayProcessSensoOn
+ShareSetDisplayProcess DisplayProcessCogitoOn
+ShareSetDisplayProcess DisplayProcessRespondoOn
+ShareSetDisplayProcess DisplayProcessScriboOn
+ShareSetDisplayProcess DisplayProcessAbstractOn
+*/
+
+CreateDialogue(InstanceOperation:1 InstanceLanguage:1 InstanceInterface:1)
+
+/*
+// Dialogo 1
+Hola buenos dias queria una cita para mi para mañana
+Uno uno dos dos
+tres tres cuatro cuatro
+Vale vale
+Si efectivamente
+Perfecto
+No
+*/
+
+/*
+// Dialogo 2
+Hola buenos dias Llamaba para cancelar una cita de mi mujer
+Es el cincuenta y siete 
+Trescientos cuatro
+nueve cero cinco
+Correcto
+La primera
+Esa es
+Adios 
+*/
+
+/*
+// Dialogo 3
+Quisiera consultar el horario que tengo de una cita. 
+Sí eso es
+Es el uno uno dos dos
+tres tres cuarenta y cuatro
+Correcto
+Necesito pedir una cita el viernes para el hijo de mi hermano para pediatría.
+No 
+Cuatro cuatro tres tres dos dos uno uno
+Vale vale
+Sí sí eso es
+Un poco más tarde
+Un poco antes
+//Perfecto
+//Adios
+*/
+
+
+/*
+********* ERROR 1 ****************
+
+Quiero una cita con el doctor morales
+*/
+
+
+/*
+********* ERROR 2 ***************
+
+quiero una cita con mi medico
+si
+no no perdona es para mi hijo
+
+*/
+
+/*
+*********** ERROR 3 *************
+
+quiero una cita para el medico
+si
+11223344
+si
+si
+no mejor mañana
+mañana
+si
+no mejor sobre las cinco*/
+
+/*
+********** ERROR 4 ***********
+
+queria una cita
+para mi madre
+¿el de mi madre?
+*/
+
+
+/*
+#hola|0.747 buenas_tardes|0.632^G#
+*/
+
+
+/*
+#mira|0.832 hola|0.323 a_qué_hora_tienes|0.869 para|0.821 el|0.301 pediatra|0.552^G#
+#qué_pasa|0.967 mira|0.990 para|0.988 del|0.644 jueves|0.554^G#
+// #para|0.988 del|0.644 jueves|0.554^G#
+
+*/
+
+//#hola|0.956 buenos_días|0.976 vamos_a_ver|0.505 a_qué_hora_tienes|0.755 para|0.307 pediatra|0.586^G#
+//#para|0.998 mi_hija|0.971 para|0.807 el|0.406 viernes|0.485^G#
+//#pues|0.825 no|0.783^G#
+// #cuatro|0.990 cuatro|0.747 tres|0.681 tres|0.466 dos|0.550 dos|0.640 uno|0.984 uno|0.942^G#
+// #nací|0.435 diez|0.108^G#
+
+
+/*
+#hola|0.815 buenas_tardes|0.667^G#
+#quiero|0.161 pedir|0.770 una_cita|0.915^G#
+#para|1.000 mí|0.863 para|0.627 el|0.259 médico|0.996 para|0.879 mañana|0.717^G#
+#uno|0.997 uno|0.904 dos|0.812 dos|0.878 tres|0.522 tres|0.595 cuatro|0.852 cuatro|0.827^G#
+#en_efecto|0.774^G#
+#sí|0.903^G#
+#no_más_tarde_de|0.892 día|0.701 diez|0.005 sí|0.115^G#
+#para|0.959 pasado_mañana|0.694^G#
+#cita|0.399^G#
+#sí|0.671^G#
+#un_poco_más_tarde|1.000 día|0.816 diez|0.106^G#
+#y|0.494 un_poco_más_temprano|0.446^G#
+*/
+
+//#quiero|0.804 pedir|0.790 una_cita|0.935 para|1.000 mí|0.939 para|0.223 médico|0.958 para|0.896 mañana|0.608^G#
+// #uno|0.992 uno|0.691^G#
+
+/*
+#hola|0.726 buenas_tardes|0.595^G#
+#quiero|0.823 pedir|0.796 una_cita|1.000 para|1.000 mi|0.916 para|0.255 medico|0.976 para|0.869 mañana|0.587^G#
+#uno|0.984 uno|0.843^G#
+#dos|0.925 dos|0.677 tres|0.609 tres|0.743 cuatro|0.927 cuatro|0.711^G#
+#si|0.890 si|1.000^G#
+#si|1.000^G#
+#si|0.907^G#
+#y|0.594 un_poco_mas_tarde|0.830 dia|0.833 diez|0.180^G#
+#y|0.508 un_poco_mas_temprano|0.457^G#
+#mas_temprano|1.000 dia|0.938 seis|0.114^G#
+#perfecto|0.987^G#
+*/

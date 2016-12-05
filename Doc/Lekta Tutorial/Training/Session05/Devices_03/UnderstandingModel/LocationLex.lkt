@@ -1,0 +1,9 @@
+/*******************************
+ ** Location
+ *******************************/
+
+	("salón",		lexLocationDescriptor, 'parlor')
+	("cocina",		lexLocationDescriptor, 'kitchen')
+	("garaje",		lexLocationDescriptor, 'garage')
+	("dormitorio",		lexLocationDescriptor, 'bedroom')
+

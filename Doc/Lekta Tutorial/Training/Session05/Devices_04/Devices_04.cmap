@@ -1,0 +1,131 @@
+/**********************************************************************
+ * SOURCEFILE =>   Devices_04.cmap
+ **********************************************************************/
+
+conceptualScheme
+    TemporalFolder: "."
+    AssembleFile: ".Devices_04.omap"
+
+    conceptualLanguageScope
+        conceptualLanguageSetup
+            LanguageIdent: 1
+
+            indexingArea [MainIndex] {
+		SetupKeyWeight 		10
+		SetupHeaderWeight	 5
+		SetupSubjectWeight	 1
+	    }
+
+            indexingArea [UserSamples] {
+		SetupSamplesWeight	10
+	    }
+
+            SetupInfoSpaceStore {Key Header Subject}
+            SetupInfoSpaceModelScope {Key Header Subject Samples}
+
+        conceptualLexicalScope {
+		lavadora
+		frigorífico
+		roto
+	}
+
+        conceptualStopWords {
+		a
+		de
+		el
+		ella
+		en
+		la
+		las
+		lo
+		los
+		me
+		para
+		se
+		te
+	}
+
+        conceptualMap {
+		conceptualEntry {
+			conceptHead: [Lavadora]
+			conceptModel: [
+				lavadora,
+				lavarropa
+			]
+		}
+		conceptualEntry {
+			conceptHead: [Averia]
+			conceptModel: [
+				rota,
+				roto,
+				averia,
+				estropeada,
+				estropeado,
+				"no funciona"
+			]
+		}
+		conceptualEntry {
+			conceptHead: [Telefono]
+			conceptModel: [
+				telefono,
+				llamada,
+				llamar,
+				"contactar por telefono",
+				"llamar por telefono"
+			]
+		}
+		conceptualEntry {
+			conceptHead: [Email]
+			conceptModel: [
+				email,
+				correo,
+				"correo electronico"
+			]
+		}
+	}
+
+        infoSpaceMap {
+		infoSpaceEntry
+			KEY: << Lavadora Averia >>
+			HEADER: << Instrucciones en caso de averia de la lavadora >> 
+			SUBJECT: << En primer lugar, compruebe que tiene conexion electrica y que las entradas y salidas de agua funcionan. En segundo lugar, compruebe el filtro. Puede contactar con el servicio tecnico en la web XXX.com. >>
+			SAMPLES: << Esto no lava 
+					Otra vez se ha roto la lavadora
+					>>
+
+		infoSpaceEntry
+			KEY: << Lavadora Programa Rapido >>
+			HEADER: << Instrucciones para un programa rapido de lavado >>
+			SUBJECT: << Utilice el botón PROGRAMA y seleccione la opcion Tiempo, indicando una duracion de 15 minutos. A continuacion coloque el detergente y pulse START. >>
+
+		infoSpaceEntry
+			KEY: << Lavadora Atasco Filtro >>
+			HEADER: << Atasco en el filtro de salida de agua de la lavadora >>
+			SUBJECT: << Si observa que el agua del lavado se queda en la lavadora, desenrosque la tapa etiquetada con FILTRO SALIDA, saque la manguera de desatasco y vierta el agua sobre algun recipiente. Finalmente, compruebe que no hay objetos duros que obstruyan la salida. >>
+			SAMPLES: << Parece que el agua se ha atastado otra vez
+				Es el filtro, que no deja salir el agua
+				>>
+
+		infoSpaceEntry
+			KEY: << Servicio Tecnico Lavadora >>
+			HEADER: << Contactar con el servicio tecnico de la lavadora >>
+			SUBJECT: << Email: servicio@lavadora.com // Telefono: 909 909 909 >>
+			SAMPLES: << Y como puedo contactar yo ahora con los que arreglan la lavadora 
+				>>
+
+		infoSpaceEntry
+			KEY: << Telefono Servicio Tecnico Lavadora >>
+			HEADER: << Llamar al servicio tecnico de la lavadora >>
+			SUBJECT: <<Telefono: 909 909 909 >>
+			SAMPLES: << A donde llamo para la lavadora
+					Se me ha perdido el telefono de los de la lavadora
+					>>
+
+		infoSpaceEntry
+			KEY: << Correo Servicio Tecnico Lavadora >>
+			HEADER: << Enviar un correo al servicio tecnico de la lavadora >>
+			SUBJECT: << Email: servicio@lavadora.com >>
+			SAMPLES: << Me gustaria enviarles un email a los de la lavadora >>
+
+	}
+

@@ -1,0 +1,18 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_01_FUN_Decl.lkt
+ ***************************************************************************/
+
+      integer Menu();
+      integer Quit();
+
+      integer AlarmActivate();
+      integer AlarmDeactivate();
+      integer AlarmHelp();
+
+      integer HeatingActivate();
+      integer HeatingDeactivate();
+      integer HeatingHelp();
+
+      integer IrrigationActivate();
+      integer IrrigationDeactivate();
+      integer IrrigationHelp();

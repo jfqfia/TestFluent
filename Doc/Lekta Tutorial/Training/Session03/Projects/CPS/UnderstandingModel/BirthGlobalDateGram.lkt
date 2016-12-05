@@ -1,0 +1,72 @@
+/*******************************
+ ** Fechas de nacimiento
+ *******************************/
+
+/*************************/
+/** BirthGlobalDate		**/
+/*************************/
+
+!ASR(RBirthGlobalDate_Asr_Root : 
+	[S -> NS_B BirthGlobalDateDenial NS_E] )
+
+!ASR(RBirthGlobalDateDenial1 : 
+	[BirthGlobalDateDenial -> lexBorn? BirthGlobalDate] )
+
+!ASR(RBirthGlobalDateDenial2 : 
+	[BirthGlobalDateDenial -> lexDenial BirthGlobalDate lexDenial? BirthGlobalDate lexDenial?] )
+
+!ASR(RBirthGlobalDateDenial3 : 
+	[BirthGlobalDateDenial -> BirthGlobalDate lexDenial BirthGlobalDate lexDenial?] )
+
+!ASR(RBirthGlobalDateDenial4 : 
+	[BirthGlobalDateDenial -> BirthGlobalDate BirthGlobalDate lexDenial] )
+
+(RBirthGlobalDate1 : 
+	[BirthGlobalDate -> PeriodYear]
+		{ ^.PeriodYear <- #1; } )
+
+(RBirthGlobalDate2 : 
+	[BirthGlobalDate -> PeriodMonth]
+		{ ^.PeriodMonth <- #1; } )
+
+/*
+(RBirthGlobalDate3 : 
+	[BirthGlobalDate -> PeriodWeek]
+		{ ^.PeriodWeek <- #1; } )
+
+(RBirthGlobalDate4 : 
+	[BirthGlobalDate -> PeriodDay]
+		{ ^.PeriodDay <- #1; } )
+*/
+
+(RBirthGlobalDate5 : 
+	[BirthGlobalDate/1 -> < <lexAuxPrepEN|lexAuxPrepSOBRE|lexAuxPrepPARA> ! lexAuxArticleEL>? lexPeriodDay? lexPeriodDayVal lexAuxPrepDE lexPeriodPeriodMonthDesc]
+                { if (((#6 == 2) && (#4 > 29)) || (((#6 == 4) || (#6 == 6) || (#6 == 9) || (#6 == 11)) && (#4 > 30))) {
+		      Fail();
+		  } else {
+		      ^.PeriodDay.AbsPeriodDay <- #4;
+		      ^.PeriodMonth.AbsPeriodMonth <- #6;
+		  } } )
+
+(RBirthGlobalDate6 : 
+	[BirthGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexPeriodDay? lexPeriodDayVal <lexAuxPrepDE|lexAuxPrepDEL>? lexPeriodPeriodMonthDesc <lexAuxPrepDE|lexAuxPrepDEL> Integer]
+		{ ^.PeriodMonth.AbsPeriodMonth <- #5;
+		  ^.PeriodDay.AbsPeriodDay <- #3; 
+		  ^.PeriodYear.AbsPeriodYear <- #7.valNum; } )
+
+(RBirthGlobalDate7 : 
+	[BirthGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexPeriodDay lexPeriodDayVal <lexAuxPrepDE|lexAuxPrepDEL>? Integer <lexAuxPrepDE|lexAuxPrepDEL> Integer]
+		{ ^.PeriodMonth.AbsPeriodMonth <- #5.valNum;
+		  ^.PeriodDay.AbsPeriodDay <- #3; 
+		  ^.PeriodYear.AbsPeriodYear <- #7.valNum; } )
+
+!PRS(RBirthGlobalDate8 : 
+	[BirthGlobalDate/1 -> Integer/4 punctBar Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #1.valNum;
+		  ^.PeriodMonth.AbsPeriodMonth <- #3.valNum; } )
+
+!PRS(RBirthGlobalDate9 : 
+	[BirthGlobalDate/1 -> Integer/4 punctBar Integer/4 punctBar Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #1.valNum;
+		  ^.PeriodMonth.AbsPeriodMonth <- #3.valNum;
+		  ^.PeriodYear.AbsPeriodYear <- #5.valNum; } )

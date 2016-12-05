@@ -1,0 +1,74 @@
+/*******************************
+ ** Cogito / Heads
+ *******************************/
+
+integer	CogitoStart();
+integer	CogitoTimeOutRecall();
+integer	CogitoTimeOutWarning();
+integer	CogitoTimeOutFinish();
+integer	CogitoTimeOutKill();
+integer	CogitoTimeOutDestroy();
+integer	CogitoBadInput();
+integer	CogitoContinuation();
+integer	CogitoContinuationFromNoInput();
+integer	CogitoNew();
+integer	CogitoRep();
+integer	CogitoNewFromNoInput();
+integer	CogitoClose();
+integer	CogitoStop();
+integer	CogitoHello();
+integer	CogitoInterPardon();
+integer	CogitoRecover(MindTaskItem aline);
+
+MindTaskItem	ProcessActionLine(MindTaskItem aline_in);
+MindTaskItem	InlangexlistdialteLast(MindTaskItem aline_in);
+MindTaskItem	AnalyzeOperPurpose(MindTaskItem aline_in);
+MindTaskItem	AnalyzeActScope(MindTaskItem aline);
+MindTaskItem	DefaultOperPurposeActScope(MindTaskItem aline);
+MindTaskItem	AssignTask(MindTaskItem aline);
+
+// Tasks
+// 	Consult Point
+MindTaskItem	ProcessControl_Consult_Point(MindTaskItem aline_in);
+MindTaskItem	LookPersonalId(MindTaskItem aline);
+MindTaskItem	LookPersonalIdCorrect(MindTaskItem aline);
+MindTaskItem	RequestPersonalRecord(MindTaskItem aline);
+MindTaskItem	ErrorNoUser(MindTaskItem aline);
+MindTaskItem	AnalyzePersonalRecord(MindTaskItem aline);
+MindTaskItem	ErrorUserId(MindTaskItem aline);
+MindTaskItem	ErrorUserIncoherence(MindTaskItem aline);
+MindTaskItem	InformPoint(MindTaskItem aline);
+
+//	Consult Flt
+MindTaskItem	IntegrateConsultFlt(MindTaskItem aline);
+MindTaskItem	LookItineraryOriginFlt(MindTaskItem aline);
+MindTaskItem	AnalyzeItineraryOriginFlt(MindTaskItem aline);
+MindTaskItem	LookItineraryDestinationFlt(MindTaskItem aline);
+MindTaskItem	CompareItineraryOriginDestination(MindTaskItem aline);
+MindTaskItem	AnalyzeItineraryDestinationFlt(MindTaskItem aline);
+MindTaskItem	AnalyzeItineraryDestinationNoOriginFlt(MindTaskItem aline);
+MindTaskItem	LookDepartureGlobalDateFlt(MindTaskItem aline);
+MindTaskItem	AnalyzeDepartureGlobalDateFlt(MindTaskItem aline);
+MindTaskItem	LookReturnGlobalDateFlt(MindTaskItem aline);
+MindTaskItem	AnalyzeReturnGlobalDateFlt(MindTaskItem aline);
+
+// 	Consult Flight
+MindTaskItem	ProcessControl_Consult_Flight(MindTaskItem aline_in);
+MindTaskItem	RequestRecordFlightGo(MindTaskItem aline);
+MindTaskItem	FlightNotFoundGo(MindTaskItem aline);
+MindTaskItem	InformFlightGo(MindTaskItem aline);
+MindTaskItem	RequestRecordFlightBack(MindTaskItem aline);
+MindTaskItem	FlightNotFoundBack(MindTaskItem aline);
+MindTaskItem	InformFlightBack(MindTaskItem aline);
+MindTaskItem	MoveFlightGo(MindTaskItem aline);
+
+// SebServices
+PersonalRecord		WS_RequestPersonalRecord(UserPersonalId personalid);
+integer			WS_RequestIsValidAirport(SiteNode placenode);
+MindTaskItem			WS_RequestRecordFlightGo(MindTaskItem aline);
+MindTaskItem			WS_RequestRecordFlightBack(MindTaskItem aline);
+
+DRef    CalcToday();
+GlobalDate	CompactGlobalDate(GlobalDate date,DRef today);
+integer	PeriodDaysByPeriodMonth(integer month);
+string	PeriodDaySection2String(AbsPeriodDaySection block);

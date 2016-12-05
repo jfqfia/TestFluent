@@ -1,0 +1,58 @@
+/*******************************
+ ** Person
+ *******************************/
+
+	classDef:ElementRange	( lexPersonRelative,PersonDegree: 
+				{ 'self',
+				  'ped',
+				  'grand-father',
+				  'grand-mother',
+				  'father',
+				  'mother',
+				  'brother',
+				  'sister',
+				  'husband',
+				  'wife',
+				  'son',
+				  'daughter',
+				  'grand-son',
+				  'grand-daughter',
+				  'nephew',
+				  'niece',
+				  'uncle',
+				  'aunt',
+				  'brother-in-law',
+				  'sister-in-law',
+                                  'father-in-law',
+                                  'mother-in-law',
+                                  'son-in-law',
+                                  'daughter-in-law',
+				  'cousin' } )
+
+	classDef:ElementInt		( PersonNumber )
+
+	classDef:ElementRange	( PersonGenre: 
+				{ 'masc',
+				  'fem',
+				  'und' } )
+
+	classDef:ElementRange	( PersonHasPersonalId :
+				{ 'no',
+				  'yes' } )
+
+	classDef:Synonym	( BirthGlobalDate, BirthGlobalDateDenial = GlobalDate )
+
+	classDef:StructureComplex	( Person:
+				( PersonDegree,
+				  PersonNumber,
+				  PersonGenre,
+				  PersonRelative,
+				  BirthGlobalDate,
+				  PersonAnd,
+				  PersonHasPersonalId,
+				  VerifyType) )
+
+	classDef:Synonym	( PersonRelative, PersonAnd, PersonDenial, PersonDenialASR,PersonASR, lexPerson, lexPersonSelf = Person )
+
+	ParserGrammaticalScore:FocalCats = lexPerson, lexPersonSelf, BirthGlobalDate, Person
+	UnifierGenusnticScore:FocalCats = Person

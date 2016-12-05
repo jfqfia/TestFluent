@@ -1,0 +1,51 @@
+/*******************************
+ ** CLASSMODEL SPECIFICATION
+ *******************************
+ ** Interaction
+ **	MindBoard
+ **	Hello
+ **	InterGreeting
+ **	InterPlease
+ **	InterThanks
+ *******************************/
+
+	classDef:Void 		( lexInteractionAuxiliar,
+						  lexInteractionAuxiliarComp,
+						  lexInteractionAuxiliarEnd,
+						  lexTransfer)
+
+	classDef:ElementRange 	( MindBoard, 
+						  InterFarewell,
+						  Hello,
+						  InterPlease, 
+						  InterThanks,
+						  Transfer:
+							{ 'on' } )
+	classDef:VectorRange 	( InterGreeting: 
+							['morning', 
+							 'afternoon',
+							 'evening'] )
+
+	SetClass:List_Mode_Union		( InterGreeting )
+	SetClass:List_Fail_Never		( InterGreeting )
+
+	classDef:StructureComplex 		( Interaction:
+							(MindBoard,
+							 InterFarewell,
+							 InterGreeting,
+							 Hello,
+							 InterPlease,
+							 InterThanks,
+							 Transfer) )
+
+	classDef:Synonym			( lexInteraction, 
+						  lexInteractionComp, 
+ 						  InteractionPunct,
+						  lexInteractionEnd,
+						  lexTransferAux,
+						  InteractionAux,
+						  InteractionEndSeq,
+						  InteractionEnd = Interaction )
+
+	ParserGrammaticalScore:FocalCats = lexInteraction, lexInteractionComp, Interaction
+	UnifierGenusnticScore:FocalCats = Interaction

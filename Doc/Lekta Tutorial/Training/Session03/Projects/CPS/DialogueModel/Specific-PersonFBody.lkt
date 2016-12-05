@@ -1,0 +1,421 @@
+/*******************************
+ ** Specific / Global / Functions
+ *******************************/
+
+		/*
+TaskLine	AnalyzeLinkedInfoPerson(TaskLine tline)
+{
+	// 	      | RaiseModel | VerifyModel | GroundModel |
+	//            -------------------------------------------
+	//            |      1     |       1      |      1      | ** No (Verify & Ground)
+	//            |      1     |       1      |      0      |
+	//            |      1     |       0      |      1      |
+	//            |      1     |       0      |      0      |
+	//            |      0     |       1      |      1      | ** No (Verify & Ground)
+	//            |      0     |       1      |      0      |
+	//            |      0     |       0      |      1      |
+	//            |      0     |       0      |      0      |
+	//            -------------------------------------------
+	if (tline.ReceivedCommand.LinkedInfo.Person) {
+		tline.ReceivedCommand.LinkedInfo.Person <- CompactPerson(tline.ReceivedCommand.LinkedInfo.Person );
+
+		if (tline.CModel.LinkedInfo.Person) { 		// 1 1 0
+			if (tline.ReceivedCommand.LinkedInfo.Person =:= tline.CModel.LinkedInfo.Person) {
+				tline.GModel.LinkedInfo.Person <| tline.CModel.LinkedInfo.Person;
+				Erase(tline.CModel.LinkedInfo.Person);
+			} else {
+				tline.CModel.LinkedInfo.Person <| tline.ReceivedCommand.LinkedInfo.Person;
+				Erase(tline.ReceivedCommand.LinkedInfo.Person);
+				tline.CModel.LinkedInfo.Person.VerifyType <- 'raise';
+			}
+		} else { 
+			if (tline.GModel.LinkedInfo.Person) { 	// 1 0 1
+				if (tline.ReceivedCommand.LinkedInfo.Person =:= tline.GModel.LinkedInfo.Person) {
+					tline.GModel.LinkedInfo.Person <| tline.ReceivedCommand.LinkedInfo.Person;
+					Erase(tline.ReceivedCommand.LinkedInfo.Person);
+				} else {
+					// Conflicto R - G
+					tline.CModel.LinkedInfo.Person <| tline.ReceivedCommand.LinkedInfo.Person;
+					Erase(tline.ReceivedCommand.LinkedInfo.Person);
+					Erase(tline.GModel.LinkedInfo.Person);
+					tline.CModel.LinkedInfo.Person.VerifyType <- 'clash';
+				}
+			} else {				// 1 0 0
+				tline.CModel.LinkedInfo.Person <- tline.ReceivedCommand.LinkedInfo.Person;
+				Erase(tline.ReceivedCommand.LinkedInfo.Person);
+				tline.CModel.LinkedInfo.Person.VerifyType <- 'raise';
+			}
+		}
+	} else {
+		if (tline.CModel.LinkedInfo.Person) { 		
+			if (!!tline.GModel.LinkedInfo.Person) { 	// 0 1 0
+				tline.GModel.LinkedInfo.Person <- tline.CModel.LinkedInfo.Person;
+				Erase(tline.CModel.LinkedInfo.Person);
+			} 
+		} else {
+			if (!!tline.GModel.LinkedInfo.Person) { 	// 0 0 0
+				tline.CModel.LinkedInfo.Person <- DefaultLinkedInfoPerson(tline);
+				tline.CModel.LinkedInfo.Person.VerifyType <- 'infer';
+			} 
+		}
+	}
+
+	return tline;
+}
+		*/
+
+Person		DefaultLinkedInfoPerson(TaskLine tline)
+{
+	cond {
+		(tline.GModel.LinkedInfo.Service.ServiceId == 'PED') {
+			return (PersonDegree:'ped');
+		}
+		(tline.CModel.LinkedInfo.Service.ServiceId == 'PED') {
+			return (PersonDegree:'ped');
+		}
+		(tline.ReceivedCommand.LinkedInfo.Service.ServiceId == 'PED') {
+			return (PersonDegree:'ped');
+		}
+		default {
+			return (PersonDegree:'self');
+		}
+	}
+}
+
+integer	PossibleEnfant(Person person)
+{
+	switch (person.PersonDegree) {
+		case 'ped' {
+			return 1;
+		}
+		case 'son' {
+			return 1;
+		}
+		case 'daughter' {
+			return 1;
+		}
+		case 'grand-son' {
+			return 1;
+		}
+		case 'grand-daughter' {
+			return 1;
+		}
+		case 'nephew' {
+			return 1;
+		}
+		case 'niece' {
+			return 1;
+		}
+	}
+}
+
+integer	DirectChildren(Person person) 
+{
+	if ((person.PersonDegree == 'son') || (person.PersonDegree == 'daughter')) {
+		if (!!(person.PersonRelative)) {
+			return 1;
+		} 
+	}
+
+	return 0;
+}
+
+Person		CompactPerson(Person person)
+{
+	if (person.PersonRelative) {
+		person.PersonRelative <- CompactPerson(person.PersonRelative);
+
+		switch (person.PersonDegree) {
+			case 'father' {
+				person <- CompactPersonFather(person);
+			}
+			case 'mother' {
+				person <- CompactPersonMother(person);
+			}
+			case 'wife' {
+				person <- CompactPersonWife(person);
+			}
+			case 'husband' {
+                                person <- CompactPersonHusband(person);
+                        }				
+			case 'son' {
+				person <- CompactPersonSon(person);
+			}
+			case 'daughter' {
+				person <- CompactPersonDaughter(person);
+			}
+			case 'brother' {
+                                person <- CompactPersonBrother(person);
+                        }
+			case 'sister' {
+                                person <- CompactPersonSister(person);
+                        }
+						
+		}
+	}
+
+	return person;
+}
+				/*
+                                  'grand-father',
+                                  'grand-mother',
+                                  'father',
+                                  'mother',
+                                  'brother',
+                                  'sister',
+                                  'husband',
+                                  'wife',
+                                  'son',
+                                  'daughter',
+                                  'grand-son',
+                                  'grand-daughter',
+                                  'nephew',
+                                  'niece',
+                                  'uncle',
+                                  'aunt',
+                                  'brother-in-law',
+                                  'sister-in-law',
+				  'father-in-law'
+				  'mother-in-law'
+				  'son-in-law'
+                                  'daughter-in-law'
+                                  'cousin' 
+				*/
+
+
+Person	CompactPersonFather(Person person)
+{
+	switch (person.PersonRelative.PersonDegree) {
+		case 'father' {
+			person.PersonDegree <- 'grand-father';
+			Erase(person.PersonRelative);
+		}
+		case 'mother' {
+			person.PersonDegree <- 'grand-father';
+			Erase(person.PersonRelative);
+		}
+		case 'cousin' {
+                        person.PersonDegree <- 'uncle';
+                        Erase(person.PersonRelative);
+                }
+		case 'husband' {
+                        person.PersonDegree <- 'father-in-law';
+                        Erase(person.PersonRelative);
+                }
+		case 'wife' {
+                        person.PersonDegree <- 'father-in-law';
+                        Erase(person.PersonRelative);
+                }		
+	}
+
+	return person;
+}
+
+Person  CompactPersonMother(Person person)
+{
+        switch (person.PersonRelative.PersonDegree) {
+                case 'father' {
+                        person.PersonDegree <- 'grand-mother';
+                        Erase(person.PersonRelative);
+                }
+                case 'mother' {
+                        person.PersonDegree <- 'grand-mother';
+                        Erase(person.PersonRelative);
+                }
+                case 'cousin' {
+                        person.PersonDegree <- 'aunt';
+                        Erase(person.PersonRelative);
+                }
+                case 'husband' {
+                        person.PersonDegree <- 'mother-in-law';
+                        Erase(person.PersonRelative);
+                }
+                case 'wife' {
+                        person.PersonDegree <- 'mother-in-law';
+                        Erase(person.PersonRelative);
+                }
+        }
+
+        return person;
+}
+
+
+Person	CompactPersonWife(Person person)
+{
+	switch (person.PersonRelative.PersonDegree) {
+		case 'brother' {
+			person.PersonDegree <- 'sister-in-law';
+			Erase(person.PersonRelative);
+		}
+		case 'son' {
+                        person.PersonDegree <- 'daughter-in-law';
+                        Erase(person.PersonRelative);
+                }
+	}
+
+	return person;
+}
+
+Person  CompactPersonHusband(Person person)
+{
+        switch (person.PersonRelative.PersonDegree) {
+                case 'sister' {
+                        person.PersonDegree <- 'brother-in-law';
+                        Erase(person.PersonRelative);
+                }
+                case 'daughter' {
+                        person.PersonDegree <- 'son-in-law';
+                        Erase(person.PersonRelative);
+                }
+        }
+
+        return person;
+}
+
+Person	CompactPersonSon(Person person)
+{
+	switch (person.PersonRelative.PersonDegree) {
+		case 'sister-in-law' {
+			person.PersonDegree <- 'nephew';
+			Erase(person.PersonRelative);
+		}
+		case 'brother' {
+                        person.PersonDegree <- 'nephew';
+                        Erase(person.PersonRelative);
+                }
+                case 'sister' {
+                        person.PersonDegree <- 'nephew';
+                        Erase(person.PersonRelative);
+                }
+                case 'brother-in-law' {
+                        person.PersonDegree <- 'nephew';
+                        Erase(person.PersonRelative);
+                }
+                case 'son' {
+                        person.PersonDegree <- 'grand-son';
+                        Erase(person.PersonRelative);
+                }
+                case 'daughter' {
+                        person.PersonDegree <- 'grand-son';
+                        Erase(person.PersonRelative);
+                }		
+		case 'uncle' {
+                        person.PersonDegree <- 'cousin';
+                        Erase(person.PersonRelative);
+                }
+                case 'aunt' {
+                        person.PersonDegree <- 'cousin';
+                        Erase(person.PersonRelative);
+                }
+	}
+
+	return person;
+}
+
+Person	CompactPersonDaughter(Person person)
+{
+	switch (person.PersonRelative.PersonDegree) {
+		case 'brother' {
+			person.PersonDegree <- 'niece';
+			Erase(person.PersonRelative);
+		}
+		case 'sister' {
+                        person.PersonDegree <- 'niece';
+                        Erase(person.PersonRelative);
+                }
+		case 'brother-in-law' {
+                        person.PersonDegree <- 'niece';
+                        Erase(person.PersonRelative);
+                }
+		case 'sister-in-law' {
+                        person.PersonDegree <- 'niece';
+                        Erase(person.PersonRelative);
+                }		
+	 	case 'son' {
+                        person.PersonDegree <- 'grand-daughter';
+                        Erase(person.PersonRelative);
+                }
+		case 'daughter' {
+                        person.PersonDegree <- 'grand-daughter';
+                        Erase(person.PersonRelative);
+                }
+		case 'uncle' {
+                        person.PersonDegree <- 'cousin';
+                        Erase(person.PersonRelative);
+                }
+                case 'aunt' {
+                        person.PersonDegree <- 'cousin';
+                        Erase(person.PersonRelative);
+                }		
+	}
+
+	return person;
+}
+
+Person  CompactPersonBrother(Person person)
+{
+	switch (person.PersonRelative.PersonDegree) {
+		case 'wife' {
+			person.PersonDegree <- 'brother-in-law';
+                        Erase(person.PersonRelative);			
+		}
+		case 'husband' {
+                        person.PersonDegree <- 'brother-in-law';
+                        Erase(person.PersonRelative);
+                }
+
+                case 'father' {
+                        person.PersonDegree <- 'uncle';
+                        Erase(person.PersonRelative);
+                }
+                case 'mother' {
+                        person.PersonDegree <- 'uncle';
+                        Erase(person.PersonRelative);
+                }
+		case 'nephew' {
+                        person.PersonDegree <- 'nephew';
+                        Erase(person.PersonRelative);
+                }
+                case 'niece' {
+                        person.PersonDegree <- 'nephew';
+                        Erase(person.PersonRelative);
+                }
+
+	}
+
+	return person;
+}
+
+Person  CompactPersonSister(Person person)
+{
+        switch (person.PersonRelative.PersonDegree) {
+                case 'father' {
+                        person.PersonDegree <- 'aunt';
+                        Erase(person.PersonRelative);
+                }
+                case 'mother' {
+                        person.PersonDegree <- 'aunt';
+                        Erase(person.PersonRelative);
+                }
+		case 'nephew' {
+                        person.PersonDegree <- 'niece';
+                        Erase(person.PersonRelative);
+                }
+		case 'niece' {
+                        person.PersonDegree <- 'niece';
+                        Erase(person.PersonRelative);
+                }
+		case 'wife' {
+                        person.PersonDegree <- 'sister-in-law';
+                        Erase(person.PersonRelative);
+                }
+                case 'husband' {
+                        person.PersonDegree <- 'sister-in-law';
+                        Erase(person.PersonRelative);
+                }
+
+	}
+
+	return person;
+}
+

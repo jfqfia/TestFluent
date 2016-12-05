@@ -1,0 +1,22 @@
+/*******************************
+ ** MindBoard
+ *******************************/
+
+MindBoardStructure: {
+		// Action Area
+		(Open / MindTaskFramework)
+		(LastPrev / MindTaskFramework)
+		(LastThis / MindTaskFramework)
+		(Done / MindTaskFramework)
+		(Fail / MindTaskFramework)
+
+		// Interaction Area
+		(Interaction / Interaction)
+
+		// Output Area
+		(OStruct / OStruct)
+		(LastOStruct / OStruct)
+
+		// Setup Area
+		(Setup  / ST)
+        }

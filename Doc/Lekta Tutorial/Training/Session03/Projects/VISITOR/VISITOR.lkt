@@ -1,0 +1,155 @@
+/***************************************************************************
+ *      $$$      $$$$$$$  $$$ $$$  $$$$$$$  $$$$$$$     pLekta Version P   *
+ *     $$$      $$$      $$$$$$$    $$$    $$   $$           J F Quesada   *
+ *    $$$      $$$$$$   $$$        $$$    $$$$$$$            PLEKTA:2013   *
+ *   $$$      $$$      $$$$$      $$$    $$   $$                           *
+ *  $$$$$$$  $$$$$$$  $$$ $$$    $$$    $$   $$                            *
+ ***************************************************************************
+ *         Fichero:	VISITOR.lkt
+ ***************************************************************************/
+
+lektaProject
+        projectHead
+                projectDescriptor		: "VISITOR"
+		projectLanguageScope		: [ es ]
+		projectOperationScope		: [ flight ]
+		projectInterfaceScope		: [ dialogue ]
+                projectCompileOutput		:  ".VISITOR.olk"
+
+	projectSetup
+		setupTokenizerSpellingChecker
+		setupParserRoots = 
+				Interaction,
+				Conversation,
+				OperPurpose,
+				ActScope,
+				LinkedInfo
+		setupRuntimeSpyMessageOff
+
+		/*
+                setupTokenizerNormalizeSpecDouble // Off - Reduce
+		setupTokenizerNormalizeInputActivate
+
+		RootSelectorAlgorithm:DENSE
+		UnifierRandomFunction:On
+		*/
+
+	classModel
+		// Base
+		#Include "ClassModel/BaseClass.lkt"
+		#Include "ClassModel/InteractionClass.lkt"
+		#Include "ClassModel/ConversationClass.lkt"
+		#Include "ClassModel/MindBoardClass.lkt"
+
+		// OperPurpose
+		#Include "ClassModel/OperPurposeClass.lkt"
+
+		// ActScope
+		#Include "ClassModel/ActScopeClass.lkt"
+
+		// LinkedInfo
+		#Include "ClassModel/LinkedInfoClass.lkt"
+		#Include "ClassModel/GlobalDateClass.lkt"
+		#Include "ClassModel/PersonalIdClass.lkt"
+		#Include "ClassModel/FlightTypeClass.lkt"
+		#Include "ClassModel/NumberClass.lkt"
+		#Include "ClassModel/ItineraryClass.lkt"
+
+		// Working Task
+		#Include "ClassModel/ProcessControlClass.lkt"
+
+		// Command
+		#Include "ClassModel/CommandClass.lkt"
+
+		// Action Scheme
+		#Include "ClassModel/MindTaskModelClass.lkt"
+
+		// Output Scheme
+		#Include "ClassModel/OSchemeClass.lkt"
+
+	lexicalModel forLanguage es
+		// Base
+		#Include "UnderstandingModel/BaseLex.lkt"
+		#Include "UnderstandingModel/InteractionLex.lkt"
+		#Include "UnderstandingModel/ConversationLex.lkt"
+
+		// OperPurpose
+		#Include "UnderstandingModel/OperPurposeLex.lkt"
+
+		// ActScope
+		#Include "UnderstandingModel/ActScopeLex.lkt"
+
+		// LinkedInfo
+		#Include "UnderstandingModel/GlobalDateLex.lkt"
+		#Include "UnderstandingModel/PersonalIdLex.lkt"
+		#Include "UnderstandingModel/FlightTypeLex.lkt"
+		#Include "UnderstandingModel/NumberLex.lkt"
+		#Include "UnderstandingModel/ItineraryLex.lkt"
+
+	grammaticalModel forLanguage es
+		// Base
+		#Include "UnderstandingModel/ConversationGram.lkt"
+		#Include "UnderstandingModel/InteractionGram.lkt"
+
+		// OperPurpose
+		#Include "UnderstandingModel/OperPurposeGram.lkt"
+
+		// ActScope
+		#Include "UnderstandingModel/ActScopeGram.lkt"
+
+		// LinkedInfo
+		#Include "UnderstandingModel/LinkedInfoGram.lkt"
+		#Include "UnderstandingModel/GlobalDateGram.lkt"
+		#Include "UnderstandingModel/PersonalIdGram.lkt"
+		#Include "UnderstandingModel/FlightTypeGram.lkt"
+		#Include "UnderstandingModel/NumberGram.lkt"
+		#Include "UnderstandingModel/ItineraryGram.lkt"
+
+	functionModel
+		#Include "DialogueModel/OpenFHead.lkt"
+		#Include "DialogueModel/SensoFHead.lkt"
+		#Include "DialogueModel/CogitoFHead.lkt"
+		#Include "GenerationModel/Scribo-GlobalDateFHead.lkt"
+		#Include "GenerationModel/Scribo-FareFHead.lkt"
+		#Include "GenerationModel/Scribo-ItineraryFHead.lkt"
+
+		#Include "DialogueModel/WebServiceBackOffice.lkt"
+		#Include "DialogueModel/Verify-ICR-Coherence.lkt"
+
+	conversationalModel
+
+		#Include "DialogueModel/MindBoardDialogue.lkt"
+
+		#Include "DialogueModel/ControlDialogue.lkt"
+
+		ColligoSchemata
+		#Include "DialogueModel/ColligoDialogue.lkt"
+
+		SensoSchemata
+		#Include "DialogueModel/SensoDialogue.lkt"
+
+		CogitoSchemata
+		#Include "DialogueModel/CogitoDialogue.lkt"
+
+		RespondoSchemata
+		#Include "DialogueModel/RespondoDialogue.lkt"
+
+	functionModel
+		#Include "DialogueModel/OpenFBody.lkt"
+		#Include "DialogueModel/SensoFBody.lkt"
+		#Include "DialogueModel/CogitoFBody.lkt"
+		#Include "DialogueModel/GTaskFBody.lkt"
+
+
+	scriboModel forLanguage es
+		ScriboSchemata
+		#Include "GenerationModel/Ask-Scribo.lkt"
+		#Include "GenerationModel/Verify-Scribo.lkt"
+		#Include "GenerationModel/Inform-Scribo.lkt"
+		#Include "GenerationModel/Interaction-Scribo.lkt"
+		#Include "GenerationModel/Error-Scribo.lkt"
+
+	functionModel
+		#Include "GenerationModel/Scribo-GlobalDateFBody.lkt"
+		#Include "GenerationModel/Scribo-FareFBody.lkt"
+		#Include "GenerationModel/Scribo-ItineraryFBody.lkt"

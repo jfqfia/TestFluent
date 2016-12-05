@@ -1,0 +1,114 @@
+/*******************************
+ ** Senso / I / Functions
+ *******************************/
+
+integer	RaiseIDenialSingle(Command linput) 
+{
+	integer openRaise;
+
+	SpyMessage("=> RaiseIDenialSingle / Input:");
+	SpyMessage(linput);
+
+	$MINDBOARD@Setup.ActionSetup <- 'run';
+
+	openRaise <- 0;
+
+	if ((!!$MINDBOARD@fOpen.GModel) && (!!$MINDBOARD@fOpen.CModel) && (!!$MINDBOARD@fOpen.ReceivedCommand)) {
+		raiseNewOpenModel(linput);
+		openRaise <- 1;
+	}
+
+	if ((!!openRaise) && $MINDBOARD@fOpen.GModel) {
+		if ($MINDBOARD@fOpen.GModel.OperPurpose) {
+			if ($MINDBOARD@fOpen.GModel.OperPurpose.OperPurposeDescriptor == linput.OperPurpose.OperPurposeDescriptor) {
+				openRaise <- 1;
+			}
+		} else {
+			if ($MINDBOARD@fOpen.GModel.ActScope) {
+				if (AnalyzeOperPurposeActScopeCoherence(linput.OperPurpose.OperPurposeDescriptor,
+						$MINDBOARD@fOpen.GModel.ActScope.ActScopeDescriptor)) {
+					raiseFusionOpenModel(linput);
+					openRaise <- 1;
+				}
+			} else {
+				if ($MINDBOARD@fOpen.GModel.LinkedInfo) {
+					if (AnalyzeOperPurposeLinkedInfoCoherence(linput.OperPurpose.OperPurposeDescriptor,
+							$MINDBOARD@fOpen.GModel.LinkedInfo.LinkedInfoDescriptor)) {
+						raiseFusionOpenModel(linput);
+						openRaise <- 1;
+					}
+				}
+			}
+		}
+	}
+
+	if ((!!openRaise) && $MINDBOARD@fOpen.CModel) {
+		if ($MINDBOARD@fOpen.CModel.OperPurpose) {
+			if ($MINDBOARD@fOpen.CModel.OperPurpose.OperPurposeDescriptor == linput.OperPurpose.OperPurposeDescriptor) {
+				openRaise <- 1;
+			}
+		} else {
+			if ($MINDBOARD@fOpen.CModel.ActScope) {
+				if (AnalyzeOperPurposeActScopeCoherence(linput.OperPurpose.OperPurposeDescriptor,
+						$MINDBOARD@fOpen.CModel.ActScope.ActScopeDescriptor)) {
+					raiseFusionOpenModel(linput);
+					openRaise <- 1;
+				}
+			} else {
+				if ($MINDBOARD@fOpen.CModel.LinkedInfo) {
+					if (AnalyzeOperPurposeLinkedInfoCoherence(linput.OperPurpose.OperPurposeDescriptor,
+							$MINDBOARD@fOpen.CModel.LinkedInfo.LinkedInfoDescriptor)) {
+						raiseFusionOpenModel(linput);
+						openRaise <- 1;
+					}
+				}
+			}
+		}
+	}
+
+	if ((!!openRaise) && $MINDBOARD@fOpen.ReceivedCommand) {
+		if ($MINDBOARD@fOpen.ReceivedCommand.OperPurpose) {
+			if ($MINDBOARD@fOpen.ReceivedCommand.OperPurpose.OperPurposeDescriptor == linput.OperPurpose.OperPurposeDescriptor) {
+				openRaise <- 1;
+			}
+		} else {
+			if ($MINDBOARD@fOpen.ReceivedCommand.ActScope) {
+				if (AnalyzeOperPurposeActScopeCoherence(linput.OperPurpose.OperPurposeDescriptor,
+						$MINDBOARD@fOpen.ReceivedCommand.ActScope.ActScopeDescriptor)) {
+					raiseFusionOpenModel(linput);
+					openRaise <- 1;
+				}
+			} else {
+				if ($MINDBOARD@fOpen.ReceivedCommand.LinkedInfo) {
+					if (AnalyzeOperPurposeLinkedInfoCoherence(linput.OperPurpose.OperPurposeDescriptor,
+							$MINDBOARD@fOpen.ReceivedCommand.LinkedInfo.LinkedInfoDescriptor)) {
+						raiseFusionOpenModel(linput);
+						openRaise <- 1;
+					}
+				}
+			}
+		}
+	}
+
+	if (!!openRaise) {
+		raisePendModel(linput);
+	}
+
+	SpyMessage("=> RaiseIDenialSingle / Output:");
+	SpyMessage("     fOpen: ");
+	SpyMessage($MINDBOARD@fOpen);
+	SpyMessage("     fPend: ");
+	SpyMessage($MINDBOARD@fPend);
+
+	return 1;
+}
+
+integer	RaiseIDenialDouble(Command linput1,Command linput2) 
+{
+	integer openRaise;
+
+	SpyMessage("=> RaiseIDenialDouble / Input:");
+	SpyMessage(linput1);
+
+	return 1;
+}

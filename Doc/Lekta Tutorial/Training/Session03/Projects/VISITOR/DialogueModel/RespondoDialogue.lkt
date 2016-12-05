@@ -1,0 +1,19 @@
+/*******************************
+ ** Respondo
+ *******************************/
+
+(RespondoScheme DS: [LOutput]
+   RespondoCapture {
+        (BatchSize($MINDBOARD@OStruct.OScheme) > 0) 
+   }
+
+   RespondoAction {
+	LOutput loutput;
+
+	BatchExtractInit($MINDBOARD@OStruct.OScheme,loutput);
+ 
+        ^OBJRESPONDO = loutput;
+
+	RespondoRetry();
+    }
+)

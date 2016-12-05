@@ -1,0 +1,196 @@
+/***************************************************************************
+ * SOURCEFILE => Calculator_02.lkt
+ ***************************************************************************/
+
+lektaProject
+
+   projectHead
+	projectDescriptor       : "Calculator"
+	projectLanguageScope    : [ es ]
+	projectOperationScope   : [ test ]
+	projectInterfaceScope   : [ dialogue ]
+	projectCompileOutput    : ".Calculator.olk"
+
+   projectSetup
+      setupParserRoots = Expresion 
+
+   classModel
+      classDef:Void ( suma, resta, multiplica, divide, elevado )
+      classDef:Void ( abre_parentesis, cierra_parentesis )
+      classDef:ElementInt ( integer )
+
+      classDef:ElementInt ( Valor, ValorActual )
+      classDef:ElementRange ( Operador: { '+', '-', '*', '/', '^' } )
+      classDef:StructureComplex ( Expresion, Expresion1, Expresion2, ExpresionEntrada, ExpresionCalculo, ExpresionSalida: 
+            (Valor, Operador, Expresion1, Expresion2) )
+
+      classDef:StructureComplex ( Memoria: ( ExpresionEntrada, ExpresionCalculo ) )
+
+   lexicalModel forLanguage es
+      setupTokenizerIntegerClass   (integer,".,")
+      setupTokenizerPunctuation   ("+", suma)
+      setupTokenizerPunctuation   ("-", resta)
+      setupTokenizerPunctuation   ("*", multiplica)
+      setupTokenizerPunctuation   ("/", divide)
+      setupTokenizerPunctuation   ("^", elevado)
+      setupTokenizerPunctuation   ("(", abre_parentesis)
+      setupTokenizerPunctuation   (")", cierra_parentesis)
+
+      ("cero",   integer,      0)
+      ("uno",    integer,      1)
+      ("dos",    integer,      2)
+      ("tres",   integer,      3)
+      ("cuatro", integer,      4)
+      ("cinco",  integer,      5)
+      ("seis",   integer,      6)
+      ("siete",  integer,      7)
+      ("ocho",   integer,      8)
+      ("nueve",  integer,      9)
+
+      ("mas",     suma)
+      ("menos",   resta)
+      ("entre",   divide)
+      ("por",     multiplica)
+      ("elevado a",   elevado)
+
+      ("abre",             abre_parentesis)
+      ("abre parentesis",  abre_parentesis)
+      ("cierra",           cierra_parentesis)
+      ("cierra parentesis",cierra_parentesis)
+
+
+   grammaticalModel forLanguage es
+
+      (R1: [ Expresion/0 -> integer ]
+         { ^.Valor <- #1; } )
+
+      (R2: [ Expresion/0 -> &[-Expresion] resta integer ]
+         { ^.Valor <- - #2; } )
+
+      (R3: [ Expresion/0 -> abre_parentesis Expresion/10 cierra_parentesis ]
+         { ^ <- #2; } )
+
+      (R4: [ Expresion/3 -> Expresion/3 suma Expresion/2 ]
+         { ^.Operador <- '+';
+           ^.Valor <- #1.Valor + #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R5: [ Expresion/3 -> Expresion/3 resta Expresion/2 ]
+         { ^.Operador <- '-';
+           ^.Valor <- #1.Valor - #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R6: [ Expresion/2 -> Expresion/2 multiplica Expresion/1 ]
+         { ^.Operador <- '*';
+           ^.Valor <- #1.Valor * #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R7: [ Expresion/2 -> Expresion/2 divide Expresion/1 ]
+         { ^.Operador <- '/';
+           ^.Valor <- #1.Valor / #3.Valor;
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R8: [ Expresion/1 -> Expresion/1 elevado Expresion/0 ]
+         { ^.Operador <- '^';
+           ^.Valor <- Pow(#1.Valor,#3.Valor);
+           ^.Expresion1 <- #1;
+           ^.Expresion2 <- #3; } )
+
+      (R9: [ Expresion/20 -> suma Expresion/10 ]
+         { ^.Operador <- '+';
+           ^.Expresion2 <- #2; } )
+
+      (R10: [ Expresion/20 -> resta Expresion/10 ]
+         { ^.Operador <- '-';
+           ^.Expresion2 <- #2; } )
+
+      (R11: [ Expresion/20 -> multiplica Expresion/10 ]
+         { ^.Operador <- '*';
+           ^.Expresion2 <- #2; } )
+
+      (R12: [ Expresion/20 -> divide Expresion/10 ]
+         { ^.Operador <- '/';
+           ^.Expresion2 <- #2; } )
+
+      (R13: [ Expresion/20 -> elevado Expresion/10 ]
+         { ^.Operador <- '^';
+           ^.Expresion2 <- #2; } )
+
+
+   conversationalModel
+      MindBoardStructure: {
+         (Memoria / Memoria)
+      }
+
+      SensoSchemata
+         (SensoScheme RExpresion : [Expresion]
+            SensoAction {
+               $MINDBOARD@Memoria.ExpresionEntrada <- #OBJSENSO-1;
+            }
+         )
+
+      CogitoSchemata
+         (CogitoScheme TExpresion :
+            CogitoAction {
+               if ($MINDBOARD@Memoria.ExpresionEntrada.Operador) {
+                  if ($MINDBOARD@Memoria.ExpresionEntrada.Expresion1) {
+                     $MINDBOARD@Memoria.ExpresionCalculo <- 
+                        $MINDBOARD@Memoria.ExpresionEntrada;
+                  } else {
+                     Expresion fexp <- $MINDBOARD@Memoria.ExpresionEntrada;
+                     fexp.Expresion1 <- $MINDBOARD@Memoria.ExpresionCalculo;
+                     $MINDBOARD@Memoria.ExpresionCalculo <- fexp;
+                     switch ($MINDBOARD@Memoria.ExpresionCalculo.Operador) {
+                        case '+' {
+                           $MINDBOARD@Memoria.ExpresionCalculo.Valor <-
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion1.Valor +
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion2.Valor;
+                        }
+                        case '-' {
+                           $MINDBOARD@Memoria.ExpresionCalculo.Valor <-
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion1.Valor -
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion2.Valor;
+                        }
+                        case '*' {
+                           $MINDBOARD@Memoria.ExpresionCalculo.Valor <-
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion1.Valor *
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion2.Valor;
+                        }
+                        case '/' {
+                           $MINDBOARD@Memoria.ExpresionCalculo.Valor <-
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion1.Valor /
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion2.Valor;
+                        }
+                        case '^' {
+                           $MINDBOARD@Memoria.ExpresionCalculo.Valor <-
+                              Pow($MINDBOARD@Memoria.ExpresionCalculo.Expresion1.Valor,
+                              $MINDBOARD@Memoria.ExpresionCalculo.Expresion2.Valor);
+                        }
+                     }
+                  }
+               } else {
+                  $MINDBOARD@Memoria.ExpresionCalculo <- $MINDBOARD@Memoria.ExpresionEntrada;
+               }
+            }
+         )
+
+      RespondoSchemata
+         (RespondoScheme DExpresion: [ExpresionSalida] 
+            RespondoAction {
+               ^OBJRESPONDO <- $MINDBOARD@Memoria.ExpresionCalculo;
+            }
+         )
+
+   
+   scriboModel forLanguage es
+      ScriboSchemata
+         (ScriboScheme GExpresion: [ExpresionSalida]
+            ScriboAction {
+               SetMainAnswer(#OBJLOCUTIO-1.Valor);
+            }
+         )
+

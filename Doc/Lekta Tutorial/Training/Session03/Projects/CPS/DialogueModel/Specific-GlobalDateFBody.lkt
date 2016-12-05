@@ -1,0 +1,167 @@
+/*******************************
+ ** Specific / Global / Functions
+ *******************************/
+
+/*
+TaskLine	AnalyzeLinkedInfoGlobalDate(TaskLine tline)
+{
+	// 	      | RaiseModel | VerifyModel | GroundModel |
+	//            -------------------------------------------
+	//            |      1     |       1      |      1      | ** No (Verify & Ground)
+	//            |      1     |       1      |      0      |
+	//            |      1     |       0      |      1      |
+	//            |      1     |       0      |      0      |
+	//            |      0     |       1      |      1      | ** No (Verify & Ground)
+	//            |      0     |       1      |      0      |
+	//            |      0     |       0      |      1      |
+	//            |      0     |       0      |      0      |
+	//            -------------------------------------------
+	if (tline.ReceivedCommand.LinkedInfo.GlobalDate) {
+		if (!!(tline.WData.Today)) {
+			tline.WData.Today <- CalcToday();
+		}
+
+		if (tline.CModel.LinkedInfo.GlobalDate) { 		// 1 1 0
+			if (tline.ReceivedCommand.LinkedInfo.GlobalDate =:= tline.CModel.LinkedInfo.GlobalDate) {
+				tline.GModel.LinkedInfo.GlobalDate <| tline.CModel.LinkedInfo.GlobalDate;
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+			} else {
+				tline.CModel.LinkedInfo.GlobalDate <| tline.ReceivedCommand.LinkedInfo.GlobalDate;
+				Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+				tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'raise';
+			}
+		} else { 
+			if (tline.GModel.LinkedInfo.GlobalDate) { 	// 1 0 1
+				if (tline.ReceivedCommand.LinkedInfo.GlobalDate =:= tline.GModel.LinkedInfo.GlobalDate) {
+					tline.GModel.LinkedInfo.GlobalDate <| tline.ReceivedCommand.LinkedInfo.GlobalDate;
+					Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+				} else {
+					// Conflicto R - G
+					tline.CModel.LinkedInfo.GlobalDate <| tline.ReceivedCommand.LinkedInfo.GlobalDate;
+					Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+					Erase(tline.GModel.LinkedInfo.GlobalDate);
+					tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'clash';
+				}
+			} else {				// 1 0 0
+				tline.CModel.LinkedInfo.GlobalDate <- tline.ReceivedCommand.LinkedInfo.GlobalDate;
+				Erase(tline.ReceivedCommand.LinkedInfo.GlobalDate);
+				tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'raise';
+			}
+		}
+	} else {
+		if (tline.CModel.LinkedInfo.GlobalDate) { 		
+			if (!!tline.GModel.LinkedInfo.GlobalDate) { 	// 0 1 0
+				tline.GModel.LinkedInfo.GlobalDate <- tline.CModel.LinkedInfo.GlobalDate;
+				Erase(tline.CModel.LinkedInfo.GlobalDate);
+			} 
+		} else {
+			if (!!tline.GModel.LinkedInfo.GlobalDate) { 	// 0 0 0
+				tline.CModel.LinkedInfo.GlobalDate <- DefaultLinkedInfoGlobalDate();
+				tline.CModel.LinkedInfo.GlobalDate.VerifyType <- 'infer';
+			} 
+		}
+	}
+
+	return tline;
+}
+*/
+
+GlobalDate	DefaultLinkedInfoGlobalDate()
+{
+	return (PeriodDay:(PeriodPeriodDayRelative:0));
+}
+
+DRef	CalcToday()
+{
+	DRef today;
+
+	today.AbsPeriodYear	<- ClockAskYear();
+	today.AbsPeriodMonth	<- ClockAskMonth();
+	today.AbsPeriodDay	<- ClockAskDayOfThePeriodMonth();
+	today.PeriodWeekPeriodDay	<- ClockAskDayOfThePeriodWeek();
+	today.PeriodHour	<- ClockAskHour();
+	today.PeriodMinute	<- ClockAskMinute();
+
+	return today;
+}
+
+GlobalDate	CompactGlobalDate(GlobalDate date,DRef today)
+{
+	//SpyMessage("CompactGlobalDate - Input");
+	//SpyMessage(date);
+
+	if (date.PeriodDay.PeriodPeriodDayRelative) {
+		date.DRef <- today;
+		date.DRef.AbsPeriodDay <- date.DRef.AbsPeriodDay + date.PeriodDay.PeriodPeriodDayRelative;
+	} 
+
+	if (date.PeriodMonth.RelPeriodMonth) {
+		date.DRef.AbsPeriodMonth <- today.AbsPeriodMonth + date.PeriodMonth.AbsPeriodMonth;
+	}
+
+	if (date.PeriodMonth.AbsPeriodMonth) {
+		date.DRef.AbsPeriodMonth <- date.PeriodMonth.AbsPeriodMonth;
+	}
+
+	if (date.PeriodDay.AbsPeriodDay) {
+		date.DRef.AbsPeriodDay <- date.PeriodDay.AbsPeriodDay;
+	}
+
+	if (date.PeriodDay.PeriodWeekPeriodDay) {
+		date.DRef <- today;
+		if (date.PeriodDay.PeriodWeekPeriodDay >= today.PeriodWeekPeriodDay) {
+			date.DRef.AbsPeriodDay <- today.AbsPeriodDay + (date.PeriodDay.PeriodWeekPeriodDay - today.PeriodWeekPeriodDay);
+		} else {
+			date.DRef.AbsPeriodDay <- ( 7 - today.AbsPeriodDay ) + (date.PeriodDay.PeriodWeekPeriodDay - today.PeriodWeekPeriodDay);
+		}
+	}
+
+	if (date.DRef.AbsPeriodDay) {
+		if (!!date.DRef.AbsPeriodMonth) {
+			if (date.DRef.AbsPeriodDay >= today.AbsPeriodDay) {
+				date.DRef.AbsPeriodMonth <- today.AbsPeriodMonth;
+			} else {
+				date.DRef.AbsPeriodMonth <- today.AbsPeriodMonth + 1;
+			}
+		}
+	} else {
+		if (date.DRef.AbsPeriodMonth) {
+			date.DRef.AbsPeriodDay <- 1;
+		} else {
+			date.DRef <- today;
+		}
+	}
+
+	if (!!(date.DRef.AbsPeriodYear)) {
+		if (date.DRef.AbsPeriodMonth < today.AbsPeriodMonth) {
+			date.DRef.AbsPeriodYear <- today.AbsPeriodYear + 1;
+		} else {
+			date.DRef.AbsPeriodYear <- today.AbsPeriodYear;
+		}
+	}
+
+	date.DRef.Distance <- ((date.DRef.AbsPeriodYear - today.AbsPeriodYear) * 365) +
+			 ((date.DRef.AbsPeriodMonth - today.AbsPeriodMonth) * 31) +
+			  (date.DRef.AbsPeriodDay - today.AbsPeriodDay);
+	
+	//SpyMessage("CompactGlobalDate - Output");
+	//SpyMessage(date);
+
+	return date;
+}
+			
+integer VerifySlot(AvailGlobalDate availdate,Slot slot,DRef today)
+{
+	if (availdate.AbsPeriodYear == today.AbsPeriodYear) {
+		if (availdate.AbsPeriodMonth == today.AbsPeriodMonth) {
+			if (availdate.AbsPeriodDay == today.AbsPeriodDay) {
+				if (((today.PeriodHour * 60) + today.PeriodMinute + 30) >
+					((slot.SlotPeriodHourInit * 60) + slot.SlotMinInit)) {
+						return 0;
+				}
+			}
+		}
+	}
+
+	return 1;
+}

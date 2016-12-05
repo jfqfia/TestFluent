@@ -1,0 +1,107 @@
+/*******************************
+ ** Puntuation
+ *******************************/
+
+	classDef:Void ( punctBar )
+	classDef:Void ( punctColon )
+	classDef:Void ( punctComma )
+	classDef:Void ( punctDot )
+	classDef:Void ( punctExclamationOpen )
+	classDef:Void ( punctExclamationClose )
+	classDef:Void ( punctParenthesisOpen )
+	classDef:Void ( punctParenthesisClose )
+	classDef:Void ( punctQuestionOpen )
+	classDef:Void ( punctQuestionClose )
+	classDef:Void ( punctSemicolon )
+
+/*******************************
+ ** Nulos
+ *******************************/
+	classDef:Void ( lexAuxEmpty	)
+	classDef:Void ( pause	)
+
+/*******************************
+ ** Preposiciones
+ *******************************/
+	classDef:Void ( lexAuxPrepA	)
+	classDef:Void ( lexAuxPrepCON )
+	classDef:Void ( lexAuxPrepDE )
+	classDef:Void ( lexAuxPrepDESDE )
+	classDef:Void ( lexAuxPrepEN )
+	classDef:Void ( lexAuxPrepENTRE )
+	classDef:Void ( lexAuxPrepHACIA )
+	classDef:Void ( lexAuxPrepHASTA )
+	classDef:Void ( lexAuxPrepPARA )
+	classDef:Void ( lexAuxPrepPOR )
+	classDef:Void ( lexAuxPrepSIN )
+	classDef:Void ( lexAuxPrepSOBRE )
+	classDef:Void ( lexAuxPrepAL )
+	classDef:Void ( lexAuxPrepDEL )
+
+/*******************************
+ ** Conjunciones
+ *******************************/
+	classDef:Void ( conjY )
+	classDef:Void ( conjO )
+
+/*******************************
+ ** Determinantes
+ *******************************/
+	classDef:Void ( lexAuxArticleEL )
+	classDef:Void ( lexAuxArticleLOS )
+	classDef:Void ( lexAuxArticleLA )
+	classDef:Void ( lexAuxArticleLAS )
+	classDef:Void ( detMI )
+
+/*******************************
+ ** Operadores
+ *******************************/
+	classDef:Void ( opCOMA )
+	classDef:Void ( opMenos )
+
+/*******************************
+ ** Tipos Auxiliares
+ *******************************/
+
+	classDef:ElementInt	( integer )
+	classDef:ElementReal		( real )
+	classDef:ElementLiteral	( string )
+
+
+
+	classDef:Void 	( lexAuxUndefArticle )
+
+	classDef:Void	( lexAuxPronoun )
+	classDef:Void	( lexAuxIWant )
+	classDef:Void	( lexAuxPartFor )
+	classDef:Void	( lexAuxDefArticle )
+	classDef:Void 	( lexAuxAskFor )
+
+	classDef:Void	( strAuxIWant )
+
+	classDef:Void 	( lexAuxPartIf )
+	classDef:Void 	( lexAuxVerbBe )
+	classDef:Void 	( lexAuxWhat )
+	classDef:Void 	( lexCorrect )
+	classDef:Void 	( lexKnow )
+	classDef:Void 	( lexFind )
+	classDef:Void 	( lexFindAux )
+	classDef:Void 	( lexDenial )
+	classDef:Void 	( lexApology )
+	classDef:Void 	( lexBut )
+	classDef:Void 	( lexBorn )
+	classDef:Void 	( lexRelPron )
+
+/*******************************
+ ** ASR
+ *******************************/
+
+	classDef:Void 	( S, NS_B, NS_E, Start )
+
+/*******************************
+ ** Genusntic Score
+ *******************************/
+        classDef:ElementInt      ( SemScore )
+
+        UnifierGenusnticScore:Class = SemScore
+

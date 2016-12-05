@@ -1,0 +1,19 @@
+/*******************************
+ ** Respondo
+ *******************************/
+
+(RespondoScheme DS: [OutItem]
+   RespondoCapture {
+        (BatchSize($MINDBOARD@OutModel.OutFrame) > 0) 
+   }
+
+   RespondoAction {
+	OutItem loutput;
+
+	BatchExtractInit($MINDBOARD@OutModel.OutFrame,loutput);
+ 
+        ^OBJRESPONDO = loutput;
+
+	RespondoRetry();
+    }
+)

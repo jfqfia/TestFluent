@@ -1,0 +1,22 @@
+/*******************************
+ ** Scribo / Inform
+ *******************************/
+
+(ScriboScheme NLG_Inform_Point: [OutItem]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (OutFunction:'inform',OutParameter:'task')
+    }
+
+    ScriboAction {
+        SetMainAnswerTextRandom(
+		"Estupendo, ",
+		"Muy bien, ",
+		"Sin problemas, ",
+		"Perfecto, ",
+		"Hecho, ");
+
+    	SetMainAnswer(scopeDescription(#OBJLOCUTIO-1.Command));
+    	SetMainAnswer(purposeDescription(#OBJLOCUTIO-1.Command));
+	SetMainAnswer(". ");
+    }
+)

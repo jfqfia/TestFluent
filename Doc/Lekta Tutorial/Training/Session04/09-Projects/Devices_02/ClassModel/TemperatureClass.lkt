@@ -1,0 +1,13 @@
+/*******************************
+ ** Temperature
+ *******************************/
+
+	classDef:ElementLiteral	( lexTemperatureDescriptor )
+	classDef:ElementRange	( lexTemperatureScale, Scale: { 'celsius', 'fahrenheit', 'kelvin' } )
+
+	classDef:ElementInt (Value)
+
+	classDef:StructureComplex	( Temperature:	
+						(Value,
+						 Scale) )
+

@@ -1,0 +1,26 @@
+
+/*******************************
+ ** LinkedInfo
+ *******************************/
+
+	classDef:ElementRange ( LinkedInfoDescriptor : 
+				{ 
+				  'date',
+				  'number',
+				  'person',
+				  'service',
+				  'userid'
+				} )
+
+	classDef:StructureComplex ( LinkedInfo :
+				( 
+				  LinkedInfoDescriptor,
+				  GlobalDate,
+				  Number,
+				  Person,
+				  Service,
+				  UserId
+				) )
+
+	ParserGrammaticalScore:FocalCats = LinkedInfo
+	UnifierGenusnticScore:FocalCats = LinkedInfo

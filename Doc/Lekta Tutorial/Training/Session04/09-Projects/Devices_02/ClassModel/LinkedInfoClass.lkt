@@ -1,0 +1,13 @@
+
+/*******************************
+ ** LinkedInfo
+ *******************************/
+
+	classDef:ElementRange ( LinkedInfoDescriptor : 
+				{ 'location',
+				  'temperature' } )
+
+	classDef:StructureComplex ( LinkedInfo :
+				( LinkedInfoDescriptor,
+				  Location,
+				  Temperature ) )

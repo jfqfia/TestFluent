@@ -1,0 +1,140 @@
+/*******************************
+ ** Fechas
+ *******************************/
+	("antes",			lexPeriodBefore)
+	("despues",			lexPeriodBefore)
+	("primero",			lexPeriodBefore)
+
+	("proxima",			lexPeriodNext)
+	("proximo",			lexPeriodNext)
+	("que viene",			lexPeriodNext)
+	("siguiente",			lexPeriodNext)
+
+	("dentro",			auxPeriodNext)
+	("dentro de",			auxPeriodNext)
+	("para dentro de",		auxPeriodNext)
+
+	("anterior",			lexPeriodPrev)
+	("pasada",			lexPeriodPrev)
+	("pasado",			lexPeriodPrev)
+
+	("hace",			auxPeriodPrev)
+
+	("antes",			lexPeriodRelative,				-1)
+	("algo antes",			lexPeriodRelative,			-1)
+	("un poco antes",		lexPeriodRelative,		-1)
+	("mas temprano",		lexPeriodRelative,		-1)
+	("algo mas temprano",		lexPeriodRelative,	-1)
+	("un poco mas temprano",	lexPeriodRelative,	-1)
+	("el vuelo anterior",		lexPeriodRelative,	-1)
+	("el anterior vuelo",		lexPeriodRelative,	-1)
+	("despues",			lexPeriodRelative,			1)
+	("algo despues",		lexPeriodRelative,		1)
+	("un poco despues",		lexPeriodRelative,		1)
+	("mas tarde",			lexPeriodRelative,			1)
+	("algo mas tarde",		lexPeriodRelative,	1)
+	("un poco mas tarde",		lexPeriodRelative,	1)
+	("el siguiente vuelo",		lexPeriodRelative,	1)
+	("el vuelo siguiente",		lexPeriodRelative,	1)
+
+/*************************/
+/** PeriodYear		**/
+/*************************/
+
+	("año",				lexPeriodYear)
+	("años",			lexPeriodYear)
+
+/*************************/
+/** PeriodMonth		**/
+/*************************/
+
+	("mes",				lexPeriodMonth)
+	("meses",			lexPeriodMonth)
+
+	("enero",			lexPeriodPeriodMonthDesc,  1)
+	("febrero",			lexPeriodPeriodMonthDesc,  2)
+	("marzo",			lexPeriodPeriodMonthDesc,  3)
+	("abril",			lexPeriodPeriodMonthDesc,  4)
+	("mayo",			lexPeriodPeriodMonthDesc,  5)
+	("junio",			lexPeriodPeriodMonthDesc,  6)
+	("julio",			lexPeriodPeriodMonthDesc,  7)
+	("agosto",			lexPeriodPeriodMonthDesc,  8)
+	("septiembre",			lexPeriodPeriodMonthDesc,  9)
+	("octubre",			lexPeriodPeriodMonthDesc, 10)
+	("noviembre",			lexPeriodPeriodMonthDesc, 11)
+	("diciembre",			lexPeriodPeriodMonthDesc, 12)
+
+/*************************/
+/** PeriodWeek		**/
+/*************************/
+
+	("genusna",			lexPeriodWeek)
+	("genusnas",			lexPeriodWeek)
+
+/*************************/
+/** PeriodDay			**/
+/*************************/
+
+	("dia",				lexPeriodDay)
+	("dias",			lexPeriodDay)
+
+	("lunes",			lexPeriodPeriodDayDesc, 1)
+	("martes",			lexPeriodPeriodDayDesc, 2)
+	("miercoles",			lexPeriodPeriodDayDesc, 3)
+	("jueves",			lexPeriodPeriodDayDesc, 4)
+	("viernes",			lexPeriodPeriodDayDesc, 5)
+	("sabado",			lexPeriodPeriodDayDesc, 6)
+	("domingo",			lexPeriodPeriodDayDesc, 7)
+
+	("ayer",			lexPeriodPeriodDayRelative, -1)
+	("hoy",				lexPeriodPeriodDayRelative, 0)
+	("mañana",			lexPeriodPeriodDayRelative, 1)
+	("pasadomañana",		lexPeriodPeriodDayRelative, 2)
+	("pasado mañana",		lexPeriodPeriodDayRelative, 2)
+
+/*************************/
+/** PeriodDaySection		**/
+/*************************/
+
+	("esta maana",			lexPeriodDayToday, ['morning'])
+	("este mediodia",		lexPeriodDayToday, ['noon'])
+	("esta tarde",			lexPeriodDayToday, ['afternoon'])
+	("esta noche",			lexPeriodDayToday, ['evening'])
+
+	("a primera hora",		lexPeriodDaySection, ['first_time'])
+	("temprano",			lexPeriodDaySection, ['first_time'])
+	("a ultima hora",		lexPeriodDaySection, ['last_time'])
+	("tarde",			lexPeriodDaySection, ['last_time'])
+
+	("la mañana",			lexPeriodDaySection, ['morning'])
+	("de la mañana",		lexPeriodDaySection, ['morning'])
+	("por la mañana",		lexPeriodDaySection, ['morning'])
+
+	("mediodia",			lexPeriodDaySection, ['noon'])
+	("al mediodia",			lexPeriodDaySection, ['noon'])
+	("el mediodia",			lexPeriodDaySection, ['noon'])
+	("del mediodia",		lexPeriodDaySection, ['noon'])
+	("por el mediodia",		lexPeriodDaySection, ['noon'])
+
+	("la tarde",			lexPeriodDaySection, ['afternoon'])
+	("de la tarde",			lexPeriodDaySection, ['afternoon'])
+	("por la tarde",		lexPeriodDaySection, ['afternoon'])
+
+	("la noche",			lexPeriodDaySection, ['evening'])
+	("de la noche",			lexPeriodDaySection, ['evening'])
+	("por la noche",		lexPeriodDaySection, ['evening'])
+
+/*************************/
+/** Time		**/
+/*************************/
+
+	("hora",			lexPeriodHour)
+	("horas",			lexPeriodHour)
+	("minuto",			lexPeriodMinute)
+	("minutos",			lexPeriodMinute)
+
+	("y cuarto",			lexPeriodQuarter, 	 15)
+	("y media",			lexPeriodQuarter, 	 30)
+	("menos cuarto",		lexPeriodQuarter, 	-15)
+	("en punto",			lexPeriodQuarter, 	  0)
+

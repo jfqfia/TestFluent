@@ -1,0 +1,12 @@
+/***************************************************************************
+ * Sistema:             pLekta v2 - 2013 
+ *    LektaTraining: Level 1 - ANBNCN.slk
+ ***************************************************************************/
+
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".AnBnCn.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()

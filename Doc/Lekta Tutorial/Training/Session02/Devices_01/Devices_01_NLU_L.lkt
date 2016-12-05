@@ -1,0 +1,14 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_01_NLU_L.lkt
+ ***************************************************************************/
+
+      ("alarma",        DeviceId,   'alarm')
+      ("calefaccion",   DeviceId,   'heating')
+      ("riego",         DeviceId,   'irrigation')
+
+      ("activar",       OperationId,   'activate')
+      ("desactivar",    OperationId,   'deactivate')
+
+      ("ayuda",         CommandId,   'help')
+      ("volver",        CommandId,   'back')
+      ("adios",         CommandId,   'exit')

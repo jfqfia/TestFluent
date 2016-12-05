@@ -1,0 +1,53 @@
+/*******************************
+ ** OperPurpose
+ *******************************/
+
+/*************************/
+/** lexOperPurposeVerb	**/
+/*************************/
+
+	("activar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("activa",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("actives",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("encender",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("enciende",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("enciendas",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("conectar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("conecta",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("conectes",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("poner",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("pon",			lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+	("pongas",		lexOperPurposeVerb,	(OperPurposeDescriptor:'activate'))
+
+	("desactivar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("desactiva",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("desactives",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("apagar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("apaga",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("apagues",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("desconectar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("desconecta",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("desconectes",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("quitar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("quita",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+	("quites",		lexOperPurposeVerb,	(OperPurposeDescriptor:'deactivate'))
+
+	("abrir",		lexOperPurposeVerb,	(OperPurposeDescriptor:'open'))
+	("abre",		lexOperPurposeVerb,	(OperPurposeDescriptor:'open'))
+	("abras",		lexOperPurposeVerb,	(OperPurposeDescriptor:'open'))
+
+	("cerrar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'close'))
+	("cierra",		lexOperPurposeVerb,	(OperPurposeDescriptor:'close'))
+	("cierres",		lexOperPurposeVerb,	(OperPurposeDescriptor:'close'))
+
+	("consultar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'consult'))
+	("consulta",		lexOperPurposeVerb,	(OperPurposeDescriptor:'consult'))
+	("consultes",		lexOperPurposeVerb,	(OperPurposeDescriptor:'consult'))
+
+	("modificar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'modify'))
+	("modifica",		lexOperPurposeVerb,	(OperPurposeDescriptor:'modify'))
+	("mofifiques",		lexOperPurposeVerb,	(OperPurposeDescriptor:'modify'))
+	("cambiar",		lexOperPurposeVerb,	(OperPurposeDescriptor:'modify'))
+	("cambia",		lexOperPurposeVerb,	(OperPurposeDescriptor:'modify'))
+	("cambies",		lexOperPurposeVerb,	(OperPurposeDescriptor:'modify'))
+

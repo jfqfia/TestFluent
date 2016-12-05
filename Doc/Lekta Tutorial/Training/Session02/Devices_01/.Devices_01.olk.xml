@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<plekta-application
+        name        ="Devices"
+        build-date  ="2016-09-13 11:00:00"
+        plekta-version ="16.5.16"
+>
+
+    <channels>
+        <channel code="1" description="dialogue"/>
+    </channels>
+
+    <languages>
+        <language code="1" description="es"/>
+    </languages>
+
+    <services>
+        <service code="1" description="test"/>
+    </services>
+
+    <annotation-types>
+        <annotation-type purpose="plkt-audit" code="tra" description="TransactionalAnnotations">
+            <annotation-items>
+            </annotation-items>
+        </annotation-type>
+        <annotation-type purpose="plkt-audit" code="ope" description="OperativeAnnotations">
+            <annotation-items>
+            </annotation-items>
+        </annotation-type>
+        <annotation-type purpose="plkt-audit" code="dia" description="DialogueAnnotations">
+            <annotation-items>
+            </annotation-items>
+        </annotation-type>
+    </annotation-types>
+</plekta-application>

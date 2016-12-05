@@ -1,0 +1,82 @@
+/***************************************************************************
+ * SOURCEFILE => Data_02.lkt
+ ***************************************************************************/
+
+lektaProject
+
+	projectHead
+		projectDescriptor       : "Date_02"
+		projectLanguageScope    : [ es ]
+		projectOperationScope   : [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput    : ".Date_02.olk"
+
+	projectSetup
+		setupParserRoots = Command 
+
+	classModel
+		classDef:ElementRange ( askInfo: 
+			{ 'day', 'hour'} )
+		classDef:StructureComplex ( askCommand, Command : (askInfo) )
+		classDef:StructureBatch ( Commands : (Command ) )
+		classDef:StructureComplex ( Task : ( Commands ) )
+
+	lexicalModel forLanguage es
+		("dime el día",   askCommand,      (askInfo:'day'))
+		("dime la hora",  askCommand,      (askInfo:'hour'))
+
+	grammaticalModel forLanguage es
+		(R1: [ Command -> askCommand ]
+			{ ^ <- #1; } )
+
+	conversationalModel
+		MindBoardStructure: {
+			(Mind / Task)
+		}
+
+		SensoSchemata
+			(SensoScheme SenseCommand : [Command]
+				SensoAction {
+					BatchInsertEnd($MINDBOARD@Mind.Commands, #OBJSENSO-1);
+				}
+			)
+
+		RespondoSchemata
+			(RespondoScheme DS: [Command]
+				RespondoCapture {
+					(BatchSize($MINDBOARD@Mind.Commands) > 0)
+				}
+				RespondoAction {
+					Command command;
+					BatchExtractInit($MINDBOARD@Mind.Commands,command);
+					^OBJRESPONDO <- command;
+					RespondoRetry();
+				}
+			)
+
+	scriboModel forLanguage es
+		ScriboSchemata
+			(ScriboScheme Command: [Command]
+				ScriboCapture {
+					#OBJLOCUTIO-1 == (askInfo:'day')
+				}
+				ScriboAction {
+					SetMainAnswer("Es el día ");
+					SetMainAnswer(ClockAskDayOfTheMonth());
+					SetMainAnswer(". ");
+				}
+			)
+
+			(ScriboScheme Command: [Command]
+				ScriboCapture {
+					#OBJLOCUTIO-1 == (askInfo:'hour')
+				}
+				ScriboAction {
+					SetMainAnswer("Son las ");
+					SetMainAnswer(ClockAskHour());
+					SetMainAnswer(":");
+					SetMainAnswer(ClockAskMinute());
+					SetMainAnswer(". ");
+				}
+			)
+

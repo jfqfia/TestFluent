@@ -1,0 +1,35 @@
+/*******************************
+ ** ActScope
+ *******************************/
+
+(RActScope1 :
+	[ ActScope -> strAuxIWant? ActScopeNoun ]
+		{ ^ <- #2; } )
+
+/*************************/
+/** ActScopeNoun	**/
+/*************************/
+
+!ASR(RActScopeNoun1 : 
+	[ ActScopeNoun -> lexActScopeNoun? <GlobalDate? % PersonASR? % Service?> ] )
+
+!PRS(RActScopeNoun2 : 
+	[ ActScopeNoun -> lexAuxUndefArticle? lexActScopeNoun ] 
+		{ ^ <- #2; } )
+
+/*
+(RActScopeNoun2 : 
+	[ ActScopeNoun -> lexAuxUndefArticle? <lexActScopeNoun % lexActScopeMod> ] 
+		{ ^ <- #2;
+		  ^.ActScopeMod <- #3; } )
+
+!PRS(RActScopeNoun3 : 
+	[ ActScopeNoun/1 -> lexAuxPartIf? lexAuxVerbBe ActScopeNoun/0 ] 
+		{ ^ <- #3; } )
+		  // ^.ActScopeMod <- ['available']; } )
+*/
+
+!PRS(RActScopeNoun4 : 
+	[ ActScopeNoun/1 -> lexAuxUndefArticle? lexActScopeNoun lexRelPron lexAuxVerbBe ] 
+		{ ^ <- #2; } )
+		  //^.ActScopeMod <- ['available']; } )

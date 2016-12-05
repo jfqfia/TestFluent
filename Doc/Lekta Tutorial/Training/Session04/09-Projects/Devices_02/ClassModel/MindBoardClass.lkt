@@ -1,0 +1,26 @@
+/*******************************
+ ** MindBoard
+ *******************************/
+
+	// -> MindBoard / Setup
+	classDef:ElementRange 
+		( DialogueState: {
+			'start',
+			'run',
+			'cont',
+			'new',
+			'next',
+			'close',
+			'stop'
+		} )
+
+	classDef:StructureComplex
+		( DialogueStart : (
+			DialogueState
+		) )
+
+	classDef:StructureComplex 
+		( DialogueSetup: (
+			DialogueState
+		) )
+

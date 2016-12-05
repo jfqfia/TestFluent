@@ -1,0 +1,14 @@
+/*******************************
+ ** Scribo / CMap
+ *******************************/
+
+(ScriboScheme NLG_CMap: [OutItem]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (OutFunction:'cmap')
+    }
+
+    ScriboAction {
+
+        SetMainAnswer(#OBJLOCUTIO-1.OutParameter);
+    }
+)

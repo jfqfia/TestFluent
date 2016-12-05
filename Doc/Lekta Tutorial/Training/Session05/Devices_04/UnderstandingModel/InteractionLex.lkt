@@ -1,0 +1,103 @@
+/*******************************
+ ** LEXICON
+ *******************************
+ ** Interaction
+ **	lexInteractionAuxiliar
+ **	lexInteraction
+ *******************************/
+
+/*************************************************/
+/** 	Interaction				**/
+
+/**		 Interaction/lexInteractionAuxiliar		**/
+
+	("bueno",		lexInteractionAuxiliar)
+	("bien",		lexInteractionAuxiliar)
+	("de acuerdo",		lexInteractionAuxiliar)
+	("entonces",		lexInteractionAuxiliar)
+	("eso",			lexInteractionAuxiliar)
+	("luego",		lexInteractionAuxiliar)
+	("muy bien",		lexInteractionAuxiliar)
+	("ok",			lexInteractionAuxiliar)
+	("perdon",		lexInteractionAuxiliar)
+	("perdona",		lexInteractionAuxiliar)
+	("perdone",		lexInteractionAuxiliar)
+	("perdoname",		lexInteractionAuxiliar)
+	("perdoneme",		lexInteractionAuxiliar)
+	("pues",		lexInteractionAuxiliar)
+	("vale",		lexInteractionAuxiliar)
+	("venga",		lexInteractionAuxiliar)
+	("yo",			lexInteractionAuxiliar)
+	("pues entonces",	lexInteractionAuxiliar)
+	("en ese caso",		lexInteractionAuxiliar)
+	("ah",			lexInteractionAuxiliar)
+	("lo siento",		lexInteractionAuxiliar)
+
+/**		Interaction/InterPardon			**/
+
+	("a ver",		lexInteraction,	(InterPardon:'on'))
+	("caballero",		lexInteraction,	(InterPardon:'on'))
+	("era a ver",		lexInteraction,	(InterPardon:'on'))
+	("mira",		lexInteraction,	(InterPardon:'on'))
+	("mire",		lexInteraction,	(InterPardon:'on'))
+	("oiga",		lexInteraction,	(InterPardon:'on'))
+	("oye",			lexInteraction,	(InterPardon:'on'))
+	("seorita",		lexInteraction,	(InterPardon:'on'))
+	("usted",		lexInteraction,	(InterPardon:'on'))
+	("vamos a ver",		lexInteraction,	(InterPardon:'on'))
+	("por cierto",		lexInteraction,	(InterPardon:'on'))
+	("ah por cierto",	lexInteraction,	(InterPardon:'on'))
+	("otra cosa",		lexInteraction,	(InterPardon:'on'))
+	("y otra cosa",		lexInteraction,	(InterPardon:'on'))
+	("disculpa",		lexInteraction,	(InterPardon:'on'))
+	("disculpe",		lexInteraction,	(InterPardon:'on'))
+	("disculpame",		lexInteraction,	(InterPardon:'on'))
+	("disculpeme",		lexInteraction,	(InterPardon:'on'))
+
+/**		Interaction/InterHello			**/
+
+	("buenas",		lexInteraction,	(InterHello:'on'))
+	("hola",		lexInteraction,	(InterHello:'on'))
+	("muy buenas",		lexInteraction,	(InterHello:'on'))
+	("que tal",		lexInteraction,	(InterHello:'on'))
+	("que hay",		lexInteraction,	(InterHello:'on'))
+	("que pasa",		lexInteraction,	(InterHello:'on'))
+
+/**		Interaction/InterGreeting		**/
+
+	("buenos dias",		lexInteraction,	(InterGreeting:['morning']))
+	("buenas tardes",	lexInteraction,	(InterGreeting:['afternoon']))
+	("buenas noches",	lexInteraction,	(InterGreeting:['evening']))
+
+/**		Interaction/InterFarewell		**/
+
+	("adios",		lexInteraction,	(InterFarewell:'on'))
+	("chao",		lexInteraction,	(InterFarewell:'on'))
+	("hasta luego",		lexInteraction,	(InterFarewell:'on'))
+	("pues nada",		lexInteraction,	(InterFarewell:'on'))
+	("nada mas",		lexInteraction,	(InterFarewell:'on'))
+	("ya llamare",		lexInteraction,	(InterFarewell:'on'))
+	("ya llamo",		lexInteraction,	(InterFarewell:'on'))
+	("ya le llamare",	lexInteraction,	(InterFarewell:'on'))
+	("ya le llamo",		lexInteraction,	(InterFarewell:'on'))
+	("ya te llamare",	lexInteraction,	(InterFarewell:'on'))
+	("ya te llamo",		lexInteraction,	(InterFarewell:'on'))
+	("ea",			lexInteraction,	(InterFarewell:'on'))
+
+/**		Interaction/InterPlease			**/
+
+	("por favor",		lexInteraction,	(InterPlease:'on'))
+	("si eres tan amable",	lexInteraction,	(InterPlease:'on'))
+	("si fueses tan amable",lexInteraction,	(InterPlease:'on'))
+
+/**		Interaction/InterThanks			**/
+
+	("gracias",		lexInteraction,	(InterThanks:'on'))
+	("gracias por todo",	lexInteraction,	(InterThanks:'on'))
+	("ha sido muy amable",	lexInteraction,	(InterThanks:'on'))
+	("muchas gracias",	lexInteraction,	(InterThanks:'on'))
+	("muchisimas gracias",	lexInteraction,	(InterThanks:'on'))
+	("muy amable",		lexInteraction,	(InterThanks:'on'))
+	("te agradezco",	lexInteraction,	(InterThanks:'on'))
+	("te lo agradezco",	lexInteraction,	(InterThanks:'on'))
+

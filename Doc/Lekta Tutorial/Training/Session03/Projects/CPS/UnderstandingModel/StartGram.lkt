@@ -1,0 +1,12 @@
+/*******************************
+ ** Start
+ *******************************/
+
+!ASR(RStart_Asr_Root :
+	[ S -> NS_B Start NS_E ] )
+
+!ASR(RStart1 : 
+	[ Start -> <Interaction ! <OperPurpose|ActScope>> ] )
+
+!ASR(RStart2 : 
+	[ Start -> OperPurpose conjY OperPurpose ] )

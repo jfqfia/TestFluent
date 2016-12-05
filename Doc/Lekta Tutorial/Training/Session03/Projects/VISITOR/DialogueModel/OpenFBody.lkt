@@ -1,0 +1,68 @@
+/*******************************
+ ** Open / Functions
+ *******************************/
+
+integer	addOpenActionModel(Command linput) 
+{
+	MindTaskItem nline;
+	integer cupn;
+
+	cupn = DialogueInteractionCounter();
+
+	nline.ActiveCommand = linput;
+	//nline.ReceivedCommand = linput;
+	//nline.NewCommand = linput;
+	nline.ProferenceNumberControl = cupn;
+
+	BatchInsertInit($MINDBOARD@Open.MindTaskList,nline);
+
+	return 1;
+}
+
+integer	addMindTaskPendingModel(Command linput) 
+{
+	MindTaskItem nline;
+	integer cupn;
+
+	cupn = DialogueInteractionCounter();
+
+	nline.ActiveCommand = linput;
+	nline.ProferenceNumberControl = cupn;
+
+	BatchInsertEnd($MINDBOARD@Open.MindTaskPending,nline);
+
+	return 1;
+}
+
+integer	fusionOpenActionModel(MindTaskItem aline,Command linput,integer open_pos)
+{
+	MindTaskItem pline;
+	integer cupn;
+
+	cupn = DialogueInteractionCounter();
+
+	aline.LastCommand = aline.ActiveCommand;
+
+	//aline.ReceivedCommand = linput;
+
+	//aline.NewCommand = linput;
+	//aline.NewCommand <! aline.ActiveCommand;
+
+	pline = aline;
+
+	aline.ActiveCommand <OW< linput;
+
+	aline.ProferenceNumberControl = cupn;
+
+	if (pline != aline) {
+		BatchInsertEnd(aline.InputTaskList,linput);
+	}
+
+	BatchAssignPosition($MINDBOARD@Open.MindTaskList,open_pos,aline);
+	if (open_pos > 1) {
+		BatchExchange($MINDBOARD@Open.MindTaskList,
+				1,open_pos);
+	}
+
+	return 1;
+}

@@ -1,0 +1,364 @@
+/*******************************
+ ** Fechas
+ *******************************/
+
+/*************************/
+/** PeriodYear		**/
+/*************************/
+
+!PRS(RPeriodYear1 : 
+	[PeriodYear -> <lexAuxPrepEN|lexAuxPrepDE|lexAuxPrepDEL|lexAuxPrepSOBRE> Integer/4]
+		{ if (IntegerLength(#2.IntegerValue) == 4) {
+			^.AbsPeriodYear <- #2.IntegerValue;
+		  } else {
+			Fail();
+		  }
+		} )
+
+!PRS(RPeriodYear2 : 
+	[PeriodYear -> lexAuxPrepEN lexAuxArticleEL Integer/4]
+		{ ^.AbsPeriodYear <- #3.IntegerValue; } )
+
+!PRS(RPeriodYear3 : 
+	[PeriodYear -> lexAuxPrepDEL Integer/4]
+		{ ^.AbsPeriodYear <- #2.IntegerValue; } )
+
+(RPeriodYear4 : 
+	[PeriodYear -> <lexAuxPrepEN ! lexAuxArticleEL>? lexPeriodYear Integer/4]
+		{ ^.AbsPeriodYear <- #4.IntegerValue; } )
+
+(RPeriodYear5 : 
+	[PeriodYear -> <lexAuxPrepEN ! lexAuxArticleEL>? <lexPeriodYear % lexPeriodNext>]
+		{ ^.RelPeriodYear <- 1; } )
+
+(RPeriodYear6 : 
+	[PeriodYear -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! <lexAuxArticleEL|lexAuxPrepDEL>>? <lexPeriodYear % Ordinal/4>]
+		{ ^.RelPeriodYear <- #4.OrdinalValue; } )
+
+(RPeriodYear7 : 
+	[PeriodYear -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! <lexAuxArticleEL|lexAuxPrepDEL>>? <lexPeriodYear % Terminal/4>]
+		{ ^.TerPeriodYear <- #4.TerminalValue; } )
+
+(RPeriodYear8 : 
+	[PeriodYear -> <lexAuxPrepEN ! lexAuxArticleEL>? <lexPeriodYear % lexPeriodPrev>]
+		{ ^.RelPeriodYear <- -1; } )
+
+(RPeriodYear9 : 
+	[PeriodYear -> auxPeriodNext Integer/4 lexPeriodYear]
+		{ ^.RelPeriodYear <- #2.IntegerValue; } )
+
+(RPeriodYear10 : 
+	[PeriodYear -> auxPeriodPrev Integer/4 lexPeriodYear]
+		{ ^.RelPeriodYear <- 0 - (#2.IntegerValue); } )
+
+/*************************/
+/** PeriodMonth		**/
+/*************************/
+
+(RPeriodMonth1 : 
+	[PeriodMonth -> <lexAuxPrepDE|lexAuxPrepEN>? lexPeriodPeriodMonthDesc]
+		{ ^.AbsPeriodMonth <- #2; } )
+
+(RPeriodMonth1 : 
+	[PeriodMonth -> <lexAuxPrepEN ! lexAuxArticleEL>? lexPeriodMonth lexAuxPrepDE? lexPeriodPeriodMonthDesc]
+		{ ^.AbsPeriodMonth <- #5; } )
+
+(RPeriodMonth1 : 
+	[PeriodMonth -> lexAuxPrepEN lexAuxArticleEL? lexPeriodMonth lexAuxPrepDE? Integer/4]
+		{ ^.AbsPeriodMonth <- #5.IntegerValue; } )
+
+(RPeriodMonth5 : 
+	[PeriodMonth -> <lexAuxPrepEN ! lexAuxArticleEL>? <lexPeriodMonth % lexPeriodNext>]
+		{ ^.RelPeriodMonth <- 1; } )
+
+(RPeriodMonth6 : 
+	[PeriodMonth -> <lexAuxPrepEN ! lexAuxArticleEL>? <lexPeriodMonth % lexPeriodPrev>]
+		{ ^.RelPeriodMonth <- -1; } )
+
+(RPeriodMonth7 : 
+	[PeriodMonth -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! <lexAuxArticleEL|lexAuxPrepDEL>>? <lexPeriodMonth % Ordinal/4>]
+		{ ^.RelPeriodMonth <- #4.OrdinalValue; } )
+
+(RPeriodMonth8 : 
+	[PeriodMonth -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! <lexAuxArticleEL|lexAuxPrepDEL>>? <lexPeriodMonth % Terminal/4>]
+		{ ^.TerPeriodMonth <- #4.TerminalValue; } )
+
+(RPeriodMonth9 : 
+	[PeriodMonth -> auxPeriodNext Integer/4 lexPeriodMonth]
+		{ ^.RelPeriodMonth <- #2.IntegerValue; } )
+
+(RPeriodMonth10 : 
+	[PeriodMonth -> auxPeriodPrev Integer/4 lexPeriodMonth]
+		{ ^.RelPeriodMonth <- 0 - (#2.IntegerValue); } )
+
+/*************************/
+/** PeriodWeek		**/
+/*************************/
+
+(RPeriodWeek1 : 
+	[PeriodWeek -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleLA>? <lexPeriodWeek % lexPeriodNext>]
+		{ ^.RelPeriodWeek <- 1; } )
+
+(RPeriodWeek2 : 
+	[PeriodWeek -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleLA>? <lexPeriodWeek % lexPeriodPrev>]
+		{ ^.RelPeriodWeek <- -1; } )
+
+(RPeriodWeek3 : 
+	[PeriodWeek -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleLA>? auxPeriodNext Integer/4 lexPeriodWeek]
+		{ ^.RelPeriodWeek <- #4.IntegerValue; } )
+
+(RPeriodWeek4 : 
+	[PeriodWeek -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleLA>? auxPeriodPrev Integer/4 lexPeriodWeek]
+		{ ^.RelPeriodWeek <- 0 - (#4.IntegerValue); } )
+
+(RPeriodWeek5 : 
+	[PeriodWeek -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleLA>? <lexPeriodWeek % Ordinal/4>]
+		{ ^.RelPeriodWeek <- #4.OrdinalValue; } )
+
+(RPeriodWeek6 : 
+	[PeriodWeek -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleLA>? <lexPeriodWeek % Terminal/4>]
+		{ ^.TerPeriodWeek <- #4.TerminalValue; } )
+
+/*************************/
+/** PeriodDay			**/
+/*************************/
+
+(RPeriodDay1 : 
+	[PeriodDay -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleEL>? lexPeriodDay? lexPeriodPeriodDayDesc]
+		{ ^.PeriodWeekPeriodDay <- #4; } )
+
+(RPeriodDay2 : 
+	[PeriodDay -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleEL>? lexPeriodDay Integer/4]
+		{ if ((#4.IntegerValue < 1) || (#4.IntegerValue > 31)) {
+			Fail();
+		  } else {
+			^.AbsPeriodDay <- #4.IntegerValue;
+		  } } )
+
+(RPeriodDay3 : 
+	[PeriodDay -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleEL>? lexPeriodDay? lexPeriodPeriodDayDesc lexPeriodDay? Integer/4]
+		{ ^.PeriodWeekPeriodDay <- #4;
+		  ^.AbsPeriodDay <- #6.IntegerValue; } )
+
+(RPeriodDay4 : 
+	[PeriodDay -> lexPeriodPeriodDayRelative]
+		{ ^.PeriodPeriodDayRelative <- #1; } )
+
+(RPeriodDay5 : 
+	[PeriodDay -> auxPeriodNext Integer/4 lexPeriodDay]
+		{ ^.PeriodPeriodDayRelative <- #2.IntegerValue; } )
+
+(RPeriodDay6 : 
+	[PeriodDay -> auxPeriodPrev Integer/4 lexPeriodDay]
+		{ ^.PeriodPeriodDayRelative <- 0 - (#2.IntegerValue); } )
+
+(RPeriodDay7 : 
+	[PeriodDay -> < <lexAuxPrepEN|lexAuxPrepSOBRE> ! <lexAuxArticleEL|lexAuxPrepDEL>>? <lexPeriodDay % Ordinal/4>]
+		{ ^.PeriodPeriodDayRelative <- #4.OrdinalValue; } )
+
+(RPeriodDay8 : 
+	[PeriodDay -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleEL>? <lexPeriodDay % lexPeriodNext>]
+		{ ^.ModPeriodDay <- 1; } )
+
+(RPeriodDay9 : 
+	[PeriodDay -> < <lexAuxPrepDE|lexAuxPrepEN|lexAuxPrepSOBRE> ! lexAuxArticleEL>? <lexPeriodDay % lexPeriodPrev>]
+		{ ^.ModPeriodDay <- -1; } )
+
+/*************************/
+/** PeriodDaySection		**/
+/*************************/
+
+(RPeriodDaySection1 : 
+	[PeriodDaySection -> lexPeriodDaySection]
+		{ ^.AbsPeriodDaySection <- #1; } )
+
+(RPeriodDayToday1 : 
+	[PeriodDayToday -> lexPeriodDayToday]
+		{ ^.AbsPeriodDaySection <- #1; } )
+
+/*************************/
+/** Time		**/
+/*************************/
+
+(RTime1 : 
+	[Time -> <lexAuxPrepA|lexAuxPrepSOBRE> <lexAuxArticleLA|lexAuxArticleLAS> Integer/4]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- 0; } )
+
+(RTime2 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>>? Integer/4 lexPeriodHour]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- 0; } )
+
+(RTime3 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>>? Integer/4 lexPeriodHour conjY Integer/4]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- #6.IntegerValue; } )
+
+(RTime4 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>>? Integer/4 lexPeriodHour Integer/4]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- #5.IntegerValue; } )
+
+(RTime5 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>> Integer/4 Integer/4]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- #4.IntegerValue; } )
+
+(RTime6 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>> Integer/4 lexPeriodHour? lexZero lexZero]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- 0; } )
+
+(RTime7 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>> Integer/4 lexPeriodHour? lexZero Integer/4]
+		{ if (#6.IntegerValue < 10) {
+			^.PeriodHour <- #3.IntegerValue; 
+		  	^.PeriodMinute <- #6.IntegerValue; 
+		  } else {
+			Fail();
+		  } 
+		} )
+
+(RTime8 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>>? Integer/4 lexPeriodHour? lexPeriodQuarter]
+		{ if (#5 < 0) {
+			if (#3.IntegerValue == 0) {
+				^.PeriodHour <- 23;
+			} else {
+			  	^.PeriodHour <- #3.IntegerValue - 1; 
+			}
+			^.PeriodMinute <- 45; 
+		  } else {
+		  	^.PeriodHour <- #3.IntegerValue; 
+			^.PeriodMinute <- #5; 
+		  } 
+		} )
+
+(RTime9 : 
+	[Time -> < <lexAuxPrepA|lexAuxPrepSOBRE> ! <lexAuxArticleLA|lexAuxArticleLAS>>? Integer/4 lexPeriodHour? Integer/4 lexPeriodMinute]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- #5.IntegerValue; } )
+
+(RTime10 : 
+	[Time -> <lexAuxPrepA|lexAuxPrepSOBRE>? <lexAuxArticleLA|lexAuxArticleLAS>? Integer/4 punctColon Integer/4]
+		{ ^.PeriodHour <- #3.IntegerValue; 
+		  ^.PeriodMinute <- #5.IntegerValue; } )
+
+/*************************/
+/** PeriodRelative		**/
+/*************************/
+
+(RPeriodRelative1 : 
+	[PeriodRelative -> lexAuxPrepPARA? lexPeriodRelative]
+		{ ^.Time.RelPos <- #2; } )
+
+/*************************/
+/** GlobalDate		**/
+/*************************/
+
+(RGlobalDate1 : 
+	[GlobalDate -> PeriodYear]
+		{ ^.PeriodYear <- #1; } )
+
+(RGlobalDate2 : 
+	[GlobalDate -> PeriodMonth]
+		{ ^.PeriodMonth <- #1; } )
+
+(RGlobalDate3 : 
+	[GlobalDate -> PeriodWeek]
+		{ ^.PeriodWeek <- #1; } )
+
+(RGlobalDate4 : 
+	[GlobalDate -> PeriodDay]
+		{ ^.PeriodDay <- #1; } )
+
+(RGlobalDate5 : 
+	[GlobalDate -> PeriodDaySection]
+		{ ^.PeriodDaySection <- #1; } )
+
+(RGlobalDate6 : 
+	[GlobalDate -> PeriodDayToday]
+		{ ^.PeriodDaySection <- #1; 
+		  ^.PeriodDay.AbsPeriodDay <- 0;} )
+
+(RGlobalDate7 : 
+	[GlobalDate -> Time]
+		{ ^.Time <- #1; } )
+
+(RGlobalDate7 : 
+	[GlobalDate -> PeriodRelative]
+		{ ^ <- #1; } )
+(RGlobalDate8 : 
+	[GlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? Integer/4 <lexAuxPrepDE|lexAuxPrepDEL>? GlobalDate]
+		{ ^ <- #4;
+		  ^.PeriodDay.AbsPeriodDay <- #2.IntegerValue; } )
+
+(RGlobalDate8 : 
+	[GlobalDate/1 -> GlobalDate lexAuxArticleEL Integer/4]
+		{ ^ <- #1;
+		  ^.PeriodDay.AbsPeriodDay <- #3.IntegerValue; } )
+
+(RGlobalDate8 : 
+	[GlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexPeriodDay? Integer/4 <lexAuxPrepDE|lexAuxPrepDEL>? PeriodMonth <lexAuxPrepDE|lexAuxPrepDEL> Integer/4]
+		{ ^.PeriodMonth <- #5;
+		  ^.PeriodDay.AbsPeriodDay <- #3.IntegerValue; 
+		  ^.PeriodYear.AbsPeriodYear <- #7.IntegerValue; } )
+
+(RGlobalDate9 : 
+	[GlobalDate/1 -> lexAuxPrepEN Integer/4 PeriodYear]
+		{ if ((#2.IntegerValue < 1) || (#2.IntegerValue > 12)) {
+			Fail(); 
+		  } else {
+			^.PeriodMonth.AbsPeriodMonth <- #2.IntegerValue;
+			^.PeriodYear  <- #3; 
+		  } } )
+
+(RGlobalDate10 : 
+	[GlobalDate/1 -> Integer/4 punctBar Integer/4]
+		{ ^.PeriodMonth.AbsPeriodMonth <- #1.IntegerValue;
+		  ^.PeriodYear.AbsPeriodYear <- #3.IntegerValue; } )
+
+(RGlobalDate11 : 
+	[GlobalDate/1 -> Integer/4 punctBar Integer/4 punctBar Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #1.IntegerValue;
+		  ^.PeriodMonth.AbsPeriodMonth <- #3.IntegerValue;
+		  ^.PeriodYear.AbsPeriodYear <- #5.IntegerValue; } )
+
+(RGlobalDate12 : 
+	[GlobalDate/2 -> GlobalDate/2 <punctComma|punctDot>? GlobalDate/1]
+		{ ^ <- #1; ^ <OW< #3; } )
+
+
+(RDepartureGlobalDate1 :
+	[DepartureGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexFlightType? lexAuxPrepDE? lexFlightTypeDeparture GlobalDate/2]
+		{ ^ <- #5; } )
+
+(RDepartureGlobalDate2 :
+	[DepartureGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexFlightType? lexFlightTypeDeparture lexAuxArticleEL? Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #5.IntegerValue; } )
+
+(RDepartureGlobalDate3 :
+	[DepartureGlobalDate/1 -> <auxSiteDepart|lexFlightTypeDeparture> lexAuxArticleEL? Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #3.IntegerValue; } )
+
+(RDepartureGlobalDate4 :
+	[DepartureGlobalDate/1 -> <auxSiteDepart|lexFlightTypeDeparture> lexAuxArticleEL? GlobalDate/2]
+		{ ^ <- #3; } )
+
+(RReturnGlobalDate1 :
+	[ReturnGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexFlightType? lexAuxPrepDE? <auxSiteArrival|lexFlightTypeReturn> <lexAuxPrepPARA|lexAuxArticleEL>? GlobalDate/2]
+		{ ^ <- #6; } )
+
+(RReturnGlobalDate2 :
+	[ReturnGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexFlightType? <auxSiteArrival|lexFlightTypeReturn> <lexAuxPrepA|lexAuxPrepAL|lexAuxArticleEL>? Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #5.IntegerValue; } )
+
+(RReturnGlobalDate2 :
+	[ReturnGlobalDate/1 -> <lexAuxArticleEL|lexAuxPrepDEL>? lexFlightType? <auxSiteArrival|lexFlightTypeReturn> lexAuxPrepA lexAuxArticleEL Integer/4]
+		{ ^.PeriodDay.AbsPeriodDay <- #6.IntegerValue; } )
+
+(RReturnGlobalDate4 :
+	[ReturnGlobalDate/1 -> lexFlightTypeReturn]
+		{ ^.PeriodDay.AbsPeriodDay <- 0; } )
+

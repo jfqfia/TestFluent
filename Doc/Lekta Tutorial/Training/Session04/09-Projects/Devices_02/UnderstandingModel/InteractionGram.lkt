@@ -1,0 +1,18 @@
+/*******************************
+ ** GRAMMAR
+ *******************************
+ ** Interaction
+ ** InteractionPuct
+ *******************************/
+
+(RInteraction1 : 
+	[Interaction/1 -> lexInteraction]
+		{ ^ <- #1; } )
+
+(RInteraction2 : 
+	[Interaction/1 -> Interaction/1 lexInteractionAuxiliar]
+		{ ^ <- #1; } )
+
+(RInteraction3 : 
+	[Interaction/2 -> Interaction/2 Interaction/1]
+		{ ^ <- #1; ^ <OW< #2; } )

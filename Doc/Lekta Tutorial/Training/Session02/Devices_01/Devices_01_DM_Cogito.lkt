@@ -1,0 +1,204 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_01_DM_Cogito.lkt
+ ***************************************************************************/
+
+         (CogitoScheme CogitoStart :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'start'
+            }
+            CogitoAction {
+               OutputItem outputitem <- (AnswerCommand:'interactivate',AnswerClass:'welcome');
+               BatchInsertEnd($MINDBOARD@Output.OutputBatch,outputitem);
+               $MINDBOARD@Control.Position <- 'askDevice';
+            }
+         )
+
+         (CogitoScheme CogitoQuit :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'quit'
+            }
+            CogitoAction {
+               Quit();
+            }
+         )
+
+         (CogitoScheme CogitoAskDevice :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'askDevice'
+            }
+            CogitoAction {
+               if ($MINDBOARD@Input.Device) {
+                  switch ($MINDBOARD@Input.Device.DeviceId) {
+                     case 'alarm' {
+                        $MINDBOARD@Control.Position <- 'askOperationAlarm';
+                     }
+                     case 'heating' {
+                        $MINDBOARD@Control.Position <- 'askOperationHeating';
+                     }
+                     case 'irrigation' {
+                        $MINDBOARD@Control.Position <- 'askOperationIrrigation';
+                     }
+                  }
+                  Erase($MINDBOARD@Input.Device);
+               } else {
+                  if ($MINDBOARD@Input.Command) {
+                     switch ($MINDBOARD@Input.Command.CommandId) {
+                        case 'help' {
+                           $MINDBOARD@Control.Position <- 'askHelp';
+                        }
+                        case 'exit' {
+                           $MINDBOARD@Control.Position <- 'quit';
+                           Quit();
+                        }
+                     }
+                     Erase($MINDBOARD@Input.Command);
+                  } else {
+                     Menu();
+                  }
+               }
+            }
+         )
+
+         (CogitoScheme CogitoAskHelp :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'askHelp'
+            }
+            CogitoAction {
+               OutputItem outputitem <- (AnswerCommand:'mensaje',AnswerClass:'askHelp');
+               BatchInsertEnd($MINDBOARD@Output.OutputBatch,outputitem);
+               $MINDBOARD@Control.Position <- 'askDevice';
+            }
+         )
+
+         (CogitoScheme CogitoAskOperationAlarm :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'askOperationAlarm'
+            }
+            CogitoAction {
+               if ($MINDBOARD@Input.Operation) {
+                  switch ($MINDBOARD@Input.Operation.OperationId) {
+                     case 'activate' {
+                        AlarmActivate();
+                        $MINDBOARD@Control.Position <- 'askDevice';
+                        Menu();
+                     }
+                     case 'deactivate' {
+                        AlarmDeactivate();
+                        $MINDBOARD@Control.Position <- 'askDevice';
+                        Menu();
+                     }
+                  }
+                  Erase($MINDBOARD@Input.Operation);
+               } else {
+                  if ($MINDBOARD@Input.Command) {
+                     switch ($MINDBOARD@Input.Command.CommandId) {
+                        case 'help' {
+                           AlarmHelp();
+                        }
+                        case 'back' {
+                           $MINDBOARD@Control.Position <- 'askDevice';
+                           Menu();
+                        }
+                        case 'exit' {
+                           $MINDBOARD@Control.Position <- 'quit';
+                           Quit();
+                        }
+                     }
+                     Erase($MINDBOARD@Input.Command);
+                  } else {
+                     OutputItem outputitem <- (AnswerCommand:'mensaje',
+				     	       AnswerClass:'askOperationAlarm');
+                     BatchInsertEnd($MINDBOARD@Output.OutputBatch,outputitem);
+                  }
+               }
+            }
+         )
+
+         (CogitoScheme CogitoAskOperationHeating :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'askOperationHeating'
+            }
+            CogitoAction {
+               if ($MINDBOARD@Input.Operation) {
+                  switch ($MINDBOARD@Input.Operation.OperationId) {
+                     case 'activate' {
+                        HeatingActivate();
+                        $MINDBOARD@Control.Position <- 'askDevice';
+                        Menu();
+                     }
+                     case 'deactivate' {
+                        HeatingDeactivate();
+                        $MINDBOARD@Control.Position <- 'askDevice';
+                        Menu();
+                     }
+                  }
+                  Erase($MINDBOARD@Input.Operation);
+               } else {
+                  if ($MINDBOARD@Input.Command) {
+                     switch ($MINDBOARD@Input.Command.CommandId) {
+                        case 'help' {
+                           HeatingHelp();
+                        }
+                        case 'back' {
+                           $MINDBOARD@Control.Position <- 'askDevice';
+                           Menu();
+                        }
+                        case 'exit' {
+                           $MINDBOARD@Control.Position <- 'quit';
+                           Quit();
+                        }
+                     }
+                     Erase($MINDBOARD@Input.Command);
+                  } else {
+                     OutputItem outputitem <- (AnswerCommand:'mensaje',
+				     	       AnswerClass:'askOperationHeating');
+                     BatchInsertEnd($MINDBOARD@Output.OutputBatch,outputitem);
+                  }
+               }
+            }
+         )
+
+         (CogitoScheme CogitoAskOperationIrrigation :
+            CogitoCapture {
+               $MINDBOARD@Control.Position == 'askOperationIrrigation'
+            }
+            CogitoAction {
+               if ($MINDBOARD@Input.Operation) {
+                  switch ($MINDBOARD@Input.Operation.OperationId) {
+                     case 'activate' {
+                        IrrigationActivate();
+                        $MINDBOARD@Control.Position <- 'askDevice';
+                        Menu();
+                     }
+                     case 'deactivate' {
+                        IrrigationDeactivate();
+                        $MINDBOARD@Control.Position <- 'askDevice';
+                        Menu();
+                     }
+                  }
+                  Erase($MINDBOARD@Input.Operation);
+               } else {
+                  if ($MINDBOARD@Input.Command) {
+                     switch ($MINDBOARD@Input.Command.CommandId) {
+                        case 'help' {
+                           IrrigationHelp();
+                        }
+                        case 'back' {
+                           $MINDBOARD@Control.Position <- 'askDevice';
+                           Menu();
+                        }
+                        case 'exit' {
+                           $MINDBOARD@Control.Position <- 'quit';
+                           Quit();
+                        }
+                     }
+                     Erase($MINDBOARD@Input.Command);
+                  } else {
+                     OutputItem outputitem <- (AnswerCommand:'mensaje',
+				               AnswerClass:'askOperationIrrigation');
+                     BatchInsertEnd($MINDBOARD@Output.OutputBatch,outputitem);
+                  }
+               }
+            }
+         )
+

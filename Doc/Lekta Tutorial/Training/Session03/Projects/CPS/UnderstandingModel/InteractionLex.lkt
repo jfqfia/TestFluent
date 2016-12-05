@@ -1,0 +1,94 @@
+/*******************************
+ ** LEXICON
+ *******************************
+ ** Interaction
+ **	lexInteractionAuxiliar
+ **	lexInteraction
+ **	lexInteractionAuxiliarComp
+ **	lexInteractionComp
+ *******************************/
+
+/*************************************************/
+/** 	Interaction				**/
+
+/**		 Interaction/lexInteractionAuxiliar		**/
+
+	("bueno",		lexInteractionAuxiliar)
+	("bien",		lexInteractionAuxiliar)
+	("de acuerdo",		lexInteractionAuxiliar)
+	("entonces",		lexInteractionAuxiliar)
+	("eso",			lexInteractionAuxiliar)
+	("luego",		lexInteractionAuxiliar)
+	("muy bien",		lexInteractionAuxiliar)
+	("ok",			lexInteractionAuxiliar)
+	("perdona",		lexInteractionAuxiliar,	| p e r D o n a |)
+	("perdone",		lexInteractionAuxiliar,	| p e r D o n e |)
+	("pues",		lexInteractionAuxiliar)
+	("sí",			lexInteractionAuxiliar,	| s i |)
+	("vale",		lexInteractionAuxiliar)
+	("venga",		lexInteractionAuxiliar)
+	("yo",			lexInteractionAuxiliar)
+	("es_que",		lexInteractionAuxiliar,	| e s k e |)
+
+/**		Interaction/MindBoard			**/
+
+	("a_ver",		lexInteraction,	| a B e r |,				(MindBoard:'on'))
+	("caballero",		lexInteraction,	(MindBoard:'on'))
+	("era a ver",		lexInteraction,	(MindBoard:'on'))
+	("mira",		lexInteraction,	| m i r a |,				(MindBoard:'on'))
+	("mire",		lexInteraction,	| m i r e |,				(MindBoard:'on'))
+	("oiga",		lexInteraction,	| o j G a |,				(MindBoard:'on'))
+	("oye",			lexInteraction,	| o jj e  |,				(MindBoard:'on'))
+	("señorita",		lexInteraction,	(MindBoard:'on'))
+	("usted",		lexInteraction,	(MindBoard:'on'))
+	("vamos_a_ver",		lexInteraction,	| b a m o s a B e r |,			(MindBoard:'on'))
+	("perdona",		lexInteraction,	| p e r D o n a |,			(MindBoard:'on'))
+	("perdone",		lexInteraction,	| p e r D o n e |,			(MindBoard:'on'))
+	("perdóname",		lexInteraction,	| p e r D o n a m e |,			(MindBoard:'on'))
+	("perdóneme",		lexInteraction,	| p e r D o n e m e |,			(MindBoard:'on'))
+	("disculpa",		lexInteraction,	| d i s k u l p a |,			(MindBoard:'on'))
+	("disculpe",		lexInteraction,	| d i s k u l p e |,			(MindBoard:'on'))
+	("discúlpame",		lexInteraction,	| d i s k u l p a m e |,		(MindBoard:'on'))
+	("discúlpeme",		lexInteraction,	| d i s k u l p e m e |,		(MindBoard:'on'))
+
+/**		Interaction/Hello			**/
+
+	("buenas",		lexInteraction,	| b w e n a s |,			(Hello:'on'))
+	("hola",		lexInteraction,	| o l a |,				(Hello:'on'))
+	("muy_buenas",		lexInteraction,	| m w i b w e n a s |,			(Hello:'on'))
+	("qué_tal",		lexInteraction,	| k e t a l |,				(Hello:'on'))
+	("qué_hay",		lexInteraction,	| k e a j |,				(Hello:'on'))
+	("qué_pasa",		lexInteraction,	| k e p a s a |,			(Hello:'on'))
+
+/**		Interaction/InterGreeting		**/
+
+	("buenos_días",		lexInteraction,	| b w e n o z D i a s |,		(InterGreeting:['morning']))
+	("buenas_tardes",	lexInteraction,	| b w e n a s t a r D e s |,		(InterGreeting:['afternoon']))
+	("buenas_noches",	lexInteraction,	| b w e n a z n o tS e s |,		(InterGreeting:['evening']))
+
+/**		Interaction/InterPlease			**/
+
+	("por_favor",		lexInteraction,	| p o r f a B o r |,			(InterPlease:'on'))
+	("si_eres_tan_amable",	lexInteraction,	| s j e r e s t a n a m a B l e |,	(InterPlease:'on'))
+	("si_fueses_tan_amable",lexInteraction,	| s i f w e s e s t a n a m a B l e |,	(InterPlease:'on'))
+
+/**		Interaction/InterThanks			**/
+
+	("gracias",		lexInteraction,	| g r a T j a s |,			(InterThanks:'on'))
+     //	("gracias_por_todo",	lexInteraction,	| g r a T j a s p o r t o D o |,	(InterThanks:'on'))
+     //	("ha_sido_muy_amable",	lexInteraction,	| a s i D o m w i a m a B l e |,	(InterThanks:'on'))
+	("muchas_gracias",	lexInteraction,	| m u tS a z G r a T j a s |,		(InterThanks:'on'))
+	("muchísimas_gracias",	lexInteraction,	| m u tS i s i m a z G r a T j a s |,	(InterThanks:'on'))
+	("muy_amable",		lexInteraction,	| m w i a m a B l e |,			(InterThanks:'on'))
+	("te_agradezco",	lexInteraction,	| t e a G r a D e T k o |,		(InterThanks:'on'))
+	("te_lo_agradezco",	lexInteraction,	| t e l o a G r a D e T k o |,		(InterThanks:'on'))
+
+
+/**		Interaction/compounds		**/
+
+	("qué",			lexInteractionAuxiliarComp)
+	("cuánto",		lexInteractionAuxiliarComp)
+	("cuántos",		lexInteractionAuxiliarComp)
+
+	("hay",			lexInteractionComp,	(MindBoard:'on'))
+	("pasa",		lexInteractionComp,	(MindBoard:'on'))

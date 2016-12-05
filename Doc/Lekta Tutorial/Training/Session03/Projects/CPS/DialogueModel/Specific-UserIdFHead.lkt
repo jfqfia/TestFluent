@@ -1,0 +1,6 @@
+/*******************************
+ ** Specific / UserId / Heads
+ *******************************/
+
+TaskLine	AnalyzeLinkedInfoUserId(TaskLine tline);
+TaskLine	ProcesPersonalIdentity(TaskLine tline);

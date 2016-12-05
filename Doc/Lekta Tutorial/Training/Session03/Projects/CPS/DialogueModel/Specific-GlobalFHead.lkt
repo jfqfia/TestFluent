@@ -1,0 +1,12 @@
+/*******************************
+ ** Specific / Global / Heads
+ *******************************/
+
+TaskLine	AssignDefaultOperPurposeActScope(TaskLine tline);
+TaskLine	AssignDefaultOperPurposeFromActScope(TaskLine tline);
+TaskLine	AssignDefaultActScopeFromOperPurpose(TaskLine tline);
+
+TaskLine	AnalyzeLinkedInfo(TaskLine tline);
+
+TaskLine	AssignTask(TaskLine tline);
+TaskLine	ExecuteTask(TaskLine tline);

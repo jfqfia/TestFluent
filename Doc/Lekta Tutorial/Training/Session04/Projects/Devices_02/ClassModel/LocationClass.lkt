@@ -1,0 +1,8 @@
+/*******************************
+ ** Location
+ *******************************/
+
+	classDef:ElementLiteral	( lexLocationDescriptor, LocationRef )
+	classDef:StructureComplex	( Location:	
+						(LocationRef) )
+

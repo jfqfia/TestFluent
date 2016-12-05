@@ -1,0 +1,88 @@
+/*******************************
+ ** Service
+ *******************************/
+
+	("ATS",				lexServiceId,	| a t e e s e |,				'ATS')
+	("enfermería",			lexServiceId,	| e m f e r m e r i a |	,			'ATS')
+
+	("anestesista",			lexServiceId,	| a n e s t e s i s t a |,			'ANE')
+
+	("la_vacuna_de_la_gripe",	lexServiceId,	| l a B a k u n a D e l a G r i p e |,		'VAC')
+
+	("niño_sano",			lexServiceId,	| n i J o s a n o |,			'NIS')
+
+	("análisis",			lexServiceId,	| a n a l i s i s |,			'ANA')
+	("los_análisis",		lexServiceId,	| l o s a n a l i s i s |,			'ANA')
+	("unos_análisis",		lexServiceId,	| u n o s a n a l i s i s |,			'ANA')
+
+	("médico",			lexServiceId,	| m e D i k o |,				'MED')
+	("médico_de_familia",		lexServiceId,	| m e D i k o D e f a m i l j a |,		'MED')
+	("médico_de_cabecera",		lexServiceId,	| m e D i k o D e k a B e T e r a |,	'MED')
+	("medicina_general",		lexServiceId,	| m e D i T i n a x e n e r a l |,		'MED')
+	("medicina_familiar",		lexServiceId,	| m e D i T i n a f a m i l j a r |,		'MED')
+
+	("especialista",		lexServiceId,	| e s p e T j a l i s t a |,		'ESP')
+
+	("medicina_interna",		lexServiceId,	| m e D i T i n a j n t e r n a |,		'INT')
+
+	("médico_pediatra",		lexServiceId,	| m e D i k o p e D j a t r a |,		'PED')
+	("pediatra",			lexServiceId,	| p e D j a t r a |,			'PED')
+	("pediatría",			lexServiceId,	| p e D j a t r i a |,				'PED')
+
+	("odontólogo",			lexServiceId,	| o D o n t o l o G o |,			'ODO')
+	("odontología",			lexServiceId,	| o D o n t o l o x i a |,			'ODO')
+	("dentista",			lexServiceId,	| d e n t i s t a |,			'ODO')
+
+	("traumatólogo",		lexServiceId,	| t r a w m a t o l o G o |,		'TRA')
+	("traumatología",		lexServiceId,	| t r a w m a t o l o G i a |,			'TRA')
+
+	("otorrino",			lexServiceId,	| o t o rr i n o |,				'OTO')
+	("otorrinolaringólogo",		lexServiceId,	| o t o rr i n o l a r i N g o l o G o |,	'OTO')
+	("otorrinolaringología",	lexServiceId,	| o t o rr i n o l a r i N g o l o x i a |,	'OTO')
+
+	("ginecólogo",			lexServiceId,	| x i n e k o l o G o |,			'GIN')
+	("ginecología",			lexServiceId,	| x i n e k o l o x i a |,			'GIN')
+
+	("obstetricia",			lexServiceId,	| o B s t e t r i T j a |,			'OBS')
+
+	("tocólogo",			lexServiceId,	| t o k o l o G o |,			'TOC')
+	("tocología",			lexServiceId,	| t o k o l o x i a |,				'TOC')
+
+	("la_matrona",			lexServiceId,	| l a m a t r o n a |,				'MAT')
+
+	("urólogo",			lexServiceId,	| u r o l o G o |,				'URO')
+	("urología",			lexServiceId,	| u r o l o x i a |,				'URO')
+
+	("cardiólogo",			lexServiceId,	| k a r D j o l o G o |,			'CAR')
+	("cardiología",			lexServiceId,	| k a r D j o l o x i a |,			'CAR')
+
+	("cirujano",			lexServiceId,	| T i r u x a n o |,			'CIR')
+	("cirugía",			lexServiceId,	| T i r u x i a |,				'CIR')
+
+	("oftalmólogo",			lexServiceId,	| o f t a l m o l o G o |,			'OFT')
+	("oftalmología",		lexServiceId,	| o f t a l m o l o x i a |,			'OFT')
+	("oculista",			lexServiceId,	| o k u l i s t a |,			'OFT')
+
+	("dermatólogo",			lexServiceId,	| d e r m a t o l o G o |,			'DER')
+	("dermatología",		lexServiceId,	| d e r m a t o l o x i a |,			'DER')
+
+	("endocrino",			lexServiceId,	| e n d o k r i n o |,			'END')
+	("endocrinología",		lexServiceId,	| e n d o k r i n o l o x i a |,		'END')
+
+	("neurólogo",			lexServiceId,	| n e w r o l o G o |,			'NEU')
+	("neurología",			lexServiceId,	| n e w r o l o x i a |,			'NEU')
+
+	("oncólogo",			lexServiceId,	| o N k o l o G o |,			'ONC')
+	("oncología",			lexServiceId,	| o N k o l o x i a |,				'ONC')
+
+	("psiquiatra",			lexServiceId,	| s i k j a t r a |,			'PSI')
+	("psiquiatría",			lexServiceId,	| s i k j a t r i a |,				'PSI')
+
+	("radiólogo",			lexServiceId,	| rr a D j o l o G o |,			'RAD')
+	("radiología",			lexServiceId,	| rr a D j o l o x i a |,			'RAD')
+
+	("reumatólogo",			lexServiceId,	| rr e w m a t o l o G o |,			'REU')
+	("reumatología",		lexServiceId,	| rr e w m a t o l o x i a |,			'REU')
+
+	("podólogo",			lexServiceId,	| p o D o l o G o |,			'POD')
+	("podología",			lexServiceId,	| p o D o l o x i a |,				'POD')

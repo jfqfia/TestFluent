@@ -1,0 +1,18 @@
+
+/*******************************
+ ** OperPurpose
+ *******************************/
+
+	classDef:ElementRange ( OperPurposeDescriptor : 
+				{ 'activate',
+				  'deactivate',
+				  'open',
+				  'close',
+				  'consult',
+				  'modify' 
+				  } )
+
+	classDef:StructureComplex ( OperPurpose :
+				( OperPurposeDescriptor ) )
+
+	classDef:Synonym ( lexOperPurposeVerb, OperPurposeVerb = OperPurpose )

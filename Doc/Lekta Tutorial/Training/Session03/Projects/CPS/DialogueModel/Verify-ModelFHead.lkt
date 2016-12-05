@@ -1,0 +1,6 @@
+/*******************************
+ ** Verify / Model / Heads
+ *******************************/
+
+integer	GenerateVerifyModel(TaskLine tline);
+integer	GenerateVerifyModelRecover(TaskLine tline);

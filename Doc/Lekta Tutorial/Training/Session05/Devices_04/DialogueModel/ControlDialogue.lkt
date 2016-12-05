@@ -1,0 +1,17 @@
+/*******************************
+ ** Control
+ *******************************/
+
+// Launch 
+LaunchConversation: {
+	LaunchSendToMindBoard:
+		(DialogueStart = (DialogueState: 'start') )
+}
+
+DefineNotFoundWordThreshold: {
+	NotFoundWordThresholdPerc:
+		33
+	NotFoundWordThresholdInsert:
+		(DialogueSetup = (DialogueState: 'cmap') )
+}
+

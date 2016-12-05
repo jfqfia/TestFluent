@@ -1,0 +1,36 @@
+/*******************************
+ ** CLASSMODEL SPECIFICATION
+ *******************************
+ ** Interaction
+ **	InterPardon
+ **	InterFarewell
+ **	InterGreeting
+ **	InterHello
+ **	InterThanks
+ **	InterGreeting
+ *******************************/
+
+	classDef:Void 		( lexInteractionAuxiliar )
+
+	classDef:ElementRange 	( InterPardon, 
+				  InterFarewell, 
+				  InterHello,
+				  InterPlease, 
+				  InterThanks:
+						{ 'on' } )
+
+	classDef:VectorRange 	( InterGreeting: 
+					['morning', 'afternoon', 'evening'] )
+
+	classSetup:VectorUnificationMode:Union		( InterGreeting )
+	classSetup:VectorUnificationBreak:Avoid		( InterGreeting )
+
+	classDef:StructureComplex ( Interaction:
+					(InterPardon,
+					 InterFarewell,
+					 InterGreeting,
+					 InterHello,
+					 InterPlease,
+					 InterThanks) )
+
+	classDef:Synonym ( lexInteraction = Interaction )

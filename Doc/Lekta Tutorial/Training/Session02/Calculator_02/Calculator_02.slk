@@ -1,0 +1,10 @@
+/***************************************************************************
+ * SOURCEFILE => Calculator_02.lkt
+ ***************************************************************************/
+
+LaunchLektaKernel()
+
+UseProject
+        (ProjectCompile        : ".Calculator.olk")
+
+CreateDialogue()

@@ -1,0 +1,413 @@
+/*******************************
+ ** Strategies / Appoint
+ *******************************/
+
+(ScriboScheme NLG_Inform_ConsultAppointNo: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'inform',TField:'consult-appoint-no')
+    }
+
+    ScriboAction {
+	AppointInfo appointinfo;
+	string	str_patient_ref;
+
+	appointinfo <- #OBJLOCUTIO-1.TContext.WData.PatientData.AppointInfo;
+
+	str_patient_ref <- GeneratePatientRef(#OBJLOCUTIO-1.TContext);
+	
+	if (#OBJLOCUTIO-1.TContext.GModel.LinkedInfo.Person.PersonDegree == 'self') {
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+			'ahora mismo usted no tiene ninguna cita pendiente. ');
+	} else {
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+			'ahora mismo no hay ninguna cita pendiente. ');
+	}
+
+	SetMainAnswer(str_patient_ref);
+	SetActiveExpectation('Start');
+	SetActiveEmotion(2);
+    }
+)
+
+(ScriboScheme NLG_Inform_ConsultAppointOk: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'inform',TField:'consult-appoint-ok')
+    }
+
+    ScriboAction {
+	AppointInfo appointinfo;
+	AppointData appointdata,appointdataprev;
+	string	str_patient_ref;
+
+	appointinfo <- #OBJLOCUTIO-1.TContext.WData.PatientData.AppointInfo;
+
+	str_patient_ref <- GeneratePatientRef(#OBJLOCUTIO-1.TContext);
+	
+	if (#OBJLOCUTIO-1.TContext.GModel.LinkedInfo.Person.PersonDegree == 'self') {
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+			'ahora mismo usted tiene ');
+	} else {
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+			'ahora mismo tiene ');
+	}
+
+	str_patient_ref <- LiteralConcat(str_patient_ref,
+			ShapeToString(appointinfo.AppointNumb),' ');
+
+	if (appointinfo.AppointNumb == 1) {
+		BatchRecoverPosition(appointinfo.AppointSeq,1,appointdata);
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+					'cita pendiente. ');
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+					'La cita es ',
+					Service2String(appointdata.AppointService));
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+					AppointGlobalDate2String(appointdata.AppointGlobalDate));
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+					Doctor2String(appointdata.AppointDoctor),
+					'. ');
+	} else {
+		str_patient_ref <- LiteralConcat(str_patient_ref,
+					'citas pendientes. ');
+
+		integer	n_appoint;
+		n_appoint <- 1;
+		while (n_appoint <= appointinfo.AppointNumb) {
+
+			appointdataprev <- appointdata;
+			
+			BatchRecoverPosition(appointinfo.AppointSeq,n_appoint,appointdata);
+			
+			cond {
+				(n_appoint == 1) {
+					str_patient_ref <- LiteralConcat(str_patient_ref,
+							'La primera cita es ');
+				}
+				(n_appoint == 2) {
+					str_patient_ref <- LiteralConcat(str_patient_ref,
+							'La segunda cita es ');
+				}
+				((n_appoint > 2) && (n_appoint == appointinfo.AppointNumb)) {
+					str_patient_ref <- LiteralConcat(str_patient_ref,
+							'Y por último, hay una cita ');
+				}
+				default {
+					str_patient_ref <- LiteralConcat(str_patient_ref,
+							'La siguiente cita es ');
+				}
+			}
+			if (n_appoint == 1) {
+				str_patient_ref <- LiteralConcat(str_patient_ref,
+							Service2String(appointdata.AppointService));
+				str_patient_ref <- LiteralConcat(str_patient_ref,
+							AppointGlobalDate2String(appointdata.AppointGlobalDate));
+				str_patient_ref <- LiteralConcat(str_patient_ref,
+							Doctor2String(appointdata.AppointDoctor),
+							'. ');
+			} else {
+				str_patient_ref <- LiteralConcat(str_patient_ref,
+							Service2StringContrast(appointdata.AppointService,
+									appointdataprev.AppointService));
+				str_patient_ref <- LiteralConcat(str_patient_ref,
+							AppointGlobalDate2StringContrast(appointdata.AppointGlobalDate,
+									appointdataprev.AppointGlobalDate));
+				str_patient_ref <- LiteralConcat(str_patient_ref,
+							Doctor2StringContrast(appointdata.AppointDoctor,
+									appointdataprev.AppointDoctor),
+							'. ');
+			}
+
+			n_appoint <- n_appoint + 1;
+		}
+	}
+
+
+	SetMainAnswer(str_patient_ref);
+	SetActiveExpectation('Start');
+	SetActiveEmotion(6);
+    }
+)
+
+(ScriboScheme NLG_Ask_New_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'ask',TField:'new-appoint')
+    }
+
+    ScriboAction {
+ if ($MINDBOARD@Setup.ModalSetup == 'web') {
+	SetMainAnswerTextRandom("¿Desea pedir alguna cita más? ",
+				"¿Va a necesitar pedir otra cita? ",
+				"¿Necesita además otra cita?" );
+    } else {
+	SetMainAnswerTextRandom("¿Desea pedir alguna cita más? ",
+				"¿Va a necesitar\\stress=no pedir\\stress=no otra cita? ",
+				"¿Necesita además otra cita? ");
+    }
+	$MINDBOARD@fOpen.Strat.SAsk <- ['ack'];
+	$MINDBOARD@fOpen.Strat.SExpect <- ['ack','igoal'];
+	SetActiveExpectation('Start');
+	SetActiveExpectation('Conversation');
+	SetActiveEmotion(2);
+	SetActiveEmotion(8);
+ }
+)
+
+(ScriboScheme NLG_Ask_Cancel_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'ask',TField:'cancel-appoint')
+    }
+
+    ScriboAction {
+	string str_appoint;
+	AppointData appointdata;
+
+	appointdata <- #OBJLOCUTIO-1.TContext.WData.AppointData;
+
+	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		if (#OBJLOCUTIO-1.TContext.WData.PatientData.AppointInfo.AppointNumb > 1) {
+			str_appoint <- 'La cita ';
+			str_appoint <- LiteralConcat(str_appoint,
+						Service2String(appointdata.AppointService));
+			str_appoint <- LiteralConcat(str_appoint,
+						AppointGlobalDate2String(appointdata.AppointGlobalDate));
+			str_appoint <- LiteralConcat(str_appoint,
+						Doctor2String(appointdata.AppointDoctor),
+						'. ');
+			SetMainAnswer(str_appoint);
+		} 
+		SetMainAnswerTextRandom("¿Desea cancelar esta cita? ",
+			"¿Está de acuerdo en cancelar esta cita? ",
+			"¿Cancelamos esta cita, entonces? ");
+	} else {
+		if (#OBJLOCUTIO-1.TContext.WData.PatientData.AppointInfo.AppointNumb > 1) {
+			str_appoint <- 'La cita ';
+			str_appoint <- LiteralConcat(str_appoint,
+						Service2String(appointdata.AppointService));
+			str_appoint <- LiteralConcat(str_appoint,
+						AppointGlobalDate2String(appointdata.AppointGlobalDate));
+			str_appoint <- LiteralConcat(str_appoint,
+						Doctor2String(appointdata.AppointDoctor),
+						'. ');
+			SetMainAnswer(str_appoint);
+		} 
+		SetMainAnswerTextRandom("¿Desea cancelar esta cita? ",
+				"\\pitch=60 ¿Quiere\\pitch cancelar esta cita? ",
+				"¿Cancelamos esta cita entonces? ");
+	}
+	$MINDBOARD@fOpen.Strat.SAsk <- ['ack'];
+	$MINDBOARD@fOpen.Strat.SExpect <- ['ack','igoal'];
+	SetActiveExpectation('Start');
+	SetActiveExpectation('Conversation');
+ }
+)
+
+(ScriboScheme NLG_Ask_Which_Cancel_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'ask',TField:'which-cancel-appoint')
+    }
+
+    ScriboAction {
+ if ($MINDBOARD@Setup.ModalSetup == 'web') {
+	SetMainAnswerTextRandom("¿Cuál de las citas\\stress=no desea cancelar?");
+    } else {
+	SetMainAnswerTextRandom("\\pitch=60 ¿Qué\\pitch cita\\stress=no quiere cancelar?");
+    }
+	$MINDBOARD@fOpen.Strat.SAsk <- ['number','date'];
+	$MINDBOARD@fOpen.Strat.SExpect <- ['number','date'];
+	SetActiveExpectation('Number');
+	SetActiveExpectation('GlobalDate');
+ }
+)
+
+(ScriboScheme NLG_Inform_CancelAppointOk: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'exec',TField:'cancel-appoint-ok')
+    }
+
+    ScriboAction {
+	AppointData appointdata;
+	string exec_cancel;
+
+	appointdata <- #OBJLOCUTIO-1.TContext.WData.AppointData;
+
+	exec_cancel <- LiteralConcat('Le confirmo que la cita ',
+				Service2String(appointdata.AppointService));
+	exec_cancel <- LiteralConcat(exec_cancel,
+				AppointGlobalDate2String(appointdata.AppointGlobalDate));
+	exec_cancel <- LiteralConcat(exec_cancel,
+				Doctor2String(appointdata.AppointDoctor),
+				' ha sido cancelada. ');
+	SetMainAnswer(exec_cancel);
+	$MINDBOARD@fOpen.Strat.SExpect <- ['igoal'];
+	SetActiveExpectation('Start');
+    }
+)
+
+(ScriboScheme NLG_Exec_Cancel_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'exec',TField:'cancel-appoint-error')
+    }
+
+    ScriboAction {
+	AppointData appointdata;
+	string exec_cancel;
+
+	appointdata <- #OBJLOCUTIO-1.TContext.WData.AppointData;
+
+	exec_cancel <- LiteralConcat('Lo sentimos, pero debido a problemas técnicos, en este momento no podemos cancelar la cita para ',
+				Service2String(appointdata.AppointService));
+	exec_cancel <- LiteralConcat(exec_cancel,
+				AppointGlobalDate2String(appointdata.AppointGlobalDate));
+	exec_cancel <- LiteralConcat(exec_cancel,
+				Doctor2String(appointdata.AppointDoctor));
+	exec_cancel <- LiteralConcat(exec_cancel,
+				'. Por favor, vuelva a intentarlo en unos minutos.');
+	SetMainAnswer(exec_cancel);
+	$MINDBOARD@fOpen.Strat.SExpect <- ['igoal'];
+	SetActiveExpectation('Start');
+    }
+)
+
+(ScriboScheme NLG_Propose_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'propose',TField:'appoint')
+    }
+
+    ScriboAction {
+	MindBoardAgrAppoint	mindboardagrappoint;
+	MindBoardAgrSlot	mindboardagrslot;
+	DRef		dref;
+
+	mindboardagrappoint <- #OBJLOCUTIO-1.TContext.WData.AgrAppoint.MindBoardAgrAppoint;
+	mindboardagrslot	<- mindboardagrappoint.AgrSlot.MindBoardAgrSlot;
+
+	if (mindboardagrappoint.AvailData.AvailGlobalDate.Distance == 0) {
+		SetMainAnswer("Para ");
+		if (#OBJLOCUTIO-1.TContext.GModel.LinkedInfo.GlobalDate.DRef) {
+			dref <- #OBJLOCUTIO-1.TContext.GModel.LinkedInfo.GlobalDate.DRef;
+		} else {
+			dref <- #OBJLOCUTIO-1.TContext.CModel.LinkedInfo.GlobalDate.DRef;
+		}
+		SetMainAnswer(DRef2Text(dref,#OBJLOCUTIO-1.TContext.WData.Today));
+		SetMainAnswer(", la primera cita disponible es a ");
+		SetMainAnswer(TimeName(mindboardagrslot.SlotPeriodHourInit,mindboardagrslot.SlotMinInit));
+
+		SetMainAnswer(". ¿Está bien a esta hora?");
+	} else {
+		SetMainAnswer("Para ");
+		if (#OBJLOCUTIO-1.TContext.GModel.LinkedInfo.GlobalDate.DRef) {
+			dref <- #OBJLOCUTIO-1.TContext.GModel.LinkedInfo.GlobalDate.DRef;
+		} else {
+			dref <- #OBJLOCUTIO-1.TContext.CModel.LinkedInfo.GlobalDate.DRef;
+		}
+		SetMainAnswer(DRef2Text(dref,#OBJLOCUTIO-1.TContext.WData.Today));
+
+		SetMainAnswer(" no hay ninguna cita disponible. La primera que le puedo ofrecer es ");
+
+		SetMainAnswer(DRef2TextOverDRef( mindboardagrappoint.AvailData.AvailGlobalDate, dref ));
+
+		SetMainAnswer(" a ");
+
+		SetMainAnswer(TimeName(mindboardagrslot.SlotPeriodHourInit,mindboardagrslot.SlotMinInit));
+
+		SetMainAnswer(". ¿Está bien a esta hora?");
+	}
+	$MINDBOARD@fOpen.Strat.SExpect <- ['date','igoal'];
+	SetActiveExpectation('GlobalDate');
+	SetActiveExpectation('Conversation');
+
+ }
+)
+
+(ScriboScheme NLG_Propose_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'re-propose',TField:'appoint')
+    }
+
+    ScriboAction {
+	MindBoardAgrAppoint	mindboardagrappoint;
+	MindBoardAgrSlot	mindboardagrslot;
+
+	mindboardagrappoint <- #OBJLOCUTIO-1.TContext.WData.AgrAppoint.MindBoardAgrAppoint;
+	mindboardagrslot	<- mindboardagrappoint.AgrSlot.MindBoardAgrSlot;
+
+	SetMainAnswerTextRandom("¿Le viene mejor a ",
+				"¿Estaría mejor a ",
+				"¿Y podría a ");
+	SetMainAnswer(TimeName(mindboardagrslot.SlotPeriodHourInit,mindboardagrslot.SlotMinInit));
+	SetMainAnswer("?");
+	$MINDBOARD@fOpen.Strat.SExpect <- ['date','igoal'];
+	SetActiveExpectation('GlobalDate');
+	SetActiveExpectation('Conversation');
+    }
+)
+
+(ScriboScheme NLG_Propose_Appoint: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'error',TField:'appoint')
+    }
+
+    ScriboAction {
+	SetMainAnswerText("Lo siento, pero ese día no quedaría ninguna otra posibilidad. ");
+	$MINDBOARD@fOpen.Strat.SExpect <- ['date','igoal'];
+	SetActiveExpectation('Start');
+    }
+)
+
+(ScriboScheme NLG_Exec_RequestAppointOk: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'exec',TField:'exec-appoint-ok')
+    }
+
+    ScriboAction {
+	AppointData appointdata;
+	string exec_exec;
+
+	appointdata <- #OBJLOCUTIO-1.TContext.WData.AppointData;
+
+	exec_exec <- LiteralConcat('Muy bien. Tome nota, la cita es ',
+				AppointGlobalDate2String(appointdata.AppointGlobalDate));
+	exec_exec <- LiteralConcat(exec_exec,
+				Doctor2String(appointdata.AppointDoctor),
+				'. ');
+	SetMainAnswer(exec_exec);
+	$MINDBOARD@fOpen.Strat.SExpect <- ['igoal'];
+	SetActiveExpectation('Start');
+    }
+)
+
+(ScriboScheme NLG_Exec_AppointError: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'exec',TField:'exec-appoint-error')
+    }
+
+    ScriboAction {
+	AppointData appointdata;
+	string exec_exec;
+
+	appointdata <- #OBJLOCUTIO-1.TContext.WData.AppointData;
+
+	exec_exec <- LiteralConcat('Lo sentimos, pero debido a problemas técnicos, en este momento no podemos crear la cita para ',
+				Service2String(appointdata.AppointService));
+	exec_exec <- LiteralConcat(exec_exec,
+				AppointGlobalDate2String(appointdata.AppointGlobalDate));
+	exec_exec <- LiteralConcat(exec_exec,
+				Doctor2String(appointdata.AppointDoctor));
+	exec_exec <- LiteralConcat(exec_exec,
+				'. Por favor, vuelva a intentarlo en unos minutos.');
+	SetMainAnswer(exec_exec);
+	$MINDBOARD@fOpen.Strat.SExpect <- ['igoal'];
+	SetActiveExpectation('Start');
+    }
+)
+
+(ScriboScheme NLG_Inform_NoSense: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'inform',TField:'nosense')
+    }
+
+    ScriboAction {
+	SetMainAnswerText("Perdone, pero no tiene sentido lo que me dice. Por favor, ¿qué quiere hacer?");
+	SetActiveExpectation('Start');
+    }
+)

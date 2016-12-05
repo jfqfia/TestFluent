@@ -1,0 +1,26 @@
+/*******************************
+ ** CLASSMODEL SPECIFICATION
+ *******************************
+ ** Conversation
+ **	-> Agree
+ **	-> Refuse
+ **	-> Repeat
+ *******************************/
+
+	classDef:Void		( lexConversation,
+				  lexAgree,
+				  lexRefuse,
+				  lexRepeat)
+
+	classDef:ElementRange	( Agree, Refuse, Repeat:
+							{ 'on' } )
+
+
+	classDef:StructureComplex ( Conversation :
+					(Agree,
+					 Refuse,
+					 Repeat) )
+
+	classDef:StructureComplex	( Denial: ( Refuse ) )
+
+	classDef:StructureComplex	( Assert: ( Agree ) )

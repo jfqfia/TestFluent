@@ -1,0 +1,7 @@
+/*******************************
+ ** Specific / GlobalDate / Heads
+ *******************************/
+
+TaskLine	AnalyzeLinkedInfoGlobalDate(TaskLine tline);
+GlobalDate		DefaultLinkedInfoGlobalDate();
+integer 	VerifySlot(AvailGlobalDate availdate,Slot slot,DRef today);

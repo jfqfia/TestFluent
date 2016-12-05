@@ -1,0 +1,79 @@
+/*******************************
+ ** Scribo / GlobalDate
+ *******************************/
+
+(ScriboScheme NLG_Ask_GlobalDate: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'ask',TField:'date')
+    }
+
+    ScriboAction {
+	if ((#OBJLOCUTIO-1.TContext.GModel.OperPurpose.OperPurposeDescriptor == 'request') || 
+				(#OBJLOCUTIO-1.TContext.CModel.OperPurpose.OperPurposeDescriptor == 'request')) {
+	       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+			SetMainAnswerTextRandom(
+				"Indíqueme para qué fecha sería la cita.",
+				"¿Me indica para qué fecha sería la cita?");
+		} else {
+ 			SetMainAnswerTextRandom(
+				"Indíqueme para qué fecha sería la cita.",
+				"¿Me indica para qué fecha sería la\\stress=no cita?");
+		}
+	} else {
+	       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+			SetMainAnswerTextRandom(
+				"Indíqueme de qué fecha es la cita.",
+				"¿Me indica de qué fecha es la cita?");
+		} else {
+ 			SetMainAnswerTextRandom(
+				"Indíqueme de qué fecha es la cita.",
+				"¿Me indica de qué fecha es la cita?");
+		}
+	}
+	$MINDBOARD@fOpen.Strat.SAsk <& ['date'];
+	$MINDBOARD@fOpen.Strat.SExpect <& ['date'];
+	SetActiveExpectation('GlobalDate');
+    }
+)
+
+(ScriboScheme NLG_Verify_GlobalDate: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'check',TField:'date')
+    }
+
+    ScriboAction {
+	SetMainAnswer("¿Para ");
+
+	SetMainAnswer(DRef2Text(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.GlobalDate.DRef,
+				#OBJLOCUTIO-1.TContext.WData.Today));
+
+	SetMainAnswer("?");
+
+	$MINDBOARD@fOpen.Strat.SAsk <& ['ack'];
+	$MINDBOARD@fOpen.Strat.SExpect <& ['ack'];
+	SetActiveExpectation('Conversation');
+    }
+)
+
+(ScriboScheme NLG_Error_GlobalDate: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'error',TField:'date')
+    }
+
+    ScriboAction {
+	if (#OBJLOCUTIO-1.TContext.ReceivedCommand.LinkedInfo.GlobalDate.DRef.Distance < 0) {
+		SetMainAnswerText(
+			"Disculpe, pero esa fecha ya se ha pasado. Por favor, indíqueme cuándo le vendría bien. ");
+	} 
+
+	if (#OBJLOCUTIO-1.TContext.ReceivedCommand.LinkedInfo.GlobalDate.DRef.Distance > 60) {
+		SetMainAnswerText(
+			"Perdone, pero sólo podemos dar cita dentro de los dos próximos meses. Indíqueme cuándo le vendría bien. ");
+
+	} 
+	
+	$MINDBOARD@fOpen.Strat.SAsk <& ['date'];
+	$MINDBOARD@fOpen.Strat.SExpect <& ['date'];
+	SetActiveExpectation('GlobalDate');
+    }
+)

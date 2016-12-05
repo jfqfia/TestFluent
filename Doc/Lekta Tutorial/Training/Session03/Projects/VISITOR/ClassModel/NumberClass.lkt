@@ -1,0 +1,33 @@
+/*******************************
+ ** Expresiones numéricas
+ *******************************/
+	classDef:ElementInt 	( numInteger )
+	classDef:ElementReal 	( numReal )
+	classDef:ElementInt	( lexZero )
+	classDef:ElementInt	( lexNumber )
+	classDef:ElementInt	( lexNumberThousand )
+	classDef:ElementInt	( lexNumberMillion )
+
+	classDef:ElementInt	( IntegerValue )
+	classDef:StructureComplex	( Integer:	
+						(IntegerValue) )
+	classDef:ElementLiteral	( IntegerString )
+	classDef:ElementInt	( IntegerLast )
+	classDef:StructureComplex	( IntSeqn:
+						(IntegerString,
+						 IntegerLast) )
+
+	classDef:ElementReal		( RealValue )
+	classDef:StructureComplex	( Real:	
+						(RealValue) )
+
+	classDef:ElementInt	( lexOrdinal )
+	classDef:ElementInt	( OrdinalValue )
+	classDef:StructureComplex	( Ordinal:	
+						(OrdinalValue) )
+
+	classDef:ElementInt	( lexTerminal )
+	classDef:ElementInt	( TerminalValue )
+	classDef:StructureComplex	( Terminal:	
+						(TerminalValue) )
+

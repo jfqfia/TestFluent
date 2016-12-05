@@ -1,0 +1,509 @@
+/*******************************
+ ** Task / Consult Flight
+ *******************************/
+
+MindTaskItem	ProcessControl_Consult_Flight(MindTaskItem aline_in)
+{
+	MindTaskItem aline_proc;
+	integer cycle;
+	PhaseControlSearchPointsFlt prev_wprotocol;
+
+        if (!!aline_in.TemporalMemory.TemporalData.Today) {
+                aline_in.TemporalMemory.TemporalData.Today = CalcToday();
+        }
+
+	if (!!aline_in.ControlTask) {
+		aline_in.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekSiteDeparture';
+
+		if (aline_in.SaveControlTask.PhaseControlFlightInfo) {
+			aline_in.ControlTask.PhaseControlFlightType = 
+				aline_in.SaveControlTask.PhaseControlFlightType;
+			aline_in.ControlTask.PhaseControlFlightInfo = 
+				aline_in.SaveControlTask.PhaseControlFlightInfo;
+		} else {
+			aline_in.ControlTask.PhaseControlFlightType = 'fligthTypeGo';
+			cond {
+				(aline_in.ActiveCommand.LinkedInfo.FlightType.FlightTypeWay =:= 'round_trip') {
+					aline_in.ControlTask.PhaseControlFlightInfo = 
+						'fligthInfoGo'|'fligthInfoBack';
+				}
+				(aline_in.ActiveCommand.LinkedInfo.ReturnGlobalDate) {
+					aline_in.ControlTask.PhaseControlFlightInfo = 
+						'fligthInfoGo'|'fligthInfoBack';
+				}
+				default {
+					aline_in.ControlTask.PhaseControlFlightInfo = 'fligthInfoGo';
+				}
+			}
+		}
+	}
+
+	aline_proc = IntegrateConsultFlt(aline_in);
+
+	if (aline_proc.ActiveCommand.LinkedInfo.DepartureGlobalDate.Time.RelPos) {
+		if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 'phaseSeekSiteDeparture') {
+			aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightReturn';
+		} else {
+			if (aline_proc.ControlTask.PhaseControlFlightInfo == 'fligthInfoBack') {
+				aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightReturn';
+			} else {
+				if (aline_proc.TemporalMemory.TemporalData.RecordFlightGo.FlightData) {
+					aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightGo';
+				} else {
+					if (aline_proc.CopyTemporalMemory.TemporalData.RecordFlightGo.FlightData) {
+						aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightGo';
+					}
+				}
+			}
+		}
+	} else {
+		if (aline_proc.ActiveCommand.LinkedInfo.ReturnGlobalDate.Time.RelPos) {
+			/*
+			if (aline_proc.CopyTemporalMemory) {
+				aline_proc.TemporalMemory = aline_proc.CopyTemporalMemory;
+				//Erase(aline_proc.CopyTemporalMemory);
+			}
+			*/
+			if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 'phaseSeekSiteDeparture') {
+				aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightReturn';
+			} else {
+				if (aline_proc.TemporalMemory.TemporalData.RecordFlightBack.FlightData) {
+					aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightReturn';
+				} else {
+					if (aline_proc.CopyTemporalMemory.TemporalData.RecordFlightBack.FlightData) {
+						aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightReturn';
+					} else {
+						aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightGo';
+					}
+					/*
+					if (aline_proc.ControlTask.PhaseControlSearchPointsFlt =:= 'phaseSeekDateReturn') {
+						aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseContinueFlightReturn';
+					}
+					*/
+				}
+			}
+		}
+	}
+
+	cycle = 1;
+	while (cycle == 1) {
+		prev_wprotocol = aline_proc.ControlTask.PhaseControlSearchPointsFlt;
+		switch (aline_proc.ControlTask.PhaseControlSearchPointsFlt) {
+			case 'phaseSeekSiteDeparture' {
+				aline_proc = LookItineraryOriginFlt(aline_proc);
+			}
+			case 'phaseVerifySiteDeparture' {
+				aline_proc = AnalyzeItineraryOriginFlt(aline_proc);
+			}
+			case 'phaseInvalidSiteDeparture' {
+				if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 'phaseInvalidSiteDeparture') {
+					cycle = 0;
+				}
+			}
+
+			case 'phaseSeekSiteDestination' {
+				aline_proc = LookItineraryDestinationFlt(aline_proc);
+			}
+			case 'phaseVerifySiteDestination' {
+				aline_proc = AnalyzeItineraryDestinationFlt(aline_proc);
+			}
+			case 'phaseValidateWholeItinerary' {
+				aline_proc = CompareItineraryOriginDestination(aline_proc);
+			}
+			case 'phaseInvalidItinerary' {
+				if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 'phaseInvalidItinerary') {
+					cycle = 0;
+				}
+			}
+			case 'phaseInvalidSiteDestination' {
+				if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 'phaseInvalidSiteDestination') {
+					cycle = 0;
+				}
+			}
+
+			case 'phaseSeekDateDeparture' {
+				aline_proc = LookDepartureGlobalDateFlt(aline_proc);
+			}
+			case 'phaseVerifyDateDeparture' {
+				aline_proc = AnalyzeDepartureGlobalDateFlt(aline_proc);
+			}
+			case 'phaseInvalidDateDeparture' {
+				aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateDeparture';
+				cycle = 0;
+			}
+			case 'phaseAskFligthGo' {
+				aline_proc = RequestRecordFlightGo(aline_proc);
+			}
+			case 'phaseNotAvailabilityFligthGo' {
+				aline_proc = FlightNotFoundGo(aline_proc);
+				if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 
+						'phaseNotAvailabilityFligthGo') {
+					cycle = 0;
+				}
+			}
+			case 'phaseInformFlightGo' {
+				aline_proc = InformFlightGo(aline_proc);
+			}
+			case 'phaseContinueFlightGo' {
+				aline_proc = MoveFlightGo(aline_proc);
+			}
+			case 'informphaseContinueFlightGo' {
+				aline_proc.ControlTask.PhaseControlFlightInfo = 'fligthInfoGo';
+				aline_proc = InformMoveFlightGo(aline_proc);
+			}
+			case 'errorphaseContinueFlightGo' {
+				aline_proc = ErrorMoveFlightGo(aline_proc);
+			}
+
+			case 'phaseSeekDateReturn' {
+				aline_proc = LookReturnGlobalDateFlt(aline_proc);
+			}
+			case 'phaseVerifyDateReturn' {
+				aline_proc = AnalyzeReturnGlobalDateFlt(aline_proc);
+			}
+			case 'phaseInvalidDateReturn' {
+				aline_proc.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+				cycle = 0;
+			}
+			case 'phaseAskFligthReturn' {
+				aline_proc = RequestRecordFlightBack(aline_proc);
+			}
+			case 'phaseNotAvailabilityFlightReturn' {
+				aline_proc = FlightNotFoundBack(aline_proc);
+				if (aline_proc.ControlTask.PhaseControlSearchPointsFlt == 
+						'phaseNotAvailabilityFlightReturn') {
+					cycle = 0;
+				}
+			}
+			case 'phaseInformFlightReturn' {
+				aline_proc = InformFlightBack(aline_proc);
+			}
+			case 'phaseContinueFlightReturn' {
+				aline_proc = MoveFlightBack(aline_proc);
+			}
+			case 'informphaseContinueFlightReturn' {
+				aline_proc.ControlTask.PhaseControlFlightInfo = 'fligthInfoBack';
+				aline_proc = InformMoveFlightBack(aline_proc);
+			}
+			case 'errorphaseContinueFlightReturn' {
+				aline_proc = ErrorMoveFlightBack(aline_proc);
+			}
+
+
+			case 'close' {
+				aline_proc.controlCommandPhase = 'done';
+			}
+			case 'fail' {
+				aline_proc.controlCommandPhase = 'fail';
+				cycle = 0;
+			}
+		}
+		if (prev_wprotocol == aline_proc.ControlTask.PhaseControlSearchPointsFlt) {
+			cycle = 0;
+		}
+	}
+
+	Erase(aline_proc.ActiveCommand.LinkedInfo.DepartureGlobalDate.Time.RelPos);
+	Erase(aline_proc.ActiveCommand.LinkedInfo.ReturnGlobalDate.Time.RelPos);
+	
+	return aline_proc;
+}
+
+MindTaskItem	RequestRecordFlightGo(MindTaskItem aline)
+{
+	aline = WS_RequestRecordFlightGo(aline);
+
+	cond {
+		(aline.TemporalMemory.TemporalData.RecordFlightGo.FlightData) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseInformFlightGo';
+		}
+		(aline.TemporalMemory.TemporalData.RecordFlightGo.FlightError) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseNotAvailabilityFligthGo';
+		}
+	}
+
+	return aline;
+}
+
+MindTaskItem	RequestRecordFlightBack(MindTaskItem aline)
+{
+	aline = WS_RequestRecordFlightBack(aline);
+
+	cond {
+		(aline.TemporalMemory.TemporalData.RecordFlightBack.FlightData) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseInformFlightReturn';
+		}
+		(aline.TemporalMemory.TemporalData.RecordFlightBack.FlightError) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseNotAvailabilityFlightReturn';
+		}
+	}
+
+	return aline;
+}
+
+MindTaskItem	FlightNotFoundGo(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	LOutput loutput = (LMode:'error',TField:'flight-go');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	aline.AExpec = (TField:'dateDeparture'|'route'|'date'|'intseqn');
+
+	aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+
+	dref = aline.ActiveCommand.LinkedInfo.DepartureGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 0;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	FlightNotFoundBack(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	LOutput loutput = (LMode:'error',TField:'flight-back');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	aline.AExpec = (TField:'dateReturn'|'route'|'date'|'intseqn');
+
+	aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+
+	dref = aline.ActiveCommand.LinkedInfo.DepartureGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 0;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	InformFlightGo(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	if (aline.ControlTask.PhaseControlFlightInfo =:= 'fligthInfoGo') {
+		LOutput loutput = (LMode:'inform',TField:'flight-go');
+		loutput.IContext = aline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+	}
+
+	cond {
+		(aline.ActiveCommand.LinkedInfo.FlightType.FlightTypeWay == 'round_trip') {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		(aline.ActiveCommand.LinkedInfo.ReturnGlobalDate) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		default {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+		}
+	}
+
+	dref = aline.ActiveCommand.LinkedInfo.DepartureGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 1;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	InformMoveFlightGo(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	if (aline.ControlTask.PhaseControlFlightInfo =:= 'fligthInfoGo') {
+		LOutput loutput = (LMode:'informmove',TField:'flight-go');
+		loutput.IContext = aline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	}
+
+	cond {
+		(aline.ActiveCommand.LinkedInfo.FlightType.FlightTypeWay == 'round_trip') {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		(aline.ActiveCommand.LinkedInfo.ReturnGlobalDate) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		default {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+		}
+	}
+
+	dref = aline.ActiveCommand.LinkedInfo.DepartureGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 1;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	ErrorMoveFlightGo(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	LOutput loutput = (LMode:'errormove',TField:'flight-go');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	cond {
+		(aline.ActiveCommand.LinkedInfo.FlightType.FlightTypeWay == 'round_trip') {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		(aline.ActiveCommand.LinkedInfo.ReturnGlobalDate) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		default {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+		}
+	}
+
+	dref = aline.ActiveCommand.LinkedInfo.DepartureGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 1;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	InformFlightBack(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	if (aline.ControlTask.PhaseControlFlightInfo =:= 'fligthInfoBack') {
+		LOutput loutput = (LMode:'inform',TField:'flight-back');
+		loutput.IContext = aline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	}
+
+	aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+
+	dref = aline.ActiveCommand.LinkedInfo.DepartureGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 1;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	InformMoveFlightBack(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	if (aline.ControlTask.PhaseControlFlightInfo =:= 'fligthInfoBack') {
+		LOutput loutput = (LMode:'informmove',TField:'flight-back');
+		loutput.IContext = aline;
+		BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	}
+
+	cond {
+		(aline.ActiveCommand.LinkedInfo.FlightType.FlightTypeWay == 'round_trip') {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		(aline.ActiveCommand.LinkedInfo.ReturnGlobalDate) {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		default {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+		}
+	}
+
+	dref = aline.ActiveCommand.LinkedInfo.ReturnGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 1;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}
+
+MindTaskItem	ErrorMoveFlightBack(MindTaskItem aline)
+{
+	DRef dref;
+	integer ndate;
+	integer	avail;
+	string  origin;
+	string	destination;
+
+	LOutput loutput = (LMode:'errormove',TField:'flight-back');
+	loutput.IContext = aline;
+	BatchInsertEnd($MINDBOARD@OStruct.OScheme,loutput);
+
+	cond {
+		(aline.ActiveCommand.LinkedInfo.FlightType.FlightTypeWay == 'round_trip') {
+			//aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		(aline.ActiveCommand.LinkedInfo.ReturnGlobalDate) {
+			//aline.ControlTask.PhaseControlSearchPointsFlt = 'phaseSeekDateReturn';
+			aline.ControlTask.PhaseControlFlightType = 'fligthTypeBack';
+			aline.ControlTask.PhaseControlFlightInfo <OW< 'fligthInfoBack';
+		}
+		default {
+			aline.ControlTask.PhaseControlSearchPointsFlt = 'close';
+		}
+	}
+
+	dref = aline.ActiveCommand.LinkedInfo.ReturnGlobalDate.DRef;
+	ndate = (dref.AbsPeriodYear * 10000) + (dref.AbsPeriodMonth * 100) + dref.AbsPeriodDay;
+	avail = 1;
+	origin = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Origin.Site.SiteNode,1);
+	destination = VectorRecoverPosition(aline.ActiveCommand.LinkedInfo.Itinerary.Destination.Site.SiteNode,1);
+
+	return aline;
+}

@@ -1,0 +1,100 @@
+/*******************************
+ ** Scribo / Functions
+ *******************************/
+
+string scopeName(string scopeDescriptor) 
+{
+	switch (scopeDescriptor) {
+		case 'window'		return 'la ventana ';
+		case 'door'		return 'la puerta ';
+		case 'light'		return 'la luz ';
+		case 'alarm'		return 'la alarma ';
+		case 'heating'		return 'la calefaccion ';
+		case 'irrigation'	return 'el riego ';
+	}
+
+	return '';
+}
+
+string scopeGender(string scopeDescriptor) 
+{
+	switch (scopeDescriptor) {
+		case 'window'		return 'female';
+		case 'door'		return 'female';
+		case 'light'		return 'female';
+		case 'alarm'		return 'female';
+		case 'heating'		return 'female';
+		case 'irrigation'	return 'male';
+	}
+
+	return '';
+}
+
+string locationName(string locationRef) 
+{
+	switch (locationRef) {
+		case 'parlor'	return 'del salon ';
+		case 'kitchen'	return 'de la cocina ';
+		case 'garage'	return 'del garage ';
+		case 'bedroom'	return 'del dormitorio ';
+	}
+
+	return '';
+}
+
+string scopeDescription(Command command)
+{
+	string scopename <- scopeName(command.ActScope.ActScopeDescriptor);
+
+	string scopeinfo <- locationName(command.LinkedInfo.Location.LocationRef);
+	
+	return LiteralConcat(scopename,scopeinfo);
+}
+
+string purposeName(string purposeDescriptor, string gender)
+{
+	switch (purposeDescriptor) {
+		case 'activate' {
+			if (gender == 'male')
+				return 'activado';
+			else
+				return 'activada';
+		}
+		case 'deactivate' {
+			if (gender == 'male')
+				return 'desactivado';
+			else
+				return 'desactivada';
+		}
+		case 'open' {
+			if (gender == 'male')
+				return 'abierto';
+			else
+				return 'abierta';
+		}
+		case 'close' {
+			if (gender == 'male')
+				return 'cerrado';
+			else
+				return 'cerrada';
+		}
+	}
+}
+
+string purposeDescription(Command command)
+{
+	string gender <- scopeGender(command.ActScope.ActScopeDescriptor);
+
+	string purposename <- purposeName(command.OperPurpose.OperPurposeDescriptor, gender);
+
+	return LiteralConcat('ha sido ',purposename);
+}
+
+string purposeDescriptionAlready(Command command)
+{
+	string gender <- scopeGender(command.ActScope.ActScopeDescriptor);
+
+	string purposename <- purposeName(command.OperPurpose.OperPurposeDescriptor, gender);
+
+	return LiteralConcat('ya estaba ',purposename);
+}

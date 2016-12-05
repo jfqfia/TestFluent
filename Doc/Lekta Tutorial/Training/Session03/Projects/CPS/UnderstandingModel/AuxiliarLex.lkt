@@ -1,0 +1,319 @@
+/*************************
+ ** ASR
+ *************************/
+
+	!ASR("<s>",		NS_B,		| silB |)
+	!ASR("</s>",		NS_E,		| silE |)
+
+/*******************************
+ ** Puntuacion
+ *******************************/
+
+	setupTokenizerBlanks(" ")
+
+	setupTokenizerPunctuation("¡", 	punctExclamationOpen )
+	setupTokenizerPunctuation("!", 	punctExclamationClose )
+	setupTokenizerPunctuation("¿", 	punctQuestionOpen )
+	setupTokenizerPunctuation("?", 	punctQuestionClose )
+	setupTokenizerPunctuation(".", 	punctDot )
+	setupTokenizerPunctuation(":", 	punctColon )
+	setupTokenizerPunctuation(",", 	punctComma )
+	setupTokenizerPunctuation(";", 	punctSemicolon )
+	setupTokenizerPunctuation("(", 	punctParenthesisOpen )
+	setupTokenizerPunctuation("[", 	punctParenthesisOpen )
+	setupTokenizerPunctuation("<", 	punctParenthesisOpen )
+	setupTokenizerPunctuation(")", 	punctParenthesisClose )
+	setupTokenizerPunctuation("]", 	punctParenthesisClose )
+	setupTokenizerPunctuation(">", 	punctParenthesisClose )
+	setupTokenizerPunctuation("/", 	punctBar )
+
+
+/*******************************
+ ** Preposiciones
+ *******************************/
+	("a", 			lexAuxPrepA,		| a |)
+	("con", 		lexAuxPrepCON,	| k o n |)
+	("de", 			lexAuxPrepDE,		| d e |)
+	("desde", 		lexAuxPrepDESDE )
+	("en", 			lexAuxPrepEN,		| e n |)
+	("entre", 		lexAuxPrepENTRE )
+	("hacia", 		lexAuxPrepHACIA )
+	("hasta", 		lexAuxPrepHASTA )
+	("para", 		lexAuxPrepPARA,	| p a r a |)
+	("por", 		lexAuxPrepPOR )
+	("sin", 		lexAuxPrepSIN )
+	("sobre", 		lexAuxPrepSOBRE,	| s o B r e |)
+	("al", 			lexAuxPrepAL )
+	("del", 		lexAuxPrepDEL,	| d e l |)
+
+/*******************************
+ ** Conjunciones
+ *******************************/
+	("y", 			conjY,		| i |)
+	("o", 			conjO )
+
+/*******************************
+ ** Operadores
+ *******************************/
+	("coma", 		opCOMA)
+	("menos", 		opMenos)
+
+/*******************************
+ ** Determinantes
+ *******************************/
+	("el", 			lexAuxArticleEL,		| e l |)
+	("los", 		lexAuxArticleLOS )
+	("la", 			lexAuxArticleLA,		| l a |)
+	("las", 		lexAuxArticleLAS,		| l a s |)
+     //	("mi",			detMI,		| m i |)
+
+/*******************************
+ ** Nulos
+ *******************************/
+	("por ejemplo", 	lexAuxEmpty )
+	("eh", 			lexAuxEmpty )
+
+/*************************/
+/** lexAuxUndefArticle	**/
+/*************************/
+
+	("algún",		lexAuxUndefArticle)
+	("alguna",		lexAuxUndefArticle)
+	("cierta",		lexAuxUndefArticle)
+	("ciertas",		lexAuxUndefArticle)
+	("siguiente",		lexAuxUndefArticle)
+	("la siguiente",	lexAuxUndefArticle)
+	("un",			lexAuxUndefArticle)
+	("una",			lexAuxUndefArticle)
+	("unas",		lexAuxUndefArticle)
+	("unos",		lexAuxUndefArticle)
+
+/*************************/
+/** lexAuxPronoun	**/
+/*************************/
+
+	("le",			lexAuxPronoun)
+	("me",			lexAuxPronoun)
+	("te",			lexAuxPronoun)
+	("yo",			lexAuxPronoun,	| jj o |)
+
+/*************************/
+/** lexAuxIWant	**/
+/*************************/
+
+	("deseo",		lexAuxIWant,	| d e s e o |)
+	("deseaba",		lexAuxIWant,	| d e s e a B a |)
+	("desearía",		lexAuxIWant,	| d e s e a r i a |)
+
+	("era",			lexAuxIWant)
+	("estoy interesado",	lexAuxIWant)
+	("estoy interesado en",	lexAuxIWant)
+	("para",		lexAuxIWant,	| p a r a |)
+	("era_para",		lexAuxIWant,	| e r a p a r a |)
+	("sería_para",		lexAuxIWant,	| s e r i a p a r a |)
+
+	("gustaría",		lexAuxIWant)
+	("me_gustaría",		lexAuxIWant,	| m e G u s t a r i a |)
+
+	("llamo",		lexAuxIWant)
+	("llamaba",		lexAuxIWant,)
+	("llamo_para",		lexAuxIWant,	| L a m o p a r a |)
+	("llamaba_para",	lexAuxIWant,	| L a m a B a p a r a |)
+
+	("necesito",		lexAuxIWant,	| n e T e s i t o |)
+	("necesitaba",		lexAuxIWant,	| n e T e s i t a B a |)
+	("necesitaría",		lexAuxIWant,	| n e T e s i t a r i a |)
+
+	("podría",		lexAuxIWant)
+	("podrías",		lexAuxIWant)
+	("puede",		lexAuxIWant)
+	("puedes",		lexAuxIWant)
+
+	("quiero",		lexAuxIWant,	| k j e r o |)
+	("quería",		lexAuxIWant,	| k e r i a |)
+	("querría",		lexAuxIWant,	| k e rr i a |)
+	("quisiera",		lexAuxIWant,	| k i s j e r a |)
+
+/*************************/
+/** lexAuxPartFor	**/
+/*************************/
+
+	("a",			lexAuxPartFor)
+	("acerca",		lexAuxPartFor)
+	("acerca de",		lexAuxPartFor)
+	("para",		lexAuxPartFor)
+	("por",			lexAuxPartFor)
+	("sobre",		lexAuxPartFor)
+
+/*************************/
+/** lexAuxDefArticle	**/
+/*************************/
+
+	("el",			lexAuxDefArticle,		| e l |)
+	("la",			lexAuxDefArticle,		| l a |)
+	("los",			lexAuxDefArticle)
+	("las",			lexAuxDefArticle)
+     //	("mi",			lexAuxDefArticle)
+	("mis",			lexAuxDefArticle)
+	("su",			lexAuxDefArticle)
+	("sus",			lexAuxDefArticle)
+
+/*************************/
+/** lexAuxAskFor	**/
+/*************************/
+
+	("hacer",		lexAuxAskFor)
+	("hacerle",		lexAuxAskFor)
+	("hacerte",		lexAuxAskFor)
+
+	("obtener",		lexAuxAskFor)
+
+	("pedir",		lexAuxAskFor)
+	("pedirle",		lexAuxAskFor)
+	("pedirte",		lexAuxAskFor)
+
+/*************************/
+/** lexAuxPartIf	**/
+/*************************/
+
+//	("si",			lexAuxPartIf)
+
+/*************************/
+/** lexAuxVerbBe	**/
+/*************************/
+
+	("es",			lexAuxVerbBe,	| e s |)
+	("sería",		lexAuxVerbBe)
+	("ser",			lexAuxVerbBe)
+
+	("hay",			lexAuxVerbBe)
+	("había",		lexAuxVerbBe)
+	("habría",		lexAuxVerbBe)
+
+	("queda",		lexAuxVerbBe)
+	("quedan",		lexAuxVerbBe)
+	("quedarán",		lexAuxVerbBe)
+	("quedaría",		lexAuxVerbBe)
+	("quedarían",		lexAuxVerbBe)
+
+	("tengo",		lexAuxVerbBe)
+	("tenéis",		lexAuxVerbBe)
+	("tenía",		lexAuxVerbBe)
+	("tenían",		lexAuxVerbBe)
+	("tenías",		lexAuxVerbBe)
+	("tendría",		lexAuxVerbBe)
+	("tendrían",		lexAuxVerbBe)
+	("tendrias",		lexAuxVerbBe)
+	("tiene",		lexAuxVerbBe)
+	("tienen",		lexAuxVerbBe)
+	("tienes",		lexAuxVerbBe)
+
+	("si_hay",			lexAuxVerbBe)
+	("si_había",		lexAuxVerbBe)
+	("si_habría",		lexAuxVerbBe)
+
+	("si_queda",		lexAuxVerbBe)
+	("si_quedan",		lexAuxVerbBe)
+	("si_quedarán",		lexAuxVerbBe)
+	("si_quedaría",		lexAuxVerbBe)
+	("si_quedarían",		lexAuxVerbBe)
+
+	("si_tengo",		lexAuxVerbBe)
+	("si_tenéis",		lexAuxVerbBe)
+	("si_tenía",		lexAuxVerbBe)
+	("si_tenían",		lexAuxVerbBe)
+	("si_tenías",		lexAuxVerbBe)
+	("si_tendría",		lexAuxVerbBe)
+	("si_tendrían",		lexAuxVerbBe)
+	("si_tendrias",		lexAuxVerbBe)
+	("si_tiene",		lexAuxVerbBe)
+	("si_tienen",		lexAuxVerbBe)
+	("si_tienes",		lexAuxVerbBe)
+
+/*************************/
+/** lexAuxWhat	**/
+/*************************/
+
+	("qué",			lexAuxWhat)
+	("cuál",		lexAuxWhat)
+	("cuál es",		lexAuxWhat)
+	("cuáles",		lexAuxWhat)
+	("cuáles son",		lexAuxWhat)
+
+/*************************/
+/** lexCorrect	**/
+/*************************/
+
+	("correcto",		lexCorrect,	| k o rr e k t o |)
+
+/*************************/
+/** lexKnow	**/
+/*************************/
+
+	("sé",			lexKnow,	| s e |)
+	("lo_sé",		lexKnow,	| l o s e |)
+	("la_sé",		lexKnow,	| l a s e |)
+	("me_lo_sé",		lexKnow,	| m e l o s e |)
+	("me_la_sé",		lexKnow,	| m e l a s e |)
+	("conozco",		lexKnow,	| k o n o T k o |)
+	("lo_conozco",		lexKnow,	| l o k o n o T k o |)
+	("la_conozco",		lexKnow,	| l a k o n o T k o |)
+	("me_acuerdo",		lexKnow,	| m e a k w e r D o |)
+
+/*************************/
+/** lexFind	**/
+/*************************/
+
+	("encuentro",		lexFind,	| e n k w e n t r o |)
+	("lo_encuentro",	lexFind,	| l o e n k w e n t r o |)
+	("la_encuentro",	lexFind,	| l a e n k w e n t r o |)
+	("tengo",		lexFind,	| t e N g o |)
+	("lo_tengo",		lexFind,	| l o t e N g o |)
+	("la_tengo",		lexFind,	| l a t e N g o |)
+	("aquí",		lexFindAux,	| a k i |)
+	("por_aquí",		lexFindAux,	| p o r a k i |)
+	("a_mano",		lexFindAux,	| a m a n o |)
+	("cerca",		lexFindAux,	| T e r k a |)
+
+/*************************/
+/** lexDenial	**/
+/*************************/
+
+	("no",			lexDenial,		| n o |)
+// JFQ
+	("no_gracias",		lexDenial)
+	("tampoco",		lexDenial,		| t a m p o k o |)
+
+/*************************/
+/** lexApology	**/
+/*************************/
+
+	("perdona",		lexApology,	| p e r D o n a |)
+	("perdone",		lexApology,	| p e r D o n e |)
+	("perdóname",		lexApology,	| p e r D o n a m e |)
+	("perdóneme",		lexApology,	| p e r D o n e m e |)
+	("disculpa",		lexApology,	| d i s k u l p a |)
+	("disculpe",		lexApology,	| d i s k u l p e |)
+	("discúlpame",		lexApology,	| d i s k u l p a m e |)
+	("discúlpeme",		lexApology,	| d i s k u l p e m e |)
+
+/*************************/
+/** lexBut	**/
+/*************************/
+
+	("pero", 		lexBut,		| p e r o |)
+	("es_que", 		lexBut,		| e s k e |)
+	("pero_es_que",		lexBut,		| p e r o e s k e |)
+
+/*************************/
+/** lexBorn	**/
+/*************************/
+
+	("nació",		lexBorn,	| n a T j o |)
+	("nací",		lexBorn,	| n a T i |)
+
+/*************************/
+/** lexRelPron    	**/
+/*************************/
+
+	("que",			lexRelPron,	| k e |)

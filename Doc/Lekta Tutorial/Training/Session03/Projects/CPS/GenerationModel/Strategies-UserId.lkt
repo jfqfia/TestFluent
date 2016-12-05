@@ -1,0 +1,301 @@
+/*******************************
+ ** Scribo / UserId
+ *******************************/
+
+(ScriboScheme NLG_Ask_PersonalId: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'ask',TField:'personalid')
+    }
+
+    ScriboAction {
+	Person 	person;
+	string	str_person;
+
+	if (#OBJLOCUTIO-1.TContext.GModel.LinkedInfo.Person) {
+		person <- #OBJLOCUTIO-1.TContext.GModel.LinkedInfo.Person;
+	} else {
+		person <- #OBJLOCUTIO-1.TContext.CModel.LinkedInfo.Person;
+	}
+
+       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		if (person.PersonDegree == 'self') {
+			SetMainAnswerTextRandom(
+				"Indíqueme su DNI, por favor. ",
+				"¿Me facilita su número de carnet de identidad? ",
+				"¿Me dice su DNI? ");
+		} else {
+			str_person <- Person2StringAskPersonalId(person);
+			switch (Random(1,3)) {
+				case 1 {
+					SetMainAnswer("Indíqueme el DNI");
+					SetMainAnswer(str_person);
+					SetMainAnswer(", por favor. ");
+				}
+				case 2 {
+					SetMainAnswer("¿Me facilita el número de carnet de identidad");
+					SetMainAnswer(str_person);
+					SetMainAnswer("? ");
+				}
+				case 3 {
+					SetMainAnswer("¿Me dice el DNI");
+					SetMainAnswer(str_person);
+					SetMainAnswer("? ");
+				}
+			}
+		}
+	} else {
+		if (person.PersonDegree == 'self') {
+	 		SetMainAnswerTextRandom(
+				"Por favor, indíqueme su \\lkt_text=<DNI>\\lkt_tts=<de neí>. ",
+				"¿Me facilita su número de carnet de identidad? ",
+				"¿Me dice su \\lkt_text=<DNI>\\lkt_tts=<de neí>? ");
+		} else {
+			str_person <- Person2StringAskPersonalId(person);
+			switch (Random(1,3)) {
+				case 1 {
+					SetMainAnswer("Indíqueme el \\lkt_text=<DNI>\\lkt_tts=<de neí>");
+					SetMainAnswer(str_person);
+					SetMainAnswer(", por favor. ");
+				}
+				case 2 {
+					SetMainAnswer("¿Me facilita el número de carnet de identidad");
+					SetMainAnswer(str_person);
+					SetMainAnswer("? ");
+				}
+				case 3 {
+					SetMainAnswer("¿Me dice el \\lkt_text=<DNI>\\lkt_tts=<de neí>");
+					SetMainAnswer(str_person);
+					SetMainAnswer("? ");
+				}
+			}
+		}
+	}
+
+	$MINDBOARD@fOpen.Strat.SAsk <& ['personalid'];
+	$MINDBOARD@fOpen.Strat.SExpect <& ['personalid','number'];
+	SetActiveExpectation('PersonalIdentity');
+	SetActiveExpectation('Number');
+    }
+)
+
+(ScriboScheme NLG_Ask_IfPersonalId: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'ask',TField:'if_personalid')
+    }
+
+    ScriboAction {
+	Person 	person;
+	string	str_person;
+
+	if (#OBJLOCUTIO-1.TContext.GModel.LinkedInfo.Person) {
+		person <- #OBJLOCUTIO-1.TContext.GModel.LinkedInfo.Person;
+	} else {
+		person <- #OBJLOCUTIO-1.TContext.CModel.LinkedInfo.Person;
+	}
+
+       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		cond {
+			(person.PersonGenre == 'masc') {
+				SetMainAnswerText("¿El niño tiene ya DNI? ");
+			}
+			(person.PersonGenre == 'fem') {
+				SetMainAnswerText("¿La niña tiene ya DNI? ");
+			}
+			default {
+				SetMainAnswerText("¿Tiene ya DNI la persona para la que se pide la cita? ");
+			}
+		}
+	} else {
+		cond {
+			(person.PersonGenre == 'masc') {
+				SetMainAnswerText("¿Tiene el niño ya \\lkt_text=<DNI>\\lkt_tts=<de neí>? ");
+			}
+			(person.PersonGenre == 'fem') {
+				SetMainAnswerText("¿Tiene la niña ya \\lkt_text=<DNI>\\lkt_tts=<de neí>? ");
+			}
+			default {
+				SetMainAnswerText("\\pitch=70 ¿Tiene\\pitch ya \\lkt_text=<DNI>\\lkt_tts=<de neí> la\\stress=no persona para la que se pide la cita? ");
+			}
+		}
+	}
+	$MINDBOARD@fOpen.Strat.SAsk <& ['ack'];
+	$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+	//SetActiveExpectation('PersonalIdentity');
+	//SetActiveExpectation('Number');
+	SetActiveExpectation('Conversation');
+    }
+)
+
+(ScriboScheme NLG_ReAsk_PersonalId: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'re-ask',TField:'personalid')
+    }
+
+    ScriboAction {
+	string personalidstr;
+
+       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		if (LiteralSize(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity.valStr) >= 8) {
+			SetMainAnswer(
+				"Perdone, había entendido el número ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswer(". ¿Es correcto? Si no lo es, por favor, corríjalo. ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid'];
+			SetActiveExpectation('Conversation');
+		} else {
+			SetMainAnswerTextRandom("Sí, teníamos ", "Bien, llevábamos ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswerTextRandom(". Continúe. ", ". Siga. ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack','number'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+			SetActiveExpectation('Number');
+			SetActiveExpectation('Conversation');
+		}
+	} else {
+		if (LiteralSize(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity.valStr) >= 8) {
+			SetMainAnswer(
+				"Perdone, había entendido el número ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswer(". ¿Es correcto? Si no lo es, por favor, corríjalo. ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+			SetActiveExpectation('Conversation');
+		} else {
+			SetMainAnswerTextRandom("Sí, teníamos ", "Bien, llevábamos ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswerTextRandom(". Continúe. ", ". Siga. ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack','number'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+			SetActiveExpectation('Number');
+			SetActiveExpectation('Conversation');
+		}
+	}
+    }
+)
+
+(ScriboScheme NLG_StartOver_PersonalId: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'start-over',TField:'personalid')
+    }
+
+    ScriboAction {
+	string personalidstr;
+
+       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		SetMainAnswer(
+			"Disculpe, vuelva a decirme el DNI desde el principio. ");
+		$MINDBOARD@fOpen.Strat.SAsk <& ['personalid'];
+		$MINDBOARD@fOpen.Strat.SExpect <& ['personalid','number'];
+	} else {
+		SetMainAnswer(
+			"Disculpe, vuelva a decirme el \\lkt_text=<DNI>\\lkt_tts=<de neí> desde el principio. ");
+		$MINDBOARD@fOpen.Strat.SAsk <& ['personalid'];
+		$MINDBOARD@fOpen.Strat.SExpect <& ['personalid','number'];
+	}
+	SetActiveExpectation('PersonalIdentity');
+	SetActiveExpectation('Number');
+    }
+)
+
+(ScriboScheme NLG_Verify_PersonalId: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'check',TField:'personalid')
+    }
+
+    ScriboAction {
+	string personalidstr;
+
+       	if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		if (LiteralSize(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity.valStr) >= 8) {
+			SetMainAnswerTextRandom(
+				"Sí, ¿me dijo el número ",
+				"¿Es el ",
+				"Sí, le repito, ¿es el ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswer("? ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack'];
+			SetActiveExpectation('Conversation');
+		} else {
+			SetMainAnswerTextRandom("Sí, ", "Bien, ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswerTextRandom(". Continúe. ", ". Siga. ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack','number'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+			SetActiveExpectation('Number');
+			SetActiveExpectation('Conversation');
+		}
+	}
+	else {
+		if (LiteralSize(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity.valStr) >= 8) {
+			SetMainAnswerTextRandom(
+				"Sí, ¿me dijo el número ",
+				"¿Es el ",
+				"Sí, le repito, ¿es el ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswer("? ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack'];
+			SetActiveExpectation('Conversation');
+		} else {
+			SetMainAnswerTextRandom("Sí, ", "Bien, ");
+			personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+			SetMainAnswer(personalidstr);
+			SetMainAnswerTextRandom(". Continúe. ", ". Siga. ");
+			$MINDBOARD@fOpen.Strat.SAsk <& ['ack','number'];
+			$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+			SetActiveExpectation('Number');
+			SetActiveExpectation('Conversation');
+		}
+	}
+    }
+)
+
+(ScriboScheme NLG_Error_PersonalId: [LOutput]
+    ScriboCapture {
+        #OBJLOCUTIO-1 =:= (LMode:'error',TField:'personalid')
+    }
+
+    ScriboAction {
+	string personalidstr;
+
+        if ($MINDBOARD@Setup.ModalSetup == 'web') {
+		SetMainAnswerTextRandom("Disculpe, ¿es el DNI número ",
+					"Perdone, ¿me dijo que era el DNI número ",
+					"Perdón, ¿ha dicho que era el DNI ");
+		personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+		SetMainAnswer(personalidstr);
+		SetMainAnswer("? ");
+		SetMainAnswerTextRandom("El problema es que este DNI no está en nuestra base de datos. ",
+					"Este número no se encuentra registrado. ",
+					"No encuentro este valor en la base de clientes. ");
+
+		SetMainAnswer("Por favor, si se trata de un error indíqueme el valor correcto.");
+	} else {
+		SetMainAnswerTextRandom("Disculpe, ¿es el \\lkt_text=<DNI>\\lkt_tts=<de neí> \\stress=no número ",
+					"Perdone. ¿Me dijo que era el \\lkt_text=<DNI>\\lkt_tts=<de neí> \\stress=no número ",
+					"Perdón, ¿ha dicho que era el \\lkt_text=<DNI>\\lkt_tts=<de neí> ");
+		personalidstr <- PersonalId2String(#OBJLOCUTIO-1.TContext.CModel.LinkedInfo.UserId.PersonalIdentity);
+		SetMainAnswer(personalidstr);
+		SetMainAnswer("? ");
+		SetMainAnswerTextRandom("El problema es que este \\lkt_text=<DNI>\\lkt_tts=<de neí> no está en nuestra base de datos. ",
+					"Este número no se encuentra registrado. ",
+					"No encuentro este valor en la base de clientes. ");
+
+		SetMainAnswer("Por favor, si se trata de un error indíqueme el valor correcto.");
+	}
+	$MINDBOARD@fOpen.Strat.SAsk <& ['ack','personalid','number'];
+	$MINDBOARD@fOpen.Strat.SExpect <& ['ack','personalid','number'];
+	SetActiveExpectation('PersonalIdentity');
+	SetActiveExpectation('Number');
+	SetActiveExpectation('Conversation');
+    }
+)

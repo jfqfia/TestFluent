@@ -1,0 +1,191 @@
+/*******************************
+ ** BackData
+ *******************************/
+
+	// => BI (Backoffice Information)
+
+		///////////////////////////// => PatientScheme
+
+	classDef:ElementLiteral
+		( PatientTsId, PatientPersonalIdentity, PatientPersonalIdentityV1, PatientPersonalIdentityV2 ) 
+
+	classDef:StructureComplex 
+		( PatientId : (
+			PatientTsId,
+			PatientPersonalIdentity,
+			PatientPersonalIdentityV1,
+			PatientPersonalIdentityV2 ) )
+
+	classDef:ElementLiteral
+		( PatientName, PatientSurName1, PatientSurName2, PatientGenre )
+
+	classDef:ElementInt 
+		( BirthGlobalDatePeriodDay, BirthGlobalDatePeriodMonth, BirthGlobalDatePeriodYear ) 
+
+	classDef:StructureComplex
+		( PatientBirthGlobalDate: (
+			BirthGlobalDatePeriodDay,
+			BirthGlobalDatePeriodMonth,
+			BirthGlobalDatePeriodYear ) )
+
+	classDef:ElementLiteral 
+		( CenterId, 
+		  CenterType, 
+		  CenterAddr,
+		  CenterZip,
+		  CenterLoc, 
+		  CenterProv, 
+		  CenterPhone, 
+		  CenterName )
+
+	classDef:StructureComplex 
+		( Center : (
+			CenterId, 
+			CenterType, 
+			CenterAddr,
+			CenterZip,
+			CenterLoc, 
+			CenterProv, 
+			CenterPhone, 
+			CenterName ) )
+
+	classDef:ElementInt (
+		AppointPeriodYear,
+		AppointPeriodMonth,
+		AppointPeriodDay,
+		AppointPeriodHourInit,
+		AppointMinInit,
+		AppointPeriodHourEnd,
+		AppointMinEnd) 
+
+	classDef:StructureComplex ( 
+		AppointGlobalDate : (
+			AppointPeriodYear,
+			AppointPeriodMonth,
+			AppointPeriodDay,
+			AppointPeriodHourInit,
+			AppointMinInit,
+			AppointPeriodHourEnd,
+			AppointMinEnd) )
+
+	classDef:ElementLiteral (
+		DoctorName,
+		DoctorSurname1,
+		DoctorSurname2 ) 
+
+	classDef:StructureComplex
+		( AppointDoctor : (
+			DoctorName,
+			DoctorSurname1,
+			DoctorSurname2,
+			AppointService ) )
+			
+	classDef:Synonym
+		( AppointService = ServiceId )
+
+	classDef:StructureComplex
+		( AppointData : (
+			AppointGlobalDate,
+			AppointService,
+			AppointDoctor ) )
+			
+	classDef:StructureBatch 
+		( AppointSeq: (
+			AppointData ) )
+
+	classDef:ElementInt
+		( AppointNumb )
+
+	classDef:StructureComplex
+		( AppointInfo: (
+			AppointSeq,
+			AppointNumb ) )
+
+	classDef:StructureComplex
+		( PatientData: (
+			PatientId,
+			PatientName,
+			PatientSurName1,
+			PatientSurName2,
+			PatientBirthGlobalDate,
+			PatientGenre,
+			Center,
+			AppointInfo ) )
+	
+	classDef:StructureBatch 
+		( PatientSeq: (
+			PatientData ) )
+
+	classDef:ElementInt
+		( PatientNumb )
+
+	classDef:ElementInt
+		( PatientErrorCode )
+
+	classDef:StructureComplex
+		( PatientError : (
+			PatientErrorCode ) )
+
+	classDef:StructureComplex
+		( PatientInfo: (
+			PatientSeq,
+			PatientNumb,
+			PatientError ) )
+
+		///////////////////////////// => AvailScheme
+
+	classDef:ElementInt (
+			SlotPeriodHourInit,
+			SlotMinInit,
+			SlotPeriodHourEnd,
+			SlotMinEnd )
+
+	classDef:StructureComplex ( 
+			Slot : (
+				SlotPeriodHourInit,
+				SlotMinInit,
+				SlotPeriodHourEnd,
+				SlotMinEnd ) )
+				
+	classDef:StructureBatch 
+		( SlotSeq : (
+			Slot ) )
+				
+	classDef:ElementInt (
+			AvailGlobalDatePeriodYear,
+			AvailGlobalDatePeriodMonth,
+			AvailGlobalDatePeriodDay,
+			AvailGlobalDateDist ) 
+
+	classDef:Synonym (AvailGlobalDate = DRef)
+
+	classDef:ElementInt (
+			SlotNumb )
+
+	classDef:StructureComplex (
+			AvailData : (
+				AvailGlobalDate,
+				SlotSeq,
+				SlotNumb ) )
+
+	classDef:StructureBatch (
+			AvailSeq : (
+				AvailData ) )
+
+	classDef:ElementInt (
+			AvailNumb )
+
+	classDef:ElementInt (
+			AvailErrorCode )
+
+	classDef:StructureComplex (
+			AvailError: (
+				AvailErrorCode ) )
+
+	classDef:StructureComplex (
+			AvailInfo : (
+				AppointDoctor,
+				AppointService,
+				AvailSeq,
+				AvailNumb,
+				AvailError ) )

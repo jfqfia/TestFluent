@@ -1,0 +1,18 @@
+
+/*******************************
+ ** ActScope
+ *******************************/
+
+	classDef:ElementRange ( ActScopeDescriptor : 
+				{ 'window',
+				  'door',
+				  'light',
+				  'alarm',
+				  'heating',
+				  'irrigation'
+				  } )
+
+	classDef:StructureComplex ( ActScope :
+				( ActScopeDescriptor ) )
+
+	classDef:Synonym	( lexActScopeNoun, ActScopeNoun = ActScope )

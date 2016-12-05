@@ -1,0 +1,11 @@
+/*******************************
+ ** Senso / Heads
+ *******************************/
+
+integer	SensoOperPurpose(Command command);
+integer	SensoActScope(Command command);
+integer	SensoLinkedInfo(Command command);
+
+integer	SensoDenial(Denial neg);
+integer	SensoAssert(Assert aff);
+integer	SensoInteraction(Interaction inter);

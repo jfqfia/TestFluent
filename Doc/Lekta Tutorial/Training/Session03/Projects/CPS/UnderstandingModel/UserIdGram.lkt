@@ -1,0 +1,124 @@
+/*******************************
+ ** UserId
+ *******************************/
+
+(RUserId1 : 
+	[UserId -> PersonalIdentity]
+		{ ^.PersonalIdentity <- #1; } )
+
+(RUserId2 : 
+	[UserId -> TsId]
+		{ ^.TsId <- #1; } )
+
+!ASR(RPersonalIdentity_Asr_Root :
+	[S -> NS_B PersonalIdentityDenialASR NS_E] )
+
+!ASR(RPersonalIdentityDenialASR1 : 
+	[PersonalIdentityDenialASR -> ConversationList? PersonalIdentityDenial ConversationList? ] )
+
+!ASR(RPersonalIdentityDenial1 : 
+	[PersonalIdentityDenial -> PersonalIdentity] )
+
+!ASR(RPersonalIdentityDenial2 : 
+	[PersonalIdentityDenial -> lexDenial PersonalIdentity lexDenial? PersonalIdentity lexDenial?] )
+
+!ASR(RPersonalIdentityDenial3 : 
+	[PersonalIdentityDenial -> PersonalIdentity lexDenial PersonalIdentity lexDenial?] )
+
+!ASR(RPersonalIdentityDenial4 : 
+	[PersonalIdentityDenial -> PersonalIdentity PersonalIdentity lexDenial] )
+
+(RPersonalIdentity1 : 
+	[PersonalIdentity -> <lexUserIdNumber lexCorrect? lexAuxPrepDE>? lexPersonalDescriptor lexCorrect? lexAuxVerbBe
+			<lexAuxArticleEL lexUserIdNumber?>? NumberSeq]
+		{ ^ <- #9; })
+
+(RPersonalIdentity2 : 
+	[PersonalIdentity -> <lexUserIdNumber lexCorrect? lexAuxPrepDE>? lexPersonalDocument lexPersonalIdentity? lexCorrect? lexAuxVerbBe
+			<lexAuxArticleEL lexUserIdNumber?>? NumberSeq]
+		{ ^ <- #10; })
+
+/*
+(RPersonalIdentity3 : 
+	[PersonalIdentity -> lexUserIdNumber lexPersonalIdentity lexCorrect? lexAuxVerbBe? 
+			<lexAuxArticleEL ! lexUserIdNumber>? NumberSeq]
+		{ ^ <- #7; })
+
+(RPersonalIdentity4 : 
+	[PersonalIdentity -> lexPersonalDocument lexAuxPrepDE? lexPersonalIdentity lexAuxVerbBe? 
+			<lexAuxArticleEL ! lexUserIdNumber>? NumberSeq]
+		{ ^ <- #7; })
+*/
+
+(RPersonalIdentity5 : 
+	[PersonalIdentity -> lexUserIdNumber lexCorrect? lexAuxVerbBe <lexAuxArticleEL lexUserIdNumber?>? NumberSeq]
+		{ ^ <- #6; })
+
+(RPersonalIdentity6 :
+	[PersonalIdentity -> lexAuxVerbBe? lexAuxArticleEL? lexUserIdNumber NumberSeq]
+		{ ^ <- #4; })
+
+(RPersonalIdentity7 :
+	[PersonalIdentity -> lexAuxVerbBe? lexAuxArticleEL lexPersonalDescriptor lexUserIdNumber? NumberSeq]
+		{ ^ <- #5; })
+
+(RPersonalIdentity8 :
+	[PersonalIdentity -> lexAuxVerbBe? lexAuxArticleEL lexPersonalDocument lexPersonalIdentity? lexUserIdNumber? NumberSeq]
+		{ ^ <- #6; })
+
+!ASR(RTsId_Asr_Root :
+	[S -> NS_B ConversationList? TsIdDenial ConversationList? NS_E] )
+
+!ASR(RTsIdDenial1 : 
+	[TsIdDenial -> TsId] )
+
+!ASR(RTsIdDenial2 : 
+	[TsIdDenial -> lexDenial TsId lexDenial? TsId lexDenial?] )
+
+!ASR(RTsIdDenial3 : 
+	[TsIdDenial -> TsId lexDenial TsId lexDenial?] )
+
+!ASR(RTsIdDenial4 : 
+	[TsIdDenial -> TsId TsId lexDenial] )
+
+(RTsId1 : 
+	[TsId -> <lexUserIdNumber lexCorrect? lexAuxPrepDE>? lexTsFull lexCorrect? lexAuxVerbBe
+			< <lexAuxArticleEL|lexAuxArticleLA> lexUserIdNumber?>? NumberSeq]
+		{ ^ <- #9; })
+
+(RTsId2 : 
+	[TsId -> lexUserIdNumber lexCorrect? lexAuxVerbBe < <lexAuxArticleEL|lexAuxArticleLA> lexUserIdNumber?>? NumberSeq]
+		{ ^ <- #6; })
+
+(RTsId3 : 
+	[TsId -> lexAuxVerbBe? <lexAuxArticleEL|lexAuxArticleLA>? lexUserIdNumber NumberSeq]
+		{ ^ <- #4; })
+
+(RTsId4 : 
+	[TsId -> lexAuxVerbBe? lexAuxArticleLA lexTsFull lexUserIdNumber? NumberSeq]
+		{ ^ <- #5; })
+
+/*
+(RTsId5 : 
+	[TsId -> <lexRefuse? % <lexApology lexBut?>?> <<lexDenial <lexKnow|<lexFind lexFindAux?>>> % lexTsFull?>]
+		{ ^ <- (Refuse:'on'); } )
+*/
+
+(RTsId5 : 
+	[TsId -> <lexRefuse? % <lexApology ! lexBut>?> lexPeriodDayToday lexDenial <lexKnow|TsIdFind> lexTsFull?] )
+//		{ ^ <- (Refuse:'on'); } )
+
+(RTsId6 : 
+	[TsId -> <lexRefuse? % <lexApology ! lexBut>?> lexDenial <lexKnow|TsIdFind> lexPeriodDayToday? lexTsFull?] )
+//		{ ^ <- (Refuse:'on'); } )
+
+(RTsId7 : 
+	[TsId -> <lexRefuse? % <lexApology ! lexBut>?> lexPeriodDayToday lexTsFull lexDenial <lexKnow|TsIdFind>] )
+//		{ ^ <- (Refuse:'on'); } )
+
+(RTsId8 : 
+	[TsId -> <lexRefuse? % <lexApology ! lexBut>?> lexTsFull lexDenial <lexKnow|TsIdFind> lexPeriodDayToday?] )
+//		{ ^ <- (Refuse:'on'); } )
+
+(RTsIdFind : 
+	[TsIdFind -> lexFind lexFindAux?] )

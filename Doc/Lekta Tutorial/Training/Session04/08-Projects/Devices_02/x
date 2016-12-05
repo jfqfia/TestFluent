@@ -1,0 +1,60 @@
+
+~>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<~
+~>~                                                                      ~<~
+~>~     $$$      $$$$$$$  $$$ $$$  $$$$$$$  $$$$$$$      Lekta Version P ~<~
+~>~    $$$      $$$      $$$$$$$    $$$    $$   $$           J F Quesada ~<~
+~>~   $$$      $$$$$$   $$$        $$$    $$$$$$$                   2013 ~<~
+~>~  $$$      $$$      $$$$$      $$$    $$   $$                         ~<~
+~>~ $$$$$$$  $$$$$$$  $$$ $$$    $$$    $$   $$         [WRK]/[13:07:05] ~<~
+~>~                                                                      ~<~
+~>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<~
+Call: TS_Start
+=> SensoOperPurpose / Input:
+Command_Purpose:(OperPurpose:(OperPurposeDescriptor:'activate'))
+=> SensoOperPurpose / Output:
+TaskFrame:(ActiveTasks:{(Task:(profNumber   :1,
+                               ActiveCommand:(OperPurpose:(OperPurposeDescriptor:'activate'))))})
+INIT OF COGITO
+=> OPEN
+TaskFrame:(ActiveTasks:{(Task:(profNumber   :1,
+                               ActiveCommand:(OperPurpose:(OperPurposeDescriptor:'activate'))))})
+=> LASTTHIS
+TaskFrame:()
+=> LASTPREV
+TaskFrame:()
+=========================================
+ProcessActionLine
+Task:(profNumber   :1,
+      ActiveCommand:(OperPurpose:(OperPurposeDescriptor:'activate')))
+END OF COGITO
+=> DONE
+TaskFrame:()
+=> LASTPREV
+TaskFrame:()
+=> LASTTHIS
+TaskFrame:()
+=> OPEN
+TaskFrame:(ActiveTasks:{(Task:(profNumber   :1,
+                               commandStage :'purposeOk',
+                               ActiveCommand:(OperPurpose:(OperPurposeDescriptor:'activate'))))})
+=> OUTPUT
+OStruct:(OScheme:{(LOutput:(LMode   :'ask',
+                            TField  :'actScope',
+                            IContext:(profNumber   :1,
+                                      commandStage :'purposeOk',
+                                      ActiveCommand:(OperPurpose:(OperPurposeDescriptor:'activate')))))})
+=> LASTOUTPUT
+OStruct:(OScheme:{(LOutput:(LMode   :'ask',
+                            TField  :'actScope',
+                            IContext:(profNumber   :1,
+                                      commandStage :'purposeOk',
+                                      ActiveCommand:(OperPurpose:(OperPurposeDescriptor:'activate')))))})
+=========================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~    DialogueThread: 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ Out[ 1]: Bienvenido al sistema Devices, buenos días. Dígame, por 
+              favor, qué desea.
+~~ In [ 1]: quiero encender eso quiero encender
+~~ Out[ 2]: 
+   In [ 2]: 

@@ -1,0 +1,12 @@
+/*******************************
+ ** Global Task / Includes
+ *******************************/
+
+#Include "DialogueModel/Task-GlobalDate.lkt"
+#Include "DialogueModel/Task-Person.lkt"
+#Include "DialogueModel/Task-UserId.lkt"
+
+#Include "DialogueModel/Task-Cancel-Appoint.lkt"
+#Include "DialogueModel/Task-Consult-Appoint.lkt"
+#Include "DialogueModel/Task-Modify-Appoint.lkt"
+#Include "DialogueModel/Task-Request-Appoint.lkt"

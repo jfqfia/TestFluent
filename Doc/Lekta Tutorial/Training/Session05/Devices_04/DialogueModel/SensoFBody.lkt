@@ -1,0 +1,224 @@
+/*******************************
+ ** Senso / Functions
+ *******************************/
+
+integer	SensoOperPurpose(Command command) 
+{
+
+	SpyMessage("=> SensoOperPurpose / Input:");
+	SpyMessage(command);
+
+	$MINDBOARD@Setup.DialogueState = 'run';
+
+	if (!!($MINDBOARD@Open.ActiveTasks)) {
+		addOpenActionModel(command);
+	} else {
+		Task activeTaskItem;
+		integer activepos,activelen,taskfound;
+		activelen = BatchSize($MINDBOARD@Open.ActiveTasks);
+		taskfound = 0;
+		activepos = 1;
+		while ((!!taskfound) && (activepos <= activelen)) {
+			BatchRecoverPosition($MINDBOARD@Open.ActiveTasks,activepos,activeTaskItem);
+
+			if (coherentCommands(activeTaskItem.ActiveCommand, command)) {
+				fusionOpenActionModel(activeTaskItem,command,activepos);
+				taskfound = 1;
+			} else {
+				activepos = activepos + 1;
+			}
+		}
+
+		if (!!taskfound) {
+			addOpenActionModel(command);
+		}
+	}
+
+	SpyMessage("=> SensoOperPurpose / Output:");
+	SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	SensoActScope(Command command) 
+{
+	SpyMessage("=> SensoActScope / Input:");
+	SpyMessage(command);
+
+	$MINDBOARD@Setup.DialogueState = 'run';
+
+	if (!!($MINDBOARD@Open.ActiveTasks)) {
+		addOpenActionModel(command);
+	} else {
+		Task activeTaskItem;
+		integer activepos,activelen,taskfound;
+		activelen = BatchSize($MINDBOARD@Open.ActiveTasks);
+		taskfound = 0;
+		activepos = 1;
+		while ((!!taskfound) && (activepos <= activelen)) {
+			BatchRecoverPosition($MINDBOARD@Open.ActiveTasks,activepos,activeTaskItem);
+
+			if (coherentCommands(activeTaskItem.ActiveCommand, command)) {
+				fusionOpenActionModel(activeTaskItem,command,activepos);
+				taskfound = 1;
+			} else {
+				activepos = activepos + 1;
+			}
+		}
+		if (!!taskfound) {
+			addOpenActionModel(command);
+		}
+	}
+
+	SpyMessage("=> SensoActScope / Output:");
+	SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	SensoLinkedInfo(Command command) 
+{
+	SpyMessage("=> SensoLinkedInfo / Input:");
+	SpyMessage(command);
+
+	$MINDBOARD@Setup.DialogueState = 'run';
+	integer profNumber;
+	profNumber = DialogueInteractionCounter();
+
+	if (!!($MINDBOARD@Open.ActiveTasks)) {
+		addWaitingTasksModel(command);
+	} else {
+		Task activeTaskItem;
+		integer activepos,activelen,taskfound,check;
+		activelen = BatchSize($MINDBOARD@Open.ActiveTasks);
+		taskfound = 0;
+		check = 0;
+		activepos = 1;
+		while ((!!taskfound) && (activepos <= activelen)) {
+			BatchRecoverPosition($MINDBOARD@Open.ActiveTasks,activepos,activeTaskItem);
+
+			if (coherentCommands(activeTaskItem.ActiveCommand, command)) {
+				fusionOpenActionModel(activeTaskItem,command,activepos);
+				taskfound = 1;
+			} else {
+				activepos = activepos + 1;
+			}
+
+			if (check == 1) {
+				fusionOpenActionModel(activeTaskItem,command,activepos);
+				taskfound = 1;
+			} else {
+				activepos = activepos + 1;
+			}
+		}
+		if (!!taskfound) {
+			addWaitingTasksModel(command);
+		}
+	}
+
+	SpyMessage("=> SensoLinkedInfo / Output:");
+	SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	SensoDenial(Denial denial) 
+{
+	SpyMessage("=> SensoDenial / Input:");
+	SpyMessage(denial);
+	integer profNumber;
+	profNumber = DialogueInteractionCounter();
+
+	switch ($MINDBOARD@Setup.DialogueState) {
+		case 'cont' {
+			$MINDBOARD@Setup.DialogueState = 'stop';
+		}
+		case 'close' {
+			$MINDBOARD@Setup.DialogueState = 'run';
+		}
+	}
+	
+	SpyMessage("=> SensoDenial / Output:");
+	SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	SensoAssert(Assert assert) 
+{
+	SpyMessage("=> SensoAssert / Input:");
+	SpyMessage(assert);
+	integer profNumber;
+	profNumber = DialogueInteractionCounter();
+
+	switch ($MINDBOARD@Setup.DialogueState) {
+		case 'cont' {
+			$MINDBOARD@Setup.DialogueState = 'new';
+		}
+		case 'close' {
+			$MINDBOARD@Setup.DialogueState = 'stop';
+		}
+	}
+	
+	SpyMessage("=> SensoAssert / Output:");
+	SpyMessage($MINDBOARD@Open);
+
+	return 1;
+}
+
+integer	SensoInteraction(Interaction inter)
+{
+	SpyMessage("=> SensoInteraction / Input:");
+	SpyMessage(inter);
+
+	cond {
+		(inter.InterFarewell == 'on') {
+			switch ($MINDBOARD@Setup.DialogueState) {
+				case 'cont' {
+					$MINDBOARD@Setup.DialogueState = 'stop';
+				}
+				case 'close' {
+					$MINDBOARD@Setup.DialogueState = 'stop';
+				}
+				case 'run' {
+					$MINDBOARD@Setup.DialogueState = 'close';
+				}
+				default {
+					$MINDBOARD@Setup.DialogueState = 'close';
+				}
+			}
+		}
+		(inter.InterThanks == 'on') {
+			switch ($MINDBOARD@Setup.DialogueState) {
+				case 'cont' {
+					$MINDBOARD@Setup.DialogueState = 'close';
+				}
+				case 'close' {
+					$MINDBOARD@Setup.DialogueState = 'stop';
+				}
+				case 'run' {
+					$MINDBOARD@Setup.DialogueState = 'close';
+				}
+				default {
+					$MINDBOARD@Setup.DialogueState = 'run';
+				}
+			}
+		}
+		(inter.InterPlease == 'on') {
+			switch ($MINDBOARD@Setup.DialogueState) {
+				case 'close' {
+					$MINDBOARD@Setup.DialogueState = 'stop';
+				}
+			}
+		}
+		default {
+			$MINDBOARD@Interaction <OW< inter;
+			$MINDBOARD@Setup.DialogueState = 'run';
+		}
+	}
+
+	SpyMessage("=> SensoInteraction / Output:");
+	SpyMessage($MINDBOARD@Interaction);
+
+	return 1;
+}

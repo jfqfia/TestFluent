@@ -1,0 +1,11 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".SP.olk")
+
+//DisplayProcessTokenizerOn
+//DisplayProcessParserOn
+DisplayProcessUnderstandingOn
+
+setupTokenizerSpellingChecker
+
+CreateDialogue()

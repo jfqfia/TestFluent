@@ -1,0 +1,83 @@
+/*******************************
+ ** OperPurpose
+ *******************************/
+
+/*************************/
+/** lexOperPurposeVerb	**/
+/*************************/
+
+	("adquirir",		lexOperPurposeVerb,		(OperPurposeDescriptor:'buy'))
+	("comprar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'buy'))
+
+	("anular",		lexOperPurposeVerb,		(OperPurposeDescriptor:'cancel'))
+	("cancelar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'cancel'))
+
+	("averiguar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("conocer",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("consultar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("consultarle",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("consultarte",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("digame",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("dime",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("dice",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("dices",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("decir",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("decirme",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("informar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("informarme",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("preguntar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("preguntarte",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("preguntarle",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("saber",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("solicitar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("solicitarle",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("solicitarte",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("ver",			lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("preguntar por",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("preguntarle por",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("preguntarte por",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("hacer una consulta",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("hacerle una consulta",lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("hacerte una consulta",lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("hacer una consulta sobre",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("hacerle una consulta sobre",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("hacerte una consulta sobre",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("dame",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("deme",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("me dice",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("me dices",		lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("podria decirme",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("podrias decirme",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("quiero que me diga",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("quiero que me digas",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("otra consulta",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+	("y otra consulta",	lexOperPurposeVerb,		(OperPurposeDescriptor:'consult'))
+
+	("cambiar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'modify'))
+	("modificar",		lexOperPurposeVerb,		(OperPurposeDescriptor:'modify'))
+
+/*************************/
+/** lexOperPurposeNoun	**/
+/*************************/
+
+	("adquisicion",		lexOperPurposeNoun,		(OperPurposeDescriptor:'buy'))
+	("adquisiciones",	lexOperPurposeNoun,		(OperPurposeDescriptor:'buy'))
+	("compra",		lexOperPurposeNoun,		(OperPurposeDescriptor:'buy'))
+	("compras",		lexOperPurposeNoun,		(OperPurposeDescriptor:'buy'))
+
+	("anulacion",		lexOperPurposeNoun,		(OperPurposeDescriptor:'cancel'))
+	("anulaciones",		lexOperPurposeNoun,		(OperPurposeDescriptor:'cancel'))
+	("cancelacion",		lexOperPurposeNoun,		(OperPurposeDescriptor:'cancel'))
+	("cancelaciones",	lexOperPurposeNoun,		(OperPurposeDescriptor:'cancel'))
+
+	("consulta",		lexOperPurposeNoun,		(OperPurposeDescriptor:'consult'))
+	("consultas",		lexOperPurposeNoun,		(OperPurposeDescriptor:'consult'))
+	("informacion",		lexOperPurposeNoun,		(OperPurposeDescriptor:'consult'))
+	("informaciones",	lexOperPurposeNoun,		(OperPurposeDescriptor:'consult'))
+	("pregunta",		lexOperPurposeNoun,		(OperPurposeDescriptor:'consult'))
+	("preguntas",		lexOperPurposeNoun,		(OperPurposeDescriptor:'consult'))
+
+	("cambio",		lexOperPurposeNoun,		(OperPurposeDescriptor:'modify'))
+	("cambios",		lexOperPurposeNoun,		(OperPurposeDescriptor:'modify'))
+	("modificacion",	lexOperPurposeNoun,		(OperPurposeDescriptor:'modify'))
+	("modificaciones",	lexOperPurposeNoun,		(OperPurposeDescriptor:'modify'))

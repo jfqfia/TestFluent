@@ -1,0 +1,120 @@
+/*******************************
+ ** Scribo / GlobalDate / Functions
+ *******************************/
+
+string	GlobalDate2String(GlobalDate date)
+{
+	string res;
+
+	res = LiteralConcat('el día ',
+			ShapeToString(date.DRef.AbsPeriodDay),
+			' de ',
+			PeriodPeriodMonthDesc(date.DRef.AbsPeriodMonth));
+
+	if (date.DRef.AbsPeriodYear =!= ClockAskYear()) {
+		res = LiteralConcat(res,
+				' de ',
+				ShapeToString(date.DRef.AbsPeriodYear));
+	}
+
+	return res;
+}
+
+string	GlobalDate2StringTarget(GlobalDate date)
+{
+	string res;
+
+	res = LiteralConcat('el día ',
+			ShapeToString(date.DTarget.AbsPeriodDay));
+
+	if (date.DRef.AbsPeriodMonth =!= date.DTarget.AbsPeriodMonth) {
+		res = LiteralConcat(res, ' de ',
+			PeriodPeriodMonthDesc(date.DTarget.AbsPeriodMonth));
+	}
+
+	if (date.DRef.AbsPeriodYear =!= date.DTarget.AbsPeriodYear) {
+		res = LiteralConcat(res,
+				' de ',
+				ShapeToString(date.DTarget.AbsPeriodYear));
+	}
+
+	return res;
+}
+
+string	GlobalDateInput2String(GlobalDate date)
+{
+	string res;
+
+	if (date.PeriodDay) {
+		cond {
+			(date.PeriodDay.PeriodPeriodDayRelative) {
+				switch (date.PeriodDay.PeriodPeriodDayRelative) {
+					case -1 { return 'ayer'; }
+					case 0  { return 'hoy'; }
+					case 1  { return 'mañana'; }
+				}
+			}
+			(date.PeriodDay.AbsPeriodDay) {
+				res = LiteralConcat('el día ',ShapeToString(date.PeriodDay.AbsPeriodDay));
+				if (date.PeriodMonth) {
+					cond {
+						(date.PeriodMonth.AbsPeriodMonth) {
+							res = LiteralConcat(res,' de ',PeriodPeriodMonthDesc(date.PeriodMonth.AbsPeriodMonth)); }
+					}
+				}
+			}
+		}
+	}
+
+	return res;
+}
+				
+string	PeriodPeriodMonthDesc(integer monthnumber)
+{
+	switch (monthnumber) {
+		case  1 { return 'enero'; }
+		case  2 { return 'febrero'; }
+		case  3 { return 'marzo'; }
+		case  4 { return 'abril'; }
+		case  5 { return 'mayo'; }
+		case  6 { return 'junio'; }
+		case  7 { return 'julio'; }
+		case  8 { return 'agosto'; }
+		case  9 { return 'septiembre'; }
+		case 10 { return 'octubre'; }
+		case 11 { return 'noviembre'; }
+		case 12 { return 'diciembre'; }
+	}
+
+	return ' ';
+}
+
+integer	TimeFormatRandom()
+{
+	// 1 -> Formato "HH:MM"
+	// 2 -> Formato "HH horas MM minutos"
+
+	return Random(1,2);
+}
+
+string	Time2Text(string HH, string MM, integer timeformat)
+{
+	if (SubLiteral(HH,1,1) =:= '0') {
+		HH = SubLiteral(HH,2,2);
+	}
+
+	switch (timeformat) {
+		case 1 { // 1 -> Formato "HH:MM"
+			return LiteralConcat(HH,':',MM); }
+		case 2 { // 2 -> Formato "HH horas MM minutos"
+			if (SubLiteral(MM,1,2) =:= '00') {
+				return LiteralConcat(HH,' horas'); 
+			} 
+			if (SubLiteral(MM,1,1) =:= '0') {
+				MM = SubLiteral(MM,2,2);
+			}
+			return LiteralConcat(HH,' horas ',MM,' minutos'); }
+	}
+
+	return ' ';
+}

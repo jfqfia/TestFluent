@@ -1,0 +1,13 @@
+/*******************************
+ ** Expresiones numéricas
+ *******************************/
+	classDef:ElementInt 	( numInteger )
+	classDef:ElementReal 	( numReal )
+	classDef:ElementInt	( lexZero )
+	classDef:ElementInt	( lexNumber )
+	classDef:ElementInt	( lexNumberThousand )
+	classDef:ElementInt	( lexNumberMillion )
+
+	classDef:ElementInt	( IntegerValue )
+	classDef:StructureComplex	( Integer:	
+						(IntegerValue) )

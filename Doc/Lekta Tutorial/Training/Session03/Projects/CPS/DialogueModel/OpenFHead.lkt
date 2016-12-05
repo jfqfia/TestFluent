@@ -1,0 +1,9 @@
+/*******************************
+ ** Open / Heads
+ *******************************/
+
+integer	raiseNewOpenModel(Command linput);
+integer	raiseFusionOpenModel(Command linput);
+integer	raisePendModel(Command linput);
+integer	raiseNewPendModel(Command linput);
+integer	raiseFusionPendModel(TaskLine taskline,Command linput,integer open_pos);
