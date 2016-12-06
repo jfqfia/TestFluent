@@ -1,6 +1,0 @@
-/*******************************
- ** Scribo / Service / Heads
- *******************************/
-
-string	Service2String(string service);
-string	Service2StringContrast(string service,string serviceprev);

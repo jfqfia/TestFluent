@@ -1,0 +1,13 @@
+// ****************************************************************************
+//
+// Exercise 04: Generator/Recognizer for language AnBmCn. Where n,m >= 0
+// 
+// ****************************************************************************
+
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".AnBmCn.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()

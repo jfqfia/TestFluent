@@ -1,6 +1,0 @@
-/*******************************
- ** Specific / Service / Heads
- *******************************/
-
-TaskLine	AnalyzeLinkedInfoService(TaskLine tline);
-Service		DefaultLinkedInfoService();

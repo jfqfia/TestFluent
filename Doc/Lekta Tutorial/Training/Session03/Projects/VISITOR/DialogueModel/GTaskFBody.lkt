@@ -1,8 +1,0 @@
-/*******************************
- ** Global Task / Includes
- *******************************/
-
-#Include "Task-Consult-Flt.lkt"
-
-#Include "Task-Consult-Flight.lkt"
-#Include "Task-Consult-Point.lkt"

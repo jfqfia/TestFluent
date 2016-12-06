@@ -1,9 +1,0 @@
-(LocutioScheme Reorder: [ OutItem OutItem >> OutLine ]
-    LocutioCapture {
-       ( (#OBJRESPONDO-1.OutFunction == 'ask') &&
-	 (#OBJRESPONDO-2.OutFunction == 'inform') )
-    }
-    LocutioAction {
-	LocutioOvertake( 2, 1);
-    }
-)

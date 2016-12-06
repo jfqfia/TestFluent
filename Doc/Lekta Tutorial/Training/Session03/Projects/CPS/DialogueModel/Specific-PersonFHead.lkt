@@ -1,6 +1,0 @@
-/*******************************
- ** Specific / Person / Heads
- *******************************/
-
-TaskLine	AnalyzeLinkedInfoPerson(TaskLine tline);
-Person		DefaultLinkedInfoPerson(TaskLine tline);

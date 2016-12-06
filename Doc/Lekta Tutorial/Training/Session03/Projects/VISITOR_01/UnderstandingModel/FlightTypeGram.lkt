@@ -1,7 +1,0 @@
-/*******************************
- ** FlightType
- *******************************/
-
-(RFlightType1 : 
-	[FlightType -> <lexAuxUndefArticle|lexAuxArticleEL>? lexFlightType? FlightTypeWay]
-		{ ^.FlightTypeWay <- #3; })

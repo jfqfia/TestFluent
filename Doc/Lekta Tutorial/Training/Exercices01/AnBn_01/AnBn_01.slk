@@ -1,6 +1,0 @@
-LaunchLektaKernel()
-
-UseProject (ProjectCompile : ".AnBn.olk")
-DisplayProcessUnderstandingOn
-
-CreateDialogue()

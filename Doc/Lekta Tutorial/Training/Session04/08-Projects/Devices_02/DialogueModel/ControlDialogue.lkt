@@ -1,9 +1,0 @@
-/*******************************
- ** Control
- *******************************/
-
-// Launch 
-LaunchConversation: {
-	LaunchSendToMindBoard:
-		(DialogueStart = (DialogueState: 'start') )
-}

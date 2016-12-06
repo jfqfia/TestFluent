@@ -1,5 +1,0 @@
-/*******************************
- ** Specific / Number / Heads
- *******************************/
-
-TaskLine	AnalyzeLinkedInfoNumber(TaskLine tline);

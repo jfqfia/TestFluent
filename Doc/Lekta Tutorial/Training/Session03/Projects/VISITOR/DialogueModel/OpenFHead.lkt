@@ -1,7 +1,0 @@
-/*******************************
- ** Open / Heads
- *******************************/
-
-integer	addOpenActionModel(Command linput);
-integer	addMindTaskPendingModel(Command linput);
-integer	fusionOpenActionModel(MindTaskItem aline,Command linput,integer open_pos);

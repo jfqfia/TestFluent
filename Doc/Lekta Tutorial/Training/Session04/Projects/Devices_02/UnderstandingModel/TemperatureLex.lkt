@@ -1,9 +1,0 @@
-/*******************************
- ** Temperature
- *******************************/
-
-	("grados",		lexTemperatureDescriptor)
-
-	("celsius",		lexTemperatureScale, 'celsius')
-	("fahrenheit",		lexTemperatureScale, 'fahrenheit')
-	("kelvin",		lexTemperatureScale, 'kelvin')

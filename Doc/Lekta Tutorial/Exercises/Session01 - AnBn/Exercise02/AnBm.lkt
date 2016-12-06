@@ -1,0 +1,30 @@
+// ****************************************************************************
+//
+// Exercise 02: Generator/Recognizer for language AnBm. Where n,m >= 0
+// 
+// ****************************************************************************
+
+lektaProject
+        projectHead
+		projectDescriptor	: "AnBm"
+		projectLanguageScope	: [ anbm ]
+		projectOperationScope	: [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput	: ".AnBm.olk"
+
+	projectSetup
+		setupParserRoots = S
+
+	classModel
+		classDef:Void ( S, A, B, a, b )
+
+	lexicalModel forLanguage anbm
+		("a", a)
+		("b", b)
+
+	grammaticalModel forLanguage anbm
+		(R1: [ S -> A B ])
+		(R2: [ A -> ])
+		(R3: [ A -> a A ])
+		(R4: [ B -> ])
+		(R5: [ B -> b B ])

@@ -1,5 +1,0 @@
-/*******************************
- ** Scribo / Fare / Heads
- *******************************/
-
-string	Fare2String(real fare);

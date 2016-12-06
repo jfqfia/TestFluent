@@ -1,7 +1,0 @@
-/*******************************
- ** Scribo / Itinerary / Heads
- *******************************/
-
-string	Itinerary2StringGo(Itinerary route);
-string	Itinerary2StringBack(Itinerary route);
-string 	SiteNodeString(SiteNode placenode);

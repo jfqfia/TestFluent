@@ -1,0 +1,60 @@
+// ****************************************************************************
+//
+// Exercise 07: Generator/Recognizer for language AnBn. Where n >= 1
+// 
+// ****************************************************************************
+
+lektaProject
+
+        projectHead
+		projectDescriptor       : "AnBn"
+		projectLanguageScope    : [ anbn ]
+		projectOperationScope   : [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput    : ".AnBn.olk"
+
+	projectSetup
+		setupParserRoots = S
+
+	classModel
+		classDef:Void ( a, b )
+		classDef:ElementInt (counter)
+		classDef:StructureComplex ( S, A, B : (counter))
+
+	lexicalModel forLanguage anbn
+		("a", a)
+		("b", b)
+
+	grammaticalModel forLanguage anbn
+		(R1: [ S -> A B ]
+			{ 
+				^ <- #1; 
+			  	^ <& #2; 
+			} 
+		)
+
+		(R2: [ A -> a ] 
+		 	{ 
+				^.counter <- 1;
+			} 
+		)
+
+		(R3: [ A -> A a ] 
+		 	{ 
+				^.counter <- #1.counter + 1; 
+			} 
+		)
+
+		(R4: [ B -> b ] 
+		 	{ 
+				^.counter <- 1;
+			} 
+		)
+
+		(R5: [ B -> B b ] 
+		 	{ 
+				^.counter <- #1.counter + 1; 
+			} 
+		)
+
+

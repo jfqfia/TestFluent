@@ -1,9 +1,0 @@
-/*******************************
- ** Scribo / Verify / Heads
- *******************************/
-
-string	GenerateAnalyzeOperPurposeActScope(OperPurposeDescriptor igoaltype, ActScopeDescriptor cdomaintype);
-string	GenerateVerifyCancelAppoint();
-string	GenerateVerifyConsultAppoint();
-string	GenerateVerifyModifyAppoint();
-string	GenerateVerifyRequestAppoint();

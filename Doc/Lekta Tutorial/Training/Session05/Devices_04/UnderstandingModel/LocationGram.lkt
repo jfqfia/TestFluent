@@ -1,9 +1,0 @@
-/*******************************
- ** Location
- *******************************/
-
-(RLocation1 : 
-	[Location -> <lexAuxPrepDE|lexAuxPrepDEL|lexAuxPrepEN>?
-				lexAuxDefArticle?
-				lexLocationDescriptor ]
-		{ ^.LocationRef <- #3; } )

@@ -1,0 +1,14 @@
+// ****************************************************************************
+//
+// Exercise 02: Recognizer for language AnBm. Where n,m >= 0
+// 
+// ****************************************************************************
+
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".AnBm.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()
+
