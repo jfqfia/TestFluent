@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Preliminaries}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Type of languages}{2}{0}{1}
+\beamer@subsectionintoc {1}{2}{Applications}{9}{0}{1}
+\beamer@subsectionintoc {1}{3}{Ambiguities}{20}{0}{1}
+\beamer@subsectionintoc {1}{4}{Architecture}{29}{0}{1}
+\beamer@sectionintoc {2}{Natural Language Understanding}{30}{0}{2}
+\beamer@subsectionintoc {2}{1}{Goal and meaning representation}{30}{0}{2}
+\beamer@subsectionintoc {2}{2}{NLU parts}{35}{0}{2}
+\beamer@subsectionintoc {2}{3}{Grammars}{47}{0}{2}
+\beamer@sectionintoc {3}{Dialogue Manager}{48}{0}{3}
+\beamer@sectionintoc {4}{Natural Language Generation}{49}{0}{4}

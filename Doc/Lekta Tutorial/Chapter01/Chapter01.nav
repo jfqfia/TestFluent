@@ -1,0 +1,67 @@
+\beamer@endinputifotherversion {3.36pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{Preliminaries}{2}{Preliminaries}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\beamer@subsectionentry {0}{1}{1}{2}{Type of languages}}\headcommand {\beamer@subsectionpages {2}{1}}
+\headcommand {\slideentry {1}{1}{1}{2/4}{Type of languages}{0}}
+\headcommand {\beamer@framepages {2}{4}}
+\headcommand {\slideentry {1}{1}{2}{5/8}{Type of languages}{0}}
+\headcommand {\beamer@framepages {5}{8}}
+\headcommand {\beamer@subsectionentry {0}{1}{2}{9}{Applications}}\headcommand {\beamer@subsectionpages {2}{8}}
+\headcommand {\slideentry {1}{2}{1}{9/15}{Applications}{0}}
+\headcommand {\beamer@framepages {9}{15}}
+\headcommand {\slideentry {1}{2}{2}{16/19}{Applications}{0}}
+\headcommand {\beamer@framepages {16}{19}}
+\headcommand {\beamer@subsectionentry {0}{1}{3}{20}{Ambiguities}}\headcommand {\beamer@subsectionpages {9}{19}}
+\headcommand {\slideentry {1}{3}{1}{20/22}{Ambiguities}{0}}
+\headcommand {\beamer@framepages {20}{22}}
+\headcommand {\slideentry {1}{3}{2}{23/25}{Ambiguities}{0}}
+\headcommand {\beamer@framepages {23}{25}}
+\headcommand {\slideentry {1}{3}{3}{26/28}{Ambiguities}{0}}
+\headcommand {\beamer@framepages {26}{28}}
+\headcommand {\beamer@subsectionentry {0}{1}{4}{29}{Architecture}}\headcommand {\beamer@subsectionpages {20}{28}}
+\headcommand {\slideentry {1}{4}{1}{29/29}{Architecture}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\sectionentry {2}{Natural Language Understanding}{30}{Natural Language Understanding}{0}}
+\headcommand {\beamer@sectionpages {2}{29}}
+\headcommand {\beamer@subsectionpages {29}{29}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{30}{Goal and meaning representation}}\headcommand {\beamer@subsectionpages {30}{29}}
+\headcommand {\slideentry {2}{1}{1}{30/31}{Goal and meaning representation}{0}}
+\headcommand {\beamer@framepages {30}{31}}
+\headcommand {\slideentry {2}{1}{2}{32/32}{Goal and meaning representation}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\slideentry {2}{1}{3}{33/34}{Goal and meaning representation}{0}}
+\headcommand {\beamer@framepages {33}{34}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{35}{NLU parts}}\headcommand {\beamer@subsectionpages {30}{34}}
+\headcommand {\slideentry {2}{2}{1}{35/36}{NLU parts}{0}}
+\headcommand {\beamer@framepages {35}{36}}
+\headcommand {\slideentry {2}{2}{2}{37/39}{NLU parts}{0}}
+\headcommand {\beamer@framepages {37}{39}}
+\headcommand {\slideentry {2}{2}{3}{40/40}{NLU parts}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\slideentry {2}{2}{4}{41/42}{NLU parts}{0}}
+\headcommand {\beamer@framepages {41}{42}}
+\headcommand {\slideentry {2}{2}{5}{43/44}{NLU parts}{0}}
+\headcommand {\beamer@framepages {43}{44}}
+\headcommand {\slideentry {2}{2}{6}{45/46}{NLU parts}{0}}
+\headcommand {\beamer@framepages {45}{46}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{47}{Grammars}}\headcommand {\beamer@subsectionpages {35}{46}}
+\headcommand {\slideentry {2}{3}{1}{47/47}{Grammars}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\sectionentry {3}{Dialogue Manager}{48}{Dialogue Manager}{0}}
+\headcommand {\beamer@sectionpages {30}{47}}
+\headcommand {\beamer@subsectionpages {47}{47}}
+\headcommand {\slideentry {3}{0}{1}{48/48}{}{0}}
+\headcommand {\beamer@framepages {48}{48}}
+\headcommand {\sectionentry {4}{Natural Language Generation}{49}{Natural Language Generation}{0}}
+\headcommand {\beamer@sectionpages {48}{48}}
+\headcommand {\beamer@subsectionpages {48}{48}}
+\headcommand {\slideentry {4}{0}{1}{49/49}{}{0}}
+\headcommand {\beamer@framepages {49}{49}}
+\headcommand {\beamer@partpages {1}{49}}
+\headcommand {\beamer@subsectionpages {49}{49}}
+\headcommand {\beamer@sectionpages {49}{49}}
+\headcommand {\beamer@documentpages {49}}
+\headcommand {\def \inserttotalframenumber {21}}

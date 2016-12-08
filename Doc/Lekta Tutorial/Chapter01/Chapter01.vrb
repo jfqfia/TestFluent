@@ -1,0 +1,29 @@
+\frametitle{Tokenization}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Goal}
+		\begin{center}
+			Convert a sequence of characters into a sequence of tokens.
+		\end{center}
+	\end{block}
+	\pause
+	We must take into account:
+	\begin{itemize}
+		\item Separators: \texttt{(\textvisiblespace -\char`_)}
+		\item Punctuation marks: \texttt{(,.;:!?)}
+		\item Special symbols: \texttt{(\$\euro\%º)}
+		\item Numbers and its own separators: \texttt{(1234,.)}
+		\item Alphanumeric codes: \texttt{(ES772024$\cdots$)}
+	\end{itemize}
+	\pause
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Example}
+	\begin{center}
+		\begin{tabular}{ c c c c c c c c c c c c c c c c c }
+			& tk1 & & tk2 & & tk3 & & tk4 & & tk5 & & tk6 \\
+			$\cdot$ & The & $\cdot$ & dog & $\cdot$ & is & $\cdot$ & in & $\cdot$ & the & $\cdot$ & park & $\cdot$\\
+			0 & & 1 & & 2 & & 3 & & 4 & & 5 & & 6
+		\end{tabular}
+	\end{center}
+	\end{block}
