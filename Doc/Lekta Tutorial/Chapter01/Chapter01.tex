@@ -16,6 +16,8 @@
 \usepackage{eurosym}
 \usepackage{listings}
 
+\usetikzlibrary{trees,shapes,decorations}
+
 \setbeamertemplate{navigation symbols}{}
 \setbeamercovered{transparent}
 
@@ -448,8 +450,14 @@ But in natural languages we can have several lexical categories corresponding to
 			\textbf{Type} & \textbf{Grammar accepted} & \textbf{Rules} & \textbf{Observations}\\
 			\hline
 			Type 0 & Unrestricted grammar & $X \rightarrow Y$ & $X,Y \in (N\cup T)^*$\\
-			Type 1 & \begin{tabular}{@{}c@{}}Context-sensitive\\grammar\end{tabular} & $\alpha X \beta \rightarrow \alpha a \beta$ & \begin{tabular}{@{}c@{}}$X \in N$\\$\alpha,a,\beta \in (N\cup T)^*$\end{tabular}\\
+			\hline
+			Type 1 & \begin{tabular}{@{}c@{}}Context-sensitive\\grammar\end{tabular} & $\alpha X \beta \rightarrow \alpha a \beta$ & \begin{tabular}{@{}c@{}}$X \in N$\\$\alpha,a,\beta \in (N\cup T)^
+			*$\end{tabular}\\
+			\hline
+			\hline
 			\rowcolor{yellow}Type 2 & Context-free grammar & $X \rightarrow a$ & \begin{tabular}{@{}c@{}}$X \in N$\\$a \in (N\cup T)^*$\end{tabular}\\
+			\hline
+			\hline
 			Type 3 & Regular grammar & \begin{tabular}{@{}c@{}}$X \rightarrow a$\\$X \rightarrow aY$\end{tabular} & \begin{tabular}{@{}c@{}}$X,Y \in N$\\$X \in T$\end{tabular}\\
 			\hline
 		\end{tabular}
@@ -503,7 +511,7 @@ But in natural languages we can have several lexical categories corresponding to
 \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[noframenumbering]
 \frametitle{Generating $a^nb^m$ sentences}
 \begin{columns}
 	\begin{column}{0.7\textwidth}
@@ -528,7 +536,784 @@ But in natural languages we can have several lexical categories corresponding to
 \end{columns}
 \end{frame}
 
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
 
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.  \node[fill=yellow]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 \rowcolor{yellow}$A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.\node[fill=yellow]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 \rowcolor{yellow}$A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.\node[fill=yellow]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 \rowcolor{yellow}$A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A $\varepsilon$ ]]] b [.B \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A $\varepsilon$ ]]] b [.\node[fill=yellow]{B}; \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 \rowcolor{yellow}$B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A $\varepsilon$ ]]] b [.B b [.B \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A $\varepsilon$ ]]] b [.B b [.\node[fill=yellow]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 \rowcolor{yellow}$B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{So we have generated $aaabb$ sentence!}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A $\varepsilon$ ]]] b [.B b [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; $\varepsilon$ ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[fill=yellow]{$\varepsilon$}; ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[fill=yellow]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 \rowcolor{yellow}$A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 \rowcolor{yellow}$B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.A $\varepsilon$ ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; b \edge[color=fg!0]; [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[fill=yellow]{a}; \edge[color=fg!0]; [.\node[fill=yellow]{A}; $\varepsilon$ ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[fill=yellow]{b}; \edge[color=fg!0]; [.\node[fill=yellow]{B}; $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 \rowcolor{yellow}$A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 \rowcolor{yellow}$B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; a \edge[color=fg!0]; [.A a [.A $\varepsilon$ ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.B b [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[fill=yellow]{a}; \edge[color=fg!0]; [.\node[fill=yellow]{A}; a [.A $\varepsilon$ ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.B b [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 \rowcolor{yellow}$A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; a \edge[color=fg!0]; [.A a [.A a [.A $\varepsilon$ ]]] \edge[color=fg!0]; b \edge[color=fg!0]; [.B b [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Recognizing $aaabb$ sentence}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[color=fg!0]{S}; \edge[color=fg!0]; \node[fill=yellow]{a}; \edge[color=fg!0]; [.\node[fill=yellow]{A}; a [.A a [.A $\varepsilon$ ]]] \edge[color=fg!0]; \node[fill=yellow]{b}; \edge[color=fg!0]; [.\node[fill=yellow]{B}; b [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} \rowcolor{yellow}$S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{We have recognized $aaabb$ sentence!}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.S a [.A a [.A a [.A $\varepsilon$ ]]] b [.B b [.B $\varepsilon$ ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Parsing}
+		\begin{itemize}
+			\item Is the process of analysing a sentence, according to the rules of a certain grammar, resulting in the creation of a ``parse tree''.
+			\pause
+			\item That parse tree includes syntactic relations between components in the sentence but may also contains semantic information (e.g. a feature structure).
+		\end{itemize}
+	\end{block}
+	\pause
+	\visible<3>{
+	\begin{center}
+		\includegraphics[width=0.54\textwidth]{milestone.eps}\\
+		\begin{tiny}
+			CC by Kat at the English language Wikipedia SA. 3.0
+		\end{tiny}
+	\end{center}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Parsing applied to natural languages (english)}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			Some typical lexical categories:
+			\begin{itemize}
+				\item \texttt{det}: Determiners.
+				\item \texttt{noun}: Nouns.
+				\item \texttt{verb}: Verbs.
+				\item \texttt{prep}: Prepositions.
+			\end{itemize}
+			\pause
+			\vspace{10pt}
+			Some typical non-terminal symbols:
+			\begin{itemize}
+				\item \texttt{S}: Sentence.
+				\item \texttt{NP}: Noun Phrase.
+				\item \texttt{VP}: Verb Phrase.
+				\item \texttt{PP}: Prepositional Phrase.
+			\end{itemize}	
+		\end{column}
+		\pause
+		\begin{column}{0.5\textwidth}
+			Some typical production rules
+			\begin{itemize}
+				\item \texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP}
+				\item \texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun}
+				\item \texttt{VP} $\rightarrow$ \texttt{verb} 
+				\item \texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP}
+				\item \texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP}
+				\item \texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP}
+				\item \texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=6\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.verb jumped ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=8\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.verb saw ] [.NP [.det a ] [.noun flower ]]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=10\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.VP [.verb jumped ] ] [.PP [.prep over ] [.NP [.det a ] [.noun chair ] ]]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\rowcolor{yellow}\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=10\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.VP [.verb saw ] [.NP [.det a ] [.noun flower ] ] ] [.PP [.prep with ] [.NP [.det a ] [.noun telescope ] ]]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\rowcolor{yellow}\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=10\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.VP [.verb saw ] [.NP [.det a ] [.noun \node[draw,cross out]{flower}; ] ] ] [.PP [.prep with ] [.NP [.det a ] [.noun telescope ] ]]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\rowcolor{yellow}\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=10\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.VP [.verb saw ] [.NP [.det a ] [.noun woman ] ] ] [.PP [.prep with ] [.NP [.det a ] [.noun telescope ] ]]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\rowcolor{yellow}\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+				\tikzset{every tree node/.style={align=center,anchor=base}}
+				\tikzset{level 1+/.style={level distance=2\baselineskip}}
+				\tikzset{frontier/.style={distance from root=12\baselineskip}}
+				\Tree [.S [.NP [.det The ] [.noun man ] ] [.VP [.verb saw ] [.NP [.NP [.det a ] [.noun woman ] ] [.PP [.prep with ] [.NP [.det a ] [.noun telescope ] ] ] ] ] ] ]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} 	\rowcolor{yellow}\texttt{S} $\rightarrow$ \texttt{NP} \texttt{VP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{det} \texttt{noun} \\
+												\texttt{VP} $\rightarrow$ \texttt{verb}  \\
+												\rowcolor{yellow}\texttt{VP} $\rightarrow$ \texttt{verb} \texttt{NP} \\
+												\rowcolor{yellow}\texttt{PP} $\rightarrow$ \texttt{prep} \texttt{NP} \\
+												\rowcolor{yellow}\texttt{NP} $\rightarrow$ \texttt{NP} \texttt{PP} \\
+												\texttt{VP} $\rightarrow$ \texttt{VP} \texttt{PP} \\
+		\end{tabular}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Conclusions}
+		\begin{itemize}
+			\item With so little production rules we have ambiguities.
+			\pause
+			\item In practice, creating a general grammar results in too much ambiguities and poor performance.
+			\pause
+			\item \textbf{Solution:} Create simple grammars for simple parameter extraction.
+		\end{itemize}
+	\end{block}
+	\pause
+	\visible<4>{
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{milestone.eps}\\
+		\begin{tiny}
+			CC by Kat at the English language Wikipedia SA. 3.0
+		\end{tiny}
+	\end{center}}
+\end{frame}
 
 \subsection{Unifier}
 
