@@ -34,34 +34,45 @@
 \headcommand {\beamer@framepages {32}{32}}
 \headcommand {\slideentry {2}{1}{3}{33/34}{Goal and meaning representation}{0}}
 \headcommand {\beamer@framepages {33}{34}}
-\headcommand {\beamer@subsectionentry {0}{2}{2}{35}{NLU parts}}\headcommand {\beamer@subsectionpages {30}{34}}
-\headcommand {\slideentry {2}{2}{1}{35/36}{NLU parts}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{35}{Tokenizer, speller checker and POS tagging}}\headcommand {\beamer@subsectionpages {30}{34}}
+\headcommand {\slideentry {2}{2}{1}{35/36}{Tokenizer, speller checker and POS tagging}{0}}
 \headcommand {\beamer@framepages {35}{36}}
-\headcommand {\slideentry {2}{2}{2}{37/39}{NLU parts}{0}}
+\headcommand {\slideentry {2}{2}{2}{37/39}{Tokenizer, speller checker and POS tagging}{0}}
 \headcommand {\beamer@framepages {37}{39}}
-\headcommand {\slideentry {2}{2}{3}{40/40}{NLU parts}{0}}
+\headcommand {\slideentry {2}{2}{3}{40/40}{Tokenizer, speller checker and POS tagging}{0}}
 \headcommand {\beamer@framepages {40}{40}}
-\headcommand {\slideentry {2}{2}{4}{41/42}{NLU parts}{0}}
+\headcommand {\slideentry {2}{2}{4}{41/42}{Tokenizer, speller checker and POS tagging}{0}}
 \headcommand {\beamer@framepages {41}{42}}
-\headcommand {\slideentry {2}{2}{5}{43/44}{NLU parts}{0}}
+\headcommand {\slideentry {2}{2}{5}{43/44}{Tokenizer, speller checker and POS tagging}{0}}
 \headcommand {\beamer@framepages {43}{44}}
-\headcommand {\slideentry {2}{2}{6}{45/46}{NLU parts}{0}}
+\headcommand {\slideentry {2}{2}{6}{45/46}{Tokenizer, speller checker and POS tagging}{0}}
 \headcommand {\beamer@framepages {45}{46}}
-\headcommand {\beamer@subsectionentry {0}{2}{3}{47}{Grammars}}\headcommand {\beamer@subsectionpages {35}{46}}
-\headcommand {\slideentry {2}{3}{1}{47/47}{Grammars}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{47}{Grammars and parsing}}\headcommand {\beamer@subsectionpages {35}{46}}
+\headcommand {\slideentry {2}{3}{1}{47/47}{Grammars and parsing}{0}}
 \headcommand {\beamer@framepages {47}{47}}
-\headcommand {\sectionentry {3}{Dialogue Manager}{48}{Dialogue Manager}{0}}
-\headcommand {\beamer@sectionpages {30}{47}}
-\headcommand {\beamer@subsectionpages {47}{47}}
-\headcommand {\slideentry {3}{0}{1}{48/48}{}{0}}
+\headcommand {\slideentry {2}{3}{2}{48/48}{Grammars and parsing}{0}}
 \headcommand {\beamer@framepages {48}{48}}
-\headcommand {\sectionentry {4}{Natural Language Generation}{49}{Natural Language Generation}{0}}
-\headcommand {\beamer@sectionpages {48}{48}}
-\headcommand {\beamer@subsectionpages {48}{48}}
-\headcommand {\slideentry {4}{0}{1}{49/49}{}{0}}
+\headcommand {\slideentry {2}{3}{3}{49/49}{Grammars and parsing}{0}}
 \headcommand {\beamer@framepages {49}{49}}
-\headcommand {\beamer@partpages {1}{49}}
-\headcommand {\beamer@subsectionpages {49}{49}}
-\headcommand {\beamer@sectionpages {49}{49}}
-\headcommand {\beamer@documentpages {49}}
-\headcommand {\def \inserttotalframenumber {21}}
+\headcommand {\slideentry {2}{3}{4}{50/50}{Grammars and parsing}{0}}
+\headcommand {\beamer@framepages {50}{50}}
+\headcommand {\slideentry {2}{3}{5}{51/51}{Grammars and parsing}{0}}
+\headcommand {\beamer@framepages {51}{51}}
+\headcommand {\beamer@subsectionentry {0}{2}{4}{52}{Unifier}}\headcommand {\beamer@subsectionpages {47}{51}}
+\headcommand {\slideentry {2}{4}{1}{52/52}{Unifier}{0}}
+\headcommand {\beamer@framepages {52}{52}}
+\headcommand {\sectionentry {3}{Dialogue Manager}{53}{Dialogue Manager}{0}}
+\headcommand {\beamer@sectionpages {30}{52}}
+\headcommand {\beamer@subsectionpages {52}{52}}
+\headcommand {\slideentry {3}{0}{1}{53/53}{}{0}}
+\headcommand {\beamer@framepages {53}{53}}
+\headcommand {\sectionentry {4}{Natural Language Generation}{54}{Natural Language Generation}{0}}
+\headcommand {\beamer@sectionpages {53}{53}}
+\headcommand {\beamer@subsectionpages {53}{53}}
+\headcommand {\slideentry {4}{0}{1}{54/54}{}{0}}
+\headcommand {\beamer@framepages {54}{54}}
+\headcommand {\beamer@partpages {1}{54}}
+\headcommand {\beamer@subsectionpages {54}{54}}
+\headcommand {\beamer@sectionpages {54}{54}}
+\headcommand {\beamer@documentpages {54}}
+\headcommand {\def \inserttotalframenumber {26}}

@@ -7,6 +7,17 @@ Deployment/
 *.tps
 *.docx
 *.synctex.gz
+*.bbl
+*.blg
+*.nav
+*.snm
+*.out
+*.toc
+*.vrb
+._PLEKTA_TI_BACK
+._PLEKTA_TI_MAIN
+*.olk.*
+
 
 
 

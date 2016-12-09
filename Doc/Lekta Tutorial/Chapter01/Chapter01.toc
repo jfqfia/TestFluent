@@ -6,7 +6,8 @@
 \beamer@subsectionintoc {1}{4}{Architecture}{29}{0}{1}
 \beamer@sectionintoc {2}{Natural Language Understanding}{30}{0}{2}
 \beamer@subsectionintoc {2}{1}{Goal and meaning representation}{30}{0}{2}
-\beamer@subsectionintoc {2}{2}{NLU parts}{35}{0}{2}
-\beamer@subsectionintoc {2}{3}{Grammars}{47}{0}{2}
-\beamer@sectionintoc {3}{Dialogue Manager}{48}{0}{3}
-\beamer@sectionintoc {4}{Natural Language Generation}{49}{0}{4}
+\beamer@subsectionintoc {2}{2}{Tokenizer, speller checker and POS tagging}{35}{0}{2}
+\beamer@subsectionintoc {2}{3}{Grammars and parsing}{47}{0}{2}
+\beamer@subsectionintoc {2}{4}{Unifier}{52}{0}{2}
+\beamer@sectionintoc {3}{Dialogue Manager}{53}{0}{3}
+\beamer@sectionintoc {4}{Natural Language Generation}{54}{0}{4}

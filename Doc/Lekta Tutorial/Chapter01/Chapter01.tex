@@ -11,8 +11,8 @@
 \usepackage{fancybox}
 \usepackage{tikz}
 \usepackage{tikz-qtree}
-\usepackage{multicol}
 \usepackage{color}
+\usepackage{colortbl}
 \usepackage{eurosym}
 \usepackage{listings}
 
@@ -298,7 +298,7 @@
 			\end{center}
 \end{frame}
 
-\subsection{NLU parts}
+\subsection{Tokenizer, speller checker and POS tagging}
 
 \begin{frame}
 	\frametitle{NLU components}
@@ -425,17 +425,115 @@ But in natural languages we can have several lexical categories corresponding to
 	\end{block}
 \end{frame}
 
-\subsection{Grammars}
+\subsection{Grammars and parsing}
 
 \begin{frame}
+\frametitle{Formal grammars}
+	\begin{itemize}
+		\item Only study the purely syntactical aspects of language.
+		\item \textbf{Alphabet:} Set of terminal symbols. $\{a,b\}$ 
+		\item \textbf{Sentences:} Strings of symbols. $a,b,aa,ab,bb,ba,aaa,\cdots$ 
+		\item \textbf{Language:} Set of sentences. $L = \{ab,aabb,aaabbb\}$
+		\item \textbf{Formal grammar:} Set of formation rules used to define a language. $\{S\rightarrow a A,A\rightarrow b A,S\rightarrow\varepsilon\cdots\}$ Where $S, A$ are non-terminal symbols.
+		\item Depending on the syntax of production rules, grammars can be classified (Noam Chomsky, 1956).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Chomsky grammar hierarchy}
+	\small
+	\begin{center}
+		\begin{tabular}{ |c c c c| }
+			\hline
+			\textbf{Type} & \textbf{Grammar accepted} & \textbf{Rules} & \textbf{Observations}\\
+			\hline
+			Type 0 & Unrestricted grammar & $X \rightarrow Y$ & $X,Y \in (N\cup T)^*$\\
+			Type 1 & \begin{tabular}{@{}c@{}}Context-sensitive\\grammar\end{tabular} & $\alpha X \beta \rightarrow \alpha a \beta$ & \begin{tabular}{@{}c@{}}$X \in N$\\$\alpha,a,\beta \in (N\cup T)^*$\end{tabular}\\
+			\rowcolor{yellow}Type 2 & Context-free grammar & $X \rightarrow a$ & \begin{tabular}{@{}c@{}}$X \in N$\\$a \in (N\cup T)^*$\end{tabular}\\
+			Type 3 & Regular grammar & \begin{tabular}{@{}c@{}}$X \rightarrow a$\\$X \rightarrow aY$\end{tabular} & \begin{tabular}{@{}c@{}}$X,Y \in N$\\$X \in T$\end{tabular}\\
+			\hline
+		\end{tabular}
+	\end{center}
+	Where:
+	\begin{itemize}
+		\item $N$ is the set of non-terminal symbols.
+		\item $T$ is the set of terminal symbols.
+		\item $S^*$ is a string of elements in set $S$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Easy context-free grammar example: $a^nb^m$}
+	Consider:
+	\begin{itemize}
+		\item \textbf{Alphabet:} $\{a,b\}$ 
+		\item \textbf{Language:} $L = \{a^nb^m\}\ n, m\geq 1$ (i.e. all strings with at least one ``a'' followed by at least one ``b'').
+		\item \textbf{Grammar:} \begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+																							 $A \rightarrow \varepsilon$ \\
+																							 $A \rightarrow a\ A$ \\
+																							 $B \rightarrow \varepsilon$ \\
+																							 $B \rightarrow b\ B$ \\
+																						\end{tabular}
+	\end{itemize}
+	And let's see that a grammar defined with such production rules can be used to \textbf{generate} or either \textbf{recognize} the target language.
+\end{frame}
+
+\begin{frame}
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. S \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} $S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Generating $a^nb^m$ sentences}
+\begin{columns}
+	\begin{column}{0.7\textwidth}
+		\begin{center}
+			\begin{tikzpicture}
+			\tikzset{every tree node/.style={circle}}
+			%\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+			%\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [. \node[fill=yellow]{S}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{a}; \edge[color=fg!0]; [.\node[color=fg!0]{A}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]] \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{b}; \edge[color=fg!0]; [.\node[color=fg!0]{B}; \edge[color=fg!0]; \node[color=fg!0]{$\varepsilon$}; ]]]
+			\end{tikzpicture}
+		\end{center}
+	\end{column}
+	\begin{column}{0.3\textwidth}
+		\begin{tabular}{l} \rowcolor{yellow}$S \rightarrow a\ A\ b\ B$ \\ 
+											 $A \rightarrow \varepsilon$ \\
+											 $A \rightarrow a\ A$ \\
+											 $B \rightarrow \varepsilon$ \\
+											 $B \rightarrow b\ B$ \\
+		\end{tabular}
+	\end{column}
+\end{columns}
 \end{frame}
 
 
-%\begin{frame}
-%\begin{center}
-%\Tree [.S [.NP LaTeX ] [.VP [.V is ] [.NP fun ] ] ]
-%\end{center}
-%\end{frame}
+
+\subsection{Unifier}
+
+\begin{frame}
+\end{frame}
 
 \section{Dialogue Manager}
 
@@ -448,6 +546,3 @@ But in natural languages we can have several lexical categories corresponding to
 \end{frame}
 
 \end{document}
-
-
-
