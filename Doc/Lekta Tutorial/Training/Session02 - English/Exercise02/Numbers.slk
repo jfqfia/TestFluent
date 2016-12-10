@@ -1,0 +1,49 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".Numbers.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()
+
+2147483647
+2147483648
+// So a "int" in lekta has 32 bits.
+1231231232342345345634748567857879698968969
+
+// zero
+// four
+// ten
+// twenty-six
+// ninety-nine
+
+// a hundred
+// one hundred
+// one hundred and six
+// nine hundreds and ninety-nine
+
+// thousand
+// a thousand
+// a thousand and nine 
+// two thousand and thirty
+// two hundred and six thousand three hundred and seventy-four
+// nine hundred and ninety-nine thousand nine hundred and ninety-nine
+
+// million
+// a million
+// a million and nine 
+// two millions and thirty
+// thirty-six millions one hundred and fifty-one
+// ninety-nine millions two thousand hundred and fifty-one
+// one hundred and ninety-nine millions and three hundred thousand two hundred and fifty-one
+// nine hundred and ninety-nine millions nine hundred and ninety-nine thousand nine hundred and ninety-nine
+
+// one thousand eleven
+// twenty-one thousand eleven
+// seven hundred twenty-one thousand eleven
+// one million two hundred fifty-six thousand seven hundred twenty-one
+// thirty-one million two hundred fifty-six thousand seven hundred twenty-one
+// six hundred thirty-one million two hundred fifty-six thousand seven hundred twenty-one
+
+
+

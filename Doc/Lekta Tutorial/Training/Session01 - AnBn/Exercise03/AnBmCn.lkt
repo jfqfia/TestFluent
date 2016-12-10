@@ -1,0 +1,33 @@
+// ****************************************************************************
+//
+// Exercise 04: Generator/Recognizer for language AnBmCn. Where n,m >= 0
+// 
+// ****************************************************************************
+
+lektaProject
+
+        projectHead
+                projectDescriptor	: "AnBmCn"
+		projectOperationScope	: [ test ]
+		projectLanguageScope 	: [ anbmcn ]
+		projectInterfaceScope	: [ dialogue ]
+                projectCompileOutput	: ".AnBmCn.olk"
+
+	projectSetup
+		setupParserRoots = S
+
+	classModel
+		classDef:Void ( S, A, B, C, a, b, c )
+
+	lexicalModel forLanguage anbmcn
+		("a", a)
+		("b", b)
+		("c", c)
+
+	grammaticalModel forLanguage anbmcn
+		(R1: [ S ->  B? ])
+		(R2: [ S -> A S C ])
+		(R3: [ B -> b B? ])
+		(R4: [ A -> a ])
+		(R5: [ C -> c ])
+

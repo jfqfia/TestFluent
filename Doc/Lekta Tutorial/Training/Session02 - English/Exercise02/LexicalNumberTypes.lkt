@@ -1,0 +1,14 @@
+classDef:Void
+(
+	lexZeroTerm,
+	lexConjAnd
+)
+
+classDef:ElementInt
+(
+	lexNumberDigits,
+	lexNumberValue,
+	lexNumberValueHundred,
+	lexNumberValueThousand,
+	lexNumberValueMillion
+)

@@ -13,10 +13,7 @@
 //
 // ****************************************************************************
 
-* Teaching Lekta...
-
 * Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación (Medical apppointment script).
-
 
 * Improve datetime negotiation.
 

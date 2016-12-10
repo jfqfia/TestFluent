@@ -1,0 +1,19 @@
+classDef:StructureComplex
+( 
+	Number :
+	(
+		NumberValue,
+		NumberLiteral
+	)
+)
+
+classDef:ElementInt
+(
+	NumberValue
+)
+
+classDef:ElementLiteral
+(
+	NumberLiteral
+)
+

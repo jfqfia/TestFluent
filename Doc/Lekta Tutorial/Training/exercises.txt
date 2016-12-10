@@ -1,0 +1,47 @@
+Session01 - AnBn: Formal languages
+
+Exercise01: AnBm
+Creation of a simple project in Lekta: .lkt and .slk
+Simple classModel
+Simple lexicalModel
+Simple grammaticalModel
+lektac and synclekta
+
+Exercise02: AnBm with optional parameters in grammar rules
+Optional parameters in grammar rules
+Expansion of rules
+
+Exercise03: AnBmCn
+
+Exercise04: AnBn
+Nothing to the left, nothing to the right
+Semantic information and creation of feature structure
+Lexical associations with complex structures
+SpyMessages
+Code referring to parts and parameters of grammar rules
+
+
+Session02 - English: Natural languages (english)
+
+Exercise01: English lexicon and grammar
+Ambiguities in parser stage
+ 
+Exercise02: Example of simple grammar for parameter extraction - Numbers in English
+Include sections in project files
+Size of an int in lekta
+setupTokenizerIntegerClass
+ShapeToString
+TokenInputText
+
+Session03 - Unifier: Exercises with unification issues
+
+Exercise01: AnBn
+Unifier operator
+Overwritting operator
+
+Exercise02: AnBnCn
+Built-in funtions: Fail()
+
+Exercise03: Agreement in english natural language
+
+

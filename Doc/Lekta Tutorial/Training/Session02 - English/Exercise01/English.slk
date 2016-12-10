@@ -1,0 +1,14 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".English.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()
+
+// the man jumped
+// the man saw a flower
+// the man jumped over a chair
+// the man saw a woman with a telescope
+
+

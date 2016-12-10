@@ -1,0 +1,81 @@
+// ****************************************************************************
+//
+// Exercise 08: Generator/Recognizer for language AnBnCn. Where n >= 1
+// 
+// ****************************************************************************
+
+lektaProject
+
+        projectHead
+		projectDescriptor       : "AnBnCn"
+		projectLanguageScope    : [ anbncn ]
+		projectOperationScope   : [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput    : ".AnBnCn.olk"
+
+	projectSetup
+		setupParserRoots = S
+
+	classModel
+		classDef:Void (a,b,c)
+		classDef:ElementInt (totalA, totalB, totalC)
+		classDef:StructureComplex (S, A, B, C: (totalA,totalB,totalC))
+
+	lexicalModel forLanguage anbncn
+		("a", a)
+		("b", b)
+		("c", c)
+
+	grammaticalModel forLanguage anbncn
+		(R1: [ S -> &[+^] A B C [+$]& ]
+			{
+				^ <& #1;
+				^ <& #2;
+				^ <& #3;
+
+				if(^.totalA != ^.totalB)
+					Fail();
+				if(^.totalB != ^.totalC)
+					Fail();
+			}
+
+		)
+
+		(R2: [ A -> a ]
+			{ 
+				^.totalA <- 1; 
+			}
+		)
+
+		(R3: [ A -> A a ]
+			{ 
+				^.totalA <- #1.totalA + 1; 
+			}
+		)
+
+		(R4: [ B -> b ]
+			{ 
+				^.totalB <- 1; 
+			}
+		)
+
+		(R5: [ B -> B b ]
+			{ 	
+				^.totalB <- #1.totalB + 1; 
+			}
+		)
+
+		(R6: [ C -> c ]
+			{ 
+				^.totalC <- 1; 
+			}
+		)
+
+		(R7: [ C -> C c ]
+			{ 
+				^.totalC <- #1.totalC + 1; 
+			}
+		)
+
+
+

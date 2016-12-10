@@ -1,0 +1,28 @@
+/***************************************************************************
+ * Sistema:		pLekta v2 - 2013 
+ *    LektaTraining: Level 1 - English_01.lkt
+ ***************************************************************************/
+
+lektaProject
+
+        projectHead
+                projectDescriptor	: "English Numbers"
+		projectLanguageScope	: [ en ]
+		projectOperationScope	: [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput	: ".Numbers.olk"
+
+	projectSetup
+		setupParserRoots = Number
+
+	classModel
+		#Include "NumberTypes.lkt"
+		#Include "LexicalNumberTypes.lkt"
+
+	lexicalModel forLanguage en
+		setupTokenizerIntegerClass (lexNumberDigits, "")
+		#Include "NumberEnglishLexicon.lkt"
+
+	grammaticalModel forLanguage en
+		#Include "NumberEnglishGrammar.lkt"
+
