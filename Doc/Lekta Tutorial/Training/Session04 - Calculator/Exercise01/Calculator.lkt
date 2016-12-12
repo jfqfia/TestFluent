@@ -1,0 +1,285 @@
+/***************************************************************************
+
+
+
+ ***************************************************************************/
+
+lektaProject
+
+        projectHead
+                projectDescriptor	: "English Numbers"
+		projectLanguageScope	: [ en ]
+		projectOperationScope	: [ test ]
+		projectInterfaceScope   : [ dialogue ]
+		projectCompileOutput	: ".Calculator.olk"
+
+	projectSetup
+		setupParserRoots = Expression
+
+	classModel
+		#Include "NumberTypes.lkt"
+		#Include "LexicalNumberTypes.lkt"
+
+		classDef:Void( lexAdd, lexSubstract, lexMultiply, lexDivide, lexPow, lexToThe, lexPower, lexOrdinal, lexLeftParenthesis, lexRightParenthesis, lexFactorial )
+
+		classDef:ElementRange
+		(
+			Operator:
+			{
+				'+', '-', '*', '/', '^', '!'
+			}
+		)
+
+		classDef:StructureComplex 
+		( 
+			Expression: 
+	            	(
+				Value,
+				Operator, 
+				LeftExpression, 
+				RightExpression
+			)
+		)
+
+		classDef:Synonym
+		(
+			LeftExpression, RightExpression = Expression
+		)	
+
+		classDef:Synonym
+		(
+			Value = Number
+		)	
+
+		classDef:ElementInt
+		(
+			int
+		)	
+
+	functionModel
+		// Recursive
+		/*
+		int factorial (int n)
+		{
+			if(n == 0)
+			{
+				return 1;
+			}
+			else 
+			{
+				return n * factorial(n - 1);
+			}
+		}*/
+
+		// Iterative
+		int factorial (int n)
+		{
+			int ret <- 1;
+			
+			for(int i <- 1; i <= n; i++)
+			{
+				ret <- ret * i;
+			}
+			
+			return ret;
+		}
+
+	lexicalModel forLanguage en
+		setupTokenizerIntegerClass (lexNumberDigits, "")
+		// If you want to separate "two+two" proferences
+		setupTokenizerPunctuation   ("+", lexAdd)
+		setupTokenizerPunctuation   ("-", lexSubstract)
+		setupTokenizerPunctuation   ("*", lexMultiply)
+		setupTokenizerPunctuation   ("/", lexDivide)
+		setupTokenizerPunctuation   ("^", lexPow)
+		setupTokenizerPunctuation   ("(", lexLeftParenthesis)
+		setupTokenizerPunctuation   (")", lexRightParenthesis)
+		setupTokenizerPunctuation   ("[", lexLeftParenthesis)
+		setupTokenizerPunctuation   ("]", lexRightParenthesis)
+		setupTokenizerPunctuation   ("{", lexLeftParenthesis)
+		setupTokenizerPunctuation   ("}", lexRightParenthesis)
+		setupTokenizerPunctuation   ("!", lexFactorial)
+
+		#Include "NumberEnglishLexicon.lkt"
+
+		("+", 			lexAdd)
+		("plus",		lexAdd)
+		("and",			lexAdd)
+		("added to",		lexAdd)
+
+		("+", 			lexSubstract)
+		("minus",		lexSubstract)
+
+		("*",			lexMultiply)
+		("times",		lexMultiply)
+		("multiplied by",	lexMultiply)
+
+		("/",			lexDivide)
+		("divided by",		lexDivide)
+
+		("^",			lexPow)
+
+		("to the",		lexToThe)
+		("power",		lexPower)
+		("st",			lexOrdinal)
+		("nd",			lexOrdinal)
+		("rd",			lexOrdinal)
+		("th",			lexOrdinal)
+
+		("open parenthesis",	lexLeftParenthesis)
+		("close parenthesis",	lexRightParenthesis)
+		("(",			lexLeftParenthesis)
+		(")",			lexRightParenthesis)
+		("[",			lexLeftParenthesis)
+		("]",			lexRightParenthesis)
+		("{",			lexLeftParenthesis)
+		("}",			lexRightParenthesis)
+
+		("!", 			lexFactorial)
+		("factorial", 		lexFactorial)
+
+	grammaticalModel forLanguage en
+		#Include "NumberEnglishGrammar.lkt"
+		
+		(R1: [ Expression/0 -> Number ]
+		        { 
+				^.Value <- #1; 
+			}
+		)
+
+		(R2: [ Expression/3 -> Expression/3 lexAdd Expression/2 ]
+			{ 
+				^.Value.NumberValue <- #1.Value.NumberValue + #3.Value.NumberValue;
+				^.Operator <- '+';
+	           		^.LeftExpression <- #1;
+			        ^.RightExpression <- #3; 
+			} 
+		)
+
+		(R3: [ Expression/3 -> Expression/3 lexSubstract Expression/2 ] 
+			{ 
+				^.Value.NumberValue <- #1.Value.NumberValue - #3.Value.NumberValue;
+				^.Operator <- '-';
+	           		^.LeftExpression <- #1;
+			        ^.RightExpression <- #3; 
+			} 
+		)
+
+		(R4: [ Expression/2 -> Expression/2 lexMultiply Expression/1 ] 
+			{ 
+				^.Value.NumberValue <- #1.Value.NumberValue * #3.Value.NumberValue;
+				^.Operator <- '*';
+	           		^.LeftExpression <- #1;
+			        ^.RightExpression <- #3; 
+			} 
+		)
+
+		(R5: [ Expression/2 -> Expression/2 lexDivide Expression/1 ] 
+			{ 
+				^.Value.NumberValue <- #1.Value.NumberValue / #3.Value.NumberValue;
+				^.Operator <- '/';
+	           		^.LeftExpression <- #1;
+			        ^.RightExpression <- #3; 
+			} 
+		)
+
+		(R6: [ Expression/1 -> Expression/1 lexPow Expression/0 ] 
+			{ 
+				^.Value.NumberValue <- Pow(ShapeToReal(#1.Value.NumberValue), ShapeToReal(#3.Value.NumberValue));
+				^.Operator <- '^';
+	           		^.LeftExpression <- #1;
+			        ^.RightExpression <- #3; 
+			} 
+		)
+
+		(R7: [ Expression/1 -> Expression/1 lexToThe Expression/0 lexOrdinal lexPower ] 
+			{ 
+				^.Value.NumberValue <- Pow(ShapeToReal(#1.Value.NumberValue), ShapeToReal(#3.Value.NumberValue));
+				^.Operator <- '^';
+	           		^.LeftExpression <- #1;
+			        ^.RightExpression <- #3; 
+			} 
+		)
+
+	      	(R8: [ Expression/0 -> lexLeftParenthesis Expression/10 lexRightParenthesis ]
+	      		{ 
+				^ <- #2; 
+			} 
+		)
+
+	      	(R9: [ Expression/0 ->  Expression/4 lexFactorial ]
+	      		{ 
+				^.Value.NumberValue <- factorial(#1.Value.NumberValue); 
+				^.Operator <- '!';
+	           		^.LeftExpression <- #1;
+			} 
+		)
+
+	conversationalModel
+		MindBoardStructure: 
+		{
+			( UserExpression / Expression )
+			( Answer / Number )
+		}
+	
+	ColligoSchemata
+		(ColligoScheme ProferenceChunkOrNumber : [ Expression Expression >> Expression ]
+			ColligoAction 
+			{	
+				^OBJSENSO <- #OBJCOLLIGO-2;
+			}
+		)
+	
+	SensoSchemata
+		(SensoScheme Input : [Expression]
+			SensoAction	
+			{
+		        	$MINDBOARD@UserExpression <- #OBJSENSO-1;
+		    	}
+		)
+
+	CogitoSchemata
+		(CogitoScheme Thinking1 :
+			CogitoCapture 
+			{
+        			$MINDBOARD@UserExpression
+			}
+			CogitoAction 
+			{
+			        $MINDBOARD@Answer <- $MINDBOARD@UserExpression.Value;
+				CogitoQuit();
+			}
+		)
+
+	RespondoSchemata
+		(RespondoScheme RespondoReply: [Number]
+			RespondoCapture 
+			{
+			        $MINDBOARD@Answer 
+		    	}
+		    	RespondoAction 
+			{
+				^OBJRESPONDO <- $MINDBOARD@Answer;
+			}
+		)
+
+	// LocutioSchemata
+		
+	scriboModel forLanguage en
+		ScriboSchemata
+
+		(ScriboScheme GenerateHMIHY: [ Number ]
+			ScriboAction 
+			{
+				//SetMainAnswerString( 'The result is ');
+				SetMainAnswerStringRandom( 'The result is ', 'Ok, after a lot of computational work I think that the correct answer is ');
+
+				SetMainAnswerString( ShapeToString(#OBJLOCUTIO-1.NumberValue) );
+			}
+		)
+
+
+
+
+
+

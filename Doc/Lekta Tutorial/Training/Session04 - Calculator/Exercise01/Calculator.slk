@@ -7,6 +7,16 @@ LaunchLektaKernel()
 
 UseProject (ProjectCompile : ".Calculator.olk")
 
+setupRuntimeSpyMessageOn
+
 DisplayProcessUnderstandingOn
+DisplayProcessColligoOn
+DisplayProcessSensoOn
+DisplayProcessCogitoOn
+DisplayProcessRespondoOn
+DisplayProcessLocutioOn
+DisplayProcessScriboOn
 
 CreateDialogue()
+
+2 and 2

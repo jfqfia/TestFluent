@@ -51,10 +51,20 @@ Synonym
 Session04 - First dialogue system: Integer calculator
 
 Exercise01: Recognizing mathematical expressions
-
-Exercise02: Dialogue management evaluating the expression
-
-Exercise03: Dialogue management using the context
+setupTokenizerPunctuation
+Levels in rule grammars
+BuiltIn: ShapeToReal, Pow
+Additional functions
+Basic Dialogue System
+Colligo explanation
+Senso explanation
+Cogito explanation
+Respondo explanation
+Locutio explanation
+Scribo explanation
+SetMainAnswerStringRandom
+SetMainAnswerString
+Context example
 
 
 Session05 - Second dialogue system: Basic domotic assistant
