@@ -1,0 +1,15 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".English.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()
+
+// the boy kisses the girl
+// the boy kiss the girl
+// the boys kiss the girl
+// the boys kisses the girl
+
+
+

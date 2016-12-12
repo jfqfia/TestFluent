@@ -5,7 +5,7 @@
 
 LaunchLektaKernel()
 
-UseProject (ProjectCompile : ".Calculator_01.olk")
+UseProject (ProjectCompile : ".Calculator.olk")
 
 DisplayProcessUnderstandingOn
 

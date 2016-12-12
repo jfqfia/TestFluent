@@ -33,7 +33,8 @@ setupTokenizerIntegerClass
 ShapeToString
 TokenInputText
 
-Session03 - Unifier: Exercises with unification issues
+
+Session03 - Unification operator: Exercises with unification issues
 
 Exercise01: AnBn
 Unifier operator
@@ -43,6 +44,19 @@ Exercise02: AnBnCn
 Built-in funtions: Fail()
 
 Exercise03: Agreement in english natural language
-TODO
+ElementRange
+Synonym
+
+
+Session04 - First dialogue system: Integer calculator
+
+Exercise01: Recognizing mathematical expressions
+
+Exercise02: Dialogue management evaluating the expression
+
+Exercise03: Dialogue management using the context
+
+
+Session05 - Second dialogue system: Basic domotic assistant
 
 
