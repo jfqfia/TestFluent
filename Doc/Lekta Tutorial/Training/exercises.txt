@@ -64,9 +64,14 @@ Locutio explanation
 Scribo explanation
 SetMainAnswerStringRandom
 SetMainAnswerString
-Context example
+Context with partial expressions
 
 
 Session05 - Second dialogue system: Basic domotic assistant
+LaunchConversation
+setupTokenizerNormalizeSpecActivate 
+setupTokenizerNormalizeInputActivate
+setupTokenizerSpellingChecker
+
 
 

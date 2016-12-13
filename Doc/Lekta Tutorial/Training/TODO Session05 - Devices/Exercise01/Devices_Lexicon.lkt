@@ -1,0 +1,16 @@
+/***************************************************************************
+
+ ***************************************************************************/
+
+      ("alarm",        	Scope,    'alarm')
+      ("heating",   	Scope,    'heating')
+      ("irrigation",    Scope,    'irrigation')
+      ("light",    	Scope,    'light')
+
+      ("activate",      Action,   'activate')
+      ("deactivate",    Action,   'deactivate')
+      ("help",         	Action,   'help')
+      ("back",        	Action,   'back')
+      ("exit",         	Action,   'exit')
+
+

@@ -1,0 +1,70 @@
+/***************************************************************************
+ * SOURCEFILE => Devices_01_FUN_Spec.lkt
+ ***************************************************************************/
+
+      integer Menu() {
+         OutputItem ol <- (AnswerCommand:'mensaje',AnswerClass:'askDevice');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+      }
+
+      integer Quit() {
+         OutputItem ol <- (AnswerCommand:'interactivate',AnswerClass:'goodbye');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         CloseDialogue();
+         return 1;
+      }
+
+      integer AlarmActivate() {
+         OutputItem ol <- (AnswerCommand:'outcome',AnswerClass:'informAlarmOn');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer AlarmDeactivate() {
+         OutputItem ol <- (AnswerCommand:'outcome',AnswerClass:'informAlarmOff');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer AlarmHelp() {
+         OutputItem ol <- (AnswerCommand:'mensaje',AnswerClass:'helpAlarm');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer HeatingActivate() {
+         OutputItem ol <- (AnswerCommand:'outcome',AnswerClass:'informHeatingOn');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer HeatingDeactivate() {
+         OutputItem ol <- (AnswerCommand:'outcome',AnswerClass:'informHeatingOff');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer HeatingHelp() {
+         OutputItem ol <- (AnswerCommand:'mensaje',AnswerClass:'helpHeating');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer IrrigationActivate() {
+         OutputItem ol <- (AnswerCommand:'outcome',AnswerClass:'informIrrigationOn');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer IrrigationDeactivate() {
+         OutputItem ol <- (AnswerCommand:'outcome',AnswerClass:'informIrrigationOff');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+
+      integer IrrigationHelp() {
+         OutputItem ol <- (AnswerCommand:'mensaje',AnswerClass:'helpIrrigation');
+         BatchInsertEnd($MINDBOARD@Output.OutputBatch,ol);
+         return 1;
+      }
+

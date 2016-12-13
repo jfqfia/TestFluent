@@ -10,13 +10,16 @@ UseProject (ProjectCompile : ".Calculator.olk")
 setupRuntimeSpyMessageOn
 
 DisplayProcessUnderstandingOn
-DisplayProcessColligoOn
-DisplayProcessSensoOn
-DisplayProcessCogitoOn
-DisplayProcessRespondoOn
-DisplayProcessLocutioOn
-DisplayProcessScriboOn
+//DisplayProcessColligoOn
+//DisplayProcessSensoOn
+//DisplayProcessCogitoOn
+//DisplayProcessRespondoOn
+//DisplayProcessLocutioOn
+//DisplayProcessScriboOn
 
 CreateDialogue()
 
-2 and 2
+two plus two
+plus four
+factorial
+divided by eight times seven

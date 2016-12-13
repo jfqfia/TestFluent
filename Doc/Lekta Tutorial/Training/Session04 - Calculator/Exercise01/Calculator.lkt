@@ -1,8 +1,8 @@
-/***************************************************************************
+/****************************************************************************
 
 
 
- ***************************************************************************/
+****************************************************************************/
 
 lektaProject
 
@@ -54,7 +54,20 @@ lektaProject
 		classDef:ElementInt
 		(
 			int
+		)
+
+		classDef:StructureComplex
+		(
+			Error:
+			(
+				Flag
+			)
 		)	
+
+		classDef:ElementBool
+		(
+			Flag
+		)
 
 	functionModel
 		// Recursive
@@ -147,7 +160,7 @@ lektaProject
 			}
 		)
 
-		(R2: [ Expression/3 -> Expression/3 lexAdd Expression/2 ]
+		(R2: [ Expression/3 -> Expression/2 lexAdd Expression/3 ]
 			{ 
 				^.Value.NumberValue <- #1.Value.NumberValue + #3.Value.NumberValue;
 				^.Operator <- '+';
@@ -156,7 +169,7 @@ lektaProject
 			} 
 		)
 
-		(R3: [ Expression/3 -> Expression/3 lexSubstract Expression/2 ] 
+		(R3: [ Expression/3 -> Expression/2 lexSubstract Expression/3 ] 
 			{ 
 				^.Value.NumberValue <- #1.Value.NumberValue - #3.Value.NumberValue;
 				^.Operator <- '-';
@@ -165,7 +178,7 @@ lektaProject
 			} 
 		)
 
-		(R4: [ Expression/2 -> Expression/2 lexMultiply Expression/1 ] 
+		(R4: [ Expression/2 -> Expression/1 lexMultiply Expression/2 ] 
 			{ 
 				^.Value.NumberValue <- #1.Value.NumberValue * #3.Value.NumberValue;
 				^.Operator <- '*';
@@ -174,7 +187,7 @@ lektaProject
 			} 
 		)
 
-		(R5: [ Expression/2 -> Expression/2 lexDivide Expression/1 ] 
+		(R5: [ Expression/2 -> Expression/1 lexDivide Expression/2 ] 
 			{ 
 				^.Value.NumberValue <- #1.Value.NumberValue / #3.Value.NumberValue;
 				^.Operator <- '/';
@@ -183,7 +196,7 @@ lektaProject
 			} 
 		)
 
-		(R6: [ Expression/1 -> Expression/1 lexPow Expression/0 ] 
+		(R6: [ Expression/1 -> Expression/0 lexPow Expression/1 ] 
 			{ 
 				^.Value.NumberValue <- Pow(ShapeToReal(#1.Value.NumberValue), ShapeToReal(#3.Value.NumberValue));
 				^.Operator <- '^';
@@ -192,7 +205,7 @@ lektaProject
 			} 
 		)
 
-		(R7: [ Expression/1 -> Expression/1 lexToThe Expression/0 lexOrdinal lexPower ] 
+		(R7: [ Expression/1 -> Expression/0 lexToThe Expression/1 lexOrdinal? lexPower ] 
 			{ 
 				^.Value.NumberValue <- Pow(ShapeToReal(#1.Value.NumberValue), ShapeToReal(#3.Value.NumberValue));
 				^.Operator <- '^';
@@ -215,11 +228,60 @@ lektaProject
 			} 
 		)
 
+		(R10: [ Expression/3 -> lexAdd Expression/3 ]
+			{ 
+				^.Operator <- '+';
+			        ^.RightExpression <- #2; 
+			} 
+		)
+
+		(R11: [ Expression/3 -> lexSubstract Expression/3 ] 
+			{ 
+				^.Operator <- '-';
+			        ^.RightExpression <- #2; 
+			} 
+		)
+
+		(R12: [ Expression/2 -> lexMultiply Expression/2 ] 
+			{ 
+				^.Operator <- '*';
+	           		^.RightExpression <- #2; 
+			} 
+		)
+
+		(R13: [ Expression/2 -> lexDivide Expression/2 ] 
+			{ 
+				^.Operator <- '/';
+			        ^.RightExpression <- #2; 
+			} 
+		)
+
+		(R14: [ Expression/1 -> lexPow Expression/1 ] 
+			{ 
+				^.Operator <- '^';
+	           	        ^.RightExpression <- #2; 
+			} 
+		)
+
+		(R15: [ Expression/1 -> lexToThe Expression/1 lexOrdinal? lexPower ] 
+			{ 
+				^.Operator <- '^';
+	           	        ^.RightExpression <- #2; 
+			} 
+		)
+
+	 	(R16: [ Expression/0 ->  lexFactorial ]
+	      		{ 
+				^.Operator <- '!';
+			} 
+		)
+
 	conversationalModel
 		MindBoardStructure: 
 		{
 			( UserExpression / Expression )
 			( Answer / Number )
+			( Error / Error )
 		}
 	
 	ColligoSchemata
@@ -242,11 +304,59 @@ lektaProject
 		(CogitoScheme Thinking1 :
 			CogitoCapture 
 			{
-        			$MINDBOARD@UserExpression
+        			$MINDBOARD@UserExpression && $MINDBOARD@UserExpression.LeftExpression
 			}
 			CogitoAction 
 			{
 			        $MINDBOARD@Answer <- $MINDBOARD@UserExpression.Value;
+				CogitoQuit();
+			}
+		)
+
+		(CogitoScheme Thinking2 :
+			CogitoCapture 
+			{
+        			$MINDBOARD@UserExpression && !! $MINDBOARD@Answer.NumberValue
+			}
+			CogitoAction 
+			{
+			        $MINDBOARD@Error.Flag <- True;
+				CogitoQuit();
+			}
+		)
+
+		(CogitoScheme Thinking3 :
+			CogitoAction 
+			{
+				int value <- $MINDBOARD@Answer.NumberValue;
+				int otherValue <- $MINDBOARD@UserExpression.RightExpression.Value.NumberValue;
+
+				if($MINDBOARD@UserExpression.Operator == '+')
+				{
+					value <- value + otherValue;
+				}
+				else if($MINDBOARD@UserExpression.Operator == '-')
+				{
+					value <- value - otherValue;
+				}
+				else if($MINDBOARD@UserExpression.Operator == '*')
+				{
+					value <- value * otherValue;
+				}
+				else if($MINDBOARD@UserExpression.Operator == '/')
+				{
+					value <- value / otherValue;
+				}
+				else if($MINDBOARD@UserExpression.Operator == '^')
+				{
+					value <- Pow(ShapeToReal(value), ShapeToReal(otherValue));
+				}
+				else if($MINDBOARD@UserExpression.Operator == '!')
+				{
+					value <- factorial(value);
+				}
+					
+			        $MINDBOARD@Answer.NumberValue <- value;
 				CogitoQuit();
 			}
 		)
@@ -263,12 +373,24 @@ lektaProject
 			}
 		)
 
+		(RespondoScheme RespondoReply: [Error]
+			RespondoCapture 
+			{
+			        $MINDBOARD@Error.Flag == True
+		    	}
+		    	RespondoAction 
+			{
+				^OBJRESPONDO <- $MINDBOARD@Error;
+				$MINDBOARD@Error.Flag <- False;
+			}
+		)
+
 	// LocutioSchemata
 		
 	scriboModel forLanguage en
 		ScriboSchemata
 
-		(ScriboScheme GenerateHMIHY: [ Number ]
+		(ScriboScheme Result: [ Number ]
 			ScriboAction 
 			{
 				//SetMainAnswerString( 'The result is ');
@@ -278,6 +400,12 @@ lektaProject
 			}
 		)
 
+		(ScriboScheme Result: [ Error ]
+			ScriboAction 
+			{
+				SetMainAnswerString( 'You must give me some valid expression. Please try again.');
+			}
+		)
 
 
 

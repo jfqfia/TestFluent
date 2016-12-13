@@ -1,0 +1,12 @@
+MindBoardStructure: 
+{
+       	(Input  / InputModel)
+       	(Control / Control)
+       	(Output / OutputModel)
+}
+
+LaunchConversation: 
+{
+       	LaunchSendToMindBoard:
+       	(Control = (Position: 'start') )
+}
