@@ -3,8 +3,6 @@
 
 \usefonttheme[onlymath]{serif}
 
-\usepackage{color}
-\usepackage{colortbl}
 \usepackage{multicol}
 \usepackage{amssymb,amsmath,amsthm,stmaryrd}
 \usepackage{indentfirst}
@@ -13,9 +11,10 @@
 \usepackage{fancybox}
 \usepackage{tikz}
 \usepackage{tikz-qtree}
+\usepackage{color}
+\usepackage{colortbl}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage{soul}
 
 \usetikzlibrary{trees,shapes,decorations}
 
@@ -77,8 +76,8 @@
 	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
 	\begin{block}{Differences between natural and formal languages:}
 		\begin{enumerate}
-			\item Computers don't understand natural languages, (normal) humans don't understand computer languages.
 			\pause
+			\item Computers don't understand natural languages, (normal) humans don't understand computer languages.
 			\item Formal languages shouldn't have ambiguities, but natural languages do have.
 		\end{enumerate}
 	\end{block} 
@@ -1319,262 +1318,16 @@ But in natural languages we can have several lexical categories corresponding to
 \subsection{Unifier}
 
 \begin{frame}
-\frametitle{Unification}
-\begin{itemize}
-	\item The main goal of unification is to find out that two different terms are in fact identical.
-	\pause 
-	\item Using unification \textbf{with} feature structures (Lexical Object Theory - Jose F Quesada):
-	\begin{itemize}
-		\item Adequate for linguistic phenomena.
-		\item Computationally efficient.
-		\item Formal soundness.
-	\end{itemize}
-\end{itemize}
-\pause
-\vspace{15pt}
-\begin{columns}
-		\begin{column}{0.45\textwidth}
-		\begin{scriptsize}
-		$\begin{bmatrix}
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Number:} & \texttt{plural}\\ 
-															\end{bmatrix}
-		\end{bmatrix}$\\
-		\vspace{10pt}
-		$\begin{bmatrix}
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Person:} & \texttt{3}\\ 
-															\end{bmatrix}\\
-				\textsc{Tense:}     & \texttt{present}
-														
-		\end{bmatrix}$
-		\end{scriptsize}
-		\end{column}
-		
-		\begin{column}{0.1\textwidth}
-		\pause
-		\&$>$
-		\end{column}
-		
-		\begin{column}{0.45\textwidth}
-		\begin{scriptsize}
-		$\begin{bmatrix}
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Number:} & \texttt{plural}\\ 
-																	\textsc{Person:} & \texttt{3}\\ 
-															\end{bmatrix}\\
-				\textsc{Tense:}     & \texttt{present}
-														
-		\end{bmatrix}$
-		\end{scriptsize}
-		\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-\begin{columns}
-		\begin{column}{0.45\textwidth}
-		\begin{scriptsize}
-		$\begin{bmatrix}
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Number:} & \texttt{plural}\\ 
-															\end{bmatrix}
-		\end{bmatrix}$\\
-		\vspace{10pt}
-		$\begin{bmatrix}
-				\textsc{Tense:}     & \texttt{past}\\
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Number:} & \texttt{singular}\\ 
-															\end{bmatrix}
-				
-														
-		\end{bmatrix}$
-		\end{scriptsize}
-		\end{column}
-		
-		\begin{column}{0.1\textwidth}
-		\pause
-		\&$>$
-		\end{column}
-		
-		\begin{column}{0.45\textwidth}
-		FAIL!!
-		\end{column}
-\end{columns}
-\pause
-\begin{columns}
-		\begin{column}{0.45\textwidth}
-		\begin{scriptsize}
-		$\begin{bmatrix}
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Person:} & \texttt{3}\\ 
-															\end{bmatrix}\\
-				\textsc{Tense:}     & \texttt{present}
-		\end{bmatrix}$\\
-		\vspace{10pt}
-		$\begin{bmatrix}
-				\textsc{Tense:}     & \texttt{past}\\
-				\textsc{Subject:}   & \begin{bmatrix}
-																	\textsc{Number:} & \texttt{singular}\\ 
-															\end{bmatrix}
-				
-														
-		\end{bmatrix}$
-		\end{scriptsize}
-		\end{column}
-		
-		\begin{column}{0.1\textwidth}
-		\pause
-		\&$>$
-		\end{column}
-		
-		\begin{column}{0.45\textwidth}
-		FAIL!!
-		\end{column}
-\end{columns}
-\visible<4>{
-	\begin{center}
-		\includegraphics[width=0.5\textwidth]{milestone.eps}\\
-		\begin{tiny}
-			CC by Kat at the English language Wikipedia SA. 3.0
-		\end{tiny}
-	\end{center}}
 \end{frame}
 
 \section{Dialogue Manager}
 
 \begin{frame}
-\frametitle{Dialogue Manager}
-	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
-	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
-	\begin{block}{Definition of Dialogue Manager (\textbf{DM})}
-		\vspace{10pt}
-		It's the part of a dialogue system responsible for the state and flow of the conversation.
-		\vspace{10pt}
-		\pause
-		\begin{itemize}
-			\item The input of \textbf{DM} is the human proference converted to a semantic representation by \textbf{NLU} component.
-			\item \textbf{DM} maintains some state variables (dialogue history, latest unanswered question, etc.) depending on the system (ie. the \textbf{context}).
-			\item The output of \textbf{DM} will be another semantic representation of what system want to communicate to human. This will be converted to natural language by the \textbf{NLG} component.
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Pragmatics}
-	\begin{itemize}
-		\item Pragmatics is a subfield in linguistics that studies the way in which \textbf{context} contributes to meaning.
-		\item So pragmatics studies how the transmission of meaning depends not only on grammar or lexicon, but also on the context.
-		\item These techniques explain how human beings are able to overcome apparent ambiguities or misunderstandings.
-	\end{itemize}
-	\pause
-	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
-	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
-	\begin{block}{Example}
-		\vspace{10pt}
-		The man saw a woman with a telescope.\\
-		\vspace{10pt}
-		\pause
-		\textbf{S:} How old are you?\\
-		\textbf{U:} 24 \pause {\color{teal} $\rightarrow$ no need of confirmation} \\
-		\vspace{10pt}
-	\end{block}
-\end{frame}
-
-\begin{frame}[noframenumbering]
-\frametitle{Pragmatics}
-	\begin{itemize}
-		\item Pragmatics is a subfield in linguistics that studies the way in which \textbf{context} contributes to meaning.
-		\item So pragmatics studies how the transmission of meaning depends not only on grammar or lexicon, but also on the context.
-		\item These techniques explain how human beings are able to overcome apparent ambiguities or misunderstandings.
-	\end{itemize}
-	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
-	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
-	\begin{block}{Example}
-		\vspace{10pt}
-		The man saw a woman with a telescope.\\
-		\vspace{10pt}
-		\textbf{S:} \st{How old are you?}\\
-		\textbf{U:} 24 \\
-		\vspace{10pt}
-	\end{block}
-\end{frame}
-
-\begin{frame}[noframenumbering]
-\frametitle{Pragmatics}
-	\begin{itemize}
-		\item Pragmatics is a subfield in linguistics that studies the way in which \textbf{context} contributes to meaning.
-		\item So pragmatics studies how the transmission of meaning depends not only on grammar or lexicon, but also on the context.
-		\item These techniques explain how human beings are able to overcome apparent ambiguities or misunderstandings.
-	\end{itemize}
-	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
-	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
-	\begin{block}{Example}
-		\vspace{10pt}
-		The man saw a woman with a telescope.\\
-		\vspace{10pt}
-		\textbf{S:} How many pizzas do you want?\\
-		\textbf{U:} 24 \pause {\color{red} $\rightarrow$ we seriously need to confirm this!} \\
-		\vspace{10pt}
-	\end{block}
 \end{frame}
 
 \section{Natural Language Generation}
 
 \begin{frame}
-\frametitle{Natural Language Generation (\textbf{NLG})}
-	\begin{itemize}
-		\item It's the last component of the Dialogue System.
-		\pause
-		\item Receives as input some semantic representation (from \textbf{DM}) of what system must say.
-		\pause
-		\item The output will be a string in natural language trying to communicate that semantic representation.
-		\pause
-		\item Traditionally, the process is decomposed into two stages:
-		\begin{itemize}
-			\item \textbf{Conceptualizer}: What to say.
-			\item \textbf{Formulator}: How to say.
-		\end{itemize}
-		\pause
-		\item But frontiers between these modules are subtle: sequential, integrated, interactive, blackboard, revision-based,...
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Template-based systems}
-	\begin{itemize}
-		\item But, in practice, a simple and efficient model for language generation is templated-based systems.
-		\pause
-		\item These systems map their input (semantic representation) directly to linguistic structure. This structure may contain ``gaps'' which are filled in during output.
-	\end{itemize}
-	\pause
-	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
-	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
-	\begin{block}{Example}
-		\vspace{10pt}
-		\begin{center}
-		\textsc{Departure:} \small 
-				$\begin{bmatrix}
-						\textsc{Flight:}    & \texttt{Delta 2047}\\ 
-						\textsc{Gate:}     	& \texttt{B37}\\ 
-						\textsc{Time:}  		& \texttt{15:00}\\ 
-				\end{bmatrix}$
-		\end{center}
-		\small
-		\begin{center}
-			\texttt{\{Flight\} flight will depart from gate \{Gate\} at \{Time\}.}
-		\end{center}
-		\vspace{10pt}
-	\end{block}
-\end{frame}
-
-\begin{frame}
-	\begin{center}
-		\includegraphics[width=1.0\textwidth]{milestone.eps}\\
-		\begin{tiny}
-			CC by Kat at the English language Wikipedia SA. 3.0
-		\end{tiny}
-	\end{center}
 \end{frame}
 
 \end{document}
