@@ -9,8 +9,8 @@
 
       ("activate",      Action,   'activate')
       ("deactivate",    Action,   'deactivate')
-      ("help",         	Action,   'help')
-      ("back",        	Action,   'back')
+
       ("exit",         	Action,   'exit')
+      ("bye",         	Action,   'exit')
 
 

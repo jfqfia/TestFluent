@@ -1,0 +1,181 @@
+/***************************************************************************
+
+ ***************************************************************************/
+
+procedure InitializeContext()
+{
+	$MINDBOARD@Control.AlarmFlag <- False;
+	$MINDBOARD@Control.HeatingFlag <- False;		
+	$MINDBOARD@Control.IrrigationFlag <- False;		
+	$MINDBOARD@Control.LightFlag <- False;	
+}
+
+procedure NormalizeProferences()
+{
+	integer size <- BatchSize($MINDBOARD@Input.UserProferences);
+	UserProference lastRecoveredProference;
+	UserProference currentRecoveredProference;
+
+	for(integer position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition($MINDBOARD@Input.UserProferences, position, currentRecoveredProference);
+
+		if(!! Filled(currentRecoveredProference.Action) && Filled(lastRecoveredProference.Action))
+		{
+			currentRecoveredProference.Action <- lastRecoveredProference.Action;
+			BatchAssignPosition( $MINDBOARD@Input.UserProferences, position, currentRecoveredProference);
+		}
+
+		lastRecoveredProference <- currentRecoveredProference;
+	}	
+}
+
+boolean ExecuteTasks()
+{
+	integer size <- BatchSize($MINDBOARD@Input.UserProferences);
+	UserProference currentRecoveredProference;
+
+	boolean end <- False;
+	for(integer position <- 1; position <= size; position++)
+	{
+		BatchRecoverPosition($MINDBOARD@Input.UserProferences, position, currentRecoveredProference);
+
+		if(Filled(currentRecoveredProference.Action) && Filled(currentRecoveredProference.Scope))
+		{
+			if(currentRecoveredProference.Scope == 'light')
+			{
+				ExecuteLightTask(currentRecoveredProference.Action);
+			}
+			else if(currentRecoveredProference.Scope == 'heating')
+			{
+				ExecuteHeatingTask(currentRecoveredProference.Action);
+			}
+			else if(currentRecoveredProference.Scope == 'irrigation')
+			{
+				ExecuteIrrigationTask(currentRecoveredProference.Action);
+			}
+			else 
+			{
+				ExecuteAlarmTask(currentRecoveredProference.Action);
+			}
+		}
+		
+		if(Filled(currentRecoveredProference.Action) && currentRecoveredProference.Action == 'exit')
+		{
+			end <- True;
+		}
+	}	
+
+	if(end)
+	{
+		Answer answer;
+		answer.AnswerType <- 'bye';
+		BatchInsertEnd($MINDBOARD@Output.Answers, answer);	
+	}
+		
+	return end;
+}
+
+procedure ResetInput()
+{
+	UserProferences emptyUserProferences;
+
+	$MINDBOARD@Input.UserProferences <- emptyUserProferences;
+}
+
+procedure ExecuteLightTask(Action action)
+{
+	Answer answer;
+
+	answer.Scope <- 'light';
+	if((action == 'activate' && $MINDBOARD@Control.LightFlag) || ((action == 'deactivate' && !! $MINDBOARD@Control.LightFlag)))
+	{
+		answer.AnswerType <- 'noChangedState';
+	}
+	else
+	{
+		$MINDBOARD@Control.LightFlag <- !! $MINDBOARD@Control.LightFlag;
+		answer.AnswerType <- 'changedState';
+	}
+
+	BatchInsertEnd($MINDBOARD@Output.Answers, answer);
+}
+
+procedure ExecuteIrrigationTask(Action action)
+{
+	Answer answer;
+
+	answer.Scope <- 'irrigation';
+	if((action == 'activate' && $MINDBOARD@Control.IrrigationFlag) || ((action == 'deactivate' && !! $MINDBOARD@Control.IrrigationFlag)))
+	{
+		answer.AnswerType <- 'noChangedState';
+	}
+	else
+	{
+		$MINDBOARD@Control.IrrigationFlag <- !! $MINDBOARD@Control.IrrigationFlag;
+		answer.AnswerType <- 'changedState';
+	}
+
+	BatchInsertEnd($MINDBOARD@Output.Answers, answer);
+}
+
+procedure ExecuteHeatingTask(Action action)
+{
+	Answer answer;
+
+	answer.Scope <- 'heating';
+	if((action == 'activate' && $MINDBOARD@Control.HeatingFlag) || ((action == 'deactivate' && !! $MINDBOARD@Control.HeatingFlag)))
+	{
+		answer.AnswerType <- 'noChangedState';
+	}
+	else
+	{
+		$MINDBOARD@Control.HeatingFlag <- !! $MINDBOARD@Control.HeatingFlag;
+		answer.AnswerType <- 'changedState';
+	}
+
+	BatchInsertEnd($MINDBOARD@Output.Answers, answer);
+}
+
+procedure ExecuteAlarmTask(Action action)
+{
+	Answer answer;
+
+	answer.Scope <- 'alarm';
+	if((action == 'activate' && $MINDBOARD@Control.AlarmFlag) || ((action == 'deactivate' && !! $MINDBOARD@Control.AlarmFlag)))
+	{
+		answer.AnswerType <- 'noChangedState';
+	}
+	else
+	{
+		$MINDBOARD@Control.AlarmFlag <- !! $MINDBOARD@Control.AlarmFlag;
+		answer.AnswerType <- 'changedState';
+	}
+
+	BatchInsertEnd($MINDBOARD@Output.Answers, answer);
+}
+
+boolean GetState(Scope scope)
+{
+	boolean ret;
+
+	if(scope == 'light')
+	{
+		ret <- $MINDBOARD@Control.LightFlag;	
+	}
+	else if(scope == 'irrigation')
+	{
+		ret <- $MINDBOARD@Control.IrrigationFlag;	
+	}
+	else if(scope == 'heating')
+	{
+		ret <- $MINDBOARD@Control.HeatingFlag;	
+	}
+	else if(scope == 'alarm')
+	{
+		ret <- $MINDBOARD@Control.AlarmFlag;	
+	}
+
+	return ret;
+} 
+

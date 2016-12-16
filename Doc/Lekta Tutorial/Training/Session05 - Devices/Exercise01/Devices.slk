@@ -1,0 +1,10 @@
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".Devices.olk")
+
+//DisplayProcessUnderstandingOn
+//DisplayProcessCogitoOn
+
+CreateDialogue()
+
+activate light and heating but deactivate irrigation and alarm

@@ -1,0 +1,10 @@
+/***************************************************************************
+
+ ***************************************************************************/
+
+procedure InitializeContext();
+procedure NormalizeProferences();
+boolean ExecuteTasks();
+procedure ResetInput();
+boolean GetState(Scope);
+

@@ -9,13 +9,20 @@
 	} 
 )
 
-(R2: [ UserProference -> Action ]
+(R2: [ UserProference -> Scope Action ]
+	{ 
+		^.Action <- #2;
+		^.Scope <- #1; 
+	} 
+)
+
+(R3: [ UserProference -> Action ]
 	{ 
 		^.Action <- #1;
 	} 
 )
 
-(R3: [ UserProference -> Scope ]
+(R4: [ UserProference -> Scope ]
 	{ 
 		^.Scope <- #1;
 	} 

@@ -27,28 +27,26 @@ lektaProject
    grammaticalModel forLanguage en
       	#Include "Devices_Grammar.lkt"
 
-/*
    functionModel
       	#Include "Devices_Functions.lkth"
 
    conversationalModel
 	#Include "Devices_Mindboard.lkt"
-      
+
       	SensoSchemata
         	#Include "Devices_Senso.lkt"
 
       	CogitoSchemata
         	#Include "Devices_Cogito.lkt"
 
-     	RespondoSchemata
+	RespondoSchemata
         	#Include "Devices_Respondo.lkt"
 
-   
-   	functionModel
-      		#Include "Devices_Functions.lkt"
-
-   	scriboModel forLanguage en
+	scriboModel forLanguage en
       		ScriboSchemata
          		#Include "Devices_Generation.lkt"
 
-*/
+   	functionModel
+      		#Include "Devices_Functions.lkt"
+
+

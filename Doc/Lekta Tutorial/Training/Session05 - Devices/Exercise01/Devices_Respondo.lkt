@@ -1,0 +1,17 @@
+/***************************************************************************
+
+ ***************************************************************************/
+
+(RespondoScheme R1: [ Answer ]
+	RespondoCapture 
+	{
+		(BatchSize($MINDBOARD@Output.Answers) > 0)
+	}
+	RespondoAction 
+	{
+		Answer answer;
+                BatchExtractInit($MINDBOARD@Output.Answers, answer);
+                ^OBJRESPONDO <- answer;
+                RespondoRetry();
+        }
+)

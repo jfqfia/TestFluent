@@ -1,0 +1,130 @@
+/***************************************************************************
+
+ ***************************************************************************/
+
+      	// AUXILIAR
+      	classDef:ElementInt	(integer)
+      	classDef:ElementLiteral	(string)
+      	classDef:ElementBool	(boolean)
+
+      	// INPUT
+	classDef:ElementRange	
+	(
+		Scope: 
+		{ 
+			'alarm', 
+			'heating', 
+			'irrigation',
+			'light'
+		}
+	)
+
+      	classDef:ElementRange	
+	(
+		Action: 
+		{ 
+			'activate', 
+			'deactivate',
+			'exit' 
+		}
+	)
+
+      	classDef:StructureComplex
+	(
+		UserProference: 
+		( 
+			Action,
+			Scope
+		)
+	)
+
+	// MINDBOARD INPUT MODEL
+	classDef:StructureComplex
+	(
+		InputModel:
+		(
+			UserProferences
+		)
+	)
+
+	classDef:StructureBatch
+	(
+		UserProferences:
+		(
+			UserProference
+		)
+	)
+
+	// MINDBOARD CONTEXT MODEL
+	classDef:ElementBool
+	(
+		AlarmFlag,
+		HeatingFlag,
+		IrrigationFlag,
+		LightFlag
+	)
+
+	classDef:ElementRange
+	(
+		Position:
+		{
+			'start',
+			'waitingTask',
+			'executingTask',
+			'finalizingTurn',
+			'exit'
+		}
+	)
+
+	classDef:StructureComplex
+	(
+		ControlModel:
+		(
+			Position,
+			AlarmFlag,
+			HeatingFlag,
+			IrrigationFlag,
+			LightFlag
+		)
+	)
+
+	// MINDBOARD OUTPUT MODEL
+	classDef:StructureComplex
+	(
+		OutputModel:
+		(
+			Answers
+		)
+	)
+
+	classDef:ElementRange
+	(
+		AnswerType:	
+		{
+			'welcome',
+			'askTask',
+			'noChangedState',
+			'changedState',
+			'apologize',
+			'bye'
+		}
+	)
+	
+	classDef:StructureComplex
+	(
+		Answer:
+		(
+			AnswerType,
+			Action,
+			Scope
+		)
+	)
+
+	classDef:StructureBatch
+	(
+		Answers:
+		(
+			Answer
+		)
+	)
+
