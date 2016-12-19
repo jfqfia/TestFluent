@@ -1,4 +1,3 @@
-
 \documentclass[11pt]{beamer}
 \let\Tiny=\tiny
 
@@ -77,12 +76,22 @@
 	morekeywords=
 	{
 		classDef,
+		Void,
 	},
 	keywordstyle=[2]\color{purple},
 	keywords=[2]
 	{
-		ShapeToInt
-	}
+		lektaProject,
+		projectHead,
+		projectLanguageScope,
+		projectCompileOutput,
+		projectSetup,
+		setupParserRoots,
+		classModel,
+		lexicalModel,
+		forLanguage,
+		grammaticalModel
+	},
 }
 
 \begin{document}
@@ -98,13 +107,13 @@
 \begin{frame}
 	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
 	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
-	\begin{block}{Definition}
-			Lekta is a \textbf{framework} oriented to the design and implementation of Natural Language Processing (NLP) related applications. This includes:
+	\begin{block}{What is Lekta?}
+			Lekta is a software \textbf{framework} oriented to the design and implementation of Natural Language Processing (NLP) related applications. This includes:
 			\pause
 			\begin{itemize}
 				\item Some specialized and \textbf{optimized} modules widely used in NLP applications (tokenizer, parser and so on). You'll never reinvent the wheel anymore.
 				\pause
-				\item A simple and efficient way to define lexicons and grammar rules for any natural language.
+				\item A simple and efficient way to define lexicons and grammar rules for any language.
 				\pause
 				\item Early multilingual support for all your applications.
 				\pause
@@ -118,23 +127,22 @@
 \subsection{First project setup}
 
 \begin{frame}
-One file .lkt and one file .slk
+One file .lkt with at least 5 sections and one file .slk
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{AnBm.lkt}
 \tiny
 \begin{lstlisting}[language=lekta]
-// *******************************************************************
+// *********************************************************************
+//
 // Exercise 01: Generator/Recognizer for language AnBm. Where n,m >= 1
-// *******************************************************************
+//
+// *********************************************************************
 
 lektaProject
 	projectHead
-		projectDescriptor : "AnBm"
 		projectLanguageScope : [ anbm ]
-		projectOperationScope : [ test ]
-		projectInterfaceScope : [ dialogue ]
 		projectCompileOutput : ".AnBm.olk"
 
 	projectSetup
@@ -193,14 +201,60 @@ else
 \begin{frame}[fragile]
 \frametitle{Programming structures: switch}
 \begin{lstlisting}[language=lekta]
-// TODO
+string GetMonthName(integer month) {
+	switch (month) {
+		case  1 { return 'January';}
+		case  2 { return 'February';}
+		case  3 { return 'March';}
+		case  4 { return 'April';}
+		case  5 { return 'May';}
+		case  6 { return 'June';}
+		case  7 { return 'July';}
+		case  8 { return 'August';}
+		case  9 { return 'September';}
+		case 10 { return 'October';}
+		case 11 { return 'November';}
+		case 12 { return 'December';}
+	}
+}
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Programming structures: cond}
 \begin{lstlisting}[language=lekta]
-// TODO
+cond{
+    (!!cal.CalendarDay) {
+        errorMessage <- 'The month day of the provided date is missing.';
+    }
+    (!!cal.CalendarMonth) {
+        errorMessage <- 'The month of the provided date is missing.';
+    }
+    (!!cal.CalendarYear) {
+        errorMessage <- 'The year of the provided date is missing.';
+    }
+    	/***** TODO
+    default {
+        integer daysOfMonth <- getDaysOfMonth(cal.CalendarMonth, cal.CalendarYear);
+        cond{
+        ( daysOfMonth < cal.CalendarDay) {
+
+            StringSequence args;
+            BatchInsertEnd( args, Month2Speech(cal.CalendarMonth ));
+            BatchInsertEnd( args, ShapeToString(daysOfMonth ));
+            string template <- '$$ has only $$ days.';
+            //SpyMessage("Applying template" );
+            //SpyMessage("template: ", template );
+            //SpyMessage("Args: ", args );
+            errorMessage <- applyTemplate( template, args);
+        }
+        ((cal.CalendarMonth > 12) || (cal.CalendarMonth < 1)) {
+            errorMessage <- 'Wrong month number.';
+        }
+        ((cal.CalendarYear < currentYear)) {
+            errorMessage <- 'The provided date is in the past.';
+        }}
+    }
 \end{lstlisting}
 \end{frame}
 
@@ -528,7 +582,7 @@ else
 	%\begin{itemize}
 		%\item Separators: \texttt{(\textvisiblespace -\char`_)}
 		%\item Punctuation marks: \texttt{(,.;:!?)}
-		%\item Special symbols: \texttt{(\$\euro\%º)}
+		%\item Special symbols: \texttt{(\$\euro\%ยบ)}
 		%\item Numbers and its own separators: \texttt{(1234,.)}
 		%\item Alphanumeric codes: \texttt{(ES772024$\cdots$)}
 	%\end{itemize}
