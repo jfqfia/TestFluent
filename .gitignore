@@ -3,7 +3,6 @@ Deployment/
 *.swp
 *.aux
 *.log
-*.tcp
 *.tps
 *.docx
 *.synctex.gz

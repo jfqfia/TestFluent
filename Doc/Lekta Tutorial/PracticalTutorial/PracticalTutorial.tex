@@ -16,6 +16,7 @@
 \usepackage{eurosym}
 \usepackage{listings}
 \usepackage{soul}
+\usepackage{upquote}
 
 \definecolor{light_red}{rgb}{1,0.95,0.95} 
 \definecolor{gray}{rgb}{0.5,0.5,0.5} 
@@ -47,6 +48,8 @@
 
 \hypersetup{pdfpagemode=UseNone}
 
+\newcommand{\Operator}[1]{\textcolor{green}{#1}}
+
 \lstset
 {
 	basicstyle=\ttfamily,
@@ -61,7 +64,7 @@
   showspaces=false,               % show spaces adding particular underscores
   showstringspaces=false,         % underline spaces within strings
   showtabs=false,                 % show tabs within strings adding particular underscores
-  tabsize=3,                      % sets default tabsize to 2 spaces
+  tabsize=3,                      % sets default tabsize to 3 spaces
   captionpos=b,                   % sets the caption-position to bottom
   breaklines=true,                % sets automatic line breaking
   breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
@@ -72,12 +75,18 @@
 	language=C,
 	backgroundcolor=\color{light_red},
 	numberstyle=\tiny\color{gray},
-	morecomment=[s][\color{green}]{*}{*},
 	morekeywords=
 	{
 		classDef,
 		Void,
+		cond,
+		boolean,
+		String,
+		True,
+		False,
 	},
+	literate= {->}{{\Operator{->}}}1
+						,	
 	keywordstyle=[2]\color{purple},
 	keywords=[2]
 	{
@@ -90,7 +99,19 @@
 		classModel,
 		lexicalModel,
 		forLanguage,
-		grammaticalModel
+		grammaticalModel,
+		LaunchLektaKernel,
+		UseProject,
+		ProjectCompile,
+		DisplayProcessUnderstandingOn,
+		CreateDialogue,
+		ElementBool,
+		ElementInt,
+		ElementReal,
+		ElementLiteral,
+		ElementRange,
+		StructureBatch,
+		StructureComplex,
 	},
 }
 
@@ -126,12 +147,104 @@
 
 \subsection{First project setup}
 
-\begin{frame}
-One file .lkt with at least 5 sections and one file .slk
+\begin{frame}[fragile]
+\frametitle{Basic project setup}
+A lekta project is composed of a single text file.\\
+\vspace{5pt}
+\pause
+This file starts with the keyword ``\texttt{lektaProject}'' and has, at least, five sections:
+\vspace{5pt}
+\pause
+\scriptsize
+\begin{lstlisting}[language=lekta]
+lektaProject
+
+	projectHead
+		<...>
+
+	projectSetup
+		<...>
+		
+	classModel
+		<...>
+
+	lexicalModel forLanguage <...>
+		<...>
+		
+	grammaticalModel forLanguage <...>
+		<...>
+
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{AnBm.lkt}
+\frametitle{AnBm.lkt (1/4)}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Example}
+			\begin{itemize}
+				\item We would like to create a very simple lekta project.
+				\pause
+				\item It must be able to recognize sentences in a formal language defined as $A_nB_m$ with $n,m \geq 1$. 
+				\pause
+				\item In other words, this language is composed by all the strings that have at least one ``a'' followed by, at least, one ``b''.
+				\pause
+				\item \texttt{a a a a b b b}: {\color{green}Correct}.
+				\pause
+				\item \texttt{b b b a a a a}: {\color{red}Incorrect}.
+			\end{itemize}
+	\end{block}
+\pause
+\scriptsize
+\begin{lstlisting}[language=lekta]
+projectHead
+	// Languages defined for this project.
+	projectLanguageScope : [ anbm ]
+	
+	// Output file after compiling.
+	projectCompileOutput : ".AnBm.olk"
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{AnBm.lkt (2/4)}
+\small
+\begin{lstlisting}[language=lekta]
+projectSetup
+	// Possible output parser types.
+	setupParserRoots = S
+
+classModel
+	// Definition of all the types needed.
+	// Type Void acts as a label.
+	classDef:Void ( S, A, B, a, b )
+
+// Lexical model is language dependant
+lexicalModel forLanguage anbm
+	// Lexicon elements that we must detect.
+	// Here a and b act as grammar terminal symbols.
+	("a", a)
+	("b", b)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{AnBm.lkt (3/4)}
+\begin{lstlisting}[language=lekta]
+// Grammatical model is language dependant
+grammaticalModel forLanguage anbm
+	// List of grammar rules 
+	/* Always context free grammar. Among other things, this means that left part of the rule must be composed by one and only one non-terminal symbol */
+	(R1: [ S -> a A b B ])
+	(R2: [ A -> ])
+	(R3: [ A -> a A ])
+	(R4: [ B -> ])
+	(R5: [ B -> b B ])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{AnBm.lkt (4/4)}
 \tiny
 \begin{lstlisting}[language=lekta]
 // *********************************************************************
@@ -164,97 +277,505 @@ lektaProject
 \end{lstlisting}
 \end{frame}
 
-\subsection{Lekta as a programming language}
+\begin{frame}[fragile]
+\frametitle{Compiling and executing}
+\begin{itemize}
+	\item After creating \texttt{AnBm.lkt} file we must compile it:
+	\pause
+	\item \texttt{\$> lektac AnBm.lkt}
+	\pause
+	\item You must see: ``\texttt{Compilation Succesfully Finished}'' message.
+	\pause
+	\item And after that you must create a file for the lekta interpreter, \texttt{AnBm.slk}, to test and execute the project:
+	\pause
+	\item \texttt{\$> synclekta AnBm.slk}
+\end{itemize}
+\tiny
+\begin{lstlisting}[language=lekta]
+// Start lekta engine
+LaunchLektaKernel()
+
+// Use recently compiled project
+UseProject (ProjectCompile : ".AnBm.olk")
+
+// Options for visualization
+DisplayProcessUnderstandingOn
+
+// Start a dialogue with lekta
+CreateDialogue()
+\end{lstlisting}
+\end{frame}
+
+\section{Session 01}
+
+\subsection{Exercise 01}
 
 \begin{frame}[fragile]
-\frametitle{Programming structures: comments}
-\begin{lstlisting}[language=lekta]
-// This is a mono-line comment
-\end{lstlisting}
+\Huge
+\begin{center}
+Session 01: Exercise 01
+\end{center}
+\end{frame}
 
+\subsection{Exercise 02}
+
+\begin{frame}[fragile]
+\frametitle{Grammar rules syntax}
 \begin{lstlisting}[language=lekta]
-/*	This is a multi-line comment
-		with some lines	
-		commented */
+(<rule_label>:
+	[ <symbol> -> <list_of_symbols> ]
+	{
+		...
+		<commands>
+		...
+	}
+)
+\end{lstlisting}
+\pause
+\begin{itemize}
+	\item \texttt{<rule\_label>} Only useful for readability and debugging.
+	\item \texttt{<symbol>} A non-terminal symbol.
+	\item \texttt{<list\_of\_symbols>} List of terminal and non-terminal symbols needed for the triggering of this rule.
+	\item \texttt{<commands>} Commands to be executed  when this rule is triggered.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Special features: Optional symbol (?)}
+\small
+Rule \texttt{R2} can be interpreted as a mandatory `a' followed (or not) by `A'.
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> A? B? ])
+(R2: [ A -> a A? ])
+\end{lstlisting}
+\pause
+\begin{lstlisting}[language=lekta]
+// These rules are expanded into standard rules
+(R1: [ S -> A B ])
+(R1: [ S -> B ])
+(R1: [ S -> A ])
+(R1: [ S -> ])
+
+(R2: [ A -> a A ])
+(R2: [ A -> a ])
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Programming structures: if...else if...else}
+\frametitle{Special features: Or symbol ($|$)}
+\small
+Rule \texttt{R1} can be interpreted as a mandatory `A' followed by `B', `C' or `D'.
 \begin{lstlisting}[language=lekta]
-if(cond1)
-{
-	// Body 1
-}
-else if(cond2)
-{
-	// Body 2
-}
+(R1: [ S -> A < B | C | D > ])
+\end{lstlisting}
+\pause
+\begin{lstlisting}[language=lekta]
+// These rules are expanded into standard rules
+(R1: [ S -> A B ])
+(R1: [ S -> A C ])
+(R1: [ S -> A D ])
+\end{lstlisting}
+\vspace{15pt}
+\pause
+Special symbols can be combined:
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> A < B | C >? ])
+
+(R1: [ S -> A ])
+(R1: [ S -> A B ])
+(R1: [ S -> A C ])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Special features: Free order symbol (\%)}
+\small
+Rule \texttt{R1} can be interpreted as a mandatory `A' followed by `B', `C' and `D' in any order.
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> A < B % C % D > ])
+\end{lstlisting}
+\pause
+\begin{lstlisting}[language=lekta]
+// These rules are expanded into standard rules
+(R1: [ S -> A B C D ])
+(R1: [ S -> A B D C ])
+(R1: [ S -> A C B D ])
+(R1: [ S -> A C D B ])
+(R1: [ S -> A D B C ])
+(R1: [ S -> A D C B ])
+\end{lstlisting}
+\vspace{10pt}
+\pause
+When combining several special symbols we must take into account exponentially growing in the number of rules.
+\begin{lstlisting}[language=lekta]
+// 12 Rules when expanding
+(R1: [ S -> A < B % C % < D | E > > ])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Special features: Left and right limits (\&[+\^{}] and [+\$]\&)}
+\small
+Rule \texttt{R1} will only be triggered if there is nothing to the left of `A' expression:
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> &[+^] A B ])
+\end{lstlisting}
+\pause
+\vspace{15pt}
+Rule \texttt{R1} will only be triggered if there is nothing to the right of `B' expression:
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> A B [+$]& ])
+\end{lstlisting}
+\pause
+\vspace{15pt}
+Rule \texttt{R1} will only be triggered if there is nothing to the left of `A' expression and nothing to the right of `B' expression:
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> &[+^] A B [+$]& ])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 01: Exercise 02
+\end{center}
+\end{frame}
+
+\subsection{Exercise 03}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 01: Exercise 03
+\end{center}
+\end{frame}
+
+\subsection{Exercise 04}
+
+\begin{frame}[fragile]
+\frametitle{Type specification in Lekta}
+\begin{itemize}
+	\item At the very beginning we have not any type in our project.
+	\pause
+	\item So you must create all the types you may need (with \texttt{classDef} keyword).
+	\pause
+	\item To create new types we have metatypes (or type creators) in Lekta:
+	\begin{enumerate}
+		\item \texttt{ElementBool}: Boolean metatype.
+		\item \texttt{ElementInt}: Integer numbers metatype.
+		\item \texttt{ElementReal}: Real numbers metatype.
+		\item \texttt{ElementLiteral}: Strings of characters.
+		\item \texttt{ElementRange}: Enumerate type.
+		\item \texttt{StructureBatch}: Sequence of elements of the same type.
+		\item \texttt{StructureComplex}: Structure of elements of any type.
+	\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Type specification in Lekta}
+\begin{itemize}
+	\item So you \textbf{can't} declare a variable of type \texttt{ElementInt}.	
+	\pause
+	\item But you \textbf{can} create a type (let's say ``\texttt{integer}'') with the metatype \texttt{ElementInt} and declare a variable of type \texttt{integer}.
+\end{itemize}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Incorrect Example}
+\scriptsize
+\begin{lstlisting}[language=lekta]
 ...
-else
-{
-	// Body n
+ElementInt i <- 5; 
+...
+\end{lstlisting}
+\end{block}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Correct Example}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt ( integer )
+...
+integer i <- 5;
+...
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Type specification in Lekta}
+\begin{itemize}
+	\item Sometimes is useful to create some basic types in the beginning.
+	\pause
+	\item For example, if you are Java fan:
+\end{itemize}
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt     ( int ) 
+classDef:ElementBool    ( boolean ) 
+classDef:ElementLiteral ( String )
+...
+int i <- 5; 
+boolean flag <- False;
+String s <- 'this is a string';
+...
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Complex structures}
+\footnotesize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt     (Counter)
+classDef:ElementBool    (Flag)
+classDef:ElementLiteral (Expression)
+classDef:StructureComplex 
+( 
+	ExampleStructure:
+	(
+		Counter,
+		Flag,
+		Expression
+	)
+)
+...
+ExampleStructure a;
+a.Counter <- 5;
+a.Flag <- True;
+a.Expression <- 'this is a string';
+...
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{itemize}
+	\item Previous exercises only make some syntactic analysis of the language.
+	\pause
+	\item So we can only recognize valid sentences in that language (paser output is a void `\texttt{S}').
+	\pause
+	\item But we want now to do different things with that sentences.
+	\pause
+	\item So, how can we provide some semantic content to \texttt{AnBm} language?
+	\pause
+	\item The only reasonable semantic content is to have `\texttt{n}' and `\texttt{m}' values associated with `\texttt{S}' structure.
+\end{itemize}
+\footnotesize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt ( counterN, counterM )
+classDef:StructureComplex ( S:( counterN, counterM ) )
+classDef:StructureComplex ( A:( counterN ) )
+classDef:StructureComplex ( B:( counterM ) )
+classDef:Void ( a, b )
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(R1: [ S -> A B ] {
+		^.counterN <- #1.counterN;
+		^.counterM <- #2.counterM; } )
+
+(R2: [ A -> a A ] {
+		^.counterN <- 1 + #2.counterN; } )
+
+(R3: [ A -> a ] {
+		^.counterN <- 1; } )
+
+(R4: [ B -> b B ] {
+		^.counterM <- 1 + #2.counterM; } )
+
+(R5: [ B -> b ] {
+		^.counterM <- 1; } )
+\end{lstlisting}
+\footnotesize
+Note special syntax:
+\begin{itemize}
+	\item \texttt{\^{}} stands for left side term generated by the rule (upper node in parsing tree).
+	\item \texttt{\#1} stands for the first term in the right side of the rule.
+	\item \texttt{\#2} stands for the second term in the right side of the rule.
+	\item \texttt{\#N} stands for the nth term in the right side of the rule.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 01: Exercise 04
+\end{center}
+\end{frame}
+
+\section{Session 02}
+
+\subsection{Exercise 01}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 02: Exercise 01
+\end{center}
+\end{frame}
+
+\subsection{Exercise 02}
+
+\begin{frame}[fragile]
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Function and procedure declaration}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt ( integer )
+classDef:ElementBool ( bool )
+
+<ouput_type> function_name(<parameter_list>) {
+	...
 }
+
+bool f1(integer i) {
+	...
+}
+
+procedure function_name(<parameter_list>) {
+	...
+}
+
+procedure f2(integer i) {
+	...
+}
+
+EMPTY PARAMETER LIST
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Comments}
+\small
+\begin{lstlisting}[language=lekta]
+// This is a mono-line comment
+/*	This is a multi-line comment
+		with some commented lines	*/
+\end{lstlisting}
+\end{block}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Arithmetic operators}
+\begin{lstlisting}[language=lekta]
+a <- b + c; // Addition
+a <- b - c; // Subtraction
+a <- b * c; // Multiplication
+a <- b / c; // Division
+a++;        // Post-autoincrement
+++a;        // Pre-autoincrement
+a--;        // Post-autodecrement
+--a;        // Pre-autodecrement
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Comparation operators}
+\begin{lstlisting}[language=lekta]
+a >  b  // Greater
+a >= b  // Greater or equal
+a <  b  // Less
+a <= b  // Less or equal
+a == b  // Equal
+a != b  // Not equal
+\end{lstlisting}
+\end{block}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Boolean operators}
+\begin{lstlisting}[language=lekta]
+a && b  // And
+a || b  // Or
+!! a    // Not
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lazy evaluation}
+\begin{lstlisting}[language=lekta]
+\end{lstlisting}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Output}
+\begin{lstlisting}[language=lekta]
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Programming structures: if...else if...else}
+\small
+\begin{lstlisting}[language=lekta]
+if(month == 1)       { ret <- 'January';   }
+else if(month == 2)  { ret <- 'February';  }
+else if(month == 3)  { ret <- 'March';     }
+else if(month == 4)  { ret <- 'April';     }
+else if(month == 5)  { ret <- 'May';       }
+else if(month == 6)  { ret <- 'June';      }
+else if(month == 7)  { ret <- 'July';      }
+else if(month == 8)  { ret <- 'August';    }
+else if(month == 9)  { ret <- 'September'; }
+else if(month == 10) { ret <- 'October';   }
+else if(month == 11) { ret <- 'November';  }
+else                 { ret <- 'December';  }
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Programming structures: switch}
+\small
 \begin{lstlisting}[language=lekta]
-string GetMonthName(integer month) {
-	switch (month) {
-		case  1 { return 'January';}
-		case  2 { return 'February';}
-		case  3 { return 'March';}
-		case  4 { return 'April';}
-		case  5 { return 'May';}
-		case  6 { return 'June';}
-		case  7 { return 'July';}
-		case  8 { return 'August';}
-		case  9 { return 'September';}
-		case 10 { return 'October';}
-		case 11 { return 'November';}
-		case 12 { return 'December';}
-	}
+switch (month) 
+{
+	case  1 { ret <- 'January';}
+	case  2 { ret <- 'February';}
+	case  3 { ret <- 'March';}
+	case  4 { ret <- 'April';}
+	case  5 { ret <- 'May';}
+	case  6 { ret <- 'June';}
+	case  7 { ret <- 'July';}
+	case  8 { ret <- 'August';}
+	case  9 { ret <- 'September';}
+	case 10 { ret <- 'October';}
+	case 11 { ret <- 'November';}
+	default { ret <- 'December';}
 }
 \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Programming structures: cond}
+\small
 \begin{lstlisting}[language=lekta]
-cond{
-    (!!cal.CalendarDay) {
-        errorMessage <- 'The month day of the provided date is missing.';
-    }
-    (!!cal.CalendarMonth) {
-        errorMessage <- 'The month of the provided date is missing.';
-    }
-    (!!cal.CalendarYear) {
-        errorMessage <- 'The year of the provided date is missing.';
-    }
-    	/***** TODO
-    default {
-        integer daysOfMonth <- getDaysOfMonth(cal.CalendarMonth, cal.CalendarYear);
-        cond{
-        ( daysOfMonth < cal.CalendarDay) {
-
-            StringSequence args;
-            BatchInsertEnd( args, Month2Speech(cal.CalendarMonth ));
-            BatchInsertEnd( args, ShapeToString(daysOfMonth ));
-            string template <- '$$ has only $$ days.';
-            //SpyMessage("Applying template" );
-            //SpyMessage("template: ", template );
-            //SpyMessage("Args: ", args );
-            errorMessage <- applyTemplate( template, args);
-        }
-        ((cal.CalendarMonth > 12) || (cal.CalendarMonth < 1)) {
-            errorMessage <- 'Wrong month number.';
-        }
-        ((cal.CalendarYear < currentYear)) {
-            errorMessage <- 'The provided date is in the past.';
-        }}
-    }
+cond
+{
+	(month == 1)  { ret <- 'January';   }
+	(month == 2)  { ret <- 'February';  }
+	(month == 3)  { ret <- 'March';     }
+	(month == 4)  { ret <- 'April';     }
+	(month == 5)  { ret <- 'May';       }
+	(month == 6)  { ret <- 'June';      }
+	(month == 7)  { ret <- 'July';      }
+	(month == 8)  { ret <- 'August';    }
+	(month == 9)  { ret <- 'September'; }
+	(month == 10) { ret <- 'October';   }
+	(month == 11) { ret <- 'November';  }
+	default       { ret <- 'December';  }
+}
 \end{lstlisting}
 \end{frame}
 
@@ -271,37 +792,6 @@ cond{
 // TODO
 \end{lstlisting}
 \end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Opperators:}
-\begin{lstlisting}[language=lekta]
-// TODO
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}
-\end{frame}
-
-\section{Class model}
-
-\begin{frame}
-\end{frame}
-
-\subsection{Meta-types}
-
-\begin{frame}
-\end{frame}
-
-\section{Lexical model}
-
-\begin{frame}
-\end{frame}
-
-\section{Grammar model}
-
-\begin{frame}
-\end{frame}
-
 
 %\begin{frame}
 %\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
