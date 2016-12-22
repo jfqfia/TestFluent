@@ -17,6 +17,7 @@
 \usepackage{listings}
 \usepackage{soul}
 \usepackage{upquote}
+\usepackage{cancel}
 
 \definecolor{light_red}{rgb}{1,0.95,0.95} 
 \definecolor{gray}{rgb}{0.5,0.5,0.5} 
@@ -1091,7 +1092,218 @@ b.f4 <- 4;
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Overwrite operator}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt( f1, f2, f3, f4 )
+classDef:StructureComplex( S: (f1, f2, f3, f4) )
 
+...
+
+S a;
+a.f2 <- 2;
+a.f4 <- 4;
+
+S b;
+b.f3 <- 3;
+b.f4 <- 5;
+\end{lstlisting}
+\small
+\vspace{-10pt}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{a}: $\begin{bmatrix}
+																				\texttt{f2:}      & \texttt{2}\\ 
+																				\texttt{f4:}     	& \texttt{4}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{b}: $\begin{bmatrix}
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& $\cancel{4}$\texttt{5}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+\end{columns}
+\begin{center}
+\texttt{a <| b;}
+\end{center}
+\vspace{-30pt}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{a}: $\begin{bmatrix}
+																				\texttt{f2:}      & \texttt{2}\\ 
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& $\cancel{4}$\texttt{5}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{b}: $\begin{bmatrix}
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& $\cancel{4}$\texttt{5}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Unification operator}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt( f1, f2, f3, f4 )
+classDef:StructureComplex( S: (f1, f2, f3, f4) )
+
+...
+
+S a;
+a.f2 <- 2;
+a.f4 <- 4;
+
+S b;
+b.f3 <- 3;
+b.f4 <- 4;
+\end{lstlisting}
+\small
+\vspace{-10pt}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{a}: $\begin{bmatrix}
+																				\texttt{f2:}      & \texttt{2}\\ 
+																				\texttt{f4:}     	& \texttt{4}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{b}: $\begin{bmatrix}
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& \texttt{4}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+\end{columns}
+\begin{center}
+\texttt{a <\& b;}
+\end{center}
+\vspace{-30pt}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{a}: $\begin{bmatrix}
+																				\texttt{f2:}      & \texttt{2}\\ 
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& \texttt{4}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{b}: $\begin{bmatrix}
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& \texttt{4}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Unification operator}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt( f1, f2, f3, f4 )
+classDef:StructureComplex( S: (f1, f2, f3, f4) )
+
+...
+
+S a;
+a.f2 <- 2;
+a.f4 <- 4;
+
+S b;
+b.f3 <- 3;
+b.f4 <- 5;
+\end{lstlisting}
+\small
+\vspace{-10pt}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{a}: $\begin{bmatrix}
+																				\texttt{f2:}      & \texttt{2}\\ 
+																				\texttt{f4:}     	& \texttt{4}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{b}: $\begin{bmatrix}
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& $\cancel{4}$\texttt{5}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+\end{columns}
+\begin{center}
+\texttt{a <\& b;}
+\end{center}
+\vspace{-30pt}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{a}:[ ] \texttt{Fail();}
+		\end{center}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{center}
+			\texttt{b}: $\begin{bmatrix}
+																				\texttt{f3:}      & \texttt{3}\\ 
+																				\texttt{f4:}     	& $\cancel{4}$\texttt{5}\\ 
+																			\end{bmatrix}$
+		\end{center}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 03: Exercise 01
+\end{center}
+\end{frame}
+
+\subsection{Exercise 02}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 03: Exercise 02
+\end{center}
+\end{frame}
+
+\subsection{Exercise 03}
+
+\begin{frame}[fragile]
+\frametitle{Metatype \texttt{ElementRange}}
+\end{frame}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 03: Exercise 03
+\end{center}
+\end{frame}
 
 \end{document}
 
