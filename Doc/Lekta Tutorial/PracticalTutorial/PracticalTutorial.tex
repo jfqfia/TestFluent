@@ -18,6 +18,7 @@
 \usepackage{soul}
 \usepackage{upquote}
 \usepackage{cancel}
+\usepackage{xfrac}
 
 \definecolor{light_red}{rgb}{1,0.95,0.95} 
 \definecolor{gray}{rgb}{0.5,0.5,0.5} 
@@ -89,6 +90,8 @@
 	},
 	alsoletter={\#},
 	literate= {->}{{\Operator{->}}}1
+						{>>}{{\Operator{>>}}}1
+						{\&\&}{{\Operator{\&\&}}}1
 						,	
 	keywordstyle=[2]\color{purple},
 	keywords=[2]
@@ -115,6 +118,34 @@
 		ElementRange,
 		StructureBatch,
 		StructureComplex,
+		Synonym,
+		MindBoardStructure,
+		conversationalModel,
+		ColligoSchemata,
+		ColligoCapture,
+		ColligoScheme,
+		ColligoAction,
+		SensoSchemata,
+		SensoScheme,
+		SensoCapture,
+		SensoAction,
+		CogitoScheme,
+		CogitoCapture,
+		CogitoAction,
+		CogitoSchemata,
+		RespondoSchemata,
+		RespondoScheme,
+		RespondoCapture,
+		RespondoAction,
+		LocutioSchemata,
+		LocutioScheme,
+		LocutioCapture,
+		LocutioAction,
+		scriboModel,
+		ScriboSchemata,
+		ScriboScheme,
+		ScriboCapture,
+		ScriboAction,
 	},
 }
 
@@ -124,9 +155,9 @@
 \titlepage
 \end{frame}
 
-\section{Introduction}
+\section{Session 01: Formal languages}
 
-\subsection{Lekta as a framework}
+\subsection{Exercise 01}
 
 \begin{frame}
 	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
@@ -147,8 +178,6 @@
 			\end{itemize}
 	\end{block}
 \end{frame}
-
-\subsection{First project setup}
 
 \begin{frame}[fragile]
 \frametitle{Basic project setup}
@@ -309,14 +338,11 @@ CreateDialogue()
 \end{lstlisting}
 \end{frame}
 
-\section{Session 01: Formal languages}
-
-\subsection{Exercise 01}
-
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 01: Exercise 01
+Session 01: Exercise 01\\
+AnBm
 \end{center}
 \end{frame}
 
@@ -440,7 +466,8 @@ Rule \texttt{R1} will only be triggered if there is nothing to the left of `A' e
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 01: Exercise 02
+Session 01: Exercise 02\\
+AnBm with optional parameters
 \end{center}
 \end{frame}
 
@@ -449,7 +476,8 @@ Session 01: Exercise 02
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 01: Exercise 03
+Session 01: Exercise 03\\
+AnBmCn
 \end{center}
 \end{frame}
 
@@ -606,7 +634,8 @@ Note special syntax:
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 01: Exercise 04
+Session 01: Exercise 04\\
+AnBn
 \end{center}
 \end{frame}
 
@@ -617,7 +646,8 @@ Session 01: Exercise 04
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 02: Exercise 01
+Session 02: Exercise 01\\
+English lexicon and grammar
 \end{center}
 \end{frame}
 
@@ -855,6 +885,33 @@ for (position <- 1; position <= size; position++) {
 \frametitle{Built-in functions}
 \setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
 \setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Mathematics}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+integer Max(integer n1, integer n2);
+integer Min(integer n1, integer n2);
+integer Ceiling(real r);
+integer Floor(real r);
+integer Round(real r);
+integer Abs(integer n);
+integer Modulo(integer dividend, integer divisor);
+real Sqrt(real r);
+real Pow(real r);
+real Exp(real r);
+real Log10(real r);
+real LogN(real r);
+real Sin(real r);
+real Cos(real r);
+real Tan(real);
+integer Random(integer from, integer to);
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Built-in functions}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
 \begin{block}{Date \& time}
 \scriptsize
 \begin{lstlisting}[language=lekta]
@@ -959,7 +1016,8 @@ classDef:StructureComplex( Number: (NumberValue) )
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 02: Exercise 02
+Session 02: Exercise 02\\
+Grammar for parameter extraction - Numbers in english
 \end{center}
 \end{frame}
 
@@ -1279,7 +1337,8 @@ b.f4 <- 5;
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 03: Exercise 01
+Session 03: Exercise 01\\
+AnBn with unification operator
 \end{center}
 \end{frame}
 
@@ -1288,7 +1347,8 @@ Session 03: Exercise 01
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 03: Exercise 02
+Session 03: Exercise 02\\
+AnBnCn
 \end{center}
 \end{frame}
 
@@ -1296,12 +1356,790 @@ Session 03: Exercise 02
 
 \begin{frame}[fragile]
 \frametitle{Metatype \texttt{ElementRange}}
+\begin{itemize}
+	\item Used to create enumerated types.
+	\pause
+	\item Hence, the variables belonging to the created type must be equal to one of the values that have been predefined in it.
+\end{itemize}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Examples}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementRange (
+   CompassDirection: { 'north', 'east', 'south', 'west' }
+)
+
+classDef:ElementRange (
+   Number: { 'singular', 'plural' }
+)
+
+classDef:ElementRange (
+   Person:{ '1st', '2nd', '3rd' }
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Metatype \texttt{Synonym}}
+\begin{itemize}
+	\item Used to create types with exactly the same structure as other previously created type.
+\end{itemize}
+\pause
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:StructureComplex 
+(
+   Agreement: 
+   (
+      Number,
+      Person
+   )
+)
+
+classDef:Synonym 
+(
+   S, NP, VP, det, noun, verb = 
+   Agreement 
+)
+\end{lstlisting}
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
 \Huge
 \begin{center}
-Session 03: Exercise 03
+Session 03: Exercise 03\\
+Agreement in english natural language
+\end{center}
+\end{frame}
+
+\section{Session 04: Dialogue systems}
+
+\subsection{Exercise 01}
+
+\begin{frame}[fragile]
+\frametitle{Grammar rules levels}
+\begin{itemize}
+	\item Sometimes, ambiguities in grammar rules are impossible to avoid.
+	\pause
+	\item For example, when we define operations with associative property.
+\end{itemize}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: Mathematical expressions parser (classModel)}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementRange (
+   Operator: {
+      '+', '-', '*', '/' } )
+
+classDef:StructureComplex ( 
+   Expression: (
+      Operator, 
+      LeftExpression, 
+      RightExpression ) )
+
+classDef:Synonym ( 
+   LeftExpression, RightExpression = Expression )
+
+classDef:Void( lexAdd )
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Grammar rules levels}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: Mathematical expressions parser (lexicalModel)}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+// This is the lexicon related with addition operation
+
+// two+two
+setupTokenizerPunctuation   ("+", lexAdd) 
+
+// two + two
+("+",        lexAdd)
+
+// two plus two
+("plus",     lexAdd)
+
+// two and two
+("and",      lexAdd)
+
+// two added to two 
+("added to", lexAdd)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Grammar rules levels}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: Mathematical expressions parser (grammaticalModel)}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(R1: [ Expression -> Number ])
+
+(R2: [ Expression -> Expression lexAdd Expression ]
+   { 
+      ^.Operator <- '+';
+      ^.LeftExpression <- #1;
+      ^.RightExpression <- #3; 
+   }
+)
+\end{lstlisting}
+\end{block}
+\begin{itemize}
+	\item Let's assume that we have included lexical and grammatical ``Number'' (previous exercise).
+	\item So we can build some parser trees.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Grammar rules levels}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: One addition}
+\begin{center}
+	\Large
+	\texttt{1 + 2}\\
+	\normalsize
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ 1 2 ]
+	\end{tikzpicture}
+\end{center}
+\end{block}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: Two additions}
+\begin{center}
+	\Large
+	\texttt{1 + 2 + 3}\\
+	\normalsize
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ [.+ 1 2 ] 3 ]
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ 1 [.+ 2 3 ] ]
+	\end{tikzpicture}
+\end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+%\frametitle{Grammar rules levels}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: Three additions}
+\begin{center}
+	\Large
+	\texttt{1 + 2 + 3 + 4}\\
+	\tiny
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ [.+ [.+ 1 2 ] 3 ] 4 ]
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ [.+ 1 [.+ 2 3 ] ] 4 ]
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ [.+ 1 2 ] [.+ 3 4 ] ] ]
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ 1 [.+ [.+ 2 3 ] 4 ] ]
+	\end{tikzpicture}
+	\begin{tikzpicture}
+		\tikzset{every tree node/.style={circle}}
+		\tikzset{level 1+/.style={sibling distance=0.7\baselineskip}}
+		\Tree [.+ 1 [.+ 2 [.+ 3 4 ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{block}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example: ``$n$'' additions}
+Asimptotically, number of trees grows as $n$ order Catalan number ($C_n$)$^*$:
+\[
+C_n \sim \frac{4^n}{n^{\sfrac{3}{2}}}\texttt{ very quick!} 
+\]
+\tiny
+(*) for you, math freaks: https://en.wikipedia.org/wiki/Catalan\_number
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Grammar rules levels}
+So we must provide some kind of precedence order or priority in order to avoid such ambiguities: Levels in grammar rules.
+\scriptsize
+\begin{lstlisting}[language=lekta]
+// This rule produces an "Expression term of level 0"
+// 0 is the default value so these two rules are equivalent
+( R1: [ Expression/0 -> Number ] )
+( R1: [ Expression -> Number ] )
+
+// This rule produces an 1-level Expression and needs
+// a 0-level (or lower) Expression and 1-level (or lower)
+// Expression in order to be triggered:
+( R2: [ Expression/1 -> Expression/0 lexAdd Expression/1 ]
+   { 
+      ^.Operator <- '+';
+      ^.LeftExpression <- #1;
+      ^.RightExpression <- #3; 
+   }
+)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Grammar rules levels}
+\small
+\begin{center}
+\texttt{(R2:[ Expression/1 -> Expression/0 lexAdd Expression/1 ])}
+\end{center}
+\begin{center}
+	\large
+	\begin{tikzpicture}
+		\tikzset{level 1+/.style={level distance=15\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=2.9\baselineskip}}
+		\tikzset{frontier/.style={distance from root=4\baselineskip}}
+		\Tree [.\node[color=fg!0]{\Huge$\times$}; \edge[color=fg!0]; [.\node[color=fg!0]{Expr/1}; \edge[color=fg!0]; Expr/0 \edge[color=fg!0]; Expr/0 ] \edge[color=fg!0]; Expr/0 ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Grammar rules levels}
+\small
+\begin{center}
+\texttt{(R2:[ Expression/1 -> Expression/0 lexAdd Expression/1 ])}
+\end{center}
+\begin{center}
+	\large
+	\begin{tikzpicture}
+		\tikzset{level 1+/.style={level distance=15\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=2.9\baselineskip}}
+		\tikzset{frontier/.style={distance from root=4\baselineskip}}
+		\Tree [.\node[color=fg!0]{\Huge$\times$}; \edge[color=fg!0]; [.Expr/1 Expr/0 Expr/0 ] \edge[color=fg!0]; Expr/0 ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Grammar rules levels}
+\small
+\begin{center}
+\texttt{(R2:[ Expression/1 -> Expression/0 lexAdd Expression/1 ])}
+\end{center}
+\begin{center}
+	\large
+	\begin{tikzpicture}
+		\tikzset{level 1+/.style={level distance=15\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=2.9\baselineskip}}
+		\tikzset{frontier/.style={distance from root=4\baselineskip}}
+		\Tree [.\node[fill=red]{\Huge$\times$}; [.Expr/1 Expr/0 Expr/0 ] Expr/0 ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Grammar rules levels}
+\small
+\begin{center}
+\texttt{(R2:[ Expression/1 -> Expression/0 lexAdd Expression/1 ])}
+\end{center}
+\begin{center}
+	\large
+	\begin{tikzpicture}
+		\tikzset{level 1+/.style={level distance=15\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=2.9\baselineskip}}
+		\tikzset{frontier/.style={distance from root=4\baselineskip}}
+		\Tree [.\node[color=fg!0]{Expr/1}; \edge[color=fg!0]; Expr/0 \edge[color=fg!0]; [.\node[color=fg!0]{Expr/1}; \edge[color=fg!0]; Expr/0 \edge[color=fg!0]; Expr/0 ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Grammar rules levels}
+\small
+\begin{center}
+\texttt{(R2:[ Expression/1 -> Expression/0 lexAdd Expression/1 ])}
+\end{center}
+\begin{center}
+	\large
+	\begin{tikzpicture}
+		\tikzset{level 1+/.style={level distance=15\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=2.9\baselineskip}}
+		\tikzset{frontier/.style={distance from root=4\baselineskip}}
+		\Tree [.\node[color=fg!0]{Expr/1}; \edge[color=fg!0]; Expr/0 \edge[color=fg!0]; [.Expr/1 Expr/0 Expr/0 ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[noframenumbering]
+\frametitle{Grammar rules levels}
+\small
+\begin{center}
+\texttt{(R2:[ Expression/1 -> Expression/0 lexAdd Expression/1 ])}
+\end{center}
+\begin{center}
+	\large
+	\begin{tikzpicture}
+		\tikzset{level 1+/.style={level distance=15\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=2.9\baselineskip}}
+		\tikzset{frontier/.style={distance from root=4\baselineskip}}
+		\Tree [.\node[fill=green]{Expr/1}; Expr/0 [.Expr/1 Expr/0 Expr/0 ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lekta dialogue manager structure}
+\begin{center}
+	\large
+	\begin{tikzpicture}[level distance=50pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{NLU: Natural Language Understanding}
+\begin{itemize}
+	\item Its	main objective is to convert user proference in two or more root types (defined in \texttt{setupParserRoots}).
+	\item For example ``\texttt{Expression}'' if we want a mathematical expressions parser.
+	\item Uses defined lexicon and grammar rules.
+	\item All previous examples and exercises are included in this stage.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; \node[fill=red]{NLU}; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Colligo: From \emph{latin}, to gather}
+\begin{itemize}
+	\item It can be used to join two or more parser roots.
+	\item For example: Two consecutives greetings can be merged into only one (\texttt{U: Hello, good morning! ...}).
+	\item Possibly in the future this stage will be transformed in some high-level grammar scheme.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.\node[fill=red]{Colligo}; \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Colligo: From \emph{latin}, to gather}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Colligo rules template: \texttt{ColligoSchemata} section}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(ColligoScheme <rule_name> : [ in_1 ... in_n >> output ]
+	ColligoCapture {
+		// Preconditions 
+		<condition_1> &&
+		<condition_2> &&
+		...
+	}
+ 	ColligoAction {
+		// Actions to be executed when triggered
+		<command_1>;
+		<command_2>;
+		...
+		// ^OBJSENSO stands for output term.
+		// #OBJCOLLIGO-1 stands for first input term.
+		// #OBJCOLLIGO-2 stands for second input term.
+		// #OBJCOLLIGO-N stands for nth input term.
+	}
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Senso: From \emph{latin}, to sense, to feel}
+\begin{itemize}
+	\item It corresponds to the sensory part of the use of language.
+	\item Used to filter useless proferences to the dialogue manager.
+	\item Usually this stage writes non-filtered user proferences directly into ``mindboard''.
+	\item So we can use some rule of this stage to initialize context and mind structures.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.\node[fill=red]{Senso}; \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Senso: From \emph{latin}, to sense, to feel}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Senso rules template: \texttt{SensoSchemata} section}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(SensoScheme <rule_name> : [ in_1 ... in_n ]
+	SensoCapture {
+		// Preconditions 
+		<condition_1> &&
+		<condition_2> &&
+		...
+	}
+ 	SensoAction {
+		// Actions to be executed when triggered
+		<command_1>;
+		<command_2>;
+		...
+		// #OBJSENSO-1 stands for first input term.
+		// #OBJSENSO-2 stands for second input term.
+		// #OBJSENSO-N stands for nth input term.
+	}
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cogito: From \emph{latin}, to think}
+\begin{itemize}
+	\item Its the module that simulates human thinking, context-dependant pragmatics, and logic reasoning.
+	\item It uses some global data structures (the only ones in Lekta) that any other module can read and even write.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.\node[fill=red]{Cogito}; \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cogito: From \emph{latin}, to think}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Mindboard structures definition: \texttt{conversationalModel} section}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+MindBoardStructure: {
+	( <name_of_field_1> / <field_type_1> )
+	...
+	( <name_of_field_n> / <field_type_n> )
+}
+\end{lstlisting}
+\end{block}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Mindboard structures example}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+MindBoardStructure: {
+	( Counter / integer )
+	( Error / bool )
+}
+...
+// To access these fields:
+$MINDBOARD@Counter <- 0;
+$MINDBOARD@Error <- False;
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cogito: From \emph{latin}, to think}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Cogito rules template: \texttt{CogitoSchemata} section}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(CogitoScheme <rule_name> : 
+	CogitoCapture {
+		// Preconditions 
+		<condition_1> &&
+		<condition_2> &&
+		...
+	}
+ 	CogitoAction {
+		// Actions to be executed when triggered
+		<command_1>;
+		<command_2>;
+		...
+		// Some useful built-in functions here could be :
+		// CogitoQuit(): Stop processing cogito rules.
+		// CogitoRetry(): Restart processing cogito rules.
+	}
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Respondo: From \emph{latin}, to answer}
+\begin{itemize}
+	\item It corresponds to the motor part of the use of language.
+	\item It can be used to split what system wants to say in some individual parts easier to generate.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.\node[fill=red]{Respondo}; \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Respondo: From \emph{latin}, to answer}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Respondo rules template: \texttt{RespondoSchemata} section}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(RespondoScheme <rule_name> : [ output ]
+	RespondoCapture {
+		// Preconditions 
+		<condition_1> &&
+		<condition_2> &&
+		...
+	}
+ 	RespondoAction {
+		// Actions to be executed when triggered
+		<command_1>;
+		<command_2>;
+		...
+		// ^OBJRESPONDO stands for output expression.
+	}
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Locutio: From \emph{latin}, to speak}
+\begin{itemize}
+	\item It may be used to sort expressions given by \texttt{Respondo} module in order to make the dialogue more natural.
+	\item For example, if we want to say lots of thing, some of them (for example questions) should be put at the end of the dialogue act.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.\node[fill=red]{Locutio}; \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; {Scribo (NLG)} ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Locutio: From \emph{latin}, to speak}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Locutio rules template: \texttt{LocutioSchemata} section}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(LocutioScheme <rule_name> : [ in_1 ... in_n >> output ]
+	LocutioCapture {
+		// Preconditions 
+		<condition_1> &&
+		<condition_2> &&
+		...
+	}
+ 	LocutioAction {
+		// Actions to be executed when triggered
+		<command_1>;
+		<command_2>;
+		...
+		// ^OBJLOCUTIO stands for output expression.
+		// #OBJRESPONDO-1 stands for first input term.
+		// #OBJRESPONDO-2 stands for second input term.
+		// #OBJRESPONDO-N stands for nth input term.
+	}
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Scribo: From \emph{latin}, to write}
+\begin{itemize}
+	\item It's used to generate system proferences into target natural language.
+	\item So it's a language dependant module (as well as lexicon and grammar ones).
+	\item Related section in main project file: \texttt{scriboModel forLanguage <...>}.
+\end{itemize}
+\begin{center}
+	\tiny
+	\begin{tikzpicture}[level distance=25pt]
+		\tikzset{level 1+/.style={level distance=20\baselineskip}}
+		\tikzset{level 1+/.style={sibling distance=1.9\baselineskip}}
+		\Tree [.Cogito \edge[very thick,<-,>=latex,green]; [.Senso \edge[very thick,<-,>=latex,green]; [.Colligo \edge[very thick,<-,>=latex,green]; NLU \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[color=fg!0]; \edge[color=fg!0]; \node[color=fg!0]{A}; ] \edge[very thick,->,>=latex,green]; [.Respondo \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; [.Locutio \edge[color=fg!0]; \node[color=fg!0]{A}; \edge[very thick,->,>=latex,green]; \node[fill=red]{Scribo (NLG)}; ] ] ]
+	\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Scribo: From \emph{latin}, to write}
+\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+\begin{block}{Scribo rules template: \texttt{ScriboSchemata} subsection}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+(ScriboScheme <rule_name> : [ in_1 ... in_n ]
+	ScriboCapture {
+		// Preconditions 
+		<condition_1> &&
+		<condition_2> &&
+		...
+	}
+ 	ScriboAction {
+		// Actions to be executed when triggered
+		<command_1>;
+		<command_2>;
+		...
+		// #OBJLOCUTIO-1 stands for first input term.
+		// #OBJLOCUTIO-2 stands for second input term.
+		// #OBJLOCUTIO-N stands for nth input term.
+	}
+)
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Scribo: From \emph{latin}, to write}
+Two useful built-in functions here:
+\begin{itemize}
+	\item \texttt{SetMainAnswerString(string s):} Generates system answer in accumulative way.
+	\item \texttt{SetMainAnswerStringRandom(string s1, string s2, ...):} Chooses an answer randomly between its arguments.
+\end{itemize}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example}
+\tiny
+\begin{lstlisting}[language=lekta]
+string greet;
+cond {
+	(ClockAskHour() < 7)  greet <- 'Good night. ';
+	(ClockAskHour() < 14) greet <- 'Good morning. ';
+	(ClockAskHour() < 20) greet <- 'Good afternoon. ';
+	default               greet <- 'Good night. ';
+}
+SetMainAnswerString( greet );
+SetMainAnswerStringRandom( 
+		'Welcome to the Personal Assistant Service. ',
+		'Thanks for contacting the Personal Assistant Service. ',
+		'Your Personal Assistant Service speaking. ',
+		'Thank you for calling the Personal Assistant Service. ');
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 04: Exercise 01\\
+Dialogue system: Integer calculator
+\end{center}
+\end{frame}
+
+\subsection{Exercise 02}
+
+\begin{frame}[fragile]
+\frametitle{Metatype StructureBatch}
+\begin{itemize}
+	\item Used to create sequences of some type.
+	\item They are similar to dequeues (you can insert and remove elements in both ends). By the way, positions start in 1.
+	\item But you can also ``read'' and ``write'' elements in other positions.
+\end{itemize}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Example}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:ElementInt( integer )
+classDef:StructureBatch( Counters: ( integer ) )
+...
+Counters counters;
+Counter c1 <- 1;
+Counter c2 <- 2;
+Counter c3 <- 3;
+
+BatchInsertEnd(counters, c1);
+BatchInsertEnd(counters, c2);
+BatchInsertEnd(counters, c3); // {c1, c2, c3}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Metatype StructureBatch}
+\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+\begin{block}{Batch built-in functions}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+integer BatchSize(batch b);
+batch BatchJoin(batch b1, batch b2);
+
+procedure BatchExtractInit(batch b, elem out);
+procedure BatchExtractEnd(batch b, elem out);
+procedure BatchInsertInit(batch, elem in);
+procedure BatchInsertEnd(batch b, elem in);
+
+procedure BatchRecoverPosition
+          (batch b, integer pos, elem out);
+procedure BatchAssignPosition
+          (batch b, integer pos, elem in);
+
+procedure BatchExchange
+          (batch b, integer pos1, integer pos2);
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\Huge
+\begin{center}
+Session 04: Exercise 02\\
+Dialogue system: Basic domotic assistant
 \end{center}
 \end{frame}
 
