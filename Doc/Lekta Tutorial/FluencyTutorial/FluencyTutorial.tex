@@ -1,0 +1,1005 @@
+\documentclass[11pt]{beamer}
+\let\Tiny=\tiny
+
+\usefonttheme[onlymath]{serif}
+
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{multicol}
+\usepackage{amssymb,amsmath,amsthm,stmaryrd}
+\usepackage{indentfirst}
+\usepackage{latexsym}
+\usepackage[utf8]{inputenc}
+\usepackage{fancybox}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage{soul}
+\usepackage{upquote}
+\usepackage{cancel}
+\usepackage{xfrac}
+
+\definecolor{light_red}{rgb}{1,0.95,0.95} 
+\definecolor{gray}{rgb}{0.5,0.5,0.5} 
+\definecolor{green}{rgb}{0.05,0.4,0.25} 
+
+\usetikzlibrary{trees,shapes,decorations}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+
+\title[Fluency project tutorial]{Fluency project tutorial}
+\author{Jose F Quesada \& Jose Luis Pro}
+\date{}
+
+\mode<presentation>{\usetheme[]{Warsaw}}
+
+\setbeamertemplate{footline}
+    {
+      \leavevmode
+      \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}
+        \usebeamerfont{author in head/foot}\insertshorttitle%
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}
+        \usebeamerfont{title in head/foot}
+					\hfill\insertframenumber\,/\,\inserttotalframenumber
+      \end{beamercolorbox}}
+      \vskip0pt
+    }
+
+\hypersetup{pdfpagemode=UseNone}
+
+\newcommand{\Operator}[1]{\textcolor{green}{#1}}
+
+\lstset
+{
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  commentstyle=\color{green}\ttfamily,
+  language=C,                			% choose the language of the code
+  numbers=left,                   % where to put the line-numbers
+  stepnumber=1,                   % the step between two line-numbers.        
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  tabsize=3,                      % sets default tabsize to 3 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+}
+
+\lstdefinelanguage{lekta}
+{
+	language=C,
+	backgroundcolor=\color{light_red},
+	numberstyle=\tiny\color{gray},
+	morekeywords=
+	{
+		classDef,
+		Void,
+		cond,
+		boolean,
+		String,
+		True,
+		False,
+		\#Include,
+	},
+	alsoletter={\#},
+	literate= {->}{{\Operator{->}}}1
+						{>>}{{\Operator{>>}}}1
+						{\&\&}{{\Operator{\&\&}}}1
+						,	
+	keywordstyle=[2]\color{purple},
+	keywords=[2]
+	{
+		lektaProject,
+		projectHead,
+		projectLanguageScope,
+		projectCompileOutput,
+		projectSetup,
+		setupParserRoots,
+		classModel,
+		lexicalModel,
+		forLanguage,
+		grammaticalModel,
+		LaunchLektaKernel,
+		UseProject,
+		ProjectCompile,
+		DisplayProcessUnderstandingOn,
+		CreateDialogue,
+		ElementBool,
+		ElementInt,
+		ElementReal,
+		ElementLiteral,
+		ElementRange,
+		StructureBatch,
+		StructureComplex,
+		Synonym,
+		MindBoardStructure,
+		conversationalModel,
+		ColligoSchemata,
+		ColligoCapture,
+		ColligoScheme,
+		ColligoAction,
+		SensoSchemata,
+		SensoScheme,
+		SensoCapture,
+		SensoAction,
+		CogitoScheme,
+		CogitoCapture,
+		CogitoAction,
+		CogitoSchemata,
+		RespondoSchemata,
+		RespondoScheme,
+		RespondoCapture,
+		RespondoAction,
+		LocutioSchemata,
+		LocutioScheme,
+		LocutioCapture,
+		LocutioAction,
+		scriboModel,
+		ScriboSchemata,
+		ScriboScheme,
+		ScriboCapture,
+		ScriboAction,
+	},
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Project motivation}
+
+\begin{frame}
+\frametitle{Current state}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{What do we have now?}
+			\begin{itemize}
+				\item With lekta we can create dialogue systems based upon a certain domain.
+				\item We create lexicons, grammar rules, mind structures and generation strategies in order to get that domain fully implemented.
+				\item But all that things are created \emph{ad-hoc} for that domain.
+				\item If we want to implement another different dialogue system we must start again.
+				\item Without being possible to reuse lexicons or grammar rules.
+				\item It's necessary to have a good level in programming skills and some experience in the implementation of grammars.
+			\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Dialogue systems implemented in the exercises}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Examples}
+			\begin{itemize}
+				\item Session 04: Exercise 01.
+				\begin{itemize}
+					\item In integer calculator exercise we have ``english numbers'' grammar. 
+					\item But mind structure was an ``Expression object'' (not reusable).
+				\end{itemize}
+				\vspace{15pt}
+				\pause
+				\item Session 04: Exercise 02.	
+				\begin{itemize}
+					\item In domotics assistant exercise we had grammars and lexicon for actions and devices. 
+					\item And mind structures were basically boolean flags to represent devices context state.
+				\end{itemize}
+			\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{What do we want?}
+			\begin{itemize}
+				\item \textbf{General purpose DM:} We would like a dialogue manager reasoning engine domain-independent.
+				\item \textbf{Reusability:} Grammar for some parameters should be reusable. For example, a grammar for english dates or numbers can be used in all imaginable domains with almost no difference between them.
+				\item \textbf{Script model:} We must simplify the creation of tasks in a dialogue system by means of script templates, easier to implement and debug.
+				\item \textbf{Interface friendly:} If we have a large parameter database it's possible for an inexperienced user (in either programming or linguistic skills) to implement a dialogue system that satisfies his needs.
+			\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{What is ``Fluency''?}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Fluency features}
+			\begin{itemize}
+				\item Is a lekta based framework for the easy creation of task-oriented dialogue systems.
+				\item Intended to be domain-independent.
+				\item With generic dialogue manager mind structures and strategies.
+				\item Currently, in a very first production stage.
+				\item Subject to design decisions changes if desired.
+				\item Designed to be translated into any language in a simple and comfortable way.
+				\item Implemented in order to have a GUI designing application that can automatically generate fluency compatible code.
+			\end{itemize}
+	\end{block}
+\end{frame}
+
+\section{Project structure}
+
+\subsection{Dialogue act annotation taxonomy}
+
+\begin{frame}[fragile]
+	\setbeamercolor{block title}{use=structure,fg=white,bg=blue!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=blue!10!white}
+	\begin{block}{Dialogue act annotation definition}
+			Dialogue act annotation is the activity of marking up
+			stretches of dialogue with information about the dialogue
+			acts performed, [...] focused on marking
+			up their communicative functions.$^*$
+	\end{block}
+	\pause
+	\begin{itemize}
+		\item So we must classify and mark up all possible user proferences.
+		\item In order to get its communicative function so we can have different dialogue strategies.
+		\item Bunt taxonomy is so exhaustive and complex.
+		\item We have used at first a simplified taxonomy but it can be expanded when needed.
+	\end{itemize}
+	\scriptsize
+	\emph{$^*$ Harry Bunt et al. Towards an ISO standard for dialogue act annotation (2010).}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bunt dialogue act taxonomy}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{bunt_taxonomy.eps}\\
+		\scriptsize
+		\emph{Harry Bunt et al. Towards an ISO standard for dialogue act annotation (2010).}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fluency dialogue act taxonomy}
+	\scriptsize
+	\begin{lstlisting}[language=lekta]
+classDef:StructureComplex
+(
+	CoreDialogueAct :
+	(
+	 	Dimension,
+		Function
+	)
+)
+	\end{lstlisting}
+	\normalsize
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=6\baselineskip}}
+			\Tree [.{CoreDialogueAct dimensions} social basicanswer statement question ]
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Social dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Social functions} \node[color=red]{greeting}; thanking goodbye apology downplaying ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+		{\color{teal} 
+			\texttt{U: Good morning.}\\
+			\vspace{10pt}
+			\texttt{U: Nice to meet you.}\\
+			\vspace{10pt}
+			\texttt{U: Hello!}\\
+		}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{social}\\ 
+						\texttt{Function:}     & \texttt{greeting}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Social dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Social functions} greeting \node[color=red]{thanking}; goodbye apology downplaying ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+		{\color{teal} 
+			\texttt{U: Thanks!}\\
+			\vspace{10pt}
+			\texttt{U: Thank you very much.}\\
+			\vspace{10pt}
+			\texttt{U: I'm so thankful!}\\
+		}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{social}\\ 
+						\texttt{Function:}     & \texttt{thanking}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Social dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Social functions} greeting thanking \node[color=red]{goodbye}; apology downplaying ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+		{\color{teal} 
+			\texttt{U: Have a good day!}\\
+			\vspace{10pt}
+			\texttt{U: See you later.}\\
+			\vspace{10pt}
+			\texttt{U: Bye!}\\
+		}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{social}\\ 
+						\texttt{Function:}     & \texttt{goodbye}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Social dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Social functions} greeting thanking goodbye \node[color=red]{apology}; downplaying ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+		{\color{teal} 
+			\texttt{U: I'm sorry!}\\
+			\vspace{10pt}
+			\texttt{U: Excuse me.}\\
+			\vspace{10pt}
+			\texttt{U: My sincere apologies.}\\
+		}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{social}\\ 
+						\texttt{Function:}     & \texttt{apology}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Social dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Social functions} greeting thanking goodbye apology \node[color=red]{downplaying}; ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: You're welcome!}\\
+			\vspace{10pt}
+			\texttt{U: Not at all.}\\
+			\vspace{10pt}
+			\texttt{U: Don't mention it.}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{social}\\ 
+						\texttt{Function:}     & \texttt{downplaying}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Basicanswer dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Basicanswer functions} \node[color=red]{agreement}; disagreement uncertain dontknow ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: Yes.}\\
+			\vspace{10pt}
+			\texttt{U: Ok.}\\
+			\vspace{10pt}
+			\texttt{U: That's right.}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{basicanswer}\\ 
+						\texttt{Function:}     & \texttt{agreement}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Basicanswer dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Basicanswer functions} agreement \node[color=red]{disagreement}; uncertain dontknow ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.58\textwidth}
+		{\color{teal} 
+			\texttt{U: No.}\\
+			\vspace{10pt}
+			\texttt{U: No way.}\\
+			\vspace{10pt}
+			\texttt{U: I can't agree.}\\
+		}
+		\end{column}
+		\begin{column}{0.42\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{basicanswer}\\ 
+						\texttt{Function:}     & \texttt{disagreement}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Basicanswer dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Basicanswer functions} agreement disagreement \node[color=red]{uncertain}; dontknow ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: Maybe.}\\
+			\vspace{10pt}
+			\texttt{U: Perhaps.}\\
+			\vspace{10pt}
+			\texttt{U: Probably.}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{basicanswer}\\ 
+						\texttt{Function:}     & \texttt{uncertain}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Basicanswer dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Basicanswer functions} agreement disagreement uncertain \node[color=red]{dontknow}; ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: I don't know.}\\
+			\vspace{10pt}
+			\texttt{U: I don't remember.}\\
+			\vspace{10pt}
+			\texttt{U: I have no idea.}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{basicanswer}\\ 
+						\texttt{Function:}     & \texttt{dontknow}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Statement dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Statement functions} \node[color=red]{inform}; request ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: My name is ...}\\
+			\vspace{10pt}
+			\texttt{U: I live in ...}\\
+			\vspace{10pt}
+			\texttt{U: I don't want nothing else.}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{statement}\\ 
+						\texttt{Function:}     & \texttt{inform}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Statement dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Statement functions} inform \node[color=red]{request}; ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: I want ...}\\
+			\vspace{10pt}
+			\texttt{U: I would need ...}\\
+			\vspace{10pt}
+			\texttt{U: Would you mind if ...?}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{statement}\\ 
+						\texttt{Function:}     & \texttt{request}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Question dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Question functions} \node[color=red]{propositional}; choice whquestion ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.58\textwidth}
+		{\color{red} 
+			\texttt{S: Do you agree with the date of the appointment?}\\}
+			\vspace{10pt}
+		{\color{teal} 
+			\texttt{U: Do you like basketball?}\\
+			\vspace{10pt}
+			\texttt{U: Do you I am right?}\\
+		}
+		\end{column}
+		\begin{column}{0.42\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{question}\\ 
+						\texttt{Function:}     & \texttt{propositional}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Question dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Question functions} propositional \node[color=red]{choice}; whquestion ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		\small
+		{\color{red} 
+			\texttt{S: What do you want to do first, make a bank transfer or locate the nearest ATM?}\\
+			\vspace{10pt}
+			\texttt{S: Do you prefer coffee or tea?}\\
+			\vspace{10pt}
+			\texttt{S: When do you want the appointment, in the morning or in the afternoon?}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{question}\\ 
+						\texttt{Function:}     & \texttt{choice}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Question dimension}
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{every tree node/.style={align=center,anchor=base}}
+			\tikzset{level 1+/.style={level distance=2\baselineskip}}
+			\tikzset{frontier/.style={distance from root=4\baselineskip}}
+			\Tree [.{Question functions} propositional choice \node[color=red]{whquestion}; ]
+		\end{tikzpicture}
+	\end{center}
+	\vspace{15pt}
+	\begin{columns}
+		\begin{column}{0.60\textwidth}
+		{\color{teal} 
+			\texttt{U: What time is it?}\\
+			\vspace{10pt}
+			\texttt{U: How much is the doctor appointment?}\\
+			\vspace{10pt}
+			\texttt{U: Where is the nearest ATM?}\\
+		}
+		\end{column}
+		\begin{column}{0.40\textwidth}
+			\footnotesize
+			\texttt{CoreDialogueAct:} \\
+				\vspace{10pt}
+				$\begin{bmatrix}
+						\texttt{Dimension:}    & \texttt{question}\\ 
+						\texttt{Function:}     & \texttt{whquestion}\\ 
+				\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{TaskDialogueAct} structure}
+	\begin{itemize}
+		\item Dialogue act annotation is used to know the communicative function of user proferences.
+		\item This doesn't depend on domain.
+		\item But it lacks of semantic information. For example: In \texttt{statement-request} pair we wish to know what user wants to do and the object of his desire.
+		\item This kind of information may depend on domain.
+	\end{itemize}
+	\scriptsize
+	\pause
+	\begin{lstlisting}[language=lekta]
+classDef:StructureComplex ( 
+	TaskDialogueAct : ( Action, Scope ) )
+
+classDef:StructureBatch (	Action : ( ActionDomain ) )
+
+classDef:ElementLiteral (	ActionDomain )
+classDef:ElementLiteral (	Scope )
+	\end{lstlisting}	
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Domains implemented}
+So we have implemented a couple of domains to do some testings:
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Medical appointment}
+		\begin{itemize}
+			\item Task 1: \texttt{ActionDomain = `book'. Scope = `appointment'}
+		\end{itemize}	
+	\end{block}
+	\pause
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Banking management}
+		\begin{itemize}
+			\item Task 1: \texttt{ActionDomain = `consult'. Scope = `bankaccount'}
+			\item Task 2: \texttt{ActionDomain = `locate'. Scope = `atm'}
+			\item Task 3: \texttt{ActionDomain = `execute'. Scope = `transfer'}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Verb lemmas}
+To detect actions in understanding stage, we associate some verbs lemmas to a certain action:
+	\footnotesize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{ActionDomain = `book'}
+		book, establish, have, \textbf{make}, get, schedule, ask, set up, ...\\
+		\vspace{10pt}
+		{\color{teal} 
+			\texttt{U: I want to get an appointment.}\\
+			\texttt{U: I would like to make medical appointment.}\\
+		}
+	\end{block}
+	\pause
+	\footnotesize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{ActionDomain = `execute'}
+		\textbf{make}, move, execute, perform, do, accomplish, fulfill, effectuate, carry out, complete, ...\\
+		\vspace{10pt}
+		{\color{teal} 
+			\texttt{U: I want to perform a bank transfer.}\\
+			\texttt{U: I would like to make a transfer.}\\
+		}
+	\end{block}
+	\pause
+	Please note that a verb lemma can be associated with more than one \texttt{ActionDomain} (ambiguities everywhere!).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Parameters}
+A `parameter' is some kind of useful information to complete a task. For example a \texttt{`datetime'} or an \texttt{`accountnumber'}.
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:StructureComplex
+(
+	Parameter :
+	(
+		ParameterCategory, // 'terminal', 'and', 'or', ...
+		ParameterType,     // 'datetime', 'accountnumber', ...
+		ParameterValue,    // Similar to math expressions
+		ParameterOperand1, 
+		ParameterOperand2
+	)
+)
+\end{lstlisting}
+\pause
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Example of \texttt{ParameterCategory}}
+		{\color{teal} 
+			\texttt{U: I want an appointment for tomorrow or the day after tomorrow.}\\
+			\vspace{10pt}
+			\texttt{U: My telephone numbers are 1234 and 5678.}\\
+		}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Parameters}
+This information is provided by the user and may be compulsory ({\color{red}red}) or optative ({\color{teal}green})
+	\scriptsize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Examples}
+		\begin{itemize}
+			\item \texttt{BookAppointment} task:
+			\begin{itemize}
+				\item \scriptsize{\color{red} \texttt{medicalspeciality}}
+				\item \scriptsize{\color{red} \texttt{countryplace}}
+				\item \scriptsize{\color{red} \texttt{phonenumber}}
+				\item \scriptsize{\color{red} \texttt{peselnumber}} (Ok, it's a polish medical appointment!)
+				\item \scriptsize{\color{teal} \texttt{datetime}}
+			\end{itemize}
+			\item \texttt{ConsultBankaccount} task: 
+			\begin{itemize}
+				\item \scriptsize{\color{red} \texttt{accountnumber}}
+			\end{itemize}
+			\item \texttt{LocateAtm} task: 
+			\begin{itemize}
+				\item \scriptsize{\color{red} \texttt{countryplace}}
+			\end{itemize}
+			\item \texttt{ExecuteTransfer} task: 
+			\begin{itemize}
+				\item \scriptsize{\color{red} \texttt{accountnumber}}
+				\item \scriptsize{\color{red} \texttt{moneyamount}}
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Parameters classification}
+\begin{itemize}
+	\item Parameteres can be classified depending upon its domain. 
+	\item If it's domain-independent we say that the parameter belongs to ``kernel'' domain.
+	\item But take into account that we can move a parameter from its domain to kernel domain in order to make it \textbf{reusable}.
+\end{itemize}
+	\pause
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Kernel domain implemented parameters}
+	\begin{columns}
+		\begin{column}{0.50\textwidth}
+			\begin{itemize}
+				\item \texttt{countryplace}
+				\item \texttt{datetime}
+				\item \texttt{letter}
+				\item \texttt{moneyamount}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.50\textwidth}
+			\begin{itemize}
+				\item \texttt{number}
+				\item \texttt{ordinal}
+				\item \texttt{phonenumber}
+				\item \texttt{signchunk}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	\end{block}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Parameters classification}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Medical appointment domain implemented parameters}
+		\begin{itemize}
+			\item \texttt{medicalspeciality}
+			\item \texttt{peselnumber}
+		\end{itemize}
+	\end{block}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Banking management domain implemented parameters}
+		\begin{itemize}
+			\item \texttt{accountnumber}
+		\end{itemize}
+	\end{block}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Parameters example: \texttt{datetime}}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:StructureComplex (
+		DateTime: (
+		BaseDate,
+		OffsetDate,
+		MinDate,
+		MaxDate,
+		GeneralTime
+	)
+)
+
+classDef:StructureComplex (
+		GeneralTime: (
+		BaseTime,
+		OffsetTime,
+		MinTime,
+		MaxTime
+	)
+)
+\end{lstlisting}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Parameters example: \texttt{datetime} CAMBIAR A TUESDAY A ver que SALE}
+\scriptsize
+{\color{teal} 
+	\texttt{U: Starting next monday until 3pm to the day after 25 of august from 10am to a quarter to nine in the afternoon.}\\
+}
+\begin{lstlisting}[language=lekta]
+(DateTime:(MinDate:(GeneralTime:(MaxTime:(BaseTime:(Hour:15))),
+                    OffsetDate :(DirectionOfTime:'forward',
+Date           :(DayInWeek:1),
+DayInWeekOffset:1)),
+MaxDate:(GeneralTime:(MinTime:(BaseTime:(Hour:10)),
+MaxTime:(BaseTime:(Hour  :20,
+Minute:45))),
+OffsetDate :(DirectionOfTime:'forward',
+Date           :(Day:1)),
+BaseDate   :(Day  :25,
+Month:8))))))
+\end{lstlisting}
+\end{frame}
+	
+\begin{frame}[fragile]
+\frametitle{Parameters example: \texttt{countryplace}}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+
+\end{lstlisting}
+\end{frame}
+
+	
+\section{Functional analysis}
+
+\begin{frame}
+\end{frame}
+
+\section{Practical exercise}
+
+\begin{frame}
+\end{frame}
+
+\end{document}
+
+	
+
+

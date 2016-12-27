@@ -1,4 +1,4 @@
-// ****************************************************************************
+﻿// ****************************************************************************
 //
 //	
 //
@@ -13,8 +13,6 @@
 //
 // ****************************************************************************
 
-* Meter un nodo de comprobación para saber qué hacer si la fecha sigue vacía habiendo pasado la negociación (Medical apppointment script).
-
 * Improve datetime negotiation.
 
 * Difficulties when we have lots of implicit confirmation, in the next example system believes that user is rejecting the whole task (but if you remove comma, it works!)
@@ -22,24 +20,14 @@ U: I want an appointment in Sevilla
 S: So you want an appointment in Sevilla, what medical speciality do you wish?
 U: No, in Granada 
 
+* User questions detecting and answering.
+
 * Spanish version of implemented domains
+* Polish version of implemented domains
 
 * Hotel booking scripting
 * Flight booking scripting
 * Shop chart scripting
 
 * UK town names
-
-* English grammar and lexicon
-* http://dictionary.cambridge.org/us/grammar/british-grammar/questions-wh-questions
-* https://www.espressoenglish.net/an-easy-way-to-form-almost-any-question-in-english/
-* http://www.scientificpsychic.com/grammar/regular.html
-
-* Functional analysis of direct competitors:
-	- Alexa from Amazon.
-	- Siri from Apple.
-	- Cortana from Microsoft.
-	- Google now or Google Talk.
-	- wit.ai
-	- api.ai
 
