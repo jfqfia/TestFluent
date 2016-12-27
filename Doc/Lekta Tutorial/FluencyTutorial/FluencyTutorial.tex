@@ -959,23 +959,26 @@ classDef:StructureComplex (
 \end{frame}
 	
 \begin{frame}[fragile]
-\frametitle{Parameters example: \texttt{datetime} CAMBIAR A TUESDAY A ver que SALE}
-\scriptsize
+\frametitle{Parameters example: \texttt{datetime}}
 {\color{teal} 
-	\texttt{U: Starting next monday until 3pm to the day after 25 of august from 10am to a quarter to nine in the afternoon.}\\
+	\texttt{U: Starting next thursday until 3pm to the day after 25 of august from noon to a quarter to nine in the afternoon.}\\
 }
+\pause
+\vspace{15pt}
+\scriptsize
 \begin{lstlisting}[language=lekta]
-(DateTime:(MinDate:(GeneralTime:(MaxTime:(BaseTime:(Hour:15))),
-                    OffsetDate :(DirectionOfTime:'forward',
-Date           :(DayInWeek:1),
-DayInWeekOffset:1)),
-MaxDate:(GeneralTime:(MinTime:(BaseTime:(Hour:10)),
-MaxTime:(BaseTime:(Hour  :20,
-Minute:45))),
-OffsetDate :(DirectionOfTime:'forward',
-Date           :(Day:1)),
-BaseDate   :(Day  :25,
-Month:8))))))
+(DateTime:
+   (MinDate:(GeneralTime:(MaxTime:(BaseTime:(Hour:15))),
+             OffsetDate :(DirectionOfTime:'forward',
+                          Date           :(DayInWeek:4),
+                          DayInWeekOffset:1)),
+    MaxDate:(GeneralTime:(MinTime:(BaseTime:(Hour:12)),
+                          MaxTime:(BaseTime:(Hour:20,
+                                             Minute:45))),
+             OffsetDate :(DirectionOfTime:'forward',
+                          Date           :(Day:1)),
+             BaseDate   :(Day  :25,
+                          Month:8))))))
 \end{lstlisting}
 \end{frame}
 	
@@ -983,11 +986,109 @@ Month:8))))))
 \frametitle{Parameters example: \texttt{countryplace}}
 \scriptsize
 \begin{lstlisting}[language=lekta]
+classDef:StructureComplex ( 
+		CountryPlace : (
+		CountryName,
+		CountryZone,
+		CountryRegion,
+		CountryProvince,
+		CountryTown
+	)
+)
 
+classDef:ElementLiteral (
+	CountryName,
+	CountryZone,
+	CountryRegion,
+	CountryProvince,
+	CountryTown
+)
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Parameters example: \texttt{countryplace}}
+{\small
+\begin{itemize}
+	\item We have used \textbf{NUTS} (Nomenclature of Territorial Units for Statistics) and \textbf{LAU} (Local Administrative Unit), two standards developed by European Union.
+	\item We have, in the lexicon, all cities and towns of countries belonging to EU (except UK whose format file is different as usual!).
+	\item This lexicon is expressed in the local language so we have Sevilla, but not Seville. We have Warszawa but not Warsaw.
+\end{itemize}}
+	\pause
+	\scriptsize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=green!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=green!10!white}
+	\begin{block}{Some examples}
+	\begin{itemize}
+		\item France: 39096 entries.
+		\item Germany: 11167 entries.
+		\item Bulgary: 10532 entries.
+		\item Spain: 8837 entries.
+		\item Italy: 8161 entries.
+		\item Poland: 2478 entries. 
+	\end{itemize}
+	\end{block}
+\end{frame}
 	
+\begin{frame}[fragile]
+\frametitle{\texttt{DialogueAct} structure}
+So we define this dialogue act type in Fluency:
+\scriptsize
+\begin{lstlisting}[language=lekta]
+classDef:StructureComplex 
+( 
+ 	DialogueAct :
+  	(
+		CoreDialogueAct,
+		TaskDialogueAct,
+		Parameters
+	)
+)	
+
+classDef:StructureBatch
+(
+	Parameters :
+	(
+		Parameter
+	)
+)
+\end{lstlisting}
+\end{frame}
+	
+
+\begin{frame}[fragile]
+\frametitle{Dialogue act annotation full example}
+{\color{teal} 
+	\texttt{U: I want to book an appointment for tomorrow to the dentist.}\\
+}
+\pause
+\vspace{15pt}
+\tiny
+\begin{lstlisting}[language=lekta]
+(DialogueAct:
+   (CoreDialogueAct:(Dimension:'statement',
+                     Function :'request')),
+   (TaskDialogueAct:(Action:{(ActionDomain:'book')}
+                     Scope:'appointment')),
+   (Parameters:     {(Parameter:
+                      (ParameterValue:
+                       (DateTime:(OffsetDate:(DirectionOfTime:'forward',
+                                              Date           :(Day:1))))),
+                       ParameterCategory:'terminal',
+                       ParameterType    :'datetime'),
+                     (Parameter:
+                      (ParameterValue:
+                       (MedicalSpeciality:(SpecialityName:'Orthodontics'),
+                       ParameterCategory:'terminal',
+                       ParameterType    :'medicalspeciality')})
+\end{lstlisting}
+\end{frame}
+				
+\subsection{File and folder structure}
+
+\begin{frame}
+\end{frame}
+
 \section{Functional analysis}
 
 \begin{frame}
