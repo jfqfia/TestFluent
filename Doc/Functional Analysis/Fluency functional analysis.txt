@@ -1,4 +1,4 @@
-Functional Analysis
+﻿Functional Analysis
 
 Key Point: NLU
 Must treat with some language richness such as:
@@ -7,7 +7,7 @@ Must treat with some language richness such as:
 	* Idiomatic constructions.
 	* Negation.
 	* Anaphora.
-So we need some true comprenhension of the meaning of the sentences.
+So we need some true comprehension of the meaning of the sentences.
 
 Key Point: Context 
 Establish a dialogue level with the user avoiding the fact that the enquiries could be atomic.

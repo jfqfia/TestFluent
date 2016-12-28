@@ -1,4 +1,6 @@
 \documentclass[11pt]{beamer}
+\RequirePackage{etex}
+
 \let\Tiny=\tiny
 
 \usefonttheme[onlymath]{serif}
@@ -19,12 +21,15 @@
 \usepackage{upquote}
 \usepackage{cancel}
 \usepackage{xfrac}
+\usepackage{tkz-graph}  
+\usepackage{dirtree}
 
 \definecolor{light_red}{rgb}{1,0.95,0.95} 
 \definecolor{gray}{rgb}{0.5,0.5,0.5} 
 \definecolor{green}{rgb}{0.05,0.4,0.25} 
 
 \usetikzlibrary{trees,shapes,decorations}
+\usetikzlibrary{shapes.geometric}
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamercovered{transparent}
@@ -1084,9 +1089,644 @@ classDef:StructureBatch
 \end{lstlisting}
 \end{frame}
 				
+\subsection{Fluency dialogue manager}
+
+\begin{frame}
+\frametitle{Script model}
+\begin{itemize}
+	\item Every task in all domains are modelled like scripts.
+	\item A script consist of four parts:
+	\begin{itemize}
+	  \item \textbf{Descriptor:} Literal identificator to distingush this script among others.
+		\item \textbf{Trigger:} Information that user must provide in order to activate the script.
+		\item \textbf{InfoItems:} Place where the information is stored when script is activated. Can be provided by the user or the system itself.
+		\item \textbf{Phases:} Subtasks needed to be performed in order to execute bigger one.
+			\begin{itemize}
+				\item Every phase has a priority level (0 the highest priority).
+				\item Election mode: If all phases of level \emph{n} are finished we select a \emph{n+1} level phase randomly. 
+			\end{itemize}
+	\end{itemize}
+	\item All scripts and states are stored in mindboard structures.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Script model: \texttt{ConsultBalance} script}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+Descriptor: 'ConsultBalance'
+
+Trigger.CoreDialogueAct: ('statement', 'request')
+Trigger.ActionDomain: 'consult' 
+Trigger.Scope: 'bankaccount'
+Trigger.Parameter: 'accountnumber'			
+			
+InfoItem.Parameter1: 'accountnumber' // Provided by the user
+InfoItem.Parameter2: 'moneyamount' // Provided by the system
+\end{lstlisting}
+
+\tikzstyle{VertexStyle} = [shape            = rectangle,
+                           minimum width    = 6ex,%
+                           draw]
+\tikzstyle{EdgeStyle}   = [->,>=stealth']      
+\begin{center}
+\begin{tikzpicture}[scale=1.0] 
+	\SetGraphUnit{1.5} 
+	\Vertex[L=\tiny\texttt{default/0}]{0} 	
+		  \SOEA[L=\tiny\texttt{activation/1}](0){1}
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{accountnumber/2}}$](1){2}
+			\SOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{backoffice:}}{\mathtt{moneyamount/3}}$](2){3}
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{inform:}}{\mathtt{moneyamount/4}}$](3){4}
+      \SOEA[L=\tiny\texttt{end/5}](4){5}
+  \Edges(0,1,2,3,4,5)
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Script model: \texttt{LocateAtm} script}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+Descriptor: 'LocateAtm'
+
+Trigger.CoreDialogueAct: ('statement', 'request')
+Trigger.ActionDomain: 'locate' 
+Trigger.Scope: 'atm'
+Trigger.Parameter: 'countryplace'			
+			
+InfoItem.Parameter1: 'countryplace' // Provided by the user
+InfoItem.Parameter2: 'localization' // Provided by the system
+\end{lstlisting}
+
+\tikzstyle{VertexStyle} = [shape            = rectangle,
+                           minimum width    = 6ex,%
+                           draw]
+\tikzstyle{EdgeStyle}   = [->,>=stealth']      
+\begin{center}
+\begin{tikzpicture}[scale=1.0] 
+	\SetGraphUnit{1.5} 
+	\Vertex[L=\tiny\texttt{default/0}]{0} 	
+		  \SOEA[L=\tiny\texttt{activation/1}](0){1}
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{countryplace/2}}$](1){2}
+			\SOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{backoffice:}}{\mathtt{localization/3}}$](2){3}
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{inform:}}{\mathtt{localization/4}}$](3){4}
+      \SOEA[L=\tiny\texttt{end/5}](4){5}
+  \Edges(0,1,2,3,4,5)
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Script model: \texttt{MakeTransfer} script}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+Descriptor: 'MakeTransfer'
+
+Trigger.CoreDialogueAct: ('statement', 'request')
+Trigger.ActionDomain: 'execute' 
+Trigger.Scope: 'transfer'
+Trigger.Parameter1: 'accountnumber'			
+Trigger.Parameter2: 'moneyamount'			
+			
+InfoItem.Parameter1: 'accountnumber' // Provided by the user
+InfoItem.Parameter2: 'moneyamount'   // Provided by the user
+\end{lstlisting}
+
+\tikzstyle{VertexStyle} = [shape            = rectangle,
+                           minimum width    = 6ex,%
+                           draw]
+\tikzstyle{EdgeStyle}   = [->,>=stealth']      
+\begin{center}
+\begin{tikzpicture}[scale=1.0] 
+	\SetGraphUnit{1.9} 
+	\Vertex[L=\tiny\texttt{default/0}]{0} 	
+		  \EA[L=\tiny\texttt{activation/1}](0){1}
+			\SetGraphUnit{1} 
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{accountnumber/2}}$](1){2}
+			\SOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{moneyamount/2}}$](1){6}
+			\SOEA[L=\tiny\texttt{backoffice/3}](2){3}
+			\SetGraphUnit{2.0} 
+			\EA[L=$\genfrac{}{}{0pt}{1}{\mathtt{inform:}}{\mathtt{everythingok/4}}$](3){4}
+			\SetGraphUnit{1.8} 
+      \EA[L=\tiny\texttt{end/5}](4){5}
+  \Edges(0,1,2,3,4,5)
+	\Edges(1,6,3)
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Script model: \texttt{BookAppointment} script}
+\scriptsize
+\begin{lstlisting}[language=lekta]
+Descriptor: 'BookAppointment'
+
+Trigger.CoreDialogueAct: ('statement', 'request')
+Trigger.ActionDomain: 'book' 
+Trigger.Scope: 'appointment'
+Trigger.Parameter1: 'medicalspeciality'			
+Trigger.Parameter2: 'countryplace'			
+Trigger.Parameter3: 'datetime'			
+Trigger.Parameter4: 'phonenumber'			
+Trigger.Parameter5: 'peselnumber'			
+
+InfoItem.Parameter1: 'medicalspeciality' 
+InfoItem.Parameter2: 'countryplace'      
+InfoItem.Parameter3: 'datetime'          
+InfoItem.Parameter4: 'phonenumber'       
+InfoItem.Parameter5: 'peselnumber'       
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Script model: \texttt{BookAppointment} script}
+\scriptsize
+\tikzstyle{VertexStyle} = [shape            = rectangle,
+                           minimum width    = 6ex,%
+                           draw]
+\tikzstyle{EdgeStyle}   = [->,>=stealth']      
+\begin{center}
+\begin{tikzpicture}[scale=1.0] 
+	\SetGraphUnit{1.9} 
+	\Vertex[L=\tiny\texttt{default/0}]{0} 	
+		  \EA[L=\tiny\texttt{activation/1}](0){1}
+			\SetGraphUnit{1.8} 
+			\EA[L=$\genfrac{}{}{0pt}{1}{\mathtt{optional:}}{\mathtt{datetime/2}}$](1){2}
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{medicalspeciality/2}}$](1){3}
+			\SOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{countryplace/2}}$](1){4}
+			\EA[L=$\genfrac{}{}{0pt}{1}{\mathtt{negotiate:}}{\mathtt{datetime/3}}$](2){5}
+			\SetGraphUnit{1.0} 
+			\NOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{phonenumber/4}}$](5){6}
+			\SOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{capture:}}{\mathtt{peselnumber/4}}$](5){7}
+			\SOEA[L=$\genfrac{}{}{0pt}{1}{\mathtt{inform:}}{\mathtt{everythingok/5}}$](6){8}
+			\SetGraphUnit{1.8} 
+			\EA[L=\tiny\texttt{end/6}](8){9}
+  \Edges(0,1,2,5,6)
+	\Edges(1,3,5)
+	\Edges(1,4,5)
+	\Edges(5,7,8,9)
+	\Edges(6,8)
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fluency DM phases}
+Every dialogue system turn execute this loop until last phase is reached:
+\begin{enumerate}
+	\item Start talking.
+	\item Digest expectatives.
+	\item Digest search scripts.
+	\item Activate scripts.
+	\item Select current script.
+	\item Review states.
+	\item Select current node.
+	\item Process talking.
+	\begin{enumerate}
+		\item Execute node (go to 5).
+		\item Wait node (go to 9).
+	\end{enumerate}
+	\item Close talking (go to 1 after user turn).
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fluency DM phases}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{1. Start talking}
+	\begin{itemize}
+		\item Erase output mindboard structures.
+	\end{itemize}
+	\end{block}
+	\pause
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{2. Digest expectatives}
+	\begin{itemize}
+		\item Here we convert some parameters to the types of expected parameters.
+		\item For example, if we are expecting a phone number and user says a number, we can transform on into the other.
+	\end{itemize}
+	\end{block}
+	\pause
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{3. Digest search scripts}
+	\begin{itemize}
+		\item We analyze user proferences and create some triggering schemes.
+		\item We give a scoring to every scheme to see its relevance.
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fluency DM phases}
+	\footnotesize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{4. Activate scripts}
+	\begin{itemize}
+		\item Depending on triggering schemes from previous phase we select what scripts must be activated.
+		\item This is not trivial:
+		\begin{itemize}
+			\item What happens if comes a parameter from an active script, but not the current?
+			\item What happens if comes a parameter from a non-active script?
+			\item What happens if we have several triggered scripts with the same scoring?
+		\end{itemize}
+	\end{itemize}
+	\end{block}
+	\pause
+	\footnotesize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{5. Select current script}
+	\begin{itemize}
+		\item Previous phase ends sorting the activated scripts stack so we select, as current script, the one placed in the top of the stack.
+		\item If we have a recently activated script it's the moment to recover some mid-term memory slots.
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fluency DM phases}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{6. Review states}
+	\begin{itemize}
+		\item For every info item in the current script we review its state.
+		\item For example, some of these states are:
+		\begin{itemize}
+				\item \textbf{empty}: The info item has no value.
+				\item \textbf{proposed}: System has recently proposed the value of this item to the user.
+				\item \textbf{checking}: We must check if the value of this item is valid and consistent.
+				\item \textbf{captured}: We have recently captured this info item value from the user.
+				\item \textbf{echoed}: This info item has been ``echoed'' to the user (implicit confirmation).
+				\item \textbf{grounded}: User seems to agree with this info item.
+				\item \textbf{recovered}: The value of this info item has been recently recovered from mid-term memory.
+		\end{itemize}
+	\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fluency DM phases}
+	\small
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{7. Select current node}
+	\begin{itemize}
+		\item Here we select the next node to be executed in current script.
+		\item Let $n$ the lowest priority level in script with not finished nodes.
+		\item Select one of the not finished nodes with that priority level ramdonly.
+	\end{itemize}
+	\end{block}
+	\pause
+	\small
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{8. Process talking}
+	\begin{itemize}
+		\item If the selected node is an ``\textbf{execution}'' node, execute that node and go back to select current node stage.
+		\item If the selected node is a ``\textbf{wait}'' node, we must pass the dialogue turn to user.
+	\end{itemize}
+	\end{block}
+	\pause
+	\small
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{9. Close talking}
+	\begin{itemize}
+		\item Erase input mindboard structures.
+	\end{itemize}
+	\end{block}
+
+\end{frame}
+
 \subsection{File and folder structure}
 
 \begin{frame}
+\frametitle{Main folder}
+\dirtree{%
+.1 {\color{blue}Fluency}.
+.2 {\color{blue}Doc} {\color{teal} Some docs we have been generating}.
+.2 {\color{blue}Kernel} {\color{teal} Generic domain}.
+.2 {\color{blue}Domains} {\color{teal} Any other domain}.
+.3 {\color{blue}Alter} {\color{teal} The union of next two domains}. 
+.3 {\color{blue}BankingManagement}.
+.3 {\color{blue}MedicalAppointments}.
+.2 {\color{orange}AlterFluency.lkt} {\color{teal} Main project file}. 
+.2 {\color{orange}EnglishAlterFluency.slk} {\color{teal} File for interpreter}.
+}
+	\pause
+	\vspace{10pt}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Translation tip}
+		There must be a \texttt{.slk} file for every language and every domain.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Domain folder example: Banking Management}
+\scriptsize
+\dirtree{%
+.1 {\color{blue}BankingManagement}.
+.2 {\color{blue}AccountNumber} {\color{teal} Parameter folder}.
+.2 {\color{blue}Account} {\color{teal} Scope folder}.
+.2 {\color{blue}ATM} {\color{teal} Scope folder}.
+.2 {\color{blue}Transfer} {\color{teal} Scope folder}. 
+.2 {\color{blue}Functions}.
+.2 {\color{blue}Scripts}.
+.2 {\color{orange}MainBankingManagementEnglishGeneration.lkt}. 
+.2 {\color{orange}MainBankingManagementEnglishGrammar.lkt}.
+.2 {\color{orange}MainBankingManagementEnglishLexicon.lkt}.
+.2 {\color{orange}MainBankingManagementFunctions.lkt}.
+.2 {\color{orange}MainBankingManagementTypes.lkt}.
+}
+	\pause
+	\scriptsize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Translation tip}
+		There must be three ``index'' files (grammar, lexicon and NLG) for every language.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Parameter folder example: Account Number}
+\dirtree{%
+.1 {\color{blue}AccountNumber}.
+.2 {\color{blue}English}.
+.3 {\color{blue}Generation}.
+.4 {\color{orange}AccountNumberEnglishGeneration.lkt}.
+.3 {\color{blue}Grammar}.
+.4 {\color{orange}AccountNumberEnglishGrammar.lkt}.
+.3 {\color{blue}Lexicon}.
+.4 {\color{orange}AccountNumberEnglishLexicon.lkt}.
+.2 {\color{blue}Functions}.
+.3 {\color{orange}AccountNumberFunctions.lkt}.
+.2 {\color{blue}Types}.
+.3 {\color{orange}AccountNumberTypes.lkt} \small{\color{teal} Non-terminal symbols}.
+.3 {\color{orange}LexicalAccountNumberTypes.lkt} \small{\color{teal} Terminal symbols}. 
+.2 {\color{orange}MainAccountNumberTypes.lkt}. 
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Parameter folder example: Account Number}
+	\scriptsize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Translation tip}
+		There must be a folder for the three parts of the parameter (grammar, lexicon and NLG) for every language.
+	\end{block}
+	\pause
+	\scriptsize
+	\setbeamercolor{block title}{use=structure,fg=white,bg=blue!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=blue!10!white}
+	\begin{block}{Parameter functions: \texttt{AccountNumberFunctions.lkt}}
+		\begin{itemize}
+			\item Possibilities of grouping for this parameter.
+			\begin{itemize}
+				\item \texttt{canMergeWithSequentialAccountNumber}. 
+				\item \texttt{canMergeWithOrAccountNumber}.
+				\item \texttt{canMergeWithAndAccountNumber}.
+			\end{itemize}
+			\item Valid formats for this parameters: \texttt{getParameterFormatsAccountNumber}.
+			\item Additional checks not related with formats: \texttt{checkAccountNumberValidity}.
+			\item Conversions from other parameters
+			\begin{itemize}
+				\item \texttt{convertNumberToAccountNumber}.
+				\item \texttt{convertSignChunkToAccountNumber}.
+				\item \texttt{...}
+			\end{itemize}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Format example}
+		\scriptsize
+		\begin{lstlisting}[language=lekta]
+ParameterFormats getParameterFormatsAccountNumber() {
+	// Spanish account number
+	ParameterFormats ret;
+	ParameterFormat format;
+
+	format <- '####################';
+	BatchInsertEnd(ret, format);
+
+	format <- 'es######################';
+	BatchInsertEnd(ret, format);
+
+	return ret;
+}
+
+/* Possible mask formats
+#   Any valid number
+^   Any letter 
+@   Any letter or number
+*   Anything */
+		\end{lstlisting}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{\texttt{checkValidity} example: PESEL number}
+		\tiny
+		\begin{lstlisting}[language=lekta]
+// https://en.wikipedia.org/wiki/PESEL
+
+bool checkPeselNumberValidity( string pesel )
+{
+	int A <- ShapeToInt(LiteralPositionValue(pesel,1));
+	int B <- ShapeToInt(LiteralPositionValue(pesel,2));
+	int C <- ShapeToInt(LiteralPositionValue(pesel,3));
+	int D <- ShapeToInt(LiteralPositionValue(pesel,4));
+	int E <- ShapeToInt(LiteralPositionValue(pesel,5));
+	int F <- ShapeToInt(LiteralPositionValue(pesel,6));
+	int G <- ShapeToInt(LiteralPositionValue(pesel,7));
+	int H <- ShapeToInt(LiteralPositionValue(pesel,8));
+	int I <- ShapeToInt(LiteralPositionValue(pesel,9));
+	int J <- ShapeToInt(LiteralPositionValue(pesel,10));
+	int K <- ShapeToInt(LiteralPositionValue(pesel,11));
+
+	int weighted <- 1*A + 3*B + 7*C + 9*D + 1*E + 3*F + 7*G + 9*H + 1*I + 3*J;
+	int remainder <- Modulo(weighted, 10);
+	int complement <- Modulo(10 - remainder, 10);
+
+	if(complement != K)	
+		return False;
+	
+	return True;
+}
+		\end{lstlisting}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scope folder example: ATM}
+\dirtree{%
+.1 {\color{blue}ATM}.
+.2 {\color{blue}English}.
+.3 {\color{blue}Grammar}.
+.4 {\color{orange}ATMEnglishGrammar.lkt}.
+.3 {\color{blue}Lexicon}.
+.4 {\color{orange}ATMEnglishLexicon.lkt}.
+.2 {\color{blue}Types}.
+.3 {\color{orange}ATMTypes.lkt}.
+.3 {\color{orange}LexicalATMTypes.lkt}. 
+.2 {\color{orange}MainATMTypes.lkt}. 
+}
+	\pause
+	\vspace{10pt}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Translation tip}
+		Again \texttt{English} folder structure must be replicated in other languages.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scripts folder example: Banking Management}
+\dirtree{%
+.1 {\color{blue}Scripts}.
+.2 {\color{blue}English}.
+.3 {\color{orange}BankingManagementEnglishGeneration.lkt}.
+.2 {\color{orange}BankingManagementScripts.lkt} {\color{teal} Functions generating the scripts of this domain}. 
+}
+	\pause
+	\vspace{10pt}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Translation tip}
+		File in \texttt{English} folder has some natural language generation rules related with the scripts.
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions folder example: Banking Management}
+\dirtree{%
+.1 {\color{blue}Functions}.
+.2 {\color{orange}BankingManagementBackOffice.lkt}  {\color{teal} Back office callback functions}.
+.2 {\color{orange}BankingManagementFunctions.lkt} {\color{teal} Functions related with current domain}. 
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions folder example: Banking Management}
+	\setbeamercolor{block title}{use=structure,fg=white,bg=red!75!black}
+	\setbeamercolor{block body}{use=structure,fg=black,bg=red!10!white}
+	\begin{block}{Translation tip}
+	Among other functions, we have to link lemmas with actions:
+		\tiny
+		\begin{lstlisting}[language=lekta]
+string getActionDomainFromLemmaBankingManagement(string lemma)
+{
+	switch (lemma) 
+	{
+		// Action consult (scope: 'bankaccount')
+		case 'consult'   { return 'consult'; }
+		case 'check'     { return 'consult'; }
+		
+		// Action locate (scope: 'atm')
+		case 'locate'    { return 'locate'; }
+		case 'look for'  { return 'locate'; }
+		case 'search'    { return 'locate'; }
+		case 'find'      { return 'locate'; }
+
+		// Action execute (scope: 'transfer')
+		case 'make'      { return 'execute'; }
+		case 'perform'   { return 'execute'; }
+		case 'fulfill'   { return 'execute'; }
+		case 'complete'  { return 'execute'; }
+	}
+
+	return 'unknown';
+}
+		\end{lstlisting}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Kernel folder}
+\scriptsize
+\dirtree{%
+.1 {\color{blue}Kernel}.
+.2 {\color{blue}CountryPlace} {\color{teal} Parameter folder}. 
+.2 {\color{blue}...}. 
+.2 {\color{blue}Social} {\color{teal} Core dialogue act folder}.
+.2 {\color{blue}...}. 
+.2 {\color{blue}Generation} {\color{teal} Generation rules for kernel scripts}.
+.2 {\color{blue}Generic} {\color{teal} Generic natural language features}.
+.2 {\color{blue}Constants} {\color{teal} Some useful lekta constants}. 
+.2 {\color{blue}DialogueManager} {\color{teal} DM implementation}.
+.2 {\color{blue}Macros} {\color{teal} Lekta macros for verbs and nouns inflections}.
+.2 {\color{orange}MainEnglishGeneration.lkt}. 
+.2 {\color{orange}MainEnglishGrammar.lkt}.
+.2 {\color{orange}MainEnglishLexicon.lkt}.
+.2 {\color{orange}MainFunctions.lkt}.
+.2 {\color{orange}MainTypes.lkt}.
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Core dialogue act folder example: Social}
+\footnotesize
+\dirtree{%
+.1 {\color{blue}Social}.
+.2 {\color{blue}English} {\color{red} Translation tip!}. 
+.3 {\color{blue}Generation}. 
+.4 {\color{orange}GenerationSocialGoodbye.lkt}.
+.4 {\color{orange}GenerationSocialGreeting.lkt}.
+.3 {\color{blue}Grammar}. 
+.4 {\color{orange}SocialEnglishGrammar.lkt}.
+.3 {\color{blue}Lexicon}. 
+.4 {\color{orange}SocialEnglishLexicon.lkt}.
+.2 {\color{blue}Types}. 
+.3 {\color{orange}LexicalSocialTypes.lkt}.
+.3 {\color{orange}SocialTypes.lkt}.
+.2 {\color{orange}MainSocialTypes.lkt}.
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Generation folder}
+\dirtree{%
+.1 {\color{blue}Generation}.
+.2 {\color{blue}English} {\color{red} Translation tip!}. 
+.3 {\color{orange}GenerationDisambiguatorKernel.lkt}.
+.3 {\color{orange}GenerationKernel.lkt}.
+.2 {\color{blue}Functions}. 
+.3 {\color{orange}GenerationFunctions.lkt}.
+}		
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Generic folder}
+\footnotesize
+\dirtree{%
+.1 {\color{blue}Generic}.
+.2 {\color{blue}English} {\color{red} Translation tip!}. 
+.3 {\color{blue}Grammar}.
+.4 {\color{orange}GenericEnglishGrammar.lkt}.
+.3 {\color{blue}Lexicon}.
+.4 {\color{orange}GenericEnglishLexicon.lkt}.
+.4 {\color{orange}NounsEnglishLexicon.lkt}.
+.4 {\color{orange}VerbsEnglishLexicon.lkt}.
+.2 {\color{blue}Functions}. 
+.3 {\color{orange}FormatFunctions.lkt}.
+.3 {\color{orange}GenericFunctions.lkt}.
+.2 {\color{blue}Types}. 
+.3 {\color{orange}GenericTypes.lkt}.
+.3 {\color{orange}FormatTypes.lkt}.
+.3 {\color{orange}LexicalGenericTypes.lkt}.
+}		
 \end{frame}
 
 \section{Functional analysis}
@@ -1094,10 +1734,7 @@ classDef:StructureBatch
 \begin{frame}
 \end{frame}
 
-\section{Practical exercise}
 
-\begin{frame}
-\end{frame}
 
 \end{document}
 
