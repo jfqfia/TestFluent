@@ -1,84 +1,28 @@
-Session01 - AnBn: Formal languages
+Session01 - Formal languages
 
 Exercise01: AnBm
-Creation of a simple project in Lekta: .lkt and .slk
-Simple classModel
-Simple lexicalModel
-Simple grammaticalModel
-lektac and synclekta
-
-Exercise02: AnBm with optional parameters in grammar rules
-Optional parameters in grammar rules
-Expansion of rules
-
+Exercise02: AnBm optional
 Exercise03: AnBmCn
-
 Exercise04: AnBn
-Nothing to the left, nothing to the right
-Semantic information and creation of feature structure
-Lexical associations with complex structures
-SpyMessages
-Code referring to parts and parameters of grammar rules
 
 
-Session02 - English: Natural languages (english)
+Session02 - English
 
 Exercise01: English lexicon and grammar
-Ambiguities in parser stage
- 
-Exercise02: Example of simple grammar for parameter extraction - Numbers in English
-Include sections in project files
-Size of an int in lekta
-setupTokenizerIntegerClass
-ShapeToString
-TokenInputText
+Exercise02: Numbers in English
 
 
-Session03 - Unification operator: Exercises with unification issues
+Session03 - Unification operator
 
-Exercise01: AnBn
-Unifier operator
-Overwritting operator
-
+Exercise01: AnBn with unification
 Exercise02: AnBnCn
-Built-in funtions: Fail()
-
 Exercise03: Agreement in english natural language
-ElementRange
-Synonym
 
 
-Session04 - First dialogue system: Integer calculator
+Session04 - Dialogue systems
 
-Exercise01: 
-setupTokenizerPunctuation
-Levels in rule grammars
-BuiltIn: ShapeToReal, Pow
-Additional functions
-Basic Dialogue System
-Colligo explanation
-Senso explanation
-Cogito explanation
-Respondo explanation
-Locutio explanation
-Scribo explanation
-SetMainAnswerStringRandom
-SetMainAnswerString
-Context with partial expressions
-
-
-Session05 - Second dialogue system: Basic domotic assistant
-
-Exercise01: 
-LaunchConversation
-setupTokenizerNormalizeSpecActivate 
-setupTokenizerNormalizeInputActivate
-setupTokenizerSpellingChecker
-classDef:StructureBatch (basic operations)
-Homework exercises:
-1 Easy ) Increase lexicon (i want the alarm deactivated, switch on on the lights, etc...)
-2 Medium ) UserProference with only one field. What to do if the user says only light or only deactivate? (Disambiguators policy)
-3 Hard ) Let the user the possibility of asking for the state of a device.
+Exercise01: Integer calculator
+Exercise02: Basic domotic assistant
 
 
 

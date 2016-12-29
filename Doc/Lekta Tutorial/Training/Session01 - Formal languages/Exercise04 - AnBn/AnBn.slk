@@ -1,14 +1,17 @@
 // ****************************************************************************
 //
-// Exercise 03: Recognizer for language AnBm. Where n,m >= 0 (?)
+// Session 01
+//
+// Exercise 04: Recognizer for language AnBn. Where n >= 1
 // 
 // ****************************************************************************
 
 LaunchLektaKernel()
 
-UseProject (ProjectCompile : ".AnBm.olk")
+UseProject (ProjectCompile : ".AnBn.olk")
+
+setupRuntimeSpyMessageOn
 
 DisplayProcessUnderstandingOn
 
 CreateDialogue()
-

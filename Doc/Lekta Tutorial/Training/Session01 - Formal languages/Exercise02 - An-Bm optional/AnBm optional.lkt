@@ -1,6 +1,8 @@
 // ****************************************************************************
 //
-// Exercise 01: Generator/Recognizer for language AnBm. Where n,m >= 1
+// Session 01
+//
+// Exercise 02: Recognizer for language AnBm. Where n,m >= 0
 // 
 // ****************************************************************************
 
@@ -23,8 +25,19 @@ lektaProject
 		("b", b)
 
 	grammaticalModel forLanguage anbm
-		(R1: [ S -> a A b B ])
-		(R2: [ A -> ])
-		(R3: [ A -> a A ])
-		(R4: [ B -> ])
-		(R5: [ B -> b B ])
+		(R1: [ S -> A? B? ])
+		(R2: [ A -> a A? ])
+		(R3: [ B -> b B? ])
+
+// Expansions for optional terms in grammar rules
+
+//		(R1: [ S -> A B ])
+//		(R1: [ S -> B ])
+//		(R1: [ S -> A ])
+//		(R1: [ S -> ])
+
+//		(R2: [ A -> a A ])
+//		(R2: [ A -> a ])
+
+//		(R3: [ B -> b B ])
+//		(R3: [ B -> b ])
