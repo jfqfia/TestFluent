@@ -28,6 +28,10 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5} 
 \definecolor{green}{rgb}{0.05,0.4,0.25} 
 
+\newcommand{\system}[1]{{\color{red}\texttt{S: #1}}\\}
+\newcommand{\user}[1]{{\color{teal}\texttt{U: #1}}\\}
+\newcommand{\comment}[1]{{\color{orange}\texttt{#1}}\\}
+
 \usetikzlibrary{trees,shapes,decorations}
 \usetikzlibrary{shapes.geometric}
 
@@ -1731,10 +1735,386 @@ string getActionDomainFromLemmaBankingManagement(string lemma)
 
 \section{Functional analysis}
 
+\subsection{Key Points}
+
 \begin{frame}
+\frametitle{Key design points}
+\begin{itemize}
+	\item \textbf{Understanding:} Fluency must treat with some natural language richness such as:
+	\begin{itemize}
+		\item Ambiguity.
+		\item Polysemy.
+		\item Idiomatic constructions.
+		\item Negation.
+		\item Anaphora (use of an expression whose interpretation depends upon another precedent expression).
+	\end{itemize}
+	\item \textbf{Context: } Establish a dialogue level with the user avoiding the fact that the enquiries could be atomic.
+	\item \textbf{Integration: } With information systems or external API's.
+	\item \textbf{Multilingualism.}
+	\item \textbf{Multi-channel acces: } Written or spoken.
+	\item \textbf{Business oriented: }The system itself can act as an information provider in order to improve business strategies.
+\end{itemize}
 \end{frame}
 
+\subsection{Requisites}
+	
+\begin{frame}
+\frametitle{1. Flexibility in expressions}
+\framesubtitle{We can express an idea in various forms (suppose here the day after tomorrow is Wednesday)} 
+\user{I would like an appointment for the dentist the day after tomorrow.}
+\vspace{10pt}
+\user{I need to visit an orthodontics doctor on Wednesday.}
+\end{frame}
 
+\begin{frame}
+\frametitle{2. Naturalness and idiomatic constructions}
+\user{Yes, hello? Well, fine, I need an appointment ehh for the dentist, please.}
+\vspace{10pt}
+\user{Good morning, miss, I want to make a transfer to my son.}
+\vspace{10pt}
+\user{All right, see you!}
+\vspace{10pt}
+\user{Bye, have a nice day.}
+\end{frame}
+
+\begin{frame}
+\frametitle{3. Fluidity}
+\user{I want an appointment tomorrow early in the morning for the dentist.}
+\vspace{10pt}
+\user{I want to fly to Krakow next month.}
+\end{frame}
+
+\begin{frame}
+\frametitle{4. Repetition of information}
+\comment{Request repetition:}
+\user{I want an appointment, yes ehh I want it for the dentist.}
+\vspace{10pt}
+\comment{Parameter repetition:}
+\user{I want an appointment for the dentist, yes, that's right, for the dentist.}
+\vspace{10pt}
+\comment{Scope repetition:}
+\user{I need an appointment, an appointment tomorrow for the dentist. }
+\vspace{10pt}
+\comment{Action repetition:}
+\user{I want to cancel or revoke my bank account. }
+\end{frame}
+
+\begin{frame}
+\frametitle{5. Spelling correction}
+\user{I watn an appoitnment for tonorrow.}
+\system{Ok, I see that you wish to book an appointment for a doctor tomorrow. Where are you calling from?}
+\end{frame}
+
+\begin{frame}
+\frametitle{6. Order-free parameters}
+\user{I need to book an appointment for tomorrow morning for the dentist. I'm calling from Sevilla.}
+\vspace{10pt}
+\user{Hi, I'm Jose calling from Sevilla, for the dentist tomorrow morning I need an appointment booked.}
+\end{frame}
+
+\begin{frame}
+\frametitle{7. Incomplete requests}
+\user{For the dentist tomorrow, please.}
+\system{Do you wish to make a medical appointment?}
+\user{Yes, that's right!}
+\system{You said tomorrow. So you need a Orthodontics doctor. From which city do you call?}
+\end{frame}
+
+\begin{frame}
+\frametitle{8. Incomplete optional parameters}
+\framesubtitle{For example, \texttt{datetime} in this example}
+\user{An appointment for the dentist in Sevilla.}
+\system{Ok, I see that you wish to book an appointment for the dentist in Sevilla. I will search for a suitable appointment for you as soon as possible. What about today at 16 o´clock?}
+\end{frame}
+
+\begin{frame}
+\frametitle{9. Incomplete compulsory parameters}
+\framesubtitle{For example, \texttt{countryplace} in this example}
+\user{An appointment for the dentist.}
+\system{So you want to make a medical appointment for the dentist. Could you please tell me where are you calling from?}
+\user{I call from Sevilla.}
+\end{frame}
+
+\begin{frame}
+\frametitle{10. Multiple grounded request}
+\framesubtitle{System has no doubt about what user wants $\Rightarrow$ \emph{Weak Disambiguator}}
+\comment{A weak disambiguator asks user for the order in the requests but maintains all of them.}
+\vspace{10pt}
+\user{I want to make an appointment and execute a bank transfer.}
+\system{What do you want to do first, make a bank transfer or book an appointment?}
+\vspace{10pt}
+\user{My account number is 1234567890 a total amount of 120 euros and for the dentist tomorrow.}
+\system{What do you want to do first, book an appointment or make a bank transfer?}
+\end{frame}
+
+\begin{frame}
+\frametitle{11. Single or multiple ambigous request}
+\framesubtitle{System is not sure about user needs $\Rightarrow$ \emph{Strong Disambiguator} or \emph{Explicit Disambiguator}}
+\comment{A string disambiguator asks user between several options, discarding the ones not chosen.}
+\vspace{10pt}
+\user{My account number is 1234567890.}
+\system{With the information that you provided, I think you can choose between these alternatives, make a bank transfer or consult your balance. What do you prefer?}
+\vspace{10pt}
+\comment{An explicit disambiguator asks user to confirm a system assumption.}
+\vspace{10pt}
+\user{Consult.}
+\system{Please, could you be so kind to confirm that you want to consult the balance of your savings?}
+\end{frame}
+
+\begin{frame}
+\frametitle{12. Infering user needs with incomplete information}
+\user{My account number is 1234567890 a total amount of 120 euros for the dentist tomorrow in Sevilla.}
+\vspace{10pt}
+\comment{It's possible that \textbf{ALL} scripts could be activated with above sentence, but if we read it from a human point of view, it's natural to discard some alternatives while keeping some of them:}
+\vspace{10pt}
+\system{What do you want to do first, book an appointment or make a bank transfer?}
+\end{frame}
+
+\begin{frame}
+\frametitle{13. Parameter negotiation}
+\user{I want an appointment for the dentist tomorrow in Sevilla.}
+\system{Ok, I see that you wish to book an appointment for an Orthodontics doctor tomorrow. So you are in Sevilla. What about tomorrow at 13 o'clock?}
+\user{Could it be earlier, please?}
+\system{Ok, I see, earlier. And at 12 o'clock?}
+\user{No, no, impossible.}
+\system{And what about 9 o'clock?}
+\user{Oh, please, a little bit later!}
+\system{What about tomorrow at 11 o'clock?}
+\user{Yes, that's perfect!}
+\system{Ok, agreed! What is your phone number, please?}
+\end{frame}
+
+\begin{frame}
+\frametitle{14. Inmediate correction.}
+\user{I want to make a 120 euros bank transfer, please, oh, no, no, I'm sorry, the money amount should be 150 euros.}
+\system{So you want to transfer some money. The money amount is 150.00 EUR. Could you please tell me your account number?}
+\end{frame}
+
+\begin{frame}
+\frametitle{15. Implicit confirmation}
+\user{An appointment, please.}
+\system{So you want to make a medical appointment. Where are you calling from?}
+\user{From Sevilla.}
+\vspace{10pt}
+\comment{User implicitly confirms that he wants an appointment for the doctor.}
+\vspace{10pt}
+\system{In Sevilla, ok. What medical speciality fits you?}
+\user{For pediatricts, please.}
+\vspace{10pt}
+\comment{User implicitly confirms that he calls from Sevilla.}
+\end{frame}
+
+\begin{frame}
+\frametitle{16. Explicit confirmation}
+\system{Ok, so you want to make a 120 euros transfer from your account number 1234567890. Are you sure you want to continue?}
+\end{frame}
+
+\begin{frame}
+\frametitle{17. Later correction}
+\user{An appointment, please.}
+\system{So you want to make a medical appointment. Where are you calling from?}
+\user{From Sevilla.}
+\system{In Sevilla, ok. What medical speciality fits you?}
+\user{No, no, I call from Granada.}
+\vspace{10pt}
+\comment{User corrects system.}
+\vspace{10pt}
+\system{So you are in granada. Sorry, I did not understand you. Please let me know for which medical speciality you need the appointment.}
+\end{frame}
+
+\begin{frame}
+\frametitle{18. Grounded correction}
+\system{Where are you calling from?}
+\user{From Sevilla.}
+\system{I understood that you are calling from Sevilla. Ok, I am looking for a date and time that would fit you. Wait a moment, please. What about today at 20 o´clock? }
+\user{Yes, perfect.}
+\system{Ok, agreed! What is your phone number, please?}
+\user{I am in Granada.}
+\system{Ok, we were talking about an appointment in Sevilla. Is that correct?}
+\user{No.}
+\system{Ok, I understood that you call from Granada. I will look for a date that would fit you. What about today at 16 o´clock?}
+\end{frame}
+
+\begin{frame}
+\frametitle{19. Semantic expectatives}
+\system{What's your phone number?}
+\user{123123123}
+\system{So your phone number is 123123123.}
+\vspace{10pt}
+\system{What's your account number?}
+\user{1231231231}
+\system{I understood that the account number is 1231231231.}
+\end{frame}
+
+\begin{frame}
+\frametitle{20. User parameter segmentation intrasententially}
+\system{What's your phone number?}
+\user{686 57 58 85.}
+\system{So your phone number is 686575885.}
+\end{frame}
+
+\begin{frame}
+\frametitle{21. User parameter segmentation intersententially}
+\system{What's your phone number?}
+\user{686.}
+\system{686, ok, go on.}
+\user{57.}
+\system{57, yes.}
+\user{59.}
+\system{59, all right.}
+\user{no, no!}
+\system{Ok, we have 686 57, please continue.}
+\user{58.}
+\system{58, right.}
+\user{85.}
+\system{OK, let me confirm your phone number, is it 686575885?}
+\end{frame}
+
+\begin{frame}
+\frametitle{22. Subdialogues}
+\user{I want to make a transfer.}
+\system{Ok, I see that you wish to make a transfer. And how much money do you want to transfer?}
+\user{But I need first to consult my balance.}
+\system{So you want to consult the balance of your savings. What is your account number, please?}
+\user{1231231231.}
+\system{I understood that the account number is 1231231231. The total money is 2078.67 EUR. Now, let me continue with the bank transfer. I understood that the account number is 1231231231. Could you please tell me the money amount?}
+\user{120 euros.}
+\end{frame}
+
+\begin{frame}
+\frametitle{23. Parameter validity detection}
+\user{My account number is 1234 1234 1234.}
+\system{I understood that the account number is 123412341234. The account number is not valid. Remember that a correct account number must have 10 digits exactly. Could you please tell me your account number?}
+\vspace{10pt}
+\user{I want an appointment for the dentist on 31st of november}
+\system{Ok, I see that you wish to book an appointment for the dentist. You said the date 31st November. But that date is incorrect. From which city do you call?}
+\end{frame}
+
+\begin{frame}
+\frametitle{24. Early inconsistency detection}
+\user{I want an appointment for a doctor of infectious diseases in Sevilla for tomorrow.}
+\system{I'm sorry, but we don't have any doctor of infectious diseases near you at this moment. Would you like that I look for a dentist far away?}
+\end{frame}
+
+\begin{frame}
+\frametitle{25. Overinformation}
+\user{I want an appointment for 25th November for the dentist. I call from Sevilla, and my phone number is 123123123.}
+\system{Ok, I see that you wish to book an appointment for the doctor. I understood that you are calling from sevilla. So you need a Orthodontics doctor. You said the date Friday, 25th November. I will search for a suitable appointment for you. Wait a moment, please. What about Friday, 25th November at 19 o´clock?}
+\user{Yes, perfect!}
+\system{Ok, agreed! So your phone number is 123123123. What is your identification number, please?}
+\end{frame}
+
+\begin{frame}
+\frametitle{27: Mid-term memory}
+\user{I want to locate my nearest ATM.}
+\system{Ok, let me locate an atm for you. Where are you calling from?}
+\user{Sevilla.}
+\system{I understood that you are calling from sevilla. Well done! I will present in your screen the location of your nearest ATM in a minute. Could you please tell me how can I help you?}
+\user{Yes, I want an appointment for the dentist tomorrow.}
+\system{So you want to make a Orthodontics appointment for tomorrow. I remember that you are in Sevilla. What about tomorrow at 10 o´clock?}
+\end{frame}
+
+\begin{frame}
+\frametitle{28: Non-collaborative user}
+\footnotesize
+\system{Good morning. Your Personal Assistant Service speaking. Could you please tell me how can I help you?}
+\user{I want an appointment in Sevilla.}
+\system{Ok, I see that you wish to book an appointment for the doctor. I understood that you are calling from Sevilla. What kind of medical speciality do you want?}
+\user{blah}
+\system{I did not understand that. Please let me know for which medical speciality you need the appointment.}
+\user{blah}
+\system{I need to know what type of doctor or speciality you require in order to continue. Please repeat again.}
+\user{blah}
+\system{Ok, I think that I am having too many problems trying to understand you, so let me start from the beginning... Please let me know what do you need to do.}
+\end{frame}
+
+\begin{frame}
+\footnotesize
+\frametitle{29: Cancelling task with user farewell}
+\system{Good morning. Your Personal Assistant Service speaking. Could you please tell me how can I help you?}
+\user{Bye!}
+\system{It has been a pleasure serving you using this Personal Assistant Service. Hoping to serve you again. Have a good morning.}
+\vspace{10pt}
+\system{Good morning. Your Personal Assistant Service speaking. Could you please tell me how can I help you?}
+\user{I want to book an appopintment.}
+\system{Ok, I see that you wish to book an appointment for the doctor. I would like to know your preferred town, please.}
+\user{Sevilla.}
+\system{So you are in sevilla. What kind of medical speciality do you want?}
+\user{See you later.}
+\system{Ok, confirm that you want to cancel this task, please.}
+\end{frame}
+
+\begin{frame}
+\frametitle{30: Cancelling task with appropiate commands}
+\system{Hello. Your Personal Assistant Service speaking. Could you please tell me how can I help you?}
+\user{I want an appointment in Sevilla.}
+\system{So you want to make a medical appointment. I understood that you are calling from Sevilla. What kind of medical speciality do you want?}
+\user{Cancel this, please.}
+\system{Are you sure that you want to cancel this task?}
+\end{frame}
+
+\begin{frame}
+\frametitle{31: Formatting Mask for alphanumeric parameters}
+\system{What is your account number, please?}
+\user{ES20.}
+\system{ES20. Right, continue.}
+\user{7700.}
+\system{7700. Please, continue.}
+\user{0024.}
+\system{0024. Yes, what else?}
+\user{0031.}
+\system{0031. All right, anything else?}
+\user{0257.}
+\system{0257. Yes, what else?}
+\user{5766.}
+\system{So your account number is ES20 7700 0024 0031 0257 5766. Is it correct?}
+\end{frame}
+
+\begin{frame}
+\frametitle{32: Multiple valid masks for parameters}
+\system{So you want to consult the balance of your savings. What is your account number, please?}
+\user{2077.}
+\system{2077. Ok, go on.}
+\user{0024.}
+\system{0024. All right, anything else?}
+\user{00.}
+\system{00. Right, continue.}
+\user{3102575766.}
+\system{Ok, now I will repeat you account number: 2077 0024 00 3102575766. Correct?}
+\end{frame}
+
+\begin{frame}
+\frametitle{33: Digit check integrity validation}
+\system{What is your PESEL number, please?}
+\user{020708.}
+\system{020708. Please, continue.}
+\user{03628.}
+\system{I catched 020708 03628. Correct?}
+\vspace{10pt}
+\system{What is your PESEL number, please?}
+\user{021708.}
+\system{021708. Ok, go on.}
+\user{03628.}
+\system{The pesel number is not valid. Please try again!}
+\end{frame}
+
+\begin{frame}
+\frametitle{34: Backoffice malfunction messages}
+\system{Ok, I see that you wish to make a transfer. The money amount is 150.00 EUR. What is your account number, please?}
+\user{12345678901234567890.}
+\system{The money amount is 150.00 EUR. Ok, we are having some troubles trying to connect to our servers. Please try again in a few minutes. How may I help you?}
+\end{frame}
+
+\begin{frame}
+\frametitle{35: Ordinal detection for multiple choice question}
+\user{I want to consult my balance, make a medical appointment and locate my nearest ATM.}
+\system{What do you want to do first, consult your balance, locate an ATM or book an appointment?} 
+\user{The first one, please!} 
+\vspace{10pt}
+\user{Second one.}
+\vspace{10pt}
+\user{The last option.}
+\end{frame}
 
 \end{document}
 
