@@ -1,8 +1,10 @@
-/****************************************************************************
-
-
-
-****************************************************************************/
+// ****************************************************************************
+//
+// Session 04
+//
+// Exercise 01: Integer calculator
+// 
+// ****************************************************************************
 
 lektaProject
 
@@ -19,84 +21,9 @@ lektaProject
 	classModel
 		#Include "NumberTypes.lkt"
 		#Include "LexicalNumberTypes.lkt"
-
-		classDef:Void( lexAdd, lexSubstract, lexMultiply, lexDivide, lexPow, lexToThe, lexPower, lexOrdinal, lexLeftParenthesis, lexRightParenthesis, lexFactorial )
-
-		classDef:ElementRange
-		(
-			Operator:
-			{
-				'+', '-', '*', '/', '^', '!'
-			}
-		)
-
-		classDef:StructureComplex 
-		( 
-			Expression: 
-	            	(
-				Value,
-				Operator, 
-				LeftExpression, 
-				RightExpression
-			)
-		)
-
-		classDef:Synonym
-		(
-			LeftExpression, RightExpression = Expression
-		)	
-
-		classDef:Synonym
-		(
-			Value = Number
-		)	
-
-		classDef:ElementInt
-		(
-			int
-		)
-
-		classDef:StructureComplex
-		(
-			Error:
-			(
-				Flag
-			)
-		)	
-
-		classDef:ElementBool
-		(
-			Flag
-		)
-
+		
 	functionModel
-		// Recursive
-		/*
-		int factorial (int n)
-		{
-			if(n == 0)
-			{
-				return 1;
-			}
-			else 
-			{
-				return n * factorial(n - 1);
-			}
-		}*/
-
-		// Iterative
-		int factorial (int n)
-		{
-			int ret <- 1;
-			
-			for(int i <- 1; i <= n; i++)
-			{
-				ret <- ret * i;
-			}
-			
-			return ret;
-		}
-
+	
 	lexicalModel forLanguage en
 		setupTokenizerIntegerClass (lexNumberDigits, "")
 		// If you want to separate "two+two" proferences
@@ -115,299 +42,22 @@ lektaProject
 
 		#Include "NumberEnglishLexicon.lkt"
 
-		("+", 			lexAdd)
-		("plus",		lexAdd)
-		("and",			lexAdd)
-		("added to",		lexAdd)
-
-		("+", 			lexSubstract)
-		("minus",		lexSubstract)
-
-		("*",			lexMultiply)
-		("times",		lexMultiply)
-		("multiplied by",	lexMultiply)
-
-		("/",			lexDivide)
-		("divided by",		lexDivide)
-
-		("^",			lexPow)
-
-		("to the",		lexToThe)
-		("power",		lexPower)
-		("st",			lexOrdinal)
-		("nd",			lexOrdinal)
-		("rd",			lexOrdinal)
-		("th",			lexOrdinal)
-
-		("open parenthesis",	lexLeftParenthesis)
-		("close parenthesis",	lexRightParenthesis)
-		("(",			lexLeftParenthesis)
-		(")",			lexRightParenthesis)
-		("[",			lexLeftParenthesis)
-		("]",			lexRightParenthesis)
-		("{",			lexLeftParenthesis)
-		("}",			lexRightParenthesis)
-
-		("!", 			lexFactorial)
-		("factorial", 		lexFactorial)
-
 	grammaticalModel forLanguage en
 		#Include "NumberEnglishGrammar.lkt"
 		
-		(R1: [ Expression/0 -> Number ]
-		        { 
-				^.Value <- #1; 
-			}
-		)
+	// conversationalModel
+		
+	// ColligoSchemata
+		
+	// SensoSchemata
 
-		(R2: [ Expression/3 -> Expression/2 lexAdd Expression/3 ]
-			{ 
-				^.Value.NumberValue <- #1.Value.NumberValue + #3.Value.NumberValue;
-				^.Operator <- '+';
-	           		^.LeftExpression <- #1;
-			        ^.RightExpression <- #3; 
-			} 
-		)
+	// CogitoSchemata
 
-		(R3: [ Expression/3 -> Expression/2 lexSubstract Expression/3 ] 
-			{ 
-				^.Value.NumberValue <- #1.Value.NumberValue - #3.Value.NumberValue;
-				^.Operator <- '-';
-	           		^.LeftExpression <- #1;
-			        ^.RightExpression <- #3; 
-			} 
-		)
-
-		(R4: [ Expression/2 -> Expression/1 lexMultiply Expression/2 ] 
-			{ 
-				^.Value.NumberValue <- #1.Value.NumberValue * #3.Value.NumberValue;
-				^.Operator <- '*';
-	           		^.LeftExpression <- #1;
-			        ^.RightExpression <- #3; 
-			} 
-		)
-
-		(R5: [ Expression/2 -> Expression/1 lexDivide Expression/2 ] 
-			{ 
-				^.Value.NumberValue <- #1.Value.NumberValue / #3.Value.NumberValue;
-				^.Operator <- '/';
-	           		^.LeftExpression <- #1;
-			        ^.RightExpression <- #3; 
-			} 
-		)
-
-		(R6: [ Expression/1 -> Expression/0 lexPow Expression/1 ] 
-			{ 
-				^.Value.NumberValue <- Pow(ShapeToReal(#1.Value.NumberValue), ShapeToReal(#3.Value.NumberValue));
-				^.Operator <- '^';
-	           		^.LeftExpression <- #1;
-			        ^.RightExpression <- #3; 
-			} 
-		)
-
-		(R7: [ Expression/1 -> Expression/0 lexToThe Expression/1 lexOrdinal? lexPower ] 
-			{ 
-				^.Value.NumberValue <- Pow(ShapeToReal(#1.Value.NumberValue), ShapeToReal(#3.Value.NumberValue));
-				^.Operator <- '^';
-	           		^.LeftExpression <- #1;
-			        ^.RightExpression <- #3; 
-			} 
-		)
-
-	      	(R8: [ Expression/0 -> lexLeftParenthesis Expression/10 lexRightParenthesis ]
-	      		{ 
-				^ <- #2; 
-			} 
-		)
-
-	      	(R9: [ Expression/0 ->  Expression/4 lexFactorial ]
-	      		{ 
-				^.Value.NumberValue <- factorial(#1.Value.NumberValue); 
-				^.Operator <- '!';
-	           		^.LeftExpression <- #1;
-			} 
-		)
-
-		(R10: [ Expression/3 -> lexAdd Expression/3 ]
-			{ 
-				^.Operator <- '+';
-			        ^.RightExpression <- #2; 
-			} 
-		)
-
-		(R11: [ Expression/3 -> lexSubstract Expression/3 ] 
-			{ 
-				^.Operator <- '-';
-			        ^.RightExpression <- #2; 
-			} 
-		)
-
-		(R12: [ Expression/2 -> lexMultiply Expression/2 ] 
-			{ 
-				^.Operator <- '*';
-	           		^.RightExpression <- #2; 
-			} 
-		)
-
-		(R13: [ Expression/2 -> lexDivide Expression/2 ] 
-			{ 
-				^.Operator <- '/';
-			        ^.RightExpression <- #2; 
-			} 
-		)
-
-		(R14: [ Expression/1 -> lexPow Expression/1 ] 
-			{ 
-				^.Operator <- '^';
-	           	        ^.RightExpression <- #2; 
-			} 
-		)
-
-		(R15: [ Expression/1 -> lexToThe Expression/1 lexOrdinal? lexPower ] 
-			{ 
-				^.Operator <- '^';
-	           	        ^.RightExpression <- #2; 
-			} 
-		)
-
-	 	(R16: [ Expression/0 ->  lexFactorial ]
-	      		{ 
-				^.Operator <- '!';
-			} 
-		)
-
-	conversationalModel
-		MindBoardStructure: 
-		{
-			( UserExpression / Expression )
-			( Answer / Number )
-			( Error / Error )
-		}
-	
-	ColligoSchemata
-		(ColligoScheme ProferenceChunkOrNumber : [ Expression Expression >> Expression ]
-			ColligoAction 
-			{	
-				^OBJSENSO <- #OBJCOLLIGO-2;
-			}
-		)
-	
-	SensoSchemata
-		(SensoScheme Input : [Expression]
-			SensoAction	
-			{
-		        	$MINDBOARD@UserExpression <- #OBJSENSO-1;
-		    	}
-		)
-
-	CogitoSchemata
-		(CogitoScheme Thinking1 :
-			CogitoCapture 
-			{
-        			$MINDBOARD@UserExpression && $MINDBOARD@UserExpression.LeftExpression
-			}
-			CogitoAction 
-			{
-			        $MINDBOARD@Answer <- $MINDBOARD@UserExpression.Value;
-				CogitoQuit();
-			}
-		)
-
-		(CogitoScheme Thinking2 :
-			CogitoCapture 
-			{
-        			$MINDBOARD@UserExpression && !! $MINDBOARD@Answer.NumberValue
-			}
-			CogitoAction 
-			{
-			        $MINDBOARD@Error.Flag <- True;
-				CogitoQuit();
-			}
-		)
-
-		(CogitoScheme Thinking3 :
-			CogitoAction 
-			{
-				int value <- $MINDBOARD@Answer.NumberValue;
-				int otherValue <- $MINDBOARD@UserExpression.RightExpression.Value.NumberValue;
-
-				if($MINDBOARD@UserExpression.Operator == '+')
-				{
-					value <- value + otherValue;
-				}
-				else if($MINDBOARD@UserExpression.Operator == '-')
-				{
-					value <- value - otherValue;
-				}
-				else if($MINDBOARD@UserExpression.Operator == '*')
-				{
-					value <- value * otherValue;
-				}
-				else if($MINDBOARD@UserExpression.Operator == '/')
-				{
-					value <- value / otherValue;
-				}
-				else if($MINDBOARD@UserExpression.Operator == '^')
-				{
-					value <- Pow(ShapeToReal(value), ShapeToReal(otherValue));
-				}
-				else if($MINDBOARD@UserExpression.Operator == '!')
-				{
-					value <- factorial(value);
-				}
-					
-			        $MINDBOARD@Answer.NumberValue <- value;
-				CogitoQuit();
-			}
-		)
-
-	RespondoSchemata
-		(RespondoScheme RespondoReply: [Number]
-			RespondoCapture 
-			{
-			        $MINDBOARD@Answer 
-		    	}
-		    	RespondoAction 
-			{
-				^OBJRESPONDO <- $MINDBOARD@Answer;
-			}
-		)
-
-		(RespondoScheme RespondoReply: [Error]
-			RespondoCapture 
-			{
-			        $MINDBOARD@Error.Flag == True
-		    	}
-		    	RespondoAction 
-			{
-				^OBJRESPONDO <- $MINDBOARD@Error;
-				$MINDBOARD@Error.Flag <- False;
-			}
-		)
+	// RespondoSchemata
 
 	// LocutioSchemata
 		
-	scriboModel forLanguage en
-		ScriboSchemata
-
-		(ScriboScheme Result: [ Number ]
-			ScriboAction 
-			{
-				//SetMainAnswerString( 'The result is ');
-				SetMainAnswerStringRandom( 'The result is ', 'Ok, after a lot of computational work I think that the correct answer is ');
-
-				SetMainAnswerString( ShapeToString(#OBJLOCUTIO-1.NumberValue) );
-			}
-		)
-
-		(ScriboScheme Result: [ Error ]
-			ScriboAction 
-			{
-				SetMainAnswerString( 'You must give me some valid expression. Please try again.');
-			}
-		)
-
-
+	// scriboModel forLanguage en
 
 
 

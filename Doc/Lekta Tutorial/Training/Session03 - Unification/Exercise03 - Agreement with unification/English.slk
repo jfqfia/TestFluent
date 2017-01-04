@@ -1,13 +1,23 @@
 // ****************************************************************************
 //
-// Exercise 08: Generator/Recognizer for language AnBnCn. Where n >= 1
+// Session 03
+//
+// Exercise 03: Agreement with unification
 // 
 // ****************************************************************************
 
 LaunchLektaKernel()
 
-UseProject (ProjectCompile : ".AnBnCn.olk")
+UseProject (ProjectCompile : ".English.olk")
 
 DisplayProcessUnderstandingOn
 
 CreateDialogue()
+
+// the boy kisses the girl
+// the boy kiss the girl
+// the boys kiss the girls
+// the boys kisses the girl
+
+
+

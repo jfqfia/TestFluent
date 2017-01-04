@@ -1,0 +1,15 @@
+// ****************************************************************************
+//
+// Session 03
+//
+// Exercise 02: AnBnCn
+// 
+// ****************************************************************************
+
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".AnBnCn.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()

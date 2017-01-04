@@ -19,17 +19,8 @@ lektaProject
 		setupParserRoots = S
 
 	classModel
-		classDef:Void ( S, A, B, C, a, b, c )
 
 	lexicalModel forLanguage anbmcn
-		("a", a)
-		("b", b)
-		("c", c)
 
 	grammaticalModel forLanguage anbmcn
-		(R1: [ S ->  B? ])
-		(R2: [ S -> A S C ])
-		(R3: [ B -> b B? ])
-		(R4: [ A -> a ])
-		(R5: [ C -> c ])
 

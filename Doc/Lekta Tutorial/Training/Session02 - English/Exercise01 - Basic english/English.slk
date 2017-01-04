@@ -1,13 +1,22 @@
 // ****************************************************************************
 //
-// Exercise 07: Generator/Recognizer for language AnBn. Where n >= 1
+// Session 02
+//
+// Exercise 01: Basic grammar and lexicon in English
 // 
 // ****************************************************************************
 
 LaunchLektaKernel()
 
-UseProject (ProjectCompile : ".AnBn.olk")
+UseProject (ProjectCompile : ".English.olk")
 
 DisplayProcessUnderstandingOn
 
 CreateDialogue()
+
+//the man jumped
+//the man saw a flower
+//the man jumped over a chair
+//the man saw a woman with a telescope
+
+

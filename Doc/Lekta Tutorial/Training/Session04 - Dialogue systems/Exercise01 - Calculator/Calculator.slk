@@ -1,7 +1,10 @@
-/***************************************************************************
- * Sistema:             pLekta v2 - 2013
- *    LektaTraining: Level 1 - Calculator_01.lkt
- ***************************************************************************/
+// ****************************************************************************
+//
+// Session 04
+//
+// Exercise 01: Integer calculator
+// 
+// ****************************************************************************
 
 LaunchLektaKernel()
 
@@ -19,7 +22,7 @@ DisplayProcessUnderstandingOn
 
 CreateDialogue()
 
-two plus two
-plus four
-factorial
-divided by eight times seven
+//two plus two
+//plus four
+//factorial
+//divided by eight times seven

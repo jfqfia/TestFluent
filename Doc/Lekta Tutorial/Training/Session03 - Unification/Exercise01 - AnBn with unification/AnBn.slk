@@ -1,0 +1,15 @@
+// ****************************************************************************
+//
+// Session 03
+//
+// Exercise 01: AnBn with unification operator
+// 
+// ****************************************************************************
+
+LaunchLektaKernel()
+
+UseProject (ProjectCompile : ".AnBn.olk")
+
+DisplayProcessUnderstandingOn
+
+CreateDialogue()

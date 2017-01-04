@@ -1,26 +1,43 @@
-LaunchLektaKernel()
-
-UseProject (ProjectCompile : ".Numbers.olk")
-
-DisplayProcessUnderstandingOn
-
-CreateDialogue()
-
-2147483647
-2147483648
-// So a "int" in lekta has 32 bits.
-1231231232342345345634748567857879698968969
+// ****************************************************************************
+//
+// Session 02
+//
+// Exercise 02: Numbers detection in English
+// 
+// ****************************************************************************
 
 // zero
 // four
 // ten
 // twenty-six
 // ninety-nine
+(Number_Rule01 :
+ 	[ Number -> lexNumberValue ]
+	{
+
+
+	}
+)
+
+// 1234
+// 12341234
+(Number_Rule02 :
+ 	[ Number -> lexNumberDigits ]
+	{
+
+	}
+)
 
 // a hundred
 // one hundred
 // one hundred and six
 // nine hundreds and ninety-nine
+(Number_Rule03:
+	[ Number -> Number? lexNumberValueHundred lexConjAnd? Number? ]
+	{
+
+	}
+)
 
 // thousand
 // a thousand
@@ -28,6 +45,12 @@ CreateDialogue()
 // two thousand and thirty
 // two hundred and six thousand three hundred and seventy-four
 // nine hundred and ninety-nine thousand nine hundred and ninety-nine
+(Number_Rule04:
+	[ Number -> Number? lexNumberValueThousand lexConjAnd? Number? ]
+	{
+
+	}
+)
 
 // million
 // a million
@@ -37,6 +60,12 @@ CreateDialogue()
 // ninety-nine millions two thousand hundred and fifty-one
 // one hundred and ninety-nine millions and three hundred thousand two hundred and fifty-one
 // nine hundred and ninety-nine millions nine hundred and ninety-nine thousand nine hundred and ninety-nine
+(Number_Rule05:
+	[ Number -> Number? lexNumberValueMillion lexConjAnd? Number? ] 
+	{
+
+	}
+)
 
 // one thousand eleven
 // twenty-one thousand eleven
@@ -44,6 +73,4 @@ CreateDialogue()
 // one million two hundred fifty-six thousand seven hundred twenty-one
 // thirty-one million two hundred fifty-six thousand seven hundred twenty-one
 // six hundred thirty-one million two hundred fifty-six thousand seven hundred twenty-one
-
-
 

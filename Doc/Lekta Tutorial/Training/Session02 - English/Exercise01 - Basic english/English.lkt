@@ -1,25 +1,27 @@
 // ****************************************************************************
 //
-// Session 01
+// Session 02
 //
-// Exercise 01: Recognizer for language AnBm. Where n,m >= 1
+// Exercise 01: Basic grammar and lexicon in English
 // 
 // ****************************************************************************
 
 lektaProject
+
         projectHead
-		projectDescriptor	: "AnBm"
-		projectLanguageScope	: [ anbm ]
+                projectDescriptor	: "English Lexicon and Grammar"
+		projectLanguageScope	: [ en ]
 		projectOperationScope	: [ test ]
 		projectInterfaceScope   : [ dialogue ]
-		projectCompileOutput	: ".AnBm.olk"
+		projectCompileOutput	: ".English.olk"
 
 	projectSetup
 		setupParserRoots = S
 
 	classModel
-		
-	lexicalModel forLanguage anbm
-		
-	grammaticalModel forLanguage anbm
-		
+		classDef:Void ( S, NP, VP, PP, det, noun, verb, prep )
+
+	lexicalModel forLanguage en
+
+	grammaticalModel forLanguage en
+

@@ -18,26 +18,8 @@ lektaProject
 		setupParserRoots = S
 
 	classModel
-		classDef:Void ( S, A, B, a, b )
-
+		
 	lexicalModel forLanguage anbm
-		("a", a)
-		("b", b)
-
+		
 	grammaticalModel forLanguage anbm
-		(R1: [ S -> A? B? ])
-		(R2: [ A -> a A? ])
-		(R3: [ B -> b B? ])
-
-// Expansions for optional terms in grammar rules
-
-//		(R1: [ S -> A B ])
-//		(R1: [ S -> B ])
-//		(R1: [ S -> A ])
-//		(R1: [ S -> ])
-
-//		(R2: [ A -> a A ])
-//		(R2: [ A -> a ])
-
-//		(R3: [ B -> b B ])
-//		(R3: [ B -> b ])
+		

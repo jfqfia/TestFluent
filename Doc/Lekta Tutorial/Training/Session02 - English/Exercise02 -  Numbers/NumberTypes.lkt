@@ -1,22 +1,27 @@
 // ****************************************************************************
 //
-// Session 04
+// Session 02
 //
-// Exercise 01: Integer calculator
+// Exercise 02: Numbers detection in English
 // 
 // ****************************************************************************
 
-classDef:Void
-(
-	lexZeroTerm,
-	lexConjAnd
+classDef:StructureComplex
+( 
+	Number :
+	(
+		NumberValue,
+		NumberLiteral
+	)
 )
 
 classDef:ElementInt
 (
-	lexNumberDigits,
-	lexNumberValue,
-	lexNumberValueHundred,
-	lexNumberValueThousand,
-	lexNumberValueMillion
+	NumberValue
 )
+
+classDef:ElementLiteral
+(
+	NumberLiteral
+)
+

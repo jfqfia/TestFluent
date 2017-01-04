@@ -1,25 +1,27 @@
 // ****************************************************************************
 //
-// Session 01
+// Session 03
 //
-// Exercise 01: Recognizer for language AnBm. Where n,m >= 1
+// Exercise 03: Agreement with unification
 // 
 // ****************************************************************************
 
 lektaProject
+
         projectHead
-		projectDescriptor	: "AnBm"
-		projectLanguageScope	: [ anbm ]
+                projectDescriptor	: "English Lexicon and Grammar"
+		projectLanguageScope	: [ en ]
 		projectOperationScope	: [ test ]
 		projectInterfaceScope   : [ dialogue ]
-		projectCompileOutput	: ".AnBm.olk"
+		projectCompileOutput	: ".English.olk"
 
 	projectSetup
 		setupParserRoots = S
 
 	classModel
 		
-	lexicalModel forLanguage anbm
+
+	lexicalModel forLanguage en
 		
-	grammaticalModel forLanguage anbm
+	grammaticalModel forLanguage en
 		
